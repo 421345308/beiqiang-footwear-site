@@ -83,6 +83,10 @@ export default function Home() {
     [company, market, quantity, requirements, selectedStyle],
   );
 
+  const emailHref = `mailto:421345308@qq.com?subject=${encodeURIComponent("Beiqiang footwear sample / quotation request")}&body=${encodeURIComponent(inquiryBrief)}`;
+  const whatsappHref = `https://wa.me/8618959805256?text=${encodeURIComponent(inquiryBrief)}`;
+  const alibabaStoreHref = "https://cn1576227362luzl.m.en.alibaba.com/?spm=a2700.details.0.0.49d669685pzyZm&wx_navbar_transparent=true&wx_screen_direc=portrait&productId=1601839050756&from=detail_company_card";
+
   function chooseStyle(code: string, name: string) {
     setSelectedStyle(`${code} — ${name}`);
     setCopyStatus("");
@@ -232,6 +236,11 @@ export default function Home() {
           <h2>Tell us what you want to source.</h2>
           <p>Start with one style and a few order details. We will use them to discuss sample availability and prepare an accurate quotation after specifications are confirmed.</p>
           <div className="selected-style"><small>SELECTED STYLE</small><strong>{selectedStyle}</strong></div>
+          <div className="contact-links" aria-label="Contact Beiqiang Footwear">
+            <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer">Send via WhatsApp</a>
+            <a className="contact-text-link" href={emailHref}>Email 421345308@qq.com</a>
+            <a className="contact-text-link" href={alibabaStoreHref} target="_blank" rel="noreferrer">View Alibaba.com store</a>
+          </div>
         </div>
         <div className="inquiry-form" aria-label="Sample inquiry brief builder">
           <label>Company name<input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Your company" /></label>
@@ -239,14 +248,14 @@ export default function Home() {
           <label>Expected quantity<input value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Trial or bulk quantity" /></label>
           <label>Requirements<textarea value={requirements} onChange={(e) => setRequirements(e.target.value)} placeholder="Sizes, colors, logo, packing, timing..." rows={4} /></label>
           <button className="button button-light form-button" type="button" onClick={copyInquiry}>Copy inquiry brief</button>
-          <p className="form-note" aria-live="polite">{copyStatus || "Contact channel links will be added after Beiqiang confirms the business email, WhatsApp and Alibaba storefront URL."}</p>
+          <p className="form-note" aria-live="polite">{copyStatus || "Choose WhatsApp, email or the Alibaba.com storefront to continue the sourcing conversation."}</p>
           <pre>{inquiryBrief}</pre>
         </div>
       </section>
 
       <footer>
         <div className="brand footer-brand"><span className="brand-mark">BQ</span><span><strong>BEIQIANG</strong><small>FOOTWEAR SUPPLY</small></span></div>
-        <p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.<br />Quanzhou, Fujian, China</p>
+        <p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.<br />Quanzhou, Fujian, China<br /><a href="mailto:421345308@qq.com">421345308@qq.com</a> · <a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">WhatsApp +86 189 5980 5256</a></p>
         <p>Wide toe box · Comfort walking · Lightweight slip-on · OEM/ODM discussion</p>
       </footer>
     </main>
