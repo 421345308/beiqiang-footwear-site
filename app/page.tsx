@@ -83,7 +83,7 @@ export default function Home() {
     [company, market, quantity, requirements, selectedStyle],
   );
 
-  const emailHref = `mailto:421345308@qq.com?subject=${encodeURIComponent("Beiqiang footwear sample / quotation request")}&body=${encodeURIComponent(inquiryBrief)}`;
+  const emailHref = `mailto:21345308@qq.com?subject=${encodeURIComponent("Beiqiang footwear sample / quotation request")}&body=${encodeURIComponent(inquiryBrief)}`;
   const whatsappHref = `https://wa.me/8618959805256?text=${encodeURIComponent(inquiryBrief)}`;
   const alibabaStoreHref = "https://cn1576227362luzl.m.en.alibaba.com/?spm=a2700.details.0.0.49d669685pzyZm&wx_navbar_transparent=true&wx_screen_direc=portrait&productId=1601839050756&from=detail_company_card";
 
@@ -134,7 +134,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="button" href="#collections">Explore 6 lead styles</a>
-            <a className="text-link" href="#proof">See how orders are checked <span aria-hidden="true">→</span></a>
+            <a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp a sourcing brief <span aria-hidden="true">→</span></a>
           </div>
           <dl className="hero-facts">
             <div><dt>01</dt><dd>Choose a market-fit style</dd></div>
@@ -238,7 +238,7 @@ export default function Home() {
           <div className="selected-style"><small>SELECTED STYLE</small><strong>{selectedStyle}</strong></div>
           <div className="contact-links" aria-label="Contact Beiqiang Footwear">
             <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer">Send via WhatsApp</a>
-            <a className="contact-text-link" href={emailHref}>Email 421345308@qq.com</a>
+            <a className="contact-text-link" href={emailHref}>Email 21345308@qq.com</a>
             <a className="contact-text-link" href={alibabaStoreHref} target="_blank" rel="noreferrer">View Alibaba.com store</a>
           </div>
         </div>
@@ -255,7 +255,7 @@ export default function Home() {
 
       <footer>
         <div className="brand footer-brand"><span className="brand-mark">BQ</span><span><strong>BEIQIANG</strong><small>FOOTWEAR SUPPLY</small></span></div>
-        <p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.<br />Quanzhou, Fujian, China<br /><a href="mailto:421345308@qq.com">421345308@qq.com</a> · <a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">WhatsApp +86 189 5980 5256</a></p>
+        <p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.<br />Quanzhou, Fujian, China<br /><a href="mailto:21345308@qq.com">21345308@qq.com</a> · <a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">WhatsApp +86 189 5980 5256</a></p>
         <p>Wide toe box · Comfort walking · Lightweight slip-on · OEM/ODM discussion</p>
       </footer>
     </main>
