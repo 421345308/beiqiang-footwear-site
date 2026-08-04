@@ -11,6 +11,7 @@ const products = [
     tag: "Core wide-toe style",
     buyerFit: "Comfort-footwear importers",
     facts: ["Slip-on", "EU 36–46", "Knit upper"],
+    href: "/products/bq001",
   },
   {
     code: "BQ002",
@@ -222,9 +223,13 @@ export default function Home() {
                 {product.facts.map((fact) => <li key={fact}>{fact}</li>)}
               </ul>
               <small className="buyer-fit">Best fit: {product.buyerFit}</small>
-              <button type="button" onClick={() => chooseStyle(product.code, product.name)}>
-                Add to sample inquiry <span aria-hidden="true">↗</span>
-              </button>
+              {product.href ? (
+                <a className="product-detail-link" href={product.href}>View verified product details <span aria-hidden="true">↗</span></a>
+              ) : (
+                <button type="button" onClick={() => chooseStyle(product.code, product.name)}>
+                  Add to sample inquiry <span aria-hidden="true">↗</span>
+                </button>
+              )}
             </article>
           ))}
         </div>
