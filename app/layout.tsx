@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(origin),
     title: "Beiqiang Footwear | Wide Toe Box Walking Shoe Factory Supply",
     description: "Quanzhou footwear factory supply for wide toe box comfort walking shoes, lightweight slip-ons and casual textile footwear. Samples and OEM/ODM requirements can be discussed before bulk orders.",
+    alternates: { canonical: "https://www.beiqiang.online/" },
     openGraph: {
       title: "Beiqiang Footwear | Wide Toe Box Walking Shoe Factory Supply",
       description: "Factory-direct B2B supply of comfort walking shoes for importers, wholesalers, online sellers and brand buyers.",
@@ -28,5 +29,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  const organizationData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.",
+    url: "https://www.beiqiang.online/",
+    email: "421345308@qq.com",
+    telephone: "+86 189 5980 5256",
+    address: { "@type": "PostalAddress", addressLocality: "Quanzhou", addressRegion: "Fujian", addressCountry: "CN" },
+    sameAs: ["https://cn1576227362luzl.m.en.alibaba.com/"],
+  };
+
+  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />{children}</body></html>;
 }

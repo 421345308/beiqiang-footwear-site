@@ -9,6 +9,8 @@ const products = [
     detail: "Roomy toe shape · Knitted upper · EVA sole · EU 36–46",
     image: "/products/bq001.jpg",
     tag: "Core wide-toe style",
+    buyerFit: "Comfort-footwear importers",
+    facts: ["Slip-on", "EU 36–46", "Knit upper"],
   },
   {
     code: "BQ002",
@@ -16,13 +18,17 @@ const products = [
     detail: "Knitted upper · EVA sole · EU 36–46 · 3 color directions",
     image: "/products/bq002.jpg",
     tag: "Travel & commuting",
+    buyerFit: "Online and travel channels",
+    facts: ["Slip-on", "EU 36–46", "3 color directions"],
   },
   {
     code: "BQ004",
-    name: "Wide Fit Casual Loafer",
-    detail: "Textile upper · EVA sole · EU 35–45 · Slip-on construction",
+    name: "Lightweight Knit Slip-On",
+    detail: "Knitted upper · EVA sole · EU 35–45 · 5 color directions",
     image: "/products/bq004.jpg",
     tag: "Online seller friendly",
+    buyerFit: "Marketplace assortment testing",
+    facts: ["Slip-on", "EU 35–45", "Breathable knit"],
   },
   {
     code: "BQ011",
@@ -30,6 +36,8 @@ const products = [
     detail: "Textile upper · Cushion sole · EU 39–45 · Easy-on profile",
     image: "/products/bq011.jpg",
     tag: "Men’s walking line",
+    buyerFit: "Men’s casual footwear buyers",
+    facts: ["Slip-on", "EU 39–45", "3 colors"],
   },
   {
     code: "BQ014",
@@ -37,13 +45,17 @@ const products = [
     detail: "Stretch textile · Optional fleece discussion · EU 35–45",
     image: "/products/bq014.jpg",
     tag: "Seasonal option",
+    buyerFit: "Autumn and winter collections",
+    facts: ["Slip-on", "EU 35–45", "Stretch textile"],
   },
   {
     code: "BQ029",
     name: "High-Top Sock Walking Shoe",
-    detail: "Textile upper · EVA sole · EU 35–45 · Slip-on profile",
+    detail: "High-top knit textile · EU 35–45 · Slip-on profile · 2 colors",
     image: "/products/bq029.jpg",
     tag: "Distinctive silhouette",
+    buyerFit: "Seasonal online collections",
+    facts: ["Slip-on", "EU 35–45", "High-top profile"],
   },
 ];
 
@@ -62,12 +74,36 @@ const buyerTypes = [
   },
 ];
 
+const faqItems = [
+  {
+    question: "Are you a factory or a trading company?",
+    answer: "Beiqiang is a footwear factory supplier in Quanzhou, Fujian, China. We focus on casual walking shoes, roomy-toe styles, lightweight slip-ons and textile footwear for overseas B2B buyers.",
+  },
+  {
+    question: "Can I request samples before a bulk order?",
+    answer: "Sample availability can be discussed style by style. We use the sample stage to confirm the product, color, size, material and packing requirements before final bulk-order terms.",
+  },
+  {
+    question: "Can colors and sizes be mixed?",
+    answer: "Mixed colors and mixed sizes can be discussed according to the selected style, available stock and order quantity. We confirm the actual size and color matrix before quotation.",
+  },
+  {
+    question: "Do you support OEM or ODM projects?",
+    answer: "OEM/ODM requirements can be discussed after a base style or product brief is selected. Logo, color, material and packing requests must be checked against the product and quantity before confirmation.",
+  },
+  {
+    question: "What information is needed for an accurate quotation?",
+    answer: "Please share the style code, target market, expected quantity, size ratio, colors, material requirements, packing method and target timing. Final price depends on the confirmed specification and trade requirements.",
+  },
+];
+
 export default function Home() {
   const [selectedStyle, setSelectedStyle] = useState("BQ001 — Wide Toe Box Knit Slip-On");
   const [company, setCompany] = useState("");
   const [market, setMarket] = useState("");
   const [quantity, setQuantity] = useState("");
   const [requirements, setRequirements] = useState("");
+  const [buyerType, setBuyerType] = useState("Importer / wholesaler");
   const [copyStatus, setCopyStatus] = useState("");
 
   const inquiryBrief = useMemo(
@@ -76,11 +112,12 @@ export default function Home() {
         "Beiqiang sample / quotation request",
         `Style: ${selectedStyle}`,
         `Company: ${company || "To be provided"}`,
+        `Buyer type: ${buyerType}`,
         `Target market: ${market || "To be provided"}`,
         `Expected quantity: ${quantity || "To be discussed"}`,
         `Requirements: ${requirements || "Please confirm sample, colors, size range and packing options."}`,
       ].join("\n"),
-    [company, market, quantity, requirements, selectedStyle],
+    [buyerType, company, market, quantity, requirements, selectedStyle],
   );
 
   const emailHref = `mailto:421345308@qq.com?subject=${encodeURIComponent("Beiqiang footwear sample / quotation request")}&body=${encodeURIComponent(inquiryBrief)}`;
@@ -120,6 +157,7 @@ export default function Home() {
         <nav aria-label="Primary navigation">
           <a href="#collections">Collections</a>
           <a href="#proof">Factory proof</a>
+          <a href="#sourcing">Sourcing options</a>
           <a href="#process">How we work</a>
         </nav>
         <a className="button button-small" href="#inquiry">Request a sample</a>
@@ -133,7 +171,7 @@ export default function Home() {
             Wide toe box, lightweight slip-on and breathable textile footwear for importers, wholesalers, online sellers and brand buyers in the US and Europe.
           </p>
           <div className="hero-actions">
-            <a className="button" href="#collections">Explore 6 lead styles</a>
+            <a className="button" href="#collections">Explore ready styles</a>
             <a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp a sourcing brief <span aria-hidden="true">→</span></a>
           </div>
           <dl className="hero-facts">
@@ -180,11 +218,40 @@ export default function Home() {
               </div>
               <h3>{product.name}</h3>
               <p>{product.detail}</p>
+              <ul className="product-facts" aria-label={`${product.code} key facts`}>
+                {product.facts.map((fact) => <li key={fact}>{fact}</li>)}
+              </ul>
+              <small className="buyer-fit">Best fit: {product.buyerFit}</small>
               <button type="button" onClick={() => chooseStyle(product.code, product.name)}>
                 Add to sample inquiry <span aria-hidden="true">↗</span>
               </button>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="section sourcing-section" id="sourcing">
+        <div className="section-heading">
+          <div><p className="eyebrow">CHOOSE THE RIGHT SOURCING PATH</p><h2>Start from a proven style or a product brief.</h2></div>
+          <p>Top footwear buyers separate fast assortment sourcing from product development. Choose the path that matches your launch stage, then confirm the real scope through samples.</p>
+        </div>
+        <div className="sourcing-grid">
+          <article>
+            <span className="path-number">01</span>
+            <p className="path-label">READY-STYLE DISCUSSION</p>
+            <h3>Shortlist an existing style.</h3>
+            <p>Best for importers, wholesalers and online sellers who want to compare real product photos, available colors and size ranges before a trial order.</p>
+            <ul><li>Select a style code</li><li>Confirm colors and size ratio</li><li>Discuss sample and packing</li></ul>
+            <a className="text-link" href="#collections">Browse the shortlist <span aria-hidden="true">→</span></a>
+          </article>
+          <article>
+            <span className="path-number">02</span>
+            <p className="path-label">OEM / ODM DISCUSSION</p>
+            <h3>Start with your market brief.</h3>
+            <p>Best for brand and private-label buyers who have a reference style, target price direction, color plan or packaging requirement.</p>
+            <ul><li>Share reference and target market</li><li>Review feasible product changes</li><li>Confirm development scope by sample</li></ul>
+            <a className="text-link" href="#inquiry">Send a product brief <span aria-hidden="true">→</span></a>
+          </article>
         </div>
       </section>
 
@@ -230,6 +297,33 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section quote-section">
+        <div className="quote-card">
+          <div><p className="eyebrow eyebrow-light">FASTER, MORE ACCURATE QUOTATIONS</p><h2>Five details move a sourcing conversation forward.</h2></div>
+          <ol>
+            <li><span>01</span><strong>Style code</strong><small>Which product should we check?</small></li>
+            <li><span>02</span><strong>Target market</strong><small>Country and sales channel</small></li>
+            <li><span>03</span><strong>Quantity</strong><small>Trial or bulk-order direction</small></li>
+            <li><span>04</span><strong>Size and colors</strong><small>Required assortment ratio</small></li>
+            <li><span>05</span><strong>Packing and timing</strong><small>Requirements to confirm</small></li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="section faq-section" id="faq">
+        <div className="section-heading compact">
+          <div><p className="eyebrow">BUYER FAQ</p><h2>Answers before you request a sample.</h2></div>
+        </div>
+        <div className="faq-list">
+          {faqItems.map((item) => (
+            <details key={item.question}>
+              <summary>{item.question}<span aria-hidden="true">+</span></summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
       <section className="inquiry-section" id="inquiry">
         <div className="inquiry-intro">
           <p className="eyebrow eyebrow-light">REQUEST A MATCHED SAMPLE</p>
@@ -244,6 +338,7 @@ export default function Home() {
         </div>
         <div className="inquiry-form" aria-label="Sample inquiry brief builder">
           <label>Company name<input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Your company" /></label>
+          <label>Buyer type<select value={buyerType} onChange={(e) => setBuyerType(e.target.value)}><option>Importer / wholesaler</option><option>Amazon / TikTok seller</option><option>Brand / private label</option><option>Sourcing agent</option></select></label>
           <label>Target market<input value={market} onChange={(e) => setMarket(e.target.value)} placeholder="Country / sales channel" /></label>
           <label>Expected quantity<input value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Trial or bulk quantity" /></label>
           <label>Requirements<textarea value={requirements} onChange={(e) => setRequirements(e.target.value)} placeholder="Sizes, colors, logo, packing, timing..." rows={4} /></label>
@@ -258,6 +353,7 @@ export default function Home() {
         <p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.<br />Quanzhou, Fujian, China<br /><a href="mailto:421345308@qq.com">421345308@qq.com</a> · <a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">WhatsApp +86 189 5980 5256</a></p>
         <p>Wide toe box · Comfort walking · Lightweight slip-on · OEM/ODM discussion</p>
       </footer>
+      <a className="whatsapp-float" href={whatsappHref} target="_blank" rel="noreferrer" aria-label="Send Beiqiang a sourcing brief on WhatsApp">WhatsApp sourcing brief</a>
     </main>
   );
 }

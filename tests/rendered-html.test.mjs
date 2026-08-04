@@ -22,6 +22,9 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /Beiqiang Footwear \| Wide Toe Box Walking Shoe Factory Supply/);
   assert.match(html, /Comfort walking shoes built for your market/);
   assert.match(html, /Request a sample/);
+  assert.match(html, /Start from a proven style or a product brief/);
+  assert.match(html, /Answers before you request a sample/);
+  assert.match(html, /https:\/\/www\.beiqiang\.online\//);
   assert.match(html, /421345308@qq\.com/);
   assert.match(html, /8618959805256/);
   assert.doesNotMatch(html, /codex-preview|Building your site|Your site is taking shape/i);
