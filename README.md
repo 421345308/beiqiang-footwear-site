@@ -1,4 +1,6 @@
-# vinext-starter
+# Beiqiang B2B Footwear Site
+
+Public B2B lead-generation site for Quanzhou Beiqiang Footwear & Apparel Co., Ltd. The production URL is `https://www.beiqiang.online/`. The site is designed to turn product discovery into qualified sample and quotation inquiries; it is not a retail checkout store.
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
@@ -15,6 +17,31 @@ npm install
 npm run dev
 npm run build
 ```
+
+## Production Deployment: GitHub to EdgeOne
+
+- Private repository: `421345308/beiqiang-footwear-site`
+- Production branch: `main`
+- EdgeOne project: `beiqiang-footwear` (`makers-zsvtdpeh3qf1`)
+- Framework preset: `Eleventy` (pure-static deployment path)
+- Root directory: `edgeone-deploy`
+- Install command: `npm ci --prefix ..`
+- Build command: `npm run build`
+- Output directory: `dist`
+
+`edgeone-deploy/` is a deployment adapter, not a second application. It runs the root `edgeone:build` script and copies `edgeone-export-v1` into `edgeone-deploy/dist`. Keep the EdgeOne root directory on `edgeone-deploy`; pointing it back to the repository root causes EdgeOne to load a Next/OpenNext server adapter and look for `.next/required-server-files.json`, which this static export does not need.
+
+## Change and Release Checklist
+
+1. Tie the change to a sales outcome: discovery, trust, qualification, contact, follow-up, sample, quotation, or order.
+2. Use only verified product facts and assets from the Beiqiang workspace.
+3. Work on a `codex/*` branch, confirm Node.js `>=22.13.0`, and run `npm test` plus `npm run edgeone:build`.
+4. Review the diff for product accuracy, contact details, links, mobile behavior, SEO, and unsupported claims.
+5. Merge or push to `main`; EdgeOne deploys automatically.
+6. Verify the deployment preview and then `https://www.beiqiang.online/`, including changed pages and every contact CTA.
+7. Record the commit, deployment result, KPI hypothesis, and any follow-up in the operations archive.
+
+For rollback, revert the problem commit and redeploy, or select the previous successful EdgeOne deployment. Do not use destructive resets on unreviewed local work.
 
 This starter does not use `wrangler.jsonc`.
 
