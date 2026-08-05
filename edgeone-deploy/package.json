@@ -1,0 +1,11 @@
+{
+  "name": "beiqiang-edgeone-static-deploy",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run edgeone:build --prefix .. && node export-static.mjs"
+  },
+  "engines": {
+    "node": ">=22.11.0"
+  }
+}
