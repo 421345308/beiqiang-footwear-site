@@ -12,6 +12,17 @@ function response(status, body) {
   return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=UTF-8", "Cache-Control": "no-store" } });
 }
 
+export function isAllowedOrigin(origin) {
+  if (!origin) return true;
+  try {
+    const { protocol, hostname } = new URL(origin);
+    if (protocol !== "https:") return hostname === "localhost" || hostname === "127.0.0.1";
+    return hostname === "www.beiqiang.online" || hostname === "beiqiang.online" || /^beiqiang-footwear-[a-z0-9]+\.edgeone\.dev$/.test(hostname);
+  } catch {
+    return false;
+  }
+}
+
 function escapeHtml(value) {
   return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]);
 }
@@ -85,9 +96,8 @@ async function sendNotification(inquiry, reference, env, createTransportImpl) {
 export function createInquiryHandler({ getStoreImpl = getStore, createTransportImpl = nodemailer.createTransport } = {}) {
   return async function onRequestPost(context) {
     const request = context.request;
-    const requestUrl = new URL(request.url);
     const origin = request.headers.get("origin");
-    if (origin && origin !== requestUrl.origin) return response(403, { ok: false, message: "Request origin is not allowed." });
+    if (!isAllowedOrigin(origin)) return response(403, { ok: false, message: "Request origin is not allowed." });
     if (Number(request.headers.get("content-length") || 0) > 32_768) return response(413, { ok: false, message: "Request is too large." });
 
     let payload;

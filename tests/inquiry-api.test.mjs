@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createInquiryHandler, validateInquiry } from "../edgeone-deploy/cloud-functions/api/inquiries.js";
+import { createInquiryHandler, isAllowedOrigin, validateInquiry } from "../edgeone-deploy/cloud-functions/api/inquiries.js";
 
 function validPayload(overrides = {}) {
   return {
@@ -29,6 +29,12 @@ test("validates a qualified B2B inquiry", () => {
   assert.equal(result.error, undefined);
   assert.equal(result.inquiry.styleCode, "BQ001");
   assert.equal(result.inquiry.attribution.utmSource, "linkedin");
+});
+
+test("allows only Beiqiang production and EdgeOne deployment origins", () => {
+  assert.equal(isAllowedOrigin("https://www.beiqiang.online"), true);
+  assert.equal(isAllowedOrigin("https://beiqiang-footwear-dpuc92ktg97f.edgeone.dev"), true);
+  assert.equal(isAllowedOrigin("https://example.com"), false);
 });
 
 test("rejects requests without a reply channel or consent", () => {
