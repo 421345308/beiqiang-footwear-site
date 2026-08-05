@@ -10,13 +10,15 @@
     "build": "vinext build",
     "edgeone:build": "vinext build && node scripts/export-edgeone-static.mjs",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/inquiry-api.test.mjs",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern edgeone-deploy/dist --ignore-pattern edgeone-export-v1",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
+    "@edgeone/pages-blob": "^0.0.14",
     "drizzle-orm": "0.45.2",
     "next": "16.2.6",
+    "nodemailer": "^7.0.10",
     "react": "19.2.6",
     "react-dom": "19.2.6"
   },

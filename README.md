@@ -43,6 +43,22 @@ npm run build
 
 For rollback, revert the problem commit and redeploy, or select the previous successful EdgeOne deployment. Do not use destructive resets on unreviewed local work.
 
+## Inquiry Storage and Notification
+
+The production form posts to `/api/inquiries`. EdgeOne Cloud Functions persist each validated inquiry in the `beiqiang-inquiries` Blob store before returning success. Conversion events are written to the separate `beiqiang-events` store. Blob storage is provided by EdgeOne Makers and does not require a database connection string.
+
+Email notification is optional until these EdgeOne Production environment variables are configured. Never commit the QQ authorization code to GitHub:
+
+- `SMTP_HOST=smtp.qq.com`
+- `SMTP_PORT=465`
+- `SMTP_SECURE=true`
+- `SMTP_USER=421345308@qq.com`
+- `SMTP_PASS=<QQ mailbox SMTP authorization code>`
+- `SMTP_FROM=421345308@qq.com`
+- `INQUIRY_NOTIFY_TO=421345308@qq.com`
+
+After changing environment variables, create a new deployment because existing deployments do not inherit later environment changes. Test with a clearly marked internal inquiry and confirm both the on-page reference number and the received email.
+
 This starter does not use `wrangler.jsonc`.
 
 ## Included Shape

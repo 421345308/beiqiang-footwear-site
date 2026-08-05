@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import InquiryForm from "./components/InquiryForm";
+import { trackEvent } from "./lib/tracking";
 
 const products = [
   {
@@ -100,44 +102,16 @@ const faqItems = [
 
 export default function Home() {
   const [selectedStyle, setSelectedStyle] = useState("BQ001 — Wide Toe Box Knit Slip-On");
-  const [company, setCompany] = useState("");
-  const [market, setMarket] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [requirements, setRequirements] = useState("");
-  const [buyerType, setBuyerType] = useState("Importer / wholesaler");
-  const [copyStatus, setCopyStatus] = useState("");
-
-  const inquiryBrief = useMemo(
-    () =>
-      [
-        "Beiqiang sample / quotation request",
-        `Style: ${selectedStyle}`,
-        `Company: ${company || "To be provided"}`,
-        `Buyer type: ${buyerType}`,
-        `Target market: ${market || "To be provided"}`,
-        `Expected quantity: ${quantity || "To be discussed"}`,
-        `Requirements: ${requirements || "Please confirm sample, colors, size range and packing options."}`,
-      ].join("\n"),
-    [buyerType, company, market, quantity, requirements, selectedStyle],
-  );
-
-  const emailHref = `mailto:421345308@qq.com?subject=${encodeURIComponent("Beiqiang footwear sample / quotation request")}&body=${encodeURIComponent(inquiryBrief)}`;
-  const whatsappHref = `https://wa.me/8618959805256?text=${encodeURIComponent(inquiryBrief)}`;
+  const selectedCode = selectedStyle.split(" — ")[0];
+  const contactBrief = `Hello Beiqiang, I am interested in ${selectedStyle}. Please discuss sample availability and quotation requirements.`;
+  const emailHref = `mailto:421345308@qq.com?subject=${encodeURIComponent("Beiqiang footwear sample / quotation request")}&body=${encodeURIComponent(contactBrief)}`;
+  const whatsappHref = `https://wa.me/8618959805256?text=${encodeURIComponent(contactBrief)}`;
   const alibabaStoreHref = "https://cn1576227362luzl.m.en.alibaba.com/?spm=a2700.details.0.0.49d669685pzyZm&wx_navbar_transparent=true&wx_screen_direc=portrait&productId=1601839050756&from=detail_company_card";
 
   function chooseStyle(code: string, name: string) {
     setSelectedStyle(`${code} — ${name}`);
-    setCopyStatus("");
+    trackEvent("product_select", { context: "homepage", styleCode: code });
     document.getElementById("inquiry")?.scrollIntoView({ behavior: "smooth" });
-  }
-
-  async function copyInquiry() {
-    try {
-      await navigator.clipboard.writeText(inquiryBrief);
-      setCopyStatus("Inquiry brief copied. Send it through the Alibaba, LinkedIn, email or WhatsApp channel where you reached us.");
-    } catch {
-      setCopyStatus("Please select and copy the inquiry brief shown below.");
-    }
   }
 
   return (
@@ -173,7 +147,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="button" href="#collections">Explore ready styles</a>
-            <a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp a sourcing brief <span aria-hidden="true">→</span></a>
+            <a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { context: "hero", styleCode: selectedCode })}>WhatsApp a sourcing brief <span aria-hidden="true">→</span></a>
           </div>
           <dl className="hero-facts">
             <div><dt>01</dt><dd>Choose a market-fit style</dd></div>
@@ -336,21 +310,12 @@ export default function Home() {
           <p>Start with one style and a few order details. We will use them to discuss sample availability and prepare an accurate quotation after specifications are confirmed.</p>
           <div className="selected-style"><small>SELECTED STYLE</small><strong>{selectedStyle}</strong></div>
           <div className="contact-links" aria-label="Contact Beiqiang Footwear">
-            <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer">Send via WhatsApp</a>
-            <a className="contact-text-link" href={emailHref}>Email 421345308@qq.com</a>
-            <a className="contact-text-link" href={alibabaStoreHref} target="_blank" rel="noreferrer">View Alibaba.com store</a>
+            <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { context: "homepage_inquiry", styleCode: selectedCode })}>Send via WhatsApp</a>
+            <a className="contact-text-link" href={emailHref} onClick={() => trackEvent("email_click", { context: "homepage_inquiry", styleCode: selectedCode })}>Email 421345308@qq.com</a>
+            <a className="contact-text-link" href={alibabaStoreHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("alibaba_click", { context: "homepage_inquiry", styleCode: selectedCode })}>View Alibaba.com store</a>
           </div>
         </div>
-        <div className="inquiry-form" aria-label="Sample inquiry brief builder">
-          <label>Company name<input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Your company" /></label>
-          <label>Buyer type<select value={buyerType} onChange={(e) => setBuyerType(e.target.value)}><option>Importer / wholesaler</option><option>Amazon / TikTok seller</option><option>Brand / private label</option><option>Sourcing agent</option></select></label>
-          <label>Target market<input value={market} onChange={(e) => setMarket(e.target.value)} placeholder="Country / sales channel" /></label>
-          <label>Expected quantity<input value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Trial or bulk quantity" /></label>
-          <label>Requirements<textarea value={requirements} onChange={(e) => setRequirements(e.target.value)} placeholder="Sizes, colors, logo, packing, timing..." rows={4} /></label>
-          <button className="button button-light form-button" type="button" onClick={copyInquiry}>Copy inquiry brief</button>
-          <p className="form-note" aria-live="polite">{copyStatus || "Choose WhatsApp, email or the Alibaba.com storefront to continue the sourcing conversation."}</p>
-          <pre>{inquiryBrief}</pre>
-        </div>
+        <InquiryForm styleCode={selectedCode} styleLabel={selectedStyle} context="homepage" />
       </section>
 
       <footer>
@@ -358,7 +323,7 @@ export default function Home() {
         <p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.<br />Quanzhou, Fujian, China<br /><a href="mailto:421345308@qq.com">421345308@qq.com</a> · <a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">WhatsApp +86 189 5980 5256</a></p>
         <p>Wide toe box · Comfort walking · Lightweight slip-on · OEM/ODM discussion</p>
       </footer>
-      <a className="whatsapp-float" href={whatsappHref} target="_blank" rel="noreferrer" aria-label="Send Beiqiang a sourcing brief on WhatsApp">WhatsApp sourcing brief</a>
+      <a className="whatsapp-float" href={whatsappHref} target="_blank" rel="noreferrer" aria-label="Send Beiqiang a sourcing brief on WhatsApp" onClick={() => trackEvent("whatsapp_click", { context: "floating", styleCode: selectedCode })}>WhatsApp sourcing brief</a>
     </main>
   );
 }

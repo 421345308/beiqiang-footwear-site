@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ProductInquiry from "./ProductInquiry";
 
 const SITE_URL = "https://www.beiqiang.online";
@@ -44,8 +45,8 @@ export default function BQ001Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }} />
       <div className="top-note"><span>QUANZHOU FOOTWEAR FACTORY SUPPLIER</span><span>BQ001 · SAMPLE BEFORE BULK DISCUSSION</span></div>
       <header className="site-header">
-        <a className="brand" href="/" aria-label="Beiqiang Footwear home"><span className="brand-mark">BQ</span><span><strong>BEIQIANG</strong><small>FOOTWEAR SUPPLY</small></span></a>
-        <nav aria-label="Product navigation"><a href="/#collections">All styles</a><a href="#specifications">Specifications</a><a href="#evidence">Product proof</a><a href="#inquiry">Request sample</a></nav>
+        <Link className="brand" href="/" aria-label="Beiqiang Footwear home"><span className="brand-mark">BQ</span><span><strong>BEIQIANG</strong><small>FOOTWEAR SUPPLY</small></span></Link>
+        <nav aria-label="Product navigation"><Link href="/#collections">All styles</Link><a href="#specifications">Specifications</a><a href="#evidence">Product proof</a><a href="#inquiry">Request sample</a></nav>
         <a className="button button-small" href="#inquiry">Request BQ001 sample</a>
       </header>
 
@@ -55,7 +56,7 @@ export default function BQ001Page() {
           <div className="product-hero-thumbs"><img src="/products/bq001/white-top.jpg" alt="BQ001 white knit upper and slip-on opening top view" /><img src="/products/bq001/white-outsole.jpg" alt="BQ001 white EVA outsole pattern" /></div>
         </div>
         <div className="product-hero-copy">
-          <p className="breadcrumb"><a href="/">Home</a> / <a href="/#collections">Walking shoes</a> / BQ001</p>
+          <p className="breadcrumb"><Link href="/">Home</Link> / <Link href="/#collections">Walking shoes</Link> / BQ001</p>
           <p className="eyebrow">STYLE BQ-001 · B2B PRODUCT PAGE</p>
           <h1>Men&apos;s wide toe box knit slip-on walking shoes.</h1>
           <p className="hero-lead">A roomy-toe, easy-on walking-shoe direction for importers, wholesalers and online sellers building comfort, commuting and travel assortments.</p>
