@@ -59,6 +59,36 @@ Email notification is optional until these EdgeOne Production environment variab
 
 After changing environment variables, create a new deployment because existing deployments do not inherit later environment changes. Test with a clearly marked internal inquiry and confirm both the on-page reference number and the received email.
 
+### Inquiry admin access
+
+- Internal route: `/admin/inquiries/`
+- Required production variable: `INQUIRY_ADMIN_TOKEN`
+- The token is only an access key for the internal inquiry ledger. It is not a customer password, SMTP password, or GitHub credential.
+- The browser sends the entered token to `/api/admin/inquiries`; the API checks it before reading the `beiqiang-inquiries` Blob store.
+- Never put the token in source code, screenshots, GitHub, email copy, or buyer-facing pages. Rotate the EdgeOne environment variable if it is exposed, then redeploy.
+
+## Product Catalogue Data Flow
+
+The public catalogue is data-driven. `app/data/products.ts` is the single website source for product code, source model, title, group, closure, upper direction, size direction, colors, buyer fit, evidence notes and pre-quotation confirmations.
+
+Current public structure:
+
+- `/products/`: searchable catalogue of 30 documented product packages.
+- `/products/bq001/` through `/products/bq030/`: product-specific evidence and inquiry pages.
+- `/collections/wide-toe-box/`: verified wide toe box styles only.
+- `/collections/knit-slip-on/`: easy-on knit/textile styles.
+- `/collections/breathable-lace-up/`: knit, mesh and textile lace-up styles.
+
+To add a product:
+
+1. Review its final upload form and real image package. Do not use the placeholder medical titles found in some older forms.
+2. Copy the verified main gallery into `public/catalog/<lowercase-code>/` using `01_main.jpg` as the catalogue image.
+3. Add one record to `app/data/products.ts`, including every field and the exact image filenames.
+4. Run `npm test`, `npm run edgeone:build`, `npm run lint`, and verify every exported image path before deployment. The EdgeOne exporter discovers product folders and regenerates product routes and `sitemap.xml` automatically.
+5. Confirm the live product page, product-specific inquiry code, WhatsApp/email links and admin-ledger record after deployment.
+
+The catalogue may show a conservative `To be confirmed` or confirmation list. That is intentional: size, material, outsole, lining, MOQ, price, packing, lead time and customization must not be invented when the product package does not prove them.
+
 This starter does not use `wrangler.jsonc`.
 
 ## Included Shape
