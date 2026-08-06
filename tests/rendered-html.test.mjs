@@ -44,3 +44,34 @@ test("server-renders the verified BQ001 B2B product page", async () => {
   assert.match(html, /FAQPage/);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|waterproof/i);
 });
+
+test("server-renders the verified BQ002 wide-toe product page", async () => {
+  const response = await render("/products/bq002");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Extra wide toe box knit slip-on walking shoes/i);
+  assert.match(html, /EU 36–46/);
+  assert.match(html, /Grey\/white, grey\/black, grey\/khaki/i);
+  assert.match(html, /BQ002 sample \/ quotation request/);
+  assert.doesNotMatch(html, /orthopedic|medical|podiatrist|waterproof/i);
+});
+
+test("server-renders the evidence-led BQ009 L1026 product page", async () => {
+  const response = await render("/products/bq009");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Breathable mesh thick-sole athletic walking shoes/i);
+  assert.match(html, /L1026/);
+  assert.match(html, /EU 35–45/);
+  assert.match(html, /We do not make medical, orthopedic or bunion-treatment claims/i);
+  assert.doesNotMatch(html, /orthopedic foot support|bunion friendly|anatomical wide toe box/i);
+});
+
+test("server-renders the protected inquiry ledger shell", async () => {
+  const response = await render("/admin/inquiries");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Inquiry ledger/);
+  assert.match(html, /Dashboard access token/);
+  assert.match(html, /Export CSV/);
+});

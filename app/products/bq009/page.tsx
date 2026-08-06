@@ -1,0 +1,53 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import ProductInquiry from "../../components/ProductInquiry";
+
+const SITE_URL = "https://www.beiqiang.online";
+
+export const metadata: Metadata = {
+  title: "BQ009 L1026 Breathable Mesh Thick-Sole Walking Shoes | Beiqiang",
+  description: "Review BQ009 L1026 lace-up mesh athletic walking shoes with a thick sole profile, EU 35-45 size direction and four color directions. Request a B2B sample or quotation.",
+  alternates: { canonical: `${SITE_URL}/products/bq009` },
+  openGraph: {
+    title: "BQ009 L1026 Mesh Athletic Walking Shoes | Beiqiang Footwear",
+    description: "A product-proof page for B2B buyers sourcing visually distinctive lace-up athletic walking and casual shoes.",
+    url: `${SITE_URL}/products/bq009`, type: "website",
+    images: [{ url: `${SITE_URL}/products/bq009/black-white-side.jpg`, width: 750, height: 1000, alt: "BQ009 L1026 black white mesh lace-up thick-sole walking shoe" }],
+  },
+};
+
+const faq = [
+  { question: "Which BQ009 / L1026 details are currently supported?", answer: "The current record and photo package support a lace-up athletic walking/casual shoe direction, breathable mesh-textile appearance, thick sole profile, EU 35-45 size direction and black, black/white, orange and mint-green color directions." },
+  { question: "Is BQ009 presented as a medical or orthopedic shoe?", answer: "No. The available evidence supports a breathable lace-up athletic walking and casual-shoe direction. We do not make medical, orthopedic or bunion-treatment claims." },
+  { question: "What must be confirmed before a BQ009 quotation?", answer: "Please confirm quantity, size ratio, colors, upper/lining/sole materials, packing, sample timing, trade term and any feasible customization request." },
+];
+
+export default function BQ009Page() {
+  const label = "BQ009 / L1026 — Mesh Thick-Sole Athletic Walking Shoe";
+  const productData = {
+    "@context": "https://schema.org", "@type": "Product", name: "BQ009 L1026 Mesh Thick-Sole Athletic Walking Shoes", sku: "BQ009 / L1026",
+    brand: { "@type": "Brand", name: "Beiqiang" }, manufacturer: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." },
+    description: "Lace-up mesh-textile athletic walking and casual shoe with a thick sole profile for B2B sourcing discussions.",
+    material: "Mesh-textile upper direction; lining and sole materials reconfirmed before quotation",
+    image: [`${SITE_URL}/products/bq009/black-white-side.jpg`, `${SITE_URL}/products/bq009/black-side.jpg`, `${SITE_URL}/products/bq009/color-overview.jpg`],
+    additionalProperty: [{ "@type": "PropertyValue", name: "Size direction", value: "EU 35-45" }, { "@type": "PropertyValue", name: "Closure", value: "Lace-up" }, { "@type": "PropertyValue", name: "Color directions", value: "Black, black/white, orange, mint green" }],
+  };
+  const faqData = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
+  const whatsappHref = `https://wa.me/8618959805256?text=${encodeURIComponent("Hello Beiqiang, I am interested in BQ009 / L1026 mesh thick-sole lace-up walking shoes. Please discuss sample availability and quotation requirements.")}`;
+
+  return (
+    <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productData) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }} />
+      <div className="top-note"><span>QUANZHOU FOOTWEAR FACTORY SUPPLIER</span><span>BQ009 / L1026 · A-LEVEL TRAFFIC CANDIDATE</span></div>
+      <header className="site-header"><Link className="brand" href="/" aria-label="Beiqiang Footwear home"><span className="brand-mark">BQ</span><span><strong>BEIQIANG</strong><small>FOOTWEAR SUPPLY</small></span></Link><nav aria-label="Product navigation"><Link href="/#collections">All styles</Link><a href="#specifications">Specifications</a><a href="#evidence">Product proof</a><a href="#inquiry">Request sample</a></nav><a className="button button-small" href="#inquiry">Request BQ009 sample</a></header>
+      <section className="product-hero"><div className="product-hero-gallery"><div className="product-hero-main"><img src="/products/bq009/black-white-side.jpg" alt="BQ009 L1026 black white mesh lace-up thick-sole walking shoe" /></div><div className="product-hero-thumbs"><img src="/products/bq009/black-side.jpg" alt="BQ009 all-black mesh lace-up shoe" /><img src="/products/bq009/color-overview.jpg" alt="BQ009 black, black white, orange and mint color directions" /></div></div><div className="product-hero-copy"><p className="breadcrumb"><Link href="/">Home</Link> / <Link href="/#collections">Walking shoes</Link> / BQ009</p><p className="eyebrow">STYLE BQ009 · ORIGINAL MODEL L1026</p><h1>Breathable mesh thick-sole athletic walking shoes.</h1><p className="hero-lead">A visually distinctive lace-up direction for importers, wholesalers and online sellers sourcing athletic walking and casual footwear.</p><ul className="product-hero-points"><li><strong>Mesh-textile appearance</strong><span>Open, product-led upper structure shown in the real photography.</span></li><li><strong>Thick sole profile</strong><span>A clear silhouette difference for athletic walking and casual assortments.</span></li><li><strong>Four color directions</strong><span>Black, black/white, orange and mint green support neutral and high-visibility tests.</span></li></ul><div className="hero-actions"><a className="button" href="#inquiry">Build a sample request</a><a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer">Ask about BQ009 on WhatsApp <span aria-hidden="true">↗</span></a></div><p className="commercial-note">Upper, lining and sole materials, MOQ, final price, sample timing, lead time and packing are reconfirmed before quotation.</p></div></section>
+      <section className="product-fact-strip" aria-label="BQ009 sourcing highlights"><div><small>STYLE</small><strong>BQ009</strong></div><div><small>ORIGINAL MODEL</small><strong>L1026</strong></div><div><small>SIZE DIRECTION</small><strong>EU 35–45</strong></div><div><small>CONSTRUCTION</small><strong>Lace-up</strong></div></section>
+      <section className="section product-spec-section" id="specifications"><div className="section-heading"><div><p className="eyebrow">PRODUCT-PROOF FIRST</p><h2>Facts for a first sourcing review.</h2></div><p>BQ009 is the current A-level Alibaba traffic candidate. This page removes the old unsupported wide-toe, orthopedic and bunion wording and keeps the offer aligned to real product evidence.</p></div><div className="spec-layout"><dl className="spec-table"><div><dt>Style code</dt><dd>BQ009</dd></div><div><dt>Original model</dt><dd>L1026</dd></div><div><dt>Product direction</dt><dd>Athletic walking / casual sneaker</dd></div><div><dt>Closure</dt><dd>Lace-up</dd></div><div><dt>Upper direction</dt><dd>Breathable mesh-textile appearance</dd></div><div><dt>Sole direction</dt><dd>Thick cushion-profile sole; material to reconfirm</dd></div><div><dt>Size direction</dt><dd>EU 35–45</dd></div><div><dt>Colors shown</dt><dd>Black, black/white, orange, mint green</dd></div></dl><aside className="confirmation-card"><p className="eyebrow">CONFIRM BEFORE QUOTATION</p><h3>Protect buyer trust with exact specifications.</h3><ul><li>Upper, lining and sole materials</li><li>Requested quantity and size ratio</li><li>Color mix and current availability</li><li>Logo and packing feasibility</li><li>Sample, timing and trade term</li></ul><a className="text-link" href="#inquiry">Prepare these details <span aria-hidden="true">→</span></a></aside></div></section>
+      <section className="product-evidence" id="evidence"><div className="product-evidence-heading"><p className="eyebrow eyebrow-light">REAL PRODUCT PHOTOGRAPHY</p><h2>Compare the silhouette and color options before sampling.</h2></div><div className="evidence-grid"><figure className="evidence-large"><img src="/products/bq009/black-white-side.jpg" alt="BQ009 black white lace-up athletic walking shoe side view" /><figcaption><strong>Black / white direction</strong><span>Side profile clearly shows the mesh upper and thick sole shape.</span></figcaption></figure><figure><img src="/products/bq009/orange-side.jpg" alt="BQ009 orange lace-up athletic walking shoe" /><figcaption><strong>Orange direction</strong><span>High-visibility option for visual market testing.</span></figcaption></figure><figure><img src="/products/bq009/color-overview.jpg" alt="BQ009 four product color directions" /><figcaption><strong>Four-color overview</strong><span>Real product images for buyer shortlist discussion.</span></figcaption></figure></div></section>
+      <section className="section buyer-use-section"><div className="section-heading compact"><div><p className="eyebrow">BUYER USE CASES</p><h2>Where BQ009 can earn its place.</h2></div></div><div className="buyer-grid"><article><span>01</span><h3>Athletic-footwear importers</h3><p>Review a thick-sole lace-up direction with a clear silhouette and reconfirm materials before bulk terms.</p></article><article><span>02</span><h3>Online marketplace sellers</h3><p>Use the black/white core option and bright colors to test different product-card and content angles.</p></article><article><span>03</span><h3>Wholesalers and brand buyers</h3><p>Shortlist the base shape, then discuss the feasible color, logo and packing scope through a sample.</p></article></div></section>
+      <section className="section faq-section product-faq"><div className="section-heading compact"><div><p className="eyebrow">BQ009 BUYER FAQ</p><h2>Evidence before promises.</h2></div></div><div className="faq-list">{faq.map((item) => <details key={item.question}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div></section>
+      <section className="product-inquiry-section" id="inquiry"><ProductInquiry code="BQ009" label={label} productName="L1026 mesh thick-sole lace-up walking shoes" /></section>
+      <footer><div className="brand footer-brand"><span className="brand-mark">BQ</span><span><strong>BEIQIANG</strong><small>FOOTWEAR SUPPLY</small></span></div><p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.<br />Quanzhou, Fujian, China<br /><a href="mailto:421345308@qq.com">421345308@qq.com</a> · <a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">WhatsApp +86 189 5980 5256</a></p><p>BQ009 / L1026 · Mesh textile · Thick sole profile · Lace-up · B2B sourcing discussion</p></footer>
+    </main>
+  );
+}

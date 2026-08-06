@@ -15,6 +15,9 @@ const { default: worker } = await import(workerUrl.href);
 const routes = [
   { pathname: "/", output: "index.html" },
   { pathname: "/products/bq001", output: "products/bq001/index.html" },
+  { pathname: "/products/bq002", output: "products/bq002/index.html" },
+  { pathname: "/products/bq009", output: "products/bq009/index.html" },
+  { pathname: "/admin/inquiries", output: "admin/inquiries/index.html" },
 ];
 
 for (const route of routes) {
