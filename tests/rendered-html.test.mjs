@@ -76,6 +76,22 @@ test("server-renders buyer-intent collection pages", async () => {
   assert.match(html, /Compare styles before you request samples/);
 });
 
+for (const [pathname, expected] of [
+  ["/factory", /factory-side sourcing conversation/i],
+  ["/quality-packing", /Make order details visible/i],
+  ["/oem-odm", /confirm feasibility first/i],
+  ["/sample-order-process", /order-ready specification/i],
+]) {
+  test(`server-renders the ${pathname} trust page`, async () => {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, expected);
+    assert.match(html, /421345308@qq\.com/);
+    assert.doesNotMatch(html, /certified|million pairs|medical|orthopedic|guaranteed customization/i);
+  });
+}
+
 test("server-renders the protected inquiry ledger shell", async () => {
   const response = await render("/admin/inquiries");
   assert.equal(response.status, 200);

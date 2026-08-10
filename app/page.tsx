@@ -68,6 +68,16 @@ export default function Home() {
         <div className="proof-copy"><p className="eyebrow eyebrow-light">FACTORY PROOF, NOT GENERIC PROMISES</p><h2>See the product. Check the details. Reduce sourcing risk.</h2><p>Our buyer workflow is based on real shoe photos, style-by-style specification confirmation and sample checking before bulk-order discussion.</p><ul><li><span>01</span> Product and color selection</li><li><span>02</span> Material, size and packing confirmation</li><li><span>03</span> Sample check before final bulk terms</li></ul><a className="button button-light" href="#inquiry">Prepare your inquiry</a></div>
       </section>
 
+      <section className="section trust-entry">
+        <div className="section-heading"><div><p className="eyebrow">VERIFY BEFORE YOU BUY</p><h2>Four answers behind every serious sourcing decision.</h2></div><p>Review real evidence, understand what still needs confirmation, and enter the sample discussion with a useful brief.</p></div>
+        <div className="trust-entry-grid">
+          <Link href="/factory/"><span>01</span><h3>Factory</h3><p>See real workshop evidence and how a product direction becomes a checkable project.</p><strong>Review factory evidence →</strong></Link>
+          <Link href="/quality-packing/"><span>02</span><h3>Quality &amp; packing</h3><p>Understand the order details behind checking, sorting and carton preparation.</p><strong>See the checking path →</strong></Link>
+          <Link href="/oem-odm/"><span>03</span><h3>OEM / ODM</h3><p>Choose a base-style or development path without assuming feasibility in advance.</p><strong>Build a project brief →</strong></Link>
+          <Link href="/sample-order-process/"><span>04</span><h3>Sample &amp; order process</h3><p>Know which decision comes next from shortlist through shipping coordination.</p><strong>Follow the order path →</strong></Link>
+        </div>
+      </section>
+
       <section className="section process"><div className="section-heading compact"><div><p className="eyebrow">A QUALIFIED SOURCING PATH</p><h2>From catalogue to quotation in three steps.</h2></div></div><div className="process-grid"><article><span>01</span><h3>Build a shortlist</h3><p>Compare product code, closure, size direction, colors and real gallery evidence.</p></article><article><span>02</span><h3>Send order context</h3><p>Share target market, quantity, size ratio, colors, packing and timing.</p></article><article><span>03</span><h3>Confirm by sample</h3><p>Verify high-impact specifications before final price and bulk-order terms.</p></article></div></section>
 
       <section className="section faq-section"><div className="section-heading compact"><div><p className="eyebrow">BUYER FAQ</p><h2>Answers before you request a sample.</h2></div></div><div className="faq-list">{faqItems.map((item) => <details key={item.question}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div></section>

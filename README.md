@@ -89,6 +89,19 @@ To add a product:
 
 The catalogue may show a conservative `To be confirmed` or confirmation list. That is intentional: size, material, outsole, lining, MOQ, price, packing, lead time and customization must not be invented when the product package does not prove them.
 
+## Buyer Trust and Order-Qualification Pages
+
+The third development stage adds four evidence-led pages that answer the questions buyers usually ask after reviewing a product:
+
+- `/factory/`: verified workshop evidence and the factory-side sourcing path.
+- `/quality-packing/`: real checking, sorting and carton-preparation evidence plus order-specific confirmation items.
+- `/oem-odm/`: base-style and development-brief paths with customization feasibility checked before commitment.
+- `/sample-order-process/`: shortlist, specification, sample, bulk-confirmation, checking, packing and shipment-coordination decisions.
+
+These routes are linked from the global navigation, homepage and every product detail page. `scripts/export-edgeone-static.mjs` exports them and adds them to the sitemap. Keep the pages evidence-led: never add unverified capacity, certificates, customer brands, fixed commercial terms, or unconditional customization promises.
+
+When adding factory evidence, copy only reviewed source files from `01_产品资产/02_可发布素材/00_最终上传/00_厂家资料/00_精选可用照片/` into `public/factory/`. Do not publish the archive previews or contact-card images from `99_归档参考/`.
+
 This starter does not use `wrangler.jsonc`.
 
 ## Included Shape
