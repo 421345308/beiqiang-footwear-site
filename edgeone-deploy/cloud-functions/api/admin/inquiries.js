@@ -1,5 +1,6 @@
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
+import nodemailer from "nodemailer";
 
 function response(status, body) {
   return new Response(JSON.stringify(body), {
@@ -40,6 +41,8 @@ const ORDER_CHECKLIST_FIELDS = ["productSpecification", "sampleDecision", "quant
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";
 }
+
+function dateAfter(isoValue, days) { const value = new Date(isoValue); value.setUTCDate(value.getUTCDate() + days); return value.toISOString().slice(0, 10); }
 
 function adminSafeRecord(record) {
   const safe = { ...record };
@@ -101,6 +104,25 @@ function changedOrderFields(current, proposed) {
   return fields;
 }
 
+async function notifyOrderChangeBuyer(record, change, env, createTransportImpl) {
+  if (!record.email) return { sent: false, status: "no_buyer_email" };
+  if (!env?.SMTP_PASS) return { sent: false, status: "smtp_not_configured" };
+  const transport = createTransportImpl({ host: env.SMTP_HOST || "smtp.qq.com", port: Number(env.SMTP_PORT || 465), secure: String(env.SMTP_SECURE || "true") !== "false", auth: { user: env.SMTP_USER || "421345308@qq.com", pass: env.SMTP_PASS } });
+  try {
+    await transport.sendMail({
+      from: env.SMTP_FROM || env.SMTP_USER || "421345308@qq.com",
+      to: record.email,
+      replyTo: env.INQUIRY_NOTIFY_TO || "421345308@qq.com",
+      subject: `[Action required] Review confirmed-order change ${change.id}`,
+      text: [`Hello ${record.name || "Purchasing Team"},`, "", `Beiqiang has proposed a change to confirmed website order version ${change.baseVersion} for inquiry ${record.reference}.`, `Reason: ${change.reason}`, `Changed fields: ${change.changedFields.join(", ")}`, "", "Your current confirmed website version remains active until you accept this proposal.", "Open the private inquiry-status page and use your existing inquiry reference and access code:", "https://www.beiqiang.online/inquiry-status/", "", "Please compare the proposed quantity, specification, price/trade term, delivery, packing and payment plan with your formal order documents, then accept or reject the proposal.", "", "Website acceptance does not amend an Alibaba Trade Assurance order or signed contract by itself. The same revised terms must be confirmed in the authoritative transaction channel before affected production or payment action.", "", "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.", "421345308@qq.com", "+86 189 5980 5256"].join("\n"),
+    });
+    return { sent: true, status: "sent" };
+  } catch (error) {
+    console.error("Order change buyer notification failed", record.reference, change.id, error);
+    return { sent: false, status: "delivery_failed" };
+  }
+}
+
 function sanitizeSampleProgram(value, current, actor) {
   if (!value || typeof value !== "object") return null;
   const status = SAMPLE_STATUSES.has(value.status) ? value.status : "brief_requested";
@@ -150,7 +172,7 @@ export function createAdminInquiriesHandler({ getStoreImpl = getStore } = {}) {
   };
 }
 
-export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore } = {}) {
+export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore, createTransportImpl = nodemailer.createTransport } = {}) {
   return async function onRequestPatch(context) {
     if (!context.env?.INQUIRY_ADMIN_TOKEN) return response(503, { ok: false, message: "Inquiry dashboard access has not been configured." });
     if (!authorized(context.request, context.env)) return response(401, { ok: false, message: "Invalid access token." });
@@ -184,9 +206,13 @@ export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore } = {}
         const reason = clean(payload.orderChangeReason, 800); if (reason.length < 2) return response(409, { ok: false, message: "Explain why the confirmed order terms should change before creating a buyer approval request." });
         const requests = Array.isArray(current.orderChangeRequests) ? current.orderChangeRequests : []; if (requests.some((item) => item.status === "awaiting_buyer")) return response(409, { ok: false, message: "A confirmed-order change is already awaiting buyer response. Resolve it before proposing another." });
         const versions = Array.isArray(current.orderVersions) && current.orderVersions.length ? current.orderVersions : [{ version: 1, orderHandoff: current.orderHandoff, acceptedAt: current.orderHandoff.confirmedAt || current.updatedAt || current.receivedAt, acceptedBy: "Legacy / initial confirmation", source: "baseline" }];
-        const changeRequest = { id: `OCR-${randomBytes(6).toString("hex").toUpperCase()}`, status: "awaiting_buyer", reason, changedFields: criticalChanges, baseVersion: versions.at(-1).version, proposedHandoff: orderResult.orderHandoff, createdAt: changedAt, createdBy: clean(payload.owner, 100) || current.owner || "Sales team", buyerDecision: "", buyerNote: "", buyerRespondedAt: "" };
-        const proposed = { ...current, orderVersions: versions, orderChangeRequests: [...requests.slice(-19), changeRequest], nextAction: `Wait for buyer response to confirmed-order change ${changeRequest.id}; do not apply proposed terms before acceptance.`, nextActionDue: changedAt.slice(0, 10), updatedAt: changedAt };
-        await store.setJSON(key, proposed, { cacheControl: null }); return response(202, { ok: true, orderChangeProposed: true, record: adminSafeRecord(proposed) });
+        const changeRequest = { id: `OCR-${randomBytes(6).toString("hex").toUpperCase()}`, status: "awaiting_buyer", reason, changedFields: criticalChanges, baseVersion: versions.at(-1).version, proposedHandoff: orderResult.orderHandoff, createdAt: changedAt, createdBy: clean(payload.owner, 100) || current.owner || "Sales team", buyerDecision: "", buyerNote: "", buyerRespondedAt: "", notificationSent: false, notificationStatus: "pending", notificationAttemptedAt: "" };
+        const proposed = { ...current, orderVersions: versions, orderChangeRequests: [...requests.slice(-19), changeRequest], nextAction: `Wait for buyer response to confirmed-order change ${changeRequest.id}; do not apply proposed terms before acceptance.`, nextActionDue: dateAfter(changedAt, 2), updatedAt: changedAt };
+        await store.setJSON(key, proposed, { cacheControl: null });
+        const notification = await notifyOrderChangeBuyer(current, changeRequest, context.env || {}, createTransportImpl); const notificationAttemptedAt = new Date().toISOString();
+        const reread = await store.get(key, { type: "json", consistency: "strong" }); const latest = Array.isArray(reread?.orderChangeRequests) && reread.orderChangeRequests.some((item) => item.id === changeRequest.id) ? reread : proposed;
+        const notified = { ...latest, orderChangeRequests: latest.orderChangeRequests.map((item) => item.id === changeRequest.id ? { ...item, notificationSent: notification.sent, notificationStatus: notification.status, notificationAttemptedAt } : item), updatedAt: latest.updatedAt || notificationAttemptedAt };
+        await store.setJSON(key, notified, { cacheControl: null }); return response(202, { ok: true, orderChangeProposed: true, buyerNotificationSent: notification.sent, buyerNotificationStatus: notification.status, record: adminSafeRecord(notified) });
       }
       const existingHistory = Array.isArray(current.pipelineHistory) ? current.pipelineHistory : [{ from: "", to: current.status || "new", changedAt: current.receivedAt || changedAt, actor: "system", reason: "Legacy record" }];
       const lostReason = payload.status === "lost" ? (LOST_REASONS.has(requestedLostReason) ? requestedLostReason : current.lostReason || "legacy_unspecified") : "";
