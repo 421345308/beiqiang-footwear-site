@@ -7,6 +7,7 @@ import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
 import AddToQuoteButton from "../../components/AddToQuoteButton";
 import PrintProductSheetButton from "../../components/PrintProductSheetButton";
+import ProductShareActions from "../../components/ProductShareActions";
 import { getProduct, products } from "../../data/products";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -18,11 +19,15 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = getProduct((await params).slug);
   if (!product) return {};
+  const url = `https://www.beiqiang.online/products/${product.slug}/`;
+  const image = `https://www.beiqiang.online${webGalleryImage(product.images[0])}`;
+  const title = `${product.code} ${product.name}`;
   return {
-    title: `${product.code} ${product.name} | Beiqiang Footwear`,
+    title: `${title} | Beiqiang Footwear`,
     description: `${product.shortDescription} Review verified size, closure, colors and real product images before requesting a B2B sample or quotation.`,
-    alternates: { canonical: `https://www.beiqiang.online/products/${product.slug}/` },
-    openGraph: { title: `${product.code} ${product.name}`, description: product.shortDescription, images: [{ url: product.images[0], alt: `${product.code} ${product.name}` }] },
+    alternates: { canonical: url },
+    openGraph: { title, description: product.shortDescription, url, type: "website", images: [{ url: image, alt: title }] },
+    twitter: { card: "summary_large_image", title, description: product.shortDescription, images: [image] },
   };
 }
 
@@ -44,7 +49,7 @@ export default async function ProductPage({ params }: Props) {
       <div className="product-breadcrumb"><Link href="/products/">All products</Link><span>›</span><span>{product.code}</span></div>
       <section className="product-detail-hero">
         <div className="product-detail-image"><img src={webGalleryImage(product.images[0])} alt={`${product.code} ${product.name}`} decoding="async" fetchPriority="high" /></div>
-        <div className="product-detail-copy"><p className="eyebrow">{product.group.toUpperCase()}</p><div className="product-id-line"><span>{product.code}</span><span>Source model {product.sourceModel}</span><span>{product.closure}</span></div><h1>{product.name}</h1><p className="hero-lead">{product.shortDescription}</p><ul className="product-hero-points">{product.highlights.map((highlight) => <li key={highlight}><strong>{highlight}</strong></li>)}</ul><div className="hero-actions"><AddToQuoteButton product={product} /><PrintProductSheetButton styleCode={product.code} /><a className="text-link" href="#inquiry">Ask about this sample →</a></div><p className="commercial-note">Final price depends on confirmed style, quantity, material, size ratio, packing and trade requirements.</p></div>
+        <div className="product-detail-copy"><p className="eyebrow">{product.group.toUpperCase()}</p><div className="product-id-line"><span>{product.code}</span><span>Source model {product.sourceModel}</span><span>{product.closure}</span></div><h1>{product.name}</h1><p className="hero-lead">{product.shortDescription}</p><ul className="product-hero-points">{product.highlights.map((highlight) => <li key={highlight}><strong>{highlight}</strong></li>)}</ul><div className="hero-actions"><AddToQuoteButton product={product} /><PrintProductSheetButton styleCode={product.code} /><a className="text-link" href="#inquiry">Ask about this sample →</a></div><ProductShareActions code={product.code} name={product.name} url={`https://www.beiqiang.online/products/${product.slug}/`} /><p className="commercial-note">Final price depends on confirmed style, quantity, material, size ratio, packing and trade requirements.</p></div>
       </section>
 
       <section className="product-fact-strip" aria-label={`${product.code} sourcing highlights`}><div><small>STYLE</small><strong>{product.code}</strong></div><div><small>SOURCE MODEL</small><strong>{product.sourceModel}</strong></div><div><small>SIZE DIRECTION</small><strong>{product.size}</strong></div><div><small>CLOSURE</small><strong>{product.closure}</strong></div></section>

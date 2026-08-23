@@ -370,6 +370,14 @@ footer a:hover { color: var(--forest); }
 .product-id-line { margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px; }
 .product-id-line span { padding: 7px 9px; background: var(--sage); color: var(--forest); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .product-detail-copy .product-hero-points li { display: block; }
+.product-share-actions { margin: 24px 0 4px; padding: 16px 18px; border: 1px solid var(--line); background: rgba(255, 255, 255, .58); display: grid; gap: 12px; }
+.product-share-actions > div:first-child { display: grid; gap: 4px; }
+.product-share-actions strong { font-size: 13px; letter-spacing: .02em; }
+.product-share-actions span { color: var(--muted); font-size: 12px; line-height: 1.45; }
+.product-share-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.product-share-buttons a, .product-share-buttons button { appearance: none; border: 1px solid var(--ink); background: transparent; color: var(--ink); padding: 8px 12px; font: inherit; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-decoration: none; cursor: pointer; }
+.product-share-buttons a:hover, .product-share-buttons button:hover, .product-share-buttons a:focus-visible, .product-share-buttons button:focus-visible { background: var(--ink); color: #fff; }
+.product-share-actions > p { min-height: 16px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .product-gallery { padding: 100px clamp(20px, 5vw, 80px); background: var(--forest-deep); color: white; }
 .detail-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .detail-gallery-grid figure { margin: 0; position: relative; overflow: hidden; background: white; }

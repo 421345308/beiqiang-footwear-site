@@ -108,6 +108,10 @@ test("server-renders the verified BQ001 product page", async () => {
   assert.match(html, /EU 36-46/);
   assert.match(html, /Knitted textile upper/);
   assert.match(html, /Print \/ save product sheet/i);
+  assert.match(html, /Share with your buying team/i);
+  assert.match(html, /WhatsApp[\s\S]*Email[\s\S]*Copy link/i);
+  assert.match(html, /property="og:image" content="https:\/\/www\.beiqiang\.online\/catalog-web\/bq001\/01_main\.webp"/i);
+  assert.match(html, /name="twitter:image" content="https:\/\/www\.beiqiang\.online\/catalog-web\/bq001\/01_main\.webp"/i);
   assert.match(html, /SOURCING REVIEW[\s\S]*NOT A QUOTATION/i);
   assert.match(html, /Confirm before quotation or order/i);
   assert.match(html, /www\.beiqiang\.online\/products\/bq001\//i);

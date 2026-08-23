@@ -372,6 +372,13 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - `/resources/` is the public sourcing-resource hub. It currently contains three substantial buyer guides: footwear RFQ preparation, physical-sample approval and private-label walking-shoe sourcing from shortlist to formal order.
 - Every guide links to documented product evidence and a structured quote-request handoff. The originating resource is preserved as an approved `sourcingProgram` value on a submitted commercial record, even when the visitor has declined optional analytics.
 - Optional first-party events separately count resource views, product-evidence opens and quote-brief handoffs. The protected dashboard shows these as intent signals; they are never described as inquiries or orders.
+
+## Product sharing and buying-team handoff
+
+- Every product detail page provides WhatsApp, email, device-share and copy-link actions so a sourcing contact can circulate one canonical evidence page to colleagues, managers or customers.
+- Product pages now publish SKU-specific Open Graph and X/Twitter metadata using that product's real catalogue image; shared links no longer inherit the generic website preview.
+- `product_share` is recorded only after optional analytics consent and stores only the style code, channel and fixed product-detail context. It never stores the recipient, address book, email address or message body.
+- The protected dashboard reports total product shares and the most-shared styles as buying-team interest signals. A share does not prove delivery, opening, approval, inquiry or order.
 - `app/sitemap.ts` generates a root `sitemap.xml` from the public static routes, 30 products, collections, sourcing programs and resources. Private admin, buyer-workspace, inquiry-status and API routes are excluded.
 - `app/robots.ts` points crawlers to the canonical sitemap and keeps API routes out of crawling. Private buyer pages already use `noindex`; the admin layout now explicitly adds `noindex, nofollow, noarchive, nocache` rather than relying on robots.txt as a security control.
 - Resource pages include canonical metadata, Article and Breadcrumb JSON-LD, visible internal links and conservative evidence boundaries. Search inclusion is not guaranteed; submit the production sitemap in Google Search Console and review indexing there after deployment.
