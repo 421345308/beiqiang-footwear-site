@@ -30,11 +30,11 @@ export function createAdminQuotationHandler({ getStoreImpl = getStore, createTra
       if (!record) return response(404, { ok: false, message: "Inquiry record was not found." });
       const quote = record.quotations?.find((item) => item.quoteNumber === quoteNumber);
       if (!quote) return response(404, { ok: false, message: "Quotation version was not found." });
-      if (quote.status === "buyer_accepted" || quote.status === "buyer_declined") return response(409, { ok: false, message: "The buyer has already responded to this version. Save and issue a new version for changed terms." });
+      if (["buyer_accepted", "buyer_revision_requested", "buyer_declined"].includes(quote.status)) return response(409, { ok: false, message: "The buyer has already responded to this version. Save and issue a new version for changed terms." });
       const today = new Date().toISOString().slice(0, 10);
       if (!/^\d{4}-\d{2}-\d{2}$/.test(quote.validUntil || "") || quote.validUntil < today) return response(409, { ok: false, message: "Set a current quotation validity date before issuing this version." });
       const issuedAt = new Date().toISOString();
-      const quotations = record.quotations.map((item) => item.quoteNumber === quoteNumber ? { ...item, status: "issued", issuedAt, buyerDecision: "", buyerNote: "", buyerRespondedAt: "" } : item.status === "issued" ? { ...item, status: "superseded" } : item);
+      const quotations = record.quotations.map((item) => item.quoteNumber === quoteNumber ? { ...item, status: "issued", issuedAt, buyerDecision: "", buyerNote: "", buyerRespondedAt: "", revisionBrief: null } : ["issued", "buyer_revision_requested"].includes(item.status) ? { ...item, status: "superseded" } : item);
       const issuedQuote = quotations.find((item) => item.quoteNumber === quoteNumber);
       const nextStatus = ["lost", "spam", "order_confirmed"].includes(record.status) ? record.status : "quoted"; const history = Array.isArray(record.pipelineHistory) ? record.pipelineHistory : [{ from: "", to: record.status || "new", changedAt: record.receivedAt || issuedAt, actor: "system", reason: "Legacy record" }];
       const pipelineHistory = nextStatus !== record.status ? [...history.slice(-98), { from: record.status || "new", to: nextStatus, changedAt: issuedAt, actor: record.owner || "Sales team", reason: `Issued ${quoteNumber}` }] : history;

@@ -280,7 +280,9 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Saved versions can be opened in a print-safe document and exported with the browser's Save as PDF function.
 - A quotation is not an order confirmation. Specifications, approved sample, payment and shipping terms still require written confirmation and the agreed Alibaba Trade Assurance or contract process.
 - `POST /api/admin/quotation` explicitly issues a saved version, supersedes any older open version, updates the buyer-visible message and sends a receipt-safe notification when SMTP and buyer email are available.
-- The private status page shows only an issued quotation. `POST /api/quotation-response` lets the verified buyer accept or decline/request revision; an expired, superseded or already-closed version cannot be answered.
+- The private status page shows the current buyer-safe quotation. `POST /api/quotation-response` separates accept, structured revision request and decline; an expired, superseded or already-closed version cannot be answered.
+- A revision request records allowed commercial areas, affected quoted styles and optional buyer targets for quantity, unit price, trade term, delivery, payment, packing and sample terms. Unknown reasons and styles outside the issued quotation are rejected.
+- The protected quotation editor can copy the responded version into the next version as a working draft. Buyer targets remain visible for review but are not automatically inserted into buyer-facing quotation terms; sales must verify feasibility and edit each changed field before saving and issuing a new immutable version.
 - Buyer acceptance moves the opportunity into commercial discussion, not `order_confirmed`.
 
 ## Buyer Order-Setup Request

@@ -545,6 +545,18 @@ footer a:hover { color: var(--forest); }
 .buyer-quote-response label { display: grid; gap: 7px; color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
 .buyer-quote-response textarea { padding: 12px; border: 1px solid var(--line); background: white; }
 .buyer-quote-response > div { margin-top: 10px; display: flex; gap: 10px; }
+.buyer-quote-revision, .buyer-quote-decline { margin-top: 14px; padding: 16px; display: grid; gap: 13px; border: 1px solid #c8d6c2; background: #f4f8f1; }
+.buyer-quote-revision > div:first-child span { display: block; color: var(--muted); font-size: 10px; }
+.buyer-revision-reasons, .buyer-quote-revision fieldset { display: flex; flex-wrap: wrap; gap: 8px; }
+.buyer-revision-reasons label, .buyer-quote-revision fieldset label { padding: 8px 10px; display: flex; align-items: center; gap: 7px; border: 1px solid var(--line); background: white; color: var(--ink); font-size: 10px; text-transform: none; }
+.buyer-quote-revision fieldset { margin: 0; padding: 10px; border: 1px solid var(--line); }
+.buyer-quote-revision legend { padding: 0 6px; color: var(--muted); font-size: 10px; font-weight: 800; }
+.buyer-revision-fields { display: grid !important; grid-template-columns: 1fr 1fr; gap: 10px !important; margin: 0 !important; }
+.buyer-revision-fields label { text-transform: none; }
+.buyer-revision-fields input, .buyer-revision-fields select { padding: 10px; border: 1px solid var(--line); background: white; }
+.buyer-quote-revision > small, .buyer-recorded-revision small { color: var(--muted); font-size: 10px; }
+.buyer-recorded-revision { margin-top: 12px; padding: 13px; border-left: 3px solid var(--gold); background: #fff8e8; }
+.buyer-recorded-revision p { margin: 5px 0; }
 .buyer-quote-decision { padding: 15px; background: #e3efe7; }
 .buyer-status-closed { padding: 22px; background: #eee; color: var(--muted); }
 .status-help { text-align: center; }
@@ -944,6 +956,7 @@ footer a:hover { color: var(--forest); }
 .quotation-history > div { display: grid; grid-template-columns: minmax(260px, 1fr) 150px 130px; align-items: center; gap: 7px; }
 .quotation-history > div > span { color: var(--muted); font-size: 10px; text-transform: uppercase; }
 .quotation-history .quote-issue-button { background: var(--forest); color: white; text-align: center; }
+.quotation-history .quote-revision-button { background: #fff4d7; color: var(--ink); text-align: center; }
 .sourcing-program-entry { background: #e8eee9; }
 .sourcing-program-entry-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(23,59,50,.2); }
 .sourcing-program-entry-grid > a { min-height: 360px; padding: 40px 34px; display: flex; flex-direction: column; color: var(--forest); background: rgba(255,255,255,.48); transition: background .2s ease, transform .2s ease; }
@@ -1185,6 +1198,7 @@ footer a:hover { color: var(--forest); }
   .buyer-quote-table > div { min-width: 700px; }
   .buyer-quote-terms { grid-template-columns: 1fr; }
   .buyer-quote-response > div { align-items: stretch; flex-direction: column; }
+  .buyer-revision-fields { grid-template-columns: 1fr; }
   .buyer-recommendation-response > div, .buyer-recommendation-actions { align-items: stretch; flex-direction: column; }
   .admin-toolbar { align-items: flex-start; flex-direction: column; }
   .admin-toolbar > div { align-items: flex-start; flex-direction: column; }

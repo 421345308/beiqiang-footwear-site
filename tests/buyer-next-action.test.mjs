@@ -25,6 +25,11 @@ test("routes an accepted quotation to order setup only before a request exists",
   assert.equal(setup.href, "#order-setup-request"); assert.equal(waiting.href, "#buyer-message-center"); assert.match(waiting.body, /not yet a production order/i);
 });
 
+test("separates a quotation revision request from a declined quotation", () => {
+  const revision = getBuyerNextAction({ ...open, buyerQuotation: { status: "buyer_revision_requested", quoteNumber: "Q1" } }); const declined = getBuyerNextAction({ ...open, buyerQuotation: { status: "buyer_declined", quoteNumber: "Q1" } });
+  assert.match(revision.title, /commercial targets/i); assert.match(revision.body, /new version/i); assert.match(declined.eyebrow, /declined/i); assert.doesNotMatch(declined.body, /revision/i);
+});
+
 test("closed requests never encourage a workflow submission", () => {
   const action = getBuyerNextAction({ status: { code: "closed" }, buyerQuotation: { status: "issued", quoteNumber: "Q1" } });
   assert.equal(action.tone, "closed"); assert.equal(action.href, "#buyer-contact-actions");
