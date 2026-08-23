@@ -49,6 +49,12 @@ test("sanitizes a multi-style technical quote request", () => {
   assert.equal(result.inquiry.sourcingProgram, "oem-knit-shoes");
 });
 
+test("preserves an approved sourcing-resource origin in the commercial record", () => {
+  const result = validateInquiry(validPayload({ sourcingProgram: "resource-footwear-rfq-checklist" }));
+  assert.equal(result.error, undefined); assert.equal(result.inquiry.sourcingProgram, "resource-footwear-rfq-checklist");
+  const unsafe = validateInquiry(validPayload({ sourcingProgram: "resource-invented-page" })); assert.equal(unsafe.inquiry.sourcingProgram, "");
+});
+
 test("allows only Beiqiang production and EdgeOne deployment origins", () => {
   assert.equal(isAllowedOrigin("https://www.beiqiang.online"), true);
   assert.equal(isAllowedOrigin("https://beiqiang-footwear-dpuc92ktg97f.edgeone.dev"), true);

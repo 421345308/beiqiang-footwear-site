@@ -29,6 +29,7 @@ const groups = [
     links: [
       ["Factory", "/factory/"],
       ["Quality & packing", "/quality-packing/"],
+      ["Sourcing resources", "/resources/"],
       ["B2B buyer guide", "/buyer-guide/"],
       ["Sample & order process", "/sample-order-process/"],
       ["Check request status", "/inquiry-status/"],

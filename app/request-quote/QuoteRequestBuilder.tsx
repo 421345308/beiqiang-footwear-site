@@ -40,10 +40,12 @@ export default function QuoteRequestBuilder() {
     trackEvent("quote_builder_view");
     const params = new URLSearchParams(window.location.search);
     const requestedProgram = params.get("program") || "";
+    const requestedResource = params.get("resource") || "";
     const requestedPath = params.get("path");
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
       if (/^[a-z0-9-]{1,80}$/.test(requestedProgram)) setSourcingProgram(requestedProgram);
+      else if (/^[a-z0-9-]{1,80}$/.test(requestedResource)) setSourcingProgram(`resource-${requestedResource}`);
       if (["base_style_adaptation", "technical_development"].includes(requestedPath || "")) setProjectPath(requestedPath!);
     }, 0);
     return () => window.clearTimeout(timer);

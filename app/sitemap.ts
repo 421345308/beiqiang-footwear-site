@@ -1,0 +1,17 @@
+import type { MetadataRoute } from "next";
+import { collections, products } from "./data/products";
+import { buyerResources } from "./data/resources";
+import { sourcingPrograms } from "./data/sourcing-programs";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const origin = "https://www.beiqiang.online";
+  const staticRoutes = ["", "/products", "/collections/wide-toe-box", "/collections/knit-slip-on", "/collections/breathable-lace-up", "/line-sheet", "/factory", "/quality-packing", "/oem-odm", "/sample-order-process", "/buyer-guide", "/resources", "/request-quote", "/privacy", "/terms"];
+  const routes = [
+    ...staticRoutes,
+    ...products.map((product) => `/products/${product.slug}`),
+    ...collections.map((collection) => `/collections/${collection.slug}`),
+    ...sourcingPrograms.map((program) => `/solutions/${program.slug}`),
+    ...buyerResources.map((resource) => `/resources/${resource.slug}`),
+  ];
+  return [...new Set(routes)].map((route) => ({ url: `${origin}${route ? `${route}/` : "/"}` }));
+}

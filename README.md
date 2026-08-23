@@ -367,6 +367,15 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - New buyer uploads are `quarantined` by default. The website validates supported type, size and storage metadata, but does not include an antivirus engine. A quarantined download requires explicit isolated-review acknowledgement and is forced to a non-previewing binary response. Ordinary admin download is enabled only after an authorized person records the offline malware/content-review method and result.
 - Revoking a file blocks website access but preserves bytes and audit evidence. Quarantine, review, revocation and permanent deletion are separate actions and must not be described as interchangeable.
 
+## B2B Sourcing Resources and Search Discovery
+
+- `/resources/` is the public sourcing-resource hub. It currently contains three substantial buyer guides: footwear RFQ preparation, physical-sample approval and private-label walking-shoe sourcing from shortlist to formal order.
+- Every guide links to documented product evidence and a structured quote-request handoff. The originating resource is preserved as an approved `sourcingProgram` value on a submitted commercial record, even when the visitor has declined optional analytics.
+- Optional first-party events separately count resource views, product-evidence opens and quote-brief handoffs. The protected dashboard shows these as intent signals; they are never described as inquiries or orders.
+- `app/sitemap.ts` generates a root `sitemap.xml` from the public static routes, 30 products, collections, sourcing programs and resources. Private admin, buyer-workspace, inquiry-status and API routes are excluded.
+- `app/robots.ts` points crawlers to the canonical sitemap and keeps API routes out of crawling. Private buyer pages already use `noindex`; the admin layout now explicitly adds `noindex, nofollow, noarchive, nocache` rather than relying on robots.txt as a security control.
+- Resource pages include canonical metadata, Article and Breadcrumb JSON-LD, visible internal links and conservative evidence boundaries. Search inclusion is not guaranteed; submit the production sitemap in Google Search Console and review indexing there after deployment.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.

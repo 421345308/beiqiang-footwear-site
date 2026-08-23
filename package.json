@@ -7,6 +7,7 @@
   },
   "scripts": {
     "pretest": "node --experimental-strip-types --test tests/data-lifecycle-api.test.mjs",
+    "posttest": "node --experimental-strip-types --test tests/search-acquisition.test.mjs",
     "dev": "vinext dev",
     "build": "vinext build",
     "edgeone:build": "vinext build && node scripts/export-edgeone-static.mjs",

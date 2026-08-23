@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 const BUYER_TYPES = new Set(["Importer / wholesaler", "Amazon / TikTok seller", "Brand / private label", "Sourcing agent"]);
 const PROJECT_PATHS = new Set(["base_style_adaptation", "technical_development"]);
 const TRADE_TERM_PREFERENCES = new Set(["not_sure", "EXW", "FOB", "FCA", "DDP_request"]);
-const SOURCING_PROGRAMS = new Set(["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes"]);
+const SOURCING_PROGRAMS = new Set(["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes", "resource-footwear-rfq-checklist", "resource-shoe-sample-approval-checklist", "resource-private-label-walking-shoes-sourcing-guide"]);
 
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";

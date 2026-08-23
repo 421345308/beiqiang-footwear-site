@@ -66,6 +66,12 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section resource-home-entry">
+        <div className="section-heading"><div><p className="eyebrow">BUYER SOURCING LIBRARY</p><h2>Prepare the decisions that make a quotation useful.</h2></div><p>Practical guides connect product discovery to a complete RFQ, controlled sample approval and a formal private-label order path.</p></div>
+        <div className="resource-home-grid"><Link href="/resources/footwear-rfq-checklist/"><span>RFQ CHECKLIST</span><h3>What a footwear supplier needs before quoting</h3><p>Style, quantity, size ratio, materials, packing, destination, timing and sample scope.</p><strong>Build a clearer buying brief →</strong></Link><Link href="/resources/shoe-sample-approval-checklist/"><span>SAMPLE CONTROL</span><h3>Approve one physical sample without hidden assumptions</h3><p>Freeze the reference, review scope, acceptance criteria, exclusions and next revision.</p><strong>Open sample checklist →</strong></Link><Link href="/resources/private-label-walking-shoes-sourcing-guide/"><span>PRIVATE LABEL</span><h3>Move from shortlist to formal transaction</h3><p>Separate customization feasibility, sample evidence, quotation and order confirmation.</p><strong>Open buyer path →</strong></Link></div>
+        <div className="section-cta"><Link className="button button-secondary" href="/resources/">View all sourcing resources</Link></div>
+      </section>
+
       <section className="section collections">
         <div className="section-heading"><div><p className="eyebrow">PRIORITY SHORTLIST</p><h2>Six styles to begin a buyer conversation.</h2></div><p>Priority reflects current traffic evidence, range role and product differentiation—not invented sales volume.</p></div>
         <div className="product-grid">{featured.map((product) => <ProductCard key={product.code} product={product} />)}</div>
