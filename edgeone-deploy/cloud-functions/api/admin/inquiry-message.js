@@ -17,23 +17,35 @@ async function notifyBuyer(record, body, env, createTransportImpl) {
   } catch (error) { console.error("Buyer message email failed", record.reference, error); return false; }
 }
 
-export function createAdminInquiryMessageHandler({ getStoreImpl = getStore, createTransportImpl = nodemailer.createTransport } = {}) {
+export function createAdminInquiryMessageHandler({ getStoreImpl = getStore, createTransportImpl = nodemailer.createTransport, nowImpl = () => new Date() } = {}) {
   return async function onRequestPost(context) {
     if (!context.env?.INQUIRY_ADMIN_TOKEN) return response(503, { ok: false, message: "Inquiry dashboard access has not been configured." });
     if (!authorized(context.request, context.env)) return response(401, { ok: false, message: "Invalid access token." });
     let payload; try { payload = await context.request.json(); } catch { return response(400, { ok: false, message: "Invalid request." }); }
     const reference = clean(payload.reference, 40).toUpperCase(); const receivedAt = clean(payload.receivedAt, 40); const body = clean(payload.message, 2000); const date = receivedAt.slice(0, 10);
+    const recommendationId = clean(payload.recommendationId, 40); const recommendationFollowUpStage = clean(payload.recommendationFollowUpStage, 40); const linkedFollowUp = Boolean(recommendationId || recommendationFollowUpStage);
     if (!/^BQ-[A-Z0-9-]+$/.test(reference) || !/^\d{4}-\d{2}-\d{2}$/.test(date) || body.length < 2) return response(400, { ok: false, message: "Check the inquiry and message." });
+    if (linkedFollowUp && (!/^REC-[A-F0-9]{12}$/.test(recommendationId) || !["selection_check", "sample_or_quote"].includes(recommendationFollowUpStage))) return response(400, { ok: false, message: "Check the recommendation follow-up reference and stage." });
     try {
       const store = getStoreImpl("beiqiang-inquiries"); const key = `inquiries/${date}/${reference}.json`; const record = await store.get(key, { type: "json", consistency: "strong" });
       if (!record) return response(404, { ok: false, message: "Inquiry record was not found." });
       const messages = Array.isArray(record.messages) ? record.messages : [];
       if (messages.length >= 100) return response(409, { ok: false, message: "This message thread is full. Continue using email or WhatsApp." });
-      const sentAt = new Date().toISOString(); const message = { id: `MSG-${randomBytes(6).toString("hex").toUpperCase()}`, sender: "sales", body, sentAt, notificationSent: false };
-      const updated = { ...record, messages: [...messages, message], lastContactedAt: sentAt.slice(0, 10), updatedAt: sentAt };
+      const recommendations = Array.isArray(record.recommendationSets) ? record.recommendationSets : []; const recommendation = linkedFollowUp ? recommendations.find((item) => item.id === recommendationId) : null;
+      if (linkedFollowUp && (!recommendation || recommendation.status !== "issued" || recommendation.buyerRespondedAt)) return response(409, { ok: false, message: "The buyer already responded or this recommendation is no longer active." });
+      const existingFollowUps = Array.isArray(recommendation?.followUps) ? recommendation.followUps : []; const expectedStage = existingFollowUps.length === 0 ? "selection_check" : existingFollowUps.length === 1 ? "sample_or_quote" : "";
+      if (linkedFollowUp && (!expectedStage || recommendationFollowUpStage !== expectedStage)) return response(409, { ok: false, message: expectedStage ? `Send the ${expectedStage.replaceAll("_", " ")} follow-up next.` : "The two-step recommendation follow-up is complete. Use a normal message or close/revise the opportunity after review." });
+      const followUpBase = existingFollowUps.length ? existingFollowUps.at(-1).sentAt : recommendation?.issuedAt; const minimumDays = existingFollowUps.length ? 4 : 2; const baseDate = String(followUpBase || "").slice(0, 10); const due = /^\d{4}-\d{2}-\d{2}$/.test(baseDate) ? new Date(`${baseDate}T00:00:00.000Z`) : null; if (due) due.setUTCDate(due.getUTCDate() + minimumDays);
+      const now = nowImpl(); const today = now.toISOString().slice(0, 10); const dueDate = due?.toISOString().slice(0, 10) || ""; if (linkedFollowUp && dueDate && today < dueDate) return response(409, { ok: false, message: `This follow-up is scheduled for ${dueDate}. Review it then to avoid repetitive buyer contact.` });
+      const sentAt = now.toISOString(); const message = { id: `MSG-${randomBytes(6).toString("hex").toUpperCase()}`, sender: "sales", body, sentAt, notificationSent: false, recommendationId: linkedFollowUp ? recommendationId : "", recommendationFollowUpStage: linkedFollowUp ? recommendationFollowUpStage : "" };
+      const followUp = linkedFollowUp ? { id: `RFU-${randomBytes(6).toString("hex").toUpperCase()}`, stage: recommendationFollowUpStage, body, sentAt, sentBy: clean(payload.sentBy, 100) || record.owner || "Sales team", notificationSent: false } : null;
+      const nextActionDue = linkedFollowUp ? (() => { const value = new Date(sentAt); value.setUTCDate(value.getUTCDate() + (recommendationFollowUpStage === "selection_check" ? 4 : 5)); return value.toISOString().slice(0, 10); })() : record.nextActionDue;
+      const nextAction = linkedFollowUp ? (recommendationFollowUpStage === "selection_check" ? "Review the buyer's shortlist response; if none, send the final sample/quotation choice follow-up after human review." : "Review whether to revise the product direction, continue personally, or close as no response. Do not send another automated-sequence message.") : record.nextAction;
+      const recommendationSets = linkedFollowUp ? recommendations.map((item) => item.id === recommendationId ? { ...item, followUps: [...existingFollowUps, followUp] } : item) : recommendations;
+      const updated = { ...record, messages: [...messages, message], recommendationSets, lastContactedAt: sentAt.slice(0, 10), nextAction, nextActionDue, updatedAt: sentAt };
       await store.setJSON(key, updated, { cacheControl: null });
       const notificationSent = await notifyBuyer(record, body, context.env || {}, createTransportImpl);
-      if (notificationSent) { updated.messages = updated.messages.map((item) => item.id === message.id ? { ...item, notificationSent: true } : item); await store.setJSON(key, updated, { cacheControl: null }); }
+      if (notificationSent) { updated.messages = updated.messages.map((item) => item.id === message.id ? { ...item, notificationSent: true } : item); if (linkedFollowUp) updated.recommendationSets = updated.recommendationSets.map((item) => item.id === recommendationId ? { ...item, followUps: item.followUps.map((entry) => entry.id === followUp.id ? { ...entry, notificationSent: true } : entry) } : item); await store.setJSON(key, updated, { cacheControl: null }); }
       return response(201, { ok: true, record: adminSafeRecord(updated), notificationSent });
     } catch (error) { console.error("Admin inquiry message failed", error); return response(503, { ok: false, message: "Message could not be saved." }); }
   };

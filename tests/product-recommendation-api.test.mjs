@@ -33,7 +33,7 @@ test("saves an immutable shortlist before emailing the buyer", async () => {
   const old = { id: "REC-111111111111", title: "Old", items: [], status: "issued", issuedAt: "2026-08-22T00:00:00.000Z" };
   const handler = createAdminRecommendationHandler({ getStoreImpl: () => ({ get: async () => ({ ...baseRecord, recommendationSets: [old] }), setJSON: async (key, value) => { saved = structuredClone(value); } }), createTransportImpl: () => ({ sendMail: async (mail) => { savedBeforeEmail = Boolean(saved?.recommendationSets?.at(-1)); mails.push(mail); } }) });
   const result = await handler({ request: adminRequest(), env: { INQUIRY_ADMIN_TOKEN: "correct", SMTP_PASS: "test" } }); const body = await result.json();
-  assert.equal(result.status, 201); assert.equal(savedBeforeEmail, true); assert.equal(saved.recommendationSets[0].status, "superseded"); assert.equal(saved.recommendationSets.at(-1).items.length, 2); assert.equal(saved.recommendationSets.at(-1).notificationSent, true); assert.equal(body.record.accessTokenHash, undefined); assert.equal(mails.length, 1); assert.match(mails[0].text, /not a quotation/i);
+  assert.equal(result.status, 201); assert.equal(savedBeforeEmail, true); assert.equal(saved.recommendationSets[0].status, "superseded"); assert.equal(saved.recommendationSets.at(-1).items.length, 2); assert.deepEqual(saved.recommendationSets.at(-1).followUps, []); assert.equal(saved.recommendationSets.at(-1).notificationSent, true); assert.equal(body.record.accessTokenHash, undefined); assert.equal(mails.length, 1); assert.match(mails[0].text, /not a quotation/i);
 });
 
 function buyerRequest(overrides = {}) {
@@ -45,7 +45,7 @@ test("records a buyer shortlist response before notifying sales", async () => {
   const recommendation = { id: "REC-ABCDEF012345", title: "Two options", items: [{ code: "BQ001", reason: "Reason one" }, { code: "BQ009", reason: "Reason two" }], status: "issued", issuedAt: receivedAt };
   const handler = createRecommendationResponseHandler({ getStoreImpl: () => ({ get: async () => ({ ...baseRecord, recommendationSets: [recommendation] }), setJSON: async (key, value) => { saved = structuredClone(value); } }), createTransportImpl: () => ({ sendMail: async () => { savedBeforeEmail = saved?.recommendationSets?.[0]?.status === "buyer_shortlisted"; } }) });
   const result = await handler({ request: buyerRequest(), env: { SMTP_PASS: "test" } }); const body = await result.json();
-  assert.equal(result.status, 201); assert.equal(savedBeforeEmail, true); assert.deepEqual(saved.recommendationSets[0].selectedCodes, ["BQ001"]); assert.equal(saved.recommendationSets[0].responseNotificationSent, true); assert.match(body.message, /selected product directions/i);
+  assert.equal(result.status, 201); assert.equal(savedBeforeEmail, true); assert.deepEqual(saved.recommendationSets[0].selectedCodes, ["BQ001"]); assert.equal(saved.recommendationSets[0].responseNotificationSent, true); assert.match(saved.nextAction, /BQ001 quantities, colors, size ratio and sample direction/i); assert.equal(saved.nextActionDue, saved.updatedAt.slice(0, 10)); assert.match(body.message, /selected product directions/i);
 });
 
 test("blocks products outside the issued recommendation and duplicate responses", async () => {

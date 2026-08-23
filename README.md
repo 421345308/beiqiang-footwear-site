@@ -308,6 +308,15 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - `POST /api/recommendation-response` requires the inquiry reference and private access code, accepts only products contained in the current recommendation, blocks duplicate responses and saves the buyer decision before notifying sales.
 - A product recommendation or buyer shortlist response is not a quotation, sample approval, stock confirmation, technical-capability confirmation or order. Quantity, colors, size ratio, sample direction and commercial terms must still be confirmed through the quote workflow.
 
+## Recommendation Follow-up Cadence
+
+- An issued shortlist enters a two-step, human-reviewed follow-up cadence: selection check two calendar days after issue, then sample/quotation choice four calendar days after the first follow-up.
+- The reminder center surfaces due and due-soon shortlist actions. It never contacts a buyer automatically.
+- Sales must load and review the buyer-specific draft, verify the product codes and facts, keep one clear next action, then explicitly save and notify the buyer.
+- Every follow-up is saved in the private inquiry thread and in the immutable recommendation history before email is attempted. An email failure does not erase the message.
+- A buyer response stops the cadence immediately. The sequence also stops after two messages; sales must then decide whether to revise the direction, continue personally or close the opportunity after review.
+- The server enforces timing, order, active-recommendation state and the two-message cap. These follow-ups do not confirm price, stock, sample availability, product specification or an order.
+
 ## Order Handoff
 
 - Sales can save an Alibaba Trade Assurance order reference plus its exact Alibaba.com HTTPS URL, or a bilateral contract reference without publishing a private contract file.

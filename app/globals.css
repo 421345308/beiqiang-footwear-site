@@ -710,13 +710,13 @@ footer a:hover { color: var(--forest); }
 .admin-reminder-heading p { margin: 0; color: var(--muted); }
 .admin-reminder-heading > div:last-child { display: flex; gap: 9px; }
 .admin-reminder-heading button:not(.button) { padding: 9px 12px; border: 1px solid var(--line); background: white; cursor: pointer; }
-.reminder-counts { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); background: white; border: 1px solid var(--line); }
+.reminder-counts { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); background: white; border: 1px solid var(--line); }
 .reminder-counts article { padding: 17px; }
 .reminder-counts article + article { border-left: 1px solid var(--line); }
 .reminder-counts small, .reminder-counts strong { display: block; }
 .reminder-counts small { color: var(--muted); font-size: 9px; font-weight: 800; }
 .reminder-counts strong { margin-top: 7px; font-family: Georgia, serif; font-size: 27px; }
-.reminder-lists { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.reminder-lists { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
 .reminder-lists > div { padding: 15px; border: 1px solid var(--line); background: white; }
 .reminder-lists h3 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 20px; }
 .reminder-lists p { margin: 0; padding: 9px 0; display: grid; gap: 3px; border-top: 1px solid var(--line); }
@@ -1005,6 +1005,13 @@ footer a:hover { color: var(--forest); }
 .recommendation-history article { padding: 11px; display: grid; grid-template-columns: 1fr auto; gap: 5px 18px; border: 1px solid var(--line); background: white; }
 .recommendation-history article div span, .recommendation-history article small { display: block; color: var(--muted); font-size: 10px; }
 .recommendation-history article p { grid-column: 1 / -1; margin: 0; font-size: 11px; }
+.recommendation-nurture { margin-top: 18px; padding: 15px; display: grid; gap: 12px; border: 1px solid #c8d6c2; background: #f4f8f1; }
+.recommendation-nurture > div { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.recommendation-nurture > div > div span, .recommendation-nurture > small { display: block; color: var(--muted); font-size: 10px; }
+.recommendation-nurture textarea { width: 100%; padding: 12px; border: 1px solid var(--line); background: white; font: inherit; resize: vertical; }
+.recommendation-nurture button { padding: 9px 12px; border: 1px solid var(--ink); background: var(--ink); color: white; font: inherit; font-size: 10px; font-weight: 800; cursor: pointer; }
+.recommendation-nurture button:disabled { cursor: not-allowed; opacity: .45; }
+.recommendation-history ol { grid-column: 1 / -1; margin: 3px 0 0; padding-left: 18px; color: var(--muted); font-size: 10px; }
 .buyer-product-recommendation { margin: 28px 0; padding: 30px; border: 1px solid #c9d7cf; background: linear-gradient(135deg, #f9fbf8, #eef4ef); scroll-margin-top: 100px; }
 .buyer-recommendation-heading { display: flex; justify-content: space-between; gap: 28px; align-items: flex-start; }
 .buyer-recommendation-heading h3 { margin: 7px 0 10px; font-family: Georgia, serif; font-size: 32px; color: var(--forest); }

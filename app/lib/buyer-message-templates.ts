@@ -2,6 +2,8 @@ export type BuyerMessageRecord = {
   reference: string;
   name?: string;
   company?: string;
+  market?: string;
+  buyerType?: string;
   status?: string;
   styleCode?: string;
   projectPath?: string;
@@ -18,6 +20,8 @@ export const BUYER_MESSAGE_TEMPLATES = [
 ] as const;
 
 export type BuyerMessageTemplateId = typeof BUYER_MESSAGE_TEMPLATES[number]["id"];
+export type RecommendationFollowUpStage = "selection_check" | "sample_or_quote";
+export type BuyerRecommendationForFollowUp = { id: string; title: string; items: { code: string }[]; nextStep: string; followUps?: { stage: RecommendationFollowUpStage }[] };
 
 function inline(value: unknown, fallback: string, max = 160) {
   const result = String(value || "").replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
@@ -60,4 +64,11 @@ export function buildBuyerMessageTemplate(record: BuyerMessageRecord, id: BuyerM
     order_handoff: `${greeting(record)}\n\nFor reference ${reference}, please confirm the exact Alibaba Trade Assurance order or bilateral contract reference and the approved style, quantity, colors, size ratio, packing and shipment terms before the next order action.\n\nUse only the verified Alibaba order or agreed contract channel for payment. This website does not collect card or bank credentials, and a website status is not proof of payment.\n\n${signature}`,
   };
   return messages[id];
+}
+
+export function buildRecommendationFollowUp(record: BuyerMessageRecord, recommendation: BuyerRecommendationForFollowUp, stage: RecommendationFollowUpStage) {
+  const productCodes = [...new Set(recommendation.items.map((item) => inline(item.code, "", 30)).filter(Boolean))].join(", ") || "the recommended styles";
+  const reference = inline(record.reference, "your inquiry", 80); const market = inline(record.market, "your target market", 100); const buyerType = inline(record.buyerType, "B2B buyer", 100);
+  if (stage === "selection_check") return `${greeting(record)}\n\nI am following up on the product shortlist for reference ${reference}: ${productCodes}.\n\nPlease choose the style or styles that best fit your ${market} ${buyerType} project, or reply with the exact product direction that should change. To prepare a useful next step, include estimated quantity, preferred colors and size range.\n\nThe shortlist is a sourcing direction, not confirmation of price, stock, fit, materials or sample availability.\n\n${signature}`;
+  return `${greeting(record)}\n\nBefore we pause the shortlist review for reference ${reference}, please reply with one next step for ${productCodes}:\n1. arrange a sample discussion;\n2. prepare a quotation after quantity, colors and size ratio are supplied; or\n3. replace these options using your updated product criteria.\n\nWe will not assume an order, reserve stock or confirm timing without your reply and written commercial review.\n\n${signature}`;
 }

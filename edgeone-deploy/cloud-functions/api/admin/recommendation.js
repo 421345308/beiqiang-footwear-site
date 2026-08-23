@@ -46,7 +46,7 @@ export function createAdminRecommendationHandler({ getStoreImpl = getStore, crea
       if (!record) return response(404, { ok: false, message: "Inquiry record was not found." });
       if (["lost", "spam", "order_confirmed"].includes(record.status)) return response(409, { ok: false, message: "Reopen or verify this opportunity before issuing a new product shortlist." });
       const issuedAt = new Date().toISOString(); const current = Array.isArray(record.recommendationSets) ? record.recommendationSets : [];
-      const recommendation = { id: `REC-${randomBytes(6).toString("hex").toUpperCase()}`, title, introduction, items: itemResult.items, nextStep, status: "issued", issuedAt, issuedBy: clean(payload.issuedBy, 100) || record.owner || "Sales team", buyerDecision: "", selectedCodes: [], buyerNote: "", buyerRespondedAt: "", notificationSent: false };
+      const recommendation = { id: `REC-${randomBytes(6).toString("hex").toUpperCase()}`, title, introduction, items: itemResult.items, nextStep, status: "issued", issuedAt, issuedBy: clean(payload.issuedBy, 100) || record.owner || "Sales team", buyerDecision: "", selectedCodes: [], buyerNote: "", buyerRespondedAt: "", notificationSent: false, followUps: [] };
       const prior = current.map((item) => item.status === "superseded" ? item : { ...item, status: "superseded" }).slice(-19);
       const updated = { ...record, recommendationSets: [...prior, recommendation], buyerUpdate: `A focused ${recommendation.items.length}-style product shortlist is ready for your review.`, lastContactedAt: issuedAt.slice(0, 10), updatedAt: issuedAt };
       await store.setJSON(key, updated, { cacheControl: null });
