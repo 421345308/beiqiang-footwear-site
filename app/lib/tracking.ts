@@ -11,6 +11,16 @@ export type Attribution = {
 };
 
 const STORAGE_KEY = "beiqiang_first_touch";
+const CONSENT_KEY = "beiqiang_analytics_consent";
+
+export function analyticsConsent() {
+  if (typeof window === "undefined") return null;
+  try { const value = localStorage.getItem(CONSENT_KEY); return value === "yes" ? true : value === "no" ? false : null; } catch { return null; }
+}
+
+export function setAnalyticsConsent(value: boolean) {
+  try { localStorage.setItem(CONSENT_KEY, value ? "yes" : "no"); if (!value) sessionStorage.removeItem(STORAGE_KEY); window.dispatchEvent(new Event("beiqiang-consent-changed")); } catch { /* preference storage unavailable */ }
+}
 
 function clean(value: string | null, max = 300) {
   return (value ?? "").trim().slice(0, max);
@@ -20,6 +30,7 @@ export function getAttribution(): Attribution {
   if (typeof window === "undefined") {
     return { utmSource: "", utmMedium: "", utmCampaign: "", utmContent: "", utmTerm: "", landingPage: "", referrer: "" };
   }
+  if (analyticsConsent() !== true) return { utmSource: "", utmMedium: "", utmCampaign: "", utmContent: "", utmTerm: "", landingPage: "", referrer: "" };
 
   const params = new URLSearchParams(window.location.search);
   const current: Attribution = {
@@ -44,6 +55,7 @@ export function getAttribution(): Attribution {
 
 export function trackEvent(event: string, details: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
+  if (analyticsConsent() !== true) return;
   const body = JSON.stringify({
     event,
     details,

@@ -44,7 +44,7 @@ export default function Home() {
           <dl className="hero-facts"><div><dt>30</dt><dd>Product packages in one catalogue</dd></div><div><dt>03</dt><dd>Buyer-intent collections</dd></div><div><dt>01</dt><dd>Inquiry trail for every style</dd></div></dl>
         </div>
         <div className="hero-visual">
-          <div className="hero-image-wrap"><img src="/catalog/bq009/01_main.jpg" alt="BQ009 L1026 mesh thick-sole athletic walking shoe" /></div>
+          <div className="hero-image-wrap"><img src="/catalog-web/bq009/01_main.webp" alt="BQ009 L1026 mesh thick-sole athletic walking shoe" width={800} height={800} fetchPriority="high" /></div>
           <div className="floating-card floating-card-top"><span className="dot" /><div><small>CURRENT LEAD STYLE</small><strong>BQ009 / L1026</strong></div></div>
           <div className="floating-card floating-card-bottom"><small>BUYER WORKFLOW</small><strong>Shortlist · Sample · Confirm</strong><span>No unsupported claims</span></div>
         </div>
@@ -57,6 +57,15 @@ export default function Home() {
         <div className="collection-grid">{collections.map((collection) => <Link key={collection.slug} href={`/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>Explore collection →</strong></Link>)}</div>
       </section>
 
+      <section className="section sourcing-program-entry">
+        <div className="section-heading"><div><p className="eyebrow">CHOOSE YOUR SOURCING PATH</p><h2>Start with the commercial decision you need to make.</h2></div><p>Dedicated buyer pages explain what to prepare, which products to review and which facts remain open before quotation.</p></div>
+        <div className="sourcing-program-entry-grid">
+          <Link href="/solutions/wholesale-walking-shoes/" onClick={() => trackEvent("sourcing_program_cta", { context: "homepage_wholesale" })}><span>01 · STOCK RANGE</span><h3>Wholesale walking shoes</h3><p>Build a multi-style assortment for importing, distribution or marketplace testing.</p><strong>Open wholesale path →</strong></Link>
+          <Link href="/solutions/private-label-walking-shoes/" onClick={() => trackEvent("sourcing_program_cta", { context: "homepage_private_label" })}><span>02 · BASE STYLE</span><h3>Private-label walking shoes</h3><p>Start from a documented product and review logo, color, labeling and packing changes.</p><strong>Open private-label path →</strong></Link>
+          <Link href="/solutions/oem-knit-shoes/" onClick={() => trackEvent("sourcing_program_cta", { context: "homepage_oem" })}><span>03 · DEVELOPMENT</span><h3>OEM knit-shoe project</h3><p>Structure a technical brief without presenting buyer targets as existing capability.</p><strong>Open OEM path →</strong></Link>
+        </div>
+      </section>
+
       <section className="section collections">
         <div className="section-heading"><div><p className="eyebrow">PRIORITY SHORTLIST</p><h2>Six styles to begin a buyer conversation.</h2></div><p>Priority reflects current traffic evidence, range role and product differentiation—not invented sales volume.</p></div>
         <div className="product-grid">{featured.map((product) => <ProductCard key={product.code} product={product} />)}</div>
@@ -64,7 +73,7 @@ export default function Home() {
       </section>
 
       <section className="proof-section" id="proof">
-        <div className="proof-image"><img src="/factory/batch-check.jpg" alt="Footwear batch checking and sorting before packing" /></div>
+        <div className="proof-image"><img src="/factory-web/batch-check.webp" alt="Footwear batch checking and sorting before packing" loading="lazy" decoding="async" /></div>
         <div className="proof-copy"><p className="eyebrow eyebrow-light">FACTORY PROOF, NOT GENERIC PROMISES</p><h2>See the product. Check the details. Reduce sourcing risk.</h2><p>Our buyer workflow is based on real shoe photos, style-by-style specification confirmation and sample checking before bulk-order discussion.</p><ul><li><span>01</span> Product and color selection</li><li><span>02</span> Material, size and packing confirmation</li><li><span>03</span> Sample check before final bulk terms</li></ul><a className="button button-light" href="#inquiry">Prepare your inquiry</a></div>
       </section>
 

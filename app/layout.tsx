@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
+import ConsentBanner from "./components/ConsentBanner";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -10,20 +11,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(origin),
-    title: "Beiqiang Footwear | Wide Toe Box Walking Shoe Factory Supply",
-    description: "Quanzhou footwear factory supply for wide toe box comfort walking shoes, lightweight slip-ons and casual textile footwear. Samples and OEM/ODM requirements can be discussed before bulk orders.",
+    title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
+    description: "Quanzhou footwear factory supply for verified walking shoes, wide-toe styles, lightweight slip-ons and casual textile footwear. Samples and OEM/ODM requirements can be discussed before bulk orders.",
     alternates: { canonical: "https://www.beiqiang.online/" },
     openGraph: {
-      title: "Beiqiang Footwear | Wide Toe Box Walking Shoe Factory Supply",
-      description: "Factory-direct B2B supply of comfort walking shoes for importers, wholesalers, online sellers and brand buyers.",
+      title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
+      description: "Factory-direct B2B supply of verified walking and casual footwear for importers, wholesalers, online sellers and brand buyers.",
       type: "website",
-      images: [{ url: new URL("/og.png", origin).toString(), width: 1536, height: 1024, alt: "Beiqiang Footwear factory supply" }],
+      images: [{ url: new URL("/og.jpg", origin).toString(), width: 1536, height: 1024, alt: "Beiqiang Footwear factory supply" }],
     },
     twitter: {
       card: "summary_large_image",
       title: "Beiqiang Footwear | B2B Walking Shoe Supply",
       description: "Request a sample and discuss specifications before bulk orders.",
-      images: [new URL("/og.png", origin).toString()],
+      images: [new URL("/og.jpg", origin).toString()],
     },
   };
 }
@@ -40,5 +41,5 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     sameAs: ["https://cn1576227362luzl.m.en.alibaba.com/"],
   };
 
-  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />{children}</body></html>;
+  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />{children}<ConsentBanner /></body></html>;
 }

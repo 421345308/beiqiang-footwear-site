@@ -7,6 +7,7 @@ export type CapabilityPageData = {
   title: string;
   introduction: string;
   primaryCta: string;
+  primaryHref?: string;
   proofLabel: string;
   proofTitle: string;
   proofCopy: string;
@@ -22,6 +23,7 @@ export type CapabilityPageData = {
 };
 
 export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
+  const webImage = (src: string) => src.startsWith("/factory/") ? src.replace("/factory/", "/factory-web/").replace(/\.(?:jpe?g|png)$/i, ".webp") : src;
   return (
     <main>
       <SiteHeader />
@@ -31,7 +33,7 @@ export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
           <h1>{data.title}</h1>
           <p className="hero-lead">{data.introduction}</p>
           <div className="hero-actions">
-            <Link className="button" href="/#inquiry">{data.primaryCta}</Link>
+            <Link className="button" href={data.primaryHref || "/#inquiry"}>{data.primaryCta}</Link>
             <Link className="text-link" href="/products/">Shortlist products <span aria-hidden="true">→</span></Link>
           </div>
         </div>
@@ -50,7 +52,7 @@ export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
         <div className="capability-gallery">
           {data.images.map((image, index) => (
             <figure key={image.src} className={index === 0 ? "capability-gallery-lead" : ""}>
-              <img src={image.src} alt={image.alt} loading={index > 0 ? "lazy" : undefined} />
+              <img src={webImage(image.src)} alt={image.alt} loading={index > 0 ? "lazy" : undefined} decoding="async" />
               <figcaption>{image.caption}</figcaption>
             </figure>
           ))}
@@ -71,7 +73,7 @@ export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
 
       <section className="section capability-closing">
         <div><p className="eyebrow">NEXT STEP</p><h2>{data.closingTitle}</h2><p>{data.closingCopy}</p></div>
-        <div className="hero-actions"><Link className="button" href="/#inquiry">Send sourcing requirements</Link><a className="text-link" href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">Discuss on WhatsApp <span aria-hidden="true">→</span></a></div>
+        <div className="hero-actions"><Link className="button" href={data.primaryHref || "/#inquiry"}>Send sourcing requirements</Link><a className="text-link" href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">Discuss on WhatsApp <span aria-hidden="true">→</span></a></div>
       </section>
       <SiteFooter />
     </main>

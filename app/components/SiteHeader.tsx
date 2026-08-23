@@ -1,4 +1,6 @@
 import Link from "next/link";
+import QuoteListLink from "./QuoteListLink";
+import MobileNavigation from "./MobileNavigation";
 
 export default function SiteHeader() {
   return (
@@ -14,12 +16,14 @@ export default function SiteHeader() {
         </Link>
         <nav aria-label="Primary navigation">
           <Link href="/products/">All products</Link>
+          <Link href="/line-sheet/">Line sheet</Link>
           <Link href="/factory/">Factory</Link>
           <Link href="/quality-packing/">Quality &amp; packing</Link>
           <Link href="/oem-odm/">OEM / ODM</Link>
-          <Link href="/sample-order-process/">Order process</Link>
+          <Link href="/buyer-guide/">Buyer guide</Link>
         </nav>
-        <Link className="button button-small" href="/#inquiry">Request a sample</Link>
+        <QuoteListLink />
+        <MobileNavigation />
       </header>
     </>
   );

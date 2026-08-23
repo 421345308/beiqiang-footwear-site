@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { getAttribution, trackEvent } from "../lib/tracking";
+import InquiryAttachmentUploader from "./InquiryAttachmentUploader";
 
 type InquiryFormProps = {
   styleCode: string;
@@ -23,6 +25,7 @@ export default function InquiryForm({ styleCode, styleLabel, context }: InquiryF
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: "Your request will be saved and assigned a reference number." });
+  const [accessDetails, setAccessDetails] = useState<{ reference: string; accessCode: string } | null>(null);
   const startedAt = useRef(0);
   const formStartedTracked = useRef(false);
 
@@ -76,7 +79,9 @@ export default function InquiryForm({ styleCode, styleLabel, context }: InquiryF
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) throw new Error(result.message || "The request could not be saved.");
 
-      setStatus({ kind: "success", message: `Request saved. Reference: ${result.reference}. We will use your contact details to follow up.` });
+      setAccessDetails({ reference: result.reference, accessCode: result.accessCode || "" });
+      if (result.accessCode) localStorage.setItem("beiqiang_last_inquiry_access", JSON.stringify({ reference: result.reference, accessCode: result.accessCode }));
+      setStatus({ kind: "success", message: `Request saved. Reference: ${result.reference}. Private status code: ${result.accessCode || "sent separately"}. Save both values.` });
       trackEvent("form_submit", { context, styleCode, reference: result.reference });
     } catch (error) {
       setStatus({ kind: "error", message: error instanceof Error ? error.message : "The request could not be saved. Please use WhatsApp or email below." });
@@ -97,6 +102,7 @@ export default function InquiryForm({ styleCode, styleLabel, context }: InquiryF
       <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>I agree that Beiqiang may use these details to respond to this sourcing request.</span></label>
       <button className="button button-light form-button" type="submit" disabled={status.kind === "sending" || status.kind === "success"}>{status.kind === "sending" ? "Saving request…" : status.kind === "success" ? "Request saved" : "Submit sample / quotation request"}</button>
       <p className={`form-note form-note-${status.kind}`} aria-live="polite">{status.message}</p>
+      {status.kind === "success" && accessDetails?.accessCode && <><Link className="inquiry-status-link" href="/inquiry-status/">Check this request status →</Link><InquiryAttachmentUploader reference={accessDetails.reference} accessCode={accessDetails.accessCode} /></>}
       <details className="inquiry-preview"><summary>Review inquiry brief</summary><pre>{inquiryBrief}</pre></details>
     </form>
   );

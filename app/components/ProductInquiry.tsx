@@ -10,9 +10,10 @@ type ProductInquiryProps = {
   code: string;
   label: string;
   productName: string;
+  alibabaProductId?: string;
 };
 
-export default function ProductInquiry({ code, label, productName }: ProductInquiryProps) {
+export default function ProductInquiry({ code, label, productName, alibabaProductId }: ProductInquiryProps) {
   const context = `${code.toLowerCase()}_inquiry`;
 
   useEffect(() => {
@@ -22,6 +23,8 @@ export default function ProductInquiry({ code, label, productName }: ProductInqu
   const brief = `Hello Beiqiang, I am interested in ${code} ${productName}. Please discuss sample availability and quotation requirements.`;
   const whatsappHref = `https://wa.me/8618959805256?text=${encodeURIComponent(brief)}`;
   const emailHref = `mailto:421345308@qq.com?subject=${encodeURIComponent(`${code} sample / quotation request`)}&body=${encodeURIComponent(brief)}`;
+  const productSlug = productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const alibabaHref = alibabaProductId ? `https://www.alibaba.com/product-detail/${productSlug}_${alibabaProductId}.html` : ALIBABA_STORE;
 
   return (
     <div className="product-inquiry-grid">
@@ -32,7 +35,7 @@ export default function ProductInquiry({ code, label, productName }: ProductInqu
         <div className="contact-links" aria-label={`Contact Beiqiang Footwear about ${code}`}>
           <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { context, styleCode: code })}>Send {code} brief on WhatsApp</a>
           <a className="contact-text-link" href={emailHref} onClick={() => trackEvent("email_click", { context, styleCode: code })}>Email 421345308@qq.com</a>
-          <a className="contact-text-link" href={ALIBABA_STORE} target="_blank" rel="noreferrer" onClick={() => trackEvent("alibaba_click", { context, styleCode: code })}>Continue on Alibaba.com</a>
+          <a className="contact-text-link" href={alibabaHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("alibaba_click", { context, styleCode: code, linkType: alibabaProductId ? "product" : "store" })}>{alibabaProductId ? `Open ${code} on Alibaba.com` : "View Beiqiang Alibaba.com store"}</a>
         </div>
       </div>
       <InquiryForm styleCode={code} styleLabel={label} context="product" />
