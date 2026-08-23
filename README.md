@@ -299,6 +299,15 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Any buyer-visible issued quotation can be printed or saved as an A4 PDF for internal purchasing review. The print version retains line prices, totals, terms, notes, decision boundary, Beiqiang contact details and the quotation number.
 - Product-sheet and quotation printing use separate temporary body modes. Ordinary page printing is no longer accidentally hidden by product-sheet-only CSS.
 
+## Curated Buyer Product Shortlists
+
+- Every protected inquiry card lets an authorized salesperson choose 2–5 products from the verified 30-style catalogue, write a buyer-safe reason for each style, explain the recommendation context and define one commercial next step.
+- `POST /api/admin/recommendation` validates the admin token, exact BQ001–BQ030 style codes, unique products and complete buyer-facing copy before saving an immutable recommendation version. A new version supersedes the previous active version without deleting its response history.
+- The recommendation is saved before buyer email is attempted. Email failure does not erase the shortlist; the dashboard records whether notification succeeded.
+- The private buyer status page shows local product images, verified catalogue facts, product-page links and the salesperson's exact recommendation reasons. The buyer can select interested styles, request different options or add the chosen styles to the local quote list.
+- `POST /api/recommendation-response` requires the inquiry reference and private access code, accepts only products contained in the current recommendation, blocks duplicate responses and saves the buyer decision before notifying sales.
+- A product recommendation or buyer shortlist response is not a quotation, sample approval, stock confirmation, technical-capability confirmation or order. Quantity, colors, size ratio, sample direction and commercial terms must still be confirmed through the quote workflow.
+
 ## Order Handoff
 
 - Sales can save an Alibaba Trade Assurance order reference plus its exact Alibaba.com HTTPS URL, or a bilateral contract reference without publishing a private contract file.
@@ -388,7 +397,7 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 
 - `npm run dev`: start local development
 - `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
+- `npm test`: build the commercial site and run the complete product, inquiry, recommendation, sample, quotation, document, order and analytics test suite
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
 ## Learn More

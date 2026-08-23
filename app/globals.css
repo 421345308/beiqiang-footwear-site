@@ -561,7 +561,7 @@ footer a:hover { color: var(--forest); }
 .admin-access-card label { display: grid; gap: 8px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .admin-access-card input { width: 100%; padding: 14px 15px; border: 1px solid var(--line); background: var(--paper-light); color: var(--ink); }
 .admin-status { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
-.admin-metrics { margin-top: 20px; display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line); background: var(--forest); color: #fff; }
+.admin-metrics { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); border: 1px solid var(--line); background: var(--forest); color: #fff; }
 .admin-metrics article { padding: 26px; border-left: 1px solid rgba(255,255,255,.18); }
 .admin-metrics article:first-child { border-left: 0; }
 .admin-metrics small, .admin-metrics strong { display: block; }
@@ -985,11 +985,58 @@ footer a:hover { color: var(--forest); }
 .sourcing-program-close a:not(.button) { color: white; font-weight: 900; }
 .quote-program-origin { margin: 12px 0 0; color: #d8e4de; font-size: 12px; font-weight: 800; text-transform: capitalize; }
 
+/* Sales-curated product shortlist */
+.admin-product-recommendation { border-top: 1px solid var(--line); background: #f3f6f3; }
+.admin-product-recommendation > summary { padding: 18px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
+.recommendation-editor { padding: 0 22px 24px; }
+.recommendation-product-picker { margin: 8px 0 18px; }
+.recommendation-product-picker > div:first-child { margin-bottom: 8px; display: flex; justify-content: space-between; color: var(--forest); font-size: 11px; text-transform: uppercase; }
+.recommendation-product-picker > div:last-child { max-height: 340px; padding: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; overflow: auto; border: 1px solid var(--line); background: white; }
+.recommendation-product-picker label { min-width: 0; padding: 7px; display: grid; grid-template-columns: auto 48px 1fr; align-items: center; gap: 8px; border: 1px solid transparent; cursor: pointer; }
+.recommendation-product-picker label.selected { border-color: var(--terracotta); background: #fff5e7; }
+.recommendation-product-picker img { width: 48px; height: 48px; object-fit: contain; background: var(--paper); }
+.recommendation-product-picker label span, .recommendation-product-picker label small { min-width: 0; display: block; }
+.recommendation-product-picker label small { margin-top: 3px; overflow: hidden; color: var(--muted); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.recommendation-reasons { margin-bottom: 16px; display: grid; gap: 9px; }
+.recommendation-reasons label { display: grid; gap: 6px; color: var(--muted); font-size: 10px; }
+.recommendation-reasons textarea { width: 100%; padding: 10px; border: 1px solid var(--line); background: white; }
+.recommendation-history { margin-top: 20px; display: grid; gap: 8px; }
+.recommendation-history > strong { font-size: 11px; text-transform: uppercase; }
+.recommendation-history article { padding: 11px; display: grid; grid-template-columns: 1fr auto; gap: 5px 18px; border: 1px solid var(--line); background: white; }
+.recommendation-history article div span, .recommendation-history article small { display: block; color: var(--muted); font-size: 10px; }
+.recommendation-history article p { grid-column: 1 / -1; margin: 0; font-size: 11px; }
+.buyer-product-recommendation { margin: 28px 0; padding: 30px; border: 1px solid #c9d7cf; background: linear-gradient(135deg, #f9fbf8, #eef4ef); scroll-margin-top: 100px; }
+.buyer-recommendation-heading { display: flex; justify-content: space-between; gap: 28px; align-items: flex-start; }
+.buyer-recommendation-heading h3 { margin: 7px 0 10px; font-family: Georgia, serif; font-size: 32px; color: var(--forest); }
+.buyer-recommendation-heading p:not(.eyebrow) { max-width: 800px; margin: 0; color: var(--muted); line-height: 1.65; }
+.buyer-recommendation-heading > span { padding: 7px 10px; background: var(--forest); color: white; font-size: 10px; font-weight: 900; text-transform: uppercase; white-space: nowrap; }
+.buyer-recommendation-products { margin: 24px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.buyer-recommendation-products article { position: relative; padding: 10px; display: grid; grid-template-columns: 145px 1fr; gap: 16px; border: 1px solid var(--line); background: white; }
+.buyer-recommendation-products article.selected { border-color: var(--terracotta); box-shadow: inset 0 0 0 1px var(--terracotta); }
+.buyer-recommendation-products article > label { position: absolute; top: 16px; left: 16px; z-index: 1; padding: 6px 8px; display: flex; gap: 5px; background: white; color: var(--forest); font-size: 9px; font-weight: 900; text-transform: uppercase; }
+.buyer-recommendation-products img { width: 145px; height: 145px; object-fit: contain; background: var(--paper); }
+.buyer-recommendation-products article > div { padding: 7px 4px 4px; }
+.buyer-recommendation-products article > div > strong { color: var(--forest); font-family: Georgia, serif; font-size: 18px; line-height: 1.3; }
+.buyer-recommendation-products article p { margin: 8px 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.buyer-recommendation-products article small { display: block; margin-bottom: 11px; color: var(--muted); font-size: 10px; }
+.buyer-recommendation-next { padding: 17px 20px; border-left: 4px solid var(--terracotta); background: #fff9ee; }
+.buyer-recommendation-next strong { color: var(--forest); }
+.buyer-recommendation-next p { margin: 5px 0 0; color: var(--muted); line-height: 1.6; }
+.buyer-recommendation-response { margin-top: 18px; display: grid; gap: 10px; }
+.buyer-recommendation-response label { display: grid; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 800; }
+.buyer-recommendation-response textarea { padding: 12px; border: 1px solid var(--line); background: white; }
+.buyer-recommendation-response > div, .buyer-recommendation-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.buyer-recommendation-actions { margin: 18px 0 12px; }
+.buyer-recommendation-decision { margin: 18px 0; padding: 14px; background: #deeee3; color: #28553d; }
+.buyer-product-recommendation > small { display: block; color: var(--muted); line-height: 1.55; }
+
 @media (max-width: 1000px) {
   .site-header { grid-template-columns: 1fr auto auto; gap: 10px; }
   .site-header > nav { display: none; }
   .mobile-navigation { display: block; }
   .hero { grid-template-columns: 1fr; }
+  .recommendation-product-picker > div:last-child { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .buyer-recommendation-products { grid-template-columns: 1fr; }
   .hero-visual { min-height: 620px; }
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .proof-section, .inquiry-section, .product-hero { grid-template-columns: 1fr; }
@@ -1095,6 +1142,12 @@ footer a:hover { color: var(--forest); }
   .status-lookup-hero h1 { font-size: 46px; }
   .status-lookup-hero form { padding: 26px 20px; }
   .buyer-status-heading { align-items: flex-start; flex-direction: column; }
+  .buyer-recommendation-heading { flex-direction: column; }
+  .buyer-recommendation-products article { grid-template-columns: 110px 1fr; }
+  .buyer-recommendation-products img { width: 110px; height: 110px; }
+  .recommendation-product-picker > div:last-child { grid-template-columns: 1fr; }
+  .recommendation-history article { grid-template-columns: 1fr; }
+  .recommendation-history article p { grid-column: auto; }
   .buyer-next-action { align-items: flex-start; flex-direction: column; }
   .buyer-next-action-buttons { min-width: 0; justify-content: flex-start; }
   .buyer-status-timeline { grid-template-columns: 1fr; border-top: 0; border-left: 2px solid var(--line); }
@@ -1125,6 +1178,7 @@ footer a:hover { color: var(--forest); }
   .buyer-quote-table > div { min-width: 700px; }
   .buyer-quote-terms { grid-template-columns: 1fr; }
   .buyer-quote-response > div { align-items: stretch; flex-direction: column; }
+  .buyer-recommendation-response > div, .buyer-recommendation-actions { align-items: stretch; flex-direction: column; }
   .admin-toolbar { align-items: flex-start; flex-direction: column; }
   .admin-toolbar > div { align-items: flex-start; flex-direction: column; }
   .admin-card-top { flex-direction: column; }

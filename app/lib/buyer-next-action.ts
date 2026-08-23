@@ -1,6 +1,7 @@
 export type BuyerActionRequest = {
   status: { code: string };
   sampleProgram?: { status: string } | null;
+  buyerRecommendation?: { status: string; title: string } | null;
   buyerQuotation?: { status: string; quoteNumber: string } | null;
   buyerOrderRequest?: { quoteNumber: string } | null;
   orderHandoff?: { method: "alibaba_trade_assurance" | "contract"; orderReference: string; orderUrl?: string } | null;
@@ -16,5 +17,8 @@ export function getBuyerNextAction(request: BuyerActionRequest): BuyerNextAction
   if (request.buyerQuotation?.status === "buyer_accepted" && !request.buyerOrderRequest) return { eyebrow: "NEXT COMMERCIAL STEP", title: "Provide the formal order setup details", body: "Your quotation acceptance is recorded. Supply the legal purchasing entity, order channel, destination and requested timing so Beiqiang can prepare the formal documents.", actionLabel: "Start order setup request", href: "#order-setup-request", tone: "decision" };
   if (request.buyerOrderRequest) return { eyebrow: "ORDER PREPARATION IN PROGRESS", title: "Beiqiang is verifying your setup request", body: "The request is saved but is not yet a production order. Use the private thread for corrections while the eight written order items are checked.", actionLabel: "Message the sales team", href: "#buyer-message-center", tone: "progress" };
   if (request.buyerQuotation?.status === "buyer_declined") return { eyebrow: "REVISION UNDER REVIEW", title: "Keep the requested quotation change clear", body: "Beiqiang will review your recorded note. Add any missing style, quantity, packing, timing or trade-term detail in the private thread.", actionLabel: "Add a private message", href: "#buyer-message-center", tone: "review" };
+  if (request.buyerRecommendation?.status === "issued") return { eyebrow: "PRODUCT SHORTLIST READY", title: request.buyerRecommendation.title, body: "Review why each product was selected, choose the relevant styles and record whether this shortlist should move into sample or quotation discussion.", actionLabel: "Review recommended products", href: "#buyer-recommendation", tone: "decision" };
+  if (request.buyerRecommendation?.status === "buyer_shortlisted") return { eyebrow: "SHORTLIST RECORDED", title: "Turn selected styles into a complete quote request", body: "Add the selected products to your quote list, then provide quantity, colors and size ratio so Beiqiang can review commercially useful terms.", actionLabel: "Review selected styles", href: "#buyer-recommendation", tone: "progress" };
+  if (request.buyerRecommendation?.status === "revision_requested") return { eyebrow: "PRODUCT DIRECTION UNDER REVIEW", title: "Clarify the replacement product direction", body: "Your request for different options is recorded. Add any missing market, fit, closure, season, quantity or price-position context in the private message thread.", actionLabel: "Add product criteria", href: "#buyer-message-center", tone: "review" };
   return { eyebrow: "NEXT SOURCING STEP", title: "Complete the information needed for a useful reply", body: "Review the latest buyer-safe update and use the private thread for missing quantity, size, color, sample, destination or timing details.", actionLabel: "Message the sales team", href: "#buyer-message-center", tone: "review" };
 }

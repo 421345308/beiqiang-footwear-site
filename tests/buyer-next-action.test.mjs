@@ -29,3 +29,13 @@ test("closed requests never encourage a workflow submission", () => {
   const action = getBuyerNextAction({ status: { code: "closed" }, buyerQuotation: { status: "issued", quoteNumber: "Q1" } });
   assert.equal(action.tone, "closed"); assert.equal(action.href, "#buyer-contact-actions");
 });
+
+test("routes a buyer to an issued product recommendation before general qualification", () => {
+  const action = getBuyerNextAction({ ...open, buyerRecommendation: { status: "issued", title: "Three options for your market" } });
+  assert.equal(action.href, "#buyer-recommendation"); assert.match(action.title, /Three options/);
+});
+
+test("turns a recorded shortlist into a quote-building next step", () => {
+  const action = getBuyerNextAction({ ...open, buyerRecommendation: { status: "buyer_shortlisted", title: "Selected options" } });
+  assert.equal(action.href, "#buyer-recommendation"); assert.match(action.body, /quantity, colors and size ratio/i);
+});
