@@ -8,6 +8,20 @@ function bearer(request) { const match = /^Bearer\s+([a-f0-9]{64})$/i.exec(reque
 async function listRecords(store, max = 5000) { const records = []; let cursor; while (records.length < max) { const result = await store.list({ prefix: "inquiries/", limit: Math.min(500, max - records.length), cursor, consistency: "strong" }); const blobs = Array.isArray(result?.blobs) ? result.blobs : []; records.push(...(await Promise.all(blobs.map(({ key }) => store.get(key, { type: "json", consistency: "strong" })))).filter(Boolean)); if (!result?.cursor || !blobs.length) break; cursor = result.cursor; } return records; }
 
 function publicAction(kind, eyebrow, title, summary, label, anchor, rank) { return { kind, eyebrow, title, summary, label, anchor, rank }; }
+function safeText(value, fallback = "", max = 180) { return ["string", "number"].includes(typeof value) && String(value).trim() ? String(value).trim().slice(0, max) : fallback; }
+function publicWorkflowStatus(value, fallback = "Not started") {
+  const labels = {
+    draft: "Draft", issued: "Ready for buyer review", buyer_accepted: "Accepted on website", buyer_revision_requested: "Revision requested", buyer_declined: "Declined",
+    setup_requested: "Order setup requested", submitted: "Submitted", documents_in_review: "Documents under review", order_documents: "Order documents", payment_pending: "Payment pending",
+    production: "In production", quality_check: "Quality check", ready_to_ship: "Ready to ship", shipped: "Shipped", completed: "Completed",
+    buyer_review: "Ready for buyer review", approved: "Approved", revision_requested: "Revision requested", sampling: "Sample in progress", dispatched: "Sample dispatched",
+    qualified: "Qualified", shortlist: "Shortlist in progress", quotation: "Quotation in progress", formal_order: "Formal order preparation", converted: "Converted", closed: "Closed",
+    buyer_shortlisted: "Buyer shortlist recorded",
+  };
+  return labels[value] || fallback;
+}
+function uniqueCodes(values) { return Array.from(new Set(values.filter(Boolean).flatMap((value) => String(value).match(/BQ\d{3}/gi) || []).map((code) => code.toUpperCase()))).slice(0, 20); }
+function latestPublicQuote(record) { return Array.isArray(record.quotations) ? [...record.quotations].reverse().find((item) => ["issued", "buyer_accepted", "buyer_revision_requested", "buyer_declined"].includes(item.status)) : null; }
 
 export function workspaceAction(record, statusCode = "received") {
   if (statusCode === "closed") return publicAction("closed", "PROJECT CLOSED", "Contact Beiqiang if the sourcing direction changes", "This project is closed and will not accept new workflow decisions until Beiqiang reviews a reopening request.", "Review contact options", "buyer-contact-actions", 4);
@@ -37,13 +51,31 @@ export function workspaceAction(record, statusCode = "received") {
   return publicAction("beiqiang_review", "BEIQIANG REVIEW", "Your sourcing request is being reviewed", "Beiqiang is checking the submitted products and commercial context before the next buyer-safe update.", "Review project status", "buyer-message-center", 3);
 }
 
-function summary(record) {
+export function workspaceSummary(record) {
   const status = PUBLIC_STATUS[record.status] || PUBLIC_STATUS.new;
-  const codes = Array.from(new Set([...(Array.isArray(record.items) ? record.items.map((item) => item.code) : []), record.styleCode].filter(Boolean).flatMap((value) => String(value).match(/BQ\d{3}/gi) || []))).map((code) => code.toUpperCase());
-  const quote = Array.isArray(record.quotations) ? [...record.quotations].reverse().find((item) => ["issued", "buyer_accepted", "buyer_revision_requested", "buyer_declined"].includes(item.status)) : null;
+  const sourceItems = Array.isArray(record.items) ? record.items : [];
+  const codes = uniqueCodes([...sourceItems.map((item) => item.code), record.styleCode]);
+  const items = sourceItems.slice(0, 20).map((item) => ({ code: uniqueCodes([item.code])[0] || "", name: safeText(item.name, "Product direction", 120), quantity: safeText(item.quantity, "To confirm", 80), colors: safeText(item.colors, "To confirm", 120), sizes: safeText(item.sizes, "To confirm", 120) }));
+  if (!items.length && codes.length) items.push({ code: codes[0], name: safeText(record.styleLabel, "Product direction", 120), quantity: safeText(record.bulkQuantity || record.quantity, "To confirm", 80), colors: "To confirm", sizes: "To confirm" });
+  const quote = latestPublicQuote(record);
   const repeat = Array.isArray(record.repeatOrderOpportunities) ? [...record.repeatOrderOpportunities].reverse().find((item) => !["converted", "closed"].includes(item.status)) : null;
+  const recommendation = Array.isArray(record.recommendationSets) ? [...record.recommendationSets].reverse().find((item) => item.status !== "superseded") : null;
+  const sample = record.sampleProgram || null;
+  const order = record.orderHandoff || null;
   const action = workspaceAction(record, status[0]);
-  return { reference: record.reference, receivedAt: record.receivedAt, updatedAt: record.updatedAt || record.receivedAt, status: { code: status[0], label: status[1], step: status[2] }, styleCodes: codes, styleLabel: record.styleLabel || "Sourcing project", quantity: record.bulkQuantity || record.quantity || "To confirm", destination: record.deliveryDestination || "To confirm", buyerUpdate: record.buyerUpdate || "Beiqiang is reviewing this sourcing request.", action, hasIssuedQuotation: Boolean(quote), hasOrder: Boolean(record.orderHandoff), hasOpenRepeatProject: Boolean(repeat) };
+  return {
+    reference: safeText(record.reference, "", 40), receivedAt: safeText(record.receivedAt, "", 40), updatedAt: safeText(record.updatedAt || record.receivedAt, "", 40),
+    status: { code: status[0], label: status[1], step: status[2] }, styleCodes: codes, styleLabel: safeText(record.styleLabel, "Sourcing project", 120),
+    quantity: safeText(record.bulkQuantity || record.quantity, "To confirm", 80), destination: safeText(record.deliveryDestination, "To confirm", 120),
+    deliveryTiming: safeText(record.deliveryTiming, "To confirm", 100), tradeTerm: safeText(record.preferredTradeTerm, "To confirm", 40),
+    buyerUpdate: safeText(record.buyerUpdate, "Beiqiang is reviewing this sourcing request.", 500), action, items,
+    quotation: quote ? { quoteNumber: safeText(quote.quoteNumber, "Quotation", 80), version: safeText(String(quote.version || ""), "", 20), status: publicWorkflowStatus(quote.status), validUntil: safeText(quote.validUntil, "To confirm", 40), currency: safeText(quote.currency, "", 12), tradeTerm: safeText(quote.tradeTerm, "", 40) } : null,
+    sample: sample ? { reference: safeText(sample.sampleReference, "To be assigned", 80), status: publicWorkflowStatus(sample.status, "Sample stage recorded"), styleCodes: uniqueCodes(Array.isArray(sample.styleCodes) ? sample.styleCodes : [sample.styleCodes]), quantity: safeText(sample.quantity, "To confirm", 80), updatedAt: safeText(sample.updatedAt, "", 40) } : null,
+    order: order?.orderReference ? { reference: safeText(order.orderReference, "Formal order", 100), method: order.method === "alibaba_trade_assurance" ? "Alibaba Trade Assurance" : order.method === "signed_contract" ? "Signed bilateral contract" : "Formal order record", status: publicWorkflowStatus(order.fulfillmentStatus, "Order documents recorded"), confirmedAt: safeText(order.confirmedAt, "", 40) } : null,
+    recommendation: recommendation ? { reference: safeText(recommendation.id, "Product shortlist", 80), status: publicWorkflowStatus(recommendation.status, "Product shortlist recorded"), styleCodes: uniqueCodes([...(Array.isArray(recommendation.selectedCodes) ? recommendation.selectedCodes : []), ...(Array.isArray(recommendation.items) ? recommendation.items.map((item) => item.code) : [])]) } : null,
+    activity: { buyerFiles: Array.isArray(record.attachments) ? record.attachments.filter((item) => !item.revokedAt).length : 0, sharedDocuments: Array.isArray(record.orderDocuments) ? record.orderDocuments.filter((item) => !item.revokedAt).length : 0, messages: Array.isArray(record.messages) ? record.messages.length : 0 },
+    hasIssuedQuotation: Boolean(quote), hasOrder: Boolean(order), hasOpenRepeatProject: Boolean(repeat),
+  };
 }
 
 export function createBuyerWorkspaceSessionHandlers({ getStoreImpl = getStore, nowImpl = () => new Date(), randomBytesImpl = randomBytes } = {}) {
@@ -68,7 +100,7 @@ export function createBuyerWorkspaceSessionHandlers({ getStoreImpl = getStore, n
       const accessStore = getStoreImpl("beiqiang-buyer-access"); const session = await accessStore.get(`session/${hash(sessionToken)}.json`, { type: "json", consistency: "strong" });
       if (!session?.email || Date.parse(session.expiresAt) <= nowImpl().getTime()) return response(401, { ok: false, message: "Your workspace session has expired. Request a new link." });
       const records = (await listRecords(getStoreImpl("beiqiang-inquiries"))).filter((record) => String(record.email || "").trim().toLowerCase() === session.email).filter((record) => record.status !== "spam");
-      const projects = records.map(summary).sort((a, b) => a.action.rank - b.action.rank || String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+      const projects = records.map(workspaceSummary).sort((a, b) => a.action.rank - b.action.rank || String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
       return response(200, { ok: true, expiresAt: session.expiresAt, projects });
     } catch (error) { console.error("Buyer workspace read failed", error); return response(503, { ok: false, message: "The buyer workspace is temporarily unavailable." }); }
   }
