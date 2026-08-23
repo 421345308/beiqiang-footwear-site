@@ -831,6 +831,38 @@ footer a:hover { color: var(--forest); }
 .admin-related-history a { padding: 10px; display: grid; gap: 4px; border: 1px solid var(--line); background: white; color: var(--forest); }
 .admin-related-history a.current { border-color: var(--terracotta); }
 .admin-related-history a span { color: var(--muted); font-size: 9px; }
+.admin-workspace-contacts { border-top: 1px solid var(--line); background: #f4f7f4; }
+.admin-workspace-contacts > summary { padding: 16px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.admin-workspace-contacts > div, .admin-workspace-contacts > form, .admin-workspace-contacts > p, .admin-workspace-contacts > details { margin-right: 22px; margin-left: 22px; }
+.workspace-contact-primary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 15px; border: 1px solid var(--line); background: white; }
+.workspace-contact-primary small, .workspace-contact-primary strong { display: block; }
+.workspace-contact-primary small { margin-bottom: 5px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .06em; }
+.workspace-contact-primary > div:first-child > span { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; }
+.workspace-contact-primary > div:last-child { min-width: 320px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 8px; }
+.workspace-contact-primary label { display: grid; gap: 5px; color: var(--muted); font-size: 9px; font-weight: 800; text-transform: uppercase; }
+.workspace-contact-primary input { width: 100%; padding: 10px; border: 1px solid var(--line); background: white; color: var(--ink); font: inherit; text-transform: none; }
+.workspace-contact-primary button { padding: 10px; border: 1px solid #9b4833; background: white; color: #9b4833; cursor: pointer; font-weight: 800; white-space: nowrap; }
+.workspace-contact-boundary { padding: 13px 15px; background: #fff5dc; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.workspace-contact-list { display: grid; gap: 9px; }
+.workspace-contact-list article { display: grid; grid-template-columns: 1fr minmax(260px, .7fr); gap: 18px; padding: 15px; border: 1px solid var(--line); background: white; }
+.workspace-contact-list article > div:first-child { display: grid; gap: 5px; }
+.workspace-contact-list article > div:first-child span, .workspace-contact-list article small { color: var(--muted); font-size: 10px; }
+.workspace-contact-list article p { margin: 5px 0 0; font-size: 11px; }
+.workspace-contact-list article > div:last-child { display: grid; gap: 8px; align-content: end; }
+.workspace-contact-list label, .workspace-contact-form label { display: grid; gap: 5px; color: var(--muted); font-size: 9px; font-weight: 800; text-transform: uppercase; }
+.workspace-contact-list input, .workspace-contact-form input, .workspace-contact-form select, .workspace-contact-form textarea { width: 100%; padding: 10px; border: 1px solid var(--line); background: white; color: var(--ink); font: inherit; text-transform: none; }
+.workspace-contact-list button { padding: 10px; border: 1px solid #9b4833; background: white; color: #9b4833; cursor: pointer; font-weight: 800; }
+.workspace-contact-empty { color: var(--muted); font-size: 11px; }
+.workspace-contact-form { margin-top: 14px; padding: 18px; display: grid; gap: 13px; border: 1px solid var(--line); background: white; }
+.workspace-contact-form > div { display: grid; grid-template-columns: 1fr 1.3fr .8fr; gap: 10px; }
+.workspace-contact-confirm { grid-template-columns: 18px 1fr !important; align-items: flex-start; color: var(--ink) !important; font-weight: 600 !important; line-height: 1.5; text-transform: none !important; }
+.workspace-contact-confirm input { width: auto; margin-top: 2px; }
+.workspace-contact-form .button { width: max-content; }
+.workspace-contact-history { padding: 12px 0; border-top: 1px solid var(--line); }
+.workspace-contact-history > summary { cursor: pointer; color: var(--forest); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.workspace-contact-history > p { padding: 10px; display: grid; gap: 4px; border-bottom: 1px solid var(--line); background: white; }
+.workspace-contact-history span, .workspace-contact-history small { color: var(--muted); font-size: 10px; }
+.admin-workspace-contacts > p[aria-live] { min-height: 18px; padding-bottom: 18px; color: var(--rust); font-size: 11px; }
 .admin-message-center { border-top: 1px solid var(--line); background: #f8fbf8; }
 .admin-message-center summary { padding: 16px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
 .admin-message-thread { max-height: 400px; margin: 0 22px; padding: 16px; overflow-y: auto; background: white; border: 1px solid var(--line); }
@@ -1444,6 +1476,11 @@ footer a:hover { color: var(--forest); }
   .reminder-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
   .relationship-counts, .relationship-groups, .admin-related-history > div { grid-template-columns: 1fr; }
   .relationship-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
+  .workspace-contact-primary, .workspace-contact-list article { align-items: flex-start; grid-template-columns: 1fr; }
+  .workspace-contact-primary { flex-direction: column; }
+  .workspace-contact-primary > div:last-child { width: 100%; min-width: 0; grid-template-columns: 1fr; }
+  .workspace-contact-form > div { grid-template-columns: 1fr; }
+  .workspace-contact-form .button { width: 100%; }
   .commercial-funnel article { grid-template-columns: 130px 1fr; }
   .admin-card-grid > div + div { border-left: 0; border-top: 1px solid var(--line); }
   .admin-readiness > div + div { border-left: 0; border-top: 1px solid var(--line); }

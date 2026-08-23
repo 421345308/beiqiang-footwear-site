@@ -1,5 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
+import { workspaceContactCanRead } from "../_lib/workspace-access-policy.js";
 
 const PUBLIC_STATUS = { new: ["received", "Request received", 1], qualified: ["under_review", "Requirements under review", 2], sample_discussion: ["sample_discussion", "Sample discussion", 3], quoted: ["quotation_stage", "Quotation stage", 4], negotiation: ["commercial_discussion", "Commercial discussion", 5], order_confirmed: ["order_confirmed", "Order confirmed", 6], lost: ["closed", "Request closed", 0], spam: ["closed", "Request closed", 0] };
 function response(status, body) { return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=UTF-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } }); }
@@ -99,7 +100,7 @@ export function createBuyerWorkspaceSessionHandlers({ getStoreImpl = getStore, n
     try {
       const accessStore = getStoreImpl("beiqiang-buyer-access"); const session = await accessStore.get(`session/${hash(sessionToken)}.json`, { type: "json", consistency: "strong" });
       if (!session?.email || Date.parse(session.expiresAt) <= nowImpl().getTime()) return response(401, { ok: false, message: "Your workspace session has expired. Request a new link." });
-      const records = (await listRecords(getStoreImpl("beiqiang-inquiries"))).filter((record) => String(record.email || "").trim().toLowerCase() === session.email).filter((record) => record.status !== "spam");
+      const records = (await listRecords(getStoreImpl("beiqiang-inquiries"))).filter((record) => workspaceContactCanRead(record, session.email));
       const projects = records.map(workspaceSummary).sort((a, b) => a.action.rank - b.action.rank || String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
       return response(200, { ok: true, expiresAt: session.expiresAt, projects });
     } catch (error) { console.error("Buyer workspace read failed", error); return response(503, { ok: false, message: "The buyer workspace is temporarily unavailable." }); }

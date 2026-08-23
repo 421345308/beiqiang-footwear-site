@@ -91,6 +91,7 @@ test("server-renders the secure multi-project buyer workspace", async () => {
   const html = await response.text();
   assert.match(html, /One view for every sourcing project/i);
   assert.match(html, /15-minute one-time email link/i);
+  assert.match(html, /Project-specific contact access/i);
   assert.match(html, /Private code still required for decisions/i);
   assert.match(html, /response is the same whether or not an email exists/i);
   assert.match(html, /noindex/i);
@@ -211,7 +212,7 @@ test("server-renders the protected inquiry ledger shell", async () => {
 
 test("server-renders privacy and B2B terms with conservative transaction boundaries", async () => {
   const privacy = await render("/privacy"); const privacyHtml = await privacy.text();
-  assert.equal(privacy.status, 200); assert.match(privacyHtml, /Optional first-party analytics/i); assert.match(privacyHtml, /Repeat-order and next-project records/i); assert.match(privacyHtml, /request deletion/i); assert.doesNotMatch(privacyHtml, /fully compliant|certified compliance/i);
+  assert.equal(privacy.status, 200); assert.match(privacyHtml, /Optional first-party analytics/i); assert.match(privacyHtml, /Repeat-order and next-project records/i); assert.match(privacyHtml, /active project-specific contact authorizations/i); assert.match(privacyHtml, /request deletion/i); assert.doesNotMatch(privacyHtml, /fully compliant|certified compliance/i);
   const terms = await render("/terms"); const termsHtml = await terms.text();
-  assert.equal(terms.status, 200); assert.match(termsHtml, /Product discovery is not an automatic order/i); assert.match(termsHtml, /Repeat orders and future projects/i); assert.match(termsHtml, /does not request website visitors to enter card/i);
+  assert.equal(terms.status, 200); assert.match(termsHtml, /Product discovery is not an automatic order/i); assert.match(termsHtml, /Repeat orders and future projects/i); assert.match(termsHtml, /explicitly authorized project contact/i); assert.match(termsHtml, /does not request website visitors to enter card/i);
 });

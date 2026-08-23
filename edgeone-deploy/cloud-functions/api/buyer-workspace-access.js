@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
 import nodemailer from "nodemailer";
+import { normalizeWorkspaceEmail, workspaceContactCanRead } from "../_lib/workspace-access-policy.js";
 
 const GENERIC_MESSAGE = "If that email matches a Beiqiang sourcing record, a secure workspace link will arrive shortly. Check spam or contact us if it does not arrive.";
 
@@ -9,8 +10,7 @@ function response(status, body) {
 }
 
 function normalizeEmail(value) {
-  const email = typeof value === "string" ? value.trim().toLowerCase().slice(0, 180) : "";
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : "";
+  return normalizeWorkspaceEmail(value);
 }
 
 function hash(value) { return createHash("sha256").update(value).digest("hex"); }
@@ -47,7 +47,7 @@ export function createBuyerWorkspaceAccessHandler({ getStoreImpl = getStore, cre
 
       const inquiryStore = getStoreImpl("beiqiang-inquiries");
       const records = await listRecords(inquiryStore);
-      if (!records.some((record) => record?.status !== "spam" && normalizeEmail(record?.email) === email)) return response(202, { ok: true, message: GENERIC_MESSAGE });
+      if (!records.some((record) => workspaceContactCanRead(record, email))) return response(202, { ok: true, message: GENERIC_MESSAGE });
       if (!context.env?.SMTP_PASS) return response(202, { ok: true, message: GENERIC_MESSAGE });
 
       const token = randomBytesImpl(32).toString("hex"); const tokenHash = hash(token);
