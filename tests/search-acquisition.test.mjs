@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render(pathname) {
@@ -23,4 +24,14 @@ test("exposes a canonical sitemap and robots policy without private buyer routes
 
 test("marks the internal dashboard as noindex", async () => {
   const response = await render("/admin/inquiries"); const html = await response.text(); assert.equal(response.status, 200); assert.match(html, /name="robots" content="noindex, nofollow/i);
+});
+
+test("includes every sourcing resource in the EdgeOne static export contract", async () => {
+  const exporter = await readFile(new URL("../scripts/export-edgeone-static.mjs", import.meta.url), "utf8");
+  assert.match(exporter, /pathname:\s*"\/resources"/);
+  for (const slug of ["footwear-rfq-checklist", "shoe-sample-approval-checklist", "private-label-walking-shoes-sourcing-guide"]) {
+    assert.match(exporter, new RegExp(slug));
+  }
+  assert.match(exporter, /resourceRoutes/);
+  assert.match(exporter, /resources\/\$\{slug\}\/index\.html/);
 });

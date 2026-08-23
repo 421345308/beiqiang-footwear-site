@@ -26,16 +26,20 @@ const collectionRoutes = collectionSlugs.map((slug) => ({
 }));
 const solutionSlugs = ["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes"];
 const solutionRoutes = solutionSlugs.map((slug) => ({ pathname: `/solutions/${slug}`, output: `solutions/${slug}/index.html` }));
+const resourceSlugs = ["footwear-rfq-checklist", "shoe-sample-approval-checklist", "private-label-walking-shoes-sourcing-guide"];
+const resourceRoutes = resourceSlugs.map((slug) => ({ pathname: `/resources/${slug}`, output: `resources/${slug}/index.html` }));
 const capabilitySlugs = ["factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide", "buyer-workspace", "line-sheet", "privacy", "terms"];
 const capabilityRoutes = capabilitySlugs.map((slug) => ({ pathname: `/${slug}`, output: `${slug}/index.html` }));
 const routes = [
   { pathname: "/", output: "index.html" },
   { pathname: "/products", output: "products/index.html" },
+  { pathname: "/resources", output: "resources/index.html" },
   { pathname: "/request-quote", output: "request-quote/index.html" },
   { pathname: "/inquiry-status", output: "inquiry-status/index.html" },
   ...productRoutes,
   ...collectionRoutes,
   ...solutionRoutes,
+  ...resourceRoutes,
   ...capabilityRoutes,
   { pathname: "/admin/inquiries", output: "admin/inquiries/index.html" },
 ];
@@ -67,10 +71,12 @@ await writeFile(
 const sitemapUrls = [
   { path: "/", frequency: "weekly", priority: "1.0" },
   { path: "/products/", frequency: "weekly", priority: "0.9" },
+  { path: "/resources/", frequency: "weekly", priority: "0.8" },
   { path: "/request-quote/", frequency: "monthly", priority: "0.8" },
   ...productSlugs.map((slug) => ({ path: `/products/${slug}/`, frequency: "monthly", priority: ["bq001", "bq002", "bq009"].includes(slug) ? "0.9" : "0.7" })),
   ...collectionSlugs.map((slug) => ({ path: `/collections/${slug}/`, frequency: "weekly", priority: "0.8" })),
   ...solutionSlugs.map((slug) => ({ path: `/solutions/${slug}/`, frequency: "monthly", priority: "0.8" })),
+  ...resourceSlugs.map((slug) => ({ path: `/resources/${slug}/`, frequency: "monthly", priority: "0.8" })),
   ...capabilitySlugs.map((slug) => ({ path: `/${slug}/`, frequency: "monthly", priority: slug === "buyer-guide" ? "0.8" : "0.7" })),
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map((url) => `  <url><loc>https://www.beiqiang.online${url.path}</loc><changefreq>${url.frequency}</changefreq><priority>${url.priority}</priority></url>`).join("\n")}\n</urlset>\n`;
