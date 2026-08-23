@@ -93,22 +93,25 @@ function sanitizeSampleProgram(value, current, actor) {
   if (!value || typeof value !== "object") return null;
   const status = SAMPLE_STATUSES.has(value.status) ? value.status : "brief_requested";
   if (["buyer_approved", "revision_requested"].includes(status) && current?.status !== status) return { error: "Buyer approval or revision status must come from the private buyer response, not an internal edit." };
-  const styleCodes = clean(value.styleCodes, 300); const quantity = clean(value.quantity, 120); const sizes = clean(value.sizes, 240); const colors = clean(value.colors, 240);
+  const styleCodes = clean(value.styleCodes, 300); const quantity = clean(value.quantity, 120); const sizes = clean(value.sizes, 240); const colors = clean(value.colors, 240); const sampleReference = clean(value.sampleReference, 160); const purpose = clean(value.purpose, 600); const reviewScope = clean(value.reviewScope, 800); const deliverables = clean(value.deliverables, 1000); const acceptanceCriteria = clean(value.acceptanceCriteria, 1200); const exclusions = clean(value.exclusions, 1200);
   if (!styleCodes || !quantity) return { error: "Enter the exact sample style code(s) and sample quantity." };
+  if (status === "buyer_review" && [sampleReference, purpose, reviewScope, deliverables, acceptanceCriteria, exclusions].some((item) => item.length < 2)) return { error: "Before buyer review, complete the sample reference, purpose, review scope, deliverables, acceptance criteria and explicit exclusions." };
+  if (current?.status === "buyer_review" && status === "buyer_review" && ["sampleReference", "styleCodes", "quantity", "sizes", "colors", "purpose", "reviewScope", "deliverables", "acceptanceCriteria", "exclusions"].some((field) => clean(current?.[field], field === "sampleReference" ? 160 : 1200) !== clean(value?.[field], field === "sampleReference" ? 160 : 1200))) return { error: "The active buyer-review scope is frozen. Record the buyer decision or move to a new preparation cycle before changing it." };
   const sampleCharge = clean(value.sampleCharge, 40); const chargeStatus = SAMPLE_CHARGE_STATUSES.has(value.chargeStatus) ? value.chargeStatus : "planned"; const paidAt = clean(value.paidAt, 40);
   if (sampleCharge && (!/^\d+(?:\.\d{1,2})?$/.test(sampleCharge) || Number(sampleCharge) > 100_000)) return { error: "Use a valid sample charge amount with no more than two decimal places." };
   if (chargeStatus === "paid" && !paidAt) return { error: "A recorded paid sample charge requires the actual paid date." };
   for (const date of [paidAt, value.shippedAt, value.expectedDelivery]) if (clean(date, 40) && !/^\d{4}-\d{2}-\d{2}$/.test(clean(date, 40))) return { error: "Use YYYY-MM-DD for sample payment, shipment and expected-delivery dates." };
   const courier = clean(value.courier, 100); const trackingNumber = clean(value.trackingNumber, 160); const shippedAt = clean(value.shippedAt, 40);
   if (["shipped", "delivered", "buyer_review"].includes(status) && (!courier || !trackingNumber || !shippedAt)) return { error: "Shipped and later sample stages require courier, tracking reference and actual shipment date." };
-  const changedAt = new Date().toISOString(); const existingHistory = Array.isArray(current?.history) ? current.history : [];
+  const changedAt = new Date().toISOString(); const existingHistory = Array.isArray(current?.history) ? current.history : []; const existingReviewRounds = Array.isArray(current?.reviewRounds) ? current.reviewRounds : []; const openingReview = status === "buyer_review" && current?.status !== "buyer_review"; const nextRound = existingReviewRounds.reduce((maximum, item) => Math.max(maximum, Number(item?.round) || 0), 0) + 1;
   const history = current?.status !== status ? [...existingHistory.slice(-48), { from: current?.status || "", to: status, changedAt, actor: clean(actor, 100) || "Sales team" }] : existingHistory;
+  const reviewRounds = openingReview ? [...existingReviewRounds.slice(-19), { round: nextRound, sampleReference, styleCodes, quantity, sizes, colors, purpose, reviewScope, deliverables, acceptanceCriteria, exclusions, status: "awaiting_buyer", openedAt: changedAt, decision: "", buyerNote: "", respondedAt: "" }] : existingReviewRounds;
   return { sampleProgram: {
-    status, styleCodes, quantity, sizes, colors, purpose: clean(value.purpose, 600), reviewScope: clean(value.reviewScope, 800),
+    status, sampleReference, styleCodes, quantity, sizes, colors, purpose, reviewScope, deliverables, acceptanceCriteria, exclusions,
     currency: QUOTE_CURRENCIES.has(value.currency) ? value.currency : "USD", sampleCharge, chargeStatus, paidAt,
     courier, trackingNumber, shippedAt, expectedDelivery: clean(value.expectedDelivery, 40), note: clean(value.note, 800),
-    buyerDecision: clean(current?.buyerDecision, 40), buyerNote: clean(current?.buyerNote, 1200), buyerRespondedAt: clean(current?.buyerRespondedAt, 40),
-    history, updatedAt: changedAt,
+    buyerDecision: openingReview ? "" : clean(current?.buyerDecision, 40), buyerNote: openingReview ? "" : clean(current?.buyerNote, 1200), buyerRespondedAt: openingReview ? "" : clean(current?.buyerRespondedAt, 40),
+    history, reviewRounds, updatedAt: changedAt,
   } };
 }
 

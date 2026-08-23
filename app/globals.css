@@ -521,11 +521,21 @@ footer a:hover { color: var(--forest); }
 .buyer-sample-grid small, .buyer-sample-grid strong { display: block; }
 .buyer-sample-grid small { margin-bottom: 8px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .1em; }
 .buyer-sample-grid p, .buyer-sample-note, .buyer-sample-program > small { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.buyer-sample-review-contract { margin: 0 0 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.buyer-sample-review-contract article { padding: 15px; border: 1px solid var(--line); background: white; }
+.buyer-sample-review-contract small { color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+.buyer-sample-review-contract p { margin: 8px 0 0; font-size: 12px; line-height: 1.6; }
 .buyer-sample-response { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
 .buyer-sample-response label { display: grid; gap: 8px; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
 .buyer-sample-response textarea { padding: 12px; border: 1px solid var(--line); background: white; }
 .buyer-sample-response > div { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
 .buyer-sample-decision { padding: 14px; background: #edf4ef; color: var(--forest); }
+.buyer-sample-round-history, .sample-review-rounds { margin: 18px 0; padding: 14px; border: 1px solid var(--line); background: white; }
+.buyer-sample-round-history > summary, .sample-review-rounds > summary { cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; }
+.buyer-sample-round-history article, .sample-review-rounds article { margin-top: 10px; padding: 12px; display: grid; gap: 4px; border-top: 1px solid var(--line); }
+.buyer-sample-round-history article > div, .sample-review-rounds article > div { display: flex; justify-content: space-between; gap: 12px; }
+.buyer-sample-round-history article span, .buyer-sample-round-history article small, .sample-review-rounds article span, .sample-review-rounds article small { color: var(--muted); font-size: 10px; }
+.buyer-sample-round-history article p, .sample-review-rounds article p { margin: 3px 0; font-size: 11px; }
 .buyer-quotation { margin-top: 24px; padding: 30px; border: 2px solid #b7643d; background: #fffaf3; }
 .buyer-quotation-heading { display: flex; justify-content: space-between; gap: 20px; }
 .buyer-quotation-heading h3 { margin: 7px 0; font-family: Georgia, serif; font-size: 30px; }
@@ -1193,6 +1203,7 @@ footer a:hover { color: var(--forest); }
   .buyer-order-request-saved > div:first-child { flex-direction: column; }
   .buyer-sample-heading { flex-direction: column; }
   .buyer-sample-grid { grid-template-columns: 1fr; }
+  .buyer-sample-review-contract { grid-template-columns: 1fr; }
   .buyer-sample-grid article + article { border-left: 0; border-top: 1px solid var(--line); }
   .buyer-quote-table { overflow-x: auto; }
   .buyer-quote-table > div { min-width: 700px; }

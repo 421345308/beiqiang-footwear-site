@@ -70,11 +70,11 @@ After changing environment variables, create a new deployment because existing d
 
 ## Structured Sample Validation
 
-- The protected dashboard stores one structured sample project on the inquiry: exact style code(s), pair/size/color allocation, purpose, written review scope, sample charge status, courier/tracking, shipment and expected-delivery dates, buyer-safe note and append-only stage history.
+- The protected dashboard stores one structured sample project on the inquiry: physical sample reference, exact style code(s), pair/size/color allocation, purpose, supplied deliverables, written review scope, acceptance criteria, explicit exclusions, sample charge status, courier/tracking, shipment and expected-delivery dates, buyer-safe note and append-only stage history.
 - Sample stages are `brief requested`, `terms confirmed`, `awaiting sample payment`, `preparing`, `shipped`, `delivered`, `buyer review`, `buyer approved`, `revision requested` and `closed`.
 - Shipped and later review stages require the actual courier, tracking reference and shipment date. A sample charge marked paid requires its actual recorded date. These website fields remain operating records, not courier or bank evidence.
 - Sales cannot manufacture `buyer approved` or `revision requested` through the admin update. Only a buyer authenticated by inquiry reference plus private access code can respond while the sample is explicitly at `buyer review`; the response appends a buyer-authored history event and can notify the business inbox.
-- Buyer approval applies only to the referenced sample and written review scope. It does not automatically approve bulk materials, test values, size ratio, price, MOQ, packing, lead time, payment or a production order.
+- Opening buyer review freezes an immutable review round. Buyer approval is written to that exact physical reference, deliverables, scope and criteria; revisions can create a later round without overwriting earlier decisions. Approval does not automatically approve exclusions, bulk materials, test values, size ratio, price, MOQ, packing, lead time, payment or a production order.
 
 ### Inquiry admin access
 
