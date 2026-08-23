@@ -1,4 +1,4 @@
-import { timingSafeEqual } from "node:crypto";
+import { randomBytes, timingSafeEqual } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
 
 function response(status, body) {
@@ -89,6 +89,18 @@ function orderHandoffReady(value) {
   return Boolean(value?.method && value?.orderReference && value?.confirmedAt && ORDER_CHECKLIST_FIELDS.every((field) => clean(value?.orderChecklist?.[field], 500).length >= 2));
 }
 
+function orderCriticalSnapshot(value) {
+  return { method: value?.method || "", orderReference: value?.orderReference || "", orderUrl: value?.orderUrl || "", confirmedAt: value?.confirmedAt || "", paymentCurrency: value?.paymentCurrency || "USD", orderChecklist: Object.fromEntries(ORDER_CHECKLIST_FIELDS.map((field) => [field, value?.orderChecklist?.[field] || ""])), paymentPlan: (value?.paymentMilestones || []).map((item) => ({ id: item.id, label: item.label, amount: item.amount, dueDate: item.dueDate })) };
+}
+
+function changedOrderFields(current, proposed) {
+  const left = orderCriticalSnapshot(current); const right = orderCriticalSnapshot(proposed); const fields = [];
+  for (const field of ["method", "orderReference", "orderUrl", "confirmedAt", "paymentCurrency"]) if (JSON.stringify(left[field]) !== JSON.stringify(right[field])) fields.push(field);
+  for (const field of ORDER_CHECKLIST_FIELDS) if (left.orderChecklist[field] !== right.orderChecklist[field]) fields.push(field);
+  if (JSON.stringify(left.paymentPlan) !== JSON.stringify(right.paymentPlan)) fields.push("paymentPlan");
+  return fields;
+}
+
 function sanitizeSampleProgram(value, current, actor) {
   if (!value || typeof value !== "object") return null;
   const status = SAMPLE_STATUSES.has(value.status) ? value.status : "brief_requested";
@@ -167,9 +179,21 @@ export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore } = {}
       const quotations = Array.isArray(current.quotations) ? current.quotations : [];
       if (quotationResult?.quotation && quotations.some((quote) => quote.quoteNumber === quotationResult.quotation.quoteNumber)) return response(409, { ok: false, message: "That quotation version already exists. Use a new version number." });
       const changedAt = new Date().toISOString();
+      const criticalChanges = current.status === "order_confirmed" && orderResult?.orderHandoff && current.orderHandoff ? changedOrderFields(current.orderHandoff, orderResult.orderHandoff) : [];
+      if (criticalChanges.length) {
+        const reason = clean(payload.orderChangeReason, 800); if (reason.length < 2) return response(409, { ok: false, message: "Explain why the confirmed order terms should change before creating a buyer approval request." });
+        const requests = Array.isArray(current.orderChangeRequests) ? current.orderChangeRequests : []; if (requests.some((item) => item.status === "awaiting_buyer")) return response(409, { ok: false, message: "A confirmed-order change is already awaiting buyer response. Resolve it before proposing another." });
+        const versions = Array.isArray(current.orderVersions) && current.orderVersions.length ? current.orderVersions : [{ version: 1, orderHandoff: current.orderHandoff, acceptedAt: current.orderHandoff.confirmedAt || current.updatedAt || current.receivedAt, acceptedBy: "Legacy / initial confirmation", source: "baseline" }];
+        const changeRequest = { id: `OCR-${randomBytes(6).toString("hex").toUpperCase()}`, status: "awaiting_buyer", reason, changedFields: criticalChanges, baseVersion: versions.at(-1).version, proposedHandoff: orderResult.orderHandoff, createdAt: changedAt, createdBy: clean(payload.owner, 100) || current.owner || "Sales team", buyerDecision: "", buyerNote: "", buyerRespondedAt: "" };
+        const proposed = { ...current, orderVersions: versions, orderChangeRequests: [...requests.slice(-19), changeRequest], nextAction: `Wait for buyer response to confirmed-order change ${changeRequest.id}; do not apply proposed terms before acceptance.`, nextActionDue: changedAt.slice(0, 10), updatedAt: changedAt };
+        await store.setJSON(key, proposed, { cacheControl: null }); return response(202, { ok: true, orderChangeProposed: true, record: adminSafeRecord(proposed) });
+      }
       const existingHistory = Array.isArray(current.pipelineHistory) ? current.pipelineHistory : [{ from: "", to: current.status || "new", changedAt: current.receivedAt || changedAt, actor: "system", reason: "Legacy record" }];
       const lostReason = payload.status === "lost" ? (LOST_REASONS.has(requestedLostReason) ? requestedLostReason : current.lostReason || "legacy_unspecified") : "";
       const pipelineHistory = payload.status !== current.status ? [...existingHistory.slice(-98), { from: current.status || "new", to: payload.status, changedAt, actor: clean(payload.owner, 100) || current.owner || "Sales team", reason: payload.status === "lost" ? lostReason : "" }] : existingHistory;
+      let orderVersions = Array.isArray(current.orderVersions) ? current.orderVersions : []; if (current.status !== "order_confirmed" && payload.status === "order_confirmed" && effectiveOrderHandoff) orderVersions = [...orderVersions.slice(-19), { version: (orderVersions.at(-1)?.version || 0) + 1, orderHandoff: effectiveOrderHandoff, acceptedAt: changedAt, acceptedBy: clean(payload.owner, 100) || current.owner || "Sales team", source: "initial_confirmation" }];
+      const operationalChanges = current.status === "order_confirmed" && orderResult?.orderHandoff && current.orderHandoff ? ["note", "fulfillmentStatus", "carrier", "trackingNumber", "paymentMilestones"].filter((field) => JSON.stringify(current.orderHandoff?.[field]) !== JSON.stringify(orderResult.orderHandoff?.[field])) : [];
+      const operationalHistory = operationalChanges.length ? [...(Array.isArray(current.orderOperationalHistory) ? current.orderOperationalHistory.slice(-98) : []), { changedAt, changedBy: clean(payload.owner, 100) || current.owner || "Sales team", fields: operationalChanges, fulfillmentStatus: orderResult.orderHandoff.fulfillmentStatus, carrier: orderResult.orderHandoff.carrier, trackingNumber: orderResult.orderHandoff.trackingNumber, note: orderResult.orderHandoff.note }] : (Array.isArray(current.orderOperationalHistory) ? current.orderOperationalHistory : []);
       const updated = {
         ...current,
         status: payload.status,
@@ -184,6 +208,9 @@ export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore } = {}
         quotations: quotationResult?.quotation ? [...quotations.slice(-19), quotationResult.quotation] : quotations,
         sampleProgram: sampleResult?.sampleProgram || current.sampleProgram || null,
         orderHandoff: orderResult?.orderHandoff || current.orderHandoff || null,
+        orderVersions,
+        orderOperationalHistory: operationalHistory,
+        orderChangeRequests: Array.isArray(current.orderChangeRequests) ? current.orderChangeRequests : [],
         updatedAt: changedAt,
       };
       await store.setJSON(key, updated, { cacheControl: null });

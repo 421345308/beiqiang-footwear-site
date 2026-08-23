@@ -9,6 +9,11 @@ test("prioritizes a formal order handoff over earlier workflow actions", () => {
   assert.equal(action.href, "https://trade.alibaba.com/order/1"); assert.equal(action.external, true); assert.match(action.body, /before any production or payment/i);
 });
 
+test("prioritizes a pending confirmed-order change over the existing order link", () => {
+  const action = getBuyerNextAction({ ...open, orderChangeRequests: [{ id: "OCR-ABCDEF012345", status: "awaiting_buyer" }], orderHandoff: { method: "alibaba_trade_assurance", orderReference: "TA-1", orderUrl: "https://trade.alibaba.com/order/1" } });
+  assert.equal(action.href, "#order-change-review"); assert.match(action.title, /OCR-ABCDEF012345/); assert.match(action.body, /current version stays active/i);
+});
+
 test("surfaces a pending buyer sample decision before quotation work", () => {
   const action = getBuyerNextAction({ ...open, sampleProgram: { status: "buyer_review" }, buyerQuotation: { status: "issued", quoteNumber: "Q1" } });
   assert.equal(action.href, "#sample-review"); assert.match(action.title, /sample/i);

@@ -329,6 +329,14 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - The website does not collect card or bank payments. Payment remains inside the verified Alibaba Trade Assurance order or the separately agreed contract workflow.
 - Order handoff also tracks buyer-safe fulfillment status, carrier and tracking/B/L reference. Enter these only when supported by actual order progress.
 
+### Confirmed-order change control
+
+- Once an inquiry is `order_confirmed`, edits to method, formal reference, confirmed date, currency, the eight commercial readiness fields or the planned payment schedule no longer overwrite the current order. The admin must state a business reason; the server stores an `awaiting_buyer` proposal and leaves the accepted version active.
+- The private buyer page prioritizes the pending proposal, displays its changed fields and lets the buyer accept or reject it. Rejection requires a mismatch note. Acceptance creates a new immutable website order version; rejection preserves the prior version.
+- Fulfillment stage, carrier, tracking/B/L, buyer-safe progress notes and actual payment status/reference remain operational updates. They append an operational audit entry without creating a false commercial re-approval cycle.
+- Website acceptance is supporting evidence only. Sales must make the same critical change in the authoritative Alibaba Trade Assurance order or signed bilateral contract before affected production or payment action.
+- API: internal proposals use authenticated `PATCH /api/admin/inquiries`; buyer decisions use private `POST /api/order-change-response`. Never expose the administrator token or the buyer access code in logs, screenshots or links.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.

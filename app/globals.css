@@ -510,6 +510,25 @@ footer a:hover { color: var(--forest); }
 .buyer-order-request-summary p { margin: 0; padding: 13px 15px; display: grid; gap: 5px; border-bottom: 1px solid var(--line); }
 .buyer-order-request-summary p:nth-child(odd) { border-right: 1px solid var(--line); }
 .buyer-order-request-summary strong { color: var(--ink); font-size: 10px; text-transform: uppercase; }
+.buyer-order-change { margin-top: 24px; padding: 30px; border: 2px solid #a86d16; background: #fffaf0; }
+.buyer-order-change h3 { margin: 7px 0 10px; font-family: Georgia, serif; font-size: 28px; }
+.buyer-order-change > div:first-child > p:last-child, .buyer-order-change > small { color: var(--muted); line-height: 1.6; }
+.buyer-order-change-reason { margin: 18px 0; padding: 16px; border-left: 4px solid #a86d16; background: white; }
+.buyer-order-change-reason p { margin: 6px 0; }
+.buyer-order-change-reason small { color: var(--muted); }
+.buyer-order-change-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.buyer-order-change-summary article { padding: 15px; border: 1px solid var(--line); background: white; }
+.buyer-order-change-summary small, .buyer-order-change-summary p { color: var(--muted); font-size: 10px; }
+.buyer-order-change-summary strong { display: block; margin-top: 5px; }
+.buyer-order-change-checklist { margin: 14px 0; display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); background: white; }
+.buyer-order-change-checklist p { margin: 0; padding: 12px; display: grid; gap: 4px; border-bottom: 1px solid var(--line); }
+.buyer-order-change-checklist strong, .buyer-order-change > label { color: var(--muted); font-size: 10px; text-transform: uppercase; }
+.buyer-order-change-checklist span { color: var(--ink); font-size: 13px; }
+.buyer-order-change-payments { margin: 14px 0; padding: 15px; border: 1px solid var(--line); background: white; }
+.buyer-order-change-payments p { margin: 7px 0 0; }
+.buyer-order-change > label { display: grid; gap: 7px; }
+.buyer-order-change textarea { width: 100%; padding: 12px; border: 1px solid var(--line); background: white; font: inherit; font-size: 14px; text-transform: none; }
+.buyer-order-change-actions { margin: 14px 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .buyer-sample-program { margin-top: 24px; padding: 30px; border: 2px solid #846d3c; background: #fffdf5; }
 .buyer-sample-heading { display: flex; justify-content: space-between; gap: 20px; }
 .buyer-sample-heading h3 { margin: 7px 0; font-family: Georgia, serif; font-size: 30px; }
@@ -858,6 +877,18 @@ footer a:hover { color: var(--forest); }
 .admin-quotation { border-top: 1px solid var(--line); }
 .admin-quotation summary, .admin-order-handoff summary, .admin-sample-program > summary, .admin-buyer-order-request > summary { padding: 16px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
 .admin-order-handoff { border-top: 1px solid var(--line); background: #f8f4e9; }
+.admin-order-change-reason { padding: 14px; border: 1px solid #d8b36f; background: #fffaf0; }
+.admin-order-change-summary { border-top: 1px solid var(--line); background: #fffaf0; }
+.admin-order-change-summary > summary { padding: 16px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.admin-order-change-summary > div { padding: 0 22px 20px; display: grid; gap: 16px; }
+.admin-order-change-summary section { display: grid; gap: 9px; }
+.admin-order-change-summary article { padding: 13px; border: 1px solid #d8b36f; background: white; }
+.admin-order-change-summary article > div { display: flex; justify-content: space-between; gap: 12px; }
+.admin-order-change-summary article p { margin: 8px 0; }
+.admin-order-change-summary article small, .admin-order-change-summary > div > small { color: var(--muted); line-height: 1.5; }
+.admin-order-change-summary ol { margin: 0; padding-left: 20px; }
+.admin-order-change-summary li { padding: 5px 0; }
+.admin-order-change-summary li span { display: block; color: var(--muted); font-size: 10px; }
 .admin-sample-program { border-top: 1px solid var(--line); background: #fffdf5; }
 .admin-buyer-order-request { border-top: 1px solid var(--line); background: #f1f8f5; }
 .admin-buyer-order-request > div { padding: 0 22px 16px; display: grid; gap: 12px; }
@@ -1201,6 +1232,7 @@ footer a:hover { color: var(--forest); }
   .buyer-order-request form, .buyer-order-request-summary { grid-template-columns: 1fr; }
   .buyer-order-request-summary p:nth-child(odd) { border-right: 0; }
   .buyer-order-request-saved > div:first-child { flex-direction: column; }
+  .buyer-order-change-summary, .buyer-order-change-checklist { grid-template-columns: 1fr; }
   .buyer-sample-heading { flex-direction: column; }
   .buyer-sample-grid { grid-template-columns: 1fr; }
   .buyer-sample-review-contract { grid-template-columns: 1fr; }
