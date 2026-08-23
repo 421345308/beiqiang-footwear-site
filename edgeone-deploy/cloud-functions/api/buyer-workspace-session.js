@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
 import { workspaceContactCanRead } from "../_lib/workspace-access-policy.js";
+import { safeRecordWorkspaceActivity } from "../_lib/workspace-activity.js";
 
 const PUBLIC_STATUS = { new: ["received", "Request received", 1], qualified: ["under_review", "Requirements under review", 2], sample_discussion: ["sample_discussion", "Sample discussion", 3], quoted: ["quotation_stage", "Quotation stage", 4], negotiation: ["commercial_discussion", "Commercial discussion", 5], order_confirmed: ["order_confirmed", "Order confirmed", 6], lost: ["closed", "Request closed", 0], spam: ["closed", "Request closed", 0] };
 function response(status, body) { return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=UTF-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } }); }
@@ -79,7 +80,7 @@ export function workspaceSummary(record) {
   };
 }
 
-export function createBuyerWorkspaceSessionHandlers({ getStoreImpl = getStore, nowImpl = () => new Date(), randomBytesImpl = randomBytes } = {}) {
+export function createBuyerWorkspaceSessionHandlers({ getStoreImpl = getStore, nowImpl = () => new Date(), randomBytesImpl = randomBytes, recordActivityImpl = safeRecordWorkspaceActivity } = {}) {
   async function onRequestPost(context) {
     let payload; try { payload = await context.request.json(); } catch { return response(400, { ok: false, message: "This workspace link is invalid or expired." }); }
     const token = typeof payload?.token === "string" ? payload.token.trim().toLowerCase() : "";
@@ -87,11 +88,12 @@ export function createBuyerWorkspaceSessionHandlers({ getStoreImpl = getStore, n
     try {
       const store = getStoreImpl("beiqiang-buyer-access"); const tokenHash = hash(token); const key = `magic/${tokenHash}.json`;
       const grant = await store.get(key, { type: "json", consistency: "strong" }); const now = nowImpl();
-      if (!grant?.email || Date.parse(grant.expiresAt) <= now.getTime()) return response(410, { ok: false, message: "This workspace link is invalid or expired. Request a new one." });
-      try { await store.setJSON(`consumed/${tokenHash}.json`, { consumedAt: now.toISOString() }, { onlyIfNew: true, cacheControl: null }); } catch { return response(410, { ok: false, message: "This workspace link has already been used. Request a new one." }); }
+      if (!grant?.email || Date.parse(grant.expiresAt) <= now.getTime()) { if (grant?.emailHash) await recordActivityImpl(store, "workspace_link_redeemed", { emailHash: grant.emailHash, outcome: "expired", analyticsExcluded: grant.analyticsExcluded }, { now }); return response(410, { ok: false, message: "This workspace link is invalid or expired. Request a new one." }); }
+      try { await store.setJSON(`consumed/${tokenHash}.json`, { consumedAt: now.toISOString() }, { onlyIfNew: true, cacheControl: null }); } catch { await recordActivityImpl(store, "workspace_link_redeemed", { emailHash: grant.emailHash, outcome: "already_used", analyticsExcluded: grant.analyticsExcluded }, { now }); return response(410, { ok: false, message: "This workspace link has already been used. Request a new one." }); }
       try { await store.delete(key); } catch { /* consumed marker remains authoritative */ }
       const sessionToken = randomBytesImpl(32).toString("hex"); const expiresAt = new Date(now.getTime() + 8 * 60 * 60 * 1000).toISOString();
-      await store.setJSON(`session/${hash(sessionToken)}.json`, { email: grant.email, emailHash: grant.emailHash, createdAt: now.toISOString(), expiresAt }, { onlyIfNew: true, cacheControl: null });
+      await store.setJSON(`session/${hash(sessionToken)}.json`, { email: grant.email, emailHash: grant.emailHash, createdAt: now.toISOString(), expiresAt, analyticsExcluded: grant.analyticsExcluded === true }, { onlyIfNew: true, cacheControl: null });
+      await recordActivityImpl(store, "workspace_link_redeemed", { emailHash: grant.emailHash, outcome: "success", analyticsExcluded: grant.analyticsExcluded }, { now });
       return response(201, { ok: true, sessionToken, expiresAt });
     } catch (error) { console.error("Buyer workspace link redemption failed", error); return response(503, { ok: false, message: "The buyer workspace is temporarily unavailable." }); }
   }
@@ -102,6 +104,7 @@ export function createBuyerWorkspaceSessionHandlers({ getStoreImpl = getStore, n
       if (!session?.email || Date.parse(session.expiresAt) <= nowImpl().getTime()) return response(401, { ok: false, message: "Your workspace session has expired. Request a new link." });
       const records = (await listRecords(getStoreImpl("beiqiang-inquiries"))).filter((record) => workspaceContactCanRead(record, session.email));
       const projects = records.map(workspaceSummary).sort((a, b) => a.action.rank - b.action.rank || String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+      await recordActivityImpl(accessStore, "workspace_loaded", { emailHash: session.emailHash, outcome: "success", projectCount: projects.length, analyticsExcluded: session.analyticsExcluded }, { now: nowImpl() });
       return response(200, { ok: true, expiresAt: session.expiresAt, projects });
     } catch (error) { console.error("Buyer workspace read failed", error); return response(503, { ok: false, message: "The buyer workspace is temporarily unavailable." }); }
   }

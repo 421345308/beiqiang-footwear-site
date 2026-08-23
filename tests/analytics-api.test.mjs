@@ -15,6 +15,16 @@ const events = [
   { event: "mobile_nav_link", receivedAt: "2026-08-23T08:06:10.000Z", details: { context: "site_header", linkType: "All 30 products" }, attribution: { utmSource: "linkedin" } },
   { event: "product_view", receivedAt: "2025-01-01T08:00:00.000Z", details: { styleCode: "OLD" } },
 ];
+const workspaceActivity = [
+  { event: "workspace_access_request", outcome: "sent", occurredAt: "2026-08-23T08:10:00.000Z", emailHash: "a".repeat(64) },
+  { event: "workspace_access_request", outcome: "delivery_failed", occurredAt: "2026-08-23T08:11:00.000Z", emailHash: "b".repeat(64) },
+  { event: "workspace_access_request", outcome: "unknown", occurredAt: "2026-08-23T08:12:00.000Z", emailHash: "c".repeat(64) },
+  { event: "workspace_link_redeemed", outcome: "success", occurredAt: "2026-08-23T08:13:00.000Z", emailHash: "a".repeat(64) },
+  { event: "workspace_loaded", outcome: "success", occurredAt: "2026-08-23T08:14:00.000Z", emailHash: "a".repeat(64), projectCount: 1 },
+  { event: "workspace_project_open", occurredAt: "2026-08-23T08:15:00.000Z", emailHash: "a".repeat(64), reference: "BQ-20260823-AAA" },
+  { event: "workspace_private_project_open", occurredAt: "2026-08-23T08:16:00.000Z", emailHash: "a".repeat(64), reference: "BQ-20260823-AAA" },
+  { event: "workspace_loaded", outcome: "success", occurredAt: "2026-08-23T08:17:00.000Z", emailHash: "d".repeat(64), analyticsExcluded: true },
+];
 const inquiries = [
   { reference: "BQ-20260823-AAA", receivedAt: "2026-08-23T09:00:00.000Z", status: "quoted", company: "Buyer Co", name: "Jane", styleCode: "BQ009", attribution: { utmSource: "linkedin" }, messages: [{ id: "1" }], attachments: [{ id: "2" }], orderDocuments: [{ id: "3" }], quotations: [{ status: "buyer_revision_requested", buyerDecision: "revision_requested" }, { status: "buyer_declined", buyerDecision: "declined" }], buyerOrderRequests: [{ id: "OSR-1" }], orderChangeRequests: [{ id: "OCR-1", status: "awaiting_buyer", createdAt: "2026-08-23T09:10:00.000Z" }, { id: "OCR-2", status: "buyer_accepted", createdAt: "2026-08-22T09:10:00.000Z", buyerRespondedAt: "2026-08-23T09:20:00.000Z" }, { id: "OCR-3", status: "buyer_rejected", createdAt: "2026-08-22T09:10:00.000Z", buyerRespondedAt: "2026-08-23T09:25:00.000Z" }], pipelineHistory: [{ from: "qualified", to: "quoted", changedAt: "2026-08-23T09:30:00.000Z" }] },
   { reference: "BQ-20260823-LOST", receivedAt: "2026-08-23T10:00:00.000Z", status: "lost", lostReason: "price", company: "Other Buyer", name: "Joe", styleCode: "BQ001", pipelineHistory: [{ from: "negotiation", to: "lost", changedAt: "2026-08-23T10:30:00.000Z" }] },
@@ -24,9 +34,10 @@ const inquiries = [
 inquiries[0].repeatOrderOpportunities = [{ id: "ROP-1", status: "submitted", submittedAt: "2026-08-23T10:40:00.000Z", updatedAt: "2026-08-23T10:40:00.000Z" }, { id: "ROP-2", status: "qualified", submittedAt: "2026-08-22T10:40:00.000Z", updatedAt: "2026-08-23T10:50:00.000Z" }, { id: "ROP-3", status: "converted", submittedAt: "2026-08-21T10:40:00.000Z", updatedAt: "2026-08-23T11:00:00.000Z" }];
 
 test("builds a consent-aware commercial funnel without counting internal tests", () => {
-  const result = buildCommercialAnalytics(events, inquiries, { days: 30, now: new Date("2026-08-23T12:00:00.000Z") });
+  const result = buildCommercialAnalytics(events, inquiries, { days: 30, now: new Date("2026-08-23T12:00:00.000Z"), workspaceActivity });
   assert.equal(result.funnel.productViews, 1); assert.equal(result.funnel.quoteAdds, 1); assert.equal(result.funnel.inquiries, 2); assert.equal(result.funnel.quoted, 1); assert.equal(result.funnel.orderSetupRequested, 1); assert.equal(result.funnel.orders, 0); assert.equal(result.supporting.mobileMenuOpens, 1); assert.equal(result.supporting.mobileMenuLinks, 1); assert.equal(result.supporting.sourcingProgramViews, 1); assert.equal(result.supporting.sourcingProgramCtas, 1); assert.equal(result.supporting.lineSheetLeads, 1); assert.equal(result.supporting.lineSheetDownloads, 1); assert.equal(result.supporting.productSpecSheets, 1); assert.equal(result.supporting.buyerMessages, 1); assert.equal(result.supporting.buyerDocuments, 1); assert.equal(result.supporting.quoteRevisions, 1); assert.equal(result.supporting.quoteDeclines, 1); assert.equal(result.supporting.orderChangesProposed, 3); assert.equal(result.supporting.orderChangesAccepted, 1); assert.equal(result.supporting.orderChangesRejected, 1); assert.equal(result.supporting.orderChangesAwaitingBuyer, 1); assert.equal(result.products[0].code, "BQ009"); assert.equal(result.products[0].compares, 1); assert.equal(result.products[0].specSheets, 1); assert.equal(result.products.some((item) => item.code === "CATALOG-2026"), false); assert.equal(result.sources[0].label, "linkedin"); assert.equal(result.stageActivity.find((item) => item.stage === "lost").count, 1); assert.deepEqual(result.lossReasons[0], { reason: "price", count: 1 }); assert.match(result.period.consentNote, /accepted optional/i);
   assert.equal(result.supporting.repeatOrdersSubmitted, 3); assert.equal(result.supporting.repeatOrdersQualified, 1); assert.equal(result.supporting.repeatOrdersConverted, 1); assert.equal(result.supporting.repeatOrdersOpen, 2);
+  assert.equal(result.workspace.accessRequests, 3); assert.equal(result.workspace.linksSent, 1); assert.equal(result.workspace.deliveryFailures, 1); assert.equal(result.workspace.unknownRequests, 1); assert.equal(result.workspace.linkRedemptions, 1); assert.equal(result.workspace.uniqueActiveBuyers, 1); assert.equal(result.workspace.workspaceLoads, 1); assert.equal(result.workspace.projectSummaryOpens, 1); assert.equal(result.workspace.privateProjectHandoffs, 1); assert.equal(result.workspace.linkDeliveryRate, 50); assert.equal(result.workspace.linkRedemptionRate, 100); assert.equal(result.workspace.projects[0].reference, "BQ-20260823-AAA"); assert.equal(JSON.stringify(result.workspace).includes("a".repeat(64)), false);
 });
 
 test("protects commercial analytics with the configured admin token", async () => {
@@ -37,9 +48,9 @@ test("protects commercial analytics with the configured admin token", async () =
 });
 
 test("returns only an aggregated analytics summary", async () => {
-  const datasets = { "beiqiang-events": Object.fromEntries(events.slice(0, 10).map((value, index) => [`events/2026-08-23/08/${index}.json`, value])), "beiqiang-inquiries": { "inquiries/2026-08-23/BQ.json": inquiries[0] } };
-  const handler = createAdminAnalyticsHandler({ getStoreImpl: (name) => ({ list: async () => ({ blobs: Object.keys(datasets[name]).map((key) => ({ key })) }), get: async (key) => datasets[name][key] }) });
+  const datasets = { "beiqiang-events": Object.fromEntries(events.slice(0, 10).map((value, index) => [`events/2026-08-23/08/${index}.json`, value])), "beiqiang-inquiries": { "inquiries/2026-08-23/BQ.json": inquiries[0] }, "beiqiang-buyer-access": Object.fromEntries(workspaceActivity.map((value, index) => [`activity/2026-08-23/08/${index}.json`, value])) };
+  const handler = createAdminAnalyticsHandler({ getStoreImpl: (name) => ({ list: async ({ prefix }) => ({ blobs: Object.keys(datasets[name]).filter((key) => key.startsWith(prefix)).map((key) => ({ key })) }), get: async (key) => datasets[name][key] }) });
   const request = new Request("https://www.beiqiang.online/api/admin/analytics?days=30", { headers: { Authorization: "Bearer correct" } });
   const result = await handler({ request, env: { INQUIRY_ADMIN_TOKEN: "correct" } }); const body = await result.json();
-  assert.equal(result.status, 200); assert.equal(body.analytics.funnel.inquiries, 1); assert.equal(body.analytics.coverage.eventsLoaded, 10); assert.equal(JSON.stringify(body).includes("Buyer Co"), false); assert.equal(JSON.stringify(body).includes("jane"), false);
+  assert.equal(result.status, 200); assert.equal(body.analytics.funnel.inquiries, 1); assert.equal(body.analytics.coverage.eventsLoaded, 10); assert.equal(body.analytics.coverage.workspaceActivityLoaded, workspaceActivity.length); assert.equal(body.analytics.workspace.linksSent, 1); assert.equal(JSON.stringify(body).includes("Buyer Co"), false); assert.equal(JSON.stringify(body).includes("jane"), false); assert.equal(JSON.stringify(body).includes("a".repeat(64)), false);
 });

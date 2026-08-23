@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type ActionKind = "buyer_action" | "beiqiang_review" | "formal_order" | "closed";
 type ProjectItem = { code: string; name: string; quantity: string; colors: string; sizes: string };
@@ -36,6 +36,7 @@ export default function BuyerWorkspace() {
   const [projects, setProjects] = useState<Project[] | null>(null);
   const [filter, setFilter] = useState<"all" | ActionKind>("all");
   const [query, setQuery] = useState("");
+  const openedProjects = useRef(new Set<string>());
   const filteredProjects = useMemo(() => (projects || []).filter((project) => filter === "all" || project.action.kind === filter).filter((project) => !query.trim() || [project.reference, project.styleLabel, project.styleCodes.join(" "), project.status.label, project.action.title, project.items.map((item) => `${item.code} ${item.name}`).join(" "), project.quotation?.quoteNumber, project.sample?.reference, project.order?.reference].join(" ").toLowerCase().includes(query.trim().toLowerCase())), [projects, filter, query]);
   const counts = useMemo(() => ({ all: projects?.length || 0, buyer_action: projects?.filter((project) => project.action.kind === "buyer_action").length || 0, beiqiang_review: projects?.filter((project) => project.action.kind === "beiqiang_review").length || 0, formal_order: projects?.filter((project) => project.action.kind === "formal_order").length || 0, closed: projects?.filter((project) => project.action.kind === "closed").length || 0 }), [projects]);
 
@@ -76,7 +77,14 @@ export default function BuyerWorkspace() {
     finally { setSending(false); }
   }
 
-  function signOut() { sessionStorage.removeItem("beiqiang_buyer_workspace_session"); setProjects(null); setFilter("all"); setQuery(""); setMessage("Workspace closed on this browser. Request a new secure link when needed."); }
+  function recordActivity(event: "project_open" | "private_project_open" | "workspace_closed", reference = "") {
+    const sessionToken = sessionStorage.getItem("beiqiang_buyer_workspace_session") || "";
+    if (!sessionToken) return;
+    void fetch("/api/buyer-workspace-activity", { method: "POST", headers: { Authorization: `Bearer ${sessionToken}`, "Content-Type": "application/json" }, body: JSON.stringify({ event, reference }), keepalive: true }).catch(() => undefined);
+  }
+
+  function recordProjectOpen(reference: string) { if (openedProjects.current.has(reference)) return; openedProjects.current.add(reference); recordActivity("project_open", reference); }
+  function signOut() { recordActivity("workspace_closed"); sessionStorage.removeItem("beiqiang_buyer_workspace_session"); openedProjects.current.clear(); setProjects(null); setFilter("all"); setQuery(""); setMessage("Workspace closed on this browser. Request a new secure link when needed."); }
 
   return <>
     <section className="workspace-hero">
@@ -96,7 +104,7 @@ export default function BuyerWorkspace() {
           <dl><div><dt>Indicative quantity</dt><dd>{project.quantity}</dd></div><div><dt>Destination</dt><dd>{project.destination}</dd></div><div><dt>Last updated</dt><dd>{displayDate(project.updatedAt)}</dd></div></dl>
           <p><strong>Latest buyer-safe update</strong>{project.buyerUpdate}</p>
           <div className="workspace-flags">{project.hasIssuedQuotation && <span>Quotation activity</span>}{project.hasOrder && <span>Formal order recorded</span>}{project.hasOpenRepeatProject && <span>Next project active</span>}</div>
-          <details className="workspace-preview"><summary><span><strong>Review buyer-safe project summary</strong><small>No project code required</small></span><b>Open</b></summary><div className="workspace-preview-body">
+          <details className="workspace-preview" onToggle={(event) => { if (event.currentTarget.open) recordProjectOpen(project.reference); }}><summary><span><strong>Review buyer-safe project summary</strong><small>No project code required</small></span><b>Open</b></summary><div className="workspace-preview-body">
             <section><div className="workspace-preview-heading"><div><p className="eyebrow">COMMERCIAL BRIEF</p><h4>What this request currently covers</h4></div><span>Email-verified view</span></div><div className="workspace-brief-grid"><div><small>Trade term</small><strong>{tradeTermLabel(project.tradeTerm)}</strong></div><div><small>Requested timing</small><strong>{project.deliveryTiming}</strong></div><div><small>Destination</small><strong>{project.destination}</strong></div><div><small>Project stage</small><strong>{project.status.label}</strong></div></div></section>
             <section><div className="workspace-preview-heading"><div><p className="eyebrow">PRODUCT LINES</p><h4>Submitted product scope</h4></div><span>{project.items.length} line{project.items.length === 1 ? "" : "s"}</span></div>{project.items.length ? <div className="workspace-item-table"><div><strong>Style</strong><strong>Product</strong><strong>Quantity</strong><strong>Colors / sizes</strong></div>{project.items.map((item, index) => <div key={`${item.code}-${index}`}><b>{item.code || "TBC"}</b><span>{item.name}</span><span>{item.quantity}</span><span>{item.colors}<small>{item.sizes}</small></span></div>)}</div> : <p className="workspace-preview-empty">Product lines will appear after Beiqiang records the submitted product scope.</p>}</section>
             {(project.recommendation || project.sample || project.quotation || project.order) && <section><div className="workspace-preview-heading"><div><p className="eyebrow">PUBLIC MILESTONES</p><h4>Recorded commercial progress</h4></div><span>Summary only</span></div><div className="workspace-milestones">
@@ -107,7 +115,7 @@ export default function BuyerWorkspace() {
             </div></section>}
             <section className="workspace-activity"><div><p className="eyebrow">PROJECT ACTIVITY</p><h4>Supporting records available after project verification</h4></div><div><span><strong>{project.activity.messages}</strong> messages</span><span><strong>{project.activity.buyerFiles}</strong> buyer files</span><span><strong>{project.activity.sharedDocuments}</strong> shared documents</span></div></section>
           </div></details>
-          <div className="workspace-verified-handoff"><div><strong>Continue with project verification</strong><p>Enter the original 20-character project access code to view messages, files, quotation terms, sample criteria and order records—or submit a decision.</p></div><Link className="button button-secondary" href={`/inquiry-status/?reference=${encodeURIComponent(project.reference)}`}>{project.action.label}</Link></div>
+          <div className="workspace-verified-handoff"><div><strong>Continue with project verification</strong><p>Enter the original 20-character project access code to view messages, files, quotation terms, sample criteria and order records—or submit a decision.</p></div><Link className="button button-secondary" href={`/inquiry-status/?reference=${encodeURIComponent(project.reference)}`} onClick={() => recordActivity("private_project_open", project.reference)}>{project.action.label}</Link></div>
         </article>) : <div className="workspace-empty"><h3>No projects match this view.</h3><p>Change the action filter or search term. Contact Beiqiang only if a known project is still missing.</p></div>}</div>
       </> : <div className="workspace-explanation"><article><span>01</span><h3>Request</h3><p>Enter the exact email used on your website sourcing request.</p></article><article><span>02</span><h3>Verify</h3><p>Open the one-time link sent to that mailbox within 15 minutes.</p></article><article><span>03</span><h3>Review</h3><p>Compare safe project summaries, then use the private code for details and decisions.</p></article></div>}
       <div className="workspace-security"><strong>Commercial and security boundary</strong><p>This workspace is an email-verified, buyer-safe project overview. A delegated contact sees only projects explicitly authorized by Beiqiang; company-name or email-domain similarity never grants access. Workspace access is not proof of authority for payment, a purchase order, quotation acceptance, stock confirmation or production authorization. Prices, payment details, files, messages, tracking and write actions remain behind project-level verification. Verify formal terms in Alibaba Trade Assurance or the signed contract.</p></div>

@@ -708,6 +708,27 @@ footer a:hover { color: var(--forest); }
 .commercial-funnel article > div span { font-weight: 800; }
 .commercial-funnel article::after { content: ""; height: 10px; grid-column: 2; grid-row: 1; background: #e2e7e2; }
 .commercial-funnel i { z-index: 1; height: 10px; grid-column: 2; grid-row: 1; background: var(--terracotta); }
+.workspace-analytics { margin-top: 26px; padding: 22px; border: 1px solid #b8c9c1; background: #eef4f1; }
+.workspace-analytics-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+.workspace-analytics-heading h3 { margin: 4px 0 0; font-family: Georgia, serif; font-size: 24px; }
+.workspace-analytics-heading > p { max-width: 560px; margin: 0; color: var(--muted); font-size: 12px; }
+.workspace-analytics-metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 18px; border: 1px solid #cbd8d2; background: white; }
+.workspace-analytics-metrics article { padding: 16px; border-right: 1px solid #dce5e1; border-bottom: 1px solid #dce5e1; }
+.workspace-analytics-metrics small, .workspace-analytics-metrics strong { display: block; }
+.workspace-analytics-metrics small { color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+.workspace-analytics-metrics strong { margin-top: 6px; font-family: Georgia, serif; font-size: 26px; }
+.workspace-analytics-rates { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 18px; margin-top: 18px; }
+.workspace-analytics-rates article > div { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; }
+.workspace-analytics-rates i { display: block; height: 8px; margin-top: 7px; overflow: hidden; background: #d8e4de; }
+.workspace-analytics-rates b { display: block; height: 100%; background: #2f6651; }
+.workspace-analytics-diagnostics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.workspace-analytics-diagnostics span { padding: 7px 10px; border: 1px solid #c7d7cf; background: white; color: var(--muted); font-size: 10px; }
+.workspace-analytics-diagnostics strong { color: var(--ink); }
+.workspace-project-table { margin-top: 18px; border: 1px solid #cbd8d2; background: white; }
+.workspace-project-table > div { display: grid; grid-template-columns: 1fr 150px 150px; gap: 12px; padding: 10px 12px; border-bottom: 1px solid #e2e8e5; font-size: 11px; }
+.workspace-project-table > div:first-child { background: #e5eeea; }
+.workspace-project-table > div:last-child { border-bottom: 0; }
+.workspace-analytics-empty, .workspace-analytics-privacy { display: block; margin: 16px 0 0; color: var(--muted); font-size: 10px; line-height: 1.6; }
 .commercial-supporting { margin-top: 24px; display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid var(--line); background: white; }
 .commercial-supporting article { padding: 18px; }
 .commercial-supporting article + article { border-left: 1px solid var(--line); }
@@ -1470,9 +1491,11 @@ footer a:hover { color: var(--forest); }
   .admin-toolbar > div { align-items: flex-start; flex-direction: column; }
   .admin-card-top { flex-direction: column; }
   .admin-card-top > div:last-child { text-align: left; }
-  .admin-card-grid, .admin-readiness, .admin-follow-up-grid, .admin-repeat-editor, .commercial-breakdown, .commercial-supporting, .reminder-counts, .reminder-lists, .buyer-repeat-order > form { grid-template-columns: 1fr; }
+  .admin-card-grid, .admin-readiness, .admin-follow-up-grid, .admin-repeat-editor, .commercial-breakdown, .commercial-supporting, .workspace-analytics-metrics, .workspace-analytics-rates, .reminder-counts, .reminder-lists, .buyer-repeat-order > form { grid-template-columns: 1fr; }
   .admin-dashboard-heading, .admin-reminder-heading, .admin-relationship-heading { align-items: flex-start; flex-direction: column; }
   .commercial-supporting article + article { border-left: 0; border-top: 1px solid var(--line); }
+  .workspace-analytics-heading { align-items: start; flex-direction: column; }
+  .workspace-project-table > div { grid-template-columns: 1fr 76px 76px; }
   .reminder-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
   .relationship-counts, .relationship-groups, .admin-related-history > div { grid-template-columns: 1fr; }
   .relationship-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
