@@ -40,6 +40,8 @@ test("verifies the stored file and attaches metadata to the inquiry", async () =
   const handler = createInquiryAttachmentHandler({ getStoreImpl: (name) => stores[name] });
   const result = await handler.onRequestPatch({ request: buyerRequest("PATCH", { uploadId, key }) }); const body = await result.json();
   assert.equal(result.status, 201); assert.equal(body.attachment.name, "brand-tech-pack.pdf"); assert.equal(saved.value.attachments.length, 1); assert.equal(saved.value.attachments[0].key, key);
+  assert.equal(saved.value.attachments[0].securityStatus, "quarantined");
+  assert.match(saved.value.attachments[0].securityReason, /offline malware/i);
 });
 
 test("admin download requires the token and a file recorded on that inquiry", async () => {
@@ -48,8 +50,20 @@ test("admin download requires the token and a file recorded on that inquiry", as
   const handler = createAdminAttachmentHandler({ getStoreImpl: (name) => stores[name] });
   const url = `https://www.beiqiang.online/api/admin/inquiry-attachment?reference=${reference}&receivedAt=${encodeURIComponent(record.receivedAt)}&attachmentId=${attachment.id}`;
   assert.equal((await handler({ request: new Request(url), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 401);
-  const result = await handler({ request: new Request(url, { headers: { Authorization: "Bearer correct-token" } }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  const blocked = await handler({ request: new Request(url, { headers: { Authorization: "Bearer correct-token" } }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  assert.equal(blocked.status, 409);
+  const result = await handler({ request: new Request(url, { headers: { Authorization: "Bearer correct-token", "X-Quarantine-Acknowledgement": "download-for-isolated-review" } }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
   assert.equal(result.status, 200); assert.match(result.headers.get("content-disposition"), /attachment;/); assert.equal(await result.text(), "pdf");
+  assert.equal(result.headers.get("content-type"), "application/octet-stream"); assert.equal(result.headers.get("x-download-options"), "noopen"); assert.equal(result.headers.get("content-security-policy"), "sandbox");
+});
+
+test("reviewed buyer files retain their recorded content type without quarantine acknowledgement", async () => {
+  const attachment = { id: "abcdef0123456789abcd", key: `inquiry-files/2026-08-23/${reference}/abcdef0123456789abcd-brand-tech-pack.pdf`, name: "brand-tech-pack.pdf", contentType: "application/pdf", securityStatus: "reviewed_safe" };
+  const stores = { "beiqiang-inquiries": { get: async () => ({ ...record, attachments: [attachment] }) }, "beiqiang-inquiry-files": { get: async () => new TextEncoder().encode("pdf").buffer } };
+  const handler = createAdminAttachmentHandler({ getStoreImpl: (name) => stores[name] });
+  const url = `https://www.beiqiang.online/api/admin/inquiry-attachment?reference=${reference}&receivedAt=${encodeURIComponent(record.receivedAt)}&attachmentId=${attachment.id}`;
+  const result = await handler({ request: new Request(url, { headers: { Authorization: "Bearer correct-token" } }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  assert.equal(result.status, 200); assert.equal(result.headers.get("content-type"), "application/pdf"); assert.equal(result.headers.get("x-beiqiang-file-security"), "reviewed_safe");
 });
 
 test("admin download rejects a revoked buyer attachment before reading file bytes", async () => {

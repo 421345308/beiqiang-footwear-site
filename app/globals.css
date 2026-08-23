@@ -1020,6 +1020,12 @@ footer a:hover { color: var(--forest); }
 .file-lifecycle-control button { padding: 9px 11px; border: 1px solid #9a5a46; background: white; color: #7c3a28; cursor: pointer; }
 .file-lifecycle-control small { grid-column: 1 / -1; color: var(--muted); line-height: 1.5; }
 .file-lifecycle-control.revoked { padding: 8px; background: #f5e6df; }
+.file-security-control { margin-top: 8px; padding: 10px; border: 1px solid #d7b778; background: #fff7df; }
+.file-security-control.reviewed { border-color: #a8c5b7; background: #edf6f1; }
+.file-security-control strong, .file-security-control small { display: block; }
+.file-security-control small { margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+.file-security-control input { width: 100%; margin-top: 8px; padding: 9px; border: 1px solid var(--line); background: white; }
+.file-security-control button { width: 100%; margin-top: 7px; padding: 9px 11px; border: 1px solid #8b6d2d; background: white; cursor: pointer; }
 .admin-order-document-list article.revoked { background: #f5e6df; opacity: .85; }
 .admin-order-document-list .file-lifecycle-control { grid-column: 1 / -1; width: 100%; }
 .admin-document-audit { border-top: 1px solid var(--line); background: #f7f5ef; }
@@ -1029,6 +1035,34 @@ footer a:hover { color: var(--forest); }
 .admin-document-audit span, .admin-document-audit strong, .admin-document-audit li small { display: block; }
 .admin-document-audit span, .admin-document-audit li small, .admin-document-audit > small { color: var(--muted); font-size: 10px; line-height: 1.5; }
 .admin-document-audit > small { display: block; padding: 0 22px 18px; }
+.admin-data-lifecycle { border-top: 1px solid var(--line); background: #f7f3ed; }
+.admin-data-lifecycle > summary { padding: 16px 22px; cursor: pointer; color: #6c3b2c; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.admin-data-lifecycle > div, .admin-data-lifecycle > section, .admin-data-lifecycle > details, .admin-data-lifecycle > p { margin-right: 22px; margin-left: 22px; }
+.data-lifecycle-boundary { padding: 14px; border: 1px solid #d1b69e; background: #fffaf5; }
+.data-lifecycle-boundary p { margin: 5px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.data-lifecycle-status { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 14px; border: 1px solid var(--line); background: white; }
+.data-lifecycle-status article { padding: 14px; border-right: 1px solid var(--line); }
+.data-lifecycle-status article:last-child { border-right: 0; }
+.data-lifecycle-status small, .data-lifecycle-status strong, .data-lifecycle-status span { display: block; }
+.data-lifecycle-status small { color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+.data-lifecycle-status strong { margin-top: 5px; }
+.data-lifecycle-status span { margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+.data-lifecycle-forms, .data-deletion-request, .data-deletion-approval, .data-deletion-execution { margin-top: 14px; padding: 14px; border: 1px solid var(--line); background: white; }
+.data-lifecycle-forms > label, .data-deletion-request label, .data-deletion-approval label, .data-deletion-execution label { display: grid; gap: 5px; margin-bottom: 10px; font-size: 10px; font-weight: 800; }
+.data-lifecycle-forms input, .data-lifecycle-forms textarea, .data-lifecycle-forms select, .data-deletion-request input, .data-deletion-request textarea, .data-deletion-approval input, .data-deletion-approval textarea, .data-deletion-execution input, .data-deletion-execution textarea { width: 100%; padding: 10px; border: 1px solid var(--line); background: white; }
+.data-lifecycle-actions { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 9px; margin-top: 9px; }
+.data-lifecycle-actions label { display: grid; gap: 5px; font-size: 10px; font-weight: 800; }
+.data-lifecycle-actions button, .data-deletion-request button, .data-deletion-approval button, .data-deletion-execution button { padding: 10px 12px; border: 1px solid #8d5d48; background: white; color: #683722; cursor: pointer; }
+.data-deletion-request h4, .data-deletion-approval h4, .data-deletion-execution h4 { margin: 0 0 12px; font-family: Georgia, serif; font-size: 20px; }
+.data-deletion-approval button + button, .data-deletion-execution button + button { margin-left: 8px; }
+.data-lifecycle-check { display: flex !important; grid-template-columns: none !important; align-items: start; gap: 8px !important; }
+.data-lifecycle-check input { width: auto; margin-top: 2px; }
+.data-lifecycle-audit { margin-top: 14px; padding-bottom: 10px; border: 1px solid var(--line); background: white; }
+.data-lifecycle-audit > summary { padding: 12px; cursor: pointer; font-weight: 800; }
+.data-lifecycle-audit p { margin: 0; padding: 9px 12px; border-top: 1px solid var(--line); }
+.data-lifecycle-audit strong, .data-lifecycle-audit span, .data-lifecycle-audit small { display: block; }
+.data-lifecycle-audit span, .data-lifecycle-audit small { color: var(--muted); font-size: 10px; }
+.admin-data-lifecycle > p[aria-live] { min-height: 18px; padding-bottom: 16px; color: var(--rust); font-size: 11px; }
 .order-handoff-saved { margin: 0; padding: 10px; background: #e1eee6; color: #28553d; font-size: 11px; }
 
 /* Legal and consent surfaces */
@@ -1471,6 +1505,9 @@ footer a:hover { color: var(--forest); }
   .buyer-order-checklist article { grid-template-columns: 1fr; }
   .file-lifecycle-control { grid-template-columns: 1fr; }
   .file-lifecycle-control small { grid-column: auto; }
+  .data-lifecycle-status, .data-lifecycle-actions { grid-template-columns: 1fr; }
+  .data-lifecycle-status article { border-right: 0; border-bottom: 1px solid var(--line); }
+  .data-deletion-approval button + button, .data-deletion-execution button + button { margin: 8px 0 0; }
   .buyer-payment-schedule > div:first-child { flex-direction: column; }
   .buyer-quotation-heading { flex-direction: column; }
   .buyer-order-request form, .buyer-order-request-summary { grid-template-columns: 1fr; }

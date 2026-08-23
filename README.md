@@ -80,9 +80,11 @@ After changing environment variables, create a new deployment because existing d
 
 - Internal route: `/admin/inquiries/`
 - Required production variable: `INQUIRY_ADMIN_TOKEN`
+- Permanent website-record approval and execution additionally require `INQUIRY_DELETE_TOKEN`. It must be a separate high-entropy secret, must not equal `INQUIRY_ADMIN_TOKEN`, and should be held by an independent approver rather than ordinary sales users.
 - The token is only an access key for the internal inquiry ledger. It is not a customer password, SMTP password, or GitHub credential.
 - The browser sends the entered token to `/api/admin/inquiries`; the API checks it before reading the `beiqiang-inquiries` Blob store.
 - Never put the token in source code, screenshots, GitHub, email copy, or buyer-facing pages. Rotate the EdgeOne environment variable if it is exposed, then redeploy.
+- Store both secrets only in the EdgeOne production environment. Without a separate deletion token, review dates and retention holds still work, but deletion approval and execution intentionally return an unavailable response.
 
 ## Product Catalogue Data Flow
 
@@ -355,6 +357,15 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Open next-project actions enter the internal reminder center and daily digest. Commercial analytics separately reports submitted, qualified, converted and currently open repeat-order opportunities.
 - Website acceptance is supporting evidence only. Sales must make the same critical change in the authoritative Alibaba Trade Assurance order or signed bilateral contract before affected production or payment action.
 - API: internal proposals use authenticated `PATCH /api/admin/inquiries`; buyer decisions use private `POST /api/order-change-response`. Never expose the administrator token or the buyer access code in logs, screenshots or links.
+
+## Controlled Data Lifecycle and Buyer-File Quarantine
+
+- Each inquiry can have a scheduled retention-review date, an active/released hold and one recorded deletion workflow. A review date never deletes data automatically. Active order, payment, dispute, shipment, claim, legal or security holds block deletion.
+- A verified deletion request records scope and request-channel evidence. Approval requires a different named approver, the separate `INQUIRY_DELETE_TOKEN`, a written retention assessment and confirmation that required external order records remain in their authoritative systems. Execution is blocked for at least 24 hours and requires the exact inquiry reference again.
+- Execution removes only the matching website inquiry, validated inquiry/order-document file keys, related buyer-workspace access records and matching first-party website events. It does not delete Alibaba Trade Assurance, signed-contract, accounting, logistics, dispute or other external records.
+- A minimal receipt is retained in `beiqiang-deletion-audit`; it excludes email addresses, file names/content, access codes, session tokens and message text. No live record is deleted by the test suite.
+- New buyer uploads are `quarantined` by default. The website validates supported type, size and storage metadata, but does not include an antivirus engine. A quarantined download requires explicit isolated-review acknowledgement and is forced to a non-previewing binary response. Ordinary admin download is enabled only after an authorized person records the offline malware/content-review method and result.
+- Revoking a file blocks website access but preserves bytes and audit evidence. Quarantine, review, revocation and permanent deletion are separate actions and must not be described as interchangeable.
 
 ## Privacy and Analytics Choice
 

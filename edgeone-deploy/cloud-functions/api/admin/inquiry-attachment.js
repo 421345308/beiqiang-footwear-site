@@ -33,11 +33,13 @@ export function createAdminAttachmentHandler({ getStoreImpl = getStore } = {}) {
       const attachment = record?.attachments?.find((file) => file.id === attachmentId);
       if (!attachment || !String(attachment.key || "").startsWith(`inquiry-files/${date}/${reference}/`)) return response(404, { ok: false, message: "Attachment was not found." });
       if (attachment.revokedAt) return response(410, { ok: false, message: "This attachment has been revoked. Review the inquiry audit before restoring access." });
+      const securityStatus = attachment.securityStatus === "reviewed_safe" ? "reviewed_safe" : "quarantined";
+      if (securityStatus !== "reviewed_safe" && context.request.headers.get("x-quarantine-acknowledgement") !== "download-for-isolated-review") return response(409, { ok: false, message: "This buyer upload is quarantined. Confirm isolated offline review before downloading it." });
       const fileStore = getStoreImpl("beiqiang-inquiry-files");
       const file = await fileStore.get(attachment.key, { type: "arrayBuffer", consistency: "strong" });
       if (!file) return response(404, { ok: false, message: "Attachment was not found." });
       const name = safeDownloadName(attachment.name);
-      return new Response(file, { status: 200, headers: { "Content-Type": attachment.contentType || "application/octet-stream", "Content-Disposition": `attachment; filename="${name.replace(/[^\x20-\x7E]/g, "-")}"; filename*=UTF-8''${encodeURIComponent(name)}`, "Cache-Control": "no-store, private", "X-Content-Type-Options": "nosniff" } });
+      return new Response(file, { status: 200, headers: { "Content-Type": securityStatus === "reviewed_safe" ? attachment.contentType || "application/octet-stream" : "application/octet-stream", "Content-Disposition": `attachment; filename="${name.replace(/[^\x20-\x7E]/g, "-")}"; filename*=UTF-8''${encodeURIComponent(name)}`, "Cache-Control": "no-store, private", "Content-Security-Policy": "sandbox", "X-Content-Type-Options": "nosniff", "X-Download-Options": "noopen", "X-Beiqiang-File-Security": securityStatus } });
     } catch (error) {
       console.error("Admin attachment download failed", error);
       return response(503, { ok: false, message: "Attachment could not be downloaded." });

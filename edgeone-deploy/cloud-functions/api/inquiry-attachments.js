@@ -115,8 +115,9 @@ export function createInquiryAttachmentHandler({ getStoreImpl = getStore } = {})
         if (metadata) await fileStore.delete(blobKey);
         return response(400, { ok: false, message: "The uploaded file did not pass the size or type check." });
       }
-      const attachment = { id: uploadId, key: blobKey, name: pending.name, contentType: storedType, size: storedBytes, uploadedAt: new Date().toISOString() };
-      const updated = { ...auth.record, pendingAttachments: (auth.record.pendingAttachments || []).filter((file) => file.id !== uploadId), attachments: [...attachments, attachment], updatedAt: new Date().toISOString() };
+      const uploadedAt = new Date().toISOString();
+      const attachment = { id: uploadId, key: blobKey, name: pending.name, contentType: storedType, size: storedBytes, uploadedAt, securityStatus: "quarantined", securityReason: "Buyer upload pending offline malware and content-safety review.", securityUpdatedAt: uploadedAt, securityUpdatedBy: "System" };
+      const updated = { ...auth.record, pendingAttachments: (auth.record.pendingAttachments || []).filter((file) => file.id !== uploadId), attachments: [...attachments, attachment], updatedAt: uploadedAt };
       await inquiryStore.setJSON(auth.key, updated, { cacheControl: null });
       return response(201, { ok: true, attachment: { id: attachment.id, name: attachment.name, contentType: attachment.contentType, size: attachment.size, uploadedAt: attachment.uploadedAt } });
     } catch (error) {
