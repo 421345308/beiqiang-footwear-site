@@ -82,5 +82,7 @@ const sitemapUrls = [
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map((url) => `  <url><loc>https://www.beiqiang.online${url.path}</loc><changefreq>${url.frequency}</changefreq><priority>${url.priority}</priority></url>`).join("\n")}\n</urlset>\n`;
 await writeFile(resolve(outputRoot, "sitemap.xml"), sitemap, "utf8");
+const robots = `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: https://www.beiqiang.online/sitemap.xml\nHost: https://www.beiqiang.online\n`;
+await writeFile(resolve(outputRoot, "robots.txt"), robots, "utf8");
 
 console.log(outputRoot);

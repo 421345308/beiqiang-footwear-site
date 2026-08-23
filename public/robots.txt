@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 Sitemap: https://www.beiqiang.online/sitemap.xml
+Host: https://www.beiqiang.online
