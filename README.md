@@ -344,6 +344,15 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Buyers can acknowledge the proposed resolution or request a revision from their private status page. Acknowledgement confirms receipt only; it does not prove completion or waive contractual rights.
 - After shipment is recorded, buyers can confirm operational receipt or report a structured delivery issue. Issue reports create an internal fulfillment case and can be supported with the existing protected buyer-file uploader.
 - Staff can mark a case resolved only after recording the verified resolution. Open cases enter the protected reminder digest, while dashboard analytics aggregate opened, resolved and open cases plus delivery confirmations and reported issues.
+
+### Repeat-order and next-project growth loop
+
+- Once shipment is recorded, the private buyer page can start one structured next sourcing project: repeat the same order direction, replenish selected styles, request a new-season shortlist, or discuss a new OEM/ODM project.
+- The buyer supplies product codes where relevant, indicative quantity, purchase window, destination, requested timing, changes and other requirements, then confirms that the submission is not a purchase order or production authorization.
+- The server saves the opportunity before attempting internal and buyer email. Buyer email never includes the private status access code and does not promise price, stock, material, lead time or production availability.
+- The protected admin workflow records owner, current stage, one clear next action, due date and append-only history. Stages are submitted, qualified, sample discussion, quotation preparation, formal-order preparation, converted and closed.
+- Conversion requires a linked new inquiry reference or formal-order reference. Converted and closed records cannot be silently reopened or rewritten.
+- Open next-project actions enter the internal reminder center and daily digest. Commercial analytics separately reports submitted, qualified, converted and currently open repeat-order opportunities.
 - Website acceptance is supporting evidence only. Sales must make the same critical change in the authoritative Alibaba Trade Assurance order or signed bilateral contract before affected production or payment action.
 - API: internal proposals use authenticated `PATCH /api/admin/inquiries`; buyer decisions use private `POST /api/order-change-response`. Never expose the administrator token or the buyer access code in logs, screenshots or links.
 

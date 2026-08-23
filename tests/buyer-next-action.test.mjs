@@ -14,6 +14,13 @@ test("prioritizes a pending confirmed-order change over the existing order link"
   assert.equal(action.href, "#order-change-review"); assert.match(action.title, /OCR-ABCDEF012345/); assert.match(action.body, /current version stays active/i);
 });
 
+test("routes a shipped buyer to delivery feedback before a repeat project, then shows the active project", () => {
+  const shipped = { ...open, orderHandoff: { method: "contract", orderReference: "CT-1", fulfillmentStatus: "shipped" } };
+  assert.equal(getBuyerNextAction(shipped).href, "#delivery-feedback");
+  const repeat = { ...shipped, deliveryFeedback: [{ action: "received_as_expected" }], repeatOrderOpportunities: [{ id: "ROP-ABCDEF012345", status: "qualified", intent: "repeat_same_order", nextAction: "Prepare quotation" }] };
+  const action = getBuyerNextAction(repeat); assert.equal(action.href, "#repeat-order"); assert.match(action.title, /ROP-ABCDEF012345/);
+});
+
 test("surfaces a pending buyer sample decision before quotation work", () => {
   const action = getBuyerNextAction({ ...open, sampleProgram: { status: "buyer_review" }, buyerQuotation: { status: "issued", quoteNumber: "Q1" } });
   assert.equal(action.href, "#sample-review"); assert.match(action.title, /sample/i);
