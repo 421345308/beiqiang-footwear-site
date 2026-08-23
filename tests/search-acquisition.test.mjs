@@ -34,4 +34,6 @@ test("includes every sourcing resource in the EdgeOne static export contract", a
   }
   assert.match(exporter, /resourceRoutes/);
   assert.match(exporter, /resources\/\$\{slug\}\/index\.html/);
+  assert.match(exporter, /searchableCapabilitySlugs/);
+  assert.match(exporter, /slug\s*!==\s*"buyer-workspace"/);
 });
