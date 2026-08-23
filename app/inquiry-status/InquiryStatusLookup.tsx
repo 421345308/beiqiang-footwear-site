@@ -97,13 +97,18 @@ export default function InquiryStatusLookup() {
   const [documentStatus, setDocumentStatus] = useState("");
 
   useEffect(() => {
+    const queryReference = new URLSearchParams(window.location.search).get("reference")?.trim().toUpperCase() || "";
     let saved: { reference?: string; accessCode?: string } | null = null;
     try {
       saved = JSON.parse(localStorage.getItem("beiqiang_last_inquiry_access") || "null");
     } catch { /* buyer can enter values manually */ }
-    if (!saved?.reference || !saved?.accessCode) return;
+    if (!saved?.accessCode || (queryReference && saved.reference !== queryReference)) {
+      if (!queryReference) return;
+      const queryTimer = window.setTimeout(() => setReference(queryReference), 0);
+      return () => window.clearTimeout(queryTimer);
+    }
     const timer = window.setTimeout(() => {
-      setReference(saved.reference || "");
+      setReference(queryReference || saved.reference || "");
       setAccessCode(saved.accessCode || "");
     }, 0);
     return () => window.clearTimeout(timer);

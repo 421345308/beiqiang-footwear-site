@@ -26,7 +26,7 @@ const collectionRoutes = collectionSlugs.map((slug) => ({
 }));
 const solutionSlugs = ["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes"];
 const solutionRoutes = solutionSlugs.map((slug) => ({ pathname: `/solutions/${slug}`, output: `solutions/${slug}/index.html` }));
-const capabilitySlugs = ["factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide", "line-sheet", "privacy", "terms"];
+const capabilitySlugs = ["factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide", "buyer-workspace", "line-sheet", "privacy", "terms"];
 const capabilityRoutes = capabilitySlugs.map((slug) => ({ pathname: `/${slug}`, output: `${slug}/index.html` }));
 const routes = [
   { pathname: "/", output: "index.html" },

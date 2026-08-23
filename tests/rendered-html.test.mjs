@@ -85,6 +85,18 @@ test("server-renders the private buyer inquiry status lookup", async () => {
   assert.doesNotMatch(html, /internalNote|accessTokenHash|INQUIRY_ADMIN_TOKEN/);
 });
 
+test("server-renders the secure multi-project buyer workspace", async () => {
+  const response = await render("/buyer-workspace");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /One view for every sourcing project/i);
+  assert.match(html, /15-minute one-time email link/i);
+  assert.match(html, /Private code still required for decisions/i);
+  assert.match(html, /response is the same whether or not an email exists/i);
+  assert.match(html, /noindex/i);
+  assert.doesNotMatch(html, /accessTokenHash|internalNote|INQUIRY_ADMIN_TOKEN/);
+});
+
 test("server-renders the verified BQ001 product page", async () => {
   const response = await render("/products/bq001");
   assert.equal(response.status, 200);

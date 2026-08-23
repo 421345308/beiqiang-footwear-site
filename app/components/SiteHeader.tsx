@@ -21,6 +21,7 @@ export default function SiteHeader() {
           <Link href="/quality-packing/">Quality &amp; packing</Link>
           <Link href="/oem-odm/">OEM / ODM</Link>
           <Link href="/buyer-guide/">Buyer guide</Link>
+          <Link href="/buyer-workspace/">Buyer workspace</Link>
         </nav>
         <QuoteListLink />
         <MobileNavigation />
