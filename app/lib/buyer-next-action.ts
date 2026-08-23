@@ -5,7 +5,9 @@ export type BuyerActionRequest = {
   buyerQuotation?: { status: string; quoteNumber: string } | null;
   buyerOrderRequest?: { quoteNumber: string } | null;
   orderChangeRequests?: { id: string; status: string }[];
-  orderHandoff?: { method: "alibaba_trade_assurance" | "contract"; orderReference: string; orderUrl?: string } | null;
+  fulfillmentCases?: { id: string; status: string; source?: string }[];
+  deliveryFeedback?: { action: string }[];
+  orderHandoff?: { method: "alibaba_trade_assurance" | "contract"; orderReference: string; orderUrl?: string; fulfillmentStatus?: string } | null;
 };
 
 export type BuyerNextAction = { eyebrow: string; title: string; body: string; actionLabel: string; href: string; external?: boolean; tone: "review" | "decision" | "progress" | "closed" };
@@ -14,6 +16,9 @@ export function getBuyerNextAction(request: BuyerActionRequest): BuyerNextAction
   if (request.status.code === "closed") return { eyebrow: "REQUEST CLOSED", title: "Ask Beiqiang if this project should be reopened", body: "The website will not accept new workflow decisions while this request is closed. Use the inquiry reference when contacting the sales team.", actionLabel: "Review contact options", href: "#buyer-contact-actions", tone: "closed" };
   const pendingOrderChange = request.orderChangeRequests?.find((item) => item.status === "awaiting_buyer");
   if (pendingOrderChange) return { eyebrow: "YOUR CONFIRMATION IS REQUIRED", title: `Review order change ${pendingOrderChange.id}`, body: "Compare the proposed critical terms with the current confirmed version. The current version stays active unless you accept the change.", actionLabel: "Review proposed order change", href: "#order-change-review", tone: "decision" };
+  const pendingFulfillmentCase = request.fulfillmentCases?.find((item) => item.status === "awaiting_buyer");
+  if (pendingFulfillmentCase) return { eyebrow: "FULFILLMENT RESPONSE REQUIRED", title: `Review exception ${pendingFulfillmentCase.id}`, body: "Review the recorded facts, affected scope, expected impact and proposed resolution. Your acknowledgement does not change confirmed commercial terms.", actionLabel: "Review fulfillment exception", href: "#fulfillment-case-review", tone: "decision" };
+  if (["shipped", "completed"].includes(request.orderHandoff?.fulfillmentStatus || "") && !request.deliveryFeedback?.some((item) => item.action === "received_as_expected")) return { eyebrow: "SHIPMENT FOLLOW-UP", title: `Confirm receipt or report an issue`, body: "Use the recorded shipment reference to confirm operational receipt or open a structured issue for Beiqiang review.", actionLabel: "Add delivery feedback", href: "#delivery-feedback", tone: "decision" };
   if (request.orderHandoff?.orderReference) return { eyebrow: "FORMAL ORDER HANDOFF", title: `Review order ${request.orderHandoff.orderReference}`, body: "Compare the formal order channel and written eight-item summary with the approved quotation before any production or payment action.", actionLabel: request.orderHandoff.orderUrl ? "Open verified Trade Assurance order" : "Review order handoff", href: request.orderHandoff.orderUrl || "#order-handoff", external: Boolean(request.orderHandoff.orderUrl), tone: "progress" };
   if (request.sampleProgram?.status === "buyer_review") return { eyebrow: "YOUR DECISION IS NEEDED", title: "Review the referenced sample", body: "Check only the written review scope, then approve that sample or describe the exact style, size, color or component revision needed.", actionLabel: "Review sample and respond", href: "#sample-review", tone: "decision" };
   if (request.buyerQuotation?.status === "issued") return { eyebrow: "YOUR DECISION IS NEEDED", title: `Review quotation ${request.buyerQuotation.quoteNumber}`, body: "Check style lines, quantity, price, trade term, validity, payment, packing and sample terms before accepting or requesting a revision.", actionLabel: "Review current quotation", href: "#buyer-quotation", tone: "decision" };

@@ -336,6 +336,14 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - After the proposal is saved, the server emails the buyer at the inquiry address when SMTP is available. The message names the proposal, reason and changed fields, links to the private status lookup without exposing the access code, and repeats the Trade Assurance/contract boundary. A mail failure never deletes the saved proposal; the admin shows the delivery result for manual follow-up.
 - Fulfillment stage, carrier, tracking/B/L, buyer-safe progress notes and actual payment status/reference remain operational updates. They append an operational audit entry without creating a false commercial re-approval cycle.
 - A pending proposal enters the protected sales reminder center two days after creation and remains visible until the buyer accepts or rejects it. The 7/30/90-day dashboard separately reports proposed, accepted, rejected and currently pending order changes.
+
+### Fulfillment exception and delivery-feedback control
+
+- After an order is confirmed, staff can open a structured fulfillment case for production timing, quality check, packing/labeling, logistics, documents, quantity/specification or another verified exception. Each case separates facts, affected scope, expected impact, proposed resolution and buyer response date.
+- The system saves the case before attempting buyer email. The email contains no private status access code and states that the notice does not amend the confirmed order or formal transaction terms.
+- Buyers can acknowledge the proposed resolution or request a revision from their private status page. Acknowledgement confirms receipt only; it does not prove completion or waive contractual rights.
+- After shipment is recorded, buyers can confirm operational receipt or report a structured delivery issue. Issue reports create an internal fulfillment case and can be supported with the existing protected buyer-file uploader.
+- Staff can mark a case resolved only after recording the verified resolution. Open cases enter the protected reminder digest, while dashboard analytics aggregate opened, resolved and open cases plus delivery confirmations and reported issues.
 - Website acceptance is supporting evidence only. Sales must make the same critical change in the authoritative Alibaba Trade Assurance order or signed bilateral contract before affected production or payment action.
 - API: internal proposals use authenticated `PATCH /api/admin/inquiries`; buyer decisions use private `POST /api/order-change-response`. Never expose the administrator token or the buyer access code in logs, screenshots or links.
 

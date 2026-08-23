@@ -529,6 +529,18 @@ footer a:hover { color: var(--forest); }
 .buyer-order-change > label { display: grid; gap: 7px; }
 .buyer-order-change textarea { width: 100%; padding: 12px; border: 1px solid var(--line); background: white; font: inherit; font-size: 14px; text-transform: none; }
 .buyer-order-change-actions { margin: 14px 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.buyer-fulfillment-cases, .buyer-delivery-feedback { margin-top: 24px; padding: 30px; border: 2px solid #a86d16; background: #fffaf0; }
+.buyer-fulfillment-cases h3, .buyer-delivery-feedback h3 { margin: 7px 0 10px; font-family: Georgia, serif; font-size: 28px; }
+.buyer-fulfillment-cases > article { margin-top: 14px; padding: 16px; border: 1px solid var(--line); background: white; }
+.buyer-fulfillment-cases > article.pending { border-color: #a86d16; }
+.buyer-fulfillment-cases > article > div { display: flex; justify-content: space-between; gap: 14px; }
+.buyer-fulfillment-cases article p, .buyer-fulfillment-cases article small, .buyer-delivery-feedback p, .buyer-delivery-feedback > small { color: var(--muted); line-height: 1.55; }
+.buyer-fulfillment-response, .buyer-delivery-issue { margin-top: 16px; padding: 16px; display: grid; gap: 12px; border: 1px solid #d8b36f; background: white; }
+.buyer-fulfillment-response label, .buyer-delivery-issue label { display: grid; gap: 7px; color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.buyer-fulfillment-response textarea, .buyer-delivery-issue textarea, .buyer-delivery-issue select { width: 100%; padding: 12px; border: 1px solid var(--line); background: white; font: inherit; text-transform: none; }
+.buyer-fulfillment-response > div, .buyer-delivery-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.buyer-delivery-history { margin: 14px 0; display: grid; gap: 8px; }
+.buyer-delivery-history p { margin: 0; padding: 12px; display: grid; gap: 3px; border: 1px solid var(--line); background: white; }
 .buyer-sample-program { margin-top: 24px; padding: 30px; border: 2px solid #846d3c; background: #fffdf5; }
 .buyer-sample-heading { display: flex; justify-content: space-between; gap: 20px; }
 .buyer-sample-heading h3 { margin: 7px 0; font-family: Georgia, serif; font-size: 30px; }
@@ -889,6 +901,19 @@ footer a:hover { color: var(--forest); }
 .admin-order-change-summary ol { margin: 0; padding-left: 20px; }
 .admin-order-change-summary li { padding: 5px 0; }
 .admin-order-change-summary li span { display: block; color: var(--muted); font-size: 10px; }
+.admin-fulfillment-cases { border-top: 1px solid var(--line); background: #fffaf0; }
+.admin-fulfillment-cases > summary { padding: 16px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.admin-fulfillment-cases > div { padding: 0 22px 20px; display: grid; gap: 16px; }
+.admin-fulfillment-list { display: grid; gap: 10px; }
+.admin-fulfillment-list article { padding: 13px; border: 1px solid #d8b36f; background: white; }
+.admin-fulfillment-list article > div { display: flex; justify-content: space-between; gap: 12px; }
+.admin-fulfillment-list article p { margin: 8px 0; }
+.admin-fulfillment-list article small { color: var(--muted); }
+.admin-case-resolution { margin-top: 10px; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.admin-case-resolution textarea { padding: 10px; border: 1px solid var(--line); font: inherit; }
+.admin-delivery-feedback { display: grid; gap: 7px; }
+.admin-delivery-feedback p { margin: 0; padding: 10px; display: grid; gap: 3px; border: 1px solid var(--line); background: white; }
+.admin-delivery-feedback p span, .admin-delivery-feedback p small { color: var(--muted); }
 .admin-sample-program { border-top: 1px solid var(--line); background: #fffdf5; }
 .admin-buyer-order-request { border-top: 1px solid var(--line); background: #f1f8f5; }
 .admin-buyer-order-request > div { padding: 0 22px 16px; display: grid; gap: 12px; }
