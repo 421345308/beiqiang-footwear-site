@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${title} | Beiqiang Footwear`,
     description: `${product.shortDescription} Review verified size, closure, colors and real product images before requesting a B2B sample or quotation.`,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages: { en: url, "zh-CN": `https://www.beiqiang.online/zh/products/${product.slug}/`, "x-default": url } },
     openGraph: { title, description: product.shortDescription, url, type: "website", images: [{ url: image, alt: title }] },
     twitter: { card: "summary_large_image", title, description: product.shortDescription, images: [image] },
   };

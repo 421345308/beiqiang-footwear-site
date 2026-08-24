@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 
-export const metadata: Metadata = { title: "Website Terms | Beiqiang Footwear", description: "B2B website terms for product information, sourcing requests, quotations, samples, uploaded files and external order platforms.", alternates: { canonical: "https://www.beiqiang.online/terms/" } };
+export const metadata: Metadata = { title: "Website Terms | Beiqiang Footwear", description: "B2B website terms for product information, sourcing requests, quotations, samples, uploaded files and external order platforms.", alternates: { canonical: "https://www.beiqiang.online/terms/", languages: { en: "https://www.beiqiang.online/terms/", "zh-CN": "https://www.beiqiang.online/zh/terms/", "x-default": "https://www.beiqiang.online/terms/" } } };
 
 export default function TermsPage() {
   return <main><SiteHeader /><section className="legal-hero"><p className="eyebrow">B2B WEBSITE TERMS</p><h1>Product discovery is not an automatic order.</h1><p>Effective 24 August 2026. These website terms describe the sourcing-information boundary. Final commercial documents should be reviewed and agreed separately by both parties.</p></section><article className="legal-content">

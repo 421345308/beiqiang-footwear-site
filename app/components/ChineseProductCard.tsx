@@ -1,0 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
+import type { Product } from "../data/products";
+import { buyerFitZh, closureZh, productNameZh, productSummaryZh } from "../data/products-zh";
+import AddToQuoteButton from "./AddToQuoteButton";
+
+export default function ChineseProductCard({ product }: { product: Product }) {
+  return <article className="product-card catalog-card"><Link className="product-image" href={`/zh/products/${product.slug}/`}><img src={`/catalog-thumbs/${product.slug}.webp`} alt={`${product.code} ${productNameZh(product)}`} loading="lazy" decoding="async" width={640} height={640} /></Link><div className="product-meta"><span className="product-tag">{closureZh(product.closure)}</span><span className="product-code">{product.code} / {product.sourceModel}</span></div><h3><Link href={`/zh/products/${product.slug}/`}>{productNameZh(product)}</Link></h3><p>{productSummaryZh(product)}</p><ul className="product-facts" aria-label={`${product.code}产品要点`}><li>{closureZh(product.closure)}</li><li>{product.size}</li><li>{product.colors.length}种颜色方向</li></ul><small className="buyer-fit">适合买家：{buyerFitZh(product)}</small><div className="product-card-actions"><Link className="product-detail-link" href={`/zh/products/${product.slug}/`}>查看产品证据 <span aria-hidden="true">→</span></Link><AddToQuoteButton product={product} compact locale="zh" /></div></article>;
+}

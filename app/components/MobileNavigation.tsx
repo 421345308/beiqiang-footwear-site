@@ -33,6 +33,7 @@ const groups = [
       ["B2B buyer guide", "/buyer-guide/"],
       ["Sample & order process", "/sample-order-process/"],
       ["Check request status", "/inquiry-status/"],
+      ["简体中文", "/zh/"],
     ],
   },
 ] as const;

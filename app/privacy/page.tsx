@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 
-export const metadata: Metadata = { title: "Privacy Notice | Beiqiang Footwear", description: "How Beiqiang Footwear handles B2B sourcing inquiries, uploaded buyer files and optional first-party website analytics.", alternates: { canonical: "https://www.beiqiang.online/privacy/" } };
+export const metadata: Metadata = { title: "Privacy Notice | Beiqiang Footwear", description: "How Beiqiang Footwear handles B2B sourcing inquiries, uploaded buyer files and optional first-party website analytics.", alternates: { canonical: "https://www.beiqiang.online/privacy/", languages: { en: "https://www.beiqiang.online/privacy/", "zh-CN": "https://www.beiqiang.online/zh/privacy/", "x-default": "https://www.beiqiang.online/privacy/" } } };
 
 export default function PrivacyPage() {
   return <main><SiteHeader /><section className="legal-hero"><p className="eyebrow">PRIVACY NOTICE</p><h1>Clear handling of sourcing information.</h1><p>Effective 24 August 2026. This notice explains the website practices of Quanzhou Beiqiang Footwear &amp; Apparel Co., Ltd. It does not claim certification under any privacy framework and should be reviewed as laws and operations change.</p></section><article className="legal-content">

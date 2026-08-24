@@ -383,6 +383,16 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - `app/robots.ts` points crawlers to the canonical sitemap and keeps API routes out of crawling. Private buyer pages already use `noindex`; the admin layout now explicitly adds `noindex, nofollow, noarchive, nocache` rather than relying on robots.txt as a security control.
 - Resource pages include canonical metadata, Article and Breadcrumb JSON-LD, visible internal links and conservative evidence boundaries. Search inclusion is not guaranteed; submit the production sitemap in Google Search Console and review indexing there after deployment.
 
+## English / Simplified Chinese Public Journey
+
+- English remains the default public website. Buyers can switch to Simplified Chinese from the desktop header, mobile menu and footer; Chinese pages link back to the matching English page where one exists.
+- `/zh/`, `/zh/products/`, all 30 `/zh/products/:slug/` pages, `/zh/request-quote/`, `/zh/privacy/` and `/zh/terms/` form the first Chinese commercial journey.
+- The Chinese catalogue keeps the same 30 verified product records, product images, quote-list storage and inquiry API as English. Product names and buyer-facing guidance are localized, while canonical style codes and stored product identities remain stable.
+- BQ001 and BQ002 are the only styles described as verified wide-toe products. BQ010 uses the confirmed stretch-fabric upper description. Other styles keep last width, materials and commercial terms inside the existing evidence boundaries.
+- Chinese product pages support catalogue search, 2–4 style comparison, quote-list actions, product sharing, printable sourcing sheets, single-style inquiry and buyer-file upload. The Chinese quote page supports multi-style requests, trade-term context and the technical-development gate.
+- Canonical and `hreflang` metadata pair the English and Chinese public equivalents. EdgeOne export sets the generated Chinese HTML document language to `zh-CN`, publishes 35 Chinese HTML pages and includes them in `sitemap.xml`.
+- No automatic translation or third-party translation service receives buyer data. Private inquiry status, buyer workspace and later transaction decisions remain English in this phase and are labeled as an English interface; do not describe the complete private workflow as bilingual yet.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.

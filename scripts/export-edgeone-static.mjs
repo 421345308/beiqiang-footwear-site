@@ -19,6 +19,7 @@ const productSlugs = (await readdir(resolve(projectRoot, "public", "catalog"), {
 const productRoutes = productSlugs.map((slug) => {
   return { pathname: `/products/${slug}`, output: `products/${slug}/index.html` };
 });
+const chineseProductRoutes = productSlugs.map((slug) => ({ pathname: `/zh/products/${slug}`, output: `zh/products/${slug}/index.html` }));
 const collectionSlugs = ["wide-toe-box", "knit-slip-on", "breathable-lace-up"];
 const collectionRoutes = collectionSlugs.map((slug) => ({
   pathname: `/collections/${slug}`,
@@ -37,7 +38,13 @@ const routes = [
   { pathname: "/resources", output: "resources/index.html" },
   { pathname: "/request-quote", output: "request-quote/index.html" },
   { pathname: "/inquiry-status", output: "inquiry-status/index.html" },
+  { pathname: "/zh", output: "zh/index.html" },
+  { pathname: "/zh/products", output: "zh/products/index.html" },
+  { pathname: "/zh/request-quote", output: "zh/request-quote/index.html" },
+  { pathname: "/zh/privacy", output: "zh/privacy/index.html" },
+  { pathname: "/zh/terms", output: "zh/terms/index.html" },
   ...productRoutes,
+  ...chineseProductRoutes,
   ...collectionRoutes,
   ...solutionRoutes,
   ...resourceRoutes,
@@ -62,7 +69,11 @@ for (const route of routes) {
   if (!response.ok) throw new Error(`Static render failed for ${route.pathname} with HTTP ${response.status}`);
   const outputFile = resolve(outputRoot, route.output);
   await mkdir(dirname(outputFile), { recursive: true });
-  await writeFile(outputFile, await response.text(), "utf8");
+  const renderedHtml = await response.text();
+  const localizedHtml = route.pathname === "/zh" || route.pathname.startsWith("/zh/")
+    ? renderedHtml.replace('<html lang="en">', '<html lang="zh-CN">')
+    : renderedHtml;
+  await writeFile(outputFile, localizedHtml, "utf8");
 }
 await writeFile(
   resolve(outputRoot, "edgeone.json"),
@@ -74,7 +85,13 @@ const sitemapUrls = [
   { path: "/products/", frequency: "weekly", priority: "0.9" },
   { path: "/resources/", frequency: "weekly", priority: "0.8" },
   { path: "/request-quote/", frequency: "monthly", priority: "0.8" },
+  { path: "/zh/", frequency: "weekly", priority: "0.8" },
+  { path: "/zh/products/", frequency: "weekly", priority: "0.8" },
+  { path: "/zh/request-quote/", frequency: "monthly", priority: "0.7" },
+  { path: "/zh/privacy/", frequency: "monthly", priority: "0.5" },
+  { path: "/zh/terms/", frequency: "monthly", priority: "0.5" },
   ...productSlugs.map((slug) => ({ path: `/products/${slug}/`, frequency: "monthly", priority: ["bq001", "bq002", "bq009"].includes(slug) ? "0.9" : "0.7" })),
+  ...productSlugs.map((slug) => ({ path: `/zh/products/${slug}/`, frequency: "monthly", priority: ["bq001", "bq002", "bq009"].includes(slug) ? "0.8" : "0.6" })),
   ...collectionSlugs.map((slug) => ({ path: `/collections/${slug}/`, frequency: "weekly", priority: "0.8" })),
   ...solutionSlugs.map((slug) => ({ path: `/solutions/${slug}/`, frequency: "monthly", priority: "0.8" })),
   ...resourceSlugs.map((slug) => ({ path: `/resources/${slug}/`, frequency: "monthly", priority: "0.8" })),

@@ -8,7 +8,7 @@ import { products } from "../data/products";
 export const metadata: Metadata = {
   title: "Walking Shoe Product Catalogue | Beiqiang Footwear",
   description: "Browse 30 documented Beiqiang walking shoe styles by product code, source model, closure, size direction and verified product evidence.",
-  alternates: { canonical: "https://www.beiqiang.online/products/" },
+  alternates: { canonical: "https://www.beiqiang.online/products/", languages: { en: "https://www.beiqiang.online/products/", "zh-CN": "https://www.beiqiang.online/zh/products/", "x-default": "https://www.beiqiang.online/products/" } },
 };
 
 export default function ProductsPage() {

@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(origin),
     title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
     description: "Quanzhou footwear factory supply for verified walking shoes, wide-toe styles, lightweight slip-ons and casual textile footwear. Samples and OEM/ODM requirements can be discussed before bulk orders.",
-    alternates: { canonical: "https://www.beiqiang.online/" },
+    alternates: { canonical: "https://www.beiqiang.online/", languages: { en: "https://www.beiqiang.online/", "zh-CN": "https://www.beiqiang.online/zh/", "x-default": "https://www.beiqiang.online/" } },
     openGraph: {
       title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
       description: "Factory-direct B2B supply of verified walking and casual footwear for importers, wholesalers, online sellers and brand buyers.",

@@ -22,6 +22,7 @@ export default function SiteHeader() {
           <Link href="/oem-odm/">OEM / ODM</Link>
           <Link href="/resources/">Resources</Link>
           <Link href="/buyer-workspace/">Buyer workspace</Link>
+          <Link className="language-link" href="/zh/" hrefLang="zh-CN" lang="zh-CN">中文</Link>
         </nav>
         <QuoteListLink />
         <MobileNavigation />
