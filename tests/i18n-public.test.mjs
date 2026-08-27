@@ -169,3 +169,13 @@ test("includes every Chinese public route in the EdgeOne export contract", async
   for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
   assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
 });
+
+test("consent banner follows the public page language", async () => {
+  const source = await readFile(new URL("../app/components/ConsentBanner.tsx", import.meta.url), "utf8");
+  assert.match(source, /pathname\.startsWith\("\/zh\/"\)/);
+  assert.match(source, /你的隐私选择/);
+  assert.match(source, /仅使用必要功能/);
+  assert.match(source, /同意站内统计/);
+  assert.match(source, /href="\/zh\/privacy\/"/);
+  assert.match(source, /Your privacy choice/);
+});
