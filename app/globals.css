@@ -680,6 +680,12 @@ footer a:hover { color: var(--forest); }
 .admin-weekly-review-heading h2 { margin: 5px 0 10px; font-size: clamp(32px, 4vw, 48px); }
 .admin-weekly-review-heading p:not(.eyebrow) { margin: 0; color: var(--muted); }
 .admin-weekly-review-heading > span { padding: 8px 11px; border: 1px solid #c5aa76; background: white; color: #765c2c; font-size: 10px; font-weight: 800; }
+.weekly-review-tools { display: flex; justify-content: space-between; align-items: center; gap: 22px; margin-top: 18px; padding: 13px; border: 1px solid #dbc899; background: rgba(255,255,255,.72); }
+.weekly-review-tools > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.weekly-review-tools button { padding: 9px 12px; border: 1px solid var(--forest); background: var(--forest); color: white; font: inherit; font-size: 11px; font-weight: 800; cursor: pointer; }
+.weekly-review-tools button + button { background: white; color: var(--forest); }
+.weekly-review-tools button:disabled { opacity: .55; cursor: wait; }
+.weekly-review-tools small { max-width: 560px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .weekly-review-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 22px; border: 1px solid var(--line); background: white; }
 .weekly-review-grid article { padding: 18px; border-left: 1px solid var(--line); }
 .weekly-review-grid article:first-child { border-left: 0; }
@@ -701,6 +707,21 @@ footer a:hover { color: var(--forest); }
 .weekly-review-actions li > span { padding: 5px 6px; background: var(--forest); color: white; font-size: 9px; font-weight: 800; text-align: center; }
 .weekly-review-actions strong { font-size: 13px; }
 .weekly-review-actions p { margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.weekly-review-comparison, .weekly-review-history { margin-top: 14px; padding: 18px; border: 1px solid var(--line); background: white; }
+.weekly-review-comparison > div:first-child, .weekly-review-history > div:first-child { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+.weekly-review-comparison h3, .weekly-review-history h3 { margin: 0; font-size: 18px; }
+.weekly-review-comparison > div:first-child small, .weekly-review-history > div:first-child span { color: var(--muted); font-size: 10px; }
+.weekly-review-comparison > div:nth-child(2) { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 14px; background: var(--line); }
+.weekly-review-comparison article { padding: 13px; background: white; }
+.weekly-review-comparison article small, .weekly-review-comparison article strong, .weekly-review-comparison article i { display: block; }
+.weekly-review-comparison article small { color: var(--muted); font-size: 9px; font-weight: 800; }
+.weekly-review-comparison article strong { margin-top: 6px; font-family: Georgia, serif; font-size: 23px; }
+.weekly-review-comparison article i { margin-top: 3px; color: var(--muted); font: normal 9px Arial, sans-serif; }
+.weekly-review-comparison > p, .weekly-review-history > p { margin-bottom: 0; color: var(--muted); font-size: 11px; }
+.weekly-review-history > div:nth-child(2) { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; margin-top: 14px; }
+.weekly-review-history article { padding: 12px; border: 1px solid var(--line); background: #fffdf8; }
+.weekly-review-history article strong, .weekly-review-history article span, .weekly-review-history article small { display: block; }
+.weekly-review-history article span, .weekly-review-history article small { margin-top: 4px; color: var(--muted); font-size: 9px; line-height: 1.45; }
 .weekly-review-definition { display: block; margin-top: 12px; color: var(--muted); font-size: 10px; line-height: 1.55; }
 .admin-weekly-review-empty { margin-top: 20px; padding: 24px; border: 1px dashed #c5aa76; background: rgba(255,255,255,.65); color: var(--muted); text-align: center; }
 .admin-metrics { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); border: 1px solid var(--line); background: var(--forest); color: #fff; }
@@ -1627,10 +1648,12 @@ footer a:hover { color: var(--forest); }
   .sales-task-draft { grid-column: auto; }
   .sales-task-draft > div:first-child, .sales-task-draft > div:last-child { align-items: flex-start; flex-direction: column; }
   .admin-weekly-review-heading { align-items: flex-start; flex-direction: column; }
+  .weekly-review-tools { align-items: flex-start; flex-direction: column; }
   .weekly-review-grid, .weekly-review-pipeline { grid-template-columns: 1fr; }
   .weekly-review-grid article, .weekly-review-grid article:first-child { border-left: 0; border-top: 1px solid var(--line); }
   .weekly-review-grid article:first-child { border-top: 0; }
   .weekly-review-pipeline > div > div { grid-template-columns: repeat(2, 1fr); }
+  .weekly-review-comparison > div:nth-child(2) { grid-template-columns: repeat(2, 1fr); }
   .admin-metrics article, .admin-metrics article:first-child { border-left: 0; border-top: 1px solid rgba(255,255,255,.18); }
   .admin-metrics article:first-child { border-top: 0; }
   .catalog-tools { grid-template-columns: 1fr; }

@@ -447,7 +447,7 @@ export default function InquiryAdminPage() {
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) throw new Error(result.message || "Records could not be loaded.");
       setRecords(result.records || []); setStatus(`${(result.records || []).filter((record: Inquiry) => !record.internalTest).length} business inquiries loaded. Internal tests are excluded by default.`); await Promise.all([loadAnalytics(), loadReminders()]);
-    } catch (error) { setRecords([]); setStatus(error instanceof Error ? error.message : "Records could not be loaded."); }
+    } catch (error) { setRecords([]); setAnalytics(null); setReminders(null); setStatus(error instanceof Error ? error.message : "Records could not be loaded."); }
     finally { setLoading(false); }
   }
 
@@ -462,7 +462,8 @@ export default function InquiryAdminPage() {
     <header className="admin-header"><div><p className="eyebrow">BEIQIANG INTERNAL</p><h1>Inquiry &amp; order pipeline</h1><p>Review sourcing requests, qualify buyers and move each opportunity through sample, quote, negotiation and confirmed order stages. Buyer-safe reply starters remain drafts until a salesperson reviews and sends them.</p></div><Link className="text-link" href="/">Return to website <span aria-hidden="true">↗</span></Link></header>
     <section className="admin-access-card"><form onSubmit={loadRecords}><label>Dashboard access token<input type="password" value={token} onChange={(event) => setToken(event.target.value)} autoComplete="current-password" required placeholder="Stored only in this page session" /></label><button className="button" type="submit" disabled={loading}>{loading ? "Loading…" : "Load inquiries"}</button></form><p className="admin-status" aria-live="polite">{status}</p></section>
     <ChineseSalesCockpit records={businessRecords} readinessByReference={readinessByReference} />
-    <ChineseWeeklyReview data={analytics?.salesExecution || null} days={analyticsDays} />
+    <p className="admin-weekly-review-note">加载数据后可保存不可覆盖聚合快照、比较同周期趋势并下载中文Markdown周报。</p>
+    <ChineseWeeklyReview analytics={analytics} days={analyticsDays} token={token} />
     <CommercialDashboard data={analytics} days={analyticsDays} loading={analyticsLoading} onDaysChange={(days) => { setAnalyticsDays(days); void loadAnalytics(days); }} onRefresh={() => void loadAnalytics()} />
     <ResourceAnalyticsPanel data={analytics} />
     <ProductShareAnalyticsPanel data={analytics} />

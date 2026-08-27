@@ -214,6 +214,7 @@ test("server-renders the protected inquiry ledger shell", async () => {
   assert.match(html, /今日成交工作台/);
   assert.match(html, /运营优先级只说明/);
   assert.match(html, /销售执行与管道健康/);
+  assert.match(html, /不可覆盖聚合快照/);
   assert.match(html, /不是收入预测或成交概率/);
   assert.match(html, /Export pipeline CSV/);
 });

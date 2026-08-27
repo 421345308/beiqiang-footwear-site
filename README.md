@@ -413,6 +413,14 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Stage rates show the current verified stage of inquiries received in the selected period. They are not a same-week causal sequence, predicted conversion probability, revenue figure or platform-reported order count.
 - The Chinese action list is generated from visible aggregate gaps only. It does not expose buyer identities, automatically send messages or change project records.
 
+## Immutable Weekly Review Snapshots
+
+- An authenticated salesperson can save one 7-, 30- or 90-day aggregate review snapshot per calendar day from `/admin/inquiries/`. The server recalculates the current analytics; the browser cannot submit replacement metric values.
+- Snapshots are stored as immutable, whitelisted aggregate records in EdgeOne Blob storage. They contain response, pipeline, stage, funnel and source-coverage counts only—never buyer identity, contact details, messages, files, quotation lines, payment details, private access codes or administrator credentials.
+- The dashboard compares the current period with the latest earlier snapshot using the same period length. A snapshot for the current `period.to` date is excluded from the comparison baseline so saving today does not turn every difference into zero.
+- The Chinese Markdown export includes the website scorecard, response and pipeline health, same-period deltas, evidence-linked actions, product-page signals, missing keyword/TikTok/competitor data and explicit checks against Trade Assurance, contract and finance records.
+- Snapshot history is operational evidence, not a legal order ledger, accounting record, revenue attribution model or predicted conversion report.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.
