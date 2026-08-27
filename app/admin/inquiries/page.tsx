@@ -29,6 +29,7 @@ import AcquisitionCampaignWorkbench, {
   type AcquisitionChannelPerformance,
 } from "./AcquisitionCampaignWorkbench";
 import ExternalContactLog, { type ExternalContact } from "./ExternalContactLog";
+import MeetingRequestCenter, { type MeetingRequest } from "./MeetingRequestCenter";
 
 type QuoteItem = {
   code: string;
@@ -668,6 +669,7 @@ type Inquiry = {
   recommendationSets?: ProductRecommendation[];
   sampleProgram?: SampleProgram | null;
   sampleRequests?: SampleRequest[];
+  meetingRequests?: MeetingRequest[];
   buyerOrderRequests?: BuyerOrderRequest[];
   orderHandoff?: OrderHandoff | null;
   orderVersions?: OrderVersion[];
@@ -6493,6 +6495,12 @@ export default function InquiryAdminPage() {
                 )}
                 <ExternalContactLog
                   key={`external-contact-${record.reference}-${record.updatedAt}`}
+                  record={record}
+                  token={token}
+                  onSaved={replaceRecord}
+                />
+                <MeetingRequestCenter
+                  key={`meeting-${record.reference}-${record.updatedAt}`}
                   record={record}
                   token={token}
                   onSaved={replaceRecord}

@@ -16,6 +16,12 @@ test("submitted order setup is critical internal work", () => {
   assert.equal(task.kind, "order_setup"); assert.equal(task.urgency, "critical"); assert.equal(task.lane, "internal");
 });
 
+test("pending meeting requests become visible internal work", () => {
+  const task = buildSalesTask(baseRecord({ meetingRequests: [{ id: "BMR-ABCDEF012345", status: "pending", meetingType: "quotation_review", timezone: "Europe/Berlin" }] }), ready, now);
+  assert.equal(task.kind, "meeting"); assert.equal(task.lane, "internal"); assert.equal(task.score, 93); assert.match(task.title, /会议申请/);
+  const draft = buildBuyerReplyDraft(baseRecord({ meetingRequests: [{ id: "BMR-ABCDEF012345", status: "pending", meetingType: "quotation_review", timezone: "Europe/Berlin" }] }), task, ready); assert.match(draft, /No calendar booking or attendance is confirmed/i);
+});
+
 test("buyer decisions are sorted by explicit project stage", () => {
   const change = buildSalesTask(baseRecord({ orderChangeRequests: [{ id: "OCR-1", status: "awaiting_buyer", changedFields: ["packing"], proposedHandoff: { orderReference: "PO-1" } }] }), ready, now);
   const sample = buildSalesTask(baseRecord({ sampleProgram: { status: "buyer_review", sampleReference: "S-1", styleCodes: "BQ001" } }), ready, now);

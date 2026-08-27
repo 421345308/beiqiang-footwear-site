@@ -892,6 +892,25 @@ footer a:hover { color: var(--forest); }
 .buyer-sample-request input, .buyer-sample-request select, .buyer-sample-request textarea { width: 100%; padding: 12px; border: 1px solid var(--line); background: white; color: var(--ink); font: inherit; text-transform: none; }
 .buyer-sample-request fieldset input, .buyer-sample-request .buyer-sample-request-check input { width: auto; margin-top: 3px; }
 .buyer-sample-request-wait { margin: 18px 0; padding: 14px; border-left: 3px solid var(--rust); background: white; color: var(--forest); }
+.buyer-meeting-request { margin-top: 24px; padding: 30px; border: 1px solid rgba(255,255,255,.18); background: var(--forest); color: white; }
+.buyer-meeting-request h3 { margin: 7px 0; font-family: Georgia, serif; font-size: 28px; }
+.buyer-meeting-request > div:first-child > p:last-child, .buyer-meeting-request > small { color: #bfd0c9; line-height: 1.6; }
+.buyer-meeting-history { display: grid; gap: 8px; margin: 20px 0; }
+.buyer-meeting-history article { display: grid; grid-template-columns: 1fr auto; gap: 5px 16px; padding: 13px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); }
+.buyer-meeting-history article div { display: grid; gap: 3px; }
+.buyer-meeting-history article span, .buyer-meeting-history article small { color: #bfd0c9; font-size: 10px; }
+.buyer-meeting-history article b { color: #f0a58c; text-transform: uppercase; font-size: 10px; }
+.buyer-meeting-history article p { grid-column: 1 / -1; margin: 2px 0 0; color: #e7efec; font-size: 11px; }
+.buyer-meeting-history a { color: white; text-decoration: underline; }
+.buyer-meeting-request form { display: grid; gap: 14px; margin: 22px 0 16px; }
+.buyer-meeting-request form > div, .buyer-meeting-request fieldset { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.buyer-meeting-request fieldset { margin: 0; padding: 14px; border: 1px solid rgba(255,255,255,.22); }
+.buyer-meeting-request legend { padding: 0 7px; color: #dce8e3; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.buyer-meeting-request label { display: grid; gap: 6px; color: #c9d9d3; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.buyer-meeting-request input, .buyer-meeting-request select, .buyer-meeting-request textarea { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,.25); background: white; color: var(--ink); font: inherit; text-transform: none; }
+.buyer-meeting-request .buyer-meeting-check { grid-template-columns: auto 1fr; align-items: start; text-transform: none; font-weight: 500; }
+.buyer-meeting-request .buyer-meeting-check input { width: auto; margin-top: 3px; }
+.buyer-meeting-wait { margin: 18px 0; padding: 14px; border-left: 3px solid #f0a58c; background: rgba(255,255,255,.08); color: white; }
 .uploader-light { border-color: var(--line); background: #f5f1e8; color: var(--ink); }
 .uploader-light p, .uploader-light > small { color: var(--muted); }
 .uploader-light .attachment-picker { border-color: var(--line); }
@@ -1091,6 +1110,22 @@ footer a:hover { color: var(--forest); }
 .admin-sample-request-list article span, .admin-sample-request-list article small { color: var(--muted); font-size: 10px; }
 .admin-sample-request-list article p { margin: 2px 0; font-size: 11px; }
 .admin-sample-request-list button { padding: 9px 12px; border: 1px solid var(--forest); background: white; color: var(--forest); cursor: pointer; }
+.admin-meeting-center { border-top: 1px solid var(--line); background: #f4f8f6; }
+.admin-meeting-center > summary { padding: 16px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.admin-meeting-boundary { margin: 0 22px 14px; padding: 13px; border-left: 3px solid var(--forest); background: white; }
+.admin-meeting-boundary p { margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.meeting-review-card { display: grid; grid-template-columns: 1fr minmax(280px, .65fr); gap: 16px; margin: 0 22px 14px; padding: 16px; border: 1px solid var(--line); background: white; }
+.meeting-review-card > div { display: grid; align-content: start; gap: 6px; }
+.meeting-review-card span, .meeting-review-card small { color: var(--muted); font-size: 10px; }
+.meeting-review-card p { margin: 4px 0; font-size: 11px; line-height: 1.5; }
+.meeting-review-actions label { display: grid; gap: 4px; color: var(--forest); font-size: 10px; font-weight: 800; }
+.meeting-review-actions input, .meeting-review-actions select, .meeting-review-actions textarea { width: 100%; padding: 9px; border: 1px solid var(--line); background: white; font: inherit; }
+.meeting-review-actions > div { display: flex; gap: 8px; }
+.meeting-review-actions button { padding: 9px 12px; border: 1px solid var(--forest); background: white; color: var(--forest); cursor: pointer; }
+.meeting-review-card > p[aria-live] { grid-column: 1 / -1; min-height: 14px; color: var(--rust); }
+.admin-meeting-history { margin: 0 22px 18px; }
+.admin-meeting-history > summary { cursor: pointer; color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.admin-meeting-history .meeting-review-card { margin: 10px 0; }
 .workspace-contact-primary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 15px; border: 1px solid var(--line); background: white; }
 .workspace-contact-primary small, .workspace-contact-primary strong { display: block; }
 .workspace-contact-primary small { margin-bottom: 5px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .06em; }
@@ -1892,7 +1927,7 @@ footer a:hover { color: var(--forest); }
   .reminder-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
   .relationship-counts, .relationship-groups, .admin-related-history > div { grid-template-columns: 1fr; }
   .relationship-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
-  .workspace-contact-primary, .workspace-contact-list article, .workspace-access-request form > div, .workspace-access-request-history article, .buyer-sample-request form > div, .buyer-sample-request-history article, .admin-sample-request-list article { align-items: flex-start; grid-template-columns: 1fr; }
+  .workspace-contact-primary, .workspace-contact-list article, .workspace-access-request form > div, .workspace-access-request-history article, .buyer-sample-request form > div, .buyer-sample-request-history article, .admin-sample-request-list article, .buyer-meeting-request form > div, .buyer-meeting-request fieldset, .buyer-meeting-history article, .meeting-review-card { align-items: flex-start; grid-template-columns: 1fr; }
   .workspace-contact-primary { flex-direction: column; }
   .workspace-contact-primary > div:last-child { width: 100%; min-width: 0; grid-template-columns: 1fr; }
   .workspace-contact-form > div { grid-template-columns: 1fr; }

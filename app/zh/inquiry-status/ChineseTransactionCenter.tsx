@@ -12,6 +12,7 @@ import { trackEvent } from "../../lib/tracking";
 import QuotationVersionHistory, { type BuyerSafeQuotation } from "../../components/QuotationVersionHistory";
 import type { WorkspaceAccessRequestRecord } from "../../components/WorkspaceAccessRequest";
 import BuyerSampleRequest, { type BuyerSampleRequestRecord } from "../../components/BuyerSampleRequest";
+import BuyerMeetingRequest, { type BuyerMeetingRequestRecord } from "../../components/BuyerMeetingRequest";
 
 type PublicOrderHandoff = {
   method: "alibaba_trade_assurance" | "contract";
@@ -36,6 +37,7 @@ export type ChineseProjectRequest = {
   messages: { id: string; sender: "buyer" | "sales"; body: string; sentAt: string }[];
   workspaceAccessRequests: WorkspaceAccessRequestRecord[];
   sampleRequests: BuyerSampleRequestRecord[];
+  meetingRequests: BuyerMeetingRequestRecord[];
   orderDocuments: { id: string; name: string; title: string; category: string; note: string; contentType: string; size: number; uploadedAt: string }[];
   sampleProgram: null | { status: string; sampleReference: string; styleCodes: string; quantity: string; sizes: string; colors: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; reviewRounds: { round: number; sampleReference: string; styleCodes: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; status: string; openedAt: string; decision: string; buyerNote: string; respondedAt: string }[]; currency: string; sampleCharge: string; chargeStatus: string; paidAt: string; courier: string; trackingNumber: string; shippedAt: string; expectedDelivery: string; note: string; buyerDecision: string; buyerNote: string; buyerRespondedAt: string; updatedAt: string };
   buyerRecommendation: null | { id: string; title: string; introduction: string; items: { code: string; reason: string }[]; nextStep: string; status: string; issuedAt: string; buyerDecision: string; selectedCodes: string[]; buyerNote: string; buyerRespondedAt: string };
@@ -181,6 +183,9 @@ function nextAction(request: ChineseProjectRequest) {
   if (request.sampleProgram?.status === "buyer_review") return ["需要买家验样", "审核具名实物样品", "只按本轮交付物、标准和排除项作决定。", "#sample-review"];
   if (request.buyerQuotation?.status === "issued") return ["需要商业决定", "审核已签发报价", "可接受本版、结构化要求修改或说明拒绝原因。", "#buyer-quotation"];
   if (request.buyerQuotation?.status === "buyer_accepted" && !request.buyerOrderRequest && !request.orderHandoff) return ["下一商业步骤", "申请准备正式订单", "补充买方法定主体、联系人、目的地和交易渠道。", "#order-setup-request"];
+  const meeting = request.meetingRequests?.find((item) => ["pending", "confirmed"].includes(item.status));
+  if (meeting?.status === "confirmed") return ["采购会议已确认", `${meeting.confirmedSlot || "时间已确认"} · ${meeting.timezone}`, "请核对议题和连接方式；会议讨论不替代书面样品、报价和正式订单条款。", "#meeting-request"];
+  if (meeting) return ["会议申请待审核", `${meeting.id}正在等待贝强确认`, "候选时间、时区和议题已保存，但尚未建立日历预约或确认出席。", "#meeting-request"];
   if (request.buyerRecommendation?.status === "issued") return ["需要选款", "回复本项目产品推荐", "保存候选款或要求更换产品方向。", "#buyer-recommendation"];
   if (["shipped", "completed"].includes(request.orderHandoff?.fulfillmentStatus || "")) return ["交付后行动", "确认收货、报告问题或规划补单", "将实际交付体验连接到可审计的下一项目。", "#delivery-feedback"];
   return ["保持项目连续", "查看项目更新并在私密消息中回复", "所有商业条款仍以书面报价和正式订单为准。", "#buyer-message-center"];
@@ -193,6 +198,7 @@ export default function ChineseTransactionCenter(props: Props) {
     <section className="buyer-next-action"><div><p className="eyebrow">{action[0]}</p><h3>{action[1]}</h3><p>{action[2]}</p></div><div className="buyer-next-action-buttons"><button className="button" type="button" onClick={go}>前往处理</button><BuyerProjectPrintButton locale="zh" />{props.request.buyerQuotation && <BuyerQuotationPrintButton locale="zh" />}</div></section>
     <RecommendationDecision {...props} />
     <BuyerSampleRequest reference={props.reference} accessCode={props.accessCode} availableCodes={[...props.request.styleCode.split(","), ...props.request.items.map((item) => item.code), ...(props.request.buyerRecommendation?.items.map((item) => item.code) || [])].map((code) => code.trim().toUpperCase())} requests={props.request.sampleRequests || []} activeSample={Boolean(props.request.sampleProgram && props.request.sampleProgram.status !== "closed")} locale="zh" onSaved={props.onSaved} onStatus={props.onStatus} />
+    <BuyerMeetingRequest reference={props.reference} accessCode={props.accessCode} requests={props.request.meetingRequests || []} locale="zh" onSaved={props.onSaved} onStatus={props.onStatus} />
     <SampleDecision {...props} />
     <QuotationDecision {...props} />
     {props.request.buyerQuotation ? <QuotationVersionHistory quotations={props.request.quotationHistory || []} currentQuoteNumber={props.request.buyerQuotation.quoteNumber} locale="zh" /> : null}

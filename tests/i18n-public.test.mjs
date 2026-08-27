@@ -142,12 +142,16 @@ test("publishes Chinese privacy and terms boundaries", async () => {
   assert.match(privacyHtml, /回复偏好与站外沟通记录/);
   assert.match(privacyHtml, /同事访问申请/);
   assert.match(privacyHtml, /不会自动开通权限/);
+  assert.match(privacyHtml, /采购会议申请/);
+  assert.match(privacyHtml, /不会自动建立日历预约/);
   assert.match(privacyHtml, /不证明消息送达、邮件打开、身份、同意、付款或订单/);
   const terms = await render("/zh/terms");
   const termsHtml = await terms.text();
   assert.equal(terms.status, 200);
   assert.match(termsHtml, /网站帮助双方准备订单，但不自动创建正式交易/);
   assert.match(termsHtml, /Alibaba Trade Assurance/);
+  assert.match(termsHtml, /采购会议/);
+  assert.match(termsHtml, /会议讨论、屏幕共享、聊天或会议摘要不确认规格/);
 });
 
 test("publishes noindex Chinese buyer status and multi-project workspace entry points", async () => {
@@ -171,6 +175,7 @@ test("publishes noindex Chinese buyer status and multi-project workspace entry p
 
 test("keeps the complete Chinese buyer decision center on the protected project APIs", async () => {
   const source = await readFile(new URL("../app/zh/inquiry-status/ChineseTransactionCenter.tsx", import.meta.url), "utf8");
+  const meeting = await readFile(new URL("../app/components/BuyerMeetingRequest.tsx", import.meta.url), "utf8");
   for (const endpoint of [
     "/api/recommendation-response",
     "/api/sample-response",
@@ -189,6 +194,10 @@ test("keeps the complete Chinese buyer decision center on the protected project 
   assert.match(source, /报告收货问题/);
   assert.match(source, /上一订单的价格、库存、材料、尺码配比、包装和交期不会自动沿用/);
   assert.match(source, /正式Trade Assurance订单或双方合同/);
+  assert.match(source, /BuyerMeetingRequest/);
+  assert.match(meeting, /\/api\/meeting-request/);
+  assert.match(meeting, /申请人工确认的采购会议/);
+  assert.match(meeting, /不会自动建立日历预约/);
   assert.doesNotMatch(source, /credit card checkout|instant purchase|guaranteed stock/i);
 });
 

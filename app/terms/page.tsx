@@ -79,6 +79,18 @@ export default function TermsPage() {
           </p>
         </section>
         <section>
+          <h2>Sourcing meetings</h2>
+          <p>
+            Proposed meeting times are buyer-supplied local-time options. A meeting
+            exists only after Beiqiang confirms one option, the stated time zone and
+            channel. Discussion, screen sharing, chat or a meeting summary does not
+            confirm specifications, capability, sample approval, price, payment,
+            production or an order unless the same terms are separately recorded in
+            the applicable written quotation, Trade Assurance order or signed
+            contract.
+          </p>
+        </section>
+        <section>
           <h2>Orders, changes and payment</h2>
           <p>
             A buyer order-setup request asks Beiqiang to prepare the formal

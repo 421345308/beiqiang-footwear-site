@@ -282,6 +282,18 @@ export default function PrivacyPage() {
             not be entered in this form.
           </p>
         </section>
+        <section>
+          <h2>Sourcing meeting requests</h2>
+          <p>
+            A verified project holder may submit a meeting purpose, preferred
+            channel, time zone or city, two or three proposed local times, agenda,
+            attendee roles and preferred language. We store the request, review
+            status, confirmed time and channel, approved meeting link where used,
+            buyer-safe notes, notification outcome and factual completion summary
+            with the inquiry. Beiqiang reviews every request manually; the form does
+            not create a calendar event or guarantee attendance or language support.
+          </p>
+        </section>
       </article>
       <SiteFooter />
     </main>

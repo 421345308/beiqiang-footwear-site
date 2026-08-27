@@ -52,6 +52,11 @@ test("routes a buyer to an issued product recommendation before general qualific
   assert.equal(action.href, "#buyer-recommendation"); assert.match(action.title, /Three options/);
 });
 
+test("surfaces pending and confirmed sourcing meeting status", () => {
+  const pending = getBuyerNextAction({ ...open, meetingRequests: [{ id: "BMR-ABCDEF012345", status: "pending" }] }); assert.equal(pending.href, "#meeting-request"); assert.match(pending.title, /BMR-ABCDEF012345/);
+  const confirmed = getBuyerNextAction({ ...open, meetingRequests: [{ id: "BMR-ABCDEF012345", status: "confirmed", confirmedSlot: "2026-09-02T10:00", timezone: "Europe\/Berlin" }] }); assert.equal(confirmed.href, "#meeting-request"); assert.match(confirmed.title, /2026-09-02/);
+});
+
 test("turns a recorded shortlist into a quote-building next step", () => {
   const action = getBuyerNextAction({ ...open, buyerRecommendation: { status: "buyer_shortlisted", title: "Selected options" } });
   assert.equal(action.href, "#buyer-recommendation"); assert.match(action.body, /quantity, colors and size ratio/i);
