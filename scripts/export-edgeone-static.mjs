@@ -32,6 +32,8 @@ const resourceRoutes = resourceSlugs.map((slug) => ({ pathname: `/resources/${sl
 const capabilitySlugs = ["factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide", "buyer-workspace", "line-sheet", "privacy", "terms"];
 const searchableCapabilitySlugs = capabilitySlugs.filter((slug) => slug !== "buyer-workspace");
 const capabilityRoutes = capabilitySlugs.map((slug) => ({ pathname: `/${slug}`, output: `${slug}/index.html` }));
+const chineseCapabilitySlugs = ["line-sheet", "factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide"];
+const chineseCapabilityRoutes = chineseCapabilitySlugs.map((slug) => ({ pathname: `/zh/${slug}`, output: `zh/${slug}/index.html` }));
 const routes = [
   { pathname: "/", output: "index.html" },
   { pathname: "/products", output: "products/index.html" },
@@ -45,6 +47,7 @@ const routes = [
   { pathname: "/zh/buyer-workspace", output: "zh/buyer-workspace/index.html" },
   { pathname: "/zh/privacy", output: "zh/privacy/index.html" },
   { pathname: "/zh/terms", output: "zh/terms/index.html" },
+  ...chineseCapabilityRoutes,
   ...productRoutes,
   ...chineseProductRoutes,
   ...collectionRoutes,
@@ -90,6 +93,7 @@ const sitemapUrls = [
   { path: "/zh/", frequency: "weekly", priority: "0.8" },
   { path: "/zh/products/", frequency: "weekly", priority: "0.8" },
   { path: "/zh/request-quote/", frequency: "monthly", priority: "0.7" },
+  ...chineseCapabilitySlugs.map((slug) => ({ path: `/zh/${slug}/`, frequency: "monthly", priority: slug === "buyer-guide" ? "0.8" : "0.7" })),
   { path: "/zh/privacy/", frequency: "monthly", priority: "0.5" },
   { path: "/zh/terms/", frequency: "monthly", priority: "0.5" },
   ...productSlugs.map((slug) => ({ path: `/products/${slug}/`, frequency: "monthly", priority: ["bq001", "bq002", "bq009"].includes(slug) ? "0.9" : "0.7" })),

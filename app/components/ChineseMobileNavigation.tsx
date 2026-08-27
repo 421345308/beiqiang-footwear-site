@@ -8,6 +8,12 @@ import { productCount } from "../data/catalog-meta";
 const links = [
   ["中文首页", "/zh/"],
   [`全部${productCount}款产品`, "/zh/products/"],
+  ["产品目录 Line Sheet", "/zh/line-sheet/"],
+  ["工厂与实拍证据", "/zh/factory/"],
+  ["检查与包装", "/zh/quality-packing/"],
+  ["OEM / ODM", "/zh/oem-odm/"],
+  ["样品与订单流程", "/zh/sample-order-process/"],
+  ["B2B采购指南", "/zh/buyer-guide/"],
   ["建立询价单", "/zh/request-quote/"],
   ["买家工作台", "/zh/buyer-workspace/"],
   ["查询项目进度", "/zh/inquiry-status/"],

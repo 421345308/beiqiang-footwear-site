@@ -6,7 +6,7 @@ import SiteHeader from "../components/SiteHeader";
 export const metadata: Metadata = {
   title: "B2B Footwear Buying Guide | Beiqiang Footwear",
   description: "Follow Beiqiang's B2B footwear sourcing path from product shortlist and sample review to quotation, Trade Assurance or contract, packing and shipping handover.",
-  alternates: { canonical: "https://www.beiqiang.online/buyer-guide/" },
+  alternates: { canonical: "https://www.beiqiang.online/buyer-guide/", languages: { en: "https://www.beiqiang.online/buyer-guide/", "zh-CN": "https://www.beiqiang.online/zh/buyer-guide/", "x-default": "https://www.beiqiang.online/buyer-guide/" } },
 };
 
 const buyingSteps = [
@@ -35,7 +35,7 @@ const faqs = [
 
 export default function BuyerGuidePage() {
   return <main>
-    <SiteHeader />
+    <SiteHeader chineseHref="/zh/buyer-guide/" />
     <section className="buyer-guide-hero"><div><p className="eyebrow">B2B FOOTWEAR BUYING GUIDE</p><h1>Know every decision before a bulk order starts.</h1><p>Use one evidence-led path from product discovery to sample, quotation, transaction and shipping handover. Each commercial term is confirmed for the selected project rather than assumed from a catalogue page.</p><div className="hero-actions"><Link className="button" href="/request-quote/">Build a shipping-ready quote brief</Link><Link className="text-link" href="/products/">Compare all products →</Link></div></div><aside><small>USEFUL FIRST MESSAGE</small><strong>Product code + target market + sample and bulk quantity + sizes/colors + delivery destination.</strong><p>This gives the factory enough context to answer the next commercial question instead of sending a generic price.</p></aside></section>
 
     <section className="section buyer-guide-steps"><div className="section-heading"><div><p className="eyebrow">FROM SHORTLIST TO HANDOVER</p><h2>Six decisions, one traceable sourcing record.</h2></div><p>The website keeps product evidence, messages, quotation versions, transaction references and buyer-safe progress connected to the original inquiry.</p></div><div>{buyingSteps.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>

@@ -68,6 +68,22 @@ test("supports a Chinese multi-style sourcing brief without a retail checkout", 
   assert.doesNotMatch(html, /立即付款|信用卡结账|一键下单/);
 });
 
+test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet paths", async () => {
+  for (const [path, heading, boundary] of [
+    ["/zh/factory", /用看得见的证据开始工厂端采购沟通/, /不据此虚构产能、客户品牌或认证/],
+    ["/zh/quality-packing", /在纸箱准备前，把订单要求变成可核对项目/, /检查标准与容差/],
+    ["/zh/oem-odm", /两条采购路径，一个原则：先确认可行性/, /不能提前假定/],
+    ["/zh/sample-order-process", /把产品兴趣转成可下单的规格/, /需要直接商业确认/],
+    ["/zh/buyer-guide", /在大货开始前，弄清每一个关键决定/, /网站不收集银行卡、网银密码或验证码/],
+    ["/zh/line-sheet", /一份可用于选款的目录/, /获取30款产品目录/],
+  ]) {
+    const response = await render(path); const html = await response.text();
+    assert.equal(response.status, 200, path); assert.match(html, heading, path); assert.match(html, boundary, path);
+    assert.match(html, /hrefLang="en"/i, path); assert.match(html, /hrefLang="zh-CN"/i, path);
+    assert.doesNotMatch(html, /guaranteed price|guaranteed customization|medical claim|立即付款|信用卡结账/i, path);
+  }
+});
+
 test("publishes Chinese privacy and terms boundaries", async () => {
   const privacy = await render("/zh/privacy");
   const privacyHtml = await privacy.text();
@@ -136,6 +152,8 @@ test("links English and Chinese equivalents for search engines and buyers", asyn
   const xml = await sitemap.text();
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/products\/bq001\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/products\/bq030\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/factory\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/line-sheet\/?/);
   assert.doesNotMatch(xml, /zh\/inquiry-status|zh\/buyer-workspace/);
 });
 
@@ -147,5 +165,7 @@ test("includes every Chinese public route in the EdgeOne export contract", async
   assert.match(exporter, /pathname:\s*"\/zh\/request-quote"/);
   assert.match(exporter, /pathname:\s*"\/zh\/inquiry-status"/);
   assert.match(exporter, /pathname:\s*"\/zh\/buyer-workspace"/);
+  assert.match(exporter, /chineseCapabilityRoutes/);
+  for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
   assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
 });

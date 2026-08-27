@@ -22,13 +22,14 @@ export type CapabilityPageData = {
   confirm: string[];
   closingTitle: string;
   closingCopy: string;
+  chineseHref: string;
 };
 
 export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
   const webImage = (src: string) => src.startsWith("/factory/") ? src.replace("/factory/", "/factory-web/").replace(/\.(?:jpe?g|png)$/i, ".webp") : src;
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader chineseHref={data.chineseHref} />
       <section className="capability-hero">
         <div>
           <p className="eyebrow">{data.eyebrow}</p>

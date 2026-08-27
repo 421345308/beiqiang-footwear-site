@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import CapabilityPage, { type CapabilityPageData } from "../components/CapabilityPage";
 
-export const metadata: Metadata = { title: "Footwear Factory in Quanzhou | Beiqiang Footwear", description: "Review real Beiqiang workshop, product handling and packing evidence before discussing walking shoe samples and B2B supply requirements.", alternates: { canonical: "https://www.beiqiang.online/factory/" } };
+export const metadata: Metadata = { title: "Footwear Factory in Quanzhou | Beiqiang Footwear", description: "Review real Beiqiang workshop, product handling and packing evidence before discussing walking shoe samples and B2B supply requirements.", alternates: { canonical: "https://www.beiqiang.online/factory/", languages: { en: "https://www.beiqiang.online/factory/", "zh-CN": "https://www.beiqiang.online/zh/factory/", "x-default": "https://www.beiqiang.online/factory/" } } };
 
 const data: CapabilityPageData = {
+  chineseHref: "/zh/factory/",
   eyebrow: "QUANZHOU FOOTWEAR SUPPLY", title: "A factory-side sourcing conversation built on visible evidence.", introduction: "Beiqiang supplies casual walking shoes, textile footwear and selected verified wide toe box styles from Quanzhou, Fujian. Buyers can review real product packages and working-area evidence before moving into sample and order discussions.", primaryCta: "Send a sourcing brief",
   proofLabel: "REAL WORKING-AREA EVIDENCE", proofTitle: "Look beyond a generic factory claim.", proofCopy: "These images come from Beiqiang's verified company material library. They show working areas, footwear handling and carton preparation without unsupported scale or customer-brand claims.",
   images: [{ src: "/factory/workshop.png", alt: "Beiqiang footwear workshop area in Quanzhou", caption: "Workshop area" }, { src: "/factory/workshop-line.png", alt: "Footwear workshop line and working tables", caption: "Working line" }, { src: "/factory/workshop-area.png", alt: "Additional footwear workshop area", caption: "Factory workspace" }],

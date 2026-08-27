@@ -8,7 +8,7 @@ import { productCount } from "../data/catalog-meta";
 export const metadata: Metadata = {
   title: `${productCount}-Style Footwear Line Sheet | Beiqiang B2B Supply`,
   description: `Request Beiqiang's ${productCount}-style B2B footwear line sheet for walking, casual, knit, slip-on and lace-up sourcing.`,
-  alternates: { canonical: "/line-sheet/" },
+  alternates: { canonical: "/line-sheet/", languages: { en: "https://www.beiqiang.online/line-sheet/", "zh-CN": "https://www.beiqiang.online/zh/line-sheet/", "x-default": "https://www.beiqiang.online/line-sheet/" } },
   openGraph: { title: `Beiqiang ${productCount}-Style Footwear Line Sheet`, description: `Build a B2B footwear shortlist from ${productCount} documented styles.`, url: "/line-sheet/" },
 };
 
@@ -16,7 +16,7 @@ export default function LineSheetPage() {
   const preview = [products[0], products[8], products[23]];
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader chineseHref="/zh/line-sheet/" />
       <section className="line-sheet-hero">
         <div><p className="eyebrow">B2B PRODUCT DISCOVERY</p><h1>{productCount} styles.<br />One buyer-ready shortlist.</h1><p>Review walking, casual, knit, slip-on and lace-up directions before choosing samples. Every unknown remains open for confirmation.</p><div className="line-sheet-hero-facts"><span>{productCount} documented styles</span><span>Buyer-safe facts</span><span>Direct product-page links</span><span>Printable A4 PDF</span></div></div>
         <div className="line-sheet-preview" aria-label="Line sheet preview">{preview.map((product) => <article key={product.code}><img src={`/catalog-thumbs/${product.slug}.webp`} alt={`${product.code} ${product.name}`} loading="lazy" decoding="async" width={640} height={640} /><div><strong>{product.code}</strong><span>{product.name}</span></div></article>)}</div>
