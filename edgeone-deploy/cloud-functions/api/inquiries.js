@@ -5,6 +5,8 @@ import nodemailer from "nodemailer";
 const BUYER_TYPES = new Set(["Importer / wholesaler", "Amazon / TikTok seller", "Brand / private label", "Sourcing agent"]);
 const PROJECT_PATHS = new Set(["base_style_adaptation", "technical_development"]);
 const TRADE_TERM_PREFERENCES = new Set(["not_sure", "EXW", "FOB", "FCA", "DDP_request"]);
+const CONTACT_METHODS = new Set(["email", "whatsapp", "either"]);
+const RESPONSE_LANGUAGES = new Set(["en", "zh", "de", "fr", "es", "other"]);
 const SOURCING_PROGRAMS = new Set(["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes", "resource-footwear-rfq-checklist", "resource-shoe-sample-approval-checklist", "resource-private-label-walking-shoes-sourcing-guide"]);
 
 function clean(value, max) {
@@ -49,6 +51,10 @@ export function validateInquiry(payload, now = Date.now()) {
     quantity: clean(payload.quantity, 80),
     email: clean(payload.email, 180).toLowerCase(),
     whatsapp: clean(payload.whatsapp, 80),
+    preferredContactMethod: CONTACT_METHODS.has(payload.preferredContactMethod) ? payload.preferredContactMethod : "",
+    preferredResponseLanguage: RESPONSE_LANGUAGES.has(payload.preferredResponseLanguage) ? payload.preferredResponseLanguage : "",
+    buyerTimezone: clean(payload.buyerTimezone, 80),
+    preferredContactWindow: clean(payload.preferredContactWindow, 160),
     requirements: clean(payload.requirements, 3000),
     styleCode: clean(payload.styleCode, 300),
     styleLabel: clean(payload.styleLabel, 2000),
@@ -81,6 +87,8 @@ export function validateInquiry(payload, now = Date.now()) {
   if (!payload.consent) return { error: "Please agree to the inquiry follow-up notice." };
   if (!inquiry.email && !inquiry.whatsapp) return { error: "Please provide an email address or WhatsApp number." };
   if (inquiry.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiry.email)) return { error: "Please provide a valid email address." };
+  if (inquiry.preferredContactMethod === "email" && !inquiry.email) return { error: "Please provide an email address or choose another contact preference." };
+  if (inquiry.preferredContactMethod === "whatsapp" && !inquiry.whatsapp) return { error: "Please provide a WhatsApp number or choose another contact preference." };
   if (inquiry.preferredTradeTerm === "DDP_request" && !inquiry.deliveryDestination) return { error: "Please provide the delivery destination for a DDP review." };
 
   return { inquiry };
@@ -99,6 +107,7 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
     `Reference: ${reference}`, `Style: ${inquiry.styleLabel}`, `Name: ${inquiry.name}`,
     `Company: ${inquiry.company}`, `Buyer type: ${inquiry.buyerType}`, `Market: ${inquiry.market}`,
     `Quantity: ${inquiry.quantity}`, `Email: ${inquiry.email || "-"}`, `WhatsApp: ${inquiry.whatsapp || "-"}`,
+    `Preferred contact: ${inquiry.preferredContactMethod || "No preference"}`, `Preferred response language: ${inquiry.preferredResponseLanguage || "No preference"}`, `Buyer time zone / city: ${inquiry.buyerTimezone || "-"}`, `Convenient local contact time: ${inquiry.preferredContactWindow || "-"}`,
     `Project path: ${inquiry.projectPath}`, `Sample quantity: ${inquiry.sampleQuantity || "-"}`, `Bulk quantity: ${inquiry.bulkQuantity || "-"}`,
     `Sourcing program: ${inquiry.sourcingProgram || "Direct / catalogue"}`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "-"}`, `Requested delivery timing: ${inquiry.deliveryTiming || "-"}`,
     `Quote lines: ${inquiry.items.length ? inquiry.items.map((item) => `${item.code}: ${item.quantity || "qty TBD"}; colors ${item.colors || "TBD"}; sizes ${item.sizes || "TBD"}; ${item.notes || ""}`).join(" | ") : "-"}`,

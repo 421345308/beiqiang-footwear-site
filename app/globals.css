@@ -197,6 +197,14 @@ h1 { max-width: 690px; font-size: clamp(50px, 5vw, 78px); line-height: .98; }
 .inquiry-form select option { color: var(--ink); background: #fff; }
 .inquiry-form input::placeholder, .inquiry-form textarea::placeholder { color: #8fa49a; }
 .inquiry-form input:focus, .inquiry-form textarea:focus, .inquiry-form select:focus { border-color: #e4a589; }
+.contact-preference-fields { grid-column: 1 / -1; margin: 4px 0 0; padding: 18px; border: 1px solid rgba(255,255,255,.16); display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.contact-preference-fields legend { padding: 0 8px; color: #f1c8b6; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.contact-preference-fields .contact-preference-note { grid-column: 1 / -1; margin: 0; color: #aebfb7; font-size: 11px; line-height: 1.6; }
+.quote-request-form .contact-preference-fields { margin-top: 30px; }
+.admin-contact-preferences { margin: 0 24px 22px; padding: 16px 18px; border-left: 3px solid var(--gold); background: #f7f3e9; }
+.admin-contact-preferences small { display: block; color: #6a756e; font-weight: 800; letter-spacing: .08em; }
+.admin-contact-preferences p { margin: 8px 0 4px; color: var(--ink); }
+.admin-contact-preferences span { color: #66736c; font-size: 12px; line-height: 1.5; }
 .form-button { grid-column: 1 / -1; align-self: start; border: 0; cursor: pointer; }
 .form-button:disabled { cursor: wait; opacity: .7; }
 .form-note { margin: 4px 0 0; color: #bdcec6; font-size: 12px; line-height: 1.55; }
@@ -421,6 +429,7 @@ footer a:hover { color: var(--forest); }
 .radio-card small { margin-top: 5px; color: #adc0b7; font-weight: 400; line-height: 1.5; }
 .quote-request-form .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .quote-request-form .form-grid legend { grid-column: 1 / -1; }
+.quote-request-form .contact-preference-fields { padding: 18px; border: 1px solid rgba(255,255,255,.16); }
 .quote-request-form input, .quote-request-form select, .quote-request-form textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.06); color: white; text-transform: none; }
 .quote-request-form select option { background: white; color: var(--ink); }
 .quote-request-form .form-full, .technical-gate-note { grid-column: 1 / -1; }
@@ -1647,6 +1656,8 @@ footer a:hover { color: var(--forest); }
   .quote-card li, .quote-card li + li { padding: 18px 0; border-left: 0; border-bottom: 1px solid rgba(255,255,255,.15); }
   .factory-gallery figure { min-height: 360px; }
   .inquiry-form { grid-template-columns: 1fr; }
+  .contact-preference-fields { grid-template-columns: 1fr; }
+  .contact-preference-fields .contact-preference-note { grid-column: 1; }
   .inquiry-form label, .inquiry-form .form-full, .inquiry-form pre, .form-note, .form-consent, .inquiry-preview, .form-button { grid-column: 1; }
   footer { align-items: start; }
   .footer-links { justify-content: start; }

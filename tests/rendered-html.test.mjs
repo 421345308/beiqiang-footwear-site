@@ -59,6 +59,9 @@ test("server-renders the multi-style quote and technical development path", asyn
   assert.match(html, /Buyer target values are reviewed as development requirements/i);
   assert.match(html, /Delivery and trade-term preference/i);
   assert.match(html, /Request DDP review/i);
+  assert.match(html, /Response preferences \(optional\)/i);
+  assert.match(html, /Preferred contact channel/i);
+  assert.match(html, /do not create an appointment/i);
   assert.match(html, /customs clearance, duty, tax and local delivery are not promised/i);
   assert.doesNotMatch(html, /guaranteed hardness|guaranteed test|medical|orthopedic/i);
 });

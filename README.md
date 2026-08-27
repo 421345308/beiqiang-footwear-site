@@ -429,6 +429,13 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Version-2 immutable weekly snapshots retain only those bounded channel aggregates, safe product codes, product aggregates and selected content aggregates. Raw UTM campaign names, referrers, buyer identities and business text are excluded.
 - Channel stage counts show the current verified state of inquiries attributed to that channel. They do not prove causation, revenue, platform orders or future conversion probability.
 
+## Buyer Response Preferences
+
+- English and Chinese product inquiries, English and Chinese multi-style quote requests, and the line-sheet lead form can optionally record the buyer's preferred reply channel, response language, time zone/city and convenient local contact time.
+- `email`, `WhatsApp` and `either available channel` are the only stored channel choices. If a buyer selects email or WhatsApp, that matching contact detail must also be present; unsupported enum values are discarded and free-text scheduling fields are length-bounded.
+- The sales notification email, protected inquiry card and CSV export include the buyer-provided preference so the team can plan a manual response across time zones. Existing records without these fields remain valid.
+- A preference is not an appointment, automatic message, response-time guarantee or proof that a requested language is available. The website does not schedule calls or send a sales reply automatically.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.

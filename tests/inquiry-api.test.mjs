@@ -25,10 +25,13 @@ function validPayload(overrides = {}) {
 }
 
 test("validates a qualified B2B inquiry", () => {
-  const result = validateInquiry(validPayload());
+  const result = validateInquiry(validPayload({ preferredContactMethod: "whatsapp", preferredResponseLanguage: "de", buyerTimezone: "Berlin CET / UTC+1", preferredContactWindow: "Weekdays 09:00-12:00" }));
   assert.equal(result.error, undefined);
   assert.equal(result.inquiry.styleCode, "BQ001");
   assert.equal(result.inquiry.attribution.utmSource, "linkedin");
+  assert.equal(result.inquiry.preferredContactMethod, "whatsapp");
+  assert.equal(result.inquiry.preferredResponseLanguage, "de");
+  assert.equal(result.inquiry.buyerTimezone, "Berlin CET / UTC+1");
 });
 
 test("sanitizes a multi-style technical quote request", () => {
@@ -65,6 +68,17 @@ test("rejects requests without a reply channel or consent", () => {
   assert.match(validateInquiry(validPayload({ email: "", whatsapp: "" })).error, /email address or WhatsApp/i);
   assert.match(validateInquiry(validPayload({ consent: false })).error, /agree/i);
   assert.match(validateInquiry(validPayload({ preferredTradeTerm: "DDP_request", deliveryDestination: "" })).error, /delivery destination/i);
+  assert.match(validateInquiry(validPayload({ email: "", preferredContactMethod: "email" })).error, /provide an email address/i);
+  assert.match(validateInquiry(validPayload({ whatsapp: "", preferredContactMethod: "whatsapp" })).error, /provide a WhatsApp number/i);
+});
+
+test("drops unsupported response-preference enum values while keeping optional buyer scheduling notes bounded", () => {
+  const result = validateInquiry(validPayload({ preferredContactMethod: "telegram", preferredResponseLanguage: "invented", buyerTimezone: `UTC${"x".repeat(100)}`, preferredContactWindow: `morning${"y".repeat(200)}` }));
+  assert.equal(result.error, undefined);
+  assert.equal(result.inquiry.preferredContactMethod, "");
+  assert.equal(result.inquiry.preferredResponseLanguage, "");
+  assert.equal(result.inquiry.buyerTimezone.length, 80);
+  assert.equal(result.inquiry.preferredContactWindow.length, 160);
 });
 
 test("quietly accepts the honeypot without storing a lead", async () => {
@@ -108,11 +122,12 @@ test("sends separate internal and buyer receipt messages without confirming comm
     getStoreImpl: () => ({ setJSON: async (key, value) => writes.push({ key, value: { ...value } }) }),
     createTransportImpl: () => ({ sendMail: async (mail) => { mails.push(mail); } }),
   });
-  const request = new Request("https://www.beiqiang.online/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://www.beiqiang.online" }, body: JSON.stringify(validPayload()) });
+  const request = new Request("https://www.beiqiang.online/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://www.beiqiang.online" }, body: JSON.stringify(validPayload({ preferredContactMethod: "email", preferredResponseLanguage: "en", buyerTimezone: "New York ET", preferredContactWindow: "Weekdays after 10:00" })) });
   const result = await handler({ request, env: { SMTP_PASS: "test", SMTP_USER: "421345308@qq.com" }, clientIp: "127.0.0.1" });
   const body = await result.json();
   assert.equal(result.status, 201); assert.equal(mails.length, 2); assert.equal(body.buyerConfirmationSent, true);
   assert.match(mails[1].text, /confirms receipt only/i); assert.match(mails[1].text, /remain subject to review and written confirmation/i);
   assert.match(mails[0].text, /Trade-term preference:/i); assert.match(mails[0].text, /Delivery destination:/i);
+  assert.match(mails[0].text, /Preferred contact: email/i); assert.match(mails[0].text, /Buyer time zone \/ city: New York ET/i);
   assert.equal(writes.at(-1).value.buyerConfirmationSent, true);
 });

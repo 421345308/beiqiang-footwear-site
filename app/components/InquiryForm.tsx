@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import InquiryAttachmentUploader from "./InquiryAttachmentUploader";
+import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
 
 type InquiryFormProps = {
   styleCode: string;
@@ -23,6 +24,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
   const [quantity, setQuantity] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [contactPreferences, setContactPreferences] = useState<ContactPreferences>(EMPTY_CONTACT_PREFERENCES);
   const [requirements, setRequirements] = useState("");
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
@@ -71,7 +73,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name, company, buyerType, market, quantity, email, whatsapp, requirements,
+          name, company, buyerType, market, quantity, email, whatsapp, requirements, ...contactPreferences,
           website, consent, styleCode, styleLabel, context,
           formStartedAt: startedAt.current,
           attribution: getAttribution(),
@@ -99,6 +101,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
       <label>{zh ? "预计数量" : "Expected quantity"}<input required value={quantity} onChange={(event) => setQuantity(event.target.value)} maxLength={80} placeholder={zh ? "试单或大货数量" : "Trial or bulk quantity"} /></label>
       <label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" maxLength={180} placeholder="name@company.com" /></label>
       <label className="form-full">WhatsApp<input value={whatsapp} onChange={(event) => setWhatsapp(event.target.value)} autoComplete="tel" maxLength={80} placeholder="Country code + number" /></label>
+      <ContactPreferenceFields locale={locale} value={contactPreferences} onChange={setContactPreferences} />
       <label className="form-full">{zh ? "采购要求" : "Requirements"}<textarea value={requirements} onChange={(event) => setRequirements(event.target.value)} maxLength={2000} placeholder={zh ? "尺码、颜色、Logo、包装、时间、参考款……" : "Sizes, colors, logo, packing, timing, reference style..."} rows={4} /></label>
       <label className="form-honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
       <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>{zh ? "我同意贝强使用这些资料审核并回复本次B2B采购需求。" : "I agree that Beiqiang may use these details to respond to this sourcing request."}</span></label>

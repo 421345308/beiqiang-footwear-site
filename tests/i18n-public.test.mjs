@@ -40,6 +40,8 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   assert.match(wideHtml, /加入询价单/);
   assert.match(wideHtml, /分享给采购团队/);
   assert.match(wideHtml, /提交样品 \/ 报价需求/);
+  assert.match(wideHtml, /联系偏好（选填）/);
+  assert.match(wideHtml, /不代表已预约、自动发信或承诺回复时效/);
   assert.match(wideHtml, /hrefLang="en"[^>]+https:\/\/www\.beiqiang\.online\/products\/bq001\//);
   assert.match(wideHtml, /hrefLang="zh-CN"[^>]+https:\/\/www\.beiqiang\.online\/zh\/products\/bq001\//);
   assert.match(wideHtml, /property="og:image"/);
@@ -60,6 +62,8 @@ test("supports a Chinese multi-style sourcing brief without a retail checkout", 
   assert.match(html, /技术产品开发/);
   assert.match(html, /贸易术语/);
   assert.match(html, /我同意贝强使用这些资料审核并回复本次B2B采购需求/);
+  assert.match(html, /3\. 联系偏好（选填）/);
+  assert.match(html, /方便联系的当地时间/);
   assert.match(html, /产品价格与运费分开/);
   assert.doesNotMatch(html, /立即付款|信用卡结账|一键下单/);
 });

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getAttribution, trackEvent } from "../lib/tracking";
+import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
 
 const DOWNLOAD_PATH = "/downloads/beiqiang-footwear-line-sheet-2026.pdf";
 
@@ -13,6 +14,7 @@ export default function LineSheetLeadForm() {
   const [buyerType, setBuyerType] = useState("Importer / wholesaler"); const [market, setMarket] = useState("");
   const [direction, setDirection] = useState("Multi-category shortlist"); const [quantity, setQuantity] = useState("");
   const [email, setEmail] = useState(""); const [whatsapp, setWhatsapp] = useState(""); const [notes, setNotes] = useState("");
+  const [contactPreferences, setContactPreferences] = useState<ContactPreferences>(EMPTY_CONTACT_PREFERENCES);
   const [website, setWebsite] = useState(""); const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: "Submit once to unlock the current 30-style PDF and create a follow-up reference." });
   const [access, setAccess] = useState<{ reference: string; accessCode: string } | null>(null);
@@ -32,7 +34,7 @@ export default function LineSheetLeadForm() {
     setStatus({ kind: "sending", message: "Saving your catalogue request…" });
     try {
       const response = await fetch("/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
-        name, company, buyerType, market, quantity, email, whatsapp, website, consent,
+        name, company, buyerType, market, quantity, email, whatsapp, website, consent, ...contactPreferences,
         styleCode: "CATALOG-2026", styleLabel: "Beiqiang 30-Style Footwear Line Sheet", context: "line_sheet", projectPath: "base_style_adaptation",
         requirements: `Catalogue interest: ${direction}. ${notes || "Buyer requested the current 30-style line sheet for product review."}`,
         formStartedAt: startedAt.current, attribution: getAttribution(), page: window.location.pathname,
@@ -58,6 +60,7 @@ export default function LineSheetLeadForm() {
         <label>Estimated quantity<input required value={quantity} onChange={(event) => setQuantity(event.target.value)} maxLength={80} placeholder="Trial or bulk quantity" /></label>
         <label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" maxLength={180} placeholder="name@company.com" /></label>
         <label>WhatsApp<input value={whatsapp} onChange={(event) => setWhatsapp(event.target.value)} autoComplete="tel" maxLength={80} placeholder="Country code + number" /></label>
+        <ContactPreferenceFields value={contactPreferences} onChange={setContactPreferences} />
         <label className="form-full">Short sourcing note<textarea value={notes} onChange={(event) => setNotes(event.target.value)} maxLength={1200} rows={3} placeholder="Preferred styles, sizes, colors, sample timing or customization direction" /></label>
         <label className="form-honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
         <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>I agree that Beiqiang may use these details to deliver and follow up on this sourcing request.</span></label>
