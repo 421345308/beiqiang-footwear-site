@@ -8,6 +8,7 @@ import { BUYER_MESSAGE_TEMPLATES, buildBuyerMessageTemplate, buildRecommendation
 import { assessInquiryReadiness } from "../../lib/inquiry-readiness";
 import { products } from "../../data/products";
 import RepeatOrderManager, { type RepeatOrderOpportunity } from "./RepeatOrderManager";
+import ChineseSalesCockpit from "./ChineseSalesCockpit";
 
 type QuoteItem = { code: string; quantity?: string; colors?: string; sizes?: string; notes?: string };
 type Attachment = { id: string; name: string; contentType: string; size: number; uploadedAt: string; revokedAt?: string; revokedBy?: string; revocationReason?: string; securityStatus?: "quarantined" | "reviewed_safe"; securityReason?: string; securityUpdatedAt?: string; securityUpdatedBy?: string };
@@ -458,6 +459,7 @@ export default function InquiryAdminPage() {
   return <main className="admin-shell">
     <header className="admin-header"><div><p className="eyebrow">BEIQIANG INTERNAL</p><h1>Inquiry &amp; order pipeline</h1><p>Review sourcing requests, qualify buyers and move each opportunity through sample, quote, negotiation and confirmed order stages. Buyer-safe reply starters remain drafts until a salesperson reviews and sends them.</p></div><Link className="text-link" href="/">Return to website <span aria-hidden="true">↗</span></Link></header>
     <section className="admin-access-card"><form onSubmit={loadRecords}><label>Dashboard access token<input type="password" value={token} onChange={(event) => setToken(event.target.value)} autoComplete="current-password" required placeholder="Stored only in this page session" /></label><button className="button" type="submit" disabled={loading}>{loading ? "Loading…" : "Load inquiries"}</button></form><p className="admin-status" aria-live="polite">{status}</p></section>
+    <ChineseSalesCockpit records={businessRecords} readinessByReference={readinessByReference} />
     <CommercialDashboard data={analytics} days={analyticsDays} loading={analyticsLoading} onDaysChange={(days) => { setAnalyticsDays(days); void loadAnalytics(days); }} onRefresh={() => void loadAnalytics()} />
     <ResourceAnalyticsPanel data={analytics} />
     <ProductShareAnalyticsPanel data={analytics} />

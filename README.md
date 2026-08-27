@@ -397,6 +397,14 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Every Chinese decision posts to the same protected API and immutable project record used by English. Chinese presentation never creates a second quotation or order, and buyer targets remain unconfirmed until Beiqiang issues the required written version.
 - No automatic translation or third-party translation service receives buyer data. The buyer-facing workflow is bilingual at the interface level, but issued quotations, technical documents, Trade Assurance orders and signed contracts retain their confirmed original language and prevail over interface translations.
 
+## Chinese Sales Cockpit
+
+- `/admin/inquiries/` keeps the complete English evidence and editing ledger, and adds a Chinese `今日成交工作台` immediately below the administrator-token loader.
+- After real business inquiries are loaded, the cockpit groups work into `贝强待处理`, `等待买家` and `持续观察`, then ranks explicit project states such as buyer messages, formal order setup, confirmed-order changes, fulfillment cases, sample review, quotations, recommendations, overdue follow-up and qualification gaps.
+- The displayed number is an explainable operating priority only. It is not a predicted conversion probability, customer-value score or automatic business decision.
+- Each task can generate an English reply draft for manual review and clipboard copy. Drafts are never sent automatically and never confirm price, MOQ, materials, stock, size ratio, packing, lead time or transaction terms.
+- The cockpit uses the same protected inquiry records and `INQUIRY_ADMIN_TOKEN`; it does not create a second customer database or expose private records on a public page.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.
