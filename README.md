@@ -45,6 +45,14 @@ Release authorization recorded on 23 August 2026: after the automated test, Edge
 
 For rollback, revert the problem commit and redeploy, or select the previous successful EdgeOne deployment. Do not use destructive resets on unreviewed local work.
 
+### GitHub deployment recovery boundary
+
+- The production project is a GitHub-provider project. EdgeOne's supported CLI can link it and pull its environment variables, but it cannot deploy a local folder or ZIP over this project type; direct folder upload is limited to projects whose provider is `Upload`.
+- A successful `edgeone makers link -n beiqiang-footwear` proves that the local API token can identify the existing project. It does not prove that a GitHub push triggered, built, or published a deployment.
+- If GitHub `main` is ahead of the production `Last-Modified` value, inspect the existing project's deployment record and build log in EdgeOne. Check GitHub App/repository access, production branch `main`, root directory `edgeone-deploy`, install/build/output settings, and whether automatic production deployment is enabled.
+- Do not create a second upload-provider project or move `www.beiqiang.online` merely to bypass a failed GitHub integration. That would split deployment history, environment variables and rollback state. Any hosting migration requires an explicit cutover plan and production acceptance.
+- After recovery, verify the exact commit or deployment timestamp on the project URL and custom domain, then verify changed public pages and unauthenticated API gates. A GitHub push, green local build, CLI link, or successful environment pull is not production proof.
+
 ## Inquiry Storage and Notification
 
 The production form posts to `/api/inquiries`. EdgeOne Cloud Functions persist each validated inquiry in the `beiqiang-inquiries` Blob store before returning success. Conversion events are written to the separate `beiqiang-events` store. Blob storage is provided by EdgeOne Makers and does not require a database connection string.
