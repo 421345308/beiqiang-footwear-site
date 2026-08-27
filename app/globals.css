@@ -1668,8 +1668,10 @@ footer a:hover { color: var(--forest); }
   .workspace-item-table > div { min-width: 620px; }
   .workspace-verified-handoff .button { width: 100%; text-align: center; }
   .top-note span:last-child { display: none; }
-  .site-header { min-height: 70px; }
+  .site-header { min-height: 70px; padding: 10px 16px; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; }
   .site-header .brand small { display: none; }
+  .site-header .quote-list-link { min-height: 44px; padding: 0 13px; font-size: 10px; white-space: nowrap; }
+  .site-header .mobile-navigation, .site-header .mobile-menu-trigger { flex: 0 0 auto; }
   .hero-copy { padding-top: 64px; }
   .hero-facts, .assurance, .product-grid, .process-grid, .buyer-grid, .factory-gallery, .sourcing-grid, .collection-grid, footer, .capability-gallery, .capability-step-grid, .capability-checks, .trust-entry-grid, .product-trust-strip, .resource-home-grid, .resource-card-grid, .resource-route-grid, .resource-hub-hero, .resource-evidence-strip, .resource-article-opening, .resource-article-layout, .resource-article-close { grid-template-columns: 1fr; }
   .resource-hub-hero, .resource-article > header { padding: 62px 22px 48px; }
@@ -1884,7 +1886,8 @@ footer a:hover { color: var(--forest); }
 @media (max-width: 400px) {
   .site-header .brand > span:last-child { display: none; }
   .site-header { padding-left: 14px; padding-right: 14px; gap: 7px; }
-  .quote-list-link { padding-left: 12px; padding-right: 12px; }
+  .site-header .quote-list-link { width: 44px; padding: 0; font-size: 0; }
+  .site-header .quote-list-link span { font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

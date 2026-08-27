@@ -232,6 +232,9 @@ test("keeps the mobile language switch on the matching page", async () => {
   assert.match(selector, /href=\{alternateHref\}/);
   assert.match(selector, /简体中文/);
   assert.match(selector, /English/);
+  const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(styles, /\.site-header \{ min-height: 70px; padding: 10px 16px; grid-template-columns: minmax\(0, 1fr\) auto auto;/);
+  assert.match(styles, /\.site-header \.quote-list-link \{ width: 44px; padding: 0; font-size: 0;/);
 });
 
 test("consent banner follows the public page language", async () => {
