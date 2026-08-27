@@ -37,6 +37,14 @@ function hasMeaningfulQuantity(value: unknown) {
   return /\d/.test(normalized);
 }
 
+function hasSampleDecision(value: unknown) {
+  if (hasMeaningfulQuantity(value)) return true;
+  if (!hasText(value)) return false;
+  const normalized = String(value).trim().toLowerCase();
+  return /\b(no sample|samples? not (?:needed|required)|without samples?)\b/.test(normalized)
+    || /(?:不需要|无需|暂不需要)样品/.test(normalized);
+}
+
 function addMissing(missing: string[], condition: boolean, message: string) {
   if (!condition) missing.push(message);
 }
@@ -80,7 +88,7 @@ export function assessInquiryReadiness(record: InquiryReadinessInput): InquiryRe
     missing.push("Confirm an estimated trial or bulk quantity.");
   }
 
-  if (hasMeaningfulQuantity(record.sampleQuantity)) score += 5;
+  if (hasSampleDecision(record.sampleQuantity)) score += 5;
   else missing.push("Confirm whether samples are needed, including pairs and sizes.");
 
   const hasTradePreference = hasText(record.preferredTradeTerm) && record.preferredTradeTerm !== "not_sure";

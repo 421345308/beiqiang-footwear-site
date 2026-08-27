@@ -74,9 +74,11 @@ After changing environment variables, create a new deployment because existing d
 ## Buying-Brief Readiness
 
 - The protected inquiry dashboard computes an internal `0–100` buying-brief readiness score from the information already supplied by the buyer: contact route, company/buyer context, target market, product reference, per-style details, bulk and sample quantity, trade-term preference, destination, timing and requirements.
+- The English and Chinese multi-style quote builders now reuse the same deterministic rules before submission. The panel updates as the buyer completes the form, shows the four highest-priority gaps and distinguishes `Ready for commercial review`, `Qualification needed` and `Early / incomplete brief` without blocking an incomplete but potentially valuable inquiry.
+- An explicit no-sample decision such as `No sample needed` or `不需要样品` counts as supplied context; vague quantity wording such as `TBD` or `not sure` does not.
 - The result is classified as `Ready for commercial review`, `Qualification needed` or `Early / incomplete brief`. Cards show the most important missing questions, and the ledger can filter or sort by readiness.
 - The pipeline CSV includes score, level and qualification gaps so the same triage can be used outside the browser.
-- This is a deterministic completeness check, not AI buyer profiling, fraud detection, credit scoring, conversion probability or an automatic rejection rule. Sales must still verify the buyer, product evidence and every commercial term.
+- This is a deterministic completeness check, not AI buyer profiling, fraud detection, credit scoring, conversion probability, quotation approval or an automatic rejection rule. Sales must still verify the buyer, product evidence and every commercial term.
 
 ## Structured Sample Validation
 

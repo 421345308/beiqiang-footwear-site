@@ -14,6 +14,8 @@ import ContactPreferenceFields, {
   type ContactPreferences,
 } from "../components/ContactPreferenceFields";
 import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../components/AdaptationBriefFields";
+import BuyerQuoteReadiness from "../components/BuyerQuoteReadiness";
+import { assessBuyerQuoteReadiness } from "../lib/buyer-quote-readiness";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -105,6 +107,24 @@ export default function QuoteRequestBuilder() {
     [lines],
   );
   const technical = projectPath === "technical_development";
+  const quoteReadiness = assessBuyerQuoteReadiness({
+    company,
+    buyerType,
+    market,
+    email,
+    whatsapp,
+    styleCode: lines.map((line) => line.code).join(", "),
+    quantity: totalQuantity ? `${totalQuantity} pairs` : "",
+    bulkQuantity,
+    sampleQuantity,
+    preferredTradeTerm,
+    deliveryDestination,
+    deliveryTiming,
+    requirements,
+    projectPath,
+    adaptationBrief: technical ? undefined : adaptationBrief,
+    items: lines,
+  });
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -357,6 +377,7 @@ export default function QuoteRequestBuilder() {
               </p>
             )}
           </div>
+          <BuyerQuoteReadiness readiness={quoteReadiness} />
           <fieldset>
             <legend>1. Project path</legend>
             <label className="radio-card">

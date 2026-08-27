@@ -33,6 +33,13 @@ test("does not treat vague quantity language as commercial readiness", () => {
   }
 });
 
+test("treats an explicit no-sample decision as useful commercial context", () => {
+  for (const sampleQuantity of ["No sample needed", "Samples not required", "不需要样品"]) {
+    const result = assessInquiryReadiness({ sampleQuantity });
+    assert.equal(result.missing.some((item) => /samples are needed/i.test(item)), false, sampleQuantity);
+  }
+});
+
 test("turns missing private-label artwork details into qualification questions", () => {
   const incomplete = assessInquiryReadiness({ projectPath: "base_style_adaptation", adaptationBrief: { intent: "private_label", artworkStatus: "not_ready" } });
   assert.ok(incomplete.missing.some((item) => /logo, insole or label placement/i.test(item))); assert.ok(incomplete.missing.some((item) => /usable logo artwork/i.test(item)));

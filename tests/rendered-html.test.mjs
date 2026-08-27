@@ -66,9 +66,21 @@ test("server-renders the multi-style quote and technical development path", asyn
   assert.match(html, /do not create an appointment/i);
   assert.match(html, /customs clearance, duty, tax and local delivery are not promised/i);
   assert.match(html, /Existing-style adaptation brief/i);
+  assert.match(html, /PRE-SUBMISSION BUYING-BRIEF CHECK/i);
+  assert.match(html, /Readiness reduces follow-up gaps/i);
   assert.match(html, /Logo \/ artwork readiness/i);
   assert.match(html, /buyer targets, not confirmed production specifications/i);
   assert.doesNotMatch(html, /guaranteed hardness|guaranteed test|medical|orthopedic/i);
+});
+
+test("server-renders the Chinese pre-submission buying-brief check", async () => {
+  const response = await render("/zh/request-quote");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /提交前采购资料检查/);
+  assert.match(html, /采购简报尚不完整/);
+  assert.match(html, /完整度用于减少往返追问/);
+  assert.match(html, /不是报价承诺、买家评分、订单批准或成交预测/);
 });
 
 test("server-renders the B2B buyer and trade-term guide", async () => {

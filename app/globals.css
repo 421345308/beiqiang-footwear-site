@@ -463,6 +463,25 @@ footer a:hover { color: var(--forest); }
 .quote-empty p { max-width: 600px; margin: 0 auto 25px; color: var(--muted); line-height: 1.7; }
 .quote-request-form { padding: 42px; position: sticky; top: 110px; background: var(--forest); color: white; }
 .quote-request-form h2 { font-size: 38px; }
+.buyer-quote-readiness { margin-top: 24px; padding: 20px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.07); }
+.buyer-quote-readiness-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.buyer-quote-readiness-heading > div { display: grid; gap: 5px; }
+.buyer-quote-readiness-heading > div small { color: #d6e1dc; font-size: 9px; font-weight: 800; letter-spacing: .11em; }
+.buyer-quote-readiness-heading > div strong { color: white; font-family: var(--font-display), Georgia, serif; font-size: 21px; line-height: 1.15; }
+.buyer-quote-readiness-heading > span { flex: 0 0 auto; color: #f2b99d; font-size: 28px; font-weight: 800; line-height: 1; }
+.buyer-quote-readiness-heading > span small { font-size: 11px; }
+.buyer-quote-readiness-bar { height: 5px; margin: 15px 0; overflow: hidden; background: rgba(255,255,255,.13); }
+.buyer-quote-readiness-bar i { display: block; height: 100%; min-width: 3px; background: #e4a589; transition: width .2s ease; }
+.buyer-quote-readiness.readiness-ready .buyer-quote-readiness-bar i { background: #9fd8bd; }
+.buyer-quote-readiness > p { margin: 0 0 13px; color: #eef4f1; font-size: 13px; line-height: 1.55; }
+.buyer-quote-readiness-next { padding: 13px 15px; background: rgba(0,0,0,.14); }
+.buyer-quote-readiness-next b { display: block; margin-bottom: 7px; color: white; font-size: 12px; }
+.buyer-quote-readiness-next ul { margin: 0; padding-left: 18px; color: #dfe8e3; font-size: 12px; line-height: 1.55; }
+.buyer-quote-readiness-next > small { display: block; margin-top: 7px; color: #bdcbc4; }
+.buyer-quote-readiness-complete { display: grid; gap: 5px; border-left: 3px solid #9fd8bd; }
+.buyer-quote-readiness-complete b { margin: 0; }
+.buyer-quote-readiness-complete span { color: #dfe8e3; font-size: 12px; line-height: 1.55; }
+.buyer-quote-readiness-boundary { display: block; margin-top: 12px; color: #bdcbc4; font-size: 10px; line-height: 1.55; }
 .quote-request-form fieldset { margin: 30px 0 0; padding: 0; border: 0; }
 .quote-request-form legend { width: 100%; margin-bottom: 16px; padding-bottom: 9px; border-bottom: 1px solid rgba(255,255,255,.18); color: #e4a589; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .radio-card { margin-top: 10px; padding: 15px; grid-template-columns: auto 1fr !important; align-items: start; border: 1px solid rgba(255,255,255,.2); cursor: pointer; }

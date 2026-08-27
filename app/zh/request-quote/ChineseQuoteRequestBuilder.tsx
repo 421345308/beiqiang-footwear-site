@@ -9,6 +9,7 @@ import ContactPreferenceFields, {
   type ContactPreferences,
 } from "../../components/ContactPreferenceFields";
 import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../../components/AdaptationBriefFields";
+import BuyerQuoteReadiness from "../../components/BuyerQuoteReadiness";
 import { productNameZh } from "../../data/products-zh";
 import { products } from "../../data/products";
 import { getAttribution, trackEvent } from "../../lib/tracking";
@@ -17,6 +18,7 @@ import {
   saveQuoteList,
   type QuoteLine,
 } from "../../lib/quote-list";
+import { assessBuyerQuoteReadiness } from "../../lib/buyer-quote-readiness";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -91,6 +93,24 @@ export default function ChineseQuoteRequestBuilder() {
       ),
     [lines],
   );
+  const quoteReadiness = assessBuyerQuoteReadiness({
+    company,
+    buyerType,
+    market,
+    email,
+    whatsapp,
+    styleCode: lines.map((line) => line.code).join(", "),
+    quantity: totalQuantity ? `${totalQuantity} pairs` : "",
+    bulkQuantity,
+    sampleQuantity,
+    preferredTradeTerm,
+    deliveryDestination,
+    deliveryTiming,
+    requirements,
+    projectPath,
+    adaptationBrief: technical ? undefined : adaptationBrief,
+    items: lines,
+  }, "zh");
   function updateLine(index: number, field: keyof QuoteLine, value: string) {
     const next = lines.map((line, lineIndex) =>
       lineIndex === index ? { ...line, [field]: value } : line,
@@ -346,6 +366,7 @@ export default function ChineseQuoteRequestBuilder() {
               </p>
             )}
           </div>
+          <BuyerQuoteReadiness readiness={quoteReadiness} />
           <fieldset>
             <legend>1. 项目路径</legend>
             <label className="radio-card">
