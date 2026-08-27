@@ -146,7 +146,7 @@ test("publishes noindex Chinese buyer status and multi-project workspace entry p
   assert.match(statusHtml, /用私密查询码查看采购项目进度/);
   assert.match(statusHtml, /询盘编号识别项目，私密查询码保护项目/);
   assert.match(statusHtml, /name="robots" content="noindex, nofollow/i);
-  assert.match(statusHtml, /href="\/inquiry-status\/"[^>]*>English/);
+  assert.match(statusHtml, /href="\/inquiry-status\/"[^>]*><b>English/);
 
   const workspace = await render("/zh/buyer-workspace");
   const workspaceHtml = await workspace.text();
@@ -155,7 +155,7 @@ test("publishes noindex Chinese buyer status and multi-project workspace entry p
   assert.match(workspaceHtml, /15分钟一次性邮件链接/);
   assert.match(workspaceHtml, /公司名或邮箱域名相似不会自动授权/);
   assert.match(workspaceHtml, /name="robots" content="noindex, nofollow/i);
-  assert.match(workspaceHtml, /href="\/buyer-workspace\/"[^>]*>English/);
+  assert.match(workspaceHtml, /href="\/buyer-workspace\/"[^>]*><b>English/);
 });
 
 test("keeps the complete Chinese buyer decision center on the protected project APIs", async () => {
@@ -223,9 +223,15 @@ test("includes every Chinese public route in the EdgeOne export contract", async
 test("keeps the mobile language switch on the matching page", async () => {
   const header = await readFile(new URL("../app/components/ChineseSiteHeader.tsx", import.meta.url), "utf8");
   const mobile = await readFile(new URL("../app/components/ChineseMobileNavigation.tsx", import.meta.url), "utf8");
+  const selector = await readFile(new URL("../app/components/LanguageSelector.tsx", import.meta.url), "utf8");
   assert.match(header, /ChineseMobileNavigation englishHref=\{englishHref\}/);
+  assert.match(header, /LanguageSelector locale="zh" alternateHref=\{englishHref\}/);
   assert.match(mobile, /href=\{englishHref\}/);
   assert.match(mobile, /hrefLang="en"/);
+  assert.match(mobile, /语言 \/ Language/);
+  assert.match(selector, /href=\{alternateHref\}/);
+  assert.match(selector, /简体中文/);
+  assert.match(selector, /English/);
 });
 
 test("consent banner follows the public page language", async () => {
