@@ -9,6 +9,7 @@ import { assessInquiryReadiness } from "../../lib/inquiry-readiness";
 import { products } from "../../data/products";
 import RepeatOrderManager, { type RepeatOrderOpportunity } from "./RepeatOrderManager";
 import ChineseSalesCockpit from "./ChineseSalesCockpit";
+import ChineseWeeklyReview, { type SalesExecution } from "./ChineseWeeklyReview";
 
 type QuoteItem = { code: string; quantity?: string; colors?: string; sizes?: string; notes?: string };
 type Attachment = { id: string; name: string; contentType: string; size: number; uploadedAt: string; revokedAt?: string; revokedBy?: string; revocationReason?: string; securityStatus?: "quarantined" | "reviewed_safe"; securityReason?: string; securityUpdatedAt?: string; securityUpdatedBy?: string };
@@ -38,6 +39,7 @@ type ProductRecommendation = { id: string; title: string; introduction: string; 
 type CommercialAnalytics = {
   period: { days: number; from: string; to: string; consentNote: string };
   funnel: { productViews: number; quoteAdds: number; quoteBuilderViews: number; quoteRequests: number; inquiries: number; qualified: number; sampleDiscussion: number; quoted: number; quoteAccepted: number; orderSetupRequested: number; orders: number };
+  salesExecution: SalesExecution;
   workspace: { accessRequests: number; eligibleRequests: number; linksSent: number; deliveryFailures: number; unknownRequests: number; rateLimitedRequests: number; linkRedemptions: number; redemptionFailures: number; workspaceLoads: number; uniqueRedeemedBuyers: number; uniqueActiveBuyers: number; projectSummaryOpens: number; uniqueProjectReaders: number; privateProjectHandoffs: number; signOuts: number; linkDeliveryRate: number; linkRedemptionRate: number; workspaceAdoptionRate: number; projectEngagementRate: number; projects: { reference: string; summaryOpens: number; privateHandoffs: number }[]; privacyNote: string };
   supporting: { mobileMenuOpens: number; mobileMenuLinks: number; sourcingProgramViews: number; sourcingProgramCtas: number; lineSheetLeads: number; lineSheetDownloads: number; productSpecSheets: number; productShares: number; buyerMessages: number; buyerFiles: number; buyerDocuments: number; quoteRevisions: number; quoteDeclines: number; orderChangesProposed: number; orderChangesAccepted: number; orderChangesRejected: number; orderChangesAwaitingBuyer: number; fulfillmentCasesOpened: number; fulfillmentCasesResolved: number; fulfillmentCasesOpen: number; repeatOrdersSubmitted: number; repeatOrdersQualified: number; repeatOrdersConverted: number; repeatOrdersOpen: number; deliveriesConfirmed: number; deliveryIssuesReported: number; overdue: number };
   stageActivity: { stage: string; count: number }[]; lossReasons: { reason: string; count: number }[];
@@ -460,6 +462,7 @@ export default function InquiryAdminPage() {
     <header className="admin-header"><div><p className="eyebrow">BEIQIANG INTERNAL</p><h1>Inquiry &amp; order pipeline</h1><p>Review sourcing requests, qualify buyers and move each opportunity through sample, quote, negotiation and confirmed order stages. Buyer-safe reply starters remain drafts until a salesperson reviews and sends them.</p></div><Link className="text-link" href="/">Return to website <span aria-hidden="true">↗</span></Link></header>
     <section className="admin-access-card"><form onSubmit={loadRecords}><label>Dashboard access token<input type="password" value={token} onChange={(event) => setToken(event.target.value)} autoComplete="current-password" required placeholder="Stored only in this page session" /></label><button className="button" type="submit" disabled={loading}>{loading ? "Loading…" : "Load inquiries"}</button></form><p className="admin-status" aria-live="polite">{status}</p></section>
     <ChineseSalesCockpit records={businessRecords} readinessByReference={readinessByReference} />
+    <ChineseWeeklyReview data={analytics?.salesExecution || null} days={analyticsDays} />
     <CommercialDashboard data={analytics} days={analyticsDays} loading={analyticsLoading} onDaysChange={(days) => { setAnalyticsDays(days); void loadAnalytics(days); }} onRefresh={() => void loadAnalytics()} />
     <ResourceAnalyticsPanel data={analytics} />
     <ProductShareAnalyticsPanel data={analytics} />

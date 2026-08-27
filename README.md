@@ -405,6 +405,14 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Each task can generate an English reply draft for manual review and clipboard copy. Drafts are never sent automatically and never confirm price, MOQ, materials, stock, size ratio, packing, lead time or transaction terms.
 - The cockpit uses the same protected inquiry records and `INQUIRY_ADMIN_TOKEN`; it does not create a second customer database or expose private records on a public page.
 
+## Chinese Sales Execution Review
+
+- `/admin/inquiries/` also contains a Chinese `销售执行与管道健康` review derived from the protected analytics summary for the selected 7/30/90-day period.
+- First-response timing counts only the first timestamped website sales message after an inquiry. A `lastContactedAt` date can prove that an outside-channel contact was recorded, but it is excluded from exact response hours and the 24-hour response rate.
+- Current-pipeline health covers owner assignment, a concrete next action plus due date, overdue work, buyer messages awaiting a reply and projects with no recorded activity for 14 days.
+- Stage rates show the current verified stage of inquiries received in the selected period. They are not a same-week causal sequence, predicted conversion probability, revenue figure or platform-reported order count.
+- The Chinese action list is generated from visible aggregate gaps only. It does not expose buyer identities, automatically send messages or change project records.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.
