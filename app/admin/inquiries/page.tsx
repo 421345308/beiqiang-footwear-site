@@ -30,7 +30,9 @@ import AcquisitionCampaignWorkbench, {
 } from "./AcquisitionCampaignWorkbench";
 import MeetingPerformancePanel from "./MeetingPerformancePanel";
 import ExternalContactLog, { type ExternalContact } from "./ExternalContactLog";
-import MeetingRequestCenter, { type MeetingRequest } from "./MeetingRequestCenter";
+import MeetingRequestCenter, {
+  type MeetingRequest,
+} from "./MeetingRequestCenter";
 
 type QuoteItem = {
   code: string;
@@ -495,6 +497,9 @@ type CommercialAnalytics = {
     meetingsCompleted: number;
     meetingCalendarDownloads: number;
     meetingProjectsWithCalendarDownload: number;
+    meetingChangesSubmitted: number;
+    meetingChangesPending: number;
+    meetingChangesApproved: number;
     quoteRevisions: number;
     quoteDeclines: number;
     orderChangesProposed: number;
@@ -1440,8 +1445,12 @@ function ReminderCenter({
                     {item.dueDate} · {item.timing.replaceAll("_", " ")}
                   </span>
                   <small>
-                    {item.reference} · {item.company} · {item.action.replaceAll("_", " ")}
-                    {item.confirmedSlot ? ` · ${item.confirmedSlot} ${item.timezone}` : ""} · {item.owner}
+                    {item.reference} · {item.company} ·{" "}
+                    {item.action.replaceAll("_", " ")}
+                    {item.confirmedSlot
+                      ? ` · ${item.confirmedSlot} ${item.timezone}`
+                      : ""}{" "}
+                    · {item.owner}
                   </small>
                 </p>
               ))}
@@ -3744,12 +3753,10 @@ function QuotationEditor({
   const nextVersion = String((record.quotations?.length || 0) + 1);
   const sourceLines = record.items?.length
     ? record.items
-    : record.styleCode
-        .split(",")
-        .map((code) => ({
-          code: code.trim(),
-          quantity: record.bulkQuantity || record.quantity,
-        }));
+    : record.styleCode.split(",").map((code) => ({
+        code: code.trim(),
+        quantity: record.bulkQuantity || record.quantity,
+      }));
   const [version, setVersion] = useState(nextVersion);
   const [currency, setCurrency] = useState("USD");
   const [tradeTerm, setTradeTerm] = useState("FOB");
@@ -4295,7 +4302,9 @@ function SampleProgramEditor({
   return (
     <details
       className="admin-sample-program"
-      open={sample?.status === "buyer_review" || Boolean(pendingRequests.length)}
+      open={
+        sample?.status === "buyer_review" || Boolean(pendingRequests.length)
+      }
     >
       <summary>
         Sample validation project{" "}
@@ -4307,7 +4316,9 @@ function SampleProgramEditor({
       <div className="admin-follow-up-grid">
         {pendingRequests.length ? (
           <section className="admin-sample-request-list admin-form-full">
-            <h4>Buyer-submitted sample requests · review before confirmation</h4>
+            <h4>
+              Buyer-submitted sample requests · review before confirmation
+            </h4>
             {pendingRequests.map((item) => (
               <article key={item.id}>
                 <div>
@@ -6175,7 +6186,10 @@ export default function InquiryAdminPage() {
         days={analyticsDays}
         token={token}
       />
-      <MeetingPerformancePanel metrics={analytics?.supporting} days={analyticsDays} />
+      <MeetingPerformancePanel
+        metrics={analytics?.supporting}
+        days={analyticsDays}
+      />
       <CommercialDashboard
         data={analytics}
         days={analyticsDays}

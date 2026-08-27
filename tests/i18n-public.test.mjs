@@ -176,6 +176,7 @@ test("publishes noindex Chinese buyer status and multi-project workspace entry p
 test("keeps the complete Chinese buyer decision center on the protected project APIs", async () => {
   const source = await readFile(new URL("../app/zh/inquiry-status/ChineseTransactionCenter.tsx", import.meta.url), "utf8");
   const meeting = await readFile(new URL("../app/components/BuyerMeetingRequest.tsx", import.meta.url), "utf8");
+  const meetingChange = await readFile(new URL("../app/components/BuyerMeetingChangeRequest.tsx", import.meta.url), "utf8");
   for (const endpoint of [
     "/api/recommendation-response",
     "/api/sample-response",
@@ -198,6 +199,9 @@ test("keeps the complete Chinese buyer decision center on the protected project 
   assert.match(meeting, /\/api\/meeting-request/);
   assert.match(meeting, /申请人工确认的采购会议/);
   assert.match(meeting, /不会自动建立日历预约/);
+  assert.match(meetingChange, /\/api\/meeting-change-request/);
+  assert.match(meetingChange, /需要改期或取消/);
+  assert.match(meetingChange, /原确认会议在贝强批准此申请前仍然有效/);
   assert.doesNotMatch(source, /credit card checkout|instant purchase|guaranteed stock/i);
 });
 

@@ -89,7 +89,9 @@ export default function TermsPage() {
             the applicable written quotation, Trade Assurance order or signed
             contract. A downloaded iCalendar file is a buyer-controlled personal
             scheduling copy; it does not synchronize calendars, report attendance or
-            automatically update a cancelled meeting.
+            automatically update a cancelled meeting. A buyer reschedule or cancellation
+            request does not change the confirmed meeting until Beiqiang approves it;
+            after an approved reschedule, the buyer must download the current calendar file.
           </p>
         </section>
         <section>

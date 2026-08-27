@@ -922,6 +922,11 @@ footer a:hover { color: var(--forest); }
 .buyer-meeting-request .buyer-meeting-check { grid-template-columns: auto 1fr; align-items: start; text-transform: none; font-weight: 500; }
 .buyer-meeting-request .buyer-meeting-check input { width: auto; margin-top: 3px; }
 .buyer-meeting-wait { margin: 18px 0; padding: 14px; border-left: 3px solid #f0a58c; background: rgba(255,255,255,.08); color: white; }
+.buyer-meeting-change { grid-column: 1 / -1; margin-top: 10px; padding: 12px; border: 1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.12); }
+.buyer-meeting-change h4 { margin: 0 0 8px; font-size: 13px; }
+.buyer-meeting-change details > summary { cursor: pointer; color: white; font-weight: 800; }
+.buyer-meeting-change form { margin: 14px 0 0; }
+.buyer-meeting-change-pending { display: grid; gap: 5px; }
 .meeting-calendar-download { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px 24px; margin-top: 14px; padding: 22px; border: 1px solid var(--line); background: #f4f8f6; }
 .meeting-calendar-download h3 { margin: 5px 0; font-family: Georgia, serif; font-size: 24px; }
 .meeting-calendar-download p { margin: 0; color: var(--muted); }
@@ -1137,6 +1142,8 @@ footer a:hover { color: var(--forest); }
 .meeting-review-actions input, .meeting-review-actions select, .meeting-review-actions textarea { width: 100%; padding: 9px; border: 1px solid var(--line); background: white; font: inherit; }
 .meeting-review-actions > div { display: flex; gap: 8px; }
 .meeting-review-actions button { padding: 9px 12px; border: 1px solid var(--forest); background: white; color: var(--forest); cursor: pointer; }
+.meeting-change-review { margin: 8px 0; padding: 12px; border: 1px solid #ddb88f; background: #fff8ef; }
+.meeting-change-review > div { display: flex; gap: 8px; }
 .meeting-review-card > p[aria-live] { grid-column: 1 / -1; min-height: 14px; color: var(--rust); }
 .admin-meeting-history { margin: 0 22px 18px; }
 .admin-meeting-history > summary { cursor: pointer; color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
