@@ -372,6 +372,9 @@ footer a:hover { color: var(--forest); }
 .comparison-heading h2 { margin: 5px 0; font-family: Georgia, serif; font-size: 30px; }
 .comparison-heading p { margin-bottom: 0; color: var(--muted); }
 .comparison-heading > div:last-child { display: flex; align-items: center; gap: 14px; }
+.comparison-share-actions { margin: 18px 0; padding: 13px 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; border: 1px solid var(--line); background: #f7f5ef; }
+.comparison-share-actions > a { color: var(--forest); font-size: 11px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.comparison-share-actions > small { flex: 1 1 260px; color: var(--muted); font-size: 10px; line-height: 1.45; }
 .comparison-scroll { margin-top: 24px; overflow-x: auto; }
 .product-comparison table { width: 100%; min-width: 760px; border-collapse: collapse; table-layout: fixed; }
 .product-comparison th, .product-comparison td { padding: 13px; border: 1px solid var(--line); vertical-align: top; text-align: left; font-size: 11px; line-height: 1.55; }

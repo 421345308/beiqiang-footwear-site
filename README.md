@@ -111,6 +111,7 @@ Current public structure:
 ## Product Comparison and Internal-Tier Boundary
 
 - Buyers can select 2–4 styles on `/products/` and compare documented product group, closure, upper, sole direction, size direction, colors, buyer fit, evidence-led highlights and confirmation items.
+- A comparison can be copied or shared through WhatsApp or email. The English and Chinese catalogue links restore the same 2–4 verified style codes for the recipient; the URL never includes buyer identity, quantities, target prices or private notes.
 - The comparison can add all shortlisted styles to the device-local quote list. Existing styles are not duplicated, and the 12-style limit is enforced before reporting success.
 - `product_compare` is sent only after optional analytics consent. The protected product-signal table separates views, comparisons, successful quote-list additions and saved inquiries.
 - `tier` remains an internal product-data field. Public cards and detail pages show buyer-relevant facts instead; never expose Tier A–E as a quality, popularity or certification signal.
