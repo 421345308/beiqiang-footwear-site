@@ -7,8 +7,8 @@ export type WeeklySalesExecution = {
 export type WeeklyAction = { level: string; title: string; note: string };
 export type WeeklyAcquisitionChannel = { channel: string; events: number; inquiries: number; qualified: number; sampleDiscussion: number; quoted: number; quoteAccepted: number; orderSetupRequested: number; orders: number; inquiryToQualifiedRate: number; inquiryToQuotedRate: number };
 export type WeeklyCollectionJourney = { slug: string; views: number; productOpens: number; quoteHandoffs: number; inquiries: number; qualified: number; sampleDiscussion: number; quoted: number; orders: number };
-export type WeeklyComparisonJourney = { codes: string; shares: number; opens: number };
-export type WeeklyReviewAnalytics = { period: { days: number; from: string; to: string }; funnel: { productViews: number; quoteAdds: number; quoteRequests: number; inquiries: number; qualified: number; sampleDiscussion: number; quoted: number; quoteAccepted: number; orderSetupRequested: number; orders: number }; salesExecution: WeeklySalesExecution; supporting?: { resourceViews?: number; resourceProductOpens?: number; resourceCtas?: number; productShares?: number; comparisonShares?: number; comparisonOpens?: number; lineSheetLeads?: number }; collectionJourneys?: WeeklyCollectionJourney[]; comparisonJourneys?: WeeklyComparisonJourney[]; acquisitionChannels?: WeeklyAcquisitionChannel[]; products?: { code: string; views: number; compares: number; specSheets: number; shares: number; comparisonShares: number; comparisonOpens: number; quoteAdds: number; inquiries: number }[] };
+export type WeeklyComparisonJourney = { codes: string; shares: number; opens: number; prints: number };
+export type WeeklyReviewAnalytics = { period: { days: number; from: string; to: string }; funnel: { productViews: number; quoteAdds: number; quoteRequests: number; inquiries: number; qualified: number; sampleDiscussion: number; quoted: number; quoteAccepted: number; orderSetupRequested: number; orders: number }; salesExecution: WeeklySalesExecution; supporting?: { resourceViews?: number; resourceProductOpens?: number; resourceCtas?: number; productShares?: number; comparisonShares?: number; comparisonOpens?: number; lineSheetLeads?: number }; collectionJourneys?: WeeklyCollectionJourney[]; comparisonJourneys?: WeeklyComparisonJourney[]; acquisitionChannels?: WeeklyAcquisitionChannel[]; products?: { code: string; views: number; compares: number; specSheets: number; shares: number; comparisonShares: number; comparisonOpens: number; comparisonPrints: number; quoteAdds: number; inquiries: number }[] };
 export type WeeklyReviewSnapshot = { version: number; id: string; capturedAt: string; period: { days: number; from: string; to: string }; salesExecution: WeeklySalesExecution; funnel: WeeklyReviewAnalytics["funnel"]; acquisitionChannels?: WeeklyAcquisitionChannel[]; products?: WeeklyReviewAnalytics["products"]; comparisonJourneys?: WeeklyComparisonJourney[]; collectionJourneys?: WeeklyCollectionJourney[]; supporting?: WeeklyReviewAnalytics["supporting"]; coverage: { eventsLoaded: number; inquiriesLoaded: number; workspaceActivityLoaded: number; truncated: boolean }; dataBoundary: string };
 
 export function buildWeeklyActions(data: WeeklySalesExecution): WeeklyAction[] {
@@ -35,8 +35,8 @@ function acquisitionEvidence(channels: WeeklyAcquisitionChannel[] = [], previous
 }
 
 function comparisonEvidence(comparisons: WeeklyComparisonJourney[] = []) {
-  const useful = comparisons.filter((item) => item.shares > 0 || item.opens > 0).slice(0, 5);
-  return useful.length ? useful.map((item) => `- ${item.codes}：${item.shares}次分享动作、${item.opens}次分享链接打开；只作为选款协同信号，不代表送达、买家批准、询盘或订单。`) : ["- 当前周期没有经同意记录的产品组合分享/打开信号；不要把缺失写成零兴趣。"];
+  const useful = comparisons.filter((item) => item.shares > 0 || item.opens > 0 || item.prints > 0).slice(0, 5);
+  return useful.length ? useful.map((item) => `- ${item.codes}：${item.shares}次分享动作、${item.opens}次分享链接打开、${item.prints || 0}次打印/PDF动作；只作为选款协同信号，不代表送达、买家批准、询盘或订单。`) : ["- 当前周期没有经同意记录的产品组合分享、打开或打印信号；不要把缺失写成零兴趣。"];
 }
 
 export function buildWeeklyReviewMarkdown({ analytics, previous = null, generatedAt = new Date().toISOString() }: { analytics: WeeklyReviewAnalytics; previous?: WeeklyReviewSnapshot | null; generatedAt?: string }) {

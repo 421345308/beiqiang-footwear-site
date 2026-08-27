@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
 
-export const ALLOWED_EVENTS = new Set(["product_view", "product_select", "product_compare", "product_spec_sheet_print", "product_share", "comparison_share", "comparison_open", "form_start", "form_submit", "whatsapp_click", "email_click", "alibaba_click", "quote_builder_view", "quote_list_add", "quote_list_remove", "quote_request_submit", "line_sheet_form_start", "line_sheet_request", "line_sheet_download", "sourcing_program_view", "sourcing_program_cta", "resource_view", "resource_cta", "resource_product_open", "collection_view", "collection_product_open", "collection_quote_cta", "mobile_nav_open", "mobile_nav_link"]);
+export const ALLOWED_EVENTS = new Set(["product_view", "product_select", "product_compare", "product_spec_sheet_print", "product_share", "comparison_share", "comparison_open", "comparison_print", "form_start", "form_submit", "whatsapp_click", "email_click", "alibaba_click", "quote_builder_view", "quote_list_add", "quote_list_remove", "quote_request_submit", "line_sheet_form_start", "line_sheet_request", "line_sheet_download", "sourcing_program_view", "sourcing_program_cta", "resource_view", "resource_cta", "resource_product_open", "collection_view", "collection_product_open", "collection_quote_cta", "mobile_nav_open", "mobile_nav_link"]);
 
 function clean(value, max = 300) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";

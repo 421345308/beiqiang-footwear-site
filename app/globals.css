@@ -374,7 +374,9 @@ footer a:hover { color: var(--forest); }
 .comparison-heading > div:last-child { display: flex; align-items: center; gap: 14px; }
 .comparison-share-actions { margin: 18px 0; padding: 13px 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; border: 1px solid var(--line); background: #f7f5ef; }
 .comparison-share-actions > a { color: var(--forest); font-size: 11px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.comparison-print-button { padding: 0; border: 0; background: transparent; color: var(--forest); font-size: 11px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .comparison-share-actions > small { flex: 1 1 260px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+.comparison-print-header, .comparison-print-footer, .comparison-review-row { display: none; }
 .comparison-scroll { margin-top: 24px; overflow-x: auto; }
 .product-comparison table { width: 100%; min-width: 760px; border-collapse: collapse; table-layout: fixed; }
 .product-comparison th, .product-comparison td { padding: 13px; border: 1px solid var(--line); vertical-align: top; text-align: left; font-size: 11px; line-height: 1.55; }
@@ -1308,7 +1310,7 @@ footer a:hover { color: var(--forest); }
 .admin-collection-table strong, .admin-collection-table b, .admin-collection-table span { padding: 11px 9px; border-right: 1px solid #eee7d2; font-size: 10px; text-align: center; }
 .admin-collection-table strong:first-child, .admin-collection-table b { text-align: left; }
 .comparison-journey-table { min-width: 520px; }
-.comparison-journey-table > div { grid-template-columns: minmax(240px, 2fr) repeat(2, minmax(110px, 1fr)); }
+.comparison-journey-table > div { grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(92px, 1fr)); }
 .comparison-journey-table > p, .comparison-analytics-boundary { display: block; margin: 0; padding: 13px; color: var(--muted); font-size: 10px; line-height: 1.55; }
 .order-handoff-saved { margin: 0; padding: 10px; background: #e1eee6; color: #28553d; font-size: 11px; }
 
@@ -1951,4 +1953,29 @@ footer a:hover { color: var(--forest); }
   body.buyer-project-printing .buyer-next-action, body.buyer-project-printing form, body.buyer-project-printing button, body.buyer-project-printing .hero-actions, body.buyer-project-printing .inquiry-attachment-uploader, body.buyer-project-printing .buyer-recommendation-actions, body.buyer-project-printing .buyer-delivery-actions, body.buyer-project-printing .workspace-verified-handoff { display: none !important; }
   body.buyer-project-printing .buyer-status-result > section, body.buyer-project-printing .buyer-status-result > div { break-inside: avoid; box-shadow: none !important; }
   body.buyer-project-printing .buyer-message-thread { max-height: none; overflow: visible; }
+  body.comparison-printing > *:not(main), body.comparison-printing main > * { display: none !important; }
+  body.comparison-printing main > .catalog-section { display: block !important; width: 100%; margin: 0; padding: 0; }
+  body.comparison-printing .catalog-section > *:not(.product-comparison) { display: none !important; }
+  body.comparison-printing .product-comparison { display: block !important; width: 100%; margin: 0; padding: 0; border: 0; background: white; color: #17231f; }
+  body.comparison-printing .comparison-print-header { display: block; margin-bottom: 6mm; padding-bottom: 4mm; border-bottom: 3px solid #173b32; }
+  body.comparison-printing .comparison-print-header p { margin: 0 0 2mm; color: #9d4e36; font-size: 8pt; font-weight: 800; letter-spacing: .11em; }
+  body.comparison-printing .comparison-print-header h1 { margin: 0 0 2mm; font-family: Georgia, serif; font-size: 19pt; }
+  body.comparison-printing .comparison-print-header span { font-size: 8.5pt; }
+  body.comparison-printing .comparison-heading { display: block; }
+  body.comparison-printing .comparison-heading > div:last-child { display: none !important; }
+  body.comparison-printing .comparison-heading h2 { margin: 0 0 2mm; font-size: 13pt; }
+  body.comparison-printing .comparison-heading p { margin: 0 0 4mm; font-size: 7.5pt; line-height: 1.4; }
+  body.comparison-printing .comparison-heading .eyebrow { display: none; }
+  body.comparison-printing .comparison-scroll { margin: 0; overflow: visible; }
+  body.comparison-printing .product-comparison table { width: 100%; min-width: 0; table-layout: fixed; }
+  body.comparison-printing .product-comparison th, body.comparison-printing .product-comparison td { padding: 2.1mm; font-size: 6.8pt; line-height: 1.3; break-inside: avoid; }
+  body.comparison-printing .product-comparison thead th:first-child, body.comparison-printing .product-comparison tbody th { width: 27mm; }
+  body.comparison-printing .product-comparison thead img { width: 18mm; height: 18mm; margin-bottom: 1.5mm; }
+  body.comparison-printing .product-comparison thead a { color: #173b32; font-size: 11pt; text-decoration: none; }
+  body.comparison-printing .product-comparison ul { padding-left: 3.5mm; }
+  body.comparison-printing .comparison-review-row { display: table-row; }
+  body.comparison-printing .comparison-review-row td { min-height: 16mm; line-height: 1.7; background: #eef3ef; }
+  body.comparison-printing .comparison-print-footer { display: block; margin-top: 6mm; padding-top: 4mm; border-top: 2px solid #173b32; }
+  body.comparison-printing .comparison-print-footer strong, body.comparison-printing .comparison-print-footer span { display: block; font-size: 7.5pt; line-height: 1.45; }
+  body.comparison-printing .comparison-print-footer p { margin: 3mm 0 0; color: #4c5c56; font-size: 7pt; line-height: 1.45; }
 }
