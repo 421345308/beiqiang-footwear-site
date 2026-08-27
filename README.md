@@ -528,9 +528,24 @@ or enforce explicit server-side membership or allowlist checks.
 Use SIWC for account pages, user-specific dashboards, saved records, and write
 actions tied to the current ChatGPT user. Leave public content anonymous.
 
+## Product Catalogue Maintenance
+
+The catalogue has one evidence-led maintenance path so adding a style does not leave the Chinese site, images, PDF or static routes behind.
+
+1. Add the reviewed product facts to `app/data/products.ts`. Keep unknown material, size, MOQ, price, packing and timing items in `confirmBeforeQuote`; never infer wide-toe positioning without SKU-specific evidence.
+2. Add the reviewed Chinese name to `app/data/products-zh.ts`.
+3. Put at least four useful JPG files in `public/catalog/bqNNN/`, beginning with `01_main.jpg` and using ordered names such as `02_upper.jpg`.
+4. Run `npm run catalog:sync`. This generates `app/data/catalog-images.json`, `app/data/catalog-meta.json` and `app/data/catalog-meta.ts`; do not edit those generated files manually.
+5. Run `npm run images:build` and `npm run line-sheet:build` to refresh WebP derivatives and the buyer PDF.
+6. Run `npm test`, `npm run edgeone:build` and `npm run lint` before pushing GitHub `main`.
+
+`npm run catalog:check` is part of every build. It blocks publishing when product records, image directories, Chinese names, fit evidence, collections or derivatives are incomplete. Once the check passes, the same product record feeds English and Chinese catalogue/detail pages, quote selection, recommendations, the line sheet and exported routes/sitemap.
+
 ## Useful Commands
 
 - `npm run dev`: start local development
+- `npm run catalog:sync`: regenerate and validate the catalogue manifests after a reviewed product or image change
+- `npm run catalog:check`: verify product, Chinese-name, image and derivative alignment without writing files
 - `npm run build`: verify the vinext build output
 - `npm test`: build the commercial site and run the complete product, inquiry, recommendation, sample, quotation, document, order and analytics test suite
 - `npm run db:generate`: generate Drizzle migrations after schema changes

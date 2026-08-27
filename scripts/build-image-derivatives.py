@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 from PIL import Image, ImageOps
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -6,6 +7,7 @@ PUBLIC_ROOT = PROJECT_ROOT / "public"
 CATALOG_ROOT = PUBLIC_ROOT / "catalog"
 THUMB_ROOT = PUBLIC_ROOT / "catalog-thumbs"
 CATALOG_WEB_ROOT = PUBLIC_ROOT / "catalog-web"
+CATALOG_MANIFEST = PROJECT_ROOT / "app" / "data" / "catalog-images.json"
 FACTORY_ROOT = PUBLIC_ROOT / "factory"
 FACTORY_WEB_ROOT = PUBLIC_ROOT / "factory-web"
 
@@ -18,10 +20,12 @@ def rgb_image(source: Path) -> Image.Image:
 
 
 def build_catalog() -> tuple[int, int, int]:
+    manifest = json.loads(CATALOG_MANIFEST.read_text(encoding="utf-8"))
     main_sources = sorted(CATALOG_ROOT.glob("bq[0-9][0-9][0-9]/01_main.jpg"))
     all_sources = sorted(CATALOG_ROOT.glob("bq[0-9][0-9][0-9]/*.jpg"))
-    if len(main_sources) != 30:
-        raise SystemExit(f"Expected 30 catalogue main images, found {len(main_sources)}")
+    actual_slugs = [source.parent.name for source in main_sources]
+    if actual_slugs != sorted(manifest):
+        raise SystemExit("Catalogue main images do not match catalog-images.json; run npm run catalog:sync")
 
     THUMB_ROOT.mkdir(parents=True, exist_ok=True)
     CATALOG_WEB_ROOT.mkdir(parents=True, exist_ok=True)
@@ -79,7 +83,7 @@ def main() -> None:
     factory_count, factory_source, factory_web = build_factory()
     social_source, social_output = build_social_preview()
     print(f"Catalogue originals: {mb(catalog_source)} -> web gallery {mb(catalog_web)}")
-    print(f"30 catalogue thumbnails: {mb(thumbs)}")
+    print(f"{len(json.loads(CATALOG_MANIFEST.read_text(encoding='utf-8')))} catalogue thumbnails: {mb(thumbs)}")
     print(f"{factory_count} factory originals: {mb(factory_source)} -> web evidence {mb(factory_web)}")
     print(f"Social preview: {mb(social_source)} -> {mb(social_output)}")
 

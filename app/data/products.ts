@@ -1,3 +1,5 @@
+import catalogImages from "./catalog-images.json" with { type: "json" };
+
 export type CollectionSlug = "wide-toe-box" | "knit-slip-on" | "breathable-lace-up";
 
 export type Product = {
@@ -13,6 +15,7 @@ export type Product = {
   size: string;
   colors: string[];
   collections: CollectionSlug[];
+  fitEvidence?: "wide_toe_verified" | "regular_fit" | "unconfirmed";
   tier: "A" | "B" | "C" | "D" | "E" | "New";
   buyerFit: string;
   highlights: string[];
@@ -21,30 +24,9 @@ export type Product = {
   alibabaProductId?: string;
 };
 
-const imageCounts: Record<string, number> = {
-  bq001: 5, bq002: 5, bq003: 5, bq004: 6, bq005: 6, bq006: 7,
-  bq007: 5, bq008: 6, bq009: 5, bq010: 5, bq011: 6, bq012: 6,
-  bq013: 6, bq014: 6, bq015: 6, bq016: 6, bq017: 6, bq018: 6,
-  bq019: 6, bq020: 6, bq021: 6, bq022: 6, bq023: 6, bq024: 6,
-  bq025: 6, bq026: 6, bq027: 6, bq028: 6, bq029: 6, bq030: 6,
-};
-
 function images(slug: string) {
-  const names = Array.from({ length: imageCounts[slug] ?? 1 }, (_, index) => `${String(index + 1).padStart(2, "0")}`);
-  const knownNames: Record<string, string[]> = {
-    bq001: ["01_main", "02_toe", "03_walk", "04_comfort", "05_light"],
-    bq002: ["01_main", "02_toe", "03_walk", "04_comfort", "05_light"],
-    bq003: ["01_main", "02_grey", "03_pink", "04_blackw", "05_black"],
-    bq004: ["01_main", "02_orange", "03_blue", "04_blackw", "05_black", "06_weight"],
-    bq005: ["01_main", "02_colors", "03_white", "04_pink", "05_black", "06_sole"],
-    bq006: ["01_main", "02_white", "03_grey", "04_blackw", "05_purple", "06_pink", "07_black"],
-    bq007: ["01_main", "02_black", "03_blackw", "04_khaki", "05_orange"],
-    bq008: ["01_main", "02_greeng", "03_white", "04_black", "05_sole", "06_top"],
-    bq009: ["01_main", "02_orange", "03_mint", "04_black", "05_sole"],
-    bq010: ["01_main", "02_black", "03_scene", "04_scene", "05_detail"],
-    bq011: ["01_main", "02_upper", "03_slip", "04_sole", "05_colors", "06_walk"],
-  };
-  const files = knownNames[slug] ?? names.map((n, index) => `${n}_${["main", "upper", "fit", "sole", "colors", "scene"][index]}`);
+  const files = (catalogImages as Record<string, string[]>)[slug];
+  if (!files) throw new Error(`Missing generated image manifest entry for ${slug}. Run npm run catalog:sync.`);
   return files.map((name) => `/catalog/${slug}/${name}.jpg`);
 }
 
@@ -52,8 +34,8 @@ const commonConfirm = ["Order quantity and size ratio", "Current color availabil
 const unconfirmedSole = "Cushion-profile sole; material confirmed before quotation";
 
 export const products: Product[] = [
-  { code: "BQ001", slug: "bq001", sourceModel: "BQ-001", name: "Wide Toe Box Knit Slip-On Walking Shoes", shortDescription: "Roomy-toe knit slip-on direction for comfort-footwear sourcing.", group: "Wide Toe Box Walking Shoes", closure: "Slip-On", upper: "Knitted textile upper", sole: "EVA", size: "EU 36-46", colors: ["Black White", "All Black", "White"], collections: ["wide-toe-box", "knit-slip-on"], tier: "B", buyerFit: "Comfort-footwear importers and wholesalers", highlights: ["Verified wide toe box shape", "Easy slip-on construction", "Three neutral color directions"], confirmBeforeQuote: commonConfirm, images: images("bq001"), alibabaProductId: "10000042821848" },
-  { code: "BQ002", slug: "bq002", sourceModel: "BQ-002", name: "Extra Wide Toe Box Knit Slip-On Walking Shoes", shortDescription: "Extra-roomy grey knit range for wide-fit comfort assortments.", group: "Wide Toe Box Walking Shoes", closure: "Slip-On", upper: "Knitted textile upper", sole: "EVA", size: "EU 36-46", colors: ["Grey White", "Grey Black", "Grey Khaki"], collections: ["wide-toe-box", "knit-slip-on"], tier: "B", buyerFit: "Wide-fit footwear and online-channel buyers", highlights: ["Verified wide toe box shape", "Grey-led color assortment", "Easy slip-on construction"], confirmBeforeQuote: commonConfirm, images: images("bq002"), alibabaProductId: "10000042896165" },
+  { code: "BQ001", slug: "bq001", sourceModel: "BQ-001", name: "Wide Toe Box Knit Slip-On Walking Shoes", shortDescription: "Roomy-toe knit slip-on direction for comfort-footwear sourcing.", group: "Wide Toe Box Walking Shoes", closure: "Slip-On", upper: "Knitted textile upper", sole: "EVA", size: "EU 36-46", colors: ["Black White", "All Black", "White"], collections: ["wide-toe-box", "knit-slip-on"], fitEvidence: "wide_toe_verified", tier: "B", buyerFit: "Comfort-footwear importers and wholesalers", highlights: ["Verified wide toe box shape", "Easy slip-on construction", "Three neutral color directions"], confirmBeforeQuote: commonConfirm, images: images("bq001"), alibabaProductId: "10000042821848" },
+  { code: "BQ002", slug: "bq002", sourceModel: "BQ-002", name: "Extra Wide Toe Box Knit Slip-On Walking Shoes", shortDescription: "Extra-roomy grey knit range for wide-fit comfort assortments.", group: "Wide Toe Box Walking Shoes", closure: "Slip-On", upper: "Knitted textile upper", sole: "EVA", size: "EU 36-46", colors: ["Grey White", "Grey Black", "Grey Khaki"], collections: ["wide-toe-box", "knit-slip-on"], fitEvidence: "wide_toe_verified", tier: "B", buyerFit: "Wide-fit footwear and online-channel buyers", highlights: ["Verified wide toe box shape", "Grey-led color assortment", "Easy slip-on construction"], confirmBeforeQuote: commonConfirm, images: images("bq002"), alibabaProductId: "10000042896165" },
   { code: "BQ003", slug: "bq003", sourceModel: "R1218", name: "Summer Hollow-Knit Lace-Up Casual Shoes", shortDescription: "Light, open-knit lace-up style for summer casual assortments.", group: "Breathable Knit Casual Shoes", closure: "Lace-Up", upper: "Hollow knitted textile upper", sole: unconfirmedSole, size: "EU 35-45", colors: ["White", "Grey", "Pink", "Black White", "All Black"], collections: ["breathable-lace-up"], tier: "D", buyerFit: "Summer footwear wholesalers and online sellers", highlights: ["Open-knit summer appearance", "Five color directions", "Lace-up casual profile"], confirmBeforeQuote: ["Outsole and lining materials", ...commonConfirm], images: images("bq003"), alibabaProductId: "1601815020244" },
   { code: "BQ004", slug: "bq004", sourceModel: "A502", name: "Lightweight Knit Slip-On Casual Shoes", shortDescription: "Flexible easy-on knit style for marketplace assortment testing.", group: "Breathable Knit Casual Shoes", closure: "Slip-On", upper: "Knitted textile upper", sole: unconfirmedSole, size: "EU 35-45", colors: ["Grey Black", "Light Blue", "Orange Black", "Black White", "All Black"], collections: ["knit-slip-on"], tier: "B", buyerFit: "Marketplace sellers and lightweight-casual buyers", highlights: ["Source image shows about 177g per shoe", "Five color directions", "Easy-on profile"], confirmBeforeQuote: ["Outsole and lining materials", ...commonConfirm], images: images("bq004"), alibabaProductId: "10000043201799" },
   { code: "BQ005", slug: "bq005", sourceModel: "A503", name: "Summer Hollow-Knit Lace-Up Walking Shoes", shortDescription: "Breathable lace-up direction for men and women casual ranges.", group: "Breathable Knit Casual Shoes", closure: "Lace-Up", upper: "Hollow knitted textile upper", sole: unconfirmedSole, size: "EU 35-45", colors: ["Black", "Grey", "Pink", "White"], collections: ["breathable-lace-up"], tier: "C", buyerFit: "Summer casual importers and online sellers", highlights: ["Open-knit upper appearance", "Four color directions", "Unisex assortment direction"], confirmBeforeQuote: ["Outsole and lining materials", ...commonConfirm], images: images("bq005"), alibabaProductId: "10000043200726" },

@@ -6,6 +6,7 @@ import InquiryForm from "./components/InquiryForm";
 import ProductCard from "./components/ProductCard";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
+import FactoryEvidenceVideo from "./components/FactoryEvidenceVideo";
 import { collections, products } from "./data/products";
 import { trackEvent } from "./lib/tracking";
 
@@ -79,7 +80,7 @@ export default function Home() {
       </section>
 
       <section className="proof-section" id="proof">
-        <div className="proof-image"><img src="/factory-web/batch-check.webp" alt="Footwear batch checking and sorting before packing" loading="lazy" decoding="async" /></div>
+        <div className="proof-image"><FactoryEvidenceVideo compact /></div>
         <div className="proof-copy"><p className="eyebrow eyebrow-light">FACTORY PROOF, NOT GENERIC PROMISES</p><h2>See the product. Check the details. Reduce sourcing risk.</h2><p>Our buyer workflow is based on real shoe photos, style-by-style specification confirmation and sample checking before bulk-order discussion.</p><ul><li><span>01</span> Product and color selection</li><li><span>02</span> Material, size and packing confirmation</li><li><span>03</span> Sample check before final bulk terms</li></ul><a className="button button-light" href="#inquiry">Prepare your inquiry</a></div>
       </section>
 

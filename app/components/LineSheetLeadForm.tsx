@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
+import { productCount } from "../data/catalog-meta";
 
 const DOWNLOAD_PATH = "/downloads/beiqiang-footwear-line-sheet-2026.pdf";
 
@@ -16,7 +17,7 @@ export default function LineSheetLeadForm() {
   const [email, setEmail] = useState(""); const [whatsapp, setWhatsapp] = useState(""); const [notes, setNotes] = useState("");
   const [contactPreferences, setContactPreferences] = useState<ContactPreferences>(EMPTY_CONTACT_PREFERENCES);
   const [website, setWebsite] = useState(""); const [consent, setConsent] = useState(false);
-  const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: "Submit once to unlock the current 30-style PDF and create a follow-up reference." });
+  const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: `Submit once to unlock the current ${productCount}-style PDF and create a follow-up reference.` });
   const [access, setAccess] = useState<{ reference: string; accessCode: string } | null>(null);
   const startedAt = useRef(0); const startedTracked = useRef(false);
 
@@ -35,8 +36,8 @@ export default function LineSheetLeadForm() {
     try {
       const response = await fetch("/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
         name, company, buyerType, market, quantity, email, whatsapp, website, consent, ...contactPreferences,
-        styleCode: "CATALOG-2026", styleLabel: "Beiqiang 30-Style Footwear Line Sheet", context: "line_sheet", projectPath: "base_style_adaptation",
-        requirements: `Catalogue interest: ${direction}. ${notes || "Buyer requested the current 30-style line sheet for product review."}`,
+        styleCode: "CATALOG-2026", styleLabel: `Beiqiang ${productCount}-Style Footwear Line Sheet`, context: "line_sheet", projectPath: "base_style_adaptation",
+        requirements: `Catalogue interest: ${direction}. ${notes || `Buyer requested the current ${productCount}-style line sheet for product review.`}`,
         formStartedAt: startedAt.current, attribution: getAttribution(), page: window.location.pathname,
       }) });
       const result = await response.json().catch(() => ({}));
@@ -65,7 +66,7 @@ export default function LineSheetLeadForm() {
         <label className="form-honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
         <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>I agree that Beiqiang may use these details to deliver and follow up on this sourcing request.</span></label>
       </div>
-      <button className="button" type="submit" disabled={status.kind === "sending" || status.kind === "success"}>{status.kind === "sending" ? "Saving request…" : status.kind === "success" ? "Catalogue unlocked" : "Unlock the 30-style PDF"}</button>
+      <button className="button" type="submit" disabled={status.kind === "sending" || status.kind === "success"}>{status.kind === "sending" ? "Saving request…" : status.kind === "success" ? "Catalogue unlocked" : `Unlock the ${productCount}-style PDF`}</button>
       <p className={`form-note form-note-${status.kind}`} aria-live="polite">{status.message}</p>
       {status.kind === "success" && access ? <div className="line-sheet-download"><a className="button button-light" href={DOWNLOAD_PATH} download onClick={() => trackEvent("line_sheet_download", { context: "line_sheet", reference: access.reference, linkType: "pdf" })}>Download the PDF</a><p><strong>Private status code:</strong> {access.accessCode || "Sent separately"}</p><Link href="/inquiry-status/">Check follow-up status →</Link></div> : null}
       <small>The PDF is a product-discovery document, not a quotation. Availability, materials, size ratio, MOQ, price, packing and lead time require written confirmation.</small>

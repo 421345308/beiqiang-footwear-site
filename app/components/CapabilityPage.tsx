@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
+import FactoryEvidenceVideo from "./FactoryEvidenceVideo";
 
 export type CapabilityPageData = {
   eyebrow: string;
@@ -12,6 +13,7 @@ export type CapabilityPageData = {
   proofTitle: string;
   proofCopy: string;
   images: { src: string; alt: string; caption: string }[];
+  evidenceVideo?: boolean;
   stepsTitle: string;
   steps: { title: string; copy: string }[];
   confirmedTitle: string;
@@ -49,6 +51,7 @@ export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
           <div><p className="eyebrow">{data.proofLabel}</p><h2>{data.proofTitle}</h2></div>
           <p>{data.proofCopy}</p>
         </div>
+        {data.evidenceVideo && <FactoryEvidenceVideo />}
         <div className="capability-gallery">
           {data.images.map((image, index) => (
             <figure key={image.src} className={index === 0 ? "capability-gallery-lead" : ""}>

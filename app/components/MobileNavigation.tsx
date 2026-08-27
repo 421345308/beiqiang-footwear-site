@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { trackEvent } from "../lib/tracking";
+import { productCount } from "../data/catalog-meta";
 
 const groups = [
   {
     label: "Products",
     links: [
-      ["All 30 products", "/products/"],
-      ["30-style line sheet", "/line-sheet/"],
+      [`All ${productCount} products`, "/products/"],
+      [`${productCount}-style line sheet`, "/line-sheet/"],
       ["Wide toe box collection", "/collections/wide-toe-box/"],
       ["Knit slip-on collection", "/collections/knit-slip-on/"],
       ["Breathable lace-up collection", "/collections/breathable-lace-up/"],

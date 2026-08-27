@@ -3,12 +3,13 @@ import LineSheetLeadForm from "../components/LineSheetLeadForm";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
 import { products } from "../data/products";
+import { productCount } from "../data/catalog-meta";
 
 export const metadata: Metadata = {
-  title: "30-Style Footwear Line Sheet | Beiqiang B2B Supply",
-  description: "Request Beiqiang's 30-style B2B footwear line sheet for walking, casual, knit, slip-on and lace-up sourcing.",
+  title: `${productCount}-Style Footwear Line Sheet | Beiqiang B2B Supply`,
+  description: `Request Beiqiang's ${productCount}-style B2B footwear line sheet for walking, casual, knit, slip-on and lace-up sourcing.`,
   alternates: { canonical: "/line-sheet/" },
-  openGraph: { title: "Beiqiang 30-Style Footwear Line Sheet", description: "Build a B2B footwear shortlist from 30 documented styles.", url: "/line-sheet/" },
+  openGraph: { title: `Beiqiang ${productCount}-Style Footwear Line Sheet`, description: `Build a B2B footwear shortlist from ${productCount} documented styles.`, url: "/line-sheet/" },
 };
 
 export default function LineSheetPage() {
@@ -17,7 +18,7 @@ export default function LineSheetPage() {
     <main>
       <SiteHeader />
       <section className="line-sheet-hero">
-        <div><p className="eyebrow">B2B PRODUCT DISCOVERY</p><h1>30 styles.<br />One buyer-ready shortlist.</h1><p>Review walking, casual, knit, slip-on and lace-up directions before choosing samples. Every unknown remains open for confirmation.</p><div className="line-sheet-hero-facts"><span>30 documented styles</span><span>Buyer-safe facts</span><span>Direct product-page links</span><span>Printable A4 PDF</span></div></div>
+        <div><p className="eyebrow">B2B PRODUCT DISCOVERY</p><h1>{productCount} styles.<br />One buyer-ready shortlist.</h1><p>Review walking, casual, knit, slip-on and lace-up directions before choosing samples. Every unknown remains open for confirmation.</p><div className="line-sheet-hero-facts"><span>{productCount} documented styles</span><span>Buyer-safe facts</span><span>Direct product-page links</span><span>Printable A4 PDF</span></div></div>
         <div className="line-sheet-preview" aria-label="Line sheet preview">{preview.map((product) => <article key={product.code}><img src={`/catalog-thumbs/${product.slug}.webp`} alt={`${product.code} ${product.name}`} loading="lazy" decoding="async" width={640} height={640} /><div><strong>{product.code}</strong><span>{product.name}</span></div></article>)}</div>
       </section>
       <section className="line-sheet-value">

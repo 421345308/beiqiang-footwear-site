@@ -87,14 +87,14 @@ def cover(c: canvas.Canvas, products: list[dict]) -> None:
     c.setFont("Helvetica-Bold", 10)
     c.drawString(18 * mm, PAGE_H - 25 * mm, "QUANZHOU FOOTWEAR FACTORY SUPPLIER")
     c.setFont("Helvetica-Bold", 34)
-    c.drawString(18 * mm, PAGE_H - 48 * mm, "30-STYLE")
+    c.drawString(18 * mm, PAGE_H - 48 * mm, f"{len(products)}-STYLE")
     c.drawString(18 * mm, PAGE_H - 62 * mm, "FOOTWEAR LINE SHEET")
     c.setFillColor(colors.HexColor("#D9E3DE"))
     paragraph(c, "Walking, casual, knit, slip-on and lace-up directions for importers, wholesalers, online sellers and private-label buyers.", 18 * mm, PAGE_H - 73 * mm, 150 * mm, 35 * mm, 11, 15, colors.HexColor("#D9E3DE"))
 
     hero_y = 83 * mm
     card_w = 82 * mm
-    for index, product in enumerate((products[0], products[8])):
+    for index, product in enumerate((products[0], products[min(8, len(products) - 1)])):
         x = 18 * mm + index * 88 * mm
         c.setFillColor(WHITE)
         c.roundRect(x, hero_y, card_w, 78 * mm, 3 * mm, fill=1, stroke=0)
@@ -119,8 +119,8 @@ def cover(c: canvas.Canvas, products: list[dict]) -> None:
     c.showPage()
 
 
-def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch_number: int) -> None:
-    header(c, f"Product selection {batch_number} of 6")
+def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch_number: int, total_batches: int) -> None:
+    header(c, f"Product selection {batch_number} of {total_batches}")
     top = PAGE_H - 32 * mm
     card_h = 47 * mm
     gap = 2.5 * mm
@@ -215,18 +215,19 @@ def build() -> None:
     if not DATA.exists():
         raise FileNotFoundError(f"Missing product export: {DATA}")
     products = json.loads(DATA.read_text(encoding="utf-8"))
-    if len(products) != 30:
-        raise ValueError(f"Expected 30 products, found {len(products)}")
+    if len(products) < 2:
+        raise ValueError(f"Expected at least 2 products, found {len(products)}")
+    total_batches = (len(products) + 4) // 5
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     PUBLIC_COPY.parent.mkdir(parents=True, exist_ok=True)
     c = canvas.Canvas(str(OUTPUT), pagesize=A4, pageCompression=1)
-    c.setTitle("Beiqiang Footwear 30-Style Line Sheet 2026")
+    c.setTitle(f"Beiqiang Footwear {len(products)}-Style Line Sheet 2026")
     c.setAuthor("Quanzhou Beiqiang Footwear & Apparel Co., Ltd.")
     c.setSubject("B2B footwear sourcing line sheet")
     cover(c, products)
-    for batch_index in range(6):
-        product_page(c, products[batch_index * 5:(batch_index + 1) * 5], batch_index + 2, batch_index + 1)
-    closing_page(c, products, 8)
+    for batch_index in range(total_batches):
+        product_page(c, products[batch_index * 5:(batch_index + 1) * 5], batch_index + 2, batch_index + 1, total_batches)
+    closing_page(c, products, total_batches + 2)
     c.save()
     shutil.copy2(OUTPUT, PUBLIC_COPY)
     print(OUTPUT)

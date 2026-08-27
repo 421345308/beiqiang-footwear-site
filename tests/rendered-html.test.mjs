@@ -20,7 +20,9 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /Open buyer menu/i);
   assert.match(html, /aria-controls="mobile-buyer-menu"/i);
   assert.match(html, /\/catalog-web\/bq009\/01_main\.webp/i);
-  assert.match(html, /\/factory-web\/batch-check\.webp/i);
+  assert.match(html, /\/videos\/beiqiang-factory-proof\.webm/i);
+  assert.match(html, /\/videos\/beiqiang-factory-proof\.mp4/i);
+  assert.match(html, /\/videos\/beiqiang-factory-proof-poster\.jpg/i);
   assert.match(html, /\/og\.jpg/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
 });
@@ -41,7 +43,7 @@ test("server-renders the gated 30-style line-sheet lead path", async () => {
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /30 styles[\s\S]*One buyer-ready shortlist/i);
+  assert.match(html, /30(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
   assert.match(html, /Unlock the 30-style PDF/i);
   assert.match(html, /product-discovery document, not a quotation/i);
   assert.doesNotMatch(html, /Tier [A-E]|A-level|B-level|guaranteed price|medical|orthopedic/i);

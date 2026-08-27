@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { trackEvent } from "../lib/tracking";
+import { productCount } from "../data/catalog-meta";
 
 const links = [
   ["中文首页", "/zh/"],
-  ["全部30款产品", "/zh/products/"],
+  [`全部${productCount}款产品`, "/zh/products/"],
   ["建立询价单", "/zh/request-quote/"],
   ["买家工作台", "/zh/buyer-workspace/"],
   ["查询项目进度", "/zh/inquiry-status/"],

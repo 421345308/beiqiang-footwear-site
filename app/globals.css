@@ -127,6 +127,13 @@ h1 { max-width: 690px; font-size: clamp(50px, 5vw, 78px); line-height: .98; }
 
 .proof-section { display: grid; grid-template-columns: 51% 49%; background: var(--forest); color: #fffdf8; }
 .proof-image img { height: 100%; min-height: 680px; object-fit: cover; }
+.factory-evidence-video { margin: 0 0 28px; overflow: hidden; background: #101c18; border: 1px solid rgba(23,59,50,.18); }
+.factory-evidence-video video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #101c18; object-fit: cover; }
+.factory-evidence-video figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 14px 18px; background: #173b32; color: #fffdf8; }
+.factory-evidence-video figcaption strong { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.factory-evidence-video figcaption span { color: #c7d5ce; font-size: 12px; }
+.factory-evidence-video-compact { height: 100%; margin: 0; border: 0; }
+.factory-evidence-video-compact video { height: calc(100% - 49px); min-height: 631px; aspect-ratio: auto; }
 .proof-copy { padding: 90px clamp(36px, 6vw, 100px); display: flex; flex-direction: column; justify-content: center; }
 .eyebrow-light { color: #e4a589; }
 .proof-copy > p:not(.eyebrow) { margin: 28px 0; color: #c7d5ce; line-height: 1.7; }
@@ -1573,6 +1580,7 @@ footer a:hover { color: var(--forest); }
   .quote-card { grid-template-columns: 1fr; }
   .quote-card ol { grid-template-columns: repeat(2, 1fr); }
   .proof-image img { min-height: 520px; }
+  .factory-evidence-video-compact video { min-height: 471px; }
   .inquiry-section, .product-inquiry-grid { gap: 48px; }
   .catalog-grid { grid-template-columns: repeat(3, 1fr); }
   .product-detail-hero { grid-template-columns: 1fr; }
@@ -1684,6 +1692,7 @@ footer a:hover { color: var(--forest); }
   .capability-hero h1 { font-size: 47px; }
   .capability-brief { padding: 30px 24px; box-shadow: 10px 10px 0 rgba(23,59,50,.12); }
   .capability-gallery { min-height: 0; grid-template-rows: repeat(3, 360px); }
+  .factory-evidence-video figcaption { align-items: flex-start; flex-direction: column; }
   .capability-gallery-lead { grid-row: auto; }
   .capability-step-grid article + article { border-left: 0; }
   .capability-checks article { padding: 56px 24px; }
