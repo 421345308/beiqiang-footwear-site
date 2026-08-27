@@ -87,7 +87,9 @@ export default function TermsPage() {
             confirm specifications, capability, sample approval, price, payment,
             production or an order unless the same terms are separately recorded in
             the applicable written quotation, Trade Assurance order or signed
-            contract.
+            contract. A downloaded iCalendar file is a buyer-controlled personal
+            scheduling copy; it does not synchronize calendars, report attendance or
+            automatically update a cancelled meeting.
           </p>
         </section>
         <section>

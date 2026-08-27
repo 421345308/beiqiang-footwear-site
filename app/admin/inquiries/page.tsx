@@ -28,6 +28,7 @@ import ChineseWeeklyReview, {
 import AcquisitionCampaignWorkbench, {
   type AcquisitionChannelPerformance,
 } from "./AcquisitionCampaignWorkbench";
+import MeetingPerformancePanel from "./MeetingPerformancePanel";
 import ExternalContactLog, { type ExternalContact } from "./ExternalContactLog";
 import MeetingRequestCenter, { type MeetingRequest } from "./MeetingRequestCenter";
 
@@ -488,6 +489,12 @@ type CommercialAnalytics = {
     buyerMessages: number;
     buyerFiles: number;
     buyerDocuments: number;
+    meetingRequestsSubmitted: number;
+    meetingsPending: number;
+    meetingsConfirmed: number;
+    meetingsCompleted: number;
+    meetingCalendarDownloads: number;
+    meetingProjectsWithCalendarDownload: number;
     quoteRevisions: number;
     quoteDeclines: number;
     orderChangesProposed: number;
@@ -541,6 +548,7 @@ type ReminderSummary = {
     followUps: number;
     recommendations: number;
     quotes: number;
+    meetings: number;
     orderChanges: number;
     fulfillmentCases: number;
     repeatOrders: number;
@@ -571,6 +579,20 @@ type ReminderSummary = {
     quoteNumber: string;
     validUntil: string;
     timing: string;
+  }[];
+  meetings: {
+    reference: string;
+    company: string;
+    owner: string;
+    requestId: string;
+    meetingType: string;
+    action: string;
+    dueDate: string;
+    timing: string;
+    confirmedSlot: string;
+    timezone: string;
+    channel: string;
+    notificationStatus: string;
   }[];
   orderChanges: {
     reference: string;
@@ -1342,6 +1364,10 @@ function ReminderCenter({
               <strong>{summary.counts.quotes}</strong>
             </article>
             <article>
+              <small>MEETING ACTION</small>
+              <strong>{summary.counts.meetings}</strong>
+            </article>
+            <article>
               <small>ORDER CHANGE</small>
               <strong>{summary.counts.orderChanges}</strong>
             </article>
@@ -1404,6 +1430,22 @@ function ReminderCenter({
                 </p>
               ))}
               {!summary.quotes.length && <p>No quotation expiry action.</p>}
+            </div>
+            <div>
+              <h3>Sourcing meetings</h3>
+              {summary.meetings.slice(0, 6).map((item) => (
+                <p key={`${item.requestId}-${item.action}`}>
+                  <strong>{item.requestId}</strong>
+                  <span>
+                    {item.dueDate} · {item.timing.replaceAll("_", " ")}
+                  </span>
+                  <small>
+                    {item.reference} · {item.company} · {item.action.replaceAll("_", " ")}
+                    {item.confirmedSlot ? ` · ${item.confirmedSlot} ${item.timezone}` : ""} · {item.owner}
+                  </small>
+                </p>
+              ))}
+              {!summary.meetings.length && <p>No meeting action due.</p>}
             </div>
             <div>
               <h3>Order change approval</h3>
@@ -6133,6 +6175,7 @@ export default function InquiryAdminPage() {
         days={analyticsDays}
         token={token}
       />
+      <MeetingPerformancePanel metrics={analytics?.supporting} days={analyticsDays} />
       <CommercialDashboard
         data={analytics}
         days={analyticsDays}

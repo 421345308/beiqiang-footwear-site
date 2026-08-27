@@ -30,7 +30,7 @@ function buildCalendar(record, item) {
   return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Beiqiang Footwear//Sourcing Meeting//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT", `UID:${escapeIcs(item.id)}@beiqiang.online`, `DTSTAMP:${formatUtc(new Date(item.reviewedAt || item.submittedAt))}`, `DTSTART:${formatUtc(start)}`, `DTEND:${formatUtc(end)}`, `SUMMARY:${escapeIcs(`Beiqiang sourcing meeting · ${record.reference}`)}`, `DESCRIPTION:${escapeIcs(description)}`, `LOCATION:${escapeIcs(channel)}`, item.meetingLink ? `URL:${escapeIcs(item.meetingLink)}` : "", "STATUS:CONFIRMED", "TRANSP:OPAQUE", "END:VEVENT", "END:VCALENDAR", ""].filter((line) => line !== "").join("\r\n");
 }
 
-export function createMeetingCalendarHandler({ getStoreImpl = getStore } = {}) {
+export function createMeetingCalendarHandler({ getStoreImpl = getStore, nowImpl = () => new Date() } = {}) {
   return async function onRequestPost(context) {
     if (!isAllowedOrigin(context.request.headers.get("origin"))) return json(403, { ok: false, message: "Request origin is not allowed." });
     let payload; try { payload = await context.request.json(); } catch { return json(400, { ok: false, message: "Invalid request." }); }
@@ -42,6 +42,7 @@ export function createMeetingCalendarHandler({ getStoreImpl = getStore } = {}) {
       const item = (record.meetingRequests || []).find((candidate) => candidate.id === requestId);
       if (!item || item.status !== "confirmed") return json(409, { ok: false, message: "Only a currently confirmed meeting can be added to a calendar." });
       const calendar = buildCalendar(record, item); if (!calendar) return json(409, { ok: false, message: "The confirmed time zone cannot be converted safely. Ask Beiqiang to reconfirm the meeting time." });
+      try { const downloadedAt = nowImpl().toISOString(); const downloads = [...(Array.isArray(item.calendarDownloads) ? item.calendarDownloads : []), downloadedAt].slice(-20); const updated = { ...record, meetingRequests: record.meetingRequests.map((candidate) => candidate.id === requestId ? { ...candidate, calendarDownloads: downloads, calendarLastDownloadedAt: downloadedAt } : candidate), updatedAt: downloadedAt }; await store.setJSON(recordDetails.key, updated, { cacheControl: null }); } catch (error) { console.error("Meeting calendar activity could not be recorded", recordDetails.reference, requestId, error); }
       return new Response(calendar, { status: 200, headers: { "Content-Type": "text/calendar; charset=UTF-8", "Content-Disposition": `attachment; filename="beiqiang-${item.id.toLowerCase()}.ics"`, "Cache-Control": "no-store, private", "X-Content-Type-Options": "nosniff" } });
     } catch (error) { console.error("Meeting calendar generation failed", recordDetails?.reference, requestId, error); return json(503, { ok: false, message: "The calendar file is temporarily unavailable." }); }
   };

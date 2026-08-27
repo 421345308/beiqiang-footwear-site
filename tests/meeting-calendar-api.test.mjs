@@ -8,12 +8,12 @@ function source(overrides = {}) { return { reference, accessTokenHash: createHas
 function request(payload = { reference, accessCode, requestId }, origin = "https://www.beiqiang.online") { return new Request("https://www.beiqiang.online/api/meeting-calendar", { method: "POST", headers: { "Content-Type": "application/json", Origin: origin }, body: JSON.stringify(payload) }); }
 
 test("confirmed meeting produces a private UTC calendar file without access credentials", async () => {
-  const handler = createMeetingCalendarHandler({ getStoreImpl: () => ({ get: async () => source() }) }); const result = await handler({ request: request() }); const calendar = await result.text();
-  assert.equal(result.status, 200); assert.match(result.headers.get("content-type"), /text\/calendar/); assert.match(result.headers.get("content-disposition"), /\.ics/); assert.match(calendar, /DTSTART:20260902T080000Z/); assert.match(calendar, /DTEND:20260902T084500Z/); assert.match(calendar, /UID:BMR-ABCDEF012345@beiqiang\.online/); assert.match(calendar, /STATUS:CONFIRMED/); assert.match(calendar, /https:\/\/meet\.google\.com\/abc-defg-hij/); assert.doesNotMatch(calendar, new RegExp(accessCode));
+  let current = source(); const handler = createMeetingCalendarHandler({ getStoreImpl: () => ({ get: async () => current, setJSON: async (_key, value) => { current = value; } }), nowImpl: () => new Date("2026-08-28T04:00:00.000Z") }); const result = await handler({ request: request() }); const calendar = await result.text();
+  assert.equal(result.status, 200); assert.match(result.headers.get("content-type"), /text\/calendar/); assert.match(result.headers.get("content-disposition"), /\.ics/); assert.match(calendar, /DTSTART:20260902T080000Z/); assert.match(calendar, /DTEND:20260902T084500Z/); assert.match(calendar, /UID:BMR-ABCDEF012345@beiqiang\.online/); assert.match(calendar, /STATUS:CONFIRMED/); assert.match(calendar, /https:\/\/meet\.google\.com\/abc-defg-hij/); assert.doesNotMatch(calendar, new RegExp(accessCode)); assert.deepEqual(current.meetingRequests[0].calendarDownloads, ["2026-08-28T04:00:00.000Z"]); assert.equal(current.meetingRequests[0].calendarLastDownloadedAt, "2026-08-28T04:00:00.000Z");
 });
 
 test("calendar download requires the private project credentials and a confirmed meeting", async () => {
-  let current = source(); const handler = createMeetingCalendarHandler({ getStoreImpl: () => ({ get: async () => current }) });
+  let current = source(); const handler = createMeetingCalendarHandler({ getStoreImpl: () => ({ get: async () => current, setJSON: async () => {} }) });
   assert.equal((await handler({ request: request({}, "https://evil.example") })).status, 403);
   assert.equal((await handler({ request: request({ reference, accessCode: "00000000000000000000", requestId }) })).status, 404);
   current = source({ meetingRequests: [{ ...source().meetingRequests[0], status: "cancelled" }] }); assert.equal((await handler({ request: request() })).status, 409);
@@ -21,6 +21,10 @@ test("calendar download requires the private project credentials and a confirmed
 });
 
 test("fixed UTC offsets convert correctly and legacy meetings default to 30 minutes", async () => {
-  const current = source({ meetingRequests: [{ ...source().meetingRequests[0], timezone: "UTC+2", durationMinutes: undefined }] }); const handler = createMeetingCalendarHandler({ getStoreImpl: () => ({ get: async () => current }) }); const calendar = await (await handler({ request: request() })).text();
+  const current = source({ meetingRequests: [{ ...source().meetingRequests[0], timezone: "UTC+2", durationMinutes: undefined }] }); const handler = createMeetingCalendarHandler({ getStoreImpl: () => ({ get: async () => current, setJSON: async () => {} }) }); const calendar = await (await handler({ request: request() })).text();
   assert.match(calendar, /DTSTART:20260902T080000Z/); assert.match(calendar, /DTEND:20260902T083000Z/);
+});
+
+test("an activity-log write failure never withholds the confirmed calendar file", async () => {
+  const handler = createMeetingCalendarHandler({ getStoreImpl: () => ({ get: async () => source(), setJSON: async () => { throw new Error("storage busy"); } }) }); const result = await handler({ request: request() }); const calendar = await result.text(); assert.equal(result.status, 200); assert.match(calendar, /BEGIN:VCALENDAR/);
 });

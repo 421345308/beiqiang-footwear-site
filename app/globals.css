@@ -802,6 +802,17 @@ footer a:hover { color: var(--forest); }
 .weekly-review-history article span, .weekly-review-history article small { margin-top: 4px; color: var(--muted); font-size: 9px; line-height: 1.45; }
 .weekly-review-definition { display: block; margin-top: 12px; color: var(--muted); font-size: 10px; line-height: 1.55; }
 .admin-weekly-review-empty { margin-top: 20px; padding: 24px; border: 1px dashed #c5aa76; background: rgba(255,255,255,.65); color: var(--muted); text-align: center; }
+.admin-meeting-performance { margin: 24px 0; padding: 26px; border: 1px solid #b8cbc3; background: #f4f8f6; }
+.admin-meeting-performance h2 { margin: 5px 0 8px; font-size: clamp(28px, 3.5vw, 42px); }
+.admin-meeting-performance > div:first-child > p:last-child, .admin-meeting-performance > small { color: var(--muted); line-height: 1.55; }
+.admin-meeting-performance > div:nth-child(2) { display: grid; grid-template-columns: repeat(3, 1fr); margin: 20px 0 14px; border: 1px solid var(--line); background: white; }
+.admin-meeting-performance article { padding: 17px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.admin-meeting-performance article:nth-child(3n) { border-right: 0; }
+.admin-meeting-performance article:nth-last-child(-n+3) { border-bottom: 0; }
+.admin-meeting-performance article small, .admin-meeting-performance article strong, .admin-meeting-performance article span { display: block; }
+.admin-meeting-performance article small { color: var(--muted); font-size: 9px; font-weight: 800; text-transform: uppercase; }
+.admin-meeting-performance article strong { margin: 8px 0 5px; font-family: Georgia, serif; font-size: 28px; }
+.admin-meeting-performance article span { color: var(--muted); font-size: 10px; line-height: 1.45; }
 .admin-metrics { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); border: 1px solid var(--line); background: var(--forest); color: #fff; }
 .admin-metrics article { padding: 26px; border-left: 1px solid rgba(255,255,255,.18); }
 .admin-metrics article:first-child { border-left: 0; }
@@ -1851,6 +1862,9 @@ footer a:hover { color: var(--forest); }
   .admin-weekly-review-heading { align-items: flex-start; flex-direction: column; }
   .weekly-review-tools { align-items: flex-start; flex-direction: column; }
   .weekly-review-grid, .weekly-review-pipeline { grid-template-columns: 1fr; }
+  .admin-meeting-performance > div:nth-child(2) { grid-template-columns: 1fr; }
+  .admin-meeting-performance article, .admin-meeting-performance article:nth-child(3n), .admin-meeting-performance article:nth-last-child(-n+3) { border-right: 0; border-bottom: 1px solid var(--line); }
+  .admin-meeting-performance article:last-child { border-bottom: 0; }
   .weekly-review-grid article, .weekly-review-grid article:first-child { border-left: 0; border-top: 1px solid var(--line); }
   .weekly-review-grid article:first-child { border-top: 0; }
   .weekly-review-pipeline > div > div { grid-template-columns: repeat(2, 1fr); }
