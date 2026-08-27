@@ -96,6 +96,29 @@ test("publishes noindex Chinese buyer status and multi-project workspace entry p
   assert.match(workspaceHtml, /href="\/buyer-workspace\/"[^>]*>English/);
 });
 
+test("keeps the complete Chinese buyer decision center on the protected project APIs", async () => {
+  const source = await readFile(new URL("../app/zh/inquiry-status/ChineseTransactionCenter.tsx", import.meta.url), "utf8");
+  for (const endpoint of [
+    "/api/recommendation-response",
+    "/api/sample-response",
+    "/api/quotation-response",
+    "/api/order-setup-request",
+    "/api/order-change-response",
+    "/api/order-document",
+    "/api/fulfillment-case-response",
+    "/api/delivery-feedback",
+    "/api/repeat-order-request",
+  ]) assert.match(source, new RegExp(endpoint.replaceAll("/", "\\/")));
+  assert.match(source, /按本版接受报价/);
+  assert.match(source, /批准本轮实物样品/);
+  assert.match(source, /申请准备正式订单/);
+  assert.match(source, /接受该订单变更/);
+  assert.match(source, /报告收货问题/);
+  assert.match(source, /上一订单的价格、库存、材料、尺码配比、包装和交期不会自动沿用/);
+  assert.match(source, /正式Trade Assurance订单或双方合同/);
+  assert.doesNotMatch(source, /credit card checkout|instant purchase|guaranteed stock/i);
+});
+
 test("links English and Chinese equivalents for search engines and buyers", async () => {
   const product = await render("/products/bq001");
   const html = await product.text();

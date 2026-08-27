@@ -393,7 +393,9 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Canonical and `hreflang` metadata pair the English and Chinese equivalents. EdgeOne export sets the generated Chinese HTML document language to `zh-CN` and publishes 37 Chinese HTML pages. Only public acquisition pages enter `sitemap.xml`.
 - `/zh/inquiry-status/` provides a Chinese protected project lookup, timeline, buyer-safe milestones, private messages and file uploads. `/zh/buyer-workspace/` provides a Chinese multi-project workspace and sends a localized one-time email link when the buyer requests Chinese.
 - The English and Chinese private pages use the same inquiry records, access codes, workspace sessions, API authorization and audit controls. Both language versions are `noindex, nofollow, noarchive, nocache` and are excluded from `sitemap.xml`; access control never depends on a hidden URL.
-- No automatic translation or third-party translation service receives buyer data. Sensitive quotation, sample, order-change, document and fulfillment decisions still hand off to the full English protected project page, so do not describe the complete private workflow as fully bilingual yet.
+- `/zh/inquiry-status/` now contains the protected Chinese buyer decision center for product recommendations, physical-sample review, quotation acceptance/revision/decline, formal-order setup requests, confirmed-order changes, controlled document downloads, fulfillment exceptions, delivery feedback and next-project requests.
+- Every Chinese decision posts to the same protected API and immutable project record used by English. Chinese presentation never creates a second quotation or order, and buyer targets remain unconfirmed until Beiqiang issues the required written version.
+- No automatic translation or third-party translation service receives buyer data. The buyer-facing workflow is bilingual at the interface level, but issued quotations, technical documents, Trade Assurance orders and signed contracts retain their confirmed original language and prevail over interface translations.
 
 ## Privacy and Analytics Choice
 
