@@ -12,14 +12,15 @@ test("meeting admin rejects invalid access before reading storage", async () => 
 
 test("confirmation is saved before buyer email and exposes no project access code", async () => {
   let current = source(); let writes = 0; const mails = []; const store = { get: async () => current, setJSON: async (_key, value) => { current = structuredClone(value); writes += 1; } }; const handler = createAdminMeetingRequestHandler({ getStoreImpl: () => store, createTransportImpl: () => ({ sendMail: async (mail) => { assert.equal(writes, 1); assert.equal(current.meetingRequests[0].status, "confirmed"); mails.push(mail); } }), nowImpl: () => new Date("2026-08-28T03:00:00.000Z") });
-  const result = await handler({ request: request("confirm", { confirmedSlot: "2026-09-02T10:00", confirmedChannel: "video_call", meetingLink: "https://meet.google.com/abc-defg-hij", note: "Please prepare the current quotation." }), env: { INQUIRY_ADMIN_TOKEN: "correct-token", SMTP_PASS: "configured" } }); const payload = await result.json();
-  assert.equal(result.status, 200); assert.equal(payload.notificationSent, true); assert.equal(writes, 2); assert.equal(current.meetingRequests[0].confirmedSlot, "2026-09-02T10:00"); assert.equal(current.meetingRequests[0].notificationStatus, "sent"); assert.equal(payload.record.accessTokenHash, undefined); assert.match(mails[0].text, /does not confirm product specifications/i); assert.doesNotMatch(mails[0].text, /ABCDEF0123456789ABCD/);
+  const result = await handler({ request: request("confirm", { confirmedSlot: "2026-09-02T10:00", confirmedChannel: "video_call", durationMinutes: 45, meetingLink: "https://meet.google.com/abc-defg-hij", note: "Please prepare the current quotation." }), env: { INQUIRY_ADMIN_TOKEN: "correct-token", SMTP_PASS: "configured" } }); const payload = await result.json();
+  assert.equal(result.status, 200); assert.equal(payload.notificationSent, true); assert.equal(writes, 2); assert.equal(current.meetingRequests[0].confirmedSlot, "2026-09-02T10:00"); assert.equal(current.meetingRequests[0].durationMinutes, 45); assert.equal(current.meetingRequests[0].notificationStatus, "sent"); assert.equal(payload.record.accessTokenHash, undefined); assert.match(mails[0].text, /Duration: 45 minutes/); assert.match(mails[0].text, /does not confirm product specifications/i); assert.doesNotMatch(mails[0].text, /ABCDEF0123456789ABCD/);
 });
 
 test("confirmation accepts only buyer slots and approved video hosts", async () => {
   const handler = createAdminMeetingRequestHandler({ getStoreImpl: () => ({ get: async () => source(), setJSON: async () => {} }) });
-  assert.equal((await handler({ request: request("confirm", { confirmedSlot: "2026-09-04T10:00", confirmedChannel: "video_call", meetingLink: "https://meet.google.com/abc" }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 400);
-  assert.equal((await handler({ request: request("confirm", { confirmedSlot: "2026-09-02T10:00", confirmedChannel: "video_call", meetingLink: "https://evil.example/meeting" }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 400);
+  assert.equal((await handler({ request: request("confirm", { confirmedSlot: "2026-09-04T10:00", confirmedChannel: "video_call", durationMinutes: 30, meetingLink: "https://meet.google.com/abc" }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 400);
+  assert.equal((await handler({ request: request("confirm", { confirmedSlot: "2026-09-02T10:00", confirmedChannel: "video_call", durationMinutes: 30, meetingLink: "https://evil.example/meeting" }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 400);
+  assert.equal((await handler({ request: request("confirm", { confirmedSlot: "2026-09-02T10:00", confirmedChannel: "phone", durationMinutes: 25 }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 400);
 });
 
 test("decline, cancel and completion preserve the meeting lifecycle", async () => {

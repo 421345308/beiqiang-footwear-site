@@ -19,6 +19,7 @@ test("meeting request rejects unsafe, incomplete and conflicting submissions", a
   assert.equal((await handler({ request: request(body(), "https://evil.example"), env: {} })).status, 403);
   assert.equal((await handler({ request: request(body({ accessCode: "00000000000000000000" })), env: {} })).status, 404);
   assert.equal((await handler({ request: request(body({ preferredSlots: ["2026-09-02T10:00"] })), env: {} })).status, 400);
+  assert.equal((await handler({ request: request(body({ timezone: "Berlin-ish" })), env: {} })).status, 400);
   assert.equal((await handler({ request: request(body({ preferredSlots: ["2026-08-01T10:00", "2026-08-02T10:00"] })), env: {} })).status, 400);
   current = source({ meetingRequests: [{ id: "BMR-111111111111", status: "confirmed" }] }); assert.equal((await handler({ request: request(), env: {} })).status, 409);
   current = source({ status: "lost" }); assert.equal((await handler({ request: request(), env: {} })).status, 409);

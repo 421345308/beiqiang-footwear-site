@@ -13,6 +13,7 @@ import QuotationVersionHistory, { type BuyerSafeQuotation } from "../../componen
 import type { WorkspaceAccessRequestRecord } from "../../components/WorkspaceAccessRequest";
 import BuyerSampleRequest, { type BuyerSampleRequestRecord } from "../../components/BuyerSampleRequest";
 import BuyerMeetingRequest, { type BuyerMeetingRequestRecord } from "../../components/BuyerMeetingRequest";
+import MeetingCalendarDownload from "../../components/MeetingCalendarDownload";
 
 type PublicOrderHandoff = {
   method: "alibaba_trade_assurance" | "contract";
@@ -199,6 +200,7 @@ export default function ChineseTransactionCenter(props: Props) {
     <RecommendationDecision {...props} />
     <BuyerSampleRequest reference={props.reference} accessCode={props.accessCode} availableCodes={[...props.request.styleCode.split(","), ...props.request.items.map((item) => item.code), ...(props.request.buyerRecommendation?.items.map((item) => item.code) || [])].map((code) => code.trim().toUpperCase())} requests={props.request.sampleRequests || []} activeSample={Boolean(props.request.sampleProgram && props.request.sampleProgram.status !== "closed")} locale="zh" onSaved={props.onSaved} onStatus={props.onStatus} />
     <BuyerMeetingRequest reference={props.reference} accessCode={props.accessCode} requests={props.request.meetingRequests || []} locale="zh" onSaved={props.onSaved} onStatus={props.onStatus} />
+    <MeetingCalendarDownload reference={props.reference} accessCode={props.accessCode} requests={props.request.meetingRequests || []} locale="zh" onStatus={props.onStatus} />
     <SampleDecision {...props} />
     <QuotationDecision {...props} />
     {props.request.buyerQuotation ? <QuotationVersionHistory quotations={props.request.quotationHistory || []} currentQuoteNumber={props.request.buyerQuotation.quoteNumber} locale="zh" /> : null}
