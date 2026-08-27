@@ -11,6 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(origin),
+    verification: { google: "XgyFSK5TBQEyEvk9oQYhXO35Wl_W7hznbBXK9J6g_GM" },
     title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
     description: "Quanzhou footwear factory supply for verified walking shoes, wide-toe styles, lightweight slip-ons and casual textile footwear. Samples and OEM/ODM requirements can be discussed before bulk orders.",
     alternates: { canonical: "https://www.beiqiang.online/", languages: { en: "https://www.beiqiang.online/", "zh-CN": "https://www.beiqiang.online/zh/", "x-default": "https://www.beiqiang.online/" } },

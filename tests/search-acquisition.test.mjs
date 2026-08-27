@@ -2,6 +2,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
+test("root metadata keeps the Google Search Console ownership token", async () => {
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+  assert.match(layout, /verification:\s*\{\s*google:\s*"XgyFSK5TBQEyEvk9oQYhXO35Wl_W7hznbBXK9J6g_GM"\s*\}/);
+});
+
 async function render(pathname) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url); workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);
   const { default: worker } = await import(workerUrl.href);
