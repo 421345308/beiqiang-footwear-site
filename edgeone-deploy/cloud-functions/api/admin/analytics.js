@@ -119,4 +119,9 @@ export function createAdminAnalyticsHandler({ getStoreImpl = getStore } = {}) {
   };
 }
 
-export const onRequestGet = createAdminAnalyticsHandler();
+// Keep the route export alias separate from the local binding name. The weekly-review
+// function imports this module for its aggregate calculator, and EdgeOne's production
+// function bundler flattens imported modules before generating the route entry. A local
+// binding also named `onRequestGet` collides with the weekly-review route's own binding.
+const adminAnalyticsRouteHandler = createAdminAnalyticsHandler();
+export { adminAnalyticsRouteHandler as onRequestGet };
