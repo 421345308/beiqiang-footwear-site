@@ -14,7 +14,7 @@ export function generateStaticParams() { return buyerResources.map((resource) =>
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resource = getBuyerResource((await params).slug); if (!resource) return {};
   const canonical = `https://www.beiqiang.online/resources/${resource.slug}/`;
-  return { title: `${resource.title} | Beiqiang Footwear`, description: resource.description, alternates: { canonical }, openGraph: { title: resource.title, description: resource.description, url: canonical, type: "article" } };
+  return { title: `${resource.title} | Beiqiang Footwear`, description: resource.description, alternates: { canonical, languages: { en: canonical, "zh-CN": `https://www.beiqiang.online/zh/resources/${resource.slug}/` } }, openGraph: { title: resource.title, description: resource.description, url: canonical, type: "article" } };
 }
 
 export default async function ResourcePage({ params }: Props) {
@@ -26,7 +26,7 @@ export default async function ResourcePage({ params }: Props) {
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://www.beiqiang.online/" }, { "@type": "ListItem", position: 2, name: "Sourcing resources", item: "https://www.beiqiang.online/resources/" }, { "@type": "ListItem", position: 3, name: resource.title, item: url }] },
   ] };
   const quoteHref = `/request-quote/?resource=${resource.slug}`;
-  return <main><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><ResourceView slug={resource.slug} /><SiteHeader />
+  return <main><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><ResourceView slug={resource.slug} /><SiteHeader chineseHref={`/zh/resources/${resource.slug}/`} />
     <div className="resource-breadcrumb"><Link href="/resources/">Sourcing resources</Link><span>›</span><span>{resource.title}</span></div>
     <article className="resource-article">
       <header><p className="eyebrow">{resource.eyebrow}</p><h1>{resource.title}</h1><p>{resource.description}</p><div><span>{resource.audience}</span><span>{resource.readingTime}</span><span>Updated {resource.updated}</span></div></header>

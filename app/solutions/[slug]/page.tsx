@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${program.title} | Beiqiang Footwear`,
     description: program.description,
-    alternates: { canonical },
+    alternates: { canonical, languages: { en: canonical, "zh-CN": `https://www.beiqiang.online/zh/solutions/${program.slug}/` } },
     openGraph: { title: program.title, description: program.description, url: canonical, type: "website" },
   };
 }
@@ -41,7 +41,7 @@ export default async function SourcingProgramPage({ params }: Props) {
   return <main>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <SourcingProgramView slug={program.slug} />
-    <SiteHeader />
+    <SiteHeader chineseHref={`/zh/solutions/${program.slug}/`} />
     <section className="sourcing-program-hero">
       <div><p className="eyebrow">{program.eyebrow}</p><h1>{program.title}</h1><p>{program.description}</p><div className="hero-actions"><SourcingProgramCta slug={program.slug} href={quoteHref}>Build a project brief</SourcingProgramCta><Link className="text-link" href="/products/">Compare all 30 styles <span aria-hidden="true">→</span></Link></div></div>
       <aside><small>BEST FIT</small><strong>{program.buyerIntent}</strong><span>{program.pathLabel}</span></aside>

@@ -84,6 +84,24 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
   }
 });
 
+test("publishes Chinese sourcing programs and decision-stage buyer resources", async () => {
+  for (const [path, heading, boundary] of [
+    ["/zh/solutions/wholesale-walking-shoes", /步行鞋批发选款方案/, /网站图片和产品目录是最终报价吗/],
+    ["/zh/solutions/private-label-walking-shoes", /从已有产品证据开始的私标步行鞋项目/, /所有改动都能做/],
+    ["/zh/solutions/oem-knit-shoes", /OEM针织步行鞋开发先从可核对的技术需求开始/, /买家目标、已确认能力、固定项/],
+    ["/zh/resources", /把产品兴趣整理成供应商可以审核的采购需求/, /指南能改善需求，但不能确认产品/],
+    ["/zh/resources/footwear-rfq-checklist", /进口商与批发买家的鞋类询价清单/, /未知项可以标记为待确认/],
+    ["/zh/resources/shoe-sample-approval-checklist", /大货生产前的鞋类样品审核清单/, /样品通过.*没有足够意义/],
+    ["/zh/resources/private-label-walking-shoes-sourcing-guide", /私标步行鞋：从产品候选到正式订单/, /不是信用卡结账/],
+  ]) {
+    const response = await render(path); const html = await response.text();
+    assert.equal(response.status, 200, path); assert.match(html, heading, path); assert.match(html, boundary, path);
+    assert.match(html, /hrefLang="en"/i, path); assert.match(html, /hrefLang="zh-CN"/i, path);
+    assert.match(html, /建立|询价|采购/, path);
+    assert.doesNotMatch(html, /保证价格|保证定制|销量第一|保证治疗|保证矫形|立即付款|一键下单/i, path);
+  }
+});
+
 test("publishes Chinese privacy and terms boundaries", async () => {
   const privacy = await render("/zh/privacy");
   const privacyHtml = await privacy.text();
@@ -154,6 +172,8 @@ test("links English and Chinese equivalents for search engines and buyers", asyn
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/products\/bq030\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/factory\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/line-sheet\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/resources\/footwear-rfq-checklist\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/solutions\/private-label-walking-shoes\/?/);
   assert.doesNotMatch(xml, /zh\/inquiry-status|zh\/buyer-workspace/);
 });
 
@@ -166,6 +186,9 @@ test("includes every Chinese public route in the EdgeOne export contract", async
   assert.match(exporter, /pathname:\s*"\/zh\/inquiry-status"/);
   assert.match(exporter, /pathname:\s*"\/zh\/buyer-workspace"/);
   assert.match(exporter, /chineseCapabilityRoutes/);
+  assert.match(exporter, /chineseSolutionRoutes/);
+  assert.match(exporter, /chineseResourceRoutes/);
+  assert.match(exporter, /pathname:\s*"\/zh\/resources"/);
   for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
   assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
 });
