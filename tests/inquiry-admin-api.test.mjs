@@ -179,3 +179,25 @@ test("saves an order-change proposal before emailing the buyer and records deliv
   const result = await handler({ request, env: { INQUIRY_ADMIN_TOKEN: "correct-token", SMTP_PASS: "configured" } }); const body = await result.json();
   assert.equal(result.status, 202); assert.equal(body.buyerNotificationSent, true); assert.equal(writes, 2); assert.equal(live.orderChangeRequests[0].notificationStatus, "sent"); assert.equal((Date.parse(`${live.nextActionDue}T00:00:00.000Z`) - Date.parse(live.orderChangeRequests[0].createdAt.slice(0, 10) + "T00:00:00.000Z")) / 86_400_000, 2); assert.equal(mails[0].to, "buyer@example.com"); assert.match(mails[0].text, /current confirmed website version remains active/i); assert.match(mails[0].text, /inquiry-status/i); assert.doesNotMatch(mails[0].text, /0123456789ABCDEF0123/);
 });
+
+test("rejects a pending buyer sample request without creating a sample project", async () => {
+  const pending = { id: "BSR-ABCDEF012345", status: "pending", styleCodes: ["BQ001"], submittedAt: "2026-08-28T02:00:00.000Z" };
+  const current = { reference: "BQ-20260823-ABCDEF12", receivedAt: "2026-08-23T08:00:00.000Z", status: "qualified", owner: "Sales A", sampleRequests: [pending] }; let saved;
+  const handler = createAdminInquiryUpdateHandler({ getStoreImpl: () => ({ get: async () => current, setJSON: async (_key, value) => { saved = value; } }) });
+  const request = new Request("https://www.beiqiang.online/api/admin/inquiries", { method: "PATCH", headers: { Authorization: "Bearer correct-token", "Content-Type": "application/json" }, body: JSON.stringify({ reference: current.reference, receivedAt: current.receivedAt, sampleRequestAction: { id: pending.id, action: "reject", reason: "Requested timing cannot be supported." } }) });
+  const result = await handler({ request, env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  assert.equal(result.status, 200); assert.equal(saved.sampleRequests[0].status, "rejected"); assert.equal(saved.sampleRequests[0].reviewedBy, "Sales A"); assert.match(saved.sampleRequests[0].reviewNote, /timing/); assert.equal(saved.sampleProgram, undefined);
+});
+
+test("converts one pending buyer sample request into a reviewed sample project", async () => {
+  const pending = { id: "BSR-ABCDEF012345", status: "pending", styleCodes: ["BQ001"], submittedAt: "2026-08-28T02:00:00.000Z" };
+  const current = { reference: "BQ-20260823-ABCDEF12", receivedAt: "2026-08-23T08:00:00.000Z", status: "qualified", owner: "Sales A", sampleRequests: [pending] }; let saved;
+  const handler = createAdminInquiryUpdateHandler({ getStoreImpl: () => ({ get: async () => current, setJSON: async (_key, value) => { saved = value; } }) });
+  const payload = { reference: current.reference, receivedAt: current.receivedAt, status: current.status, owner: current.owner, sampleRequestId: pending.id, sampleProgram: { status: "brief_requested", sampleReference: "", styleCodes: "BQ001", quantity: "1 pair", sizes: "EU 42", colors: "Black", purpose: "Fit review", reviewScope: "Fit and visible workmanship", deliverables: "", acceptanceCriteria: "Fit and visible workmanship", exclusions: "", currency: "USD", sampleCharge: "", chargeStatus: "planned", paidAt: "", courier: "", trackingNumber: "", shippedAt: "", expectedDelivery: "", note: "Feasibility under review." } };
+  const request = new Request("https://www.beiqiang.online/api/admin/inquiries", { method: "PATCH", headers: { Authorization: "Bearer correct-token", "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  const result = await handler({ request, env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  assert.equal(result.status, 200); assert.equal(saved.sampleProgram.status, "brief_requested"); assert.equal(saved.sampleRequests[0].status, "converted"); assert.match(saved.sampleRequests[0].reviewNote, /reviewed sample project/i);
+  const resolvedHandler = createAdminInquiryUpdateHandler({ getStoreImpl: () => ({ get: async () => saved, setJSON: async () => {} }) });
+  const repeated = await resolvedHandler({ request: new Request("https://www.beiqiang.online/api/admin/inquiries", { method: "PATCH", headers: { Authorization: "Bearer correct-token", "Content-Type": "application/json" }, body: JSON.stringify(payload) }), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  assert.equal(repeated.status, 409);
+});

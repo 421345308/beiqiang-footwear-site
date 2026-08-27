@@ -11,6 +11,7 @@ import { addProductToQuote } from "../../lib/quote-list";
 import { trackEvent } from "../../lib/tracking";
 import QuotationVersionHistory, { type BuyerSafeQuotation } from "../../components/QuotationVersionHistory";
 import type { WorkspaceAccessRequestRecord } from "../../components/WorkspaceAccessRequest";
+import BuyerSampleRequest, { type BuyerSampleRequestRecord } from "../../components/BuyerSampleRequest";
 
 type PublicOrderHandoff = {
   method: "alibaba_trade_assurance" | "contract";
@@ -34,6 +35,7 @@ export type ChineseProjectRequest = {
   attachments: { id: string; name: string; size: number; uploadedAt: string; securityStatus?: string }[];
   messages: { id: string; sender: "buyer" | "sales"; body: string; sentAt: string }[];
   workspaceAccessRequests: WorkspaceAccessRequestRecord[];
+  sampleRequests: BuyerSampleRequestRecord[];
   orderDocuments: { id: string; name: string; title: string; category: string; note: string; contentType: string; size: number; uploadedAt: string }[];
   sampleProgram: null | { status: string; sampleReference: string; styleCodes: string; quantity: string; sizes: string; colors: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; reviewRounds: { round: number; sampleReference: string; styleCodes: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; status: string; openedAt: string; decision: string; buyerNote: string; respondedAt: string }[]; currency: string; sampleCharge: string; chargeStatus: string; paidAt: string; courier: string; trackingNumber: string; shippedAt: string; expectedDelivery: string; note: string; buyerDecision: string; buyerNote: string; buyerRespondedAt: string; updatedAt: string };
   buyerRecommendation: null | { id: string; title: string; introduction: string; items: { code: string; reason: string }[]; nextStep: string; status: string; issuedAt: string; buyerDecision: string; selectedCodes: string[]; buyerNote: string; buyerRespondedAt: string };
@@ -190,6 +192,7 @@ export default function ChineseTransactionCenter(props: Props) {
   return <>
     <section className="buyer-next-action"><div><p className="eyebrow">{action[0]}</p><h3>{action[1]}</h3><p>{action[2]}</p></div><div className="buyer-next-action-buttons"><button className="button" type="button" onClick={go}>前往处理</button><BuyerProjectPrintButton locale="zh" />{props.request.buyerQuotation && <BuyerQuotationPrintButton locale="zh" />}</div></section>
     <RecommendationDecision {...props} />
+    <BuyerSampleRequest reference={props.reference} accessCode={props.accessCode} availableCodes={[...props.request.styleCode.split(","), ...props.request.items.map((item) => item.code), ...(props.request.buyerRecommendation?.items.map((item) => item.code) || [])].map((code) => code.trim().toUpperCase())} requests={props.request.sampleRequests || []} activeSample={Boolean(props.request.sampleProgram && props.request.sampleProgram.status !== "closed")} locale="zh" onSaved={props.onSaved} onStatus={props.onStatus} />
     <SampleDecision {...props} />
     <QuotationDecision {...props} />
     {props.request.buyerQuotation ? <QuotationVersionHistory quotations={props.request.quotationHistory || []} currentQuoteNumber={props.request.buyerQuotation.quoteNumber} locale="zh" /> : null}

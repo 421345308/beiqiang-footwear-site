@@ -2,20 +2,191 @@ import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 
-export const metadata: Metadata = { title: "Website Terms | Beiqiang Footwear", description: "B2B website terms for product information, sourcing requests, quotations, samples, uploaded files and external order platforms.", alternates: { canonical: "https://www.beiqiang.online/terms/", languages: { en: "https://www.beiqiang.online/terms/", "zh-CN": "https://www.beiqiang.online/zh/terms/", "x-default": "https://www.beiqiang.online/terms/" } } };
+export const metadata: Metadata = {
+  title: "Website Terms | Beiqiang Footwear",
+  description:
+    "B2B website terms for product information, sourcing requests, quotations, samples, uploaded files and external order platforms.",
+  alternates: {
+    canonical: "https://www.beiqiang.online/terms/",
+    languages: {
+      en: "https://www.beiqiang.online/terms/",
+      "zh-CN": "https://www.beiqiang.online/zh/terms/",
+      "x-default": "https://www.beiqiang.online/terms/",
+    },
+  },
+};
 
 export default function TermsPage() {
-  return <main><SiteHeader /><section className="legal-hero"><p className="eyebrow">B2B WEBSITE TERMS</p><h1>Product discovery is not an automatic order.</h1><p>Effective 24 August 2026. These website terms describe the sourcing-information boundary. Final commercial documents should be reviewed and agreed separately by both parties.</p></section><article className="legal-content">
-    <section><h2>B2B use</h2><p>This website is intended for importers, wholesalers, online sellers, sourcing agents and brand/private-label buyers. It is not a consumer retail checkout.</p></section>
-    <section><h2>Product information</h2><p>Photos and documented attributes support an initial sourcing review. Material, color, size ratio, packing, MOQ, price, lead time, tests, customization and availability remain subject to written confirmation for the selected style and order.</p></section>
-    <section><h2>Recommendations, inquiries, samples and quotations</h2><p>A product shortlist is a buyer-specific sourcing direction based on the information available at that time. Selecting a recommended style records interest only; it does not confirm fit, availability, material, price, sample terms or technical capability. Sample approval applies only to the physical sample reference, deliverables, review scope and acceptance criteria frozen in that review round; stated exclusions and unlisted bulk specifications remain unapproved. An inquiry receipt, website message, status update or quotation is not acceptance of a production order. Buyer target values, including targets submitted through a quotation revision brief, remain requests until feasibility review and a new written quotation or order document confirms them. A saved quotation is subject to its stated validity and commercial boundary; requesting changes or declining one version does not itself create revised terms or automatically close the complete sourcing project.</p></section>
-    <section><h2>Orders, changes and payment</h2><p>A buyer order-setup request asks Beiqiang to prepare the formal transaction documents; it is not a purchase order accepted by Beiqiang, a production instruction, invoice or payment request. An order becomes confirmed only through the agreed Alibaba Trade Assurance order or separately executed contract and after required specifications and commercial terms are accepted. If Beiqiang proposes a website change to critical confirmed terms, the current website version remains active until the buyer accepts the proposal. Website acceptance creates an audit version but does not by itself amend the authoritative Trade Assurance order or signed contract; the same change must be confirmed in that formal channel before affected production or payment action. Fulfillment, carrier, tracking and actual payment-status records may be updated without changing the accepted commercial version. Website payment milestones are operating records, not bank receipts or an online payment service; confirm every amount and payment status inside the agreed transaction channel. Beiqiang does not request website visitors to enter card, bank, email or verification-code credentials on this site.</p></section>
-    <section><h2>Repeat orders and future projects</h2><p>A replenishment, new-season shortlist or OEM/ODM next-project request only starts a new sourcing discussion. It does not reuse or extend the previous order, confirm stock, reserve production, accept a price or authorize payment. Beiqiang must re-check the selected products, quantity, materials, size/color ratio, packing, destination, timing, sample requirements and commercial terms. A new quotation and separate Trade Assurance order or signed contract are required where applicable.</p></section>
-    <section><h2>Buyer workspace</h2><p>The buyer workspace provides buyer-safe summaries associated with a primary inquiry email or an explicitly authorized project contact. Authorization is project-specific, read-only at the workspace level and can be revoked; a shared company name, matching email domain or prior relationship does not create access. A buyer&apos;s colleague-access request is a request for Beiqiang review only and does not grant access. Beiqiang may independently verify, approve or reject the named contact. Email-link access, an approved workspace role or a colleague request does not establish legal authority to bind a company, approve a sample, accept a quotation, change an order or authorize payment. Sensitive project details and actions remain protected by the separate project reference and private access code, and formal transaction authority remains in the agreed Alibaba Trade Assurance order or signed contract.</p></section>
-    <section><h2>Buyer files</h2><p>You must have authority to provide uploaded logos, designs, documents and reference materials. Do not upload unlawful content, executable files or unrelated personal data. Buyer uploads are treated as untrusted and quarantined for review. File-type and size checks are not malware scanning, and an internal offline-review record is not a guarantee that a file is malware-free. Uploading a file does not transfer ownership or guarantee manufacturability.</p></section>
-    <section><h2>Correction and deletion requests</h2><p>Beiqiang may verify the requester&apos;s identity or authority before correcting or deleting website information. An active order, payment, dispute, shipment, claim, fraud or security review, or a contractual, accounting or other applicable record-retention duty may require a hold or limit the records that can be removed. Deleting website-held information does not delete an Alibaba Trade Assurance order, signed contract, accounting record, logistics record, dispute record or information held by another service.</p></section>
-    <section><h2>Buyer document center</h2><p>A sample image, specification, inspection summary, packing record, shipping file or order document supports only the sourcing step and reference identified on that document. It does not independently amend the approved sample, quotation, contract, Trade Assurance order or payment terms.</p></section>
-    <section><h2>External links</h2><p>Alibaba.com and WhatsApp are external services with their own terms. Confirm the inquiry and order reference with your Beiqiang contact before acting on an external payment or order link.</p></section>
-    <section><h2>Contact</h2><p>Questions about these terms or a sourcing request can be sent to <a href="mailto:421345308@qq.com">421345308@qq.com</a> or WhatsApp <a href="https://wa.me/8618959805256">+86 189 5980 5256</a>.</p></section>
-  </article><SiteFooter /></main>;
+  return (
+    <main>
+      <SiteHeader />
+      <section className="legal-hero">
+        <p className="eyebrow">B2B WEBSITE TERMS</p>
+        <h1>Product discovery is not an automatic order.</h1>
+        <p>
+          Effective 24 August 2026. These website terms describe the
+          sourcing-information boundary. Final commercial documents should be
+          reviewed and agreed separately by both parties.
+        </p>
+      </section>
+      <article className="legal-content">
+        <section>
+          <h2>B2B use</h2>
+          <p>
+            This website is intended for importers, wholesalers, online sellers,
+            sourcing agents and brand/private-label buyers. It is not a consumer
+            retail checkout.
+          </p>
+        </section>
+        <section>
+          <h2>Product information</h2>
+          <p>
+            Photos and documented attributes support an initial sourcing review.
+            Material, color, size ratio, packing, MOQ, price, lead time, tests,
+            customization and availability remain subject to written
+            confirmation for the selected style and order.
+          </p>
+        </section>
+        <section>
+          <h2>Recommendations, inquiries, samples and quotations</h2>
+          <p>
+            A product shortlist is a buyer-specific sourcing direction based on
+            the information available at that time. Selecting a recommended
+            style records interest only; it does not confirm fit, availability,
+            material, price, sample terms or technical capability. Sample
+            approval applies only to the physical sample reference,
+            deliverables, review scope and acceptance criteria frozen in that
+            review round; stated exclusions and unlisted bulk specifications
+            remain unapproved. An inquiry receipt, website message, status
+            update or quotation is not acceptance of a production order. Buyer
+            target values, including targets submitted through a quotation
+            revision brief, remain requests until feasibility review and a new
+            written quotation or order document confirms them. A saved quotation
+            is subject to its stated validity and commercial boundary;
+            requesting changes or declining one version does not itself create
+            revised terms or automatically close the complete sourcing project.
+          </p>
+        </section>
+        <section>
+          <h2>Sample feasibility requests</h2>
+          <p>
+            Submitting a sample request asks Beiqiang to review the selected styles,
+            requested scope, destination and timing. It does not confirm sample
+            availability, sample price, freight, preparation time, specifications,
+            technical performance, test results, intellectual-property acceptance
+            or a bulk order. Those items require separate written confirmation after
+            feasibility review.
+          </p>
+        </section>
+        <section>
+          <h2>Orders, changes and payment</h2>
+          <p>
+            A buyer order-setup request asks Beiqiang to prepare the formal
+            transaction documents; it is not a purchase order accepted by
+            Beiqiang, a production instruction, invoice or payment request. An
+            order becomes confirmed only through the agreed Alibaba Trade
+            Assurance order or separately executed contract and after required
+            specifications and commercial terms are accepted. If Beiqiang
+            proposes a website change to critical confirmed terms, the current
+            website version remains active until the buyer accepts the proposal.
+            Website acceptance creates an audit version but does not by itself
+            amend the authoritative Trade Assurance order or signed contract;
+            the same change must be confirmed in that formal channel before
+            affected production or payment action. Fulfillment, carrier,
+            tracking and actual payment-status records may be updated without
+            changing the accepted commercial version. Website payment milestones
+            are operating records, not bank receipts or an online payment
+            service; confirm every amount and payment status inside the agreed
+            transaction channel. Beiqiang does not request website visitors to
+            enter card, bank, email or verification-code credentials on this
+            site.
+          </p>
+        </section>
+        <section>
+          <h2>Repeat orders and future projects</h2>
+          <p>
+            A replenishment, new-season shortlist or OEM/ODM next-project
+            request only starts a new sourcing discussion. It does not reuse or
+            extend the previous order, confirm stock, reserve production, accept
+            a price or authorize payment. Beiqiang must re-check the selected
+            products, quantity, materials, size/color ratio, packing,
+            destination, timing, sample requirements and commercial terms. A new
+            quotation and separate Trade Assurance order or signed contract are
+            required where applicable.
+          </p>
+        </section>
+        <section>
+          <h2>Buyer workspace</h2>
+          <p>
+            The buyer workspace provides buyer-safe summaries associated with a
+            primary inquiry email or an explicitly authorized project contact.
+            Authorization is project-specific, read-only at the workspace level
+            and can be revoked; a shared company name, matching email domain or
+            prior relationship does not create access. A buyer&apos;s
+            colleague-access request is a request for Beiqiang review only and
+            does not grant access. Beiqiang may independently verify, approve or
+            reject the named contact. Email-link access, an approved workspace
+            role or a colleague request does not establish legal authority to
+            bind a company, approve a sample, accept a quotation, change an
+            order or authorize payment. Sensitive project details and actions
+            remain protected by the separate project reference and private
+            access code, and formal transaction authority remains in the agreed
+            Alibaba Trade Assurance order or signed contract.
+          </p>
+        </section>
+        <section>
+          <h2>Buyer files</h2>
+          <p>
+            You must have authority to provide uploaded logos, designs,
+            documents and reference materials. Do not upload unlawful content,
+            executable files or unrelated personal data. Buyer uploads are
+            treated as untrusted and quarantined for review. File-type and size
+            checks are not malware scanning, and an internal offline-review
+            record is not a guarantee that a file is malware-free. Uploading a
+            file does not transfer ownership or guarantee manufacturability.
+          </p>
+        </section>
+        <section>
+          <h2>Correction and deletion requests</h2>
+          <p>
+            Beiqiang may verify the requester&apos;s identity or authority
+            before correcting or deleting website information. An active order,
+            payment, dispute, shipment, claim, fraud or security review, or a
+            contractual, accounting or other applicable record-retention duty
+            may require a hold or limit the records that can be removed.
+            Deleting website-held information does not delete an Alibaba Trade
+            Assurance order, signed contract, accounting record, logistics
+            record, dispute record or information held by another service.
+          </p>
+        </section>
+        <section>
+          <h2>Buyer document center</h2>
+          <p>
+            A sample image, specification, inspection summary, packing record,
+            shipping file or order document supports only the sourcing step and
+            reference identified on that document. It does not independently
+            amend the approved sample, quotation, contract, Trade Assurance
+            order or payment terms.
+          </p>
+        </section>
+        <section>
+          <h2>External links</h2>
+          <p>
+            Alibaba.com and WhatsApp are external services with their own terms.
+            Confirm the inquiry and order reference with your Beiqiang contact
+            before acting on an external payment or order link.
+          </p>
+        </section>
+        <section>
+          <h2>Contact</h2>
+          <p>
+            Questions about these terms or a sourcing request can be sent to{" "}
+            <a href="mailto:421345308@qq.com">421345308@qq.com</a> or WhatsApp{" "}
+            <a href="https://wa.me/8618959805256">+86 189 5980 5256</a>.
+          </p>
+        </section>
+      </article>
+      <SiteFooter />
+    </main>
+  );
 }

@@ -182,18 +182,38 @@ export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore, creat
     const receivedAt = clean(payload.receivedAt, 40);
     const date = receivedAt.slice(0, 10);
     if (!/^BQ-[A-Z0-9-]+$/.test(reference) || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return response(400, { ok: false, message: "Invalid inquiry reference." });
-    if (!PIPELINE_STATUSES.has(payload.status)) return response(400, { ok: false, message: "Invalid pipeline status." });
     const key = `inquiries/${date}/${reference}.json`;
     try {
       const store = getStoreImpl("beiqiang-inquiries");
       const current = await store.get(key, { type: "json", consistency: "strong" });
       if (!current) return response(404, { ok: false, message: "Inquiry record was not found." });
+      if (payload.sampleRequestAction) {
+        const requestId = clean(payload.sampleRequestAction.id, 40).toUpperCase();
+        const action = clean(payload.sampleRequestAction.action, 20);
+        const reason = clean(payload.sampleRequestAction.reason, 500);
+        if (!/^BSR-[A-F0-9]{12}$/.test(requestId) || action !== "reject" || reason.length < 5) return response(400, { ok: false, message: "Choose a pending sample request and record a buyer-safe rejection reason." });
+        const requests = Array.isArray(current.sampleRequests) ? current.sampleRequests : [];
+        const target = requests.find((item) => item.id === requestId);
+        if (!target) return response(404, { ok: false, message: "Sample request was not found." });
+        if (target.status !== "pending") return response(409, { ok: false, message: "That sample request has already been reviewed." });
+        const changedAt = new Date().toISOString();
+        const reviewedBy = clean(payload.owner, 100) || current.owner || "Sales team";
+        const updated = { ...current, sampleRequests: requests.map((item) => item.id === requestId ? { ...item, status: "rejected", reviewedAt: changedAt, reviewedBy, reviewNote: reason, sampleReference: "" } : item), updatedAt: changedAt };
+        await store.setJSON(key, updated, { cacheControl: null });
+        return response(200, { ok: true, record: adminSafeRecord(updated) });
+      }
+      if (!PIPELINE_STATUSES.has(payload.status)) return response(400, { ok: false, message: "Invalid pipeline status." });
       const quotationResult = payload.quotation ? sanitizeQuotation(payload.quotation, reference) : null;
       if (quotationResult?.error) return response(400, { ok: false, message: quotationResult.error });
       const orderResult = payload.orderHandoff ? sanitizeOrderHandoff(payload.orderHandoff) : null;
       if (orderResult?.error) return response(400, { ok: false, message: orderResult.error });
       const sampleResult = payload.sampleProgram ? sanitizeSampleProgram(payload.sampleProgram, current.sampleProgram, payload.owner || current.owner) : null;
       if (sampleResult?.error) return response(400, { ok: false, message: sampleResult.error });
+      const sampleRequestId = clean(payload.sampleRequestId, 40).toUpperCase();
+      const sampleRequests = Array.isArray(current.sampleRequests) ? current.sampleRequests : [];
+      const sampleRequest = sampleRequestId ? sampleRequests.find((item) => item.id === sampleRequestId) : null;
+      if (sampleRequestId && (!sampleRequest || sampleRequest.status !== "pending")) return response(409, { ok: false, message: "The linked sample request is missing or has already been reviewed." });
+      if (sampleRequestId && !sampleResult?.sampleProgram) return response(400, { ok: false, message: "A sample request can be converted only with a reviewed sample project." });
       const effectiveOrderHandoff = orderResult?.orderHandoff || current.orderHandoff;
       if (current.status !== "order_confirmed" && payload.status === "order_confirmed" && !orderHandoffReady(effectiveOrderHandoff)) return response(409, { ok: false, message: "Complete the Trade Assurance/contract reference, confirmed date and all eight written order-readiness items before confirming the order stage." });
       const requestedLostReason = clean(payload.lostReason, 50);
@@ -233,6 +253,7 @@ export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore, creat
         lastContactedAt: clean(payload.lastContactedAt, 40),
         quotations: quotationResult?.quotation ? [...quotations.slice(-19), quotationResult.quotation] : quotations,
         sampleProgram: sampleResult?.sampleProgram || current.sampleProgram || null,
+        sampleRequests: sampleRequestId ? sampleRequests.map((item) => item.id === sampleRequestId ? { ...item, status: "converted", reviewedAt: changedAt, reviewedBy: clean(payload.owner, 100) || current.owner || "Sales team", reviewNote: "Converted into a reviewed sample project.", sampleReference: sampleResult?.sampleProgram?.sampleReference || "" } : item) : sampleRequests,
         orderHandoff: orderResult?.orderHandoff || current.orderHandoff || null,
         orderVersions,
         orderOperationalHistory: operationalHistory,
