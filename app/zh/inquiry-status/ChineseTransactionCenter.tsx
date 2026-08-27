@@ -25,6 +25,7 @@ type PublicOrderHandoff = {
 
 export type ChineseProjectRequest = {
   reference: string; receivedAt: string; updatedAt: string; styleCode: string; styleLabel: string; projectPath: string; quantity: string; sampleQuantity: string; preferredTradeTerm: string; deliveryDestination: string; deliveryTiming: string;
+  adaptationBrief: { intent: string; artworkStatus: string; brandingPlacement: string; colorDirection: string; packingLabeling: string } | null;
   status: { code: string; label: string; step: number }; buyerUpdate: string;
   items: { code: string; name?: string; quantity?: string; colors?: string; sizes?: string }[];
   attachments: { id: string; name: string; size: number; uploadedAt: string; securityStatus?: string }[];

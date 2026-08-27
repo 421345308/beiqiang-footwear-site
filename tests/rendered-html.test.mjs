@@ -65,6 +65,9 @@ test("server-renders the multi-style quote and technical development path", asyn
   assert.match(html, /Preferred contact channel/i);
   assert.match(html, /do not create an appointment/i);
   assert.match(html, /customs clearance, duty, tax and local delivery are not promised/i);
+  assert.match(html, /Existing-style adaptation brief/i);
+  assert.match(html, /Logo \/ artwork readiness/i);
+  assert.match(html, /buyer targets, not confirmed production specifications/i);
   assert.doesNotMatch(html, /guaranteed hardness|guaranteed test|medical|orthopedic/i);
 });
 
@@ -232,4 +235,9 @@ test("server-renders privacy and B2B terms with conservative transaction boundar
   assert.equal(privacy.status, 200); assert.match(privacyHtml, /Optional first-party analytics/i); assert.match(privacyHtml, /Repeat-order and next-project records/i); assert.match(privacyHtml, /active project-specific contact authorizations/i); assert.match(privacyHtml, /one-way email hash/i); assert.match(privacyHtml, /necessary service and security events/i); assert.match(privacyHtml, /Response preferences and external contact records/i); assert.match(privacyHtml, /do not prove delivery, email opening, identity, agreement, payment or an order/i); assert.match(privacyHtml, /request deletion/i); assert.doesNotMatch(privacyHtml, /fully compliant|certified compliance/i);
   const terms = await render("/terms"); const termsHtml = await terms.text();
   assert.equal(terms.status, 200); assert.match(termsHtml, /Product discovery is not an automatic order/i); assert.match(termsHtml, /Repeat orders and future projects/i); assert.match(termsHtml, /explicitly authorized project contact/i); assert.match(termsHtml, /does not request website visitors to enter card/i);
+});
+
+test("explains that adaptation briefs are buyer targets rather than confirmed production facts", async () => {
+  const response = await render("/privacy"); const html = await response.text();
+  assert.equal(response.status, 200); assert.match(html, /Existing-style adaptation brief/i); assert.match(html, /do not prove manufacturing feasibility/i);
 });

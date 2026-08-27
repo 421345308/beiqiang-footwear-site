@@ -81,6 +81,10 @@ export default function ChinesePrivacyPage() {
             ，并提供足以核验项目与代表权限的信息。
           </p>
         </section>
+        <section>
+          <h2>现有款调整简报</h2>
+          <p>现有款或私标询价可保存买家选择的采购方向、Logo图稿准备状态、期望品牌位置、颜色或材料方向，以及包装或标签目标。这些字段只记录买家希望审核的要求，不证明生产可行性、图稿获批或知识产权转移，也不确认价格、MOQ、样品结果、生产规格或交期。</p>
+        </section>
       </article>
       <ChineseSiteFooter />
     </main>

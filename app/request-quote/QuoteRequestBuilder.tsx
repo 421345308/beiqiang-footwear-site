@@ -13,6 +13,7 @@ import ContactPreferenceFields, {
   EMPTY_CONTACT_PREFERENCES,
   type ContactPreferences,
 } from "../components/ContactPreferenceFields";
+import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../components/AdaptationBriefFields";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -41,6 +42,7 @@ export default function QuoteRequestBuilder() {
   const [targetValues, setTargetValues] = useState("");
   const [ndaRequired, setNdaRequired] = useState("No");
   const [requirements, setRequirements] = useState("");
+  const [adaptationBrief, setAdaptationBrief] = useState<AdaptationBrief>(EMPTY_ADAPTATION_BRIEF);
   const [sourcingProgram, setSourcingProgram] = useState("");
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
@@ -168,6 +170,7 @@ export default function QuoteRequestBuilder() {
           changesRequired: technical ? changesRequired : "",
           targetValues: technical ? targetValues : "",
           ndaRequired: technical ? ndaRequired : "No",
+          adaptationBrief: technical ? EMPTY_ADAPTATION_BRIEF : adaptationBrief,
           items: lines.map(
             ({
               code,
@@ -575,8 +578,9 @@ export default function QuoteRequestBuilder() {
               </label>
             </fieldset>
           )}
+          {!technical && <AdaptationBriefFields value={adaptationBrief} onChange={setAdaptationBrief} />}
           <fieldset className="form-grid">
-            <legend>{technical ? "6" : "5"}. Other requirements</legend>
+            <legend>6. Other requirements</legend>
             <label className="form-full">
               Order context
               <textarea

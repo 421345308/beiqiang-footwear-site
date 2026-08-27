@@ -65,6 +65,9 @@ test("supports a Chinese multi-style sourcing brief without a retail checkout", 
   assert.match(html, /3\. 联系偏好（选填）/);
   assert.match(html, /方便联系的当地时间/);
   assert.match(html, /产品价格与运费分开/);
+  assert.match(html, /现有款调整简报/);
+  assert.match(html, /Logo \/ 图稿准备状态/);
+  assert.match(html, /以上均为买家目标/);
   assert.doesNotMatch(html, /立即付款|信用卡结账|一键下单/);
 });
 

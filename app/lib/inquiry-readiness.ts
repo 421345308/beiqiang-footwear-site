@@ -12,6 +12,8 @@ export type InquiryReadinessInput = {
   deliveryDestination?: string;
   deliveryTiming?: string;
   requirements?: string;
+  projectPath?: string;
+  adaptationBrief?: { intent?: string; artworkStatus?: string; brandingPlacement?: string; colorDirection?: string; packingLabeling?: string };
   items?: { code?: string; quantity?: string; colors?: string; sizes?: string }[];
 };
 
@@ -91,6 +93,13 @@ export function assessInquiryReadiness(record: InquiryReadinessInput): InquiryRe
   else missing.push("Confirm the requested arrival window or project timing.");
   if (hasText(record.requirements, 8)) score += 7;
   else missing.push("Record channel, packing, branding or other order requirements.");
+
+  if (record.projectPath === "base_style_adaptation" && ["private_label", "combined_review"].includes(record.adaptationBrief?.intent || "")) {
+    if (hasText(record.adaptationBrief?.brandingPlacement, 3)) strengths.push("Branding placement target supplied");
+    else missing.push("Confirm the intended logo, insole or label placement.");
+    if (["reference_only", "vector_ready"].includes(record.adaptationBrief?.artworkStatus || "")) strengths.push("Logo artwork readiness recorded");
+    else missing.push("Confirm whether usable logo artwork is available.");
+  }
 
   if (hasStyle && hasMeaningfulQuantity(quantity) && hasText(record.market, 2)) strengths.push("Style, market and quantity are identifiable");
 

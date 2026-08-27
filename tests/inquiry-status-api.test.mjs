@@ -9,6 +9,7 @@ const record = {
   reference, receivedAt: "2026-08-23T08:00:00.000Z", status: "quoted", styleCode: "BQ001, BQ009", styleLabel: "Two styles",
   projectPath: "base_style_adaptation", quantity: "800 pairs", preferredTradeTerm: "FCA", deliveryDestination: "Los Angeles, CA 90001", deliveryTiming: "Arrival in November", accessTokenHash: createHash("sha256").update(accessCode).digest("hex"),
   internalNote: "Never expose this", nextAction: "Internal only", buyerUpdate: "Quotation details were sent by email.",
+  adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Tongue label", colorDirection: "Buyer requests navy; material subject to review", packingLabeling: "Buyer barcode label", internalCapability: "never expose" },
   items: [{ code: "BQ001", name: "Wide Toe Box Knit Slip-On", quantity: "400", colors: "Black", sizes: "EU 36-46" }],
   attachments: [{ id: "abcdef0123456789abcd", key: "inquiry-files/private/internal-key.pdf", name: "brand-tech-pack.pdf", size: 2048, uploadedAt: "2026-08-23T09:00:00.000Z" }],
   messages: [{ id: "MSG-ABC", sender: "sales", body: "Please confirm the sample size.", sentAt: "2026-08-23T09:15:00.000Z", notificationSent: true, internalRouting: "never expose" }],
@@ -30,6 +31,7 @@ test("returns only the buyer-safe inquiry status fields", async () => {
   assert.equal(result.status, 200); assert.equal(body.request.status.code, "quotation_stage");
   assert.equal(body.request.items[0].code, "BQ001"); assert.equal(body.request.buyerUpdate, "Quotation details were sent by email.");
   assert.equal(body.request.preferredTradeTerm, "FCA"); assert.match(body.request.deliveryDestination, /Los Angeles/);
+  assert.deepEqual(body.request.adaptationBrief, { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Tongue label", colorDirection: "Buyer requests navy; material subject to review", packingLabeling: "Buyer barcode label" }); assert.equal(body.request.adaptationBrief.internalCapability, undefined);
   assert.equal(body.request.attachments[0].name, "brand-tech-pack.pdf"); assert.equal(body.request.attachments[0].key, undefined);
   assert.equal(body.request.messages[0].body, "Please confirm the sample size."); assert.equal(body.request.messages[0].internalRouting, undefined); assert.equal(body.request.messages[0].notificationSent, undefined);
   assert.equal(body.request.orderDocuments[0].title, "Quality inspection summary"); assert.equal(body.request.orderDocuments[0].key, undefined); assert.equal(body.request.orderDocuments[0].internalApproval, undefined);

@@ -50,6 +50,7 @@ export function createInquiryStatusHandler({ getStoreImpl = getStore } = {}) {
           styleCode: record.styleCode, styleLabel: record.styleLabel, projectPath: record.projectPath,
           quantity: record.bulkQuantity || record.quantity, sampleQuantity: record.sampleQuantity || "",
           preferredTradeTerm: record.preferredTradeTerm || "not_sure", deliveryDestination: record.deliveryDestination || "", deliveryTiming: record.deliveryTiming || "",
+          adaptationBrief: record.adaptationBrief ? { intent: record.adaptationBrief.intent || "not_sure", artworkStatus: record.adaptationBrief.artworkStatus || "not_applicable", brandingPlacement: record.adaptationBrief.brandingPlacement || "", colorDirection: record.adaptationBrief.colorDirection || "", packingLabeling: record.adaptationBrief.packingLabeling || "" } : null,
           items: Array.isArray(record.items) ? record.items.map((item) => ({ code: item.code, name: item.name, quantity: item.quantity, colors: item.colors, sizes: item.sizes, notes: item.notes })) : [],
           attachments: Array.isArray(record.attachments) ? record.attachments.filter((file) => !file.revokedAt).map((file) => ({ id: file.id, name: file.name, size: file.size, uploadedAt: file.uploadedAt, securityStatus: file.securityStatus === "reviewed_safe" ? "reviewed" : "under_review" })) : [],
           messages: Array.isArray(record.messages) ? record.messages.slice(-100).map((message) => ({ id: message.id, sender: message.sender === "sales" ? "sales" : "buyer", body: message.body, sentAt: message.sentAt })) : [],

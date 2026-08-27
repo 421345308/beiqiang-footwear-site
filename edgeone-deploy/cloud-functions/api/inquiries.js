@@ -8,6 +8,8 @@ const TRADE_TERM_PREFERENCES = new Set(["not_sure", "EXW", "FOB", "FCA", "DDP_re
 const CONTACT_METHODS = new Set(["email", "whatsapp", "either"]);
 const RESPONSE_LANGUAGES = new Set(["en", "zh", "de", "fr", "es", "other"]);
 const SOURCING_PROGRAMS = new Set(["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes", "resource-footwear-rfq-checklist", "resource-shoe-sample-approval-checklist", "resource-private-label-walking-shoes-sourcing-guide", "collection-wide-toe-box", "collection-knit-slip-on", "collection-breathable-lace-up"]);
+const ADAPTATION_INTENTS = new Set(["not_sure", "existing_style_wholesale", "color_review", "private_label", "packing_labeling", "combined_review"]);
+const ARTWORK_STATUSES = new Set(["not_applicable", "not_ready", "reference_only", "vector_ready"]);
 
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";
@@ -66,6 +68,13 @@ export function validateInquiry(payload, now = Date.now()) {
     deliveryDestination: clean(payload.deliveryDestination, 240),
     deliveryTiming: clean(payload.deliveryTiming, 160),
     sourcingProgram: SOURCING_PROGRAMS.has(payload.sourcingProgram) ? payload.sourcingProgram : "",
+    adaptationBrief: payload.projectPath === "base_style_adaptation" && payload.adaptationBrief && typeof payload.adaptationBrief === "object" ? {
+      intent: ADAPTATION_INTENTS.has(payload.adaptationBrief?.intent) ? payload.adaptationBrief.intent : "not_sure",
+      artworkStatus: ARTWORK_STATUSES.has(payload.adaptationBrief?.artworkStatus) ? payload.adaptationBrief.artworkStatus : "not_applicable",
+      brandingPlacement: clean(payload.adaptationBrief?.brandingPlacement, 300),
+      colorDirection: clean(payload.adaptationBrief?.colorDirection, 600),
+      packingLabeling: clean(payload.adaptationBrief?.packingLabeling, 600),
+    } : null,
     existingSole: clean(payload.existingSole, 100),
     changesRequired: clean(payload.changesRequired, 1200),
     targetValues: clean(payload.targetValues, 1600),
@@ -110,6 +119,7 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
     `Preferred contact: ${inquiry.preferredContactMethod || "No preference"}`, `Preferred response language: ${inquiry.preferredResponseLanguage || "No preference"}`, `Buyer time zone / city: ${inquiry.buyerTimezone || "-"}`, `Convenient local contact time: ${inquiry.preferredContactWindow || "-"}`,
     `Project path: ${inquiry.projectPath}`, `Sample quantity: ${inquiry.sampleQuantity || "-"}`, `Bulk quantity: ${inquiry.bulkQuantity || "-"}`,
     `Sourcing program: ${inquiry.sourcingProgram || "Direct / catalogue"}`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "-"}`, `Requested delivery timing: ${inquiry.deliveryTiming || "-"}`,
+    ...(inquiry.adaptationBrief ? [`Adaptation intent: ${inquiry.adaptationBrief.intent}`, `Artwork readiness: ${inquiry.adaptationBrief.artworkStatus}`, `Branding placement target: ${inquiry.adaptationBrief.brandingPlacement || "-"}`, `Color / material target: ${inquiry.adaptationBrief.colorDirection || "-"}`, `Packing / labeling target: ${inquiry.adaptationBrief.packingLabeling || "-"}`] : []),
     `Quote lines: ${inquiry.items.length ? inquiry.items.map((item) => `${item.code}: ${item.quantity || "qty TBD"}; colors ${item.colors || "TBD"}; sizes ${item.sizes || "TBD"}; ${item.notes || ""}`).join(" | ") : "-"}`,
     `Existing sole: ${inquiry.existingSole || "-"}`, `Changes required: ${inquiry.changesRequired || "-"}`, `Buyer target / tests: ${inquiry.targetValues || "-"}`, `NDA / tech pack: ${inquiry.ndaRequired || "No"}`,
     `Requirements: ${inquiry.requirements || "-"}`, `Source: ${inquiry.attribution.utmSource || "direct"} / ${inquiry.attribution.utmMedium || "website"}`,

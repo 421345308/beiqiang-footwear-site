@@ -32,3 +32,10 @@ test("does not treat vague quantity language as commercial readiness", () => {
     assert.ok(result.missing.some((item) => /bulk quantity/i.test(item)), quantity);
   }
 });
+
+test("turns missing private-label artwork details into qualification questions", () => {
+  const incomplete = assessInquiryReadiness({ projectPath: "base_style_adaptation", adaptationBrief: { intent: "private_label", artworkStatus: "not_ready" } });
+  assert.ok(incomplete.missing.some((item) => /logo, insole or label placement/i.test(item))); assert.ok(incomplete.missing.some((item) => /usable logo artwork/i.test(item)));
+  const complete = assessInquiryReadiness({ projectPath: "base_style_adaptation", adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Outer upper and insole" } });
+  assert.ok(complete.strengths.includes("Branding placement target supplied")); assert.ok(complete.strengths.includes("Logo artwork readiness recorded"));
+});

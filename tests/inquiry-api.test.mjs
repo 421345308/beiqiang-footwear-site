@@ -64,6 +64,13 @@ test("preserves only approved collection origins in the commercial record", () =
   const unsafe = validateInquiry(validPayload({ sourcingProgram: "collection-invented" })); assert.equal(unsafe.inquiry.sourcingProgram, "");
 });
 
+test("sanitizes a buyer-target adaptation brief without confirming feasibility", () => {
+  const result = validateInquiry(validPayload({ projectPath: "base_style_adaptation", adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Outer upper and insole\0", colorDirection: "Buyer target: navy reference", packingLabeling: "Buyer target: branded box and barcode", untrustedCapability: "confirmed" } }));
+  assert.equal(result.error, undefined); assert.deepEqual(result.inquiry.adaptationBrief, { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Outer upper and insole", colorDirection: "Buyer target: navy reference", packingLabeling: "Buyer target: branded box and barcode" }); assert.equal("untrustedCapability" in result.inquiry.adaptationBrief, false);
+  const unsafe = validateInquiry(validPayload({ projectPath: "base_style_adaptation", adaptationBrief: { intent: "guaranteed_customization", artworkStatus: "approved" } })); assert.equal(unsafe.inquiry.adaptationBrief.intent, "not_sure"); assert.equal(unsafe.inquiry.adaptationBrief.artworkStatus, "not_applicable");
+  const standard = validateInquiry(validPayload({ projectPath: "standard_inquiry", adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready" } })); assert.equal(standard.inquiry.adaptationBrief, null);
+});
+
 test("allows only Beiqiang production and EdgeOne deployment origins", () => {
   assert.equal(isAllowedOrigin("https://www.beiqiang.online"), true);
   assert.equal(isAllowedOrigin("https://beiqiang-footwear-dpuc92ktg97f.edgeone.dev"), true);

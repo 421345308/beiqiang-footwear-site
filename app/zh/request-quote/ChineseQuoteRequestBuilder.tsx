@@ -8,6 +8,7 @@ import ContactPreferenceFields, {
   EMPTY_CONTACT_PREFERENCES,
   type ContactPreferences,
 } from "../../components/ContactPreferenceFields";
+import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../../components/AdaptationBriefFields";
 import { productNameZh } from "../../data/products-zh";
 import { products } from "../../data/products";
 import { getAttribution, trackEvent } from "../../lib/tracking";
@@ -44,6 +45,7 @@ export default function ChineseQuoteRequestBuilder() {
   const [targetValues, setTargetValues] = useState("");
   const [ndaRequired, setNdaRequired] = useState("No");
   const [requirements, setRequirements] = useState("");
+  const [adaptationBrief, setAdaptationBrief] = useState<AdaptationBrief>(EMPTY_ADAPTATION_BRIEF);
   const [sourcingProgram, setSourcingProgram] = useState("");
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
@@ -160,6 +162,7 @@ export default function ChineseQuoteRequestBuilder() {
           changesRequired: technical ? changesRequired : "",
           targetValues: technical ? targetValues : "",
           ndaRequired: technical ? ndaRequired : "No",
+          adaptationBrief: technical ? EMPTY_ADAPTATION_BRIEF : adaptationBrief,
           items: lines.map(
             ({
               code,
@@ -559,8 +562,9 @@ export default function ChineseQuoteRequestBuilder() {
               </label>
             </fieldset>
           )}
+          {!technical && <AdaptationBriefFields locale="zh" value={adaptationBrief} onChange={setAdaptationBrief} />}
           <fieldset className="form-grid">
-            <legend>{technical ? "6" : "5"}. 其他要求</legend>
+            <legend>6. 其他要求</legend>
             <label className="form-full">
               订单背景
               <textarea
