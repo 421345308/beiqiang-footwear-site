@@ -390,8 +390,10 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - The Chinese catalogue keeps the same 30 verified product records, product images, quote-list storage and inquiry API as English. Product names and buyer-facing guidance are localized, while canonical style codes and stored product identities remain stable.
 - BQ001 and BQ002 are the only styles described as verified wide-toe products. BQ010 uses the confirmed stretch-fabric upper description. Other styles keep last width, materials and commercial terms inside the existing evidence boundaries.
 - Chinese product pages support catalogue search, 2–4 style comparison, quote-list actions, product sharing, printable sourcing sheets, single-style inquiry and buyer-file upload. The Chinese quote page supports multi-style requests, trade-term context and the technical-development gate.
-- Canonical and `hreflang` metadata pair the English and Chinese public equivalents. EdgeOne export sets the generated Chinese HTML document language to `zh-CN`, publishes 35 Chinese HTML pages and includes them in `sitemap.xml`.
-- No automatic translation or third-party translation service receives buyer data. Private inquiry status, buyer workspace and later transaction decisions remain English in this phase and are labeled as an English interface; do not describe the complete private workflow as bilingual yet.
+- Canonical and `hreflang` metadata pair the English and Chinese equivalents. EdgeOne export sets the generated Chinese HTML document language to `zh-CN` and publishes 37 Chinese HTML pages. Only public acquisition pages enter `sitemap.xml`.
+- `/zh/inquiry-status/` provides a Chinese protected project lookup, timeline, buyer-safe milestones, private messages and file uploads. `/zh/buyer-workspace/` provides a Chinese multi-project workspace and sends a localized one-time email link when the buyer requests Chinese.
+- The English and Chinese private pages use the same inquiry records, access codes, workspace sessions, API authorization and audit controls. Both language versions are `noindex, nofollow, noarchive, nocache` and are excluded from `sitemap.xml`; access control never depends on a hidden URL.
+- No automatic translation or third-party translation service receives buyer data. Sensitive quotation, sample, order-change, document and fulfillment decisions still hand off to the full English protected project page, so do not describe the complete private workflow as fully bilingual yet.
 
 ## Privacy and Analytics Choice
 

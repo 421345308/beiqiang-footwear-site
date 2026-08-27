@@ -19,6 +19,17 @@ test("buyer workspace access uses a generic response and emails only a matching 
   const activity = [...access.values.entries()].filter(([key]) => key.startsWith("activity/")).map(([, value]) => value); assert.deepEqual(activity.map((item) => item.outcome).sort(), ["sent", "unknown"]); assert.equal(JSON.stringify(activity).includes("buyer@example.com"), false); assert.equal(JSON.stringify(activity).includes("unknown@example.com"), false);
 });
 
+test("Chinese workspace requests keep the generic privacy response and send a Chinese one-time route", async () => {
+  const access = storeFrom(); const inquiries = storeFrom({ "inquiries/2026-08-20/BQ-20260820-ABCDEF12.json": { reference: "BQ-20260820-ABCDEF12", email: "buyer@example.com" } }); const mails = [];
+  const handler = createBuyerWorkspaceAccessHandler({ getStoreImpl: (name) => name === "beiqiang-buyer-access" ? access : inquiries, createTransportImpl: () => ({ sendMail: async (mail) => mails.push(mail) }), nowImpl: () => new Date("2026-08-24T01:00:00.000Z"), randomBytesImpl: () => Buffer.alloc(32, 6) });
+  const matching = await handler({ request: new Request("https://www.beiqiang.online/api/buyer-workspace-access", { method: "POST", body: JSON.stringify({ email: "buyer@example.com", locale: "zh" }) }), env: { SMTP_PASS: "configured" } });
+  const unknown = await handler({ request: new Request("https://www.beiqiang.online/api/buyer-workspace-access", { method: "POST", body: JSON.stringify({ email: "unknown@example.com", locale: "zh" }) }), env: { SMTP_PASS: "configured" } });
+  const matchingBody = await matching.json(); const unknownBody = await unknown.json();
+  assert.equal(matching.status, 202); assert.equal(unknown.status, 202); assert.equal(matchingBody.message, unknownBody.message); assert.match(matchingBody.message, /如果该邮箱与贝强采购项目记录匹配/);
+  assert.equal(mails.length, 1); assert.match(mails[0].subject, /贝强鞋业安全买家工作台/); assert.match(mails[0].text, /\/zh\/buyer-workspace\/\?token=[a-f0-9]{64}/); assert.match(mails[0].text, /15分钟内有效/);
+  const magic = [...access.values.entries()].find(([key]) => key.startsWith("magic/"))?.[1]; assert.equal(magic.locale, "zh");
+});
+
 test("buyer workspace access rejects an external browser origin", async () => {
   const handler = createBuyerWorkspaceAccessHandler({ getStoreImpl: () => storeFrom() });
   const result = await handler({ request: new Request("https://www.beiqiang.online/api/buyer-workspace-access", { method: "POST", headers: { Origin: "https://attacker.example" }, body: JSON.stringify({ email: "buyer@example.com" }) }), env: {} });

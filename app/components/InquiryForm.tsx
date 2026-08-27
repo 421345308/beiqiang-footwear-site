@@ -104,7 +104,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
       <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>{zh ? "我同意贝强使用这些资料审核并回复本次B2B采购需求。" : "I agree that Beiqiang may use these details to respond to this sourcing request."}</span></label>
       <button className="button button-light form-button" type="submit" disabled={status.kind === "sending" || status.kind === "success"}>{status.kind === "sending" ? (zh ? "正在保存……" : "Saving request…") : status.kind === "success" ? (zh ? "询盘已保存" : "Request saved") : (zh ? "提交样品 / 报价需求" : "Submit sample / quotation request")}</button>
       <p className={`form-note form-note-${status.kind}`} aria-live="polite">{status.message}</p>
-      {status.kind === "success" && accessDetails?.accessCode && <><Link className="inquiry-status-link" href="/inquiry-status/">{zh ? "查看项目进度（英文界面）→" : "Check this request status →"}</Link><InquiryAttachmentUploader reference={accessDetails.reference} accessCode={accessDetails.accessCode} /></>}
+      {status.kind === "success" && accessDetails?.accessCode && <><Link className="inquiry-status-link" href={zh ? "/zh/inquiry-status/" : "/inquiry-status/"}>{zh ? "查看项目进度 →" : "Check this request status →"}</Link><InquiryAttachmentUploader reference={accessDetails.reference} accessCode={accessDetails.accessCode} locale={locale} /></>}
       <details className="inquiry-preview"><summary>{zh ? "检查询盘摘要" : "Review inquiry brief"}</summary><pre>{inquiryBrief}</pre></details>
     </form>
   );

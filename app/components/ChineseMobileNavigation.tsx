@@ -8,7 +8,8 @@ const links = [
   ["中文首页", "/zh/"],
   ["全部30款产品", "/zh/products/"],
   ["建立询价单", "/zh/request-quote/"],
-  ["查询项目进度（英文）", "/inquiry-status/"],
+  ["买家工作台", "/zh/buyer-workspace/"],
+  ["查询项目进度", "/zh/inquiry-status/"],
   ["隐私说明", "/zh/privacy/"],
   ["英文网站", "/"],
 ] as const;

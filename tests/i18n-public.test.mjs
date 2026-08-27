@@ -77,6 +77,25 @@ test("publishes Chinese privacy and terms boundaries", async () => {
   assert.match(termsHtml, /Alibaba Trade Assurance/);
 });
 
+test("publishes noindex Chinese buyer status and multi-project workspace entry points", async () => {
+  const status = await render("/zh/inquiry-status");
+  const statusHtml = await status.text();
+  assert.equal(status.status, 200);
+  assert.match(statusHtml, /用私密查询码查看采购项目进度/);
+  assert.match(statusHtml, /询盘编号识别项目，私密查询码保护项目/);
+  assert.match(statusHtml, /name="robots" content="noindex, nofollow/i);
+  assert.match(statusHtml, /href="\/inquiry-status\/"[^>]*>English/);
+
+  const workspace = await render("/zh/buyer-workspace");
+  const workspaceHtml = await workspace.text();
+  assert.equal(workspace.status, 200);
+  assert.match(workspaceHtml, /用一个邮箱查看多个采购项目/);
+  assert.match(workspaceHtml, /15分钟一次性邮件链接/);
+  assert.match(workspaceHtml, /公司名或邮箱域名相似不会自动授权/);
+  assert.match(workspaceHtml, /name="robots" content="noindex, nofollow/i);
+  assert.match(workspaceHtml, /href="\/buyer-workspace\/"[^>]*>English/);
+});
+
 test("links English and Chinese equivalents for search engines and buyers", async () => {
   const product = await render("/products/bq001");
   const html = await product.text();
@@ -97,5 +116,7 @@ test("includes every Chinese public route in the EdgeOne export contract", async
   assert.match(exporter, /pathname:\s*"\/zh"/);
   assert.match(exporter, /pathname:\s*"\/zh\/products"/);
   assert.match(exporter, /pathname:\s*"\/zh\/request-quote"/);
+  assert.match(exporter, /pathname:\s*"\/zh\/inquiry-status"/);
+  assert.match(exporter, /pathname:\s*"\/zh\/buyer-workspace"/);
   assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
 });

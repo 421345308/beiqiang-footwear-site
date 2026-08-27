@@ -41,6 +41,8 @@ const routes = [
   { pathname: "/zh", output: "zh/index.html" },
   { pathname: "/zh/products", output: "zh/products/index.html" },
   { pathname: "/zh/request-quote", output: "zh/request-quote/index.html" },
+  { pathname: "/zh/inquiry-status", output: "zh/inquiry-status/index.html" },
+  { pathname: "/zh/buyer-workspace", output: "zh/buyer-workspace/index.html" },
   { pathname: "/zh/privacy", output: "zh/privacy/index.html" },
   { pathname: "/zh/terms", output: "zh/terms/index.html" },
   ...productRoutes,
