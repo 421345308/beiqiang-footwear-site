@@ -212,6 +212,7 @@ test("server-renders the protected inquiry ledger shell", async () => {
   assert.match(html, /Samples awaiting buyer/i);
   assert.match(html, /Buyer-safe reply starters remain drafts/i);
   assert.match(html, /今日成交工作台/);
+  assert.match(html, /可追踪获客链接与渠道质量/);
   assert.match(html, /运营优先级只说明/);
   assert.match(html, /销售执行与管道健康/);
   assert.match(html, /不可覆盖聚合快照/);

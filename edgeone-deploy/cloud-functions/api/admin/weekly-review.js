@@ -6,12 +6,15 @@ function response(status, body) { return new Response(JSON.stringify(body), { st
 function authorized(request, env) { const expected = typeof env?.INQUIRY_ADMIN_TOKEN === "string" ? env.INQUIRY_ADMIN_TOKEN.trim() : ""; const header = request.headers.get("authorization") || ""; const supplied = header.startsWith("Bearer ") ? header.slice(7).trim() : ""; const a = Buffer.from(expected); const b = Buffer.from(supplied); return a.length === b.length && a.length > 0 && timingSafeEqual(a, b); }
 function safeNumber(value, nullable = false) { if (nullable && value === null) return null; const parsed = Number(value); return Number.isFinite(parsed) ? parsed : nullable ? null : 0; }
 function safeDays(value) { const parsed = Number(value); return [7, 30, 90].includes(parsed) ? parsed : 30; }
+const CHANNELS = new Set(["email", "linkedin", "whatsapp", "alibaba", "google", "tiktok", "partner", "direct", "other"]);
+function safeChannels(value) { return (Array.isArray(value) ? value : []).slice(0, 9).map((item) => ({ channel: CHANNELS.has(item?.channel) ? item.channel : "other", events: safeNumber(item?.events), inquiries: safeNumber(item?.inquiries), qualified: safeNumber(item?.qualified), sampleDiscussion: safeNumber(item?.sampleDiscussion), quoted: safeNumber(item?.quoted), quoteAccepted: safeNumber(item?.quoteAccepted), orderSetupRequested: safeNumber(item?.orderSetupRequested), orders: safeNumber(item?.orders), inquiryToQualifiedRate: safeNumber(item?.inquiryToQualifiedRate), inquiryToQuotedRate: safeNumber(item?.inquiryToQuotedRate) })); }
+function safeProducts(value) { return (Array.isArray(value) ? value : []).slice(0, 15).map((item) => ({ code: String(item?.code || "").toUpperCase().trim(), views: safeNumber(item?.views), compares: safeNumber(item?.compares), specSheets: safeNumber(item?.specSheets), shares: safeNumber(item?.shares), quoteAdds: safeNumber(item?.quoteAdds), inquiries: safeNumber(item?.inquiries) })).filter((item) => /^BQ\d{3}$/.test(item.code)); }
 
 export function sanitizeWeeklyReviewSnapshot(source) {
   if (!source || typeof source !== "object" || !source.capturedAt || !source.period || !source.salesExecution) return null;
   const responseData = source.salesExecution.response || {}; const pipeline = source.salesExecution.pipeline || {}; const stages = source.salesExecution.stageRates || {}; const funnel = source.funnel || {}; const coverage = source.coverage || {};
   return {
-    version: 1,
+    version: source.version >= 2 || source.acquisitionChannels || source.products ? 2 : 1,
     id: String(source.id || "").slice(0, 80),
     capturedAt: String(source.capturedAt).slice(0, 40),
     period: { days: safeDays(source.period.days), from: String(source.period.from || "").slice(0, 10), to: String(source.period.to || "").slice(0, 10) },
@@ -22,6 +25,9 @@ export function sanitizeWeeklyReviewSnapshot(source) {
       definition: String(source.salesExecution.definition || "").slice(0, 1200),
     },
     funnel: { productViews: safeNumber(funnel.productViews), quoteAdds: safeNumber(funnel.quoteAdds), quoteRequests: safeNumber(funnel.quoteRequests), inquiries: safeNumber(funnel.inquiries), qualified: safeNumber(funnel.qualified), sampleDiscussion: safeNumber(funnel.sampleDiscussion), quoted: safeNumber(funnel.quoted), quoteAccepted: safeNumber(funnel.quoteAccepted), orderSetupRequested: safeNumber(funnel.orderSetupRequested), orders: safeNumber(funnel.orders) },
+    acquisitionChannels: safeChannels(source.acquisitionChannels),
+    products: safeProducts(source.products),
+    supporting: { resourceViews: safeNumber(source.supporting?.resourceViews), resourceProductOpens: safeNumber(source.supporting?.resourceProductOpens), resourceCtas: safeNumber(source.supporting?.resourceCtas), productShares: safeNumber(source.supporting?.productShares), lineSheetLeads: safeNumber(source.supporting?.lineSheetLeads) },
     coverage: { eventsLoaded: safeNumber(coverage.eventsLoaded), inquiriesLoaded: safeNumber(coverage.inquiriesLoaded), workspaceActivityLoaded: safeNumber(coverage.workspaceActivityLoaded), truncated: coverage.truncated === true },
     dataBoundary: "Aggregate website operating snapshot only. No buyer identity, contact detail, message, file, quotation line, payment detail, access code or administrator token is stored.",
   };
@@ -42,7 +48,7 @@ export function createWeeklyReviewHandlers({ getStoreImpl = getStore, analyticsH
     try {
       const existing = await store.get(key, { type: "json", consistency: "strong" }); if (existing) return response(409, { ok: false, message: `A ${days}-day aggregate snapshot was already saved today.`, snapshot: sanitizeWeeklyReviewSnapshot(existing) });
       const analyticsUrl = new URL(context.request.url); analyticsUrl.pathname = "/api/admin/analytics"; analyticsUrl.search = `?days=${days}`; const analyticsResponse = await analyticsHandler({ ...context, request: new Request(analyticsUrl, { headers: { Authorization: context.request.headers.get("authorization") || "" } }) }); const body = await analyticsResponse.json().catch(() => ({})); if (!analyticsResponse.ok || !body.ok || !body.analytics) return response(analyticsResponse.status || 503, { ok: false, message: body.message || "Current analytics could not be calculated." });
-      const snapshot = sanitizeWeeklyReviewSnapshot({ id: `WR-${date.replaceAll("-", "")}-${days}D`, capturedAt, period: body.analytics.period, salesExecution: body.analytics.salesExecution, funnel: body.analytics.funnel, coverage: body.analytics.coverage }); if (!snapshot) return response(503, { ok: false, message: "Current analytics did not contain the required aggregate fields." });
+      const snapshot = sanitizeWeeklyReviewSnapshot({ version: 2, id: `WR-${date.replaceAll("-", "")}-${days}D`, capturedAt, period: body.analytics.period, salesExecution: body.analytics.salesExecution, funnel: body.analytics.funnel, acquisitionChannels: body.analytics.acquisitionChannels, products: body.analytics.products, supporting: body.analytics.supporting, coverage: body.analytics.coverage }); if (!snapshot) return response(503, { ok: false, message: "Current analytics did not contain the required aggregate fields." });
       await store.setJSON(key, snapshot, { onlyIfNew: true, cacheControl: null }); return response(201, { ok: true, snapshot, message: `${days}-day aggregate snapshot saved.` });
     } catch (error) { console.error("Weekly review snapshot failed", error); return response(503, { ok: false, message: "Weekly review snapshot could not be saved." }); }
   }

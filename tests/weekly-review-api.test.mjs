@@ -4,7 +4,7 @@ import { createWeeklyReviewHandlers, sanitizeWeeklyReviewSnapshot } from "../edg
 
 const execution = { response: { cohort: 4, exactMeasured: 2, dateOnlyRecorded: 1, awaitingFirstResponse: 1, exactCoverageRate: 50, recordedContactRate: 75, medianHours: 25, within24Hours: 1, within24HourRate: 50 }, pipeline: { active: 3, ownerAssigned: 2, ownerCoverageRate: 66.7, actionScheduled: 2, actionCoverageRate: 66.7, overdue: 1, overdueRate: 33.3, buyerRepliesAwaiting: 1, stale14Days: 1, staleRate: 33.3 }, stageRates: { qualified: 75, sampleDiscussion: 50, quoted: 25, quoteAccepted: 0, orderSetupRequested: 0, orders: 0 }, definition: "Aggregate definition." };
 const funnel = { productViews: 10, quoteAdds: 3, quoteRequests: 2, inquiries: 4, qualified: 3, sampleDiscussion: 2, quoted: 1, quoteAccepted: 0, orderSetupRequested: 0, orders: 0 };
-const analytics = { period: { days: 30, from: "2026-07-29", to: "2026-08-27" }, salesExecution: execution, funnel, coverage: { eventsLoaded: 10, inquiriesLoaded: 4, workspaceActivityLoaded: 2, truncated: false }, buyerEmail: "must-not-store@example.com" };
+const analytics = { period: { days: 30, from: "2026-07-29", to: "2026-08-27" }, salesExecution: execution, funnel, acquisitionChannels: [{ channel: "linkedin", events: 10, inquiries: 4, qualified: 3, sampleDiscussion: 2, quoted: 1, quoteAccepted: 0, orderSetupRequested: 0, orders: 0, inquiryToQualifiedRate: 75, inquiryToQuotedRate: 25 }, { channel: "Buyer Name", events: 1, inquiries: 1 }], products: [{ code: "BQ009", views: 8, inquiries: 1 }, { code: "BuyerName", views: 1, inquiries: 1 }], supporting: { resourceViews: 2 }, coverage: { eventsLoaded: 10, inquiriesLoaded: 4, workspaceActivityLoaded: 2, truncated: false }, buyerEmail: "must-not-store@example.com" };
 
 function memoryStore(seed = new Map()) {
   return { values: seed, list: async ({ prefix }) => ({ blobs: [...seed.keys()].filter((key) => key.startsWith(prefix)).map((key) => ({ key })) }), get: async (key) => seed.get(key) || null, setJSON: async (key, value, options) => { if (options?.onlyIfNew && seed.has(key)) throw new Error("exists"); seed.set(key, structuredClone(value)); } };
@@ -21,14 +21,16 @@ test("saves one immutable aggregate snapshot per day and period", async () => {
   const request = () => new Request("https://www.beiqiang.online/api/admin/weekly-review?days=30", { method: "POST", headers: { Authorization: "Bearer correct" } });
   const first = await handlers.onRequestPost({ request: request(), env: { INQUIRY_ADMIN_TOKEN: "correct" } }); const body = await first.json();
   assert.equal(first.status, 201); assert.equal(body.snapshot.id, "WR-20260827-30D"); assert.equal(body.snapshot.salesExecution.response.medianHours, 25); assert.equal(store.values.size, 1); assert.equal(JSON.stringify(body).includes("must-not-store"), false); assert.match(body.snapshot.dataBoundary, /No buyer identity/i);
+  assert.equal(body.snapshot.version, 2); assert.equal(body.snapshot.acquisitionChannels[0].channel, "linkedin"); assert.equal(body.snapshot.acquisitionChannels[1].channel, "other"); assert.deepEqual(body.snapshot.products.map((item) => item.code), ["BQ009"]);
   const duplicate = await handlers.onRequestPost({ request: request(), env: { INQUIRY_ADMIN_TOKEN: "correct" } }); assert.equal(duplicate.status, 409); assert.equal(store.values.size, 1);
 });
 
 test("history returns only the aggregate snapshot whitelist", async () => {
-  const safe = sanitizeWeeklyReviewSnapshot({ id: "WR-1", capturedAt: "2026-08-26T09:00:00.000Z", period: analytics.period, salesExecution: execution, funnel, coverage: analytics.coverage });
+  const safe = sanitizeWeeklyReviewSnapshot({ version: 2, id: "WR-1", capturedAt: "2026-08-26T09:00:00.000Z", period: analytics.period, salesExecution: execution, funnel, acquisitionChannels: analytics.acquisitionChannels, products: analytics.products, supporting: analytics.supporting, coverage: analytics.coverage });
   const store = memoryStore(new Map([["weekly-reviews/2026-08-26/30.json", { ...safe, buyerEmail: "hidden@example.com", messages: ["hidden"] }]])); const handlers = createWeeklyReviewHandlers({ getStoreImpl: () => store });
   const result = await handlers.onRequestGet({ request: new Request("https://www.beiqiang.online/api/admin/weekly-review?limit=8", { headers: { Authorization: "Bearer correct" } }), env: { INQUIRY_ADMIN_TOKEN: "correct" } }); const body = await result.json();
   assert.equal(result.status, 200); assert.equal(body.snapshots.length, 1); assert.equal(body.snapshots[0].funnel.inquiries, 4); assert.equal(JSON.stringify(body).includes("hidden@example.com"), false); assert.equal(JSON.stringify(body).includes("messages"), false);
+  assert.equal(body.snapshots[0].acquisitionChannels[1].channel, "other"); assert.deepEqual(body.snapshots[0].products.map((item) => item.code), ["BQ009"]); assert.equal(JSON.stringify(body).includes("BuyerName"), false);
 });
 
 test("snapshot sanitizer rejects incomplete records and normalizes numeric fields", () => {

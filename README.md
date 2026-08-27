@@ -421,6 +421,14 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - The Chinese Markdown export includes the website scorecard, response and pipeline health, same-period deltas, evidence-linked actions, product-page signals, missing keyword/TikTok/competitor data and explicit checks against Trade Assurance, contract and finance records.
 - Snapshot history is operational evidence, not a legal order ledger, accounting record, revenue attribution model or predicted conversion report.
 
+## Acquisition Link and Channel Quality Workbench
+
+- `/admin/inquiries/` can generate canonical first-touch links for email, LinkedIn, WhatsApp, Alibaba, Google, TikTok and partner outreach. Destinations are limited to known Beiqiang pages and all 30 product pages; campaign/content codes are normalized to short URL-safe slugs.
+- Campaign codes must describe the product, market, buyer type or content version. They must never include a buyer name, company, email, phone number, price or private project detail. The tool copies a link only; it does not message buyers or claim delivery.
+- Protected analytics classify free-form first-touch source/referrer evidence into nine bounded channel groups and show events, inquiries, current Qualified/sample/quotation/quote-acceptance/order-setup/confirmed-order counts. Event counts include only optional-analytics consent; inquiry stages use saved business records.
+- Version-2 immutable weekly snapshots retain only those bounded channel aggregates, safe product codes, product aggregates and selected content aggregates. Raw UTM campaign names, referrers, buyer identities and business text are excluded.
+- Channel stage counts show the current verified state of inquiries attributed to that channel. They do not prove causation, revenue, platform orders or future conversion probability.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.
