@@ -53,6 +53,8 @@ For rollback, revert the problem commit and redeploy, or select the previous suc
 - Do not create a second upload-provider project or move `www.beiqiang.online` merely to bypass a failed GitHub integration. That would split deployment history, environment variables and rollback state. Any hosting migration requires an explicit cutover plan and production acceptance.
 - After recovery, verify the exact commit or deployment timestamp on the project URL and custom domain, then verify changed public pages and unauthenticated API gates. A GitHub push, green local build, CLI link, or successful environment pull is not production proof.
 
+Incident resolved on 27 August 2026: deployments from `d06ed69` through `6387e30` were triggered correctly but failed during EdgeOne's Node Functions production bundle. `weekly-review.js` imports the analytics route implementation; both modules declared a local `onRequestGet` binding, and EdgeOne's flattened bundle rejected the duplicate symbol. Commit `8184508` keeps the analytics route's public export name while giving its local binding a unique name, and adds a regression test for this imported-route boundary. EdgeOne deployment `dpjxlgob7t83` succeeded and the custom domain reported `Last-Modified: Thu, 27 Aug 2026 10:57:53 GMT`.
+
 ## Inquiry Storage and Notification
 
 The production form posts to `/api/inquiries`. EdgeOne Cloud Functions persist each validated inquiry in the `beiqiang-inquiries` Blob store before returning success. Conversion events are written to the separate `beiqiang-events` store. Blob storage is provided by EdgeOne Makers and does not require a database connection string.
