@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
@@ -14,6 +14,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
   const [closure, setClosure] = useState("All");
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState("Select 2 to 4 styles for a buyer-safe side-by-side comparison.");
+  const trackedSharedComparison = useRef("");
 
   const visible = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -28,7 +29,11 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const codes = parseComparisonCodes(new URLSearchParams(window.location.search).get("compare") || "", products.map((product) => product.code));
-      if (codes.length >= 2) { setCompareCodes(codes); setCompareMessage(`Shared comparison loaded · ${codes.length}/4 styles.`); }
+      if (codes.length >= 2) {
+        const styleCodes = codes.join(",");
+        setCompareCodes(codes); setCompareMessage(`Shared comparison loaded · ${codes.length}/4 styles.`);
+        if (trackedSharedComparison.current !== styleCodes) { trackedSharedComparison.current = styleCodes; trackEvent("comparison_open", { styleCodes, styleCount: codes.length, context: "catalog_en" }); }
+      }
     }, 0);
     return () => window.clearTimeout(timer);
   }, [products]);

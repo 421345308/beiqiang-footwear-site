@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { buyerFitZh, closureZh, colorZh, factZh, productNameZh } from "../data/products-zh";
@@ -16,6 +16,7 @@ export default function ChineseProductCatalog({ products }: { products: Product[
   const [closure, setClosure] = useState("全部");
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [message, setMessage] = useState("请选择2至4款产品进行并排比较。所有未知信息继续保留为待确认。 ");
+  const trackedSharedComparison = useRef("");
   const visible = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return products.filter((product) => {
@@ -29,7 +30,11 @@ export default function ChineseProductCatalog({ products }: { products: Product[
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const codes = parseComparisonCodes(new URLSearchParams(window.location.search).get("compare") || "", products.map((product) => product.code));
-      if (codes.length >= 2) { setCompareCodes(codes); setMessage(`已载入分享的产品比较 · ${codes.length}/4款。`); }
+      if (codes.length >= 2) {
+        const styleCodes = codes.join(",");
+        setCompareCodes(codes); setMessage(`已载入分享的产品比较 · ${codes.length}/4款。`);
+        if (trackedSharedComparison.current !== styleCodes) { trackedSharedComparison.current = styleCodes; trackEvent("comparison_open", { styleCodes, styleCount: codes.length, context: "catalog_zh" }); }
+      }
     }, 0);
     return () => window.clearTimeout(timer);
   }, [products]);

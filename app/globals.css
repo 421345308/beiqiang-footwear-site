@@ -1307,6 +1307,9 @@ footer a:hover { color: var(--forest); }
 .admin-collection-table > div:last-child { border-bottom: 0; }
 .admin-collection-table strong, .admin-collection-table b, .admin-collection-table span { padding: 11px 9px; border-right: 1px solid #eee7d2; font-size: 10px; text-align: center; }
 .admin-collection-table strong:first-child, .admin-collection-table b { text-align: left; }
+.comparison-journey-table { min-width: 520px; }
+.comparison-journey-table > div { grid-template-columns: minmax(240px, 2fr) repeat(2, minmax(110px, 1fr)); }
+.comparison-journey-table > p, .comparison-analytics-boundary { display: block; margin: 0; padding: 13px; color: var(--muted); font-size: 10px; line-height: 1.55; }
 .order-handoff-saved { margin: 0; padding: 10px; background: #e1eee6; color: #28553d; font-size: 11px; }
 
 /* Legal and consent surfaces */
