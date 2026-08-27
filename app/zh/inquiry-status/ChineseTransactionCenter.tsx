@@ -8,6 +8,7 @@ import { products } from "../../data/products";
 import { productNameZh } from "../../data/products-zh";
 import { addProductToQuote } from "../../lib/quote-list";
 import { trackEvent } from "../../lib/tracking";
+import QuotationVersionHistory, { type BuyerSafeQuotation } from "../../components/QuotationVersionHistory";
 
 type PublicOrderHandoff = {
   method: "alibaba_trade_assurance" | "contract";
@@ -33,7 +34,8 @@ export type ChineseProjectRequest = {
   orderDocuments: { id: string; name: string; title: string; category: string; note: string; contentType: string; size: number; uploadedAt: string }[];
   sampleProgram: null | { status: string; sampleReference: string; styleCodes: string; quantity: string; sizes: string; colors: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; reviewRounds: { round: number; sampleReference: string; styleCodes: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; status: string; openedAt: string; decision: string; buyerNote: string; respondedAt: string }[]; currency: string; sampleCharge: string; chargeStatus: string; paidAt: string; courier: string; trackingNumber: string; shippedAt: string; expectedDelivery: string; note: string; buyerDecision: string; buyerNote: string; buyerRespondedAt: string; updatedAt: string };
   buyerRecommendation: null | { id: string; title: string; introduction: string; items: { code: string; reason: string }[]; nextStep: string; status: string; issuedAt: string; buyerDecision: string; selectedCodes: string[]; buyerNote: string; buyerRespondedAt: string };
-  buyerQuotation: null | { quoteNumber: string; version: string; currency: string; tradeTerm: string; validUntil: string; leadTime: string; paymentTerms: string; packing: string; sampleTerms: string; notes: string; lines: { code: string; description: string; quantity: string; unitPrice: string }[]; status: string; issuedAt: string; buyerDecision: string; buyerNote: string; buyerRespondedAt: string; revisionBrief: { reasons: string[]; affectedCodes: string[]; targetQuantity: string; targetUnitPrice: string; targetTradeTerm: string; requestedDelivery: string; requestedPayment: string; requestedPacking: string; requestedSample: string } | null };
+  buyerQuotation: BuyerSafeQuotation | null;
+  quotationHistory: BuyerSafeQuotation[];
   buyerOrderRequest: null | { id: string; quoteNumber: string; preferredOrderChannel: "alibaba_trade_assurance" | "contract" | "need_guidance"; legalCompanyName: string; purchasingContact: string; purchaseOrderReference: string; destination: string; requestedWindow: string; instructions: string; status: string; submittedAt: string };
   orderHandoff: PublicOrderHandoff | null;
   orderVersions: { version: number; acceptedAt: string; acceptedBy: string; source: string; orderHandoff: PublicOrderHandoff }[];
@@ -187,6 +189,7 @@ export default function ChineseTransactionCenter(props: Props) {
     <RecommendationDecision {...props} />
     <SampleDecision {...props} />
     <QuotationDecision {...props} />
+    {props.request.buyerQuotation ? <QuotationVersionHistory quotations={props.request.quotationHistory || []} currentQuoteNumber={props.request.buyerQuotation.quoteNumber} locale="zh" /> : null}
     <OrderSetupDecision {...props} />
     <OrderChangeDecision {...props} />
     <DocumentCenter request={props.request} reference={props.reference} accessCode={props.accessCode} onStatus={props.onStatus} />

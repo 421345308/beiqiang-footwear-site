@@ -66,7 +66,7 @@ test("requires and records a standardized reason when an opportunity is lost", a
   assert.equal(saved.lostReason, "price"); assert.equal(saved.pipelineHistory.at(-1).reason, "price");
 });
 
-test("stores immutable quotation versions without exposing them to the buyer status API", async () => {
+test("stores an immutable quotation draft before it becomes buyer-visible through issue", async () => {
   const current = { reference: "BQ-20260823-ABCDEF12", receivedAt: "2026-08-23T08:00:00.000Z", company: "Buyer Co", status: "qualified", quotations: [] };
   let saved;
   const handler = createAdminInquiryUpdateHandler({ getStoreImpl: () => ({ get: async () => current, setJSON: async (key, value) => { saved = value; } }) });
