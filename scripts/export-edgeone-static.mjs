@@ -25,6 +25,10 @@ const collectionRoutes = collectionSlugs.map((slug) => ({
   pathname: `/collections/${slug}`,
   output: `collections/${slug}/index.html`,
 }));
+const chineseCollectionRoutes = collectionSlugs.map((slug) => ({
+  pathname: `/zh/collections/${slug}`,
+  output: `zh/collections/${slug}/index.html`,
+}));
 const solutionSlugs = ["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes"];
 const solutionRoutes = solutionSlugs.map((slug) => ({ pathname: `/solutions/${slug}`, output: `solutions/${slug}/index.html` }));
 const chineseSolutionRoutes = solutionSlugs.map((slug) => ({ pathname: `/zh/solutions/${slug}`, output: `zh/solutions/${slug}/index.html` }));
@@ -54,6 +58,7 @@ const routes = [
   ...productRoutes,
   ...chineseProductRoutes,
   ...collectionRoutes,
+  ...chineseCollectionRoutes,
   ...solutionRoutes,
   ...chineseSolutionRoutes,
   ...resourceRoutes,
@@ -105,6 +110,7 @@ const sitemapUrls = [
   ...productSlugs.map((slug) => ({ path: `/products/${slug}/`, frequency: "monthly", priority: ["bq001", "bq002", "bq009"].includes(slug) ? "0.9" : "0.7" })),
   ...productSlugs.map((slug) => ({ path: `/zh/products/${slug}/`, frequency: "monthly", priority: ["bq001", "bq002", "bq009"].includes(slug) ? "0.8" : "0.6" })),
   ...collectionSlugs.map((slug) => ({ path: `/collections/${slug}/`, frequency: "weekly", priority: "0.8" })),
+  ...collectionSlugs.map((slug) => ({ path: `/zh/collections/${slug}/`, frequency: "weekly", priority: "0.7" })),
   ...solutionSlugs.map((slug) => ({ path: `/solutions/${slug}/`, frequency: "monthly", priority: "0.8" })),
   ...solutionSlugs.map((slug) => ({ path: `/zh/solutions/${slug}/`, frequency: "monthly", priority: "0.7" })),
   ...resourceSlugs.map((slug) => ({ path: `/resources/${slug}/`, frequency: "monthly", priority: "0.8" })),

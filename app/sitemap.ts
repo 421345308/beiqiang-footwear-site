@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...products.map((product) => `/products/${product.slug}`),
     ...products.map((product) => `/zh/products/${product.slug}`),
     ...collections.map((collection) => `/collections/${collection.slug}`),
+    ...collections.map((collection) => `/zh/collections/${collection.slug}`),
     ...sourcingPrograms.map((program) => `/solutions/${program.slug}`),
     ...sourcingPrograms.map((program) => `/zh/solutions/${program.slug}`),
     ...buyerResources.map((resource) => `/resources/${resource.slug}`),

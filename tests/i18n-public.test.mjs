@@ -102,6 +102,25 @@ test("publishes Chinese sourcing programs and decision-stage buyer resources", a
   }
 });
 
+test("publishes three Chinese product collections with SKU evidence boundaries", async () => {
+  for (const [path, heading, boundary] of [
+    ["/zh/collections/wide-toe-box", /已有SKU证据的宽鞋头步行鞋/, /不代表所有贝强鞋款均为宽鞋头/],
+    ["/zh/collections/knit-slip-on", /针织与织物套穿步行鞋/, /材料、可用颜色、尺码、包装与商业条件/],
+    ["/zh/collections/breathable-lace-up", /针织、网布与织物系带步行鞋/, /不代表防水、医疗、测试性能/],
+  ]) {
+    const response = await render(path); const html = await response.text();
+    assert.equal(response.status, 200, path); assert.match(html, heading, path); assert.match(html, boundary, path);
+    assert.match(html, /建立多款询价/, path); assert.match(html, /hrefLang="en"/i, path); assert.match(html, /hrefLang="zh-CN"/i, path);
+    assert.match(html, /CollectionPage/, path); assert.match(html, /ItemList/, path);
+    assert.doesNotMatch(html, /保证价格|保证定制|销量第一|保证治疗|保证矫形|立即付款|一键下单/i, path);
+  }
+
+  const english = await render("/collections/wide-toe-box");
+  const englishHtml = await english.text();
+  assert.match(englishHtml, /hrefLang="zh-CN"[^>]+\/zh\/collections\/wide-toe-box\//);
+  assert.match(englishHtml, /\/request-quote\//);
+});
+
 test("publishes Chinese privacy and terms boundaries", async () => {
   const privacy = await render("/zh/privacy");
   const privacyHtml = await privacy.text();
@@ -174,12 +193,16 @@ test("links English and Chinese equivalents for search engines and buyers", asyn
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/line-sheet\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/resources\/footwear-rfq-checklist\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/solutions\/private-label-walking-shoes\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/collections\/wide-toe-box\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/collections\/knit-slip-on\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/collections\/breathable-lace-up\/?/);
   assert.doesNotMatch(xml, /zh\/inquiry-status|zh\/buyer-workspace/);
 });
 
 test("includes every Chinese public route in the EdgeOne export contract", async () => {
   const exporter = await readFile(new URL("../scripts/export-edgeone-static.mjs", import.meta.url), "utf8");
   assert.match(exporter, /chineseProductRoutes/);
+  assert.match(exporter, /chineseCollectionRoutes/);
   assert.match(exporter, /pathname:\s*"\/zh"/);
   assert.match(exporter, /pathname:\s*"\/zh\/products"/);
   assert.match(exporter, /pathname:\s*"\/zh\/request-quote"/);
@@ -191,6 +214,15 @@ test("includes every Chinese public route in the EdgeOne export contract", async
   assert.match(exporter, /pathname:\s*"\/zh\/resources"/);
   for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
   assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
+  assert.match(exporter, /zh\/collections\/\$\{slug\}\/index\.html/);
+});
+
+test("keeps the mobile language switch on the matching page", async () => {
+  const header = await readFile(new URL("../app/components/ChineseSiteHeader.tsx", import.meta.url), "utf8");
+  const mobile = await readFile(new URL("../app/components/ChineseMobileNavigation.tsx", import.meta.url), "utf8");
+  assert.match(header, /ChineseMobileNavigation englishHref=\{englishHref\}/);
+  assert.match(mobile, /href=\{englishHref\}/);
+  assert.match(mobile, /hrefLang="en"/);
 });
 
 test("consent banner follows the public page language", async () => {

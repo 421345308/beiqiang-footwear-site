@@ -9,6 +9,9 @@ const links = [
   ["中文首页", "/zh/"],
   [`全部${productCount}款产品`, "/zh/products/"],
   ["产品目录 Line Sheet", "/zh/line-sheet/"],
+  ["宽鞋头产品系列", "/zh/collections/wide-toe-box/"],
+  ["针织套穿产品系列", "/zh/collections/knit-slip-on/"],
+  ["透气系带产品系列", "/zh/collections/breathable-lace-up/"],
   ["采购知识与清单", "/zh/resources/"],
   ["步行鞋批发方案", "/zh/solutions/wholesale-walking-shoes/"],
   ["私标步行鞋方案", "/zh/solutions/private-label-walking-shoes/"],
@@ -22,10 +25,9 @@ const links = [
   ["买家工作台", "/zh/buyer-workspace/"],
   ["查询项目进度", "/zh/inquiry-status/"],
   ["隐私说明", "/zh/privacy/"],
-  ["英文网站", "/"],
 ] as const;
 
-export default function ChineseMobileNavigation() {
+export default function ChineseMobileNavigation({ englishHref = "/" }: { englishHref?: string }) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -40,5 +42,5 @@ export default function ChineseMobileNavigation() {
     return () => { document.body.style.overflow = previousOverflow; document.removeEventListener("keydown", onKeyDown); trigger?.focus(); };
   }, [open]);
   function follow(label: string) { setOpen(false); trackEvent("mobile_nav_link", { context: "site_header_zh", linkType: label }); }
-  return <div className="mobile-navigation"><button ref={triggerRef} className="mobile-menu-trigger" type="button" aria-expanded={open} aria-controls="mobile-buyer-menu-zh" aria-label={open ? "关闭采购菜单" : "打开采购菜单"} onClick={() => { setOpen((value) => !value); if (!open) trackEvent("mobile_nav_open", { context: "site_header_zh" }); }}><span /><span /><span /></button>{open && <div className="mobile-menu-layer"><button className="mobile-menu-backdrop" type="button" aria-label="关闭采购菜单" onClick={() => setOpen(false)} /><div ref={dialogRef} id="mobile-buyer-menu-zh" className="mobile-menu-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title-zh"><header><div><small>贝强鞋业 B2B</small><h2 id="mobile-menu-title-zh">采购菜单</h2></div><button type="button" aria-label="关闭采购菜单" onClick={() => setOpen(false)}>×</button></header><div className="mobile-menu-scroll"><section><h3>采购路径</h3><nav aria-label="中文采购导航">{links.map(([label, href]) => <Link key={href} href={href} onClick={() => follow(label)}><span>{label}</span><b aria-hidden="true">→</b></Link>)}</nav></section><section className="mobile-menu-contact"><h3>联系贝强</h3><a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer" onClick={() => follow("whatsapp")}>WhatsApp +86 189 5980 5256</a><a href="mailto:421345308@qq.com" onClick={() => follow("email")}>421345308@qq.com</a><p>大货订单前逐项确认样品、规格与商业条款。</p></section></div></div></div>}</div>;
+  return <div className="mobile-navigation"><button ref={triggerRef} className="mobile-menu-trigger" type="button" aria-expanded={open} aria-controls="mobile-buyer-menu-zh" aria-label={open ? "关闭采购菜单" : "打开采购菜单"} onClick={() => { setOpen((value) => !value); if (!open) trackEvent("mobile_nav_open", { context: "site_header_zh" }); }}><span /><span /><span /></button>{open && <div className="mobile-menu-layer"><button className="mobile-menu-backdrop" type="button" aria-label="关闭采购菜单" onClick={() => setOpen(false)} /><div ref={dialogRef} id="mobile-buyer-menu-zh" className="mobile-menu-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title-zh"><header><div><small>贝强鞋业 B2B</small><h2 id="mobile-menu-title-zh">采购菜单</h2></div><button type="button" aria-label="关闭采购菜单" onClick={() => setOpen(false)}>×</button></header><div className="mobile-menu-scroll"><section><h3>采购路径</h3><nav aria-label="中文采购导航">{links.map(([label, href]) => <Link key={href} href={href} onClick={() => follow(label)}><span>{label}</span><b aria-hidden="true">→</b></Link>)}<Link href={englishHref} hrefLang="en" lang="en" onClick={() => follow("英文网站")}><span>英文网站</span><b aria-hidden="true">→</b></Link></nav></section><section className="mobile-menu-contact"><h3>联系贝强</h3><a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer" onClick={() => follow("whatsapp")}>WhatsApp +86 189 5980 5256</a><a href="mailto:421345308@qq.com" onClick={() => follow("email")}>421345308@qq.com</a><p>大货订单前逐项确认样品、规格与商业条款。</p></section></div></div></div>}</div>;
 }
