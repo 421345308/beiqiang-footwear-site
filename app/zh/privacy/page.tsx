@@ -2,5 +2,87 @@ import type { Metadata } from "next";
 import ChineseSiteFooter from "../../components/ChineseSiteFooter";
 import ChineseSiteHeader from "../../components/ChineseSiteHeader";
 
-export const metadata: Metadata = { title: "隐私说明｜贝强鞋业", description: "了解贝强鞋业如何处理B2B询盘、买家文件、项目查询码与可选第一方分析。", alternates: { canonical: "https://www.beiqiang.online/zh/privacy/", languages: { en: "https://www.beiqiang.online/privacy/", "zh-CN": "https://www.beiqiang.online/zh/privacy/", "x-default": "https://www.beiqiang.online/privacy/" } }, openGraph: { title: "隐私说明｜贝强鞋业", description: "了解B2B询盘资料、文件、项目查询码与可选第一方分析的处理边界。", url: "https://www.beiqiang.online/zh/privacy/", locale: "zh_CN" }, twitter: { card: "summary", title: "隐私说明｜贝强鞋业", description: "了解B2B询盘资料的处理边界。" } };
-export default function ChinesePrivacyPage() { return <main><ChineseSiteHeader englishHref="/privacy/" /><article className="legal-page"><p className="eyebrow">隐私说明</p><h1>只收集处理B2B采购需求所需的信息。</h1><p className="legal-updated">适用于 www.beiqiang.online · 中文摘要与英文正式页面保持同一业务边界</p><section><h2>询盘资料</h2><p>提交询盘时，网站可保存联系人、公司、买家类型、目标市场、预计数量、邮箱、WhatsApp、产品款号、订单要求、来源参数以及您主动上传的文件。资料用于识别需求、准备样品和报价、回复问题、推进已确认的项目及保留必要业务记录。</p></section><section><h2>项目编号与私密查询码</h2><p>询盘成功后系统生成项目编号和私密查询码。请不要公开转发查询码。项目状态页只显示买家安全信息；价格、文件、消息和决定仍需对应项目的私密凭证。网站后台和买家工作区不作为公开搜索页面。</p></section><section><h2>文件安全</h2><p>上传文件默认作为待审核资料保存。网站检查允许格式、大小和存储元数据，但不声称内置自动病毒扫描。上传参考图、技术包或目标值不代表贝强已经确认其可生产、可测试或可达到。</p></section><section><h2>可选第一方分析</h2><p>只有选择“接受分析”后，网站才记录有限的页面与商业动作事件，例如产品查看、比较、分享渠道、询价单操作和采购资源承接。分享事件不保存收件人、通讯录、邮箱或消息正文。选择“仅必要功能”不会影响产品浏览、询盘提交或项目沟通。</p></section><section><h2>保留与删除</h2><p>网站资料的复核日期不会自动触发删除。订单、付款、争议、合规、安全或法律保存要求可能需要继续保留部分记录。经身份与权限核验的删除请求进入人工审核、保留判断、双人批准和冷静期流程；网站删除不自动删除Alibaba、合同、财务、物流或其他外部系统记录。</p></section><section><h2>联系我们</h2><p>隐私或资料请求请联系 <a href="mailto:421345308@qq.com">421345308@qq.com</a>，并提供足以核验项目与代表权限的信息。</p></section></article><ChineseSiteFooter /></main>; }
+export const metadata: Metadata = {
+  title: "隐私说明｜贝强鞋业",
+  description:
+    "了解贝强鞋业如何处理B2B询盘、买家文件、项目查询码与可选第一方分析。",
+  alternates: {
+    canonical: "https://www.beiqiang.online/zh/privacy/",
+    languages: {
+      en: "https://www.beiqiang.online/privacy/",
+      "zh-CN": "https://www.beiqiang.online/zh/privacy/",
+      "x-default": "https://www.beiqiang.online/privacy/",
+    },
+  },
+  openGraph: {
+    title: "隐私说明｜贝强鞋业",
+    description:
+      "了解B2B询盘资料、文件、项目查询码与可选第一方分析的处理边界。",
+    url: "https://www.beiqiang.online/zh/privacy/",
+    locale: "zh_CN",
+  },
+  twitter: {
+    card: "summary",
+    title: "隐私说明｜贝强鞋业",
+    description: "了解B2B询盘资料的处理边界。",
+  },
+};
+export default function ChinesePrivacyPage() {
+  return (
+    <main>
+      <ChineseSiteHeader englishHref="/privacy/" />
+      <article className="legal-page">
+        <p className="eyebrow">隐私说明</p>
+        <h1>只收集处理B2B采购需求所需的信息。</h1>
+        <p className="legal-updated">
+          适用于 www.beiqiang.online · 中文摘要与英文正式页面保持同一业务边界
+        </p>
+        <section>
+          <h2>询盘资料</h2>
+          <p>
+            提交询盘时，网站可保存联系人、公司、买家类型、目标市场、预计数量、邮箱、WhatsApp、产品款号、订单要求、来源参数以及您主动上传的文件。资料用于识别需求、准备样品和报价、回复问题、推进已确认的项目及保留必要业务记录。
+          </p>
+        </section>
+        <section>
+          <h2>项目编号与私密查询码</h2>
+          <p>
+            询盘成功后系统生成项目编号和私密查询码。请不要公开转发查询码。项目状态页只显示买家安全信息；价格、文件、消息和决定仍需对应项目的私密凭证。网站后台和买家工作区不作为公开搜索页面。
+          </p>
+        </section>
+        <section>
+          <h2>文件安全</h2>
+          <p>
+            上传文件默认作为待审核资料保存。网站检查允许格式、大小和存储元数据，但不声称内置自动病毒扫描。上传参考图、技术包或目标值不代表贝强已经确认其可生产、可测试或可达到。
+          </p>
+        </section>
+        <section>
+          <h2>可选第一方分析</h2>
+          <p>
+            只有选择“接受分析”后，网站才记录有限的页面与商业动作事件，例如产品查看、比较、分享渠道、询价单操作和采购资源承接。分享事件不保存收件人、通讯录、邮箱或消息正文。选择“仅必要功能”不会影响产品浏览、询盘提交或项目沟通。
+          </p>
+        </section>
+        <section>
+          <h2>保留与删除</h2>
+          <p>
+            网站资料的复核日期不会自动触发删除。订单、付款、争议、合规、安全或法律保存要求可能需要继续保留部分记录。经身份与权限核验的删除请求进入人工审核、保留判断、双人批准和冷静期流程；网站删除不自动删除Alibaba、合同、财务、物流或其他外部系统记录。
+          </p>
+        </section>
+        <section>
+          <h2>回复偏好与站外沟通记录</h2>
+          <p>
+            如您选填优先联系渠道、回复语言、时区/城市或方便联系时间，网站会把这些信息与询盘一起保存，用于安排人工回复。经授权的业务员也可为与项目相关的Email、WhatsApp、Alibaba、电话、视频会议或其他站外沟通追加渠道、方向、实际时间、结果、负责人和简要证据摘要。这类人工记录用于项目交接与跟进复盘，不证明消息送达、邮件打开、身份、同意、付款或订单，也不会自动预约或自动回复。
+          </p>
+        </section>
+        <section>
+          <h2>联系我们</h2>
+          <p>
+            隐私或资料请求请联系{" "}
+            <a href="mailto:421345308@qq.com">421345308@qq.com</a>
+            ，并提供足以核验项目与代表权限的信息。
+          </p>
+        </section>
+      </article>
+      <ChineseSiteFooter />
+    </main>
+  );
+}

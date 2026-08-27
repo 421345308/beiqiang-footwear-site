@@ -436,6 +436,13 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - The sales notification email, protected inquiry card and CSV export include the buyer-provided preference so the team can plan a manual response across time zones. Existing records without these fields remain valid.
 - A preference is not an appointment, automatic message, response-time guarantee or proof that a requested language is available. The website does not schedule calls or send a sales reply automatically.
 
+## Append-only External Contact Evidence
+
+- Each protected inquiry card can append a manual evidence entry for an actual email, WhatsApp, Alibaba, phone, video-call or other project contact. The record stores channel, direction, actual timestamp, bounded outcome, concise summary, responsible salesperson and recording time.
+- Entries must match the stored inquiry, cannot predate it or be recorded in the future, and are limited to 100 per inquiry. At the limit the server rejects a new entry instead of overwriting older evidence. An outbound entry updates the legacy date-level `lastContactedAt` field without moving it backwards.
+- The panel surfaces buyer-provided response preferences and opens the existing email or valid WhatsApp destination, but it never sends a message. CSV export includes the log count and latest evidence summary for handoff.
+- An external-contact entry is a salesperson-recorded audit note—not delivery proof, an email-open event, buyer identity verification, agreement, payment or an order. System-timestamped website messages remain separate evidence.
+
 ## Privacy and Analytics Choice
 
 - `/privacy/` explains actual inquiry, file, device-storage and first-party event handling; `/terms/` states the B2B product, quotation and order boundary.
