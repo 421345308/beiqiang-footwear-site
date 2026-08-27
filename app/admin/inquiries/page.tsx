@@ -42,7 +42,7 @@ type CommercialAnalytics = {
   period: { days: number; from: string; to: string; consentNote: string };
   funnel: { productViews: number; quoteAdds: number; quoteBuilderViews: number; quoteRequests: number; inquiries: number; qualified: number; sampleDiscussion: number; quoted: number; quoteAccepted: number; orderSetupRequested: number; orders: number };
   salesExecution: SalesExecution;
-  workspace: { accessRequests: number; eligibleRequests: number; linksSent: number; deliveryFailures: number; unknownRequests: number; rateLimitedRequests: number; linkRedemptions: number; redemptionFailures: number; workspaceLoads: number; uniqueRedeemedBuyers: number; uniqueActiveBuyers: number; projectSummaryOpens: number; uniqueProjectReaders: number; privateProjectHandoffs: number; signOuts: number; linkDeliveryRate: number; linkRedemptionRate: number; workspaceAdoptionRate: number; projectEngagementRate: number; projects: { reference: string; summaryOpens: number; privateHandoffs: number }[]; privacyNote: string };
+  workspace: { accessRequests: number; eligibleRequests: number; linksSent: number; deliveryFailures: number; unknownRequests: number; rateLimitedRequests: number; linkRedemptions: number; redemptionFailures: number; workspaceLoads: number; uniqueRedeemedBuyers: number; uniqueActiveBuyers: number; projectSummaryOpens: number; uniqueProjectReaders: number; privateProjectHandoffs: number; signOuts: number; linkDeliveryRate: number; linkRedemptionRate: number; workspaceAdoptionRate: number; projectEngagementRate: number; projects: { reference: string; summaryOpens: number; privateHandoffs: number }[]; collectionJourneys: { slug: string; views: number; productOpens: number; quoteHandoffs: number; inquiries: number; qualified: number; sampleDiscussion: number; quoted: number; orders: number }[]; privacyNote: string };
   supporting: { mobileMenuOpens: number; mobileMenuLinks: number; sourcingProgramViews: number; sourcingProgramCtas: number; lineSheetLeads: number; lineSheetDownloads: number; productSpecSheets: number; productShares: number; buyerMessages: number; buyerFiles: number; buyerDocuments: number; quoteRevisions: number; quoteDeclines: number; orderChangesProposed: number; orderChangesAccepted: number; orderChangesRejected: number; orderChangesAwaitingBuyer: number; fulfillmentCasesOpened: number; fulfillmentCasesResolved: number; fulfillmentCasesOpen: number; repeatOrdersSubmitted: number; repeatOrdersQualified: number; repeatOrdersConverted: number; repeatOrdersOpen: number; deliveriesConfirmed: number; deliveryIssuesReported: number; overdue: number };
   stageActivity: { stage: string; count: number }[]; lossReasons: { reason: string; count: number }[];
   sources: { label: string; events: number; inquiries: number }[];
@@ -87,6 +87,12 @@ function ProductShareAnalyticsPanel({ data }: { data: CommercialAnalytics | null
   if (!data) return null;
   const shared = data.products.filter((product) => product.shares > 0).sort((a, b) => b.shares - a.shares).slice(0, 6);
   return <section className="admin-resource-analytics"><div><p className="eyebrow">BUYING-TEAM HANDOFF</p><h2>Products shared for internal review</h2><p>Optional analytics only. A share action shows procurement-team interest; it does not prove the recipient opened the link, approved the style or created an inquiry.</p></div><div><article><small>PRODUCT SHARES</small><strong>{data.supporting.productShares || 0}</strong></article>{shared.map((product) => <article key={product.code}><small>{product.code}</small><strong>{product.shares}</strong></article>)}</div></section>;
+}
+
+function CollectionAnalyticsPanel({ data }: { data: CommercialAnalytics | null }) {
+  if (!data) return null;
+  const labels: Record<string, string> = { "wide-toe-box": "Wide toe box", "knit-slip-on": "Knit slip-on", "breathable-lace-up": "Breathable lace-up" };
+  return <section className="admin-collection-analytics"><div><p className="eyebrow">PRODUCT COLLECTION JOURNEYS</p><h2>Buyer intent page to recorded inquiry</h2><p>Views, product opens and quote handoffs include only visitors who accepted optional analytics. Inquiries and later stages use the explicit collection origin saved with the form; current stage does not prove the collection caused the outcome.</p></div><div className="admin-collection-table"><div><strong>Collection</strong><strong>Views</strong><strong>Product opens</strong><strong>Quote handoffs</strong><strong>Inquiries</strong><strong>Qualified</strong><strong>Sample+</strong><strong>Quoted</strong><strong>Orders</strong></div>{data.workspace.collectionJourneys.map((item) => <div key={item.slug}><b>{labels[item.slug] || item.slug}</b><span>{item.views}</span><span>{item.productOpens}</span><span>{item.quoteHandoffs}</span><span>{item.inquiries}</span><span>{item.qualified}</span><span>{item.sampleDiscussion}</span><span>{item.quoted}</span><span>{item.orders}</span></div>)}</div></section>;
 }
 
 function CommercialDashboard({ data, days, loading, onDaysChange, onRefresh }: { data: CommercialAnalytics | null; days: number; loading: boolean; onDaysChange: (days: number) => void; onRefresh: () => void }) {
@@ -472,6 +478,7 @@ export default function InquiryAdminPage() {
     <ChineseWeeklyReview analytics={analytics} days={analyticsDays} token={token} />
     <CommercialDashboard data={analytics} days={analyticsDays} loading={analyticsLoading} onDaysChange={(days) => { setAnalyticsDays(days); void loadAnalytics(days); }} onRefresh={() => void loadAnalytics()} />
     <ResourceAnalyticsPanel data={analytics} />
+    <CollectionAnalyticsPanel data={analytics} />
     <ProductShareAnalyticsPanel data={analytics} />
     <ReminderCenter summary={reminders} loading={reminderLoading} message={reminderMessage} onRefresh={() => void loadReminders()} onSend={() => void loadReminders(true)} />
     <RepeatOrderReminderList summary={reminders} />

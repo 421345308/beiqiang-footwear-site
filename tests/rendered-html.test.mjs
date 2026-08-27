@@ -168,6 +168,8 @@ test("server-renders buyer-intent collection pages", async () => {
   const html = await response.text();
   assert.match(html, /Knit slip-on walking shoes/);
   assert.match(html, /Compare styles before you request samples/);
+  assert.match(html, /program=collection-knit-slip-on/);
+  assert.match(html, /CollectionTracking-/);
 });
 
 for (const [slug, expectedTitle, expectedBoundary] of [

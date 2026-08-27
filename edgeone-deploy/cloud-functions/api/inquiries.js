@@ -7,7 +7,7 @@ const PROJECT_PATHS = new Set(["base_style_adaptation", "technical_development"]
 const TRADE_TERM_PREFERENCES = new Set(["not_sure", "EXW", "FOB", "FCA", "DDP_request"]);
 const CONTACT_METHODS = new Set(["email", "whatsapp", "either"]);
 const RESPONSE_LANGUAGES = new Set(["en", "zh", "de", "fr", "es", "other"]);
-const SOURCING_PROGRAMS = new Set(["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes", "resource-footwear-rfq-checklist", "resource-shoe-sample-approval-checklist", "resource-private-label-walking-shoes-sourcing-guide"]);
+const SOURCING_PROGRAMS = new Set(["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes", "resource-footwear-rfq-checklist", "resource-shoe-sample-approval-checklist", "resource-private-label-walking-shoes-sourcing-guide", "collection-wide-toe-box", "collection-knit-slip-on", "collection-breathable-lace-up"]);
 
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";
