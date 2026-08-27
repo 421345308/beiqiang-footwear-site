@@ -10,6 +10,7 @@ import { productNameZh } from "../../data/products-zh";
 import { addProductToQuote } from "../../lib/quote-list";
 import { trackEvent } from "../../lib/tracking";
 import QuotationVersionHistory, { type BuyerSafeQuotation } from "../../components/QuotationVersionHistory";
+import type { WorkspaceAccessRequestRecord } from "../../components/WorkspaceAccessRequest";
 
 type PublicOrderHandoff = {
   method: "alibaba_trade_assurance" | "contract";
@@ -32,6 +33,7 @@ export type ChineseProjectRequest = {
   items: { code: string; name?: string; quantity?: string; colors?: string; sizes?: string }[];
   attachments: { id: string; name: string; size: number; uploadedAt: string; securityStatus?: string }[];
   messages: { id: string; sender: "buyer" | "sales"; body: string; sentAt: string }[];
+  workspaceAccessRequests: WorkspaceAccessRequestRecord[];
   orderDocuments: { id: string; name: string; title: string; category: string; note: string; contentType: string; size: number; uploadedAt: string }[];
   sampleProgram: null | { status: string; sampleReference: string; styleCodes: string; quantity: string; sizes: string; colors: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; reviewRounds: { round: number; sampleReference: string; styleCodes: string; purpose: string; reviewScope: string; deliverables: string; acceptanceCriteria: string; exclusions: string; status: string; openedAt: string; decision: string; buyerNote: string; respondedAt: string }[]; currency: string; sampleCharge: string; chargeStatus: string; paidAt: string; courier: string; trackingNumber: string; shippedAt: string; expectedDelivery: string; note: string; buyerDecision: string; buyerNote: string; buyerRespondedAt: string; updatedAt: string };
   buyerRecommendation: null | { id: string; title: string; introduction: string; items: { code: string; reason: string }[]; nextStep: string; status: string; issuedAt: string; buyerDecision: string; selectedCodes: string[]; buyerNote: string; buyerRespondedAt: string };

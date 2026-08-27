@@ -5,7 +5,7 @@ import { createAdminWorkspaceContactHandlers } from "../edgeone-deploy/cloud-fun
 const reference = "BQ-20260824-ABCDEF12";
 const receivedAt = "2026-08-24T01:00:00.000Z";
 const key = `inquiries/2026-08-24/${reference}.json`;
-function source() { return { reference, receivedAt, status: "qualified", email: "primary@buyer.com", company: "Buyer Co", owner: "Sales A", accessTokenHash: "SECRET-HASH", workspaceContacts: [], workspaceContactAudit: [] }; }
+function source() { return { reference, receivedAt, status: "qualified", email: "primary@buyer.com", company: "Buyer Co", owner: "Sales A", accessTokenHash: "SECRET-HASH", workspaceContacts: [], workspaceAccessRequests: [], workspaceContactAudit: [] }; }
 function request(method, body, token = "correct") { return new Request("https://www.beiqiang.online/api/admin/workspace-contacts", { method, headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) }); }
 function grantBody(overrides = {}) { return { reference, receivedAt, email: "ops@buyer.com", name: "Alex Operations", role: "operations", authorizationBasis: "Primary buyer confirmed access by verified company email on 2026-08-24.", authorizationConfirmed: true, actor: "Sales A", ...overrides }; }
 
@@ -55,4 +55,17 @@ test("primary inquiry email access can be revoked and restored without changing 
   assert.equal(revoked.status, 200); assert.equal(current.email, "primary@buyer.com"); assert.equal(revokedBody.primaryAccess.status, "revoked"); assert.equal(current.workspaceContactAudit.at(-1).action, "primary_revoked"); assert.match(mails[0].subject, /access removed/i);
   const restored = await handlers.onRequestPatch({ request: request("PATCH", { ...base, action: "restore", reason: "Buyer director verified restored mailbox control" }), env: { INQUIRY_ADMIN_TOKEN: "correct", SMTP_PASS: "configured" } }); const restoredBody = await restored.json();
   assert.equal(restored.status, 200); assert.equal(restoredBody.primaryAccess.status, "active"); assert.equal(current.workspaceContactAudit.at(-1).action, "primary_restored"); assert.match(mails[1].subject, /access restored/i);
+});
+
+test("verified grant resolves a matching buyer-requested colleague without weakening approval", async () => {
+  let current = source(); current.workspaceAccessRequests = [{ id: "BWR-ABCDEF012345", email: "ops@buyer.com", name: "Alex Operations", role: "operations", purpose: "Review logistics requirements", status: "pending", requestedAt: "2026-08-24T01:30:00.000Z" }]; const store = { get: async () => structuredClone(current), setJSON: async (_key, value) => { current = structuredClone(value); } }; const handlers = createAdminWorkspaceContactHandlers({ getStoreImpl: () => store, nowImpl: () => new Date("2026-08-24T02:00:00.000Z"), randomBytesImpl: () => Buffer.from("abcdef012345", "hex") });
+  assert.equal((await handlers.onRequestPost({ request: request("POST", grantBody({ authorizationConfirmed: false })), env: { INQUIRY_ADMIN_TOKEN: "correct" } })).status, 400);
+  const result = await handlers.onRequestPost({ request: request("POST", grantBody()), env: { INQUIRY_ADMIN_TOKEN: "correct" } });
+  assert.equal(result.status, 201); assert.equal(current.workspaceAccessRequests[0].status, "approved"); assert.equal(current.workspaceAccessRequests[0].contactId, "BWC-ABCDEF012345"); assert.equal(current.workspaceAccessRequests[0].reviewedBy, "Sales A");
+});
+
+test("admin can reject a pending colleague request without granting access", async () => {
+  let current = source(); current.workspaceAccessRequests = [{ id: "BWR-ABCDEF012345", email: "unknown@buyer.com", name: "Unknown Person", role: "other", purpose: "Review this project", status: "pending", requestedAt: "2026-08-24T01:30:00.000Z" }]; const store = { get: async () => structuredClone(current), setJSON: async (_key, value) => { current = structuredClone(value); } }; const handlers = createAdminWorkspaceContactHandlers({ getStoreImpl: () => store, nowImpl: () => new Date("2026-08-24T02:30:00.000Z") });
+  const payload = { reference, receivedAt, accessRequestId: "BWR-ABCDEF012345", action: "reject_request", reason: "Authority could not be verified", actor: "Sales A" }; const result = await handlers.onRequestPatch({ request: request("PATCH", payload), env: { INQUIRY_ADMIN_TOKEN: "correct" } });
+  assert.equal(result.status, 200); assert.equal(current.workspaceAccessRequests[0].status, "rejected"); assert.equal(current.workspaceAccessRequests[0].reviewNote, "Authority could not be verified"); assert.equal(current.workspaceContacts.length, 0); assert.equal((await handlers.onRequestPatch({ request: request("PATCH", payload), env: { INQUIRY_ADMIN_TOKEN: "correct" } })).status, 409);
 });

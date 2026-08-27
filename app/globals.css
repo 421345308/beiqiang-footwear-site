@@ -858,6 +858,22 @@ footer a:hover { color: var(--forest); }
 .inquiry-attachment-uploader ul { margin: 12px 0; padding: 0; list-style: none; }
 .inquiry-attachment-uploader li { padding: 9px 0; display: flex; justify-content: space-between; gap: 15px; border-top: 1px solid rgba(255,255,255,.16); font-size: 11px; }
 .inquiry-attachment-uploader li small { color: #bcebcf; }
+.workspace-access-request { margin-top: 24px; padding: 30px; border: 1px solid rgba(255,255,255,.18); background: var(--forest); color: white; }
+.workspace-access-request h3 { margin: 7px 0; font-family: Georgia, serif; font-size: 28px; }
+.workspace-access-request > div:first-child > p:last-child, .workspace-access-request > small { color: #bfd0c9; line-height: 1.6; }
+.workspace-access-request-history { display: grid; gap: 8px; margin: 20px 0; }
+.workspace-access-request-history article { display: grid; grid-template-columns: 1fr auto; gap: 5px 16px; padding: 13px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); }
+.workspace-access-request-history article div { display: grid; gap: 3px; }
+.workspace-access-request-history article span, .workspace-access-request-history article small { color: #bfd0c9; font-size: 10px; }
+.workspace-access-request-history article b { color: #f0a58c; text-transform: uppercase; font-size: 10px; }
+.workspace-access-request-history article p { grid-column: 1 / -1; margin: 2px 0 0; color: #e7efec; font-size: 11px; }
+.workspace-access-request form { display: grid; gap: 14px; margin: 22px 0 16px; }
+.workspace-access-request form > div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.workspace-access-request label { display: grid; gap: 6px; color: #c9d9d3; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.workspace-access-request input, .workspace-access-request select, .workspace-access-request textarea { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,.25); background: #fff; color: var(--ink); font: inherit; text-transform: none; }
+.workspace-access-request .workspace-contact-confirm { grid-template-columns: auto 1fr; align-items: start; text-transform: none; font-weight: 500; }
+.workspace-access-request .workspace-contact-confirm input { width: auto; margin-top: 3px; }
+.workspace-access-request > p[aria-live] { min-height: 18px; color: #f2b9a4; font-size: 11px; }
 .uploader-light { border-color: var(--line); background: #f5f1e8; color: var(--ink); }
 .uploader-light p, .uploader-light > small { color: var(--muted); }
 .uploader-light .attachment-picker { border-color: var(--line); }
@@ -1047,7 +1063,9 @@ footer a:hover { color: var(--forest); }
 .admin-related-history a span { color: var(--muted); font-size: 9px; }
 .admin-workspace-contacts { border-top: 1px solid var(--line); background: #f4f7f4; }
 .admin-workspace-contacts > summary { padding: 16px 22px; cursor: pointer; color: var(--forest); font-size: 11px; font-weight: 800; text-transform: uppercase; }
-.admin-workspace-contacts > div, .admin-workspace-contacts > form, .admin-workspace-contacts > p, .admin-workspace-contacts > details { margin-right: 22px; margin-left: 22px; }
+.admin-workspace-contacts > div, .admin-workspace-contacts > form, .admin-workspace-contacts > p, .admin-workspace-contacts > details, .admin-workspace-contacts > section { margin-right: 22px; margin-left: 22px; }
+.workspace-access-request-list { margin-bottom: 16px; padding: 14px; border: 1px solid #e1b39f; background: #fff5ef; }
+.workspace-access-request-list h4 { margin: 0 0 10px; color: var(--rust); }
 .workspace-contact-primary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 15px; border: 1px solid var(--line); background: white; }
 .workspace-contact-primary small, .workspace-contact-primary strong { display: block; }
 .workspace-contact-primary small { margin-bottom: 5px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .06em; }
@@ -1849,7 +1867,7 @@ footer a:hover { color: var(--forest); }
   .reminder-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
   .relationship-counts, .relationship-groups, .admin-related-history > div { grid-template-columns: 1fr; }
   .relationship-counts article + article { border-left: 0; border-top: 1px solid var(--line); }
-  .workspace-contact-primary, .workspace-contact-list article { align-items: flex-start; grid-template-columns: 1fr; }
+  .workspace-contact-primary, .workspace-contact-list article, .workspace-access-request form > div, .workspace-access-request-history article { align-items: flex-start; grid-template-columns: 1fr; }
   .workspace-contact-primary { flex-direction: column; }
   .workspace-contact-primary > div:last-child { width: 100%; min-width: 0; grid-template-columns: 1fr; }
   .workspace-contact-form > div { grid-template-columns: 1fr; }
@@ -1969,7 +1987,7 @@ footer a:hover { color: var(--forest); }
   body.buyer-project-printing main > .buyer-status-result { display: block !important; width: 100%; max-width: none; margin: 0; padding: 0; color: #17231f; }
   body.buyer-project-printing .buyer-status-result::before { content: "BEIQIANG FOOTWEAR · BUYER SOURCING PROJECT SNAPSHOT"; display: block; margin-bottom: 7mm; padding-bottom: 4mm; border-bottom: 3px solid #173b32; color: #9d4e36; font-size: 9pt; font-weight: 800; letter-spacing: .11em; }
   body.buyer-project-printing .buyer-status-result::after { content: "Private buyer project summary for internal sourcing review only. This snapshot is not a quotation, invoice, contract, Trade Assurance order, payment request or production authorization. Verify current specifications and commercial terms in the issued written documents."; display: block; margin-top: 8mm; padding-top: 5mm; border-top: 2px solid #173b32; color: #4c5c56; font-size: 8pt; line-height: 1.5; }
-  body.buyer-project-printing .buyer-next-action, body.buyer-project-printing form, body.buyer-project-printing button, body.buyer-project-printing .hero-actions, body.buyer-project-printing .inquiry-attachment-uploader, body.buyer-project-printing .buyer-recommendation-actions, body.buyer-project-printing .buyer-delivery-actions, body.buyer-project-printing .workspace-verified-handoff { display: none !important; }
+  body.buyer-project-printing .buyer-next-action, body.buyer-project-printing form, body.buyer-project-printing button, body.buyer-project-printing .hero-actions, body.buyer-project-printing .inquiry-attachment-uploader, body.buyer-project-printing .workspace-access-request, body.buyer-project-printing .buyer-recommendation-actions, body.buyer-project-printing .buyer-delivery-actions, body.buyer-project-printing .workspace-verified-handoff { display: none !important; }
   body.buyer-project-printing .buyer-status-result > section, body.buyer-project-printing .buyer-status-result > div { break-inside: avoid; box-shadow: none !important; }
   body.buyer-project-printing .buyer-message-thread { max-height: none; overflow: visible; }
   body.comparison-printing > *:not(main), body.comparison-printing main > * { display: none !important; }

@@ -140,6 +140,8 @@ test("publishes Chinese privacy and terms boundaries", async () => {
   assert.match(privacyHtml, /只收集处理B2B采购需求所需的信息/);
   assert.match(privacyHtml, /可选第一方分析/);
   assert.match(privacyHtml, /回复偏好与站外沟通记录/);
+  assert.match(privacyHtml, /同事访问申请/);
+  assert.match(privacyHtml, /不会自动开通权限/);
   assert.match(privacyHtml, /不证明消息送达、邮件打开、身份、同意、付款或订单/);
   const terms = await render("/zh/terms");
   const termsHtml = await terms.text();
