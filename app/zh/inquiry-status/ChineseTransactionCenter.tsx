@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import BuyerQuotationPrintButton from "../../components/BuyerQuotationPrintButton";
+import BuyerProjectPrintButton from "../../components/BuyerProjectPrintButton";
 import { products } from "../../data/products";
 import { productNameZh } from "../../data/products-zh";
 import { addProductToQuote } from "../../lib/quote-list";
@@ -185,7 +186,7 @@ export default function ChineseTransactionCenter(props: Props) {
   const action = nextAction(props.request);
   function go() { document.querySelector(action[3])?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }
   return <>
-    <section className="buyer-next-action"><div><p className="eyebrow">{action[0]}</p><h3>{action[1]}</h3><p>{action[2]}</p></div><div className="buyer-next-action-buttons"><button className="button" type="button" onClick={go}>前往处理</button>{props.request.buyerQuotation && <BuyerQuotationPrintButton locale="zh" />}</div></section>
+    <section className="buyer-next-action"><div><p className="eyebrow">{action[0]}</p><h3>{action[1]}</h3><p>{action[2]}</p></div><div className="buyer-next-action-buttons"><button className="button" type="button" onClick={go}>前往处理</button><BuyerProjectPrintButton locale="zh" />{props.request.buyerQuotation && <BuyerQuotationPrintButton locale="zh" />}</div></section>
     <RecommendationDecision {...props} />
     <SampleDecision {...props} />
     <QuotationDecision {...props} />

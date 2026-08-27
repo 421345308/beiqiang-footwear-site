@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getBuyerNextAction } from "../lib/buyer-next-action";
 import BuyerQuotationPrintButton from "../components/BuyerQuotationPrintButton";
+import BuyerProjectPrintButton from "../components/BuyerProjectPrintButton";
 import InquiryAttachmentUploader from "../components/InquiryAttachmentUploader";
 import { DeliveryFeedbackPanel, FulfillmentCaseReview, type DeliveryFeedback, type FulfillmentCase } from "./FulfillmentWorkflow";
 import RepeatOrderWorkflow, { type RepeatOrderOpportunity } from "./RepeatOrderWorkflow";
@@ -42,7 +43,7 @@ function BuyerNextActionPanel({ request }: { request: PublicRequest }) {
   const action = getBuyerNextAction(request);
   const selectors: Record<string, string> = { "#buyer-recommendation": ".buyer-product-recommendation", "#sample-review": ".buyer-sample-program", "#buyer-quotation": ".buyer-quotation", "#order-setup-request": ".buyer-order-request", "#order-change-review": ".buyer-order-change", "#fulfillment-case-review": ".buyer-fulfillment-cases", "#delivery-feedback": ".buyer-delivery-feedback", "#repeat-order": ".buyer-repeat-order", "#order-handoff": ".buyer-order-handoff", "#buyer-message-center": ".buyer-message-center", "#buyer-contact-actions": ".buyer-status-result > .hero-actions" };
   function goToAction() { const target = document.querySelector(selectors[action.href] || action.href); target?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }
-  return <section className={`buyer-next-action buyer-next-action-${action.tone}`}><div><p className="eyebrow">{action.eyebrow}</p><h3>{action.title}</h3><p>{action.body}</p></div><div className="buyer-next-action-buttons">{action.external ? <a className="button" href={action.href} target="_blank" rel="noreferrer">{action.actionLabel}</a> : <button className="button" type="button" onClick={goToAction}>{action.actionLabel}</button>}{request.buyerQuotation && <BuyerQuotationPrintButton />}</div></section>;
+  return <section className={`buyer-next-action buyer-next-action-${action.tone}`}><div><p className="eyebrow">{action.eyebrow}</p><h3>{action.title}</h3><p>{action.body}</p></div><div className="buyer-next-action-buttons">{action.external ? <a className="button" href={action.href} target="_blank" rel="noreferrer">{action.actionLabel}</a> : <button className="button" type="button" onClick={goToAction}>{action.actionLabel}</button>}<BuyerProjectPrintButton />{request.buyerQuotation && <BuyerQuotationPrintButton />}</div></section>;
 }
 
 function BuyerProductRecommendation({ recommendation, reference, accessCode, onSaved, onStatus }: { recommendation: NonNullable<PublicRequest["buyerRecommendation"]>; reference: string; accessCode: string; onSaved: () => Promise<void>; onStatus: (message: string) => void }) {

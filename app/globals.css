@@ -509,7 +509,7 @@ footer a:hover { color: var(--forest); }
 .buyer-next-action-progress { border-left-color: #1d6754; }
 .buyer-next-action-closed { border-left-color: #737b78; background: #f2f3f2; }
 .buyer-next-action-buttons { min-width: max-content; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; }
-.buyer-quotation-print-button { cursor: pointer; }
+.buyer-quotation-print-button, .buyer-project-print-button { cursor: pointer; }
 .buyer-status-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
 .buyer-status-grid article { padding: 30px; }
 .buyer-status-grid article + article { border-left: 1px solid var(--line); }
@@ -1938,4 +1938,11 @@ footer a:hover { color: var(--forest); }
   body.buyer-quotation-printing .buyer-quote-terms { break-inside: avoid; }
   body.buyer-quotation-printing .buyer-quote-response, body.buyer-quotation-printing .buyer-quotation-print-button, body.buyer-quotation-printing .buyer-quotation-history { display: none !important; }
   body.buyer-quotation-printing .buyer-status-boundary { break-inside: avoid; margin: 6mm 0; background: #f3eee5 !important; print-color-adjust: exact; }
+  body.buyer-project-printing > *:not(main), body.buyer-project-printing main > * { display: none !important; }
+  body.buyer-project-printing main > .buyer-status-result { display: block !important; width: 100%; max-width: none; margin: 0; padding: 0; color: #17231f; }
+  body.buyer-project-printing .buyer-status-result::before { content: "BEIQIANG FOOTWEAR · BUYER SOURCING PROJECT SNAPSHOT"; display: block; margin-bottom: 7mm; padding-bottom: 4mm; border-bottom: 3px solid #173b32; color: #9d4e36; font-size: 9pt; font-weight: 800; letter-spacing: .11em; }
+  body.buyer-project-printing .buyer-status-result::after { content: "Private buyer project summary for internal sourcing review only. This snapshot is not a quotation, invoice, contract, Trade Assurance order, payment request or production authorization. Verify current specifications and commercial terms in the issued written documents."; display: block; margin-top: 8mm; padding-top: 5mm; border-top: 2px solid #173b32; color: #4c5c56; font-size: 8pt; line-height: 1.5; }
+  body.buyer-project-printing .buyer-next-action, body.buyer-project-printing form, body.buyer-project-printing button, body.buyer-project-printing .hero-actions, body.buyer-project-printing .inquiry-attachment-uploader, body.buyer-project-printing .buyer-recommendation-actions, body.buyer-project-printing .buyer-delivery-actions, body.buyer-project-printing .workspace-verified-handoff { display: none !important; }
+  body.buyer-project-printing .buyer-status-result > section, body.buyer-project-printing .buyer-status-result > div { break-inside: avoid; box-shadow: none !important; }
+  body.buyer-project-printing .buyer-message-thread { max-height: none; overflow: visible; }
 }
