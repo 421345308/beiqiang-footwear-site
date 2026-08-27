@@ -120,11 +120,11 @@ Current public structure:
 
 ## 30-Style Line Sheet Lead Path
 
-- `/line-sheet/` explains the buyer value of the current English line sheet and collects company, market, buyer type, product direction, quantity and a reply channel before revealing the PDF download.
+- `/line-sheet/` explains the buyer value of the English line sheet; `/zh/line-sheet/` supplies a separately generated Chinese line sheet. Both collect company, market, buyer type, product direction, quantity and a reply channel before revealing the matching-language PDF download.
 - The request is saved through the existing inquiry service with `context: line_sheet` and `styleCode: CATALOG-2026`, so it receives a reference, private status code, SMTP notification and protected-pipeline record.
 - `line_sheet_request` and `line_sheet_download` respect optional analytics consent. The admin dashboard reports line-sheet leads and consented PDF downloads separately from sourcing inquiries.
 - The current PDF contains 30 products across 8 A4 pages and is generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page.
-- The website copy lives at `public/downloads/beiqiang-footwear-line-sheet-2026.pdf`; the reviewed operating copy lives at `output/pdf/beiqiang-footwear-line-sheet-2026.pdf`. They must have identical hashes.
+- English copies live at `public/downloads/beiqiang-footwear-line-sheet-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-2026.pdf`. Chinese copies live at `public/downloads/beiqiang-footwear-line-sheet-zh-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-zh-2026.pdf`. Each public/operating language pair must have identical hashes.
 - This is a soft conversion gate, not confidential-document access control. Never include internal prices, supplier details, customer information, internal tiers or confidential technical files.
 
 ## Buyer Relationship Memory

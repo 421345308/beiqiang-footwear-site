@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 async function render(pathname) {
@@ -85,6 +85,15 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
     assert.match(html, /hrefLang="en"/i, path); assert.match(html, /hrefLang="zh-CN"/i, path);
     assert.doesNotMatch(html, /guaranteed price|guaranteed customization|medical claim|立即付款|信用卡结账/i, path);
   }
+});
+
+test("keeps the Chinese line-sheet lead path on a dedicated Chinese PDF", async () => {
+  const component = await readFile(new URL("../app/components/ChineseLineSheetLeadForm.tsx", import.meta.url), "utf8");
+  assert.match(component, /beiqiang-footwear-line-sheet-zh-2026\.pdf/);
+  assert.match(component, /下载中文PDF产品目录/);
+  assert.doesNotMatch(component, /下载英文PDF产品目录/);
+  const pdf = await stat(new URL("../public/downloads/beiqiang-footwear-line-sheet-zh-2026.pdf", import.meta.url));
+  assert.equal(pdf.size > 1_000_000, true);
 });
 
 test("publishes Chinese sourcing programs and decision-stage buyer resources", async () => {

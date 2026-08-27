@@ -3,11 +3,26 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { join, resolve } from "node:path";
 import { products } from "../app/data/products.ts";
+import { buyerFitZh, closureZh, colorZh, factZh, productNameZh, productSummaryZh } from "../app/data/products-zh.ts";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const dataFile = resolve(projectRoot, "tmp", "pdfs", "line-sheet-products.json");
+const chineseDataFile = resolve(projectRoot, "tmp", "pdfs", "line-sheet-products-zh.json");
 await mkdir(resolve(projectRoot, "tmp", "pdfs"), { recursive: true });
 await writeFile(dataFile, `${JSON.stringify(products, null, 2)}\n`, "utf8");
+await writeFile(chineseDataFile, `${JSON.stringify(products.map((product) => ({
+  ...product,
+  nameZh: productNameZh(product),
+  summaryZh: productSummaryZh(product),
+  buyerFitZh: buyerFitZh(product),
+  closureZh: closureZh(product.closure),
+  upperZh: factZh(product.upper),
+  soleZh: factZh(product.sole),
+  sizeZh: factZh(product.size),
+  colorsZh: product.colors.map(colorZh),
+  highlightsZh: product.highlights.map(factZh),
+  confirmBeforeQuoteZh: product.confirmBeforeQuote.map(factZh),
+})), null, 2)}\n`, "utf8");
 
 const home = process.env.USERPROFILE || process.env.HOME || "";
 const bundled = home ? join(home, ".cache", "codex-runtimes", "codex-primary-runtime", "dependencies", "python", process.platform === "win32" ? "python.exe" : "bin/python") : "";
@@ -23,3 +38,6 @@ if (!python) throw new Error("A Python runtime with reportlab is required. Set B
 const result = spawnSync(python, [resolve(projectRoot, "scripts", "generate-line-sheet.py")], { cwd: projectRoot, stdio: "inherit" });
 if (result.error) throw result.error;
 if (result.status !== 0) process.exit(result.status || 1);
+const chineseResult = spawnSync(python, [resolve(projectRoot, "scripts", "generate-line-sheet-zh.py")], { cwd: projectRoot, stdio: "inherit" });
+if (chineseResult.error) throw chineseResult.error;
+if (chineseResult.status !== 0) process.exit(chineseResult.status || 1);
