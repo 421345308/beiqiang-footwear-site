@@ -224,6 +224,7 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Every newly saved inquiry receives a 20-character buyer status access code. Only its SHA-256 hash is stored with the record.
 - The success screen and buyer receipt email show the inquiry reference and access code. The email explicitly confirms receipt only, not specifications, price, MOQ, lead time, technical targets or order acceptance.
 - `/inquiry-status/` uses both values to call `GET /api/inquiry-status` and displays only buyer-safe fields.
+- After access is verified, English and Chinese buyers can print or save a current project snapshot for internal sourcing review. It includes the buyer-safe project record already visible on screen, removes forms and action buttons from print, and states that the snapshot is not a quotation, invoice, contract, Trade Assurance order, payment request or production authorization.
 - Internal notes, internal next actions, admin credentials, request metadata and the stored token hash are never returned by the buyer status API.
 - The admin pipeline has a separate `buyerUpdate` field for a safe message shown to the buyer; use `internalNote` for private commercial notes.
 - Older inquiries created before this feature do not have an access code and require manual follow-up.
