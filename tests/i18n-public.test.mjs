@@ -76,6 +76,12 @@ test("publishes the Chinese private-label concept studio with an English equival
   assert.equal(response.status, 200); assert.match(html, /把一款真实鞋型变成更清楚的品牌需求/); assert.match(html, /把需求带入询价单/); assert.match(html, /不是生产可行性或样品批准/); assert.match(html, /不把目标写成已经可生产/); assert.match(html, /hrefLang="en"[^>]+\/private-label-concept\//i); assert.doesNotMatch(html, />保证定制可行<|>立即付款</);
 });
 
+test("publishes a bilingual evidence-led product finder", async () => {
+  const response = await render("/zh/product-finder"); const html = await response.text();
+  assert.equal(response.status, 200); assert.match(html, /从30款产品缩小到可审核的候选清单/); assert.match(html, /生成有依据的候选款/); assert.match(html, /不预测销量、价格或生产可行性/); assert.match(html, /hrefLang="en"[^>]+\/product-finder\//i); assert.doesNotMatch(html, /保证畅销|保证库存|立即付款/);
+  const english = await render("/product-finder"); const englishHtml = await english.text(); assert.equal(english.status, 200); assert.match(englishHtml, /Move from 30 styles to a reviewable shortlist/); assert.match(englishHtml, /does not predict sales, price or manufacturing feasibility/i);
+});
+
 test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet paths", async () => {
   for (const [path, heading, boundary] of [
     ["/zh/factory", /用看得见的证据开始工厂端采购沟通/, /不据此虚构产能、客户品牌或认证/],
@@ -148,6 +154,8 @@ test("publishes Chinese privacy and terms boundaries", async () => {
   assert.match(privacyHtml, /同事访问申请/);
   assert.match(privacyHtml, /不会自动开通权限/);
   assert.match(privacyHtml, /私标概念工作台/);
+  assert.match(privacyHtml, /B2B采购选款助手/);
+  assert.match(privacyHtml, /不会把具体选择标签保存成买家画像/);
   assert.match(privacyHtml, /采购会议申请/);
   assert.match(privacyHtml, /不会自动建立日历预约/);
   assert.match(privacyHtml, /不证明消息送达、邮件打开、身份、同意、付款或订单/);
@@ -230,6 +238,7 @@ test("links English and Chinese equivalents for search engines and buyers", asyn
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/collections\/wide-toe-box\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/collections\/knit-slip-on\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/collections\/breathable-lace-up\/?/);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/product-finder\/?/);
   assert.doesNotMatch(xml, /zh\/inquiry-status|zh\/buyer-workspace/);
 });
 
@@ -246,7 +255,7 @@ test("includes every Chinese public route in the EdgeOne export contract", async
   assert.match(exporter, /chineseSolutionRoutes/);
   assert.match(exporter, /chineseResourceRoutes/);
   assert.match(exporter, /pathname:\s*"\/zh\/resources"/);
-  for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
+  for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "product-finder", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
   assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
   assert.match(exporter, /zh\/collections\/\$\{slug\}\/index\.html/);
 });

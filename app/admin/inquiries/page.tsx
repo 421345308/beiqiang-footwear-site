@@ -536,6 +536,10 @@ type CommercialAnalytics = {
     privateLabelStudioViews: number;
     privateLabelConceptDownloads: number;
     privateLabelConceptQuoteHandoffs: number;
+    productFinderViews: number;
+    productFinderResults: number;
+    productFinderComparisonHandoffs: number;
+    productFinderQuoteHandoffs: number;
     buyerMessages: number;
     buyerFiles: number;
     buyerDocuments: number;
@@ -1253,6 +1257,22 @@ function CommercialDashboard({
             <article>
               <small>CONCEPT → RFQ</small>
               <strong>{data.supporting.privateLabelConceptQuoteHandoffs || 0}</strong>
+            </article>
+            <article>
+              <small>PRODUCT FINDER</small>
+              <strong>{data.supporting.productFinderViews || 0}</strong>
+            </article>
+            <article>
+              <small>FINDER RESULTS</small>
+              <strong>{data.supporting.productFinderResults || 0}</strong>
+            </article>
+            <article>
+              <small>FINDER → COMPARE</small>
+              <strong>{data.supporting.productFinderComparisonHandoffs || 0}</strong>
+            </article>
+            <article>
+              <small>FINDER → RFQ</small>
+              <strong>{data.supporting.productFinderQuoteHandoffs || 0}</strong>
             </article>
             <article>
               <small>THREAD MESSAGES</small>

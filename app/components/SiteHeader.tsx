@@ -17,6 +17,7 @@ export default function SiteHeader({ chineseHref = "/zh/" }: { chineseHref?: str
         </Link>
         <nav aria-label="Primary navigation">
           <Link href="/products/">All products</Link>
+          <Link href="/product-finder/">Find styles</Link>
           <Link href="/line-sheet/">Line sheet</Link>
           <Link href="/factory/">Factory</Link>
           <Link href="/quality-packing/">Quality &amp; packing</Link>

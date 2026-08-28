@@ -8,6 +8,7 @@ import { productCount } from "../data/catalog-meta";
 const links = [
   ["中文首页", "/zh/"],
   [`全部${productCount}款产品`, "/zh/products/"],
+  ["B2B采购选款助手", "/zh/product-finder/"],
   ["产品目录 Line Sheet", "/zh/line-sheet/"],
   ["宽鞋头产品系列", "/zh/collections/wide-toe-box/"],
   ["针织套穿产品系列", "/zh/collections/knit-slip-on/"],

@@ -175,6 +175,18 @@ export default function PrivacyPage() {
           </p>
         </section>
         <section>
+          <h2>B2B product finder</h2>
+          <p>
+            Buyer-channel, product-direction, closure and shortlist-size choices
+            are evaluated in the current browser and are not submitted as an
+            inquiry. If optional analytics are accepted, the site may record the
+            fixed finder action, bounded result style codes and result count; it
+            does not record the choice labels as a buyer profile. Products enter
+            device storage only when the buyer explicitly adds them to the quote
+            list.
+          </p>
+        </section>
+        <section>
           <h2>Private-label concept studio</h2>
           <p>
             Logo or reference-image files selected in the concept studio are

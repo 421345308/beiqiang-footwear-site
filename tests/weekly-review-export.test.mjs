@@ -63,6 +63,10 @@ const analytics = {
     privateLabelStudioViews: 4,
     privateLabelConceptDownloads: 2,
     privateLabelConceptQuoteHandoffs: 1,
+    productFinderViews: 6,
+    productFinderResults: 4,
+    productFinderComparisonHandoffs: 2,
+    productFinderQuoteHandoffs: 1,
     meetingRequestsSubmitted: 3,
     meetingsPending: 1,
     meetingsConfirmed: 1,
@@ -167,6 +171,9 @@ test("exports a Chinese weekly report with evidence and non-prediction boundarie
   assert.match(report, /产品组合分享证据/);
   assert.match(report, /私标概念到询价/);
   assert.match(report, /工作台浏览：4；概念图下载：2；进入结构化询价：1/);
+  assert.match(report, /采购选款助手/);
+  assert.match(report, /页面浏览：6；生成结果：4/);
+  assert.match(report, /进入并排比较：2；加入询价：1/);
   assert.match(
     report,
     /BQ001 · BQ009：2次分享动作、1次分享链接打开、1次打印\/PDF动作/,

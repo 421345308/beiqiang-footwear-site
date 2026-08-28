@@ -10,6 +10,7 @@ const groups = [
     label: "Products",
     links: [
       [`All ${productCount} products`, "/products/"],
+      ["B2B product finder", "/product-finder/"],
       [`${productCount}-style line sheet`, "/line-sheet/"],
       ["Wide toe box collection", "/collections/wide-toe-box/"],
       ["Knit slip-on collection", "/collections/knit-slip-on/"],

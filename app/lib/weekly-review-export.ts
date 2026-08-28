@@ -89,6 +89,10 @@ export type WeeklyReviewAnalytics = {
     privateLabelStudioViews?: number;
     privateLabelConceptDownloads?: number;
     privateLabelConceptQuoteHandoffs?: number;
+    productFinderViews?: number;
+    productFinderResults?: number;
+    productFinderComparisonHandoffs?: number;
+    productFinderQuoteHandoffs?: number;
     meetingRequestsSubmitted?: number;
     meetingsPending?: number;
     meetingsConfirmed?: number;
@@ -302,6 +306,11 @@ export function buildWeeklyReviewMarkdown({
     "## 私标概念到询价",
     `- 工作台浏览：${analytics.supporting?.privateLabelStudioViews || 0}；概念图下载：${analytics.supporting?.privateLabelConceptDownloads || 0}；进入结构化询价：${analytics.supporting?.privateLabelConceptQuoteHandoffs || 0}。`,
     "- 以上是经同意的页面行为信号，不证明Logo可生产、样品已批、询盘有效或订单成立；应与实际私标询盘及后续样品结果核对。",
+    "",
+    "## 采购选款助手",
+    `- 页面浏览：${analytics.supporting?.productFinderViews || 0}；生成结果：${analytics.supporting?.productFinderResults || 0}。`,
+    `- 进入并排比较：${analytics.supporting?.productFinderComparisonHandoffs || 0}；加入询价：${analytics.supporting?.productFinderQuoteHandoffs || 0}。`,
+    "- 匹配只用于缩小目录范围；必须继续用真实询盘、样品、报价和正式订单验证商业价值。",
     "",
     "## 采购会议执行证据",
     `- 周期内会议申请：${analytics.supporting?.meetingRequestsSubmitted || 0}`,
