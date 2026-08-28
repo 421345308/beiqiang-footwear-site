@@ -34,7 +34,7 @@ test("routes an open issued quotation to the decision area", () => {
 test("routes an accepted quotation to order setup only before a request exists", () => {
   const setup = getBuyerNextAction({ ...open, buyerQuotation: { status: "buyer_accepted", quoteNumber: "Q1" } });
   const waiting = getBuyerNextAction({ ...open, buyerQuotation: { status: "buyer_accepted", quoteNumber: "Q1" }, buyerOrderRequest: { quoteNumber: "Q1" } });
-  assert.equal(setup.href, "#order-setup-request"); assert.equal(waiting.href, "#buyer-message-center"); assert.match(waiting.body, /not yet a production order/i);
+  assert.equal(setup.href, "#order-setup-request"); assert.equal(waiting.href, "#order-preparation-packet"); assert.match(waiting.title, /protected order-preparation packet/i); assert.match(waiting.body, /not yet a production order/i);
 });
 
 test("separates a quotation revision request from a declined quotation", () => {

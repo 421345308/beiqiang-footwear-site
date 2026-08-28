@@ -10,6 +10,7 @@ import { productNameZh } from "../../data/products-zh";
 import { addProductToQuote } from "../../lib/quote-list";
 import { trackEvent } from "../../lib/tracking";
 import QuotationVersionHistory, { type BuyerSafeQuotation } from "../../components/QuotationVersionHistory";
+import BuyerOrderPreparationPacket, { type BuyerOrderPreparationPacketRecord } from "../../components/BuyerOrderPreparationPacket";
 import type { WorkspaceAccessRequestRecord } from "../../components/WorkspaceAccessRequest";
 import BuyerSampleRequest, { type BuyerSampleRequestRecord } from "../../components/BuyerSampleRequest";
 import BuyerMeetingRequest, { type BuyerMeetingRequestRecord } from "../../components/BuyerMeetingRequest";
@@ -45,6 +46,7 @@ export type ChineseProjectRequest = {
   buyerQuotation: BuyerSafeQuotation | null;
   quotationHistory: BuyerSafeQuotation[];
   buyerOrderRequest: null | { id: string; quoteNumber: string; preferredOrderChannel: "alibaba_trade_assurance" | "contract" | "need_guidance"; legalCompanyName: string; purchasingContact: string; purchaseOrderReference: string; destination: string; requestedWindow: string; instructions: string; status: string; submittedAt: string };
+  orderPreparationPackets: BuyerOrderPreparationPacketRecord[];
   orderHandoff: PublicOrderHandoff | null;
   orderVersions: { version: number; acceptedAt: string; acceptedBy: string; source: string; orderHandoff: PublicOrderHandoff }[];
   orderChangeRequests: { id: string; status: string; reason: string; changedFields: string[]; baseVersion: number; proposedHandoff: PublicOrderHandoff; createdAt: string; buyerDecision: string; buyerNote: string; buyerRespondedAt: string }[];
@@ -184,6 +186,9 @@ function nextAction(request: ChineseProjectRequest) {
   if (request.sampleProgram?.status === "buyer_review") return ["需要买家验样", "审核具名实物样品", "只按本轮交付物、标准和排除项作决定。", "#sample-review"];
   if (request.buyerQuotation?.status === "issued") return ["需要商业决定", "审核已签发报价", "可接受本版、结构化要求修改或说明拒绝原因。", "#buyer-quotation"];
   if (request.buyerQuotation?.status === "buyer_accepted" && !request.buyerOrderRequest && !request.orderHandoff) return ["下一商业步骤", "申请准备正式订单", "补充买方法定主体、联系人、目的地和交易渠道。", "#order-setup-request"];
+  const packet = request.orderPreparationPackets?.at(-1);
+  if (request.buyerOrderRequest && (!packet || packet.status === "needs_revision") && !request.orderHandoff) return [packet ? "需要买家修订" : "下一商业步骤", packet ? `修订订单准备资料V${packet.version + 1}` : "填写受保护订单准备资料", packet ? "查看贝强审核说明并提交保留历史的新版本。" : "把账单公司、收货、进口责任、商业文件和PO附件放进同一条人工审核链。", "#order-preparation-packet"];
+  if (request.buyerOrderRequest && packet && !request.orderHandoff) return ["订单准备中", "贝强正在核对受保护资料", "资料包不是生产订单；最终八项书面内容仍须在正式交易渠道确认。", "#order-preparation-packet"];
   const meeting = request.meetingRequests?.find((item) => ["pending", "confirmed"].includes(item.status));
   if (meeting?.status === "confirmed") return ["采购会议已确认", `${meeting.confirmedSlot || "时间已确认"} · ${meeting.timezone}`, "请核对议题和连接方式；会议讨论不替代书面样品、报价和正式订单条款。", "#meeting-request"];
   if (meeting) return ["会议申请待审核", `${meeting.id}正在等待贝强确认`, "候选时间、时区和议题已保存，但尚未建立日历预约或确认出席。", "#meeting-request"];
@@ -205,6 +210,7 @@ export default function ChineseTransactionCenter(props: Props) {
     <QuotationDecision {...props} />
     {props.request.buyerQuotation ? <QuotationVersionHistory quotations={props.request.quotationHistory || []} currentQuoteNumber={props.request.buyerQuotation.quoteNumber} locale="zh" /> : null}
     <OrderSetupDecision {...props} />
+    {!props.request.orderHandoff ? <BuyerOrderPreparationPacket reference={props.reference} accessCode={props.accessCode} orderRequest={props.request.buyerOrderRequest} packets={props.request.orderPreparationPackets || []} attachments={props.request.attachments || []} locale="zh" onSaved={props.onSaved} onStatus={props.onStatus} /> : null}
     <OrderChangeDecision {...props} />
     <DocumentCenter request={props.request} reference={props.reference} accessCode={props.accessCode} onStatus={props.onStatus} />
     <FulfillmentDecision {...props} />

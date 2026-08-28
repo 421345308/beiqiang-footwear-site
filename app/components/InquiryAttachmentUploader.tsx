@@ -14,7 +14,7 @@ function fallbackContentType(file: File) {
   return ({ pdf: "application/pdf", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", zip: "application/zip", docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation" } as Record<string, string>)[extension || ""] || "";
 }
 
-export default function InquiryAttachmentUploader({ reference, accessCode, tone = "dark", locale = "en" }: { reference: string; accessCode: string; tone?: "dark" | "light"; locale?: "en" | "zh" }) {
+export default function InquiryAttachmentUploader({ reference, accessCode, tone = "dark", locale = "en", onUploaded }: { reference: string; accessCode: string; tone?: "dark" | "light"; locale?: "en" | "zh"; onUploaded?: () => void | Promise<void> }) {
   const zh = locale === "zh";
   const [files, setFiles] = useState<File[]>([]);
   const [uploaded, setUploaded] = useState<UploadedFile[]>([]);
@@ -49,11 +49,12 @@ export default function InquiryAttachmentUploader({ reference, accessCode, tone 
       setUploaded((current) => [...current, ...completed]);
       setFiles([]);
       setMessage(zh ? `${completed.length}个文件已安全关联到${reference}。` : `${completed.length} file${completed.length === 1 ? "" : "s"} securely attached to ${reference}.`);
+      await onUploaded?.();
     } catch (error) { setMessage(error instanceof Error ? error.message : (zh ? "文件无法上传。" : "The files could not be uploaded.")); }
     finally { setUploading(false); }
   }
 
-  return <section className={`inquiry-attachment-uploader uploader-${tone}`} aria-label={zh ? "询盘文件上传" : "Inquiry file upload"}>
+  return <section className={`inquiry-attachment-uploader uploader-${tone}`} id="buyer-file-uploader" aria-label={zh ? "询盘文件上传" : "Inquiry file upload"}>
     <div><strong>{zh ? "添加买家文件" : "Add buyer files"}</strong><p>{zh ? "支持PDF、JPG、PNG、WEBP、DOCX、XLSX、PPTX或ZIP；每个不超过15 MB，最多5个。" : "PDF, JPG, PNG, WEBP, DOCX, XLSX, PPTX or ZIP · up to 15 MB each · maximum 5 files."}</p></div>
     {uploaded.length < MAX_FILES && <div className="attachment-actions"><label className="attachment-picker">{zh ? "选择文件" : "Choose files"}<input type="file" accept={ACCEPTED} multiple onChange={choose} disabled={uploading} /></label><button className="button button-small" type="button" onClick={upload} disabled={uploading || !files.length}>{uploading ? (zh ? "上传中……" : "Uploading…") : (zh ? "上传并关联" : "Attach files")}</button></div>}
     {uploaded.length ? <ul>{uploaded.map((file) => <li key={file.id}><span>{file.name}</span><small>{Math.ceil(file.size / 1024)} KB {zh ? "已关联" : "attached"}</small></li>)}</ul> : null}

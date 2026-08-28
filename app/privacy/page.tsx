@@ -274,29 +274,48 @@ export default function PrivacyPage() {
             From a private project page, a buyer may submit the associated style
             codes, requested sample type and quantity, sizes, colors, evaluation
             purpose, customization target, acceptance focus, indicative bulk
-            quantity, destination country and city, courier-account availability,
-            and requested timing. We store the request, review status, timestamps,
-            buyer-safe review note and any linked sample reference with the inquiry
-            so Beiqiang can assess feasibility and written commercial terms. Full
-            street addresses, courier credentials and payment information should
-            not be entered in this form.
+            quantity, destination country and city, courier-account
+            availability, and requested timing. We store the request, review
+            status, timestamps, buyer-safe review note and any linked sample
+            reference with the inquiry so Beiqiang can assess feasibility and
+            written commercial terms. Full street addresses, courier credentials
+            and payment information should not be entered in this form.
+          </p>
+        </section>
+        <section>
+          <h2>Protected order-preparation packets</h2>
+          <p>
+            After an accepted quotation and order-setup request, a verified
+            project holder may submit the legal billing company, registered
+            country, invoice email, billing and shipping addresses, consignee
+            and contact, importer direction, planned shipping mode, requested
+            commercial documents, buyer PO reference, selected
+            inquiry-attachment identifiers and notes. The full packet is
+            available only through the private project access and protected
+            administrator record. Sales notification email contains a limited
+            summary and linked file names, not the full street addresses or
+            access code. Packet versions and human review notes are retained
+            with the inquiry so corrections do not silently overwrite earlier
+            buyer evidence.
           </p>
         </section>
         <section>
           <h2>Sourcing meeting requests</h2>
           <p>
             A verified project holder may submit a meeting purpose, preferred
-            channel, time zone or city, two or three proposed local times, agenda,
-            attendee roles and preferred language. We store the request, review
-            status, confirmed time and channel, approved meeting link where used,
-            buyer-safe notes, notification outcome, a bounded history of calendar-file
-            download timestamps, buyer reschedule or cancellation requests, their
-            proposed times and reasons, human review decisions, earlier confirmed
-            schedules and factual completion summary with the inquiry.
-            Beiqiang reviews every request manually; the form does not create a calendar
-            event or guarantee attendance or language support. Download timestamps support
-            operational follow-up and do not reveal calendar contents or prove attendance.
-            A change request does not alter the confirmed meeting until Beiqiang approves it.
+            channel, time zone or city, two or three proposed local times,
+            agenda, attendee roles and preferred language. We store the request,
+            review status, confirmed time and channel, approved meeting link
+            where used, buyer-safe notes, notification outcome, a bounded
+            history of calendar-file download timestamps, buyer reschedule or
+            cancellation requests, their proposed times and reasons, human
+            review decisions, earlier confirmed schedules and factual completion
+            summary with the inquiry. Beiqiang reviews every request manually;
+            the form does not create a calendar event or guarantee attendance or
+            language support. Download timestamps support operational follow-up
+            and do not reveal calendar contents or prove attendance. A change
+            request does not alter the confirmed meeting until Beiqiang approves
+            it.
           </p>
         </section>
       </article>

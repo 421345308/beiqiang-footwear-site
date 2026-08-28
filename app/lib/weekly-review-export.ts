@@ -95,6 +95,9 @@ export type WeeklyReviewAnalytics = {
     meetingChangesSubmitted?: number;
     meetingChangesPending?: number;
     meetingChangesApproved?: number;
+    orderPacketsSubmitted?: number;
+    orderPacketsPending?: number;
+    orderPacketsReviewed?: number;
   };
   collectionJourneys?: WeeklyCollectionJourney[];
   comparisonJourneys?: WeeklyComparisonJourney[];
@@ -296,6 +299,10 @@ export function buildWeeklyReviewMarkdown({
     `- 日历文件下载：${analytics.supporting?.meetingCalendarDownloads || 0}次，覆盖${analytics.supporting?.meetingProjectsWithCalendarDownload || 0}个项目`,
     `- 会议变更申请：${analytics.supporting?.meetingChangesSubmitted || 0}；当前待审核：${analytics.supporting?.meetingChangesPending || 0}；已批准：${analytics.supporting?.meetingChangesApproved || 0}`,
     "- 日历下载不证明出席；会议完成不证明报价接受或订单成立。核对会后是否形成样品、报价、订单资料或履约下一步。",
+    "",
+    "## 正式订单准备资料",
+    `- 周期内提交资料包：${analytics.supporting?.orderPacketsSubmitted || 0}；当前待人工审核：${analytics.supporting?.orderPacketsPending || 0}；周期内已审核：${analytics.supporting?.orderPacketsReviewed || 0}`,
+    "- 资料包提交或审核都不证明订单、发票、付款或生产已成立；继续核对正式Trade Assurance订单或签署合同。",
     "",
     "## 回复与管道健康",
     `- 精确首次回复覆盖：${execution.response.exactMeasured}/${execution.response.cohort}（${execution.response.exactCoverageRate}%）`,

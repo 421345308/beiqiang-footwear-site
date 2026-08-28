@@ -193,6 +193,31 @@ type BuyerOrderRequest = {
   status: string;
   submittedAt: string;
 };
+type OrderPreparationPacket = {
+  id: string;
+  version: number;
+  orderRequestId: string;
+  quoteNumber: string;
+  billingCompany: string;
+  registeredCountry: string;
+  billingAddress: string;
+  invoiceEmail: string;
+  shippingConsignee: string;
+  shippingCountry: string;
+  shippingAddress: string;
+  shippingContact: string;
+  importerRole: string;
+  shippingMode: string;
+  requiredDocuments: string[];
+  purchaseOrderReference: string;
+  attachmentIds: string[];
+  notes: string;
+  status: string;
+  submittedAt: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+  reviewNote?: string;
+};
 type InquiryMessage = {
   id: string;
   sender: "buyer" | "sales";
@@ -554,6 +579,7 @@ type ReminderSummary = {
     recommendations: number;
     quotes: number;
     meetings: number;
+    orderPackets: number;
     orderChanges: number;
     fulfillmentCases: number;
     repeatOrders: number;
@@ -598,6 +624,17 @@ type ReminderSummary = {
     timezone: string;
     channel: string;
     notificationStatus: string;
+  }[];
+  orderPackets: {
+    reference: string;
+    company: string;
+    owner: string;
+    packetId: string;
+    version: number;
+    quoteNumber: string;
+    dueDate: string;
+    timing: string;
+    action: string;
   }[];
   orderChanges: {
     reference: string;
@@ -698,6 +735,7 @@ type Inquiry = {
   sampleRequests?: SampleRequest[];
   meetingRequests?: MeetingRequest[];
   buyerOrderRequests?: BuyerOrderRequest[];
+  orderPreparationPackets?: OrderPreparationPacket[];
   orderHandoff?: OrderHandoff | null;
   orderVersions?: OrderVersion[];
   orderChangeRequests?: OrderChangeRequest[];
@@ -1373,6 +1411,10 @@ function ReminderCenter({
               <strong>{summary.counts.meetings}</strong>
             </article>
             <article>
+              <small>ORDER PACKET</small>
+              <strong>{summary.counts.orderPackets}</strong>
+            </article>
+            <article>
               <small>ORDER CHANGE</small>
               <strong>{summary.counts.orderChanges}</strong>
             </article>
@@ -1474,6 +1516,25 @@ function ReminderCenter({
               ))}
               {!summary.orderChanges.length && (
                 <p>No confirmed-order change awaiting buyer.</p>
+              )}
+            </div>
+            <div>
+              <h3>Order packet review</h3>
+              {summary.orderPackets.slice(0, 6).map((item) => (
+                <p key={item.packetId}>
+                  <strong>
+                    V{item.version} · {item.quoteNumber}
+                  </strong>
+                  <span>
+                    {item.dueDate} · {item.timing.replaceAll("_", " ")}
+                  </span>
+                  <small>
+                    {item.reference} · {item.company} · {item.owner}
+                  </small>
+                </p>
+              ))}
+              {!summary.orderPackets.length && (
+                <p>No order packet awaiting review.</p>
               )}
             </div>
             <div>
@@ -4698,6 +4759,210 @@ function BuyerOrderRequestSummary({ record }: { record: Inquiry }) {
   );
 }
 
+function OrderPreparationPacketCenter({
+  record,
+  token,
+  onSaved,
+}: {
+  record: Inquiry;
+  token: string;
+  onSaved: (record: Inquiry) => void;
+}) {
+  const packets = record.orderPreparationPackets || [];
+  const latest = packets.at(-1);
+  const [action, setAction] = useState<"review" | "request_revision">("review");
+  const [reviewNote, setReviewNote] = useState("");
+  const [reviewedBy, setReviewedBy] = useState("Beiqiang sales");
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
+  if (!packets.length) return null;
+  async function submit(event: React.FormEvent) {
+    event.preventDefault();
+    if (!latest || latest.status !== "submitted") return;
+    setSaving(true);
+    setMessage("Saving protected packet review…");
+    try {
+      const response = await fetch("/api/admin/order-preparation-packet", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          reference: record.reference,
+          packetId: latest.id,
+          action,
+          reviewNote,
+          reviewedBy,
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok)
+        throw new Error(result.message || "Packet review could not be saved.");
+      const updatedPacket = { ...latest, ...result.packet, reviewedBy };
+      onSaved({
+        ...record,
+        orderPreparationPackets: packets.map((item) =>
+          item.id === latest.id ? updatedPacket : item,
+        ),
+        updatedAt: result.packet.reviewedAt || record.updatedAt,
+      });
+      setMessage(result.message);
+    } catch (error) {
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Packet review could not be saved.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+  return (
+    <details className="admin-order-packet" open>
+      <summary>Protected order-preparation packet · {packets.length}</summary>
+      <div>
+        {[...packets].reverse().map((packet) => (
+          <article key={packet.id} className={`packet-${packet.status}`}>
+            <div>
+              <strong>
+                V{packet.version} · {packet.status.replaceAll("_", " ")}
+              </strong>
+              <span>
+                {new Date(packet.submittedAt).toLocaleString()} ·{" "}
+                {packet.quoteNumber}
+              </span>
+            </div>
+            <dl>
+              <div>
+                <dt>Billing company</dt>
+                <dd>
+                  {packet.billingCompany} · {packet.registeredCountry}
+                </dd>
+              </div>
+              <div>
+                <dt>Billing address</dt>
+                <dd>{packet.billingAddress}</dd>
+              </div>
+              <div>
+                <dt>Invoice email</dt>
+                <dd>{packet.invoiceEmail}</dd>
+              </div>
+              <div>
+                <dt>Shipping consignee</dt>
+                <dd>
+                  {packet.shippingConsignee} · {packet.shippingContact}
+                </dd>
+              </div>
+              <div>
+                <dt>Shipping address</dt>
+                <dd>
+                  {packet.shippingAddress} · {packet.shippingCountry}
+                </dd>
+              </div>
+              <div>
+                <dt>Importer / shipping</dt>
+                <dd>
+                  {packet.importerRole.replaceAll("_", " ")} ·{" "}
+                  {packet.shippingMode.replaceAll("_", " ")}
+                </dd>
+              </div>
+              <div>
+                <dt>PO / documents</dt>
+                <dd>
+                  {packet.purchaseOrderReference || "No PO reference"} ·{" "}
+                  {packet.requiredDocuments
+                    .map((item) => item.replaceAll("_", " "))
+                    .join(", ") || "No document request"}
+                </dd>
+              </div>
+              <div>
+                <dt>Linked buyer files</dt>
+                <dd>
+                  {packet.attachmentIds
+                    .map(
+                      (id) =>
+                        record.attachments?.find((item) => item.id === id)
+                          ?.name || `${id} (missing/revoked)`,
+                    )
+                    .join(", ") || "None linked"}
+                </dd>
+              </div>
+              {packet.notes && (
+                <div>
+                  <dt>Buyer notes</dt>
+                  <dd>{packet.notes}</dd>
+                </div>
+              )}
+              {packet.reviewNote && (
+                <div>
+                  <dt>Review note</dt>
+                  <dd>
+                    {packet.reviewNote} ·{" "}
+                    {packet.reviewedBy || "Beiqiang sales"}
+                  </dd>
+                </div>
+              )}
+            </dl>
+          </article>
+        ))}
+      </div>
+      {latest?.status === "submitted" ? (
+        <form onSubmit={submit}>
+          <label>
+            Decision
+            <select
+              value={action}
+              onChange={(event) =>
+                setAction(event.target.value as "review" | "request_revision")
+              }
+            >
+              <option value="review">
+                Reviewed for formal-order preparation
+              </option>
+              <option value="request_revision">
+                Request a new buyer version
+              </option>
+            </select>
+          </label>
+          <label>
+            Buyer-safe review note
+            <textarea
+              required
+              minLength={5}
+              maxLength={1000}
+              rows={3}
+              value={reviewNote}
+              onChange={(event) => setReviewNote(event.target.value)}
+            />
+          </label>
+          <label>
+            Reviewed by
+            <input
+              maxLength={100}
+              value={reviewedBy}
+              onChange={(event) => setReviewedBy(event.target.value)}
+            />
+          </label>
+          <button
+            className="button button-small"
+            type="submit"
+            disabled={saving}
+          >
+            {saving ? "Saving…" : "Save human review"}
+          </button>
+        </form>
+      ) : null}
+      <p aria-live="polite">{message}</p>
+      <small>
+        Review means the packet can support document preparation. It is not
+        order confirmation, invoice issuance, payment verification or production
+        authorization.
+      </small>
+    </details>
+  );
+}
+
 function OrderHandoffEditor({
   record,
   token,
@@ -6619,6 +6884,12 @@ export default function InquiryAdminPage() {
                   onSaved={replaceRecord}
                 />
                 <BuyerOrderRequestSummary record={record} />
+                <OrderPreparationPacketCenter
+                  key={`packet-${record.reference}-${record.updatedAt}`}
+                  record={record}
+                  token={token}
+                  onSaved={replaceRecord}
+                />
                 <OrderHandoffEditor
                   key={`order-${record.reference}-${record.updatedAt}`}
                   record={record}

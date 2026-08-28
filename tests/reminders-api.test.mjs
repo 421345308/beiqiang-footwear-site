@@ -103,6 +103,7 @@ test("builds one internal action list for follow-up, shortlist, quote and paymen
     recommendations: 1,
     quotes: 1,
     meetings: 0,
+    orderPackets: 0,
     orderChanges: 1,
     fulfillmentCases: 1,
     repeatOrders: 1,
@@ -228,7 +229,12 @@ test("turns meeting review, preparation, notification, time-zone and outcome gap
           confirmedChannel: "video_call",
           notificationStatus: "sent",
           changeRequests: [
-            { id: "BMC-777777777777", status: "pending", action: "reschedule", submittedAt: "2026-08-21T10:00:00.000Z" },
+            {
+              id: "BMC-777777777777",
+              status: "pending",
+              action: "reschedule",
+              submittedAt: "2026-08-21T10:00:00.000Z",
+            },
           ],
         },
       ],

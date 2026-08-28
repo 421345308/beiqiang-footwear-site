@@ -70,28 +70,30 @@ export default function TermsPage() {
         <section>
           <h2>Sample feasibility requests</h2>
           <p>
-            Submitting a sample request asks Beiqiang to review the selected styles,
-            requested scope, destination and timing. It does not confirm sample
-            availability, sample price, freight, preparation time, specifications,
-            technical performance, test results, intellectual-property acceptance
-            or a bulk order. Those items require separate written confirmation after
-            feasibility review.
+            Submitting a sample request asks Beiqiang to review the selected
+            styles, requested scope, destination and timing. It does not confirm
+            sample availability, sample price, freight, preparation time,
+            specifications, technical performance, test results,
+            intellectual-property acceptance or a bulk order. Those items
+            require separate written confirmation after feasibility review.
           </p>
         </section>
         <section>
           <h2>Sourcing meetings</h2>
           <p>
-            Proposed meeting times are buyer-supplied local-time options. A meeting
-            exists only after Beiqiang confirms one option, the stated time zone and
-            channel. Discussion, screen sharing, chat or a meeting summary does not
-            confirm specifications, capability, sample approval, price, payment,
-            production or an order unless the same terms are separately recorded in
-            the applicable written quotation, Trade Assurance order or signed
-            contract. A downloaded iCalendar file is a buyer-controlled personal
-            scheduling copy; it does not synchronize calendars, report attendance or
-            automatically update a cancelled meeting. A buyer reschedule or cancellation
-            request does not change the confirmed meeting until Beiqiang approves it;
-            after an approved reschedule, the buyer must download the current calendar file.
+            Proposed meeting times are buyer-supplied local-time options. A
+            meeting exists only after Beiqiang confirms one option, the stated
+            time zone and channel. Discussion, screen sharing, chat or a meeting
+            summary does not confirm specifications, capability, sample
+            approval, price, payment, production or an order unless the same
+            terms are separately recorded in the applicable written quotation,
+            Trade Assurance order or signed contract. A downloaded iCalendar
+            file is a buyer-controlled personal scheduling copy; it does not
+            synchronize calendars, report attendance or automatically update a
+            cancelled meeting. A buyer reschedule or cancellation request does
+            not change the confirmed meeting until Beiqiang approves it; after
+            an approved reschedule, the buyer must download the current calendar
+            file.
           </p>
         </section>
         <section>
@@ -100,22 +102,26 @@ export default function TermsPage() {
             A buyer order-setup request asks Beiqiang to prepare the formal
             transaction documents; it is not a purchase order accepted by
             Beiqiang, a production instruction, invoice or payment request. An
-            order becomes confirmed only through the agreed Alibaba Trade
-            Assurance order or separately executed contract and after required
-            specifications and commercial terms are accepted. If Beiqiang
-            proposes a website change to critical confirmed terms, the current
-            website version remains active until the buyer accepts the proposal.
-            Website acceptance creates an audit version but does not by itself
-            amend the authoritative Trade Assurance order or signed contract;
-            the same change must be confirmed in that formal channel before
-            affected production or payment action. Fulfillment, carrier,
-            tracking and actual payment-status records may be updated without
-            changing the accepted commercial version. Website payment milestones
-            are operating records, not bank receipts or an online payment
-            service; confirm every amount and payment status inside the agreed
-            transaction channel. Beiqiang does not request website visitors to
-            enter card, bank, email or verification-code credentials on this
-            site.
+            order-preparation packet structures buyer-supplied company, billing,
+            shipping, importer, document and PO information for human review. A
+            submitted or reviewed packet is not an accepted purchase order,
+            invoice, payment instruction, stock allocation or production
+            authorization. A formal order becomes confirmed only through the
+            agreed Alibaba Trade Assurance order or separately executed contract
+            and after required specifications and commercial terms are accepted.
+            If Beiqiang proposes a website change to critical confirmed terms,
+            the current website version remains active until the buyer accepts
+            the proposal. Website acceptance creates an audit version but does
+            not by itself amend the authoritative Trade Assurance order or
+            signed contract; the same change must be confirmed in that formal
+            channel before affected production or payment action. Fulfillment,
+            carrier, tracking and actual payment-status records may be updated
+            without changing the accepted commercial version. Website payment
+            milestones are operating records, not bank receipts or an online
+            payment service; confirm every amount and payment status inside the
+            agreed transaction channel. Beiqiang does not request website
+            visitors to enter card, bank, email or verification-code credentials
+            on this site.
           </p>
         </section>
         <section>

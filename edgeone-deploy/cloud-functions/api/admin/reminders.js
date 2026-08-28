@@ -144,6 +144,7 @@ export function buildReminderSummary(
   const recommendations = [];
   const quotes = [];
   const meetings = [];
+  const orderPackets = [];
   const orderChanges = [];
   const fulfillmentCases = [];
   const repeatOrders = [];
@@ -334,6 +335,27 @@ export function buildReminderSummary(
                   : "due_soon",
           });
       });
+    const latestPacket = Array.isArray(record.orderPreparationPackets)
+      ? record.orderPreparationPackets.at(-1)
+      : null;
+    if (latestPacket?.status === "submitted" && latestPacket.submittedAt) {
+      const dueDate = addDays(String(latestPacket.submittedAt).slice(0, 10), 1);
+      if (dueDate <= soon)
+        orderPackets.push({
+          ...identity,
+          packetId: latestPacket.id,
+          version: latestPacket.version,
+          quoteNumber: latestPacket.quoteNumber,
+          dueDate,
+          timing:
+            dueDate < today
+              ? "overdue"
+              : dueDate === today
+                ? "due_today"
+                : "due_soon",
+          action: "review_order_packet",
+        });
+    }
     (record.fulfillmentCases || [])
       .filter((item) =>
         [
@@ -422,6 +444,7 @@ export function buildReminderSummary(
   recommendations.sort(byDate);
   quotes.sort(byDate);
   meetings.sort(byDate);
+  orderPackets.sort(byDate);
   orderChanges.sort(byDate);
   fulfillmentCases.sort(byDate);
   repeatOrders.sort(byDate);
@@ -434,6 +457,7 @@ export function buildReminderSummary(
       recommendations: recommendations.length,
       quotes: quotes.length,
       meetings: meetings.length,
+      orderPackets: orderPackets.length,
       orderChanges: orderChanges.length,
       fulfillmentCases: fulfillmentCases.length,
       repeatOrders: repeatOrders.length,
@@ -443,6 +467,7 @@ export function buildReminderSummary(
         recommendations.length +
         quotes.length +
         meetings.length +
+        orderPackets.length +
         orderChanges.length +
         fulfillmentCases.length +
         repeatOrders.length +
@@ -452,6 +477,7 @@ export function buildReminderSummary(
     recommendations,
     quotes,
     meetings,
+    orderPackets,
     orderChanges,
     fulfillmentCases,
     repeatOrders,
@@ -468,6 +494,7 @@ function digestText(summary) {
     `Product-shortlist follow-ups: ${summary.counts.recommendations}`,
     `Expired / expiring quotations: ${summary.counts.quotes}`,
     `Sourcing-meeting actions: ${summary.counts.meetings}`,
+    `Order-preparation packets awaiting review: ${summary.counts.orderPackets}`,
     `Confirmed-order changes awaiting buyer: ${summary.counts.orderChanges}`,
     `Open fulfillment exceptions: ${summary.counts.fulfillmentCases}`,
     `Repeat-order / next-project actions: ${summary.counts.repeatOrders}`,
@@ -510,6 +537,14 @@ function digestText(summary) {
     summary.orderChanges.forEach((item) =>
       lines.push(
         `${item.dueDate} · ${item.timing} · ${item.changeId} · ${item.reference} / ${item.orderReference} · version ${item.baseVersion} · ${item.changedFields.join(", ")} · buyer email ${item.notificationStatus} · ${item.owner}`,
+      ),
+    );
+  }
+  if (summary.orderPackets.length) {
+    lines.push("", "ORDER-PREPARATION PACKETS");
+    summary.orderPackets.forEach((item) =>
+      lines.push(
+        `${item.dueDate} · ${item.reference} · ${item.company} · V${item.version} · ${item.quoteNumber}`,
       ),
     );
   }

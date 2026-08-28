@@ -241,6 +241,13 @@ export function sanitizeWeeklyReviewSnapshot(source) {
       meetingChangesApproved: safeNumber(
         source.supporting?.meetingChangesApproved,
       ),
+      orderPacketsSubmitted: safeNumber(
+        source.supporting?.orderPacketsSubmitted,
+      ),
+      orderPacketsPending: safeNumber(source.supporting?.orderPacketsPending),
+      orderPacketsReviewed: safeNumber(
+        source.supporting?.orderPacketsReviewed,
+      ),
     },
     coverage: {
       eventsLoaded: safeNumber(coverage.eventsLoaded),

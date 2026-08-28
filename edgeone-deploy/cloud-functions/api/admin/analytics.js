@@ -529,6 +529,11 @@ export function buildCommercialAnalytics(
   const meetingChangeRequests = meetingRequests.flatMap((item) =>
     Array.isArray(item.changeRequests) ? item.changeRequests : [],
   );
+  const orderPreparationPackets = businessInquiries.flatMap((record) =>
+    Array.isArray(record.orderPreparationPackets)
+      ? record.orderPreparationPackets
+      : [],
+  );
   const orderChangeRequests = businessInquiries.flatMap((record) =>
     Array.isArray(record.orderChangeRequests) ? record.orderChangeRequests : [],
   );
@@ -751,6 +756,18 @@ export function buildCommercialAnalytics(
       meetingChangesApproved: meetingChangeRequests.filter(
         (item) =>
           item.status === "approved" &&
+          Date.parse(item.reviewedAt || 0) >= cutoff,
+      ).length,
+      orderPacketsSubmitted: orderPreparationPackets.filter(
+        (item) => Date.parse(item.submittedAt || 0) >= cutoff,
+      ).length,
+      orderPacketsPending: businessInquiries.filter(
+        (record) =>
+          record.orderPreparationPackets?.at(-1)?.status === "submitted",
+      ).length,
+      orderPacketsReviewed: orderPreparationPackets.filter(
+        (item) =>
+          item.status === "reviewed" &&
           Date.parse(item.reviewedAt || 0) >= cutoff,
       ).length,
       quoteRevisions: periodInquiries.filter((record) =>

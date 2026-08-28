@@ -1288,6 +1288,36 @@ footer a:hover { color: var(--forest); }
 .admin-repeat-reminders > div:last-child { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
 .admin-repeat-reminders article { padding: 14px; display: grid; gap: 5px; border: 1px solid var(--line); background: white; }
 .admin-repeat-reminders article span, .admin-repeat-reminders article small, .admin-repeat-reminders article p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.buyer-order-packet { margin-top: 22px; padding: 24px; border: 1px solid #bba56f; background: #fbf8ef; }
+.buyer-order-packet-heading { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.buyer-order-packet-heading h3 { margin: 6px 0; font-family: Georgia, serif; font-size: 26px; }
+.buyer-order-packet-heading p { margin: 0; color: var(--muted); line-height: 1.55; }
+.buyer-order-packet-heading > span { padding: 7px 10px; border: 1px solid #bba56f; background: white; white-space: nowrap; font-size: 10px; font-weight: 800; }
+.buyer-order-packet-latest { margin-top: 16px; padding: 15px; border: 1px solid var(--line); background: white; }
+.buyer-order-packet-latest strong, .buyer-order-packet-latest small { display: block; }
+.buyer-order-packet-latest p { margin: 6px 0; }
+.buyer-order-packet-latest small, .buyer-order-packet > small { color: var(--muted); line-height: 1.5; }
+.buyer-order-packet form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; margin-top: 18px; }
+.buyer-order-packet form > label, .buyer-order-packet fieldset { display: grid; gap: 6px; color: var(--muted); font-size: 10px; font-weight: 800; }
+.buyer-order-packet input:not([type="checkbox"]), .buyer-order-packet textarea, .buyer-order-packet select { width: 100%; padding: 11px; border: 1px solid var(--line); background: white; color: var(--ink); font: inherit; }
+.buyer-order-packet fieldset { grid-template-columns: repeat(2, 1fr); padding: 12px; border: 1px solid var(--line); }
+.buyer-order-packet fieldset legend { padding: 0 5px; }
+.buyer-order-packet fieldset label { display: flex; align-items: center; gap: 7px; color: var(--ink); font-weight: 600; }
+.buyer-order-packet .packet-wide { grid-column: 1 / -1; }
+.buyer-order-packet .packet-confirm { display: flex; grid-template-columns: auto 1fr; align-items: flex-start; }
+.buyer-order-packet details { margin: 15px 0; padding: 12px; border: 1px solid var(--line); background: white; }
+.buyer-order-packet details p { display: flex; justify-content: space-between; gap: 18px; margin: 7px 0; }
+.admin-order-packet { margin-top: 16px; padding: 16px; border: 1px solid #bba56f; background: #fffaf0; }
+.admin-order-packet > div { display: grid; gap: 10px; margin-top: 14px; }
+.admin-order-packet article { padding: 14px; border: 1px solid var(--line); background: white; }
+.admin-order-packet article > div { display: flex; justify-content: space-between; gap: 15px; }
+.admin-order-packet dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 12px; background: var(--line); }
+.admin-order-packet dl > div { padding: 10px; background: white; }
+.admin-order-packet dt { color: var(--muted); font-size: 9px; font-weight: 800; }
+.admin-order-packet dd { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.admin-order-packet form { display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 10px; align-items: end; margin-top: 14px; }
+.admin-order-packet form label { display: grid; gap: 5px; font-size: 9px; font-weight: 800; }
+.admin-order-packet form input, .admin-order-packet form select, .admin-order-packet form textarea { width: 100%; padding: 9px; border: 1px solid var(--line); font: inherit; }
 .admin-sample-program { border-top: 1px solid var(--line); background: #fffdf5; }
 .admin-buyer-order-request { border-top: 1px solid var(--line); background: #f1f8f5; }
 .admin-buyer-order-request > div { padding: 0 22px 16px; display: grid; gap: 12px; }
@@ -1769,6 +1799,10 @@ footer a:hover { color: var(--forest); }
 }
 
 @media (max-width: 700px) {
+  .buyer-order-packet { padding: 18px; }
+  .buyer-order-packet-heading, .admin-order-packet article > div { flex-direction: column; }
+  .buyer-order-packet form, .buyer-order-packet fieldset, .admin-order-packet dl, .admin-order-packet form { grid-template-columns: 1fr; }
+  .buyer-order-packet .packet-wide { grid-column: auto; }
   .acquisition-heading { display: block; }
   .acquisition-heading > span { display: inline-block; margin-top: 12px; }
   .acquisition-layout { grid-template-columns: 1fr; }
