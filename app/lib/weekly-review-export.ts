@@ -98,6 +98,10 @@ export type WeeklyReviewAnalytics = {
     orderPacketsSubmitted?: number;
     orderPacketsPending?: number;
     orderPacketsReviewed?: number;
+    orderConfirmationsIssued?: number;
+    orderConfirmationsAwaitingBuyer?: number;
+    orderConfirmationsAccepted?: number;
+    orderConfirmationsRevisionRequested?: number;
   };
   collectionJourneys?: WeeklyCollectionJourney[];
   comparisonJourneys?: WeeklyComparisonJourney[];
@@ -302,6 +306,7 @@ export function buildWeeklyReviewMarkdown({
     "",
     "## 正式订单准备资料",
     `- 周期内提交资料包：${analytics.supporting?.orderPacketsSubmitted || 0}；当前待人工审核：${analytics.supporting?.orderPacketsPending || 0}；周期内已审核：${analytics.supporting?.orderPacketsReviewed || 0}`,
+    `- 下单前核对草案：周期内签发${analytics.supporting?.orderConfirmationsIssued || 0}；当前待买家${analytics.supporting?.orderConfirmationsAwaitingBuyer || 0}；周期内接受${analytics.supporting?.orderConfirmationsAccepted || 0}；要求修订${analytics.supporting?.orderConfirmationsRevisionRequested || 0}`,
     "- 资料包提交或审核都不证明订单、发票、付款或生产已成立；继续核对正式Trade Assurance订单或签署合同。",
     "",
     "## 回复与管道健康",

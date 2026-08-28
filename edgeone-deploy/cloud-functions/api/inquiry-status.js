@@ -32,6 +32,30 @@ function buyerSafeQuotation(value) {
   return { quoteNumber: value.quoteNumber, version: value.version, currency: value.currency, tradeTerm: value.tradeTerm, validUntil: value.validUntil, leadTime: value.leadTime, paymentTerms: value.paymentTerms, packing: value.packing, sampleTerms: value.sampleTerms, notes: value.notes, lines: Array.isArray(value.lines) ? value.lines.map((line) => ({ code: line.code, description: line.description, quantity: line.quantity, unitPrice: line.unitPrice })) : [], status: value.status, issuedAt: value.issuedAt || "", buyerDecision: value.buyerDecision || "", buyerNote: value.buyerNote || "", buyerRespondedAt: value.buyerRespondedAt || "", revisionBrief: revision ? { reasons: Array.isArray(revision.reasons) ? revision.reasons : [], affectedCodes: Array.isArray(revision.affectedCodes) ? revision.affectedCodes : [], targetQuantity: revision.targetQuantity || "", targetUnitPrice: revision.targetUnitPrice || "", targetTradeTerm: revision.targetTradeTerm || "", requestedDelivery: revision.requestedDelivery || "", requestedPayment: revision.requestedPayment || "", requestedPacking: revision.requestedPacking || "", requestedSample: revision.requestedSample || "" } : null };
 }
 
+function buyerSafeOrderConfirmationDraft(value) {
+  if (!value) return null;
+  return {
+    id: value.id, version: value.version, orderRequestId: value.orderRequestId,
+    packetId: value.packetId, packetVersion: value.packetVersion,
+    quoteNumber: value.quoteNumber, orderChannel: value.orderChannel,
+    orderChecklist: {
+      productSpecification: value.orderChecklist?.productSpecification || "",
+      sampleDecision: value.orderChecklist?.sampleDecision || "",
+      quantitySizeRatio: value.orderChecklist?.quantitySizeRatio || "",
+      colorsMaterials: value.orderChecklist?.colorsMaterials || "",
+      packingLabeling: value.orderChecklist?.packingLabeling || "",
+      priceTradeTerm: value.orderChecklist?.priceTradeTerm || "",
+      paymentTerms: value.orderChecklist?.paymentTerms || "",
+      deliveryWindow: value.orderChecklist?.deliveryWindow || "",
+    },
+    draftNote: value.draftNote || "", status: value.status,
+    issuedAt: value.issuedAt || "", buyerDecision: value.buyerDecision || "",
+    buyerNote: value.buyerNote || "",
+    buyerRevisionFields: Array.isArray(value.buyerRevisionFields) ? value.buyerRevisionFields : [],
+    buyerRespondedAt: value.buyerRespondedAt || "",
+  };
+}
+
 export function createInquiryStatusHandler({ getStoreImpl = getStore } = {}) {
   return async function onRequestGet(context) {
     const url = new URL(context.request.url);
@@ -71,6 +95,7 @@ export function createInquiryStatusHandler({ getStoreImpl = getStore } = {}) {
           buyerQuotation: buyerSafeQuotation(buyerQuote), quotationHistory,
           buyerOrderRequest: buyerOrderRequest ? { id: buyerOrderRequest.id, quoteNumber: buyerOrderRequest.quoteNumber, preferredOrderChannel: buyerOrderRequest.preferredOrderChannel, legalCompanyName: buyerOrderRequest.legalCompanyName, purchasingContact: buyerOrderRequest.purchasingContact, purchaseOrderReference: buyerOrderRequest.purchaseOrderReference || "", destination: buyerOrderRequest.destination, requestedWindow: buyerOrderRequest.requestedWindow, instructions: buyerOrderRequest.instructions || "", status: buyerOrderRequest.status || "submitted", submittedAt: buyerOrderRequest.submittedAt } : null,
           orderPreparationPackets,
+          orderConfirmationDrafts: Array.isArray(record.orderConfirmationDrafts) ? record.orderConfirmationDrafts.map(buyerSafeOrderConfirmationDraft) : [],
           orderHandoff: buyerSafeOrderHandoff(record.orderHandoff),
           orderVersions: Array.isArray(record.orderVersions) ? record.orderVersions.map((item) => ({ version: item.version, acceptedAt: item.acceptedAt || "", acceptedBy: item.acceptedBy === "Buyer" ? "Buyer" : "Beiqiang / formal order record", source: item.source || "", orderHandoff: buyerSafeOrderHandoff(item.orderHandoff) })) : [],
           orderChangeRequests: Array.isArray(record.orderChangeRequests) ? record.orderChangeRequests.map((item) => ({ id: item.id, status: item.status, reason: item.reason, changedFields: item.changedFields, baseVersion: item.baseVersion, proposedHandoff: buyerSafeOrderHandoff(item.proposedHandoff), createdAt: item.createdAt, buyerDecision: item.buyerDecision || "", buyerNote: item.buyerNote || "", buyerRespondedAt: item.buyerRespondedAt || "" })) : [],

@@ -37,6 +37,14 @@ test("routes an accepted quotation to order setup only before a request exists",
   assert.equal(setup.href, "#order-setup-request"); assert.equal(waiting.href, "#order-preparation-packet"); assert.match(waiting.title, /protected order-preparation packet/i); assert.match(waiting.body, /not yet a production order/i);
 });
 
+test("moves a reviewed order packet into line-by-line pre-order confirmation", () => {
+  const base = { ...open, buyerQuotation: { status: "buyer_accepted", quoteNumber: "Q1" }, buyerOrderRequest: { quoteNumber: "Q1" }, orderPreparationPackets: [{ status: "reviewed", version: 1 }] };
+  const awaiting = getBuyerNextAction({ ...base, orderConfirmationDrafts: [{ status: "awaiting_buyer", version: 1 }] });
+  assert.equal(awaiting.href, "#pre-order-confirmation"); assert.match(awaiting.title, /V1/); assert.match(awaiting.body, /eight written items/i);
+  const accepted = getBuyerNextAction({ ...base, orderConfirmationDrafts: [{ status: "buyer_accepted", version: 1 }] });
+  assert.equal(accepted.href, "#pre-order-confirmation"); assert.match(accepted.body, /Trade Assurance order or signed contract/i);
+});
+
 test("separates a quotation revision request from a declined quotation", () => {
   const revision = getBuyerNextAction({ ...open, buyerQuotation: { status: "buyer_revision_requested", quoteNumber: "Q1" } }); const declined = getBuyerNextAction({ ...open, buyerQuotation: { status: "buyer_declined", quoteNumber: "Q1" } });
   assert.match(revision.title, /commercial targets/i); assert.match(revision.body, /new version/i); assert.match(declined.eyebrow, /declined/i); assert.doesNotMatch(declined.body, /revision/i);

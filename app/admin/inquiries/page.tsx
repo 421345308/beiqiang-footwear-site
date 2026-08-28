@@ -218,6 +218,26 @@ type OrderPreparationPacket = {
   reviewedBy?: string;
   reviewNote?: string;
 };
+type OrderConfirmationDraft = {
+  id: string;
+  version: number;
+  orderRequestId: string;
+  packetId: string;
+  packetVersion: number;
+  quoteNumber: string;
+  orderChannel: "alibaba_trade_assurance" | "contract";
+  orderChecklist: OrderChecklist;
+  draftNote: string;
+  status: string;
+  issuedAt: string;
+  issuedBy: string;
+  buyerDecision?: string;
+  buyerNote?: string;
+  buyerRevisionFields?: string[];
+  buyerRespondedAt?: string;
+  notificationStatus?: string;
+  salesNotificationStatus?: string;
+};
 type InquiryMessage = {
   id: string;
   sender: "buyer" | "sales";
@@ -525,6 +545,10 @@ type CommercialAnalytics = {
     meetingChangesSubmitted: number;
     meetingChangesPending: number;
     meetingChangesApproved: number;
+    orderConfirmationsIssued: number;
+    orderConfirmationsAwaitingBuyer: number;
+    orderConfirmationsAccepted: number;
+    orderConfirmationsRevisionRequested: number;
     quoteRevisions: number;
     quoteDeclines: number;
     orderChangesProposed: number;
@@ -580,6 +604,7 @@ type ReminderSummary = {
     quotes: number;
     meetings: number;
     orderPackets: number;
+    orderConfirmations: number;
     orderChanges: number;
     fulfillmentCases: number;
     repeatOrders: number;
@@ -635,6 +660,17 @@ type ReminderSummary = {
     dueDate: string;
     timing: string;
     action: string;
+  }[];
+  orderConfirmations: {
+    reference: string;
+    company: string;
+    owner: string;
+    draftId: string;
+    version: number;
+    status: string;
+    action: string;
+    dueDate: string;
+    timing: string;
   }[];
   orderChanges: {
     reference: string;
@@ -736,6 +772,7 @@ type Inquiry = {
   meetingRequests?: MeetingRequest[];
   buyerOrderRequests?: BuyerOrderRequest[];
   orderPreparationPackets?: OrderPreparationPacket[];
+  orderConfirmationDrafts?: OrderConfirmationDraft[];
   orderHandoff?: OrderHandoff | null;
   orderVersions?: OrderVersion[];
   orderChangeRequests?: OrderChangeRequest[];
@@ -1239,6 +1276,22 @@ function CommercialDashboard({
               <strong>{data.supporting.orderChangesAwaitingBuyer}</strong>
             </article>
             <article>
+              <small>PRE-ORDER DRAFTS ISSUED</small>
+              <strong>{data.supporting.orderConfirmationsIssued}</strong>
+            </article>
+            <article>
+              <small>PRE-ORDER BUYER ACCEPTED</small>
+              <strong>{data.supporting.orderConfirmationsAccepted}</strong>
+            </article>
+            <article>
+              <small>PRE-ORDER REVISION</small>
+              <strong>{data.supporting.orderConfirmationsRevisionRequested}</strong>
+            </article>
+            <article>
+              <small>PRE-ORDER AWAITING BUYER</small>
+              <strong>{data.supporting.orderConfirmationsAwaitingBuyer}</strong>
+            </article>
+            <article>
               <small>FOLLOW-UP OVERDUE</small>
               <strong>{data.supporting.overdue}</strong>
             </article>
@@ -1415,6 +1468,10 @@ function ReminderCenter({
               <strong>{summary.counts.orderPackets}</strong>
             </article>
             <article>
+              <small>PRE-ORDER REVIEW</small>
+              <strong>{summary.counts.orderConfirmations}</strong>
+            </article>
+            <article>
               <small>ORDER CHANGE</small>
               <strong>{summary.counts.orderChanges}</strong>
             </article>
@@ -1536,6 +1593,17 @@ function ReminderCenter({
               {!summary.orderPackets.length && (
                 <p>No order packet awaiting review.</p>
               )}
+            </div>
+            <div>
+              <h3>Pre-order written confirmation</h3>
+              {summary.orderConfirmations.slice(0, 6).map((item) => (
+                <p key={item.draftId}>
+                  <strong>V{item.version} · {item.status.replaceAll("_", " ")}</strong>
+                  <span>{item.dueDate} · {item.timing.replaceAll("_", " ")}</span>
+                  <small>{item.reference} · {item.company} · {item.action.replaceAll("_", " ")} · {item.owner}</small>
+                </p>
+              ))}
+              {!summary.orderConfirmations.length && <p>No pre-order confirmation action due.</p>}
             </div>
             <div>
               <h3>Fulfillment exceptions</h3>
@@ -4963,6 +5031,85 @@ function OrderPreparationPacketCenter({
   );
 }
 
+const confirmationFields: [keyof OrderChecklist, string][] = [
+  ["productSpecification", "Product specification"],
+  ["sampleDecision", "Sample decision"],
+  ["quantitySizeRatio", "Quantity / size ratio"],
+  ["colorsMaterials", "Colors / materials"],
+  ["packingLabeling", "Packing / labeling"],
+  ["priceTradeTerm", "Price / trade term"],
+  ["paymentTerms", "Payment terms"],
+  ["deliveryWindow", "Delivery window"],
+];
+
+function OrderConfirmationDraftCenter({
+  record,
+  token,
+  onSaved,
+}: {
+  record: Inquiry;
+  token: string;
+  onSaved: (record: Inquiry) => void;
+}) {
+  const drafts = record.orderConfirmationDrafts || [];
+  const latest = drafts.at(-1);
+  const packet = record.orderPreparationPackets?.at(-1);
+  const quote = [...(record.quotations || [])].reverse().find((item) => item.status === "buyer_accepted");
+  const initialChecklist: OrderChecklist = latest?.orderChecklist || {
+    productSpecification: quote?.lines.map((line) => `${line.code}: ${line.description}`).join("; ") || "",
+    sampleDecision: record.sampleProgram?.buyerDecision === "approved" ? `${record.sampleProgram.sampleReference}: buyer-approved review round` : "",
+    quantitySizeRatio: quote?.lines.map((line) => `${line.code}: ${line.quantity}`).join("; ") || "",
+    colorsMaterials: "",
+    packingLabeling: quote?.packing || "",
+    priceTradeTerm: quote ? `${quote.currency} · ${quote.tradeTerm} · ${quote.lines.map((line) => `${line.code} ${line.unitPrice}`).join("; ")}` : "",
+    paymentTerms: quote?.paymentTerms || "",
+    deliveryWindow: quote?.leadTime || "",
+  };
+  const [orderChannel, setOrderChannel] = useState<"alibaba_trade_assurance" | "contract">(
+    latest?.orderChannel || (record.buyerOrderRequests?.at(-1)?.preferredOrderChannel === "contract" ? "contract" : "alibaba_trade_assurance"),
+  );
+  const [checklist, setChecklist] = useState<OrderChecklist>(initialChecklist);
+  const [draftNote, setDraftNote] = useState("");
+  const [issuedBy, setIssuedBy] = useState(record.owner || "Beiqiang sales");
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
+  const canIssue = Boolean(packet?.status === "reviewed" && quote && !record.orderHandoff && latest?.status !== "awaiting_buyer");
+  function update(field: keyof OrderChecklist, value: string) { setChecklist((current) => ({ ...current, [field]: value })); }
+  async function issue(event: React.FormEvent) {
+    event.preventDefault();
+    if (!packet) return;
+    setSaving(true); setMessage("Issuing buyer-safe pre-order confirmation…");
+    try {
+      const response = await fetch("/api/admin/order-confirmation-draft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ reference: record.reference, packetId: packet.id, orderChannel, orderChecklist: checklist, draftNote, issuedBy }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.message || "The confirmation draft could not be issued.");
+      onSaved({ ...record, orderConfirmationDrafts: [...drafts, { ...result.draft, issuedBy, buyerDecision: "", buyerNote: "", buyerRevisionFields: [] }], updatedAt: result.draft.issuedAt || record.updatedAt });
+      setMessage(result.message);
+    } catch (error) { setMessage(error instanceof Error ? error.message : "The confirmation draft could not be issued."); }
+    finally { setSaving(false); }
+  }
+  if (!record.buyerOrderRequests?.length && !drafts.length) return null;
+  return (
+    <details className="admin-order-confirmation" open>
+      <summary>Pre-order written confirmation · {drafts.length}</summary>
+      {latest ? <article className={`confirmation-${latest.status}`}><div><strong>V{latest.version} · {latest.status.replaceAll("_", " ")}</strong><span>{new Date(latest.issuedAt).toLocaleString()} · {latest.quoteNumber}</span></div><p>{latest.draftNote}</p>{latest.buyerRevisionFields?.length ? <p><b>Buyer revision fields:</b> {latest.buyerRevisionFields.map((field) => confirmationFields.find(([key]) => key === field)?.[1] || field).join(" · ")}</p> : null}{latest.buyerNote ? <p><b>Buyer note:</b> {latest.buyerNote}</p> : null}<small>{latest.orderChannel.replaceAll("_", " ")} · packet V{latest.packetVersion}</small></article> : null}
+      {canIssue ? <form onSubmit={issue}>
+        <label>Planned formal order channel<select value={orderChannel} onChange={(event) => setOrderChannel(event.target.value as "alibaba_trade_assurance" | "contract")}><option value="alibaba_trade_assurance">Alibaba Trade Assurance</option><option value="contract">Bilateral contract</option></select></label>
+        {confirmationFields.map(([field, label]) => <label key={field} className="admin-form-full">{label}<textarea required minLength={2} maxLength={700} rows={2} value={checklist[field]} onChange={(event) => update(field, event.target.value)} /><small>Write the exact reviewed fact. “TBD”, “unknown” and “to be confirmed” cannot be issued.</small></label>)}
+        <label className="admin-form-full">Buyer-safe issue / revision note<textarea required minLength={5} maxLength={1000} rows={3} value={draftNote} onChange={(event) => setDraftNote(event.target.value)} placeholder={latest ? "Explain exactly what changed from the previous preserved version." : "Explain what the buyer must compare before accepting."} /></label>
+        <label>Issued by<input maxLength={100} value={issuedBy} onChange={(event) => setIssuedBy(event.target.value)} /></label>
+        <button className="button button-small" type="submit" disabled={saving}>{saving ? "Issuing…" : latest ? `Issue preserved V${latest.version + 1}` : "Issue V1 for buyer review"}</button>
+      </form> : <p>{packet?.status !== "reviewed" ? "Review the latest protected order-preparation packet before drafting the eight confirmation items." : latest?.status === "awaiting_buyer" ? "Wait for the buyer to accept or request a precise revision before issuing another version." : record.orderHandoff ? "The formal order handoff already exists; use the controlled order-change workflow for critical changes." : "A buyer-accepted quotation is required."}</p>}
+      <p aria-live="polite">{message}</p>
+      <small>Buyer acceptance is a mismatch-prevention record only. Confirm identical terms in the authoritative Trade Assurance order or signed contract before recording an order, payment or production action.</small>
+    </details>
+  );
+}
+
 function OrderHandoffEditor({
   record,
   token,
@@ -5013,9 +5160,8 @@ function OrderHandoffEditor({
     paymentTerms: "",
     deliveryWindow: "",
   };
-  const [orderChecklist, setOrderChecklist] = useState<OrderChecklist>(
-    record.orderHandoff?.orderChecklist || emptyChecklist,
-  );
+  const acceptedConfirmation = [...(record.orderConfirmationDrafts || [])].reverse().find((item) => item.status === "buyer_accepted");
+  const [orderChecklist, setOrderChecklist] = useState<OrderChecklist>(record.orderHandoff?.orderChecklist || acceptedConfirmation?.orderChecklist || emptyChecklist);
   function updateChecklist(field: keyof OrderChecklist, value: string) {
     setOrderChecklist((current) => ({ ...current, [field]: value }));
   }
@@ -5126,6 +5272,7 @@ function OrderHandoffEditor({
         Trade Assurance / contract handoff · order readiness {checklistComplete}
         /8
       </summary>
+      {record.buyerOrderRequests?.length && record.orderPreparationPackets?.at(-1)?.status === "reviewed" ? <p className="admin-order-confirmation-gate">{acceptedConfirmation ? `Buyer accepted pre-order confirmation V${acceptedConfirmation.version}. The eight fields below were copied from that preserved version and must remain identical when the formal order is first confirmed.` : "This project uses the new-order gate: issue an eight-item pre-order confirmation and obtain the buyer's acceptance before confirming the formal order stage."}</p> : null}
       <div className="admin-follow-up-grid">
         <label>
           Order method
@@ -6886,6 +7033,12 @@ export default function InquiryAdminPage() {
                 <BuyerOrderRequestSummary record={record} />
                 <OrderPreparationPacketCenter
                   key={`packet-${record.reference}-${record.updatedAt}`}
+                  record={record}
+                  token={token}
+                  onSaved={replaceRecord}
+                />
+                <OrderConfirmationDraftCenter
+                  key={`order-confirmation-${record.reference}-${record.updatedAt}`}
                   record={record}
                   token={token}
                   onSaved={replaceRecord}

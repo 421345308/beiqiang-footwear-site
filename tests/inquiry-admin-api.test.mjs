@@ -149,6 +149,21 @@ test("allows order confirmation only with a complete buyer-safe readiness summar
   assert.equal((await handler({ request, env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 200); assert.equal(saved.status, "order_confirmed"); assert.equal(saved.orderHandoff.orderChecklist.priceTradeTerm, "Q1 / FOB Xiamen"); assert.equal(saved.orderVersions.length, 1); assert.equal(saved.orderVersions[0].version, 1);
 });
 
+test("requires an accepted matching pre-order draft for the new reviewed-packet path", async () => {
+  const checklist = { productSpecification: "SPEC-1", sampleDecision: "Sample S1 approved", quantitySizeRatio: "500 pairs / PO-1 ratio", colorsMaterials: "Black textile / MAT-1", packingLabeling: "Box and marks PK-1", priceTradeTerm: "Q1 / FOB Xiamen", paymentTerms: "30/70", deliveryWindow: "31 days" };
+  const base = { reference: "BQ-20260823-ABCDEF12", receivedAt: "2026-08-23T08:00:00.000Z", status: "negotiation", buyerOrderRequests: [{ id: "OSR-1" }], orderPreparationPackets: [{ id: "OPP-1", status: "reviewed" }], orderHandoff: { method: "contract", orderReference: "CT-2026-02", confirmedAt: "2026-08-23", orderChecklist: checklist } };
+  const makeRequest = () => new Request("https://www.beiqiang.online/api/admin/inquiries", { method: "PATCH", headers: { Authorization: "Bearer correct-token", "Content-Type": "application/json" }, body: JSON.stringify({ reference: base.reference, receivedAt: base.receivedAt, status: "order_confirmed" }) });
+  const blocked = createAdminInquiryUpdateHandler({ getStoreImpl: () => ({ get: async () => base, setJSON: async () => {} }) });
+  const result = await blocked({ request: makeRequest(), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  assert.equal(result.status, 409); assert.match((await result.json()).message, /buyer.*acceptance/i);
+  let saved; const accepted = { ...base, orderConfirmationDrafts: [{ id: "OCD-1", status: "buyer_accepted", orderChecklist: checklist }] };
+  const allowed = createAdminInquiryUpdateHandler({ getStoreImpl: () => ({ get: async () => accepted, setJSON: async (_key, value) => { saved = value; } }) });
+  assert.equal((await allowed({ request: makeRequest(), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 200); assert.equal(saved.status, "order_confirmed");
+  const mismatch = { ...accepted, orderConfirmationDrafts: [{ id: "OCD-1", status: "buyer_accepted", orderChecklist: { ...checklist, quantitySizeRatio: "600 pairs" } }] };
+  const mismatchHandler = createAdminInquiryUpdateHandler({ getStoreImpl: () => ({ get: async () => mismatch, setJSON: async () => {} }) });
+  assert.equal((await mismatchHandler({ request: makeRequest(), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } })).status, 409);
+});
+
 test("turns critical edits to a confirmed order into a buyer approval request", async () => {
   const checklist = { productSpecification: "SPEC-1", sampleDecision: "Sample approved", quantitySizeRatio: "500 pairs", colorsMaterials: "Black knit", packingLabeling: "PK-1", priceTradeTerm: "Q1 / FOB Xiamen", paymentTerms: "30/70", deliveryWindow: "31 days" };
   const currentOrder = { method: "contract", orderReference: "CT-1", orderUrl: "", confirmedAt: "2026-08-23", note: "Current note", fulfillmentStatus: "production", carrier: "", trackingNumber: "", paymentCurrency: "USD", paymentMilestones: [{ id: "PM-1", label: "Deposit", amount: "1000", dueDate: "2026-08-25", status: "paid", paidAt: "2026-08-24", reference: "PAY-1", note: "Received" }], orderChecklist: checklist };

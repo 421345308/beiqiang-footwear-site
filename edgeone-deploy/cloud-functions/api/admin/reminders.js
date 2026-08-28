@@ -145,6 +145,7 @@ export function buildReminderSummary(
   const quotes = [];
   const meetings = [];
   const orderPackets = [];
+  const orderConfirmations = [];
   const orderChanges = [];
   const fulfillmentCases = [];
   const repeatOrders = [];
@@ -356,6 +357,31 @@ export function buildReminderSummary(
           action: "review_order_packet",
         });
     }
+    const latestConfirmation = Array.isArray(record.orderConfirmationDrafts)
+      ? record.orderConfirmationDrafts.at(-1)
+      : null;
+    if (latestConfirmation && !record.orderHandoff) {
+      let action = "";
+      let dueDate = String(latestConfirmation.issuedAt || today).slice(0, 10);
+      if (latestConfirmation.status === "buyer_revision_requested") action = "issue_revised_confirmation";
+      if (latestConfirmation.status === "buyer_accepted") action = "create_authoritative_order";
+      if (latestConfirmation.status === "awaiting_buyer") {
+        dueDate = addDays(dueDate, 2);
+        action = ["delivery_failed", "smtp_not_configured"].includes(latestConfirmation.notificationStatus)
+          ? "verify_confirmation_delivery"
+          : "follow_up_confirmation";
+      }
+      if (action && dueDate <= soon)
+        orderConfirmations.push({
+          ...identity,
+          draftId: latestConfirmation.id,
+          version: latestConfirmation.version,
+          status: latestConfirmation.status,
+          action,
+          dueDate,
+          timing: dueDate < today ? "overdue" : dueDate === today ? "due_today" : "due_soon",
+        });
+    }
     (record.fulfillmentCases || [])
       .filter((item) =>
         [
@@ -445,6 +471,7 @@ export function buildReminderSummary(
   quotes.sort(byDate);
   meetings.sort(byDate);
   orderPackets.sort(byDate);
+  orderConfirmations.sort(byDate);
   orderChanges.sort(byDate);
   fulfillmentCases.sort(byDate);
   repeatOrders.sort(byDate);
@@ -458,6 +485,7 @@ export function buildReminderSummary(
       quotes: quotes.length,
       meetings: meetings.length,
       orderPackets: orderPackets.length,
+      orderConfirmations: orderConfirmations.length,
       orderChanges: orderChanges.length,
       fulfillmentCases: fulfillmentCases.length,
       repeatOrders: repeatOrders.length,
@@ -468,6 +496,7 @@ export function buildReminderSummary(
         quotes.length +
         meetings.length +
         orderPackets.length +
+        orderConfirmations.length +
         orderChanges.length +
         fulfillmentCases.length +
         repeatOrders.length +
@@ -478,6 +507,7 @@ export function buildReminderSummary(
     quotes,
     meetings,
     orderPackets,
+    orderConfirmations,
     orderChanges,
     fulfillmentCases,
     repeatOrders,
@@ -495,6 +525,7 @@ function digestText(summary) {
     `Expired / expiring quotations: ${summary.counts.quotes}`,
     `Sourcing-meeting actions: ${summary.counts.meetings}`,
     `Order-preparation packets awaiting review: ${summary.counts.orderPackets}`,
+    `Pre-order confirmation actions: ${summary.counts.orderConfirmations}`,
     `Confirmed-order changes awaiting buyer: ${summary.counts.orderChanges}`,
     `Open fulfillment exceptions: ${summary.counts.fulfillmentCases}`,
     `Repeat-order / next-project actions: ${summary.counts.repeatOrders}`,
@@ -546,6 +577,12 @@ function digestText(summary) {
       lines.push(
         `${item.dueDate} · ${item.reference} · ${item.company} · V${item.version} · ${item.quoteNumber}`,
       ),
+    );
+  }
+  if (summary.orderConfirmations.length) {
+    lines.push("", "PRE-ORDER CONFIRMATION ACTIONS");
+    summary.orderConfirmations.forEach((item) =>
+      lines.push(`${item.dueDate} · ${item.timing} · ${item.draftId} · ${item.reference} · V${item.version} · ${item.status} · ${item.action} · ${item.owner}`),
     );
   }
   if (summary.fulfillmentCases.length) {

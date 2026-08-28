@@ -106,7 +106,11 @@ export default function TermsPage() {
             shipping, importer, document and PO information for human review. A
             submitted or reviewed packet is not an accepted purchase order,
             invoice, payment instruction, stock allocation or production
-            authorization. A formal order becomes confirmed only through the
+            authorization. A versioned pre-order written confirmation draft
+            lets the buyer accept all eight reviewed items or identify exact
+            revision fields. Its acceptance is a website audit record only; it
+            does not create a purchase order, invoice, payment request, stock
+            allocation or production authorization. A formal order becomes confirmed only through the
             agreed Alibaba Trade Assurance order or separately executed contract
             and after required specifications and commercial terms are accepted.
             If Beiqiang proposes a website change to critical confirmed terms,

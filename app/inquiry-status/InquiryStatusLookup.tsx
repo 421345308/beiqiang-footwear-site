@@ -18,6 +18,7 @@ import { addProductToQuote } from "../lib/quote-list";
 import { trackEvent } from "../lib/tracking";
 import QuotationVersionHistory, { type BuyerSafeQuotation } from "../components/QuotationVersionHistory";
 import BuyerOrderPreparationPacket, { type BuyerOrderPreparationPacketRecord } from "../components/BuyerOrderPreparationPacket";
+import BuyerOrderConfirmationDraft, { type BuyerOrderConfirmationDraftRecord } from "../components/BuyerOrderConfirmationDraft";
 
 type PublicOrderHandoff = { method: "alibaba_trade_assurance" | "contract"; orderReference: string; orderUrl: string; confirmedAt: string; note: string; fulfillmentStatus: string; carrier: string; trackingNumber: string; paymentCurrency: string; paymentMilestones: { id: string; label: string; amount: string; dueDate: string; status: string; paidAt: string; reference: string; note: string }[]; orderChecklist: { productSpecification: string; sampleDecision: string; quantitySizeRatio: string; colorsMaterials: string; packingLabeling: string; priceTradeTerm: string; paymentTerms: string; deliveryWindow: string } | null };
 
@@ -38,6 +39,7 @@ type PublicRequest = {
   quotationHistory: BuyerSafeQuotation[];
   buyerOrderRequest: { id: string; quoteNumber: string; preferredOrderChannel: "alibaba_trade_assurance" | "contract" | "need_guidance"; legalCompanyName: string; purchasingContact: string; purchaseOrderReference: string; destination: string; requestedWindow: string; instructions: string; status: string; submittedAt: string } | null;
   orderPreparationPackets: BuyerOrderPreparationPacketRecord[];
+  orderConfirmationDrafts: BuyerOrderConfirmationDraftRecord[];
   orderHandoff: PublicOrderHandoff | null;
   orderVersions: { version: number; acceptedAt: string; acceptedBy: string; source: string; orderHandoff: PublicOrderHandoff }[];
   orderChangeRequests: { id: string; status: string; reason: string; changedFields: string[]; baseVersion: number; proposedHandoff: PublicOrderHandoff; createdAt: string; buyerDecision: string; buyerNote: string; buyerRespondedAt: string }[];
@@ -50,7 +52,7 @@ const steps = ["Request received", "Requirements review", "Sample discussion", "
 
 function BuyerNextActionPanel({ request }: { request: PublicRequest }) {
   const action = getBuyerNextAction(request);
-  const selectors: Record<string, string> = { "#buyer-recommendation": ".buyer-product-recommendation", "#sample-review": ".buyer-sample-program", "#buyer-quotation": ".buyer-quotation", "#order-setup-request": ".buyer-order-request", "#order-preparation-packet": ".buyer-order-packet", "#order-change-review": ".buyer-order-change", "#fulfillment-case-review": ".buyer-fulfillment-cases", "#delivery-feedback": ".buyer-delivery-feedback", "#repeat-order": ".buyer-repeat-order", "#order-handoff": ".buyer-order-handoff", "#buyer-message-center": ".buyer-message-center", "#buyer-contact-actions": ".buyer-status-result > .hero-actions" };
+  const selectors: Record<string, string> = { "#buyer-recommendation": ".buyer-product-recommendation", "#sample-review": ".buyer-sample-program", "#buyer-quotation": ".buyer-quotation", "#order-setup-request": ".buyer-order-request", "#order-preparation-packet": ".buyer-order-packet", "#pre-order-confirmation": ".buyer-order-confirmation", "#order-change-review": ".buyer-order-change", "#fulfillment-case-review": ".buyer-fulfillment-cases", "#delivery-feedback": ".buyer-delivery-feedback", "#repeat-order": ".buyer-repeat-order", "#order-handoff": ".buyer-order-handoff", "#buyer-message-center": ".buyer-message-center", "#buyer-contact-actions": ".buyer-status-result > .hero-actions" };
   function goToAction() { const target = document.querySelector(selectors[action.href] || action.href); target?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }
   return <section className={`buyer-next-action buyer-next-action-${action.tone}`}><div><p className="eyebrow">{action.eyebrow}</p><h3>{action.title}</h3><p>{action.body}</p></div><div className="buyer-next-action-buttons">{action.external ? <a className="button" href={action.href} target="_blank" rel="noreferrer">{action.actionLabel}</a> : <button className="button" type="button" onClick={goToAction}>{action.actionLabel}</button>}<BuyerProjectPrintButton />{request.buyerQuotation && <BuyerQuotationPrintButton />}</div></section>;
 }
@@ -208,6 +210,7 @@ export default function InquiryStatusLookup() {
       {request.buyerQuotation ? <QuotationVersionHistory quotations={request.quotationHistory || []} currentQuoteNumber={request.buyerQuotation.quoteNumber} /> : null}
       <OrderSetupRequest request={request} reference={reference} accessCode={accessCode} onSaved={() => loadRequest(false)} onStatus={setStatus} />
       {!request.orderHandoff ? <BuyerOrderPreparationPacket reference={reference} accessCode={accessCode} orderRequest={request.buyerOrderRequest} packets={request.orderPreparationPackets || []} attachments={request.attachments || []} onSaved={() => loadRequest(false)} onStatus={setStatus} /> : null}
+      {!request.orderHandoff ? <BuyerOrderConfirmationDraft reference={reference} accessCode={accessCode} drafts={request.orderConfirmationDrafts || []} onSaved={() => loadRequest(false)} onStatus={setStatus} /> : null}
       <OrderChangeReview request={request} reference={reference} accessCode={accessCode} onSaved={() => loadRequest(false)} onStatus={setStatus} />
       <FulfillmentCaseReview cases={request.fulfillmentCases || []} reference={reference} accessCode={accessCode} onSaved={() => loadRequest(false)} onStatus={setStatus} />
       <DeliveryFeedbackPanel status={request.orderHandoff?.fulfillmentStatus || ""} feedback={request.deliveryFeedback || []} reference={reference} accessCode={accessCode} onSaved={() => loadRequest(false)} onStatus={setStatus} />

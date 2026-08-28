@@ -218,6 +218,10 @@ const inquiries = [
       { status: "buyer_declined", buyerDecision: "declined" },
     ],
     buyerOrderRequests: [{ id: "OSR-1" }],
+    orderConfirmationDrafts: [
+      { id: "OCD-1", version: 1, status: "buyer_revision_requested", issuedAt: "2026-08-22T09:00:00.000Z", buyerRespondedAt: "2026-08-23T09:05:00.000Z" },
+      { id: "OCD-2", version: 2, status: "awaiting_buyer", issuedAt: "2026-08-23T10:00:00.000Z" },
+    ],
     orderChangeRequests: [
       {
         id: "OCR-1",
@@ -348,6 +352,10 @@ test("builds a consent-aware commercial funnel without counting internal tests",
   assert.equal(result.supporting.orderChangesAccepted, 1);
   assert.equal(result.supporting.orderChangesRejected, 1);
   assert.equal(result.supporting.orderChangesAwaitingBuyer, 1);
+  assert.equal(result.supporting.orderConfirmationsIssued, 2);
+  assert.equal(result.supporting.orderConfirmationsAwaitingBuyer, 1);
+  assert.equal(result.supporting.orderConfirmationsAccepted, 0);
+  assert.equal(result.supporting.orderConfirmationsRevisionRequested, 1);
   assert.equal(result.products[0].code, "BQ009");
   assert.equal(result.products[0].compares, 1);
   assert.equal(result.products[0].specSheets, 1);

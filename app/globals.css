@@ -1318,6 +1318,33 @@ footer a:hover { color: var(--forest); }
 .admin-order-packet form { display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 10px; align-items: end; margin-top: 14px; }
 .admin-order-packet form label { display: grid; gap: 5px; font-size: 9px; font-weight: 800; }
 .admin-order-packet form input, .admin-order-packet form select, .admin-order-packet form textarea { width: 100%; padding: 9px; border: 1px solid var(--line); font: inherit; }
+.buyer-order-confirmation { margin-top: 22px; padding: 24px; border: 1px solid #31584f; background: #f2f7f5; }
+.buyer-order-confirmation-heading { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.buyer-order-confirmation-heading h3 { margin: 6px 0; font-family: Georgia, serif; font-size: 26px; }
+.buyer-order-confirmation-heading p { margin: 0; color: var(--muted); line-height: 1.55; }
+.buyer-order-confirmation-heading > span { padding: 7px 10px; border: 1px solid #31584f; background: white; white-space: nowrap; font-size: 10px; font-weight: 800; }
+.buyer-order-confirmation-meta, .buyer-order-confirmation-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 16px; background: var(--line); }
+.buyer-order-confirmation-meta p, .buyer-order-confirmation-grid article { margin: 0; padding: 13px; background: white; }
+.buyer-order-confirmation-meta strong, .buyer-order-confirmation-grid strong { display: block; margin-bottom: 6px; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
+.buyer-order-confirmation-grid { grid-template-columns: repeat(2, 1fr); }
+.buyer-order-confirmation-grid p { margin: 0; white-space: pre-wrap; line-height: 1.5; }
+.buyer-order-confirmation-note, .buyer-order-confirmation-result { margin: 14px 0; padding: 13px; border: 1px solid var(--line); background: white; }
+.buyer-order-confirmation-decision { display: grid; gap: 13px; margin-top: 16px; }
+.buyer-order-confirmation-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.buyer-order-confirmation-decision fieldset { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 13px; border: 1px solid var(--line); background: white; }
+.buyer-order-confirmation-decision fieldset label, .buyer-order-confirmation-consent { display: flex; gap: 8px; align-items: flex-start; }
+.buyer-order-confirmation-decision > label:not(.buyer-order-confirmation-consent) { display: grid; gap: 6px; color: var(--muted); font-size: 10px; font-weight: 800; }
+.buyer-order-confirmation-decision textarea { width: 100%; padding: 11px; border: 1px solid var(--line); background: white; color: var(--ink); font: inherit; }
+.buyer-order-confirmation details { margin: 15px 0; padding: 12px; border: 1px solid var(--line); background: white; }
+.buyer-order-confirmation details p { display: flex; justify-content: space-between; gap: 18px; margin: 7px 0; }
+.buyer-order-confirmation > small { display: block; color: var(--muted); line-height: 1.5; }
+.admin-order-confirmation { margin-top: 16px; padding: 16px; border: 1px solid #31584f; background: #f2f7f5; }
+.admin-order-confirmation > article { margin-top: 13px; padding: 13px; border: 1px solid var(--line); background: white; }
+.admin-order-confirmation > article > div { display: flex; justify-content: space-between; gap: 12px; }
+.admin-order-confirmation form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.admin-order-confirmation form label { display: grid; gap: 5px; font-size: 9px; font-weight: 800; }
+.admin-order-confirmation form input, .admin-order-confirmation form select, .admin-order-confirmation form textarea { width: 100%; padding: 9px; border: 1px solid var(--line); font: inherit; }
+.admin-order-confirmation form small { color: var(--muted); font-weight: 500; }
 .admin-sample-program { border-top: 1px solid var(--line); background: #fffdf5; }
 .admin-buyer-order-request { border-top: 1px solid var(--line); background: #f1f8f5; }
 .admin-buyer-order-request > div { padding: 0 22px 16px; display: grid; gap: 12px; }
@@ -1800,9 +1827,10 @@ footer a:hover { color: var(--forest); }
 
 @media (max-width: 700px) {
   .buyer-order-packet { padding: 18px; }
-  .buyer-order-packet-heading, .admin-order-packet article > div { flex-direction: column; }
-  .buyer-order-packet form, .buyer-order-packet fieldset, .admin-order-packet dl, .admin-order-packet form { grid-template-columns: 1fr; }
+  .buyer-order-packet-heading, .admin-order-packet article > div, .buyer-order-confirmation-heading, .admin-order-confirmation > article > div { flex-direction: column; }
+  .buyer-order-packet form, .buyer-order-packet fieldset, .admin-order-packet dl, .admin-order-packet form, .buyer-order-confirmation-meta, .buyer-order-confirmation-grid, .buyer-order-confirmation-decision fieldset, .admin-order-confirmation form { grid-template-columns: 1fr; }
   .buyer-order-packet .packet-wide { grid-column: auto; }
+  .buyer-order-confirmation { padding: 18px; }
   .acquisition-heading { display: block; }
   .acquisition-heading > span { display: inline-block; margin-top: 12px; }
   .acquisition-layout { grid-template-columns: 1fr; }

@@ -300,6 +300,22 @@ export default function PrivacyPage() {
           </p>
         </section>
         <section>
+          <h2>Pre-order written confirmation drafts</h2>
+          <p>
+            After human review of the latest protected packet, Beiqiang may
+            issue a versioned eight-item draft covering product specification,
+            sample decision, quantity and size ratio, colors and materials,
+            packing and labeling, price and trade term, payment terms and
+            delivery window. We store the issued version, buyer decision,
+            selected revision fields, buyer note, timestamps and limited email
+            delivery outcomes with the inquiry. Earlier versions remain
+            preserved. The private buyer page does not expose the issuing
+            employee or internal notification fields. Draft acceptance is a
+            mismatch-prevention record, not a purchase order, invoice, payment
+            authorization or permission to start production.
+          </p>
+        </section>
+        <section>
           <h2>Sourcing meeting requests</h2>
           <p>
             A verified project holder may submit a meeting purpose, preferred

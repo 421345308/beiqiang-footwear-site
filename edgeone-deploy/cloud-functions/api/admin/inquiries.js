@@ -92,6 +92,14 @@ function orderHandoffReady(value) {
   return Boolean(value?.method && value?.orderReference && value?.confirmedAt && ORDER_CHECKLIST_FIELDS.every((field) => clean(value?.orderChecklist?.[field], 500).length >= 2));
 }
 
+function matchesAcceptedConfirmationDraft(record, handoff) {
+  const packet = Array.isArray(record.orderPreparationPackets) ? record.orderPreparationPackets.at(-1) : null;
+  if (!record.buyerOrderRequests?.length || packet?.status !== "reviewed") return true;
+  const draft = Array.isArray(record.orderConfirmationDrafts) ? record.orderConfirmationDrafts.at(-1) : null;
+  if (!draft || draft.status !== "buyer_accepted") return false;
+  return ORDER_CHECKLIST_FIELDS.every((field) => clean(draft.orderChecklist?.[field], 500) === clean(handoff?.orderChecklist?.[field], 500));
+}
+
 function orderCriticalSnapshot(value) {
   return { method: value?.method || "", orderReference: value?.orderReference || "", orderUrl: value?.orderUrl || "", confirmedAt: value?.confirmedAt || "", paymentCurrency: value?.paymentCurrency || "USD", orderChecklist: Object.fromEntries(ORDER_CHECKLIST_FIELDS.map((field) => [field, value?.orderChecklist?.[field] || ""])), paymentPlan: (value?.paymentMilestones || []).map((item) => ({ id: item.id, label: item.label, amount: item.amount, dueDate: item.dueDate })) };
 }
@@ -216,6 +224,7 @@ export function createAdminInquiryUpdateHandler({ getStoreImpl = getStore, creat
       if (sampleRequestId && !sampleResult?.sampleProgram) return response(400, { ok: false, message: "A sample request can be converted only with a reviewed sample project." });
       const effectiveOrderHandoff = orderResult?.orderHandoff || current.orderHandoff;
       if (current.status !== "order_confirmed" && payload.status === "order_confirmed" && !orderHandoffReady(effectiveOrderHandoff)) return response(409, { ok: false, message: "Complete the Trade Assurance/contract reference, confirmed date and all eight written order-readiness items before confirming the order stage." });
+      if (current.status !== "order_confirmed" && payload.status === "order_confirmed" && !matchesAcceptedConfirmationDraft(current, effectiveOrderHandoff)) return response(409, { ok: false, message: "Issue a pre-order confirmation draft, obtain the buyer's acceptance, and keep all eight formal-order checklist items identical to that accepted draft before confirming the order stage." });
       const requestedLostReason = clean(payload.lostReason, 50);
       if (payload.status === "lost" && current.status !== "lost" && !LOST_REASONS.has(requestedLostReason)) return response(400, { ok: false, message: "Choose the primary lost reason before closing this opportunity." });
       const quotations = Array.isArray(current.quotations) ? current.quotations : [];

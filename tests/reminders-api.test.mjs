@@ -104,6 +104,7 @@ test("builds one internal action list for follow-up, shortlist, quote and paymen
     quotes: 1,
     meetings: 0,
     orderPackets: 0,
+    orderConfirmations: 0,
     orderChanges: 1,
     fulfillmentCases: 1,
     repeatOrders: 1,
@@ -120,6 +121,16 @@ test("builds one internal action list for follow-up, shortlist, quote and paymen
   assert.equal(summary.repeatOrders[0].opportunityId, "ROP-ABCDEF012345");
   assert.equal(summary.payments[0].timing, "overdue");
   assert.equal(JSON.stringify(summary).includes("BQ-TEST"), false);
+});
+
+test("turns pre-order draft responses and delivery gaps into explicit internal actions", () => {
+  const summary = buildReminderSummary([
+    { reference: "BQ-D1", company: "Buyer D1", owner: "Sales A", status: "negotiation", orderConfirmationDrafts: [{ id: "OCD-111111111111", version: 1, status: "buyer_revision_requested", issuedAt: "2026-08-22T10:00:00.000Z", buyerRespondedAt: "2026-08-23T08:00:00.000Z" }] },
+    { reference: "BQ-D2", company: "Buyer D2", owner: "Sales B", status: "negotiation", orderConfirmationDrafts: [{ id: "OCD-222222222222", version: 2, status: "buyer_accepted", issuedAt: "2026-08-22T10:00:00.000Z", buyerRespondedAt: "2026-08-23T09:00:00.000Z" }] },
+    { reference: "BQ-D3", company: "Buyer D3", owner: "Sales C", status: "negotiation", orderConfirmationDrafts: [{ id: "OCD-333333333333", version: 1, status: "awaiting_buyer", issuedAt: "2026-08-21T10:00:00.000Z", notificationStatus: "delivery_failed" }] },
+  ], today);
+  assert.equal(summary.counts.orderConfirmations, 3);
+  assert.deepEqual(summary.orderConfirmations.map((item) => item.action).sort(), ["create_authoritative_order", "issue_revised_confirmation", "verify_confirmation_delivery"].sort());
 });
 
 test("turns meeting review, preparation, notification, time-zone and outcome gaps into internal actions", () => {

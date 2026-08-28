@@ -69,6 +69,10 @@ const analytics = {
     meetingChangesSubmitted: 2,
     meetingChangesPending: 1,
     meetingChangesApproved: 1,
+    orderConfirmationsIssued: 2,
+    orderConfirmationsAwaitingBuyer: 1,
+    orderConfirmationsAccepted: 1,
+    orderConfirmationsRevisionRequested: 1,
   },
   comparisonJourneys: [
     { codes: "BQ001 · BQ009", shares: 2, opens: 1, prints: 1 },

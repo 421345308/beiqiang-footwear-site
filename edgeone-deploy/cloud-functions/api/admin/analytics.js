@@ -534,6 +534,11 @@ export function buildCommercialAnalytics(
       ? record.orderPreparationPackets
       : [],
   );
+  const orderConfirmationDrafts = businessInquiries.flatMap((record) =>
+    Array.isArray(record.orderConfirmationDrafts)
+      ? record.orderConfirmationDrafts
+      : [],
+  );
   const orderChangeRequests = businessInquiries.flatMap((record) =>
     Array.isArray(record.orderChangeRequests) ? record.orderChangeRequests : [],
   );
@@ -769,6 +774,18 @@ export function buildCommercialAnalytics(
         (item) =>
           item.status === "reviewed" &&
           Date.parse(item.reviewedAt || 0) >= cutoff,
+      ).length,
+      orderConfirmationsIssued: orderConfirmationDrafts.filter(
+        (item) => Date.parse(item.issuedAt || 0) >= cutoff,
+      ).length,
+      orderConfirmationsAwaitingBuyer: businessInquiries.filter(
+        (record) => record.orderConfirmationDrafts?.at(-1)?.status === "awaiting_buyer",
+      ).length,
+      orderConfirmationsAccepted: orderConfirmationDrafts.filter(
+        (item) => item.status === "buyer_accepted" && Date.parse(item.buyerRespondedAt || 0) >= cutoff,
+      ).length,
+      orderConfirmationsRevisionRequested: orderConfirmationDrafts.filter(
+        (item) => item.status === "buyer_revision_requested" && Date.parse(item.buyerRespondedAt || 0) >= cutoff,
       ).length,
       quoteRevisions: periodInquiries.filter((record) =>
         record.quotations?.some(
