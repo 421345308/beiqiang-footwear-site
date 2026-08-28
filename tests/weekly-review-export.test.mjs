@@ -60,6 +60,9 @@ const analytics = {
     resourceCtas: 1,
     comparisonShares: 2,
     comparisonOpens: 1,
+    privateLabelStudioViews: 4,
+    privateLabelConceptDownloads: 2,
+    privateLabelConceptQuoteHandoffs: 1,
     meetingRequestsSubmitted: 3,
     meetingsPending: 1,
     meetingsConfirmed: 1,
@@ -162,6 +165,8 @@ test("exports a Chinese weekly report with evidence and non-prediction boundarie
   assert.match(report, /LinkedIn：12次可选分析事件、3条询盘/);
   assert.match(report, /较上次同周期询盘\+2、Qualified\+1、报价\+1/);
   assert.match(report, /产品组合分享证据/);
+  assert.match(report, /私标概念到询价/);
+  assert.match(report, /工作台浏览：4；概念图下载：2；进入结构化询价：1/);
   assert.match(
     report,
     /BQ001 · BQ009：2次分享动作、1次分享链接打开、1次打印\/PDF动作/,

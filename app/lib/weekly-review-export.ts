@@ -86,6 +86,9 @@ export type WeeklyReviewAnalytics = {
     comparisonShares?: number;
     comparisonOpens?: number;
     lineSheetLeads?: number;
+    privateLabelStudioViews?: number;
+    privateLabelConceptDownloads?: number;
+    privateLabelConceptQuoteHandoffs?: number;
     meetingRequestsSubmitted?: number;
     meetingsPending?: number;
     meetingsConfirmed?: number;
@@ -295,6 +298,10 @@ export function buildWeeklyReviewMarkdown({
     "## 产品组合分享证据",
     `- 分享动作：${analytics.supporting?.comparisonShares || 0}；分享链接打开：${analytics.supporting?.comparisonOpens || 0}。`,
     ...comparisonEvidence(analytics.comparisonJourneys),
+    "",
+    "## 私标概念到询价",
+    `- 工作台浏览：${analytics.supporting?.privateLabelStudioViews || 0}；概念图下载：${analytics.supporting?.privateLabelConceptDownloads || 0}；进入结构化询价：${analytics.supporting?.privateLabelConceptQuoteHandoffs || 0}。`,
+    "- 以上是经同意的页面行为信号，不证明Logo可生产、样品已批、询盘有效或订单成立；应与实际私标询盘及后续样品结果核对。",
     "",
     "## 采购会议执行证据",
     `- 周期内会议申请：${analytics.supporting?.meetingRequestsSubmitted || 0}`,

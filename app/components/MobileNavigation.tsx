@@ -21,6 +21,7 @@ const groups = [
     links: [
       ["Wholesale walking shoes", "/solutions/wholesale-walking-shoes/"],
       ["Private-label walking shoes", "/solutions/private-label-walking-shoes/"],
+      ["Logo concept studio", "/private-label-concept/"],
       ["OEM knit-shoe development", "/solutions/oem-knit-shoes/"],
       ["OEM / ODM overview", "/oem-odm/"],
     ],

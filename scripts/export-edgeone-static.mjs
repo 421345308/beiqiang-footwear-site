@@ -35,10 +35,10 @@ const chineseSolutionRoutes = solutionSlugs.map((slug) => ({ pathname: `/zh/solu
 const resourceSlugs = ["footwear-rfq-checklist", "shoe-sample-approval-checklist", "private-label-walking-shoes-sourcing-guide"];
 const resourceRoutes = resourceSlugs.map((slug) => ({ pathname: `/resources/${slug}`, output: `resources/${slug}/index.html` }));
 const chineseResourceRoutes = resourceSlugs.map((slug) => ({ pathname: `/zh/resources/${slug}`, output: `zh/resources/${slug}/index.html` }));
-const capabilitySlugs = ["factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide", "buyer-workspace", "line-sheet", "privacy", "terms"];
+const capabilitySlugs = ["factory", "quality-packing", "oem-odm", "private-label-concept", "sample-order-process", "buyer-guide", "buyer-workspace", "line-sheet", "privacy", "terms"];
 const searchableCapabilitySlugs = capabilitySlugs.filter((slug) => slug !== "buyer-workspace");
 const capabilityRoutes = capabilitySlugs.map((slug) => ({ pathname: `/${slug}`, output: `${slug}/index.html` }));
-const chineseCapabilitySlugs = ["line-sheet", "factory", "quality-packing", "oem-odm", "sample-order-process", "buyer-guide"];
+const chineseCapabilitySlugs = ["line-sheet", "factory", "quality-packing", "oem-odm", "private-label-concept", "sample-order-process", "buyer-guide"];
 const chineseCapabilityRoutes = chineseCapabilitySlugs.map((slug) => ({ pathname: `/zh/${slug}`, output: `zh/${slug}/index.html` }));
 const routes = [
   { pathname: "/", output: "index.html" },

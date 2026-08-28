@@ -71,6 +71,11 @@ test("supports a Chinese multi-style sourcing brief without a retail checkout", 
   assert.doesNotMatch(html, /立即付款|信用卡结账|一键下单/);
 });
 
+test("publishes the Chinese private-label concept studio with an English equivalent", async () => {
+  const response = await render("/zh/private-label-concept"); const html = await response.text();
+  assert.equal(response.status, 200); assert.match(html, /把一款真实鞋型变成更清楚的品牌需求/); assert.match(html, /把需求带入询价单/); assert.match(html, /不是生产可行性或样品批准/); assert.match(html, /不把目标写成已经可生产/); assert.match(html, /hrefLang="en"[^>]+\/private-label-concept\//i); assert.doesNotMatch(html, />保证定制可行<|>立即付款</);
+});
+
 test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet paths", async () => {
   for (const [path, heading, boundary] of [
     ["/zh/factory", /用看得见的证据开始工厂端采购沟通/, /不据此虚构产能、客户品牌或认证/],
@@ -142,6 +147,7 @@ test("publishes Chinese privacy and terms boundaries", async () => {
   assert.match(privacyHtml, /回复偏好与站外沟通记录/);
   assert.match(privacyHtml, /同事访问申请/);
   assert.match(privacyHtml, /不会自动开通权限/);
+  assert.match(privacyHtml, /私标概念工作台/);
   assert.match(privacyHtml, /采购会议申请/);
   assert.match(privacyHtml, /不会自动建立日历预约/);
   assert.match(privacyHtml, /不证明消息送达、邮件打开、身份、同意、付款或订单/);
@@ -151,6 +157,7 @@ test("publishes Chinese privacy and terms boundaries", async () => {
   assert.match(termsHtml, /网站帮助双方准备订单，但不自动创建正式交易/);
   assert.match(termsHtml, /Alibaba Trade Assurance/);
   assert.match(termsHtml, /采购会议/);
+  assert.match(termsHtml, /私标概念预览/);
   assert.match(termsHtml, /会议讨论、屏幕共享、聊天或会议摘要不确认规格/);
 });
 

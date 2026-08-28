@@ -48,6 +48,16 @@ export default function TermsPage() {
           </p>
         </section>
         <section>
+          <h2>Private-label concept previews</h2>
+          <p>
+            A logo or brand-text preview records a buyer&apos;s visual target only.
+            It does not confirm artwork ownership, logo method, placement,
+            dimensions, colors, cost, tooling, material compatibility or
+            manufacturing feasibility. Those items require factory review and,
+            where applicable, sample and written approval before a formal order.
+          </p>
+        </section>
+        <section>
           <h2>Recommendations, inquiries, samples and quotations</h2>
           <p>
             A product shortlist is a buyer-specific sourcing direction based on

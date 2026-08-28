@@ -15,6 +15,7 @@ const links = [
   ["采购知识与清单", "/zh/resources/"],
   ["步行鞋批发方案", "/zh/solutions/wholesale-walking-shoes/"],
   ["私标步行鞋方案", "/zh/solutions/private-label-walking-shoes/"],
+  ["Logo概念工作台", "/zh/private-label-concept/"],
   ["OEM针织鞋开发", "/zh/solutions/oem-knit-shoes/"],
   ["工厂与实拍证据", "/zh/factory/"],
   ["检查与包装", "/zh/quality-packing/"],

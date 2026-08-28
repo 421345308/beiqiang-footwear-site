@@ -709,6 +709,9 @@ export function buildCommercialAnalytics(
       productShares: countEvent("product_share"),
       comparisonShares: countEvent("comparison_share"),
       comparisonOpens: countEvent("comparison_open"),
+      privateLabelStudioViews: countEvent("private_label_studio_view"),
+      privateLabelConceptDownloads: countEvent("private_label_concept_download"),
+      privateLabelConceptQuoteHandoffs: countEvent("private_label_concept_to_quote"),
       buyerMessages: periodInquiries.reduce(
         (sum, record) => sum + (record.messages?.length || 0),
         0,

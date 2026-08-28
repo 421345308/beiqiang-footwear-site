@@ -16,6 +16,7 @@ import ContactPreferenceFields, {
 import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../components/AdaptationBriefFields";
 import BuyerQuoteReadiness from "../components/BuyerQuoteReadiness";
 import { assessBuyerQuoteReadiness } from "../lib/buyer-quote-readiness";
+import { readPrivateLabelConcept } from "../lib/private-label-concept";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -66,6 +67,7 @@ export default function QuoteRequestBuilder() {
     const requestedProgram = params.get("program") || "";
     const requestedResource = params.get("resource") || "";
     const requestedPath = params.get("path");
+    const requestedConcept = params.get("concept") === "1";
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
       if (/^[a-z0-9-]{1,80}$/.test(requestedProgram))
@@ -78,6 +80,14 @@ export default function QuoteRequestBuilder() {
         )
       )
         setProjectPath(requestedPath!);
+      if (requestedConcept) {
+        const concept = readPrivateLabelConcept();
+        if (concept) {
+          setProjectPath("base_style_adaptation");
+          setAdaptationBrief({ intent: "private_label", artworkStatus: concept.artworkStatus, brandingPlacement: `${concept.placement}${concept.brandText ? `; brand text: ${concept.brandText}` : ""}`.slice(0, 300), colorDirection: "", packingLabeling: concept.notes });
+          setRequirements((current) => current || `Buyer prepared a private-label concept for ${concept.styleCode}. The visual is retained by the buyer and remains a target pending factory feasibility and sample review.${concept.notes ? ` Notes: ${concept.notes}` : ""}`.slice(0, 1000));
+        }
+      }
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);

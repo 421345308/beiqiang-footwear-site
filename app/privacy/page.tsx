@@ -175,6 +175,19 @@ export default function PrivacyPage() {
           </p>
         </section>
         <section>
+          <h2>Private-label concept studio</h2>
+          <p>
+            Logo or reference-image files selected in the concept studio are
+            read and rendered locally in your browser. They are not uploaded by
+            that page or included automatically in an inquiry. The device may
+            retain a limited text summary containing the selected product code,
+            intended placement, artwork readiness, brand text and buyer notes
+            so these targets can be carried into the quote builder. The buyer
+            must separately upload the downloaded concept through the protected
+            project if Beiqiang needs to review the visual file.
+          </p>
+        </section>
+        <section>
           <h2>Sharing and transaction platforms</h2>
           <p>
             Inquiry data is used by authorized Beiqiang personnel and relevant

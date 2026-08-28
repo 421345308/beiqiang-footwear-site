@@ -21,9 +21,15 @@ test("publishes one useful B2B sourcing hub and three substantial buyer guides",
   }
 });
 
+test("publishes a buyer-target private-label concept path without manufacturing promises", async () => {
+  const response = await render("/private-label-concept"); const html = await response.text();
+  assert.equal(response.status, 200); assert.match(html, /Turn one real shoe style into a clearer branding brief/i); assert.match(html, /not manufacturing approval/i); assert.match(html, /Continue with this RFQ brief/i); assert.match(html, /hrefLang="zh-CN"[^>]+\/zh\/private-label-concept\//i); assert.doesNotMatch(html, /guaranteed customization|approved production|instant order/i);
+});
+
 test("exposes a canonical sitemap and robots policy without private buyer routes", async () => {
   const sitemap = await render("/sitemap.xml"); const xml = await sitemap.text();
   assert.equal(sitemap.status, 200); assert.match(sitemap.headers.get("content-type") || "", /xml/i); assert.match(xml, /https:\/\/www\.beiqiang\.online\/products\/bq001\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/resources\/footwear-rfq-checklist\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/solutions\/private-label-walking-shoes\/?/); assert.doesNotMatch(xml, /admin\/inquiries|buyer-workspace|inquiry-status|\/api\//i);
+  assert.match(xml, /https:\/\/www\.beiqiang\.online\/private-label-concept\/?/);
   const robots = await render("/robots.txt"); const text = await robots.text(); assert.equal(robots.status, 200); assert.match(text, /User-Agent:\s*\*/i); assert.match(text, /Disallow:\s*\/api\//i); assert.match(text, /Sitemap:\s*https:\/\/www\.beiqiang\.online\/sitemap\.xml/i);
 });
 

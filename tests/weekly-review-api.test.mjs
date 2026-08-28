@@ -90,6 +90,9 @@ const analytics = {
     resourceViews: 2,
     comparisonShares: 2,
     comparisonOpens: 1,
+    privateLabelStudioViews: 4,
+    privateLabelConceptDownloads: 2,
+    privateLabelConceptQuoteHandoffs: 1,
     meetingRequestsSubmitted: 3,
     meetingsPending: 1,
     meetingsConfirmed: 1,
@@ -188,7 +191,8 @@ test("saves one immutable aggregate snapshot per day and period", async () => {
   assert.equal(store.values.size, 1);
   assert.equal(JSON.stringify(body).includes("must-not-store"), false);
   assert.match(body.snapshot.dataBoundary, /No buyer identity/i);
-  assert.equal(body.snapshot.version, 7);
+  assert.equal(body.snapshot.version, 8);
+  assert.equal(body.snapshot.supporting.privateLabelConceptQuoteHandoffs, 1);
   assert.equal(body.snapshot.supporting.meetingCalendarDownloads, 2);
   assert.equal(body.snapshot.supporting.meetingChangesPending, 1);
   assert.equal(body.snapshot.acquisitionChannels[0].channel, "linkedin");

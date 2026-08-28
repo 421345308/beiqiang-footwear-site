@@ -19,6 +19,7 @@ import {
   type QuoteLine,
 } from "../../lib/quote-list";
 import { assessBuyerQuoteReadiness } from "../../lib/buyer-quote-readiness";
+import { readPrivateLabelConcept } from "../../lib/private-label-concept";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -68,6 +69,7 @@ export default function ChineseQuoteRequestBuilder() {
     const requestedProgram = params.get("program") || "";
     const requestedResource = params.get("resource") || "";
     const requestedPath = params.get("path");
+    const requestedConcept = params.get("concept") === "1";
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
       if (/^[a-z0-9-]{1,80}$/.test(requestedProgram))
@@ -80,6 +82,14 @@ export default function ChineseQuoteRequestBuilder() {
         )
       )
         setProjectPath(requestedPath!);
+      if (requestedConcept) {
+        const concept = readPrivateLabelConcept();
+        if (concept) {
+          setProjectPath("base_style_adaptation");
+          setAdaptationBrief({ intent: "private_label", artworkStatus: concept.artworkStatus, brandingPlacement: `${concept.placement}${concept.brandText ? `；品牌文字：${concept.brandText}` : ""}`.slice(0, 300), colorDirection: "", packingLabeling: concept.notes });
+          setRequirements((current) => current || `买家已为${concept.styleCode}制作私标概念图；视觉文件由买家保留，所有内容仍是待工厂可行性与样品审核的目标。${concept.notes ? `说明：${concept.notes}` : ""}`.slice(0, 1000));
+        }
+      }
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);

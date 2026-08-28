@@ -533,6 +533,9 @@ type CommercialAnalytics = {
     productShares: number;
     comparisonShares: number;
     comparisonOpens: number;
+    privateLabelStudioViews: number;
+    privateLabelConceptDownloads: number;
+    privateLabelConceptQuoteHandoffs: number;
     buyerMessages: number;
     buyerFiles: number;
     buyerDocuments: number;
@@ -1238,6 +1241,18 @@ function CommercialDashboard({
             <article>
               <small>PRODUCT SHEETS</small>
               <strong>{data.supporting.productSpecSheets}</strong>
+            </article>
+            <article>
+              <small>PRIVATE-LABEL STUDIO</small>
+              <strong>{data.supporting.privateLabelStudioViews || 0}</strong>
+            </article>
+            <article>
+              <small>CONCEPT DOWNLOADS</small>
+              <strong>{data.supporting.privateLabelConceptDownloads || 0}</strong>
+            </article>
+            <article>
+              <small>CONCEPT → RFQ</small>
+              <strong>{data.supporting.privateLabelConceptQuoteHandoffs || 0}</strong>
             </article>
             <article>
               <small>THREAD MESSAGES</small>

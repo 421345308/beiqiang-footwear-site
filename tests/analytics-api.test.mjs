@@ -134,6 +134,9 @@ const events = [
     details: { context: "wide-toe-box", linkType: "quote" },
     attribution: { utmSource: "linkedin" },
   },
+  { event: "private_label_studio_view", receivedAt: "2026-08-23T08:08:00.000Z", details: { context: "private_label_concept", styleCode: "BQ001" }, attribution: { utmSource: "linkedin" } },
+  { event: "private_label_concept_download", receivedAt: "2026-08-23T08:08:10.000Z", details: { context: "private_label_concept", styleCode: "BQ001" }, attribution: { utmSource: "linkedin" } },
+  { event: "private_label_concept_to_quote", receivedAt: "2026-08-23T08:08:20.000Z", details: { context: "private_label_concept", styleCode: "BQ001" }, attribution: { utmSource: "linkedin" } },
   {
     event: "product_view",
     receivedAt: "2025-01-01T08:00:00.000Z",
@@ -376,6 +379,9 @@ test("builds a consent-aware commercial funnel without counting internal tests",
   assert.equal(result.supporting.productShares, 1);
   assert.equal(result.supporting.comparisonShares, 1);
   assert.equal(result.supporting.comparisonOpens, 1);
+  assert.equal(result.supporting.privateLabelStudioViews, 1);
+  assert.equal(result.supporting.privateLabelConceptDownloads, 1);
+  assert.equal(result.supporting.privateLabelConceptQuoteHandoffs, 1);
   assert.equal(result.products[0].shares, 1);
   assert.equal(result.products[0].comparisonShares, 1);
   assert.equal(result.products[0].comparisonOpens, 1);
@@ -403,7 +409,7 @@ test("builds a consent-aware commercial funnel without counting internal tests",
     result.acquisitionChannels.find((item) => item.channel === "linkedin"),
     {
       channel: "linkedin",
-      events: 20,
+      events: 23,
       inquiries: 1,
       qualified: 1,
       sampleDiscussion: 1,
