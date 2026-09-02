@@ -560,12 +560,18 @@ test("separates exact first-response timing from date-only contact evidence", ()
 
 test("tracks human sourcing reviews from submission through shortlist issuance", () => {
   const result = buildCommercialAnalytics([], [
-    { reference: "BQ-HR-1", receivedAt: "2026-08-22T08:00:00.000Z", status: "new", context: "sourcing_review", finderBrief: { mode: "human_review" } },
-    { reference: "BQ-HR-2", receivedAt: "2026-08-21T08:00:00.000Z", status: "qualified", context: "sourcing_review", finderBrief: { mode: "human_review" }, recommendationSets: [{ id: "REC-1", status: "issued", issuedAt: "2026-08-23T09:00:00.000Z" }] },
+    { reference: "BQ-HR-1", receivedAt: "2026-08-20T08:00:00.000Z", status: "new", context: "sourcing_review", finderBrief: { mode: "human_review" } },
+    { reference: "BQ-HR-2", receivedAt: "2026-08-21T08:00:00.000Z", status: "qualified", context: "sourcing_review", finderBrief: { mode: "human_review" }, recommendationSets: [{ id: "REC-1", status: "issued", issuedAt: "2026-08-22T08:00:00.000Z" }] },
+    { reference: "BQ-HR-3", receivedAt: "2026-08-20T08:00:00.000Z", status: "qualified", context: "sourcing_review", finderBrief: { mode: "human_review" }, recommendationSets: [{ id: "REC-2", status: "issued", issuedAt: "2026-08-23T08:00:00.000Z" }] },
   ], { days: 30, now: new Date("2026-08-23T12:00:00.000Z") });
-  assert.equal(result.supporting.humanSourcingReviewsSubmitted, 2);
+  assert.equal(result.supporting.humanSourcingReviewsSubmitted, 3);
   assert.equal(result.supporting.humanSourcingReviewsAwaitingShortlist, 1);
-  assert.equal(result.supporting.humanSourcingReviewsShortlisted, 1);
+  assert.equal(result.supporting.humanSourcingReviewsShortlisted, 2);
+  assert.equal(result.supporting.humanSourcingReviewExactMeasured, 2);
+  assert.equal(result.supporting.humanSourcingReviewMedianHours, 48);
+  assert.equal(result.supporting.humanSourcingReviewWithin48Hours, 1);
+  assert.equal(result.supporting.humanSourcingReviewWithin48HourRate, 50);
+  assert.equal(result.supporting.humanSourcingReviewsOverdue48Hours, 1);
 });
 
 test("returns only an aggregated analytics summary", async () => {

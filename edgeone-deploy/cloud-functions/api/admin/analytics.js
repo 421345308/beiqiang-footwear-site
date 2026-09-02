@@ -123,6 +123,20 @@ function firstSalesResponseHours(record) {
   if (!responseTimes.length) return null;
   return (Math.min(...responseTimes) - received) / 3_600_000;
 }
+function firstHumanShortlistHours(record) {
+  const received = timestamp(record.receivedAt);
+  if (received === null || record.finderBrief?.mode !== "human_review")
+    return null;
+  const issuedTimes = (Array.isArray(record.recommendationSets)
+    ? record.recommendationSets
+    : []
+  )
+    .filter((item) => item?.status === "issued")
+    .map((item) => timestamp(item.issuedAt))
+    .filter((value) => value !== null && value >= received);
+  if (!issuedTimes.length) return null;
+  return (Math.min(...issuedTimes) - received) / 3_600_000;
+}
 function latestRecordedActivity(record) {
   const values = [
     record.receivedAt,
@@ -662,6 +676,18 @@ export function buildCommercialAnalytics(
     funnel,
     { now, today: to },
   );
+  const humanReviewCohort = periodInquiries.filter(
+    (record) =>
+      record.context === "sourcing_review" &&
+      record.finderBrief?.mode === "human_review",
+  );
+  const humanReviewDurations = humanReviewCohort
+    .map(firstHumanShortlistHours)
+    .filter((value) => value !== null);
+  const humanReviewWithin48Hours = humanReviewDurations.filter(
+    (hours) => hours <= 48,
+  ).length;
+  const humanReviewOverdueCutoff = now.getTime() - 48 * 3_600_000;
   const acquisitionChannels = [...acquisitionMap.values()]
     .map((item) => ({
       ...item,
@@ -733,6 +759,21 @@ export function buildCommercialAnalytics(
           record.recommendationSets?.some(
             (item) => Date.parse(item.issuedAt || 0) >= cutoff,
           ),
+      ).length,
+      humanSourcingReviewExactMeasured: humanReviewDurations.length,
+      humanSourcingReviewMedianHours: median(humanReviewDurations),
+      humanSourcingReviewWithin48Hours: humanReviewWithin48Hours,
+      humanSourcingReviewWithin48HourRate: percentage(
+        humanReviewWithin48Hours,
+        humanReviewDurations.length,
+      ),
+      humanSourcingReviewsOverdue48Hours: businessInquiries.filter(
+        (record) =>
+          record.finderBrief?.mode === "human_review" &&
+          isActive(record) &&
+          !record.recommendationSets?.some((item) => item.status === "issued") &&
+          timestamp(record.receivedAt) !== null &&
+          timestamp(record.receivedAt) < humanReviewOverdueCutoff,
       ).length,
       buyerMessages: periodInquiries.reduce(
         (sum, record) => sum + (record.messages?.length || 0),

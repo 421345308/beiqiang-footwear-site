@@ -543,6 +543,11 @@ type CommercialAnalytics = {
     humanSourcingReviewsSubmitted: number;
     humanSourcingReviewsAwaitingShortlist: number;
     humanSourcingReviewsShortlisted: number;
+    humanSourcingReviewExactMeasured: number;
+    humanSourcingReviewMedianHours: number | null;
+    humanSourcingReviewWithin48Hours: number;
+    humanSourcingReviewWithin48HourRate: number;
+    humanSourcingReviewsOverdue48Hours: number;
     buyerMessages: number;
     buyerFiles: number;
     buyerDocuments: number;
@@ -1293,6 +1298,22 @@ function CommercialDashboard({
             <article>
               <small>FINDER → RFQ</small>
               <strong>{data.supporting.productFinderQuoteHandoffs || 0}</strong>
+            </article>
+            <article>
+              <small>HUMAN REVIEW SLA SAMPLES</small>
+              <strong>{data.supporting.humanSourcingReviewExactMeasured || 0}</strong>
+            </article>
+            <article>
+              <small>MEDIAN SHORTLIST HOURS</small>
+              <strong>{data.supporting.humanSourcingReviewMedianHours ?? "—"}</strong>
+            </article>
+            <article>
+              <small>SHORTLISTED WITHIN 48H</small>
+              <strong>{data.supporting.humanSourcingReviewWithin48HourRate || 0}%</strong>
+            </article>
+            <article>
+              <small>OVER 48H AWAITING NOW</small>
+              <strong>{data.supporting.humanSourcingReviewsOverdue48Hours || 0}</strong>
             </article>
             <article>
               <small>THREAD MESSAGES</small>

@@ -140,7 +140,10 @@ export function sanitizeWeeklyReviewSnapshot(source) {
   const coverage = source.coverage || {};
   return {
     version:
-      source.version >= 10 ||
+      source.version >= 11 ||
+      source.supporting?.humanSourcingReviewMedianHours !== undefined
+        ? 11
+        : source.version >= 10 ||
       source.supporting?.humanSourcingReviewsSubmitted !== undefined
         ? 10
         : source.version >= 9 ||
@@ -242,6 +245,11 @@ export function sanitizeWeeklyReviewSnapshot(source) {
       humanSourcingReviewsSubmitted: safeNumber(source.supporting?.humanSourcingReviewsSubmitted),
       humanSourcingReviewsAwaitingShortlist: safeNumber(source.supporting?.humanSourcingReviewsAwaitingShortlist),
       humanSourcingReviewsShortlisted: safeNumber(source.supporting?.humanSourcingReviewsShortlisted),
+      humanSourcingReviewExactMeasured: safeNumber(source.supporting?.humanSourcingReviewExactMeasured),
+      humanSourcingReviewMedianHours: safeNumber(source.supporting?.humanSourcingReviewMedianHours, true),
+      humanSourcingReviewWithin48Hours: safeNumber(source.supporting?.humanSourcingReviewWithin48Hours),
+      humanSourcingReviewWithin48HourRate: safeNumber(source.supporting?.humanSourcingReviewWithin48HourRate),
+      humanSourcingReviewsOverdue48Hours: safeNumber(source.supporting?.humanSourcingReviewsOverdue48Hours),
       meetingRequestsSubmitted: safeNumber(
         source.supporting?.meetingRequestsSubmitted,
       ),
@@ -399,7 +407,7 @@ export function createWeeklyReviewHandlers({
           message: body.message || "Current analytics could not be calculated.",
         });
       const snapshot = sanitizeWeeklyReviewSnapshot({
-        version: 10,
+        version: 11,
         id: `WR-${date.replaceAll("-", "")}-${days}D`,
         capturedAt,
         period: body.analytics.period,

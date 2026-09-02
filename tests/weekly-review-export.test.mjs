@@ -70,6 +70,11 @@ const analytics = {
     humanSourcingReviewsSubmitted: 3,
     humanSourcingReviewsAwaitingShortlist: 1,
     humanSourcingReviewsShortlisted: 2,
+    humanSourcingReviewExactMeasured: 2,
+    humanSourcingReviewMedianHours: 36,
+    humanSourcingReviewWithin48Hours: 1,
+    humanSourcingReviewWithin48HourRate: 50,
+    humanSourcingReviewsOverdue48Hours: 1,
     meetingRequestsSubmitted: 3,
     meetingsPending: 1,
     meetingsConfirmed: 1,
@@ -176,6 +181,8 @@ test("exports a Chinese weekly report with evidence and non-prediction boundarie
   assert.match(report, /工作台浏览：4；概念图下载：2；进入结构化询价：1/);
   assert.match(report, /采购选款助手/);
   assert.match(report, /人工复核提交：3；当前待签发候选：1；周期内已签发人工候选：2/);
+  assert.match(report, /首次签发中位时长：36小时/);
+  assert.match(report, /48小时内签发：1（50%）；当前超过48小时仍待签发：1/);
   assert.match(report, /页面浏览：6；生成结果：4/);
   assert.match(report, /进入并排比较：2；加入询价：1/);
   assert.match(
