@@ -25,7 +25,8 @@ test("reports required and forbidden content independently", () => {
 
 test("checks every public acquisition route and produces an actionable failure report", async () => {
   const content = {
-    "/": "Quanzhou Beiqiang Footwear /request-quote/ 421345308@qq.com",
+    "/": "Quanzhou Beiqiang Footwear >Products< >Programs< >Verify< >How to buy< Buyer workspace /request-quote/ 421345308@qq.com",
+    "/zh/": "泉州鞋类工厂供应商 >产品选款< >采购方案< >验证工厂< >如何采购< 买家工作台 /zh/request-quote/",
     "/products/": "56 product pages BQ061 START BY SOURCING DIRECTION",
     "/zh/products/": "56 BQ061 采购方向",
     "/products/bq061/": "BQ061 AA811 Knitted textile upper /request-quote/",
@@ -44,7 +45,7 @@ test("checks every public acquisition route and produces an actionable failure r
   const fetchImpl = async (url) => new Response(content[new URL(url).pathname] || "missing", { status: content[new URL(url).pathname] ? 200 : 404 });
   const passing = await verifyPublicSite("https://www.beiqiang.online", { fetchImpl });
   assert.equal(passing.ok, true);
-  assert.equal(passing.passed, 15);
+  assert.equal(passing.passed, 16);
 
   const failing = await verifyPublicSite("https://www.beiqiang.online", { fetchImpl: async () => new Response("", { status: 503 }) });
   assert.equal(failing.ok, false);
