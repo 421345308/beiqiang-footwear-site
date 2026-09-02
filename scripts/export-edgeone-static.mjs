@@ -48,6 +48,7 @@ const capabilityRoutes = capabilitySlugs.map((slug) => ({ pathname: `/${slug}`, 
 const chineseCapabilitySlugs = ["line-sheet", "factory", "quality-packing", "oem-odm", "private-label-concept", "product-finder", "sourcing-review", "sample-order-process", "buyer-guide"];
 const chineseCapabilityRoutes = chineseCapabilitySlugs.map((slug) => ({ pathname: `/zh/${slug}`, output: `zh/${slug}/index.html` }));
 const routes = [
+  { pathname: "/release.json", output: "release.json" },
   { pathname: "/", output: "index.html" },
   { pathname: "/products", output: "products/index.html" },
   { pathname: "/resources", output: "resources/index.html" },
