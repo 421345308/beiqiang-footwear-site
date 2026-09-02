@@ -163,6 +163,10 @@ h1 { max-width: 690px; font-size: clamp(50px, 5vw, 78px); line-height: .98; }
 .product-card p { min-height: 44px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .product-facts { margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; list-style: none; }
 .product-facts li { padding: 7px 9px; background: var(--sage); color: var(--forest); font-size: 10px; font-weight: 800; }
+.product-card-specs { margin: 14px 0 0; padding: 12px 0; display: grid; gap: 7px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.product-card-specs div { display: grid; grid-template-columns: 72px 1fr; gap: 10px; }
+.product-card-specs dt { color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.product-card-specs dd { margin: 0; color: var(--ink); font-size: 10px; line-height: 1.45; }
 .buyer-fit { margin-top: 12px; display: block; color: var(--muted); font-size: 11px; }
 .product-card button, .product-detail-link { width: max-content; margin-top: 16px; padding: 0 0 8px; border: 0; border-bottom: 1px solid var(--forest); display: inline-block; background: none; color: var(--forest); font-size: 12px; font-weight: 800; cursor: pointer; }
 .product-card button span, .product-detail-link span { margin-left: 8px; }

@@ -128,7 +128,7 @@ test("publishes a bilingual evidence-led product finder", async () => {
   const html = await response.text();
   assert.equal(response.status, 200);
   assert.match(html, /从当前在线选款缩小到可审核的候选清单/);
-  assert.match(html, /生成有依据的候选款/);
+  assert.match(html, /生成产品候选清单/);
   assert.match(html, /不预测销量、价格或生产可行性/);
   assert.match(html, /hrefLang="en"[^>]+\/product-finder\//i);
   assert.doesNotMatch(html, /保证畅销|保证库存|立即付款/);
@@ -143,6 +143,7 @@ test("publishes a bilingual evidence-led product finder", async () => {
     englishHtml,
     /does not predict sales, price or manufacturing feasibility/i,
   );
+  assert.doesNotMatch(englishHtml, /evidence-led candidates/i);
 });
 
 test("publishes a bilingual human sourcing review path", async () => {

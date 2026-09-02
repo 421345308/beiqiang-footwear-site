@@ -78,10 +78,10 @@ export default function ProductFinder({
       next.length
         ? zh
           ? `已根据当前选择生成${next.length}款候选。`
-          : `${next.length} evidence-led candidates generated.`
+          : `${next.length} product candidates generated from the current catalogue.`
         : zh
-          ? "当前条件互相冲突或没有证据匹配，请调整产品方向或穿脱结构。"
-          : "The current requirements conflict or have no evidence match. Adjust the direction or closure.",
+          ? "当前条件互相冲突或当前目录没有匹配款，请调整产品方向或穿脱结构。"
+          : "The current requirements conflict or have no match in this catalogue. Adjust the direction or closure.",
     );
     trackEvent("product_finder_result", {
       context: zh ? "finder_zh" : "finder_en",
@@ -187,8 +187,8 @@ export default function ProductFinder({
           >
             <option value="open">
               {zh
-                ? "开放选择，优先资料较完整款"
-                : "Open — prioritize documented styles"}
+                ? "开放选择，优先产品信息较完整款"
+                : "Open — prioritize styles with fuller product information"}
             </option>
             <option value="wide_toe">
               {zh ? "有证据的宽鞋头方向" : "Verified wide-toe direction"}
@@ -235,7 +235,7 @@ export default function ProductFinder({
           </select>
         </label>
         <button className="button" type="submit">
-          {zh ? "生成有依据的候选款" : "Build evidence-led shortlist"}
+            {zh ? "生成产品候选清单" : "Build product shortlist"}
         </button>
         <small>
           {zh
@@ -369,7 +369,7 @@ export default function ProductFinder({
                   : "Add the candidates directly, or keep these criteria and ask sales to review them against your market, quantity and sample needs."
                 : zh
                   ? "我们会保留当前筛选条件，但不会把无证据的鞋款强行推荐给您。"
-                  : "We keep the current criteria without forcing an unsupported product recommendation."}
+                  : "We keep the current criteria without forcing a product that does not match the available catalogue information."}
             </small>
           </div>
         ) : null}
