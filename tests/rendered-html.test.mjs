@@ -42,6 +42,11 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /"duration":"PT3M"/i);
   assert.match(html, /\/videos\/beiqiang-factory-tour\.mp4/i);
   assert.match(html, /English scene captions/i);
+  assert.match(html, /Factory evidence routes/i);
+  assert.match(html, /\/factory-video-stills\/factory-exterior\.webp/i);
+  assert.match(html, /\/factory-video-stills\/stitching-line\.webp/i);
+  assert.match(html, /\/factory-video-stills\/packing-preparation\.webp/i);
+  assert.match(html, /A visible work area does not mean every SKU uses that process/i);
   assert.match(html, /\/og\.jpg/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
 });
@@ -67,6 +72,8 @@ test("groups bilingual buyer navigation by sourcing stage without hiding commerc
     assert.match(chineseHtml, new RegExp(`/zh/collections/${slug}/`), slug);
   }
   assert.match(chineseHtml, /样品与订单流程/);
+  assert.match(chineseHtml, /工厂实拍证据入口/);
+  assert.match(chineseHtml, /画面出现某个工作区域，不代表所有SKU均采用该工艺/);
   assert.match(chineseHtml, /href="\/zh\/request-quote\/"[^>]*>询价单/);
 });
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import ChineseSiteFooter from "../components/ChineseSiteFooter";
 import ChineseSiteHeader from "../components/ChineseSiteHeader";
 import FactoryEvidenceVideo from "../components/FactoryEvidenceVideo";
+import HomepageFactoryEvidence from "../components/HomepageFactoryEvidence";
 import { chineseCollections } from "../data/collections-zh";
 import { factoryVideoSchema } from "../lib/factory-video-schema";
 
@@ -35,6 +36,7 @@ export default function ChineseHome() {
 
       <section className="section factory-home-intro">
         <div className="section-heading"><div><p className="eyebrow">先了解供应商</p><h2>看看贝强如何支持一次采购决定。</h2></div><p>这个网站是买家工作入口：介绍工厂、帮助缩小产品方向，并收集业务可以有效回复的采购资料。它不是零售结账页，也不表示每项定制要求已经可以执行。</p></div>
+        <HomepageFactoryEvidence locale="zh" />
         <div className="trust-entry-grid"><Link href="/zh/factory/"><span>01</span><h3>工厂与工作区域</h3><p>查看当前工厂实拍，以及从产品方向到样品讨论的项目路径。</p><strong>打开工厂页面 →</strong></Link><Link href="/zh/quality-packing/"><span>02</span><h3>检查与包装</h3><p>了解订单中需要确认的产品、配码、包装与装箱信息。</p><strong>查看质量与包装 →</strong></Link><Link href="/zh/oem-odm/"><span>03</span><h3>OEM / ODM审核</h3><p>提交Logo、材料、颜色或开发目标，由工厂先审核可行性。</p><strong>准备OEM需求 →</strong></Link><Link href="/zh/sample-order-process/"><span>04</span><h3>从样品到正式订单</h3><p>了解从选款、样品到确认商业条款的每一步决定。</p><strong>查看买家流程 →</strong></Link></div>
       </section>
 
