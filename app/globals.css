@@ -415,11 +415,11 @@ footer a:hover { color: var(--forest); }
 .catalog-summary strong { margin-right: 7px; color: white; font-family: Georgia, serif; font-size: 22px; }
 .catalog-directions { padding: 72px clamp(20px, 8vw, 130px); display: grid; grid-template-columns: minmax(260px, .75fr) minmax(0, 1.5fr); gap: 56px; background: var(--paper); }
 .catalog-directions > div:first-child > p:not(.eyebrow) { max-width: 520px; color: var(--muted); line-height: 1.7; }
-.catalog-direction-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-.catalog-direction-grid > a { min-height: 265px; padding: 28px; display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--paper-light); transition: transform .2s ease, border-color .2s ease; }
+.catalog-direction-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.catalog-direction-grid > a { min-height: 220px; padding: 28px; display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--paper-light); transition: transform .2s ease, border-color .2s ease; }
 .catalog-direction-grid > a:hover { transform: translateY(-3px); border-color: var(--forest); }
 .catalog-direction-grid span { color: var(--terracotta); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.catalog-direction-grid h3 { margin: 34px 0 12px; font-family: Georgia, serif; font-size: 24px; }
+.catalog-direction-grid h3 { margin: 24px 0 12px; font-family: Georgia, serif; font-size: 24px; }
 .catalog-direction-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
 .catalog-direction-grid strong { margin-top: auto; padding-top: 22px; color: var(--forest); font-size: 12px; }
 .catalog-section { background: var(--paper-light); }

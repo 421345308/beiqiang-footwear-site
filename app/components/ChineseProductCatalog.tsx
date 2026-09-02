@@ -16,6 +16,10 @@ import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import { trackEvent } from "../lib/tracking";
 import ChineseProductCard from "./ChineseProductCard";
 import ComparisonShareActions from "./ComparisonShareActions";
+import {
+  isCatalogDirection,
+  productMatchesCatalogDirection,
+} from "../lib/catalog-filtering";
 
 const PAGE_SIZE = 12;
 
@@ -41,11 +45,7 @@ export default function ChineseProductCatalog({
         closure === "全部" || closureZh(product.closure) === closure;
       const matchesDirection =
         direction === "全部" ||
-        (direction === "high_top" && /high top|high-top|sock/i.test(`${product.name} ${product.group}`)) ||
-        (direction === "kids" && /kids/i.test(product.group)) ||
-        (direction === "large_size" && /EU (?:37|38)-4[67]|large size/i.test(`${product.size} ${product.group}`)) ||
-        (direction === "fleece" && product.colors.some((color) => /fleece/i.test(color))) ||
-        product.collections.includes(direction as Product["collections"][number]);
+        productMatchesCatalogDirection(product, direction);
       const haystack = [
         product.code,
         product.sourceModel,
@@ -77,10 +77,18 @@ export default function ChineseProductCatalog({
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      const requestedDirection = params.get("direction");
+      const requestedClosure = params.get("closure");
       const codes = parseComparisonCodes(
-        new URLSearchParams(window.location.search).get("compare") || "",
+        params.get("compare") || "",
         products.map((product) => product.code),
       );
+      if (isCatalogDirection(requestedDirection)) {
+        setDirection(requestedDirection);
+      }
+      if (requestedClosure === "Slip-On") setClosure("套穿");
+      if (requestedClosure === "Lace-Up") setClosure("系带");
       if (codes.length >= 2) {
         const styleCodes = codes.join(",");
         setCompareCodes(codes);

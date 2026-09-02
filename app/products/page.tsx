@@ -3,7 +3,25 @@ import Link from "next/link";
 import ProductCatalog from "../components/ProductCatalog";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
-import { collections, products, productsInCollection } from "../data/products";
+import { products } from "../data/products";
+import {
+  type CatalogDirection,
+  productMatchesCatalogDirection,
+} from "../lib/catalog-filtering";
+
+const catalogDirections: Array<{
+  key: CatalogDirection;
+  title: string;
+  copy: string;
+}> = [
+  { key: "wide-toe-box", title: "Roomy-toe walking shoes", copy: "Verified wide-toe styles for comfort-footwear assortments." },
+  { key: "knit-slip-on", title: "Easy-on knit styles", copy: "Slip-on textile and knit options for convenient daily-wear ranges." },
+  { key: "breathable-lace-up", title: "Breathable lace-up styles", copy: "Knit, mesh and textile lace-up directions for warmer markets." },
+  { key: "high_top", title: "High-top and sock styles", copy: "Higher-cut silhouettes for seasonal or differentiated assortments." },
+  { key: "kids", title: "Kids footwear", copy: "Current children’s styles grouped for a faster buyer review." },
+  { key: "large_size", title: "Extended-size directions", copy: "Styles whose documented size direction reaches larger EU sizes." },
+  { key: "fleece", title: "Fleece-lined options", copy: "Documented color options that include a fleece-lined direction." },
+];
 
 export const metadata: Metadata = {
   title: "Walking Shoe Product Catalogue | Beiqiang Footwear",
@@ -77,22 +95,22 @@ export default function ProductsPage() {
           </p>
         </div>
         <div className="catalog-direction-grid">
-          {collections.map((collection) => (
+          {catalogDirections.map((direction) => (
             <Link
-              key={collection.slug}
-              href={`/collections/${collection.slug}/`}
+              key={direction.key}
+              href={`/products/?direction=${direction.key}#catalog`}
             >
               <span>
-                {productsInCollection(collection.slug).length} current styles
+                {products.filter((product) => productMatchesCatalogDirection(product, direction.key)).length} current styles
               </span>
-              <h3>{collection.title}</h3>
-              <p>{collection.description}</p>
-              <strong>Review this direction →</strong>
+              <h3>{direction.title}</h3>
+              <p>{direction.copy}</p>
+              <strong>Filter the catalogue →</strong>
             </Link>
           ))}
         </div>
       </section>
-      <section className="section catalog-section">
+      <section className="section catalog-section" id="catalog">
         <ProductCatalog products={products} />
       </section>
       <section className="catalog-help">

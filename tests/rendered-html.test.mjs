@@ -53,6 +53,12 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Compare styles/i);
   assert.match(html, /Start by sourcing direction/i);
   assert.match(html, /Review a product family before individual styles/i);
+  assert.match(html, /High-top and sock styles/i);
+  assert.match(html, /Kids footwear/i);
+  assert.match(html, /Extended-size directions/i);
+  assert.match(html, /Fleece-lined options/i);
+  assert.match(html, /products\/\?direction=kids#catalog/i);
+  assert.match(html, /products\/\?direction=fleece#catalog/i);
   assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?56/i);
   assert.match(html, /Show more products/i);
   assert.match(html, /Browse all\s*(?:<!-- -->)?56(?:<!-- -->)?\s*current product codes/i);

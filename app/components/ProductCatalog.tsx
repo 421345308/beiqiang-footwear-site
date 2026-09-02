@@ -8,6 +8,10 @@ import { trackEvent } from "../lib/tracking";
 import ProductCard from "./ProductCard";
 import ComparisonShareActions from "./ComparisonShareActions";
 import { parseComparisonCodes } from "../lib/comparison-link";
+import {
+  isCatalogDirection,
+  productMatchesCatalogDirection,
+} from "../lib/catalog-filtering";
 
 const PAGE_SIZE = 12;
 
@@ -29,11 +33,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
       const matchesClosure = closure === "All" || product.closure === closure;
       const matchesDirection =
         direction === "All" ||
-        (direction === "high_top" && /high top|high-top|sock/i.test(`${product.name} ${product.group}`)) ||
-        (direction === "kids" && /kids/i.test(product.group)) ||
-        (direction === "large_size" && /EU (?:37|38)-4[67]|large size/i.test(`${product.size} ${product.group}`)) ||
-        (direction === "fleece" && product.colors.some((color) => /fleece/i.test(color))) ||
-        product.collections.includes(direction as Product["collections"][number]);
+        productMatchesCatalogDirection(product, direction);
       const haystack = [
         product.code,
         product.sourceModel,
@@ -63,10 +63,19 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      const requestedDirection = params.get("direction");
+      const requestedClosure = params.get("closure");
       const codes = parseComparisonCodes(
-        new URLSearchParams(window.location.search).get("compare") || "",
+        params.get("compare") || "",
         products.map((product) => product.code),
       );
+      if (isCatalogDirection(requestedDirection)) {
+        setDirection(requestedDirection);
+      }
+      if (requestedClosure === "Slip-On" || requestedClosure === "Lace-Up") {
+        setClosure(requestedClosure);
+      }
       if (codes.length >= 2) {
         const styleCodes = codes.join(",");
         setCompareCodes(codes);

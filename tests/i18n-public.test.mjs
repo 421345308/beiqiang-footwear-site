@@ -41,6 +41,11 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   assert.match(catalogHtml, /按款号、源款号或产品搜索/);
   assert.match(catalogHtml, /先按采购方向查看/);
   assert.match(catalogHtml, /先看产品方向，再看具体款式/);
+  assert.match(catalogHtml, /高帮与袜套款/);
+  assert.match(catalogHtml, /儿童鞋/);
+  assert.match(catalogHtml, /扩展尺码方向/);
+  assert.match(catalogHtml, /加绒选项/);
+  assert.match(catalogHtml, /zh\/products\/\?direction=kids#catalog/i);
   assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?56(?:<!-- -->)?款/);
   assert.match(catalogHtml, /查看更多产品/);
   assert.match(catalogHtml, /浏览全部(?:<!-- -->)?56(?:<!-- -->)?个当前产品款号/);
