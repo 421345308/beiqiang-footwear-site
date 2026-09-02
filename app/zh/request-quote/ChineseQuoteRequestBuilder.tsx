@@ -20,6 +20,7 @@ import {
 } from "../../lib/quote-list";
 import { assessBuyerQuoteReadiness } from "../../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../../lib/private-label-concept";
+import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../../lib/product-finder-brief";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -50,6 +51,7 @@ export default function ChineseQuoteRequestBuilder() {
   const [requirements, setRequirements] = useState("");
   const [adaptationBrief, setAdaptationBrief] = useState<AdaptationBrief>(EMPTY_ADAPTATION_BRIEF);
   const [sourcingProgram, setSourcingProgram] = useState("");
+  const [finderBrief, setFinderBrief] = useState<ProductFinderBrief | null>(null);
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<Status>({
@@ -72,6 +74,12 @@ export default function ChineseQuoteRequestBuilder() {
     const requestedConcept = params.get("concept") === "1";
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
+      const savedFinderBrief = readProductFinderBrief();
+      if (savedFinderBrief) {
+        setFinderBrief(savedFinderBrief);
+        setBuyerType(buyerTypeFromFinder(savedFinderBrief.buyerChannel));
+        setChannel((current) => current || salesChannelFromFinder(savedFinderBrief.buyerChannel));
+      }
       if (/^[a-z0-9-]{1,80}$/.test(requestedProgram))
         setSourcingProgram(requestedProgram);
       else if (/^[a-z0-9-]{1,80}$/.test(requestedResource))
@@ -179,6 +187,7 @@ export default function ChineseQuoteRequestBuilder() {
             .join(" | "),
           context: "quote_list",
           sourcingProgram,
+          finderBrief,
           page: `${window.location.pathname}${window.location.search}`,
           formStartedAt: startedAt.current,
           attribution: getAttribution(),
@@ -238,6 +247,8 @@ export default function ChineseQuoteRequestBuilder() {
         context: "quote_builder_zh",
       });
       saveQuoteList([]);
+      clearProductFinderBrief();
+      setFinderBrief(null);
       setLines([]);
     } catch (error) {
       setStatus({
@@ -377,6 +388,15 @@ export default function ChineseQuoteRequestBuilder() {
             )}
           </div>
           <BuyerQuoteReadiness readiness={quoteReadiness} />
+          {finderBrief && (() => {
+            const labels = finderBriefLabels(finderBrief, "zh");
+            return <section className="finder-brief-handoff" aria-label="从采购选款助手带入的需求">
+              <div><p className="eyebrow">已带入采购需求</p><h3>候选款背景已准备好，请核对。</h3></div>
+              <dl><div><dt>买家／渠道</dt><dd>{labels.buyer}</dd></div><div><dt>产品方向</dt><dd>{labels.priority}</dd></div><div><dt>穿脱结构</dt><dd>{labels.closure}</dd></div><div><dt>候选款号</dt><dd>{finderBrief.styleCodes.join("、")}</dd></div></dl>
+              <p>这是买家提交的采购目标和系统生成的目录候选，不代表销量、库存、价格或工厂可行性确认。下方买家类型与销售渠道仍可修改。</p>
+              <button type="button" onClick={() => { clearProductFinderBrief(); setFinderBrief(null); }}>移除带入需求</button>
+            </section>;
+          })()}
           <fieldset>
             <legend>1. 项目路径</legend>
             <label className="radio-card">

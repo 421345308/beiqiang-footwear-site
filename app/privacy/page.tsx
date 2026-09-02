@@ -178,12 +178,15 @@ export default function PrivacyPage() {
           <h2>B2B product finder</h2>
           <p>
             Buyer-channel, product-direction, closure and shortlist-size choices
-            are evaluated in the current browser and are not submitted as an
-            inquiry. If optional analytics are accepted, the site may record the
+            are evaluated in the current browser. When the buyer explicitly
+            adds all matched products to the quote list, a limited summary of
+            buyer channel, product direction, closure preference and up to four
+            candidate style codes is stored on that device and displayed in the
+            quote builder for review. It is submitted only if the buyer sends
+            that quote request, and can be removed before submission. If optional analytics are accepted, the site may record the
             fixed finder action, bounded result style codes and result count; it
             does not record the choice labels as a buyer profile. Products enter
-            device storage only when the buyer explicitly adds them to the quote
-            list.
+            device storage only when the buyer explicitly adds them to the quote list.
           </p>
         </section>
         <section>

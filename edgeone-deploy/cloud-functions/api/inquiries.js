@@ -10,9 +10,22 @@ const RESPONSE_LANGUAGES = new Set(["en", "zh", "de", "fr", "es", "other"]);
 const SOURCING_PROGRAMS = new Set(["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes", "resource-footwear-rfq-checklist", "resource-shoe-sample-approval-checklist", "resource-private-label-walking-shoes-sourcing-guide", "collection-wide-toe-box", "collection-knit-slip-on", "collection-breathable-lace-up"]);
 const ADAPTATION_INTENTS = new Set(["not_sure", "existing_style_wholesale", "color_review", "private_label", "packing_labeling", "combined_review"]);
 const ARTWORK_STATUSES = new Set(["not_applicable", "not_ready", "reference_only", "vector_ready"]);
+const FINDER_BUYER_CHANNELS = new Set(["importer_wholesaler", "online_seller", "brand_private_label", "sourcing_agent"]);
+const FINDER_PRIORITIES = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
+const FINDER_CLOSURES = new Set(["any", "Slip-On", "Lace-Up"]);
 
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";
+}
+
+function cleanFinderBrief(value, selectedStyleCodes) {
+  if (!value || typeof value !== "object") return null;
+  const buyerChannel = FINDER_BUYER_CHANNELS.has(value.buyerChannel) ? value.buyerChannel : "";
+  const priority = FINDER_PRIORITIES.has(value.priority) ? value.priority : "";
+  const closure = FINDER_CLOSURES.has(value.closure) ? value.closure : "";
+  const selected = new Set(String(selectedStyleCodes || "").toUpperCase().match(/BQ\d{3}/g) || []);
+  const styleCodes = Array.isArray(value.styleCodes) ? [...new Set(value.styleCodes.map((code) => clean(code, 10).toUpperCase()).filter((code) => /^BQ\d{3}$/.test(code) && selected.has(code)))].slice(0, 4) : [];
+  return buyerChannel && priority && closure && styleCodes.length ? { buyerChannel, priority, closure, styleCodes } : null;
 }
 
 function response(status, body) {
@@ -68,6 +81,7 @@ export function validateInquiry(payload, now = Date.now()) {
     deliveryDestination: clean(payload.deliveryDestination, 240),
     deliveryTiming: clean(payload.deliveryTiming, 160),
     sourcingProgram: SOURCING_PROGRAMS.has(payload.sourcingProgram) ? payload.sourcingProgram : "",
+    finderBrief: cleanFinderBrief(payload.finderBrief, payload.styleCode),
     adaptationBrief: payload.projectPath === "base_style_adaptation" && payload.adaptationBrief && typeof payload.adaptationBrief === "object" ? {
       intent: ADAPTATION_INTENTS.has(payload.adaptationBrief?.intent) ? payload.adaptationBrief.intent : "not_sure",
       artworkStatus: ARTWORK_STATUSES.has(payload.adaptationBrief?.artworkStatus) ? payload.adaptationBrief.artworkStatus : "not_applicable",
@@ -119,6 +133,7 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
     `Preferred contact: ${inquiry.preferredContactMethod || "No preference"}`, `Preferred response language: ${inquiry.preferredResponseLanguage || "No preference"}`, `Buyer time zone / city: ${inquiry.buyerTimezone || "-"}`, `Convenient local contact time: ${inquiry.preferredContactWindow || "-"}`,
     `Project path: ${inquiry.projectPath}`, `Sample quantity: ${inquiry.sampleQuantity || "-"}`, `Bulk quantity: ${inquiry.bulkQuantity || "-"}`,
     `Sourcing program: ${inquiry.sourcingProgram || "Direct / catalogue"}`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "-"}`, `Requested delivery timing: ${inquiry.deliveryTiming || "-"}`,
+    ...(inquiry.finderBrief ? [`Product-finder buyer/channel target: ${inquiry.finderBrief.buyerChannel}`, `Product-finder direction target: ${inquiry.finderBrief.priority}`, `Product-finder closure preference: ${inquiry.finderBrief.closure}`, `Product-finder candidates: ${inquiry.finderBrief.styleCodes.join(", ")}`] : []),
     ...(inquiry.adaptationBrief ? [`Adaptation intent: ${inquiry.adaptationBrief.intent}`, `Artwork readiness: ${inquiry.adaptationBrief.artworkStatus}`, `Branding placement target: ${inquiry.adaptationBrief.brandingPlacement || "-"}`, `Color / material target: ${inquiry.adaptationBrief.colorDirection || "-"}`, `Packing / labeling target: ${inquiry.adaptationBrief.packingLabeling || "-"}`] : []),
     `Quote lines: ${inquiry.items.length ? inquiry.items.map((item) => `${item.code}: ${item.quantity || "qty TBD"}; colors ${item.colors || "TBD"}; sizes ${item.sizes || "TBD"}; ${item.notes || ""}`).join(" | ") : "-"}`,
     `Existing sole: ${inquiry.existingSole || "-"}`, `Changes required: ${inquiry.changesRequired || "-"}`, `Buyer target / tests: ${inquiry.targetValues || "-"}`, `NDA / tech pack: ${inquiry.ndaRequired || "No"}`,

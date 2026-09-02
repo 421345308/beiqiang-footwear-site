@@ -14,6 +14,7 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /A complete walking-shoe range for your next market test/);
+  assert.match(html, /Find 2–4 matching styles/);
   assert.match(html, /View the complete catalogue/);
   assert.match(html, /421345308@qq\.com/);
   assert.match(html, /8618959805256/);

@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { products } from "../data/products";
 import { buyerFitZh, factZh, productNameZh } from "../data/products-zh";
 import { findProducts, type BuyerChannel, type ClosurePreference, type FinderAnswers, type ProductPriority } from "../lib/product-finder";
+import { saveProductFinderBrief } from "../lib/product-finder-brief";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import { trackEvent } from "../lib/tracking";
 
@@ -44,6 +45,7 @@ export default function ProductFinder({ locale = "en" }: { locale?: "en" | "zh" 
     const existing = new Set(readQuoteList().map((line) => line.code));
     let added = 0;
     for (const { product } of matches) if (!existing.has(product.code) && addProductToQuote(product)) added += 1;
+    saveProductFinderBrief({ buyerChannel, priority, closure, styleCodes: matches.map((item) => item.product.code) });
     setMessage(zh ? `已新增${added}款到询价单；原有款不会重复加入。` : `${added} new style${added === 1 ? "" : "s"} added to the quote list; existing styles were not duplicated.`);
     trackEvent("product_finder_to_quote", { context: zh ? "finder_zh" : "finder_en", styleCodes: matches.map((item) => item.product.code).join(","), styleCount: matches.length });
   }
@@ -63,7 +65,7 @@ export default function ProductFinder({ locale = "en" }: { locale?: "en" | "zh" 
     <section className="finder-results" aria-live="polite">
       <div className="finder-results-heading"><div><p className="eyebrow">{zh ? "匹配结果" : "MATCHED SHORTLIST"}</p><h2>{submitted ? (matches.length ? (zh ? "从真实款号开始比较。" : "Compare from real product codes.") : (zh ? "没有强行推荐。" : "No forced recommendation.")) : (zh ? "候选款将在这里显示。" : "Your candidates will appear here.")}</h2><p>{message}</p></div>{matches.length ? <span>{matches.length}/{resultCount}</span> : null}</div>
       <div className="finder-result-grid">{matches.map(({ product, reasons }) => <article key={product.code}><img src={`/catalog-thumbs/${product.slug}.webp`} alt={`${product.code} ${zh ? productNameZh(product) : product.name}`} width="640" height="640" /><div><small>{product.code} · {product.sourceModel}</small><h3>{zh ? productNameZh(product) : product.name}</h3><p>{zh ? factZh(product.shortDescription) : product.shortDescription}</p><ul>{reasons.map((reason) => <li key={reason}>{zh ? (reasonZh[reason] || (reason === product.buyerFit ? buyerFitZh(product) : reason.replace("Slip-On", "套穿").replace("Lace-Up", "系带"))) : reason}</li>)}</ul><p className="finder-confirm"><strong>{zh ? "报价前仍需确认：" : "Still confirm before quote: "}</strong>{(zh ? product.confirmBeforeQuote.map(factZh) : product.confirmBeforeQuote).slice(0, 3).join(" · ")}</p><Link href={`${zh ? "/zh" : ""}/products/${product.slug}/`}>{zh ? "查看产品证据 →" : "Review product evidence →"}</Link></div></article>)}</div>
-      {matches.length ? <div className="finder-actions"><button className="button" type="button" onClick={addAll}>{zh ? "全部加入询价单" : "Add all to quote list"}</button><Link className="button button-secondary" href={comparisonHref} onClick={() => trackEvent("product_finder_to_compare", { context: zh ? "finder_zh" : "finder_en", styleCodes: matches.map((item) => item.product.code).join(","), styleCount: matches.length })}>{zh ? "并排比较候选款" : "Compare candidates"}</Link><Link className="text-link" href={zh ? "/zh/request-quote/" : "/request-quote/"}>{zh ? "打开询价单 →" : "Open quote list →"}</Link></div> : null}
+      {matches.length ? <div className="finder-actions"><button className="button" type="button" onClick={addAll}>{zh ? "全部加入询价单" : "Add all to quote list"}</button><Link className="button button-secondary" href={comparisonHref} onClick={() => trackEvent("product_finder_to_compare", { context: zh ? "finder_zh" : "finder_en", styleCodes: matches.map((item) => item.product.code).join(","), styleCount: matches.length })}>{zh ? "并排比较候选款" : "Compare candidates"}</Link><Link className="text-link" href={zh ? "/zh/request-quote/" : "/request-quote/"}>{zh ? "打开询价单 →" : "Open quote list →"}</Link><small>{zh ? "点击“全部加入询价单”后，买家类型、产品方向、穿脱偏好和候选款会保存在本设备，并在询价页显示供您确认。" : "After you add all styles, buyer type, product direction, closure preference and candidate codes stay on this device and appear in the RFQ for your review."}</small></div> : null}
       <small className="finder-boundary">{zh ? "排序帮助缩小目录范围，不代表畅销、库存、价格、MOQ、交期、材料、认证或可定制性确认。正式建议由业务员结合市场、数量、尺码、颜色、包装和样品要求人工复核。" : "Ranking narrows the catalogue; it does not confirm bestseller status, stock, price, MOQ, lead time, materials, certificates or customization. Beiqiang reviews market, quantity, size, colors, packing and sample requirements before a formal recommendation or quotation."}</small>
     </section>
   </div>;

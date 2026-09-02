@@ -17,6 +17,7 @@ import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } f
 import BuyerQuoteReadiness from "../components/BuyerQuoteReadiness";
 import { assessBuyerQuoteReadiness } from "../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../lib/private-label-concept";
+import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../lib/product-finder-brief";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -47,6 +48,7 @@ export default function QuoteRequestBuilder() {
   const [requirements, setRequirements] = useState("");
   const [adaptationBrief, setAdaptationBrief] = useState<AdaptationBrief>(EMPTY_ADAPTATION_BRIEF);
   const [sourcingProgram, setSourcingProgram] = useState("");
+  const [finderBrief, setFinderBrief] = useState<ProductFinderBrief | null>(null);
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<Status>({
@@ -70,6 +72,12 @@ export default function QuoteRequestBuilder() {
     const requestedConcept = params.get("concept") === "1";
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
+      const savedFinderBrief = readProductFinderBrief();
+      if (savedFinderBrief) {
+        setFinderBrief(savedFinderBrief);
+        setBuyerType(buyerTypeFromFinder(savedFinderBrief.buyerChannel));
+        setChannel((current) => current || salesChannelFromFinder(savedFinderBrief.buyerChannel));
+      }
       if (/^[a-z0-9-]{1,80}$/.test(requestedProgram))
         setSourcingProgram(requestedProgram);
       else if (/^[a-z0-9-]{1,80}$/.test(requestedResource))
@@ -187,6 +195,7 @@ export default function QuoteRequestBuilder() {
             .join(" | "),
           context: "quote_list",
           sourcingProgram,
+          finderBrief,
           page: `${window.location.pathname}${window.location.search}`,
           formStartedAt: startedAt.current,
           attribution: getAttribution(),
@@ -247,6 +256,8 @@ export default function QuoteRequestBuilder() {
         projectPath,
       });
       saveQuoteList([]);
+      clearProductFinderBrief();
+      setFinderBrief(null);
       setLines([]);
     } catch (error) {
       setStatus({
@@ -388,6 +399,15 @@ export default function QuoteRequestBuilder() {
             )}
           </div>
           <BuyerQuoteReadiness readiness={quoteReadiness} />
+          {finderBrief && (() => {
+            const labels = finderBriefLabels(finderBrief);
+            return <section className="finder-brief-handoff" aria-label="Imported product finder brief">
+              <div><p className="eyebrow">IMPORTED SOURCING BRIEF</p><h3>Your shortlist context is ready for review.</h3></div>
+              <dl><div><dt>Buyer / channel</dt><dd>{labels.buyer}</dd></div><div><dt>Product direction</dt><dd>{labels.priority}</dd></div><div><dt>Closure</dt><dd>{labels.closure}</dd></div><div><dt>Candidate styles</dt><dd>{finderBrief.styleCodes.join(", ")}</dd></div></dl>
+              <p>This is your stated sourcing target and an automated catalogue shortlist—not confirmation of sales, stock, price or factory feasibility. Buyer type and sales channel below remain editable.</p>
+              <button type="button" onClick={() => { clearProductFinderBrief(); setFinderBrief(null); }}>Remove imported brief</button>
+            </section>;
+          })()}
           <fieldset>
             <legend>1. Project path</legend>
             <label className="radio-card">

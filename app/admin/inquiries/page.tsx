@@ -751,6 +751,7 @@ type Inquiry = {
   requirements: string;
   projectPath?: string;
   sourcingProgram?: string;
+  finderBrief?: { buyerChannel: string; priority: string; closure: string; styleCodes: string[] } | null;
   sampleQuantity?: string;
   bulkQuantity?: string;
   preferredTradeTerm?: string;
@@ -6969,6 +6970,14 @@ export default function InquiryAdminPage() {
                       evidence before treating any target as a confirmed
                       specification.
                     </span>
+                  </section>
+                )}
+                {record.finderBrief && (
+                  <section className="admin-contact-preferences">
+                    <small>PRODUCT FINDER BRIEF · BUYER TARGET</small>
+                    <p><strong>{record.finderBrief.priority.replaceAll("_", " ")}</strong> · {record.finderBrief.buyerChannel.replaceAll("_", " ")} · {record.finderBrief.closure.replaceAll("_", " ")}</p>
+                    <span><b>Automated shortlist:</b> {record.finderBrief.styleCodes.join(", ")}</span>
+                    <span>Use this to understand the buyer&apos;s starting criteria. Re-check product facts, quantity, market, sizes, colors, packing and sample requirements before recommendation or quotation.</span>
                   </section>
                 )}
                 {(record.preferredContactMethod ||

@@ -41,7 +41,7 @@ export default function Home() {
           <p className="eyebrow">FACTORY DIRECT · PRODUCT-PROOF FIRST</p>
           <h1>A complete walking-shoe range for your next market test.</h1>
           <p className="hero-lead">Explore 30 documented styles across wide toe box, easy-on knit, breathable lace-up, athletic and seasonal directions—then shortlist samples against your market, quantity and target specification.</p>
-          <div className="hero-actions"><Link className="button" href="/products/">Explore all 30 styles</Link><a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp a sourcing brief <span aria-hidden="true">→</span></a></div>
+          <div className="hero-actions"><Link className="button" href="/product-finder/">Find 2–4 matching styles</Link><Link className="button button-secondary" href="/products/">Explore all 30 styles</Link><a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp a sourcing brief <span aria-hidden="true">→</span></a></div>
           <dl className="hero-facts"><div><dt>30</dt><dd>Product packages in one catalogue</dd></div><div><dt>03</dt><dd>Buyer-intent collections</dd></div><div><dt>01</dt><dd>Inquiry trail for every style</dd></div></dl>
         </div>
         <div className="hero-visual">
