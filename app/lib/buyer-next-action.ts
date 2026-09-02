@@ -2,6 +2,7 @@ export type BuyerActionRequest = {
   status: { code: string };
   sampleProgram?: { status: string } | null;
   buyerRecommendation?: { status: string; title: string } | null;
+  sourcingReview?: { status: string } | null;
   buyerQuotation?: { status: string; quoteNumber: string } | null;
   buyerOrderRequest?: { quoteNumber: string } | null;
   orderPreparationPackets?: { status: string; version: number }[];
@@ -42,6 +43,7 @@ export function getBuyerNextAction(request: BuyerActionRequest): BuyerNextAction
   const activeMeeting = request.meetingRequests?.find((item) => ["pending", "confirmed"].includes(item.status));
   if (activeMeeting?.status === "confirmed") return { eyebrow: "SOURCING MEETING CONFIRMED", title: `${activeMeeting.confirmedSlot || "Confirmed time"} · ${activeMeeting.timezone || "check the recorded time zone"}`, body: "Review the agenda and connection details. The meeting supports discussion; written sample, quotation and formal-order terms remain authoritative.", actionLabel: "Review meeting details", href: "#meeting-request", tone: "progress" };
   if (activeMeeting) return { eyebrow: "MEETING REQUEST UNDER REVIEW", title: `${activeMeeting.id} is awaiting Beiqiang confirmation`, body: "Your proposed local times, time zone and agenda are saved. No calendar booking or attendance is confirmed until Beiqiang approves one option.", actionLabel: "Review meeting request", href: "#meeting-request", tone: "review" };
+  if (request.sourcingReview?.status === "awaiting_shortlist") return { eyebrow: "HUMAN SHORTLIST UNDER REVIEW", title: "Your sourcing criteria are saved", body: "Beiqiang is reviewing the documented catalog against your market and quantity. You do not need to submit the same request again; use the private thread only if the criteria change or more evidence is available.", actionLabel: "Review submitted criteria", href: "#sourcing-review-status", tone: "review" };
   if (request.buyerRecommendation?.status === "issued") return { eyebrow: "PRODUCT SHORTLIST READY", title: request.buyerRecommendation.title, body: "Review why each product was selected, choose the relevant styles and record whether this shortlist should move into sample or quotation discussion.", actionLabel: "Review recommended products", href: "#buyer-recommendation", tone: "decision" };
   if (request.buyerRecommendation?.status === "buyer_shortlisted") return { eyebrow: "SHORTLIST RECORDED", title: "Turn selected styles into a complete quote request", body: "Add the selected products to your quote list, then provide quantity, colors and size ratio so Beiqiang can review commercially useful terms.", actionLabel: "Review selected styles", href: "#buyer-recommendation", tone: "progress" };
   if (request.buyerRecommendation?.status === "revision_requested") return { eyebrow: "PRODUCT DIRECTION UNDER REVIEW", title: "Clarify the replacement product direction", body: "Your request for different options is recorded. Add any missing market, fit, closure, season, quantity or price-position context in the private message thread.", actionLabel: "Add product criteria", href: "#buyer-message-center", tone: "review" };

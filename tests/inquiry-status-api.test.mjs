@@ -10,6 +10,7 @@ const record = {
   projectPath: "base_style_adaptation", quantity: "800 pairs", preferredTradeTerm: "FCA", deliveryDestination: "Los Angeles, CA 90001", deliveryTiming: "Arrival in November", accessTokenHash: createHash("sha256").update(accessCode).digest("hex"),
   internalNote: "Never expose this", nextAction: "Internal only", buyerUpdate: "Quotation details were sent by email.",
   adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Tongue label", colorDirection: "Buyer requests navy; material subject to review", packingLabeling: "Buyer barcode label", internalCapability: "never expose" },
+  finderBrief: { mode: "human_review", buyerChannel: "online_seller", priority: "breathable_lace_up", closure: "Lace-Up", styleCodes: ["BQ009", "BAD", "bq009"], internalRouting: "never expose" },
   items: [{ code: "BQ001", name: "Wide Toe Box Knit Slip-On", quantity: "400", colors: "Black", sizes: "EU 36-46" }],
   attachments: [{ id: "abcdef0123456789abcd", key: "inquiry-files/private/internal-key.pdf", name: "brand-tech-pack.pdf", size: 2048, uploadedAt: "2026-08-23T09:00:00.000Z" }],
   messages: [{ id: "MSG-ABC", sender: "sales", body: "Please confirm the sample size.", sentAt: "2026-08-23T09:15:00.000Z", notificationSent: true, internalRouting: "never expose" }],
@@ -55,7 +56,19 @@ test("returns only the buyer-safe inquiry status fields", async () => {
   assert.equal(body.request.orderPreparationPackets[0].billingAddress, "Private Billing Street 1"); assert.equal(body.request.orderPreparationPackets[0].reviewNote, "Add importer details"); assert.equal(body.request.orderPreparationPackets[0].reviewedBy, undefined); assert.equal(body.request.orderPreparationPackets[0].internalRisk, undefined);
   assert.equal(body.request.orderConfirmationDrafts[0].orderChecklist.quantitySizeRatio, "500 pairs"); assert.deepEqual(body.request.orderConfirmationDrafts[0].buyerRevisionFields, ["quantitySizeRatio"]); assert.equal(body.request.orderConfirmationDrafts[0].issuedBy, undefined); assert.equal(body.request.orderConfirmationDrafts[0].notificationStatus, undefined);
   assert.equal(body.request.buyerRecommendation.items[1].code, "BQ009"); assert.equal(body.request.buyerRecommendation.issuedBy, undefined); assert.equal(body.request.buyerRecommendation.internalMargin, undefined);
+  assert.deepEqual(body.request.sourcingReview, { status: "shortlist_available", submittedAt: "2026-08-23T08:00:00.000Z", buyerChannel: "online_seller", priority: "breathable_lace_up", closure: "Lace-Up", startingStyles: ["BQ009"] });
+  assert.equal(body.request.sourcingReview.internalRouting, undefined);
   assert.equal(body.request.internalNote, undefined); assert.equal(body.request.nextAction, undefined); assert.equal(body.request.accessTokenHash, undefined);
+});
+
+test("shows a buyer-safe pending human shortlist without leaking internal review data", async () => {
+  const pendingRecord = { ...record, status: "new", recommendationSets: [], finderBrief: { mode: "human_review", buyerChannel: "sourcing_agent", priority: "open", closure: "any", styleCodes: [], reviewerNotes: "never expose" } };
+  const handler = createInquiryStatusHandler({ getStoreImpl: () => ({ get: async () => pendingRecord }) });
+  const result = await handler({ request: request() }); const body = await result.json();
+  assert.equal(result.status, 200);
+  assert.deepEqual(body.request.sourcingReview, { status: "awaiting_shortlist", submittedAt: "2026-08-23T08:00:00.000Z", buyerChannel: "sourcing_agent", priority: "open", closure: "any", startingStyles: [] });
+  assert.equal(body.request.sourcingReview.reviewerNotes, undefined);
+  assert.equal(body.request.buyerRecommendation, null);
 });
 
 test("rejects an incorrect inquiry status access code", async () => {

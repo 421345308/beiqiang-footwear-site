@@ -34,6 +34,7 @@ type PublicOrderHandoff = {
 export type ChineseProjectRequest = {
   reference: string; receivedAt: string; updatedAt: string; styleCode: string; styleLabel: string; projectPath: string; quantity: string; sampleQuantity: string; preferredTradeTerm: string; deliveryDestination: string; deliveryTiming: string;
   adaptationBrief: { intent: string; artworkStatus: string; brandingPlacement: string; colorDirection: string; packingLabeling: string } | null;
+  sourcingReview: { status: string; submittedAt: string; buyerChannel: string; priority: string; closure: string; startingStyles: string[] } | null;
   status: { code: string; label: string; step: number }; buyerUpdate: string;
   items: { code: string; name?: string; quantity?: string; colors?: string; sizes?: string }[];
   attachments: { id: string; name: string; size: number; uploadedAt: string; securityStatus?: string }[];
@@ -198,6 +199,7 @@ function nextAction(request: ChineseProjectRequest) {
   const meeting = request.meetingRequests?.find((item) => ["pending", "confirmed"].includes(item.status));
   if (meeting?.status === "confirmed") return ["采购会议已确认", `${meeting.confirmedSlot || "时间已确认"} · ${meeting.timezone}`, "请核对议题和连接方式；会议讨论不替代书面样品、报价和正式订单条款。", "#meeting-request"];
   if (meeting) return ["会议申请待审核", `${meeting.id}正在等待贝强确认`, "候选时间、时区和议题已保存，但尚未建立日历预约或确认出席。", "#meeting-request"];
+  if (request.sourcingReview?.status === "awaiting_shortlist") return ["人工选款审核中", "您的采购条件已经保存", "无需重复提交；只有条件变化或有新参考资料时，才需要在私密消息中补充。", "#sourcing-review-status"];
   if (request.buyerRecommendation?.status === "issued") return ["需要选款", "回复本项目产品推荐", "保存候选款或要求更换产品方向。", "#buyer-recommendation"];
   if (["shipped", "completed"].includes(request.orderHandoff?.fulfillmentStatus || "")) return ["交付后行动", "确认收货、报告问题或规划补单", "将实际交付体验连接到可审计的下一项目。", "#delivery-feedback"];
   return ["保持项目连续", "查看项目更新并在私密消息中回复", "所有商业条款仍以书面报价和正式订单为准。", "#buyer-message-center"];

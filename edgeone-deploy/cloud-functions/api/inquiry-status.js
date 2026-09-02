@@ -56,6 +56,26 @@ function buyerSafeOrderConfirmationDraft(value) {
   };
 }
 
+function buyerSafeSourcingReview(record, buyerRecommendation) {
+  const brief = record?.finderBrief;
+  if (brief?.mode !== "human_review") return null;
+  const buyerChannels = new Set(["importer_wholesaler", "online_seller", "brand_private_label", "sourcing_agent"]);
+  const priorities = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
+  const closures = new Set(["any", "Slip-On", "Lace-Up"]);
+  const startingStyles = Array.isArray(brief.styleCodes)
+    ? [...new Set(brief.styleCodes.map((code) => String(code).trim().toUpperCase()).filter((code) => /^BQ\d{3}$/.test(code)))].slice(0, 4)
+    : [];
+  const hasVisibleShortlist = buyerRecommendation && ["issued", "buyer_shortlisted", "revision_requested"].includes(buyerRecommendation.status);
+  return {
+    status: hasVisibleShortlist ? "shortlist_available" : "awaiting_shortlist",
+    submittedAt: record.receivedAt,
+    buyerChannel: buyerChannels.has(brief.buyerChannel) ? brief.buyerChannel : "not_recorded",
+    priority: priorities.has(brief.priority) ? brief.priority : "not_recorded",
+    closure: closures.has(brief.closure) ? brief.closure : "not_recorded",
+    startingStyles,
+  };
+}
+
 export function createInquiryStatusHandler({ getStoreImpl = getStore } = {}) {
   return async function onRequestGet(context) {
     const url = new URL(context.request.url);
@@ -83,6 +103,7 @@ export function createInquiryStatusHandler({ getStoreImpl = getStore } = {}) {
           quantity: record.bulkQuantity || record.quantity, sampleQuantity: record.sampleQuantity || "",
           preferredTradeTerm: record.preferredTradeTerm || "not_sure", deliveryDestination: record.deliveryDestination || "", deliveryTiming: record.deliveryTiming || "",
           adaptationBrief: record.adaptationBrief ? { intent: record.adaptationBrief.intent || "not_sure", artworkStatus: record.adaptationBrief.artworkStatus || "not_applicable", brandingPlacement: record.adaptationBrief.brandingPlacement || "", colorDirection: record.adaptationBrief.colorDirection || "", packingLabeling: record.adaptationBrief.packingLabeling || "" } : null,
+          sourcingReview: buyerSafeSourcingReview(record, buyerRecommendation),
           items: Array.isArray(record.items) ? record.items.map((item) => ({ code: item.code, name: item.name, quantity: item.quantity, colors: item.colors, sizes: item.sizes, notes: item.notes })) : [],
           attachments: Array.isArray(record.attachments) ? record.attachments.filter((file) => !file.revokedAt).map((file) => ({ id: file.id, name: file.name, size: file.size, uploadedAt: file.uploadedAt, securityStatus: file.securityStatus === "reviewed_safe" ? "reviewed" : "under_review" })) : [],
           messages: Array.isArray(record.messages) ? record.messages.slice(-100).map((message) => ({ id: message.id, sender: message.sender === "sales" ? "sales" : "buyer", body: message.body, sentAt: message.sentAt })) : [],

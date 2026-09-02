@@ -197,6 +197,8 @@ test("publishes noindex Chinese buyer status and multi-project workspace entry p
 
 test("keeps the complete Chinese buyer decision center on the protected project APIs", async () => {
   const source = await readFile(new URL("../app/zh/inquiry-status/ChineseTransactionCenter.tsx", import.meta.url), "utf8");
+  const chineseLookup = await readFile(new URL("../app/zh/inquiry-status/ChineseInquiryStatusLookup.tsx", import.meta.url), "utf8");
+  const englishLookup = await readFile(new URL("../app/inquiry-status/InquiryStatusLookup.tsx", import.meta.url), "utf8");
   const meeting = await readFile(new URL("../app/components/BuyerMeetingRequest.tsx", import.meta.url), "utf8");
   const meetingChange = await readFile(new URL("../app/components/BuyerMeetingChangeRequest.tsx", import.meta.url), "utf8");
   for (const endpoint of [
@@ -217,6 +219,12 @@ test("keeps the complete Chinese buyer decision center on the protected project 
   assert.match(source, /报告收货问题/);
   assert.match(source, /上一订单的价格、库存、材料、尺码配比、包装和交期不会自动沿用/);
   assert.match(source, /正式Trade Assurance订单或双方合同/);
+  assert.match(source, /人工选款审核中/);
+  assert.match(source, /#sourcing-review-status/);
+  assert.match(chineseLookup, /人工选款复核/);
+  assert.match(chineseLookup, /无需重复提交|未强行匹配目录产品/);
+  assert.match(englishLookup, /HUMAN SOURCING REVIEW/);
+  assert.match(englishLookup, /No catalog match was forced/);
   assert.match(source, /BuyerMeetingRequest/);
   assert.match(meeting, /\/api\/meeting-request/);
   assert.match(meeting, /申请人工确认的采购会议/);
