@@ -557,6 +557,17 @@ footer a:hover { color: var(--forest); }
 .quote-status { margin: 15px 0 0; color: #bdcec6; font-size: 12px; line-height: 1.5; }
 .quote-status-error { color: #ffc4ad; }
 .quote-status-success { color: #bcebcf; }
+.quote-brief-review { margin: 30px 0 22px; padding: 20px; border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.07); }
+.quote-brief-review header { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+.quote-brief-review h3 { margin: 3px 0 8px; font-family: Georgia, serif; font-size: 22px; }
+.quote-brief-review header > span { min-width: 54px; padding: 7px 9px; border: 1px solid rgba(255,255,255,.3); text-align: center; font-size: 10px; font-weight: 800; }
+.quote-brief-review > p, .quote-brief-review > small { color: #cfdbd5; font-size: 11px; line-height: 1.6; }
+.quote-brief-review details { margin: 16px 0; border-top: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(255,255,255,.18); }
+.quote-brief-review summary { padding: 12px 0; cursor: pointer; font-size: 11px; font-weight: 800; }
+.quote-brief-review pre { max-height: 330px; margin: 0 0 14px; padding: 14px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; background: rgba(0,0,0,.15); color: #fff; font: 10px/1.65 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.quote-brief-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.quote-brief-actions button { min-height: 40px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.4); background: transparent; color: white; cursor: pointer; font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.quote-brief-message { min-height: 18px; margin: 8px 0 0; }
 .inquiry-status-link { grid-column: 1 / -1; width: max-content; padding-bottom: 4px; border-bottom: 1px solid currentColor; color: #bcebcf; font-size: 12px; font-weight: 800; }
 .inquiry-status-link-light { display: block; margin-top: 12px; }
 
@@ -2161,6 +2172,19 @@ footer a:hover { color: var(--forest); }
 @media print {
   @page { size: A4 portrait; margin: 11mm; }
   body { margin: 0; background: white; color: #17231f; }
+  body.quote-brief-printing > *:not(main), body.quote-brief-printing main > * { display: none !important; }
+  body.quote-brief-printing main > .quote-builder-layout { display: block !important; width: 100%; margin: 0; padding: 0; }
+  body.quote-brief-printing .quote-builder-layout > * { display: none !important; }
+  body.quote-brief-printing .quote-builder-layout > .quote-request-form { display: block !important; width: 100%; margin: 0; padding: 0; background: white; color: #17231f; }
+  body.quote-brief-printing .quote-request-form > * { display: none !important; }
+  body.quote-brief-printing .quote-request-form > .quote-brief-review { display: block !important; margin: 0; padding: 0; border: 0; background: white; color: #17231f; }
+  body.quote-brief-printing .quote-brief-review::before { content: "BEIQIANG FOOTWEAR · BUYER SOURCING BRIEF DRAFT"; display: block; margin-bottom: 6mm; padding-bottom: 4mm; border-bottom: 3px solid #173b32; color: #9d4e36; font-size: 9pt; font-weight: 800; letter-spacing: .11em; }
+  body.quote-brief-printing .quote-brief-review header > span, body.quote-brief-printing .quote-brief-actions, body.quote-brief-printing .quote-brief-message, body.quote-brief-printing .quote-brief-review > p { display: none !important; }
+  body.quote-brief-printing .quote-brief-review h3 { font-size: 18pt; }
+  body.quote-brief-printing .quote-brief-review details { display: block; border: 0; }
+  body.quote-brief-printing .quote-brief-review summary { display: none; }
+  body.quote-brief-printing .quote-brief-review pre { display: block; max-height: none; padding: 0; overflow: visible; background: white; color: #17231f; font-size: 8.5pt; line-height: 1.55; }
+  body.quote-brief-printing .quote-brief-review > small { display: block; margin-top: 7mm; padding-top: 4mm; border-top: 2px solid #173b32; color: #4c5c56; font-size: 8pt; }
   body.product-sheet-printing > *:not(main), body.product-sheet-printing main > *:not(.product-print-sheet) { display: none !important; }
   .product-print-sheet { position: absolute; inset: 0; display: block; width: 100%; height: 275mm; box-sizing: border-box; font-family: Arial, sans-serif; }
   .product-print-sheet header { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; padding-bottom: 14px; border-bottom: 3px solid #173b32; }

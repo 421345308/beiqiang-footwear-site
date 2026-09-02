@@ -88,6 +88,10 @@ test("server-renders the multi-style quote and technical development path", asyn
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Build one order brief across your shortlisted styles/i);
+  assert.match(html, /Review the sourcing brief before you submit/i);
+  assert.match(html, /Copy brief/i);
+  assert.match(html, /Print \/ save PDF/i);
+  assert.match(html, /reaches Beiqiang only after formal submission/i);
   assert.match(html, /Existing style adaptation/i);
   assert.match(html, /Technical product development/i);
   assert.match(

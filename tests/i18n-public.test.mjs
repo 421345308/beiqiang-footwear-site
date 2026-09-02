@@ -98,6 +98,10 @@ test("supports a Chinese multi-style sourcing brief without a retail checkout", 
   assert.match(html, /以上均为买家目标/);
   assert.match(html, /当前标签页已开启草稿保护/);
   assert.match(html, /不会发送给贝强/);
+  assert.match(html, /先让同事核对这份采购简报/);
+  assert.match(html, /复制简报/);
+  assert.match(html, /打印 \/ 保存PDF/);
+  assert.match(html, /正式提交后才会发送给贝强/);
   assert.doesNotMatch(html, /立即付款|信用卡结账|一键下单/);
 });
 

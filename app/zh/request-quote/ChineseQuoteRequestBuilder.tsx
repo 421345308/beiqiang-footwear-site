@@ -24,6 +24,7 @@ import { readPrivateLabelConcept } from "../../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../../lib/product-finder-brief";
 import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../../lib/quote-request-draft";
 import { mergeSharedQuoteList, parseSharedQuoteCodes } from "../../lib/quote-list-share";
+import QuoteBriefReview from "../../components/QuoteBriefReview";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -681,6 +682,7 @@ export default function ChineseQuoteRequestBuilder() {
               onChange={(event) => setWebsite(event.target.value)}
             />
           </label>
+          <QuoteBriefReview locale="zh" input={{ lines, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief }} />
           <label className="quote-consent">
             <input
               type="checkbox"
