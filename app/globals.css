@@ -424,6 +424,19 @@ footer a:hover { color: var(--forest); }
 .product-fact-strip small, .product-fact-strip strong { display: block; }
 .product-fact-strip small { margin-bottom: 9px; color: #bcd0c7; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
 .product-fact-strip strong { font-family: Georgia, serif; font-size: 22px; }
+.commercial-starting-points { padding: 78px clamp(22px, 7vw, 110px); background: #edf1ed; color: var(--ink); }
+.commercial-starting-points-heading { display: grid; grid-template-columns: 1.15fr .85fr; gap: 54px; align-items: end; }
+.commercial-starting-points-heading h2 { max-width: 760px; margin: 14px 0 0; font-family: Georgia, serif; font-size: clamp(34px, 4vw, 58px); line-height: 1.08; color: var(--forest); }
+.commercial-starting-points-heading > p { max-width: 620px; margin: 0; color: var(--muted); line-height: 1.7; }
+.commercial-starting-points-grid { margin-top: 42px; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #cbd4ce; background: rgba(255,255,255,.55); }
+.commercial-starting-points-grid article { min-height: 260px; padding: 30px 26px; border-left: 1px solid #cbd4ce; }
+.commercial-starting-points-grid article:first-child { border-left: 0; }
+.commercial-starting-points-grid small { display: block; color: var(--terracotta); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.commercial-starting-points-grid strong { display: block; min-height: 64px; margin: 22px 0 14px; font-family: Georgia, serif; font-size: clamp(24px, 2.3vw, 34px); line-height: 1.06; color: var(--forest); }
+.commercial-starting-points-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.commercial-starting-points-boundary { margin-top: 22px; padding-top: 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; border-top: 1px solid #cbd4ce; }
+.commercial-starting-points-boundary p { max-width: 920px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.65; }
+.commercial-starting-points-boundary .text-link { flex: 0 0 auto; }
 .product-spec-section { background: var(--paper); }
 .spec-layout { display: grid; grid-template-columns: 1.2fr .8fr; gap: 64px; align-items: start; }
 .spec-table { margin: 0; border-top: 1px solid var(--line); }
@@ -2059,6 +2072,9 @@ footer a:hover { color: var(--forest); }
   .product-hero-copy { padding: 56px 22px; }
   .product-hero-points li { grid-template-columns: 1fr; gap: 6px; }
   .product-fact-strip { grid-template-columns: repeat(2, 1fr); gap: 28px 0; }
+  .commercial-starting-points-grid { grid-template-columns: repeat(2, 1fr); }
+  .commercial-starting-points-grid article:nth-child(3) { border-left: 0; border-top: 1px solid #cbd4ce; }
+  .commercial-starting-points-grid article:nth-child(4) { border-top: 1px solid #cbd4ce; }
   .product-fact-strip div:nth-child(3) { padding-left: 0; border-left: 0; }
   .spec-table div { grid-template-columns: 1fr; gap: 7px; }
   .confirmation-card { padding: 30px 24px; }
@@ -2235,6 +2251,12 @@ footer a:hover { color: var(--forest); }
   .line-sheet-value-grid article { min-height: 0; }
   .line-sheet-form .form-full, .line-sheet-form .form-consent { grid-column: 1; }
   .buyer-guide-hero { min-height: 0; padding: 64px 22px; }
+  .commercial-starting-points { padding: 64px 22px; }
+  .commercial-starting-points-heading, .commercial-starting-points-grid { grid-template-columns: 1fr; }
+  .commercial-starting-points-grid article, .commercial-starting-points-grid article:nth-child(n) { min-height: 0; border-left: 0; border-top: 1px solid #cbd4ce; }
+  .commercial-starting-points-grid article:first-child { border-top: 0; }
+  .commercial-starting-points-grid strong { min-height: 0; }
+  .commercial-starting-points-boundary { flex-direction: column; }
   .buyer-guide-hero h1 { font-size: 50px; }
   .buyer-guide-steps > div:last-child, .buyer-guide-brief, .buyer-guide-transaction { grid-template-columns: 1fr; }
   .buyer-guide-steps article, .buyer-guide-steps article:nth-child(n) { min-height: 0; border-left: 0; border-bottom: 1px solid var(--line); }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ChineseSiteFooter from "../../components/ChineseSiteFooter";
 import ChineseSiteHeader from "../../components/ChineseSiteHeader";
+import CommercialStartingPoints from "../../components/CommercialStartingPoints";
 
 export const metadata: Metadata = { title: "B2B鞋类采购指南｜贝强鞋业", description: "从产品选款、样品评审和报价，到Alibaba Trade Assurance或合同、包装与发运交接，了解贝强B2B采购路径。", alternates: { canonical: "https://www.beiqiang.online/zh/buyer-guide/", languages: { en: "https://www.beiqiang.online/buyer-guide/", "zh-CN": "https://www.beiqiang.online/zh/buyer-guide/", "x-default": "https://www.beiqiang.online/buyer-guide/" } } };
 
@@ -11,6 +12,7 @@ const faqs = [["只凭产品图片能得到最终价格吗？", "不能可靠确
 
 export default function ChineseBuyerGuidePage() { return <main><ChineseSiteHeader englishHref="/buyer-guide/" />
   <section className="buyer-guide-hero"><div><p className="eyebrow">B2B鞋类采购指南</p><h1>在大货开始前，弄清每一个关键决定。</h1><p>从产品发现、样品、报价、正式交易到发运交接，使用一条证据清楚的路径。商业条件按具体项目确认，不从目录页默认推断。</p><div className="hero-actions"><Link className="button" href="/zh/request-quote/">建立可报价采购需求</Link><Link className="text-link" href="/zh/products/">比较全部产品 →</Link></div></div><aside><small>有效的第一条信息</small><strong>产品款号 + 目标市场 + 样品/大货数量 + 尺码/颜色 + 实际目的地。</strong><p>这些资料能帮助工厂回答下一个商业问题，而不是只回复笼统价格。</p></aside></section>
+  <CommercialStartingPoints locale="zh" />
   <section className="section buyer-guide-steps"><div className="section-heading"><div><p className="eyebrow">从选款到交接</p><h2>六个决定，一条可追溯采购记录。</h2></div><p>网站把产品证据、消息、报价版本、交易参考和买家安全进度连接到原始询盘。</p></div><div>{buyingSteps.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
   <section className="buyer-guide-brief"><div><p className="eyebrow eyebrow-light">询问运费前</p><h2>提供会改变物流报价的事实。</h2><p>目标市场不一定等于交货目的地；请提供实际国家、城市、港口、邮编或FBA仓库方向。</p></div><ul><li>产品款号与数量</li><li>样品或大货</li><li>目的地与交付类型</li><li>码比和包装方向</li><li>期望发运窗口</li><li>买家货代或工厂询价</li></ul></section>
   <section className="section buyer-guide-terms"><div className="section-heading compact"><div><p className="eyebrow">贸易条款起点</p><h2>先选择偏好，再确认指定地点。</h2></div></div><div className="trade-term-table"><div><strong>偏好</strong><strong>首次评审含义</strong></div>{tradeTerms.map(([term, explanation]) => <div key={term}><strong>{term}</strong><p>{explanation}</p></div>)}</div><p className="buyer-guide-boundary">这些说明仅支持首次询盘，不替代最终Incoterm、指定地点、货代指令、清关建议或签署文件。</p></section>

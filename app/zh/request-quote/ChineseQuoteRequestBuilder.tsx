@@ -10,6 +10,7 @@ import ContactPreferenceFields, {
 } from "../../components/ContactPreferenceFields";
 import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../../components/AdaptationBriefFields";
 import BuyerQuoteReadiness from "../../components/BuyerQuoteReadiness";
+import CommercialStartingPoints from "../../components/CommercialStartingPoints";
 import QuoteListShare from "../../components/QuoteListShare";
 import { productNameZh } from "../../data/products-zh";
 import { products } from "../../data/products";
@@ -322,6 +323,7 @@ export default function ChineseQuoteRequestBuilder() {
           <span>03 提交工厂审核</span>
         </div>
       </section>
+      <CommercialStartingPoints locale="zh" />
       <section className="section quote-builder-layout">
         <div className="quote-lines">
           <div className="quote-section-heading">

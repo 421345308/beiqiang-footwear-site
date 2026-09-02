@@ -16,6 +16,7 @@ import ContactPreferenceFields, {
 } from "../components/ContactPreferenceFields";
 import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../components/AdaptationBriefFields";
 import BuyerQuoteReadiness from "../components/BuyerQuoteReadiness";
+import CommercialStartingPoints from "../components/CommercialStartingPoints";
 import QuoteListShare from "../components/QuoteListShare";
 import { assessBuyerQuoteReadiness } from "../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../lib/private-label-concept";
@@ -334,6 +335,7 @@ export default function QuoteRequestBuilder() {
           <span>03 Submit for review</span>
         </div>
       </section>
+      <CommercialStartingPoints />
       <section className="section quote-builder-layout">
         <div className="quote-lines">
           <div className="quote-section-heading">
