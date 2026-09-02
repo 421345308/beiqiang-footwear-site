@@ -149,6 +149,7 @@ const phrases: [RegExp, string][] = [
   [/Foamed sole/gi, "发泡鞋底"],
   [/MD foam sole/gi, "MD发泡鞋底"],
   [/Rubber sole/gi, "橡胶鞋底"],
+  [/EVA sole recorded in the source package/gi, "来源资料已记录EVA鞋底"],
   [/EVA sole/gi, "EVA鞋底"],
   [/PU sole/gi, "PU鞋底"],
   [/Material confirmed before quotation/gi, "鞋底材质在报价前确认"],

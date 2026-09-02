@@ -197,7 +197,7 @@ const originalProducts: Product[] = [
     group: "Winter Casual Walking Shoes",
     closure: "Lace-Up",
     upper: "Knitted textile upper",
-    sole: unconfirmedSole,
+    sole: "EVA sole",
     size: "EU 35-45",
     colors: [
       "Black White",
@@ -213,12 +213,13 @@ const originalProducts: Product[] = [
     buyerFit: "Autumn and winter casual-footwear buyers",
     highlights: [
       "Chunky sole profile",
+      "EVA sole recorded in the source package",
       "Seven color directions",
-      "Selected fleece-lined options",
     ],
     confirmBeforeQuote: [
       "Fleece option by selected color",
-      "Outsole and lining materials",
+      "Lining material and exact upper composition",
+      "Exact material execution for the selected order",
       ...commonConfirm,
     ],
     images: images("bq006"),
