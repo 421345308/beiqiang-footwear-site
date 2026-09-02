@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("root metadata keeps the Google Search Console ownership token", async () => {
@@ -27,6 +27,11 @@ test("publishes a buyer-target private-label concept path without manufacturing 
 });
 
 test("exposes a canonical sitemap and robots policy without private buyer routes", async () => {
+  await assert.rejects(
+    access(new URL("../public/sitemap.xml", import.meta.url)),
+    /ENOENT/,
+    "a legacy public sitemap must not override the generated media sitemap",
+  );
   const sitemap = await render("/sitemap.xml"); const xml = await sitemap.text();
   assert.equal(sitemap.status, 200); assert.match(sitemap.headers.get("content-type") || "", /xml/i); assert.match(xml, /https:\/\/www\.beiqiang\.online\/products\/bq001\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/resources\/footwear-rfq-checklist\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/solutions\/private-label-walking-shoes\/?/); assert.doesNotMatch(xml, /admin\/inquiries|buyer-workspace|inquiry-status|\/api\//i);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/private-label-concept\/?/);
