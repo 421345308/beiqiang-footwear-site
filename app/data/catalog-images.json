@@ -233,5 +233,13 @@
     "04_sole",
     "05_colors",
     "06_scene"
+  ],
+  "bq031": [
+    "01_main",
+    "02_outsole",
+    "03_colors",
+    "04_all_black",
+    "05_off_white",
+    "06_green_white"
   ]
 }

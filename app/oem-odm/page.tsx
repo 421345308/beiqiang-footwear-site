@@ -1,13 +1,86 @@
 import type { Metadata } from "next";
-import CapabilityPage, { type CapabilityPageData } from "../components/CapabilityPage";
-export const metadata: Metadata = { title: "OEM & ODM Footwear Discussion | Beiqiang Footwear", description: "Discuss private-label walking shoe requirements through a base-style or development brief, with feasibility confirmed before commercial commitments.", alternates: { canonical: "https://www.beiqiang.online/oem-odm/", languages: { en: "https://www.beiqiang.online/oem-odm/", "zh-CN": "https://www.beiqiang.online/zh/oem-odm/", "x-default": "https://www.beiqiang.online/oem-odm/" } } };
+import CapabilityPage, {
+  type CapabilityPageData,
+} from "../components/CapabilityPage";
+export const metadata: Metadata = {
+  title: "OEM & ODM Footwear Discussion | Beiqiang Footwear",
+  description:
+    "Discuss private-label walking shoe requirements through a base-style or development brief, with feasibility confirmed before commercial commitments.",
+  alternates: {
+    canonical: "https://www.beiqiang.online/oem-odm/",
+    languages: {
+      en: "https://www.beiqiang.online/oem-odm/",
+      "zh-CN": "https://www.beiqiang.online/zh/oem-odm/",
+      "x-default": "https://www.beiqiang.online/oem-odm/",
+    },
+  },
+};
 const data: CapabilityPageData = {
   chineseHref: "/zh/oem-odm/",
-  eyebrow: "OEM / ODM DISCUSSION", title: "Two sourcing paths, one requirement: confirm feasibility first.", introduction: "Choose a documented Beiqiang style for adaptation discussion, or share a structured product-development brief. Logo, color, material and packing requests are evaluated against the style, quantity and sample requirements before confirmation.", primaryCta: "Create a logo concept", primaryHref: "/private-label-concept/",
-  proofLabel: "BASE-STYLE FIRST", proofTitle: "Use real products to make customization discussions concrete.", proofCopy: "Existing style evidence gives buyers and the factory a shared visual reference. Development requests still need technical and commercial review; this page does not promise every customization on every quantity.",
-  images: [{ src: "/catalog/bq001/01_main.jpg", alt: "BQ001 wide toe box knit slip-on base style", caption: "Verified wide-toe base style" }, { src: "/catalog/bq009/01_main.jpg", alt: "BQ009 breathable mesh lace-up base style", caption: "Mesh lace-up direction" }, { src: "/catalog/bq024/01_main.jpg", alt: "BQ024 casual footwear base style", caption: "Additional range direction" }],
-  stepsTitle: "Build a brief the factory can evaluate.", steps: [{ title: "Choose the path", copy: "Reference an existing product code or provide clear images and a written development direction." }, { title: "Define buyer context", copy: "State the destination market, sales channel, expected quantity and target customer." }, { title: "List required changes", copy: "Mark priorities for color, material, logo, labeling, packing, size range and target timing." }, { title: "Confirm by sample", copy: "Review feasibility, cost drivers and the agreed product direction through the sample process." }],
-  confirmedTitle: "Useful starting points", confirmed: ["30 documented base-style packages", "Wide toe box, slip-on, lace-up and seasonal directions", "Product-code inquiry trail", "Factory-side sample and requirement discussion"], confirmTitle: "Never assumed in advance", confirm: ["Logo method and placement", "Custom colors, materials and components", "Packaging and labeling execution", "MOQ, development cost, sample timing and bulk lead time"],
-  closingTitle: "A complete brief saves time and reduces quotation revisions.", closingCopy: "Send the product code or reference, target market, expected quantity, requested changes and timing. We will separate feasible items from details that need further checking.",
+  eyebrow: "OEM / ODM DISCUSSION",
+  title: "Two sourcing paths, one requirement: confirm feasibility first.",
+  introduction:
+    "Choose a documented Beiqiang style for adaptation discussion, or share a structured product-development brief. Logo, color, material and packing requests are evaluated against the style, quantity and sample requirements before confirmation.",
+  primaryCta: "Create a logo concept",
+  primaryHref: "/private-label-concept/",
+  proofLabel: "BASE-STYLE FIRST",
+  proofTitle: "Use real products to make customization discussions concrete.",
+  proofCopy:
+    "Existing style evidence gives buyers and the factory a shared visual reference. Development requests still need technical and commercial review; this page does not promise every customization on every quantity.",
+  images: [
+    {
+      src: "/catalog/bq001/01_main.jpg",
+      alt: "BQ001 wide toe box knit slip-on base style",
+      caption: "Verified wide-toe base style",
+    },
+    {
+      src: "/catalog/bq009/01_main.jpg",
+      alt: "BQ009 breathable mesh lace-up base style",
+      caption: "Mesh lace-up direction",
+    },
+    {
+      src: "/catalog/bq024/01_main.jpg",
+      alt: "BQ024 casual footwear base style",
+      caption: "Additional range direction",
+    },
+  ],
+  stepsTitle: "Build a brief the factory can evaluate.",
+  steps: [
+    {
+      title: "Choose the path",
+      copy: "Reference an existing product code or provide clear images and a written development direction.",
+    },
+    {
+      title: "Define buyer context",
+      copy: "State the destination market, sales channel, expected quantity and target customer.",
+    },
+    {
+      title: "List required changes",
+      copy: "Mark priorities for color, material, logo, labeling, packing, size range and target timing.",
+    },
+    {
+      title: "Confirm by sample",
+      copy: "Review feasibility, cost drivers and the agreed product direction through the sample process.",
+    },
+  ],
+  confirmedTitle: "Useful starting points",
+  confirmed: [
+    "Current online base-style pages",
+    "Wide toe box, slip-on, lace-up and seasonal directions",
+    "Product-code inquiry trail",
+    "Factory-side sample and requirement discussion",
+  ],
+  confirmTitle: "Never assumed in advance",
+  confirm: [
+    "Logo method and placement",
+    "Custom colors, materials and components",
+    "Packaging and labeling execution",
+    "MOQ, development cost, sample timing and bulk lead time",
+  ],
+  closingTitle: "A complete brief saves time and reduces quotation revisions.",
+  closingCopy:
+    "Send the product code or reference, target market, expected quantity, requested changes and timing. We will separate feasible items from details that need further checking.",
 };
-export default function OemOdmPage() { return <CapabilityPage data={data} />; }
+export default function OemOdmPage() {
+  return <CapabilityPage data={data} />;
+}

@@ -1,4 +1,5 @@
 from pathlib import Path
+from io import BytesIO
 import json
 from PIL import Image, ImageOps
 
@@ -10,6 +11,7 @@ CATALOG_WEB_ROOT = PUBLIC_ROOT / "catalog-web"
 CATALOG_MANIFEST = PROJECT_ROOT / "app" / "data" / "catalog-images.json"
 FACTORY_ROOT = PUBLIC_ROOT / "factory"
 FACTORY_WEB_ROOT = PUBLIC_ROOT / "factory-web"
+CATALOG_IMAGE_BUDGET = 140 * 1024
 
 
 def rgb_image(source: Path) -> Image.Image:
@@ -17,6 +19,17 @@ def rgb_image(source: Path) -> Image.Image:
     transposed = ImageOps.exif_transpose(raw).convert("RGB")
     raw.close()
     return transposed
+
+
+def save_catalog_webp(image: Image.Image, destination: Path) -> None:
+    """Keep every gallery image inside the tested page-weight budget."""
+    for quality in range(80, 49, -5):
+        output = BytesIO()
+        image.save(output, "WEBP", quality=quality, method=6, exact=True)
+        payload = output.getvalue()
+        if len(payload) <= CATALOG_IMAGE_BUDGET or quality == 50:
+            destination.write_bytes(payload)
+            return
 
 
 def build_catalog() -> tuple[int, int, int]:
@@ -44,7 +57,7 @@ def build_catalog() -> tuple[int, int, int]:
         destination = destination_dir / f"{source.stem}.webp"
         image = rgb_image(source)
         image.thumbnail((1000, 1000), Image.Resampling.LANCZOS)
-        image.save(destination, "WEBP", quality=80, method=6, exact=True)
+        save_catalog_webp(image, destination)
         image.close()
 
     output_bytes = sum(path.stat().st_size for path in CATALOG_WEB_ROOT.rglob("*.webp"))

@@ -133,7 +133,7 @@ export default async function ChineseProductPage({ params }: Props) {
           <ul className="product-hero-points">
             <li>
               <strong>
-                {product.code === "BQ001" || product.code === "BQ002"
+                {product.fitEvidence === "wide_toe_verified"
                   ? "本款资料已确认宽鞋头设计"
                   : "鞋楦宽度请按本款样品确认"}
               </strong>

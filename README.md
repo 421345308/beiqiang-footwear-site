@@ -123,7 +123,7 @@ Current public structure:
 - `/line-sheet/` explains the buyer value of the English line sheet; `/zh/line-sheet/` supplies a separately generated Chinese line sheet. Both collect company, market, buyer type, product direction, quantity and a reply channel before revealing the matching-language PDF download.
 - The request is saved through the existing inquiry service with `context: line_sheet` and `styleCode: CATALOG-2026`, so it receives a reference, private status code, SMTP notification and protected-pipeline record.
 - `line_sheet_request` and `line_sheet_download` respect optional analytics consent. The admin dashboard reports line-sheet leads and consented PDF downloads separately from sourcing inquiries.
-- The current PDF contains 30 products across 8 A4 pages and is generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page.
+- The current English and Chinese PDFs contain 31 products across 9 A4 pages and are generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page.
 - English copies live at `public/downloads/beiqiang-footwear-line-sheet-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-2026.pdf`. Chinese copies live at `public/downloads/beiqiang-footwear-line-sheet-zh-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-zh-2026.pdf`. Each public/operating language pair must have identical hashes.
 - This is a soft conversion gate, not confidential-document access control. Never include internal prices, supplier details, customer information, internal tiers or confidential technical files.
 
@@ -319,8 +319,8 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 
 ## Curated Buyer Product Shortlists
 
-- Every protected inquiry card lets an authorized salesperson choose 2–5 products from the verified 30-style catalogue, write a buyer-safe reason for each style, explain the recommendation context and define one commercial next step.
-- `POST /api/admin/recommendation` validates the admin token, exact BQ001–BQ030 style codes, unique products and complete buyer-facing copy before saving an immutable recommendation version. A new version supersedes the previous active version without deleting its response history.
+- Every protected inquiry card lets an authorized salesperson choose 2–5 products from the current documented catalogue, write a buyer-safe reason for each style, explain the recommendation context and define one commercial next step.
+- `POST /api/admin/recommendation` validates the admin token, exact codes from the current product data, unique products and complete buyer-facing copy before saving an immutable recommendation version. A new version supersedes the previous active version without deleting its response history.
 - The recommendation is saved before buyer email is attempted. Email failure does not erase the shortlist; the dashboard records whether notification succeeded.
 - The private buyer status page shows local product images, verified catalogue facts, product-page links and the salesperson's exact recommendation reasons. The buyer can select interested styles, request different options or add the chosen styles to the local quote list.
 - `POST /api/recommendation-response` requires the inquiry reference and private access code, accepts only products contained in the current recommendation, blocks duplicate responses and saves the buyer decision before notifying sales.
@@ -395,7 +395,7 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 - Shared product-comparison links can record `comparison_share` and `comparison_open` only after optional analytics consent. These events retain at most four normalized `BQ###` style codes, the share channel and a fixed catalog context; they never retain recipient identity, contact details, quantity, price or notes. The protected dashboard and weekly snapshot aggregate recurring combinations, but a share is not delivery and an open is not a unique buyer, approval, inquiry or order.
 - A two-to-four-style comparison can be printed or saved as a bilingual internal sourcing-review PDF. The print view isolates verified product facts, open confirmation items, product images, contact details and a blank preferred/backup/hold decision row; it excludes the catalogue, navigation and interactive controls. It is explicitly not a quotation, purchase order, contract, Trade Assurance order, payment request or production authorization. With optional analytics consent, `comparison_print` stores only the normalized style-code combination and fixed catalogue context.
 - The protected dashboard reports total product shares and the most-shared styles as buying-team interest signals. A share does not prove delivery, opening, approval, inquiry or order.
-- `app/sitemap.ts` generates a root `sitemap.xml` from the public static routes, 30 products, collections, sourcing programs and resources. Private admin, buyer-workspace, inquiry-status and API routes are excluded.
+- `app/sitemap.ts` generates a root `sitemap.xml` from the public static routes, all current product records, collections, sourcing programs and resources. Private admin, buyer-workspace, inquiry-status and API routes are excluded.
 - `app/robots.ts` points crawlers to the canonical sitemap and keeps API routes out of crawling. Private buyer pages already use `noindex`; the admin layout now explicitly adds `noindex, nofollow, noarchive, nocache` rather than relying on robots.txt as a security control.
 - Resource pages include canonical metadata, Article and Breadcrumb JSON-LD, visible internal links and conservative evidence boundaries. Search inclusion is not guaranteed; submit the production sitemap in Google Search Console and review indexing there after deployment.
 
@@ -446,7 +446,7 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 
 ## Acquisition Link and Channel Quality Workbench
 
-- `/admin/inquiries/` can generate canonical first-touch links for email, LinkedIn, WhatsApp, Alibaba, Google, TikTok and partner outreach. Destinations are limited to known Beiqiang pages and all 30 product pages; campaign/content codes are normalized to short URL-safe slugs.
+- `/admin/inquiries/` can generate canonical first-touch links for email, LinkedIn, WhatsApp, Alibaba, Google, TikTok and partner outreach. Destinations are limited to known Beiqiang pages and all current product pages; campaign/content codes are normalized to short URL-safe slugs.
 - Campaign codes must describe the product, market, buyer type or content version. They must never include a buyer name, company, email, phone number, price or private project detail. The tool copies a link only; it does not message buyers or claim delivery.
 - Protected analytics classify free-form first-touch source/referrer evidence into nine bounded channel groups and show events, inquiries, current Qualified/sample/quotation/quote-acceptance/order-setup/confirmed-order counts. Event counts include only optional-analytics consent; inquiry stages use saved business records.
 - Version-2 immutable weekly snapshots retain only those bounded channel aggregates, safe product codes, product aggregates and selected content aggregates. Raw UTM campaign names, referrers, buyer identities and business text are excluded.

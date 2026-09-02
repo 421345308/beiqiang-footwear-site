@@ -149,8 +149,8 @@ export default function ProductFinder({
           </h2>
           <p>
             {zh
-              ? "系统只按当前30款已记录事实进行匹配，不预测销量、价格或生产可行性。"
-              : "Matching uses only documented facts in the current 30-style catalogue. It does not predict sales, price or manufacturing feasibility."}
+              ? `系统只按当前在线${products.length}款已记录事实进行匹配，不预测销量、价格或生产可行性。`
+              : `Matching uses only documented facts in the current ${products.length}-style online selection. It does not predict sales, price or manufacturing feasibility.`}
           </p>
         </div>
         <label>

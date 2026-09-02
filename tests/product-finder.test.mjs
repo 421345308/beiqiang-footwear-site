@@ -5,7 +5,7 @@ import { findProducts } from "../app/lib/product-finder.ts";
 
 test("wide-toe recommendations never include an unverified fit claim", () => {
   const matches = findProducts(products, { buyerChannel: "importer_wholesaler", priority: "wide_toe", closure: "any", resultCount: 4 });
-  assert.deepEqual(matches.map((item) => item.product.code), ["BQ001", "BQ002"]);
+  assert.deepEqual(matches.map((item) => item.product.code), ["BQ001", "BQ002", "BQ031"]);
   assert.ok(matches.every((item) => item.product.fitEvidence === "wide_toe_verified"));
 });
 

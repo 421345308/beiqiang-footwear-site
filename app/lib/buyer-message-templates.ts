@@ -12,24 +12,57 @@ export type BuyerMessageRecord = {
 };
 
 export const BUYER_MESSAGE_TEMPLATES = [
-  { id: "qualification", label: "Qualification", purpose: "Collect the commercial brief needed for the next review." },
-  { id: "sample_details", label: "Sample details", purpose: "Confirm the exact sample request and delivery destination." },
-  { id: "quotation_review", label: "Quotation review", purpose: "Ask for one clear quotation decision or revision list." },
-  { id: "no_reply", label: "No-reply follow-up", purpose: "Check whether the project should continue, change or pause." },
-  { id: "order_handoff", label: "Order next step", purpose: "Reconfirm written order evidence and specifications." },
+  {
+    id: "qualification",
+    label: "Qualification",
+    purpose: "Collect the commercial brief needed for the next review.",
+  },
+  {
+    id: "sample_details",
+    label: "Sample details",
+    purpose: "Confirm the exact sample request and delivery destination.",
+  },
+  {
+    id: "quotation_review",
+    label: "Quotation review",
+    purpose: "Ask for one clear quotation decision or revision list.",
+  },
+  {
+    id: "no_reply",
+    label: "No-reply follow-up",
+    purpose: "Check whether the project should continue, change or pause.",
+  },
+  {
+    id: "order_handoff",
+    label: "Order next step",
+    purpose: "Reconfirm written order evidence and specifications.",
+  },
 ] as const;
 
-export type BuyerMessageTemplateId = typeof BUYER_MESSAGE_TEMPLATES[number]["id"];
+export type BuyerMessageTemplateId =
+  (typeof BUYER_MESSAGE_TEMPLATES)[number]["id"];
 export type RecommendationFollowUpStage = "selection_check" | "sample_or_quote";
-export type BuyerRecommendationForFollowUp = { id: string; title: string; items: { code: string }[]; nextStep: string; followUps?: { stage: RecommendationFollowUpStage }[] };
+export type BuyerRecommendationForFollowUp = {
+  id: string;
+  title: string;
+  items: { code: string }[];
+  nextStep: string;
+  followUps?: { stage: RecommendationFollowUpStage }[];
+};
 
 function inline(value: unknown, fallback: string, max = 160) {
-  const result = String(value || "").replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
+  const result = String(value || "")
+    .replace(/[\r\n\t]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, max);
   return result || fallback;
 }
 
 function styles(record: BuyerMessageRecord) {
-  const itemCodes = Array.isArray(record.items) ? record.items.map((item) => inline(item.code, "", 30)).filter(Boolean) : [];
+  const itemCodes = Array.isArray(record.items)
+    ? record.items.map((item) => inline(item.code, "", 30)).filter(Boolean)
+    : [];
   const direct = inline(record.styleCode, "the selected styles", 180);
   return itemCodes.length ? [...new Set(itemCodes)].join(", ") : direct;
 }
@@ -38,23 +71,33 @@ function greeting(record: BuyerMessageRecord) {
   return `Hello ${inline(record.name, "there", 80)},`;
 }
 
-const signature = "Best regards,\nBeiqiang Footwear Supply\nQuanzhou, Fujian, China";
+const signature =
+  "Best regards,\nBeiqiang Footwear Supply\nQuanzhou, Fujian, China";
 
-export function recommendedBuyerMessageTemplate(record: BuyerMessageRecord): BuyerMessageTemplateId {
-  if (record.status === "quoted" || record.status === "negotiation") return "quotation_review";
+export function recommendedBuyerMessageTemplate(
+  record: BuyerMessageRecord,
+): BuyerMessageTemplateId {
+  if (record.status === "quoted" || record.status === "negotiation")
+    return "quotation_review";
   if (record.status === "sample_discussion") return "sample_details";
   if (record.status === "order_confirmed") return "order_handoff";
   return "qualification";
 }
 
-export function buildBuyerMessageTemplate(record: BuyerMessageRecord, id: BuyerMessageTemplateId) {
-  const productText = styles(record); const reference = inline(record.reference, "your inquiry", 80);
-  const technicalBoundary = record.projectPath === "technical_development"
-    ? "Your dimensions, hardness, material or test values remain buyer targets until feasibility, sampling and any required testing are completed."
-    : "Product specifications, availability and commercial terms remain subject to review and written confirmation.";
-  const catalogueIntro = record.styleCode === "CATALOG-2026"
-    ? "Thank you for requesting our 30-style footwear line sheet."
-    : `Thank you for your interest in ${productText}.`;
+export function buildBuyerMessageTemplate(
+  record: BuyerMessageRecord,
+  id: BuyerMessageTemplateId,
+) {
+  const productText = styles(record);
+  const reference = inline(record.reference, "your inquiry", 80);
+  const technicalBoundary =
+    record.projectPath === "technical_development"
+      ? "Your dimensions, hardness, material or test values remain buyer targets until feasibility, sampling and any required testing are completed."
+      : "Product specifications, availability and commercial terms remain subject to review and written confirmation.";
+  const catalogueIntro =
+    record.styleCode === "CATALOG-2026"
+      ? "Thank you for requesting our current footwear line sheet."
+      : `Thank you for your interest in ${productText}.`;
 
   const messages: Record<BuyerMessageTemplateId, string> = {
     qualification: `${greeting(record)}\n\n${catalogueIntro}\n\nTo prepare a focused next step, please reply with your target market or sales channel, estimated trial and bulk quantity, preferred colors and size range, and whether you need a sample or logo/packing review.\n\n${technicalBoundary}\n\n${signature}`,
@@ -66,9 +109,23 @@ export function buildBuyerMessageTemplate(record: BuyerMessageRecord, id: BuyerM
   return messages[id];
 }
 
-export function buildRecommendationFollowUp(record: BuyerMessageRecord, recommendation: BuyerRecommendationForFollowUp, stage: RecommendationFollowUpStage) {
-  const productCodes = [...new Set(recommendation.items.map((item) => inline(item.code, "", 30)).filter(Boolean))].join(", ") || "the recommended styles";
-  const reference = inline(record.reference, "your inquiry", 80); const market = inline(record.market, "your target market", 100); const buyerType = inline(record.buyerType, "B2B buyer", 100);
-  if (stage === "selection_check") return `${greeting(record)}\n\nI am following up on the product shortlist for reference ${reference}: ${productCodes}.\n\nPlease choose the style or styles that best fit your ${market} ${buyerType} project, or reply with the exact product direction that should change. To prepare a useful next step, include estimated quantity, preferred colors and size range.\n\nThe shortlist is a sourcing direction, not confirmation of price, stock, fit, materials or sample availability.\n\n${signature}`;
+export function buildRecommendationFollowUp(
+  record: BuyerMessageRecord,
+  recommendation: BuyerRecommendationForFollowUp,
+  stage: RecommendationFollowUpStage,
+) {
+  const productCodes =
+    [
+      ...new Set(
+        recommendation.items
+          .map((item) => inline(item.code, "", 30))
+          .filter(Boolean),
+      ),
+    ].join(", ") || "the recommended styles";
+  const reference = inline(record.reference, "your inquiry", 80);
+  const market = inline(record.market, "your target market", 100);
+  const buyerType = inline(record.buyerType, "B2B buyer", 100);
+  if (stage === "selection_check")
+    return `${greeting(record)}\n\nI am following up on the product shortlist for reference ${reference}: ${productCodes}.\n\nPlease choose the style or styles that best fit your ${market} ${buyerType} project, or reply with the exact product direction that should change. To prepare a useful next step, include estimated quantity, preferred colors and size range.\n\nThe shortlist is a sourcing direction, not confirmation of price, stock, fit, materials or sample availability.\n\n${signature}`;
   return `${greeting(record)}\n\nBefore we pause the shortlist review for reference ${reference}, please reply with one next step for ${productCodes}:\n1. arrange a sample discussion;\n2. prepare a quotation after quantity, colors and size ratio are supplied; or\n3. replace these options using your updated product criteria.\n\nWe will not assume an order, reserve stock or confirm timing without your reply and written commercial review.\n\n${signature}`;
 }
