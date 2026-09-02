@@ -99,6 +99,9 @@ export default async function ChineseProductPage({ params }: Props) {
     },
     inLanguage: "zh-CN",
   };
+  const recordedHighlights = product.highlights.filter((item) =>
+    /recorded in (?:Alibaba trunk|the product package|the source package)/i.test(item),
+  );
   const brief = `您好，贝强鞋业。我希望了解${product.code}（${product.sourceModel}）${name}的样品和B2B报价，请确认规格、可选颜色、尺码配比、包装与时间要求。`;
   return (
     <main>
@@ -226,6 +229,12 @@ export default async function ChineseProductPage({ params }: Props) {
               <dt>已整理颜色</dt>
               <dd>{product.colors.map(colorZh).join("、")}</dd>
             </div>
+            {recordedHighlights.length ? (
+              <div>
+                <dt>已记录配置证据</dt>
+                <dd>{recordedHighlights.map(factZh).join("；")}</dd>
+              </div>
+            ) : null}
           </dl>
           <aside className="confirmation-card">
             <p className="eyebrow">报价前确认</p>
