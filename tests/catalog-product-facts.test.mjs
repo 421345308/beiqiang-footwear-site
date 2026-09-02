@@ -1,0 +1,38 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { products } from "../app/data/products.ts";
+import { factZh, productNameZh } from "../app/data/products-zh.ts";
+
+function product(code) {
+  const result = products.find((item) => item.code === code);
+  assert.ok(result, `${code} must exist in the public catalogue`);
+  return result;
+}
+
+test("keeps source-supported materials for the three reviewed catalogue products", () => {
+  const bq003 = product("BQ003");
+  assert.equal(bq003.upper, "Stretch fabric upper");
+  assert.equal(bq003.sole, "EVA sole");
+  assert.match(bq003.highlights.join(" "), /Mesh lining recorded/);
+  assert.doesNotMatch(bq003.confirmBeforeQuote.join(" "), /Outsole and lining materials/);
+
+  const bq007 = product("BQ007");
+  assert.equal(bq007.sole, "EVA + PEBA foamed sole structure");
+  assert.match(bq007.highlights.join(" "), /source package/);
+  assert.doesNotMatch(bq007.confirmBeforeQuote.join(" "), /Outsole foam\/material/);
+
+  const bq008 = product("BQ008");
+  assert.match(bq008.sole, /material confirmed before quotation/);
+
+  const bq010 = product("BQ010");
+  assert.equal(bq010.upper, "Stretch fabric upper");
+  assert.equal(bq010.sole, "EVA sole");
+  assert.match(bq010.highlights.join(" "), /Mesh lining recorded/);
+});
+
+test("renders the newly verified facts in buyer-readable Chinese", () => {
+  assert.equal(factZh("EVA + PEBA foamed sole structure"), "EVA + PEBA 发泡鞋底结构");
+  assert.equal(factZh("Mesh lining recorded in the product package"), "产品资料已记录网布内里");
+  assert.equal(factZh("Exact material execution for the selected order"), "所选订单的准确材料执行");
+  assert.equal(productNameZh(product("BQ003")), "夏季弹力织物系带休闲鞋");
+});
