@@ -540,6 +540,9 @@ type CommercialAnalytics = {
     productFinderResults: number;
     productFinderComparisonHandoffs: number;
     productFinderQuoteHandoffs: number;
+    humanSourcingReviewsSubmitted: number;
+    humanSourcingReviewsAwaitingShortlist: number;
+    humanSourcingReviewsShortlisted: number;
     buyerMessages: number;
     buyerFiles: number;
     buyerDocuments: number;
@@ -1144,6 +1147,9 @@ function CommercialDashboard({
         ["Product views", data.funnel.productViews],
         ["Quote-list adds", data.funnel.quoteAdds],
         ["Quote requests", data.funnel.quoteRequests],
+        ["Human reviews submitted", data.supporting.humanSourcingReviewsSubmitted],
+        ["Human reviews awaiting shortlist now", data.supporting.humanSourcingReviewsAwaitingShortlist],
+        ["Human reviews shortlisted", data.supporting.humanSourcingReviewsShortlisted],
         ["Saved inquiries", data.funnel.inquiries],
         ["Qualified now", data.funnel.qualified],
         ["Sample stage+", data.funnel.sampleDiscussion],
@@ -6249,6 +6255,12 @@ export default function InquiryAdminPage() {
   const recommendationsAwaitingBuyer = businessRecords.filter(
     (record) => record.recommendationSets?.at(-1)?.status === "issued",
   ).length;
+  const humanReviewsAwaitingShortlist = businessRecords.filter(
+    (record) =>
+      record.finderBrief?.mode === "human_review" &&
+      !record.recommendationSets?.some((item) => item.status === "issued") &&
+      !["lost", "spam", "order_confirmed"].includes(record.status),
+  ).length;
   const samplesAwaitingBuyer = businessRecords.filter(
     (record) => record.sampleProgram?.status === "buyer_review",
   ).length;
@@ -6681,6 +6693,10 @@ export default function InquiryAdminPage() {
         <article>
           <small>SHORTLISTS AWAITING BUYER</small>
           <strong>{recommendationsAwaitingBuyer}</strong>
+        </article>
+        <article>
+          <small>HUMAN SHORTLISTS TO PREPARE</small>
+          <strong>{humanReviewsAwaitingShortlist}</strong>
         </article>
         <article>
           <small>SAMPLES AWAITING BUYER</small>

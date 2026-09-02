@@ -716,6 +716,24 @@ export function buildCommercialAnalytics(
       productFinderResults: countEvent("product_finder_result"),
       productFinderComparisonHandoffs: countEvent("product_finder_to_compare"),
       productFinderQuoteHandoffs: countEvent("product_finder_to_quote"),
+      humanSourcingReviewsSubmitted: periodInquiries.filter(
+        (record) =>
+          record.context === "sourcing_review" &&
+          record.finderBrief?.mode === "human_review",
+      ).length,
+      humanSourcingReviewsAwaitingShortlist: businessInquiries.filter(
+        (record) =>
+          record.finderBrief?.mode === "human_review" &&
+          !record.recommendationSets?.some((item) => item.status === "issued") &&
+          !["lost", "spam", "order_confirmed"].includes(record.status),
+      ).length,
+      humanSourcingReviewsShortlisted: businessInquiries.filter(
+        (record) =>
+          record.finderBrief?.mode === "human_review" &&
+          record.recommendationSets?.some(
+            (item) => Date.parse(item.issuedAt || 0) >= cutoff,
+          ),
+      ).length,
       buyerMessages: periodInquiries.reduce(
         (sum, record) => sum + (record.messages?.length || 0),
         0,

@@ -29,6 +29,19 @@ test("buyer decisions are sorted by explicit project stage", () => {
   assert.equal(change.lane, "waiting_buyer"); assert.equal(change.score > sample.score, true); assert.equal(sample.score > quote.score, true);
 });
 
+test("human sourcing reviews become high-priority internal shortlist work", () => {
+  const record = baseRecord({ styleCode: "CATALOG-2026", finderBrief: { mode: "human_review", buyerChannel: "amazon", priority: "lightweight", closure: "lace_up", styleCodes: [] } });
+  const task = buildSalesTask(record, ready, now);
+  const draft = buildBuyerReplyDraft(record, task, ready);
+  assert.equal(task.kind, "sourcing_review"); assert.equal(task.score, 89); assert.equal(task.lane, "internal"); assert.match(task.title, /人工选款/);
+  assert.match(draft, /human shortlist request/i); assert.match(draft, /does not confirm stock, price or manufacturing feasibility/i);
+});
+
+test("issued recommendations close the special human-review preparation task", () => {
+  const task = buildSalesTask(baseRecord({ finderBrief: { mode: "human_review", buyerChannel: "wholesale", priority: "breathability", closure: "slip_on", styleCodes: ["BQ009"] }, recommendationSets: [{ id: "REC-1", status: "issued", items: [{ code: "BQ009" }] }] }), ready, now);
+  assert.equal(task.kind, "recommendation"); assert.equal(task.lane, "waiting_buyer");
+});
+
 test("overdue active projects become high-priority work", () => {
   const task = buildSalesTask(baseRecord({ nextActionDue: "2026-08-20", nextAction: "Confirm destination" }), ready, now);
   assert.equal(task.kind, "overdue"); assert.equal(task.score, 88); assert.equal(task.urgency, "high");

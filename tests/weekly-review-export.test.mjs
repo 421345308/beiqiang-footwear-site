@@ -67,6 +67,9 @@ const analytics = {
     productFinderResults: 4,
     productFinderComparisonHandoffs: 2,
     productFinderQuoteHandoffs: 1,
+    humanSourcingReviewsSubmitted: 3,
+    humanSourcingReviewsAwaitingShortlist: 1,
+    humanSourcingReviewsShortlisted: 2,
     meetingRequestsSubmitted: 3,
     meetingsPending: 1,
     meetingsConfirmed: 1,
@@ -172,6 +175,7 @@ test("exports a Chinese weekly report with evidence and non-prediction boundarie
   assert.match(report, /私标概念到询价/);
   assert.match(report, /工作台浏览：4；概念图下载：2；进入结构化询价：1/);
   assert.match(report, /采购选款助手/);
+  assert.match(report, /人工复核提交：3；当前待签发候选：1；周期内已签发人工候选：2/);
   assert.match(report, /页面浏览：6；生成结果：4/);
   assert.match(report, /进入并排比较：2；加入询价：1/);
   assert.match(

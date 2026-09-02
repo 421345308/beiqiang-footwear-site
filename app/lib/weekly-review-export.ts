@@ -93,6 +93,9 @@ export type WeeklyReviewAnalytics = {
     productFinderResults?: number;
     productFinderComparisonHandoffs?: number;
     productFinderQuoteHandoffs?: number;
+    humanSourcingReviewsSubmitted?: number;
+    humanSourcingReviewsAwaitingShortlist?: number;
+    humanSourcingReviewsShortlisted?: number;
     meetingRequestsSubmitted?: number;
     meetingsPending?: number;
     meetingsConfirmed?: number;
@@ -310,6 +313,7 @@ export function buildWeeklyReviewMarkdown({
     "## 采购选款助手",
     `- 页面浏览：${analytics.supporting?.productFinderViews || 0}；生成结果：${analytics.supporting?.productFinderResults || 0}。`,
     `- 进入并排比较：${analytics.supporting?.productFinderComparisonHandoffs || 0}；加入询价：${analytics.supporting?.productFinderQuoteHandoffs || 0}。`,
+    `- 人工复核提交：${analytics.supporting?.humanSourcingReviewsSubmitted || 0}；当前待签发候选：${analytics.supporting?.humanSourcingReviewsAwaitingShortlist || 0}；周期内已签发人工候选：${analytics.supporting?.humanSourcingReviewsShortlisted || 0}。`,
     "- 匹配只用于缩小目录范围；必须继续用真实询盘、样品、报价和正式订单验证商业价值。",
     "",
     "## 采购会议执行证据",

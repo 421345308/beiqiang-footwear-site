@@ -140,7 +140,10 @@ export function sanitizeWeeklyReviewSnapshot(source) {
   const coverage = source.coverage || {};
   return {
     version:
-      source.version >= 9 ||
+      source.version >= 10 ||
+      source.supporting?.humanSourcingReviewsSubmitted !== undefined
+        ? 10
+        : source.version >= 9 ||
       source.supporting?.productFinderViews !== undefined
         ? 9
         : source.version >= 8 ||
@@ -236,6 +239,9 @@ export function sanitizeWeeklyReviewSnapshot(source) {
       productFinderResults: safeNumber(source.supporting?.productFinderResults),
       productFinderComparisonHandoffs: safeNumber(source.supporting?.productFinderComparisonHandoffs),
       productFinderQuoteHandoffs: safeNumber(source.supporting?.productFinderQuoteHandoffs),
+      humanSourcingReviewsSubmitted: safeNumber(source.supporting?.humanSourcingReviewsSubmitted),
+      humanSourcingReviewsAwaitingShortlist: safeNumber(source.supporting?.humanSourcingReviewsAwaitingShortlist),
+      humanSourcingReviewsShortlisted: safeNumber(source.supporting?.humanSourcingReviewsShortlisted),
       meetingRequestsSubmitted: safeNumber(
         source.supporting?.meetingRequestsSubmitted,
       ),
@@ -393,7 +399,7 @@ export function createWeeklyReviewHandlers({
           message: body.message || "Current analytics could not be calculated.",
         });
       const snapshot = sanitizeWeeklyReviewSnapshot({
-        version: 9,
+        version: 10,
         id: `WR-${date.replaceAll("-", "")}-${days}D`,
         capturedAt,
         period: body.analytics.period,
