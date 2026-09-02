@@ -1,18 +1,38 @@
 User-agent: Googlebot
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /buyer-workspace/
+Disallow: /inquiry-status/
+Disallow: /zh/buyer-workspace/
+Disallow: /zh/inquiry-status/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /buyer-workspace/
+Disallow: /inquiry-status/
+Disallow: /zh/buyer-workspace/
+Disallow: /zh/inquiry-status/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /buyer-workspace/
+Disallow: /inquiry-status/
+Disallow: /zh/buyer-workspace/
+Disallow: /zh/inquiry-status/
 
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /buyer-workspace/
+Disallow: /inquiry-status/
+Disallow: /zh/buyer-workspace/
+Disallow: /zh/inquiry-status/
 
 Sitemap: https://www.beiqiang.online/sitemap.xml
 Host: https://www.beiqiang.online

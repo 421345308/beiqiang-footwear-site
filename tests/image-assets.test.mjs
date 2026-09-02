@@ -35,7 +35,8 @@ test("keeps one optimized web-gallery image for every catalogue source image", a
   assert.equal(derivatives.length, sources.length);
   const sizes = await Promise.all(derivatives.map((file) => stat(file)));
   assert.equal(Math.max(...sizes.map((item) => item.size)) <= 140 * 1024, true, "one product web image exceeds 140 KB");
-  assert.equal(sizes.reduce((sum, item) => sum + item.size, 0) <= 10 * 1024 * 1024, true, "product web gallery exceeds 10 MB total");
+  const deploymentBudget = products.length * 340 * 1024;
+  assert.equal(sizes.reduce((sum, item) => sum + item.size, 0) <= deploymentBudget, true, "product web gallery exceeds the per-product deployment budget");
 });
 
 test("keeps complete factory derivatives and a lightweight social preview", async () => {

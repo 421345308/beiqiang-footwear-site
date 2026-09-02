@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
 import nodemailer from "nodemailer";
+import { FINDER_STYLE_CODES } from "./catalog-style-codes.js";
 
 const BUYER_TYPES = new Set(["Importer / wholesaler", "Amazon / TikTok seller", "Brand / private label", "Sourcing agent"]);
 const PROJECT_PATHS = new Set(["base_style_adaptation", "technical_development"]);
@@ -14,7 +15,6 @@ const FINDER_BUYER_CHANNELS = new Set(["importer_wholesaler", "online_seller", "
 const FINDER_PRIORITIES = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
 const FINDER_CLOSURES = new Set(["any", "Slip-On", "Lace-Up"]);
 const FINDER_MODES = new Set(["matched_shortlist", "human_review"]);
-const FINDER_STYLE_CODES = new Set(Array.from({ length: 31 }, (_, index) => `BQ${String(index + 1).padStart(3, "0")}`));
 
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";

@@ -1,0 +1,30 @@
+{
+  "sourceRoot": "../../01_产品资产/02_可发布素材/00_最终上传",
+  "products": [
+    { "code": "BQ032", "sourceDirectory": "BQ032_ZX2212", "files": ["01_main_clean.jpg", "02_upper_clean.jpg", "03_structure_clean.jpg", "04_sole_clean.jpg", "05_colors.jpg", "06_scene_clean.jpg"] },
+    { "code": "BQ033", "sourceDirectory": "BQ033_T5503" },
+    { "code": "BQ034", "sourceDirectory": "BQ034_T5505" },
+    { "code": "BQ035", "sourceDirectory": "BQ035_A001" },
+    { "code": "BQ036", "sourceDirectory": "BQ036_8025" },
+    { "code": "BQ037", "sourceDirectory": "BQ037_H7116" },
+    { "code": "BQ038", "sourceDirectory": "BQ038_M889" },
+    { "code": "BQ039", "sourceDirectory": "BQ039_155", "files": ["00_main_clean.png", "02_upper.jpg", "03_structure.jpg", "04_sole.jpg", "05_colors.jpg", "06_scene.jpg"] },
+    { "code": "BQ040", "sourceDirectory": "BQ040_1689", "files": ["00_main_clean.png", "02_upper.jpg", "03_structure.jpg", "04_sole.jpg", "05_colors.jpg", "06_scene.jpg"] },
+    { "code": "BQ041", "sourceDirectory": "BQ041_202", "files": ["01_main_square_clean.png", "02_upper_clean.png", "03_structure_clean.png", "04_sole_clean.png", "05_colors_clean.png", "06_scene.jpg"] },
+    { "code": "BQ042", "sourceDirectory": "BQ042_206", "files": ["01_main_clean.png", "02_upper_clean.png", "03_structure_clean.png", "04_sole_clean.png", "05_colors_clean.png", "06_scene_clean_v2.png"] },
+    { "code": "BQ043", "sourceDirectory": "BQ043_8008" },
+    { "code": "BQ044", "sourceDirectory": "BQ044_811", "files": ["01_main.jpg", "02_upper_clean_v2.png", "03_structure_clean_v2.png", "04_sole.jpg", "05_colors.jpg", "06_scene.jpg"] },
+    { "code": "BQ045", "sourceDirectory": "BQ045_A012", "files": ["01_main_clean.png", "02_upper_clean.png", "03_structure_clean.jpg", "04_sole_clean.jpg", "05_all_black_clean.jpg", "06_scene_clean.png"] },
+    { "code": "BQ046", "sourceDirectory": "BQ046_A155", "files": ["01_main.jpg", "02_upper.jpg", "03_structure.jpg", "04_sole_clean_v2.png", "05_colors.jpg", "06_scene_clean_v2.png"] },
+    { "code": "BQ047", "sourceDirectory": "BQ047_A189" },
+    { "code": "BQ048", "sourceDirectory": "BQ048_A212" },
+    { "code": "BQ049", "sourceDirectory": "BQ049_A230" },
+    { "code": "BQ050", "sourceDirectory": "BQ050_A828", "files": ["01_black_white_clean.jpg", "02_all_black_clean.jpg", "03_grey_clean.jpg", "04_red_scene_clean.jpg", "05_colors_clean.jpg", "06_pink_scene_clean.jpg"] },
+    { "code": "BQ051", "sourceDirectory": "BQ051_K6689", "files": ["01_main.jpg", "02_upper.jpg", "03_structure.jpg", "04_sole.jpg", "05_colors.jpg", "06_scene_clean_v2.png"] },
+    { "code": "BQ052", "sourceDirectory": "BQ052_9212" },
+    { "code": "BQ053", "sourceDirectory": "BQ053_1888" },
+    { "code": "BQ059", "sourceDirectory": "BQ059_A1888" },
+    { "code": "BQ060", "sourceDirectory": "BQ060_A350" },
+    { "code": "BQ061", "sourceDirectory": "BQ061_AA811" }
+  ]
+}

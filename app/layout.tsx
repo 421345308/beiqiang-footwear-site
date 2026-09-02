@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import "./globals.css";
 import ConsentBanner from "./components/ConsentBanner";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3001";
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const origin = `${protocol}://${host}`;
-
+export function generateMetadata(): Metadata {
+  const origin = "https://www.beiqiang.online";
   return {
-    metadataBase: new URL(origin),
+    metadataBase: new URL(`${origin}/`),
     verification: { google: "XgyFSK5TBQEyEvk9oQYhXO35Wl_W7hznbBXK9J6g_GM" },
     title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
     description: "Quanzhou footwear factory supply for verified walking shoes, wide-toe styles, lightweight slip-ons and casual textile footwear. Samples and OEM/ODM requirements can be discussed before bulk orders.",

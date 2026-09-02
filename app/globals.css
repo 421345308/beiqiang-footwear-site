@@ -423,7 +423,7 @@ footer a:hover { color: var(--forest); }
 .catalog-direction-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
 .catalog-direction-grid strong { margin-top: auto; padding-top: 22px; color: var(--forest); font-size: 12px; }
 .catalog-section { background: var(--paper-light); }
-.catalog-tools { margin-bottom: 46px; padding: 22px; display: grid; grid-template-columns: minmax(260px, 1fr) 180px 210px auto; align-items: end; gap: 18px; border: 1px solid var(--line); background: var(--paper); }
+.catalog-tools { margin-bottom: 46px; padding: 22px; display: grid; grid-template-columns: minmax(240px, 1fr) 150px 190px 190px auto; align-items: end; gap: 14px; border: 1px solid var(--line); background: var(--paper); }
 .catalog-tools label { display: grid; gap: 8px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .catalog-tools input, .catalog-tools select { min-height: 48px; padding: 0 14px; border: 1px solid var(--line); background: white; color: var(--ink); }
 .catalog-tools strong { padding-bottom: 16px; color: var(--terracotta); font-size: 12px; white-space: nowrap; }

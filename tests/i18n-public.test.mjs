@@ -41,12 +41,13 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   assert.match(catalogHtml, /按款号、源款号或产品搜索/);
   assert.match(catalogHtml, /先按采购方向查看/);
   assert.match(catalogHtml, /先看产品方向，再看具体款式/);
-  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?31(?:<!-- -->)?款/);
+  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?56(?:<!-- -->)?款/);
   assert.match(catalogHtml, /查看更多产品/);
-  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?31(?:<!-- -->)?个当前产品款号/);
+  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?56(?:<!-- -->)?个当前产品款号/);
   assert.match(catalogHtml, /BQ001/);
   assert.match(catalogHtml, /BQ030/);
   assert.match(catalogHtml, /BQ031/);
+  assert.match(catalogHtml, /BQ061/);
   assert.match(catalogHtml, /比较/);
   assert.doesNotMatch(
     catalogHtml,
@@ -179,7 +180,7 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
       /在大货开始前，弄清每一个关键决定/,
       /网站不收集银行卡、网银密码或验证码/,
     ],
-    ["/zh/line-sheet", /一份可用于选款的目录/, /获取31款产品目录/],
+    ["/zh/line-sheet", /一份可用于选款的目录/, /获取56款产品目录/],
   ]) {
     const response = await render(path);
     const html = await response.text();

@@ -27,6 +27,7 @@ export default function ChineseProductCatalog({
   const [query, setQuery] = useState("");
   const [closure, setClosure] = useState("全部");
   const [direction, setDirection] = useState("全部");
+  const [sort, setSort] = useState("code_asc");
   const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [message, setMessage] = useState(
@@ -35,14 +36,16 @@ export default function ChineseProductCatalog({
   const trackedSharedComparison = useRef("");
   const visible = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    return products.filter((product) => {
+    const filtered = products.filter((product) => {
       const matchesClosure =
         closure === "全部" || closureZh(product.closure) === closure;
       const matchesDirection =
         direction === "全部" ||
-        product.collections.includes(
-          direction as Product["collections"][number],
-        );
+        (direction === "high_top" && /high top|high-top|sock/i.test(`${product.name} ${product.group}`)) ||
+        (direction === "kids" && /kids/i.test(product.group)) ||
+        (direction === "large_size" && /EU (?:37|38)-4[67]|large size/i.test(`${product.size} ${product.group}`)) ||
+        (direction === "fleece" && product.colors.some((color) => /fleece/i.test(color))) ||
+        product.collections.includes(direction as Product["collections"][number]);
       const haystack = [
         product.code,
         product.sourceModel,
@@ -60,7 +63,13 @@ export default function ChineseProductCatalog({
         (!normalized || haystack.includes(normalized))
       );
     });
-  }, [closure, direction, products, query]);
+    return filtered.sort((left, right) => {
+      if (sort === "code_desc") return right.code.localeCompare(left.code);
+      if (sort === "slip_on") return Number(right.closure === "Slip-On") - Number(left.closure === "Slip-On") || left.code.localeCompare(right.code);
+      if (sort === "lace_up") return Number(right.closure === "Lace-Up") - Number(left.closure === "Lace-Up") || left.code.localeCompare(right.code);
+      return left.code.localeCompare(right.code);
+    });
+  }, [closure, direction, products, query, sort]);
   const shown = visible.slice(0, visibleLimit);
   const compared = compareCodes
     .map((code) => products.find((product) => product.code === code))
@@ -169,6 +178,19 @@ export default function ChineseProductCatalog({
             <option value="wide-toe-box">宽鞋头方向</option>
             <option value="knit-slip-on">针织易穿方向</option>
             <option value="breathable-lace-up">透气系带方向</option>
+            <option value="high_top">高帮 / 袜套款</option>
+            <option value="kids">儿童鞋</option>
+            <option value="large_size">扩展尺码款</option>
+            <option value="fleece">可选加绒款</option>
+          </select>
+        </label>
+        <label>
+          <span>产品排序</span>
+          <select value={sort} onChange={(event) => { setSort(event.target.value); setVisibleLimit(PAGE_SIZE); }}>
+            <option value="code_asc">按款号 · 早期款优先</option>
+            <option value="code_desc">按款号 · 新款优先</option>
+            <option value="slip_on">套穿款优先</option>
+            <option value="lace_up">系带款优先</option>
           </select>
         </label>
         <strong>

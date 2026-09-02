@@ -15,6 +15,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
   const [closure, setClosure] = useState("All");
   const [direction, setDirection] = useState("All");
+  const [sort, setSort] = useState("code_asc");
   const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState(
@@ -24,13 +25,15 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
 
   const visible = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    return products.filter((product) => {
+    const filtered = products.filter((product) => {
       const matchesClosure = closure === "All" || product.closure === closure;
       const matchesDirection =
         direction === "All" ||
-        product.collections.includes(
-          direction as Product["collections"][number],
-        );
+        (direction === "high_top" && /high top|high-top|sock/i.test(`${product.name} ${product.group}`)) ||
+        (direction === "kids" && /kids/i.test(product.group)) ||
+        (direction === "large_size" && /EU (?:37|38)-4[67]|large size/i.test(`${product.size} ${product.group}`)) ||
+        (direction === "fleece" && product.colors.some((color) => /fleece/i.test(color))) ||
+        product.collections.includes(direction as Product["collections"][number]);
       const haystack = [
         product.code,
         product.sourceModel,
@@ -46,7 +49,13 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
         (!normalized || haystack.includes(normalized))
       );
     });
-  }, [closure, direction, products, query]);
+    return filtered.sort((left, right) => {
+      if (sort === "code_desc") return right.code.localeCompare(left.code);
+      if (sort === "slip_on") return Number(right.closure === "Slip-On") - Number(left.closure === "Slip-On") || left.code.localeCompare(right.code);
+      if (sort === "lace_up") return Number(right.closure === "Lace-Up") - Number(left.closure === "Lace-Up") || left.code.localeCompare(right.code);
+      return left.code.localeCompare(right.code);
+    });
+  }, [closure, direction, products, query, sort]);
   const shown = visible.slice(0, visibleLimit);
   const compared = compareCodes
     .map((code) => products.find((product) => product.code === code))
@@ -171,6 +180,19 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
             <option value="wide-toe-box">Roomy toe</option>
             <option value="knit-slip-on">Easy-on knit</option>
             <option value="breathable-lace-up">Breathable lace-up</option>
+            <option value="high_top">High-top / sock styles</option>
+            <option value="kids">Kids styles</option>
+            <option value="large_size">Extended-size styles</option>
+            <option value="fleece">Fleece-lined options</option>
+          </select>
+        </label>
+        <label>
+          <span>Order products</span>
+          <select value={sort} onChange={(event) => { setSort(event.target.value); setVisibleLimit(PAGE_SIZE); }}>
+            <option value="code_asc">Product code · earliest first</option>
+            <option value="code_desc">Product code · newest first</option>
+            <option value="slip_on">Slip-on styles first</option>
+            <option value="lace_up">Lace-up styles first</option>
           </select>
         </label>
         <strong>

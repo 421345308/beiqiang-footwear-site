@@ -20,7 +20,7 @@ export default function FactoryEvidenceVideo({ compact = false, locale = "en" }:
       </video>
       <figcaption>
         <strong>{zh ? "工厂实拍" : "Factory-side footage"}</strong>
-        <span>{zh ? "35秒 · 无声 · 生产、检查与包装" : "35 seconds · silent · production, checking and packing"}</span>
+        <span>{zh ? "35秒 · 无声 · 鞋品整理、检查与包装准备" : "35 seconds · silent · shoe handling, checking and packing preparation"}</span>
       </figcaption>
     </figure>
   );

@@ -351,7 +351,7 @@ export default function ChineseQuoteRequestBuilder() {
                     </small>
                     <h3>{product ? productNameZh(product) : line.name}</h3>
                     <Link href={`/zh/products/${line.slug}/`}>
-                      查看产品证据
+                      查看产品详情
                     </Link>
                   </div>
                   <div className="quote-line-fields">

@@ -17,7 +17,7 @@ import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import { trackEvent } from "../lib/tracking";
 
 const reasonZh: Record<string, string> = {
-  "SKU-level wide-toe evidence": "具有SKU级宽鞋头证据",
+  "SKU-level wide-toe evidence": "本款资料已确认宽鞋头结构",
   "Slip-on construction": "套穿结构",
   "Documented breathable or open-textile lace-up direction":
     "已记录的透气／镂空纺织系带方向",

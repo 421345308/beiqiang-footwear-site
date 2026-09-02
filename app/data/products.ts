@@ -1,4 +1,5 @@
 import catalogImages from "./catalog-images.json" with { type: "json" };
+import { verifiedProducts } from "./verified-products.ts";
 
 export type CollectionSlug =
   "wide-toe-box" | "knit-slip-on" | "breathable-lace-up";
@@ -42,7 +43,7 @@ const commonConfirm = [
 const unconfirmedSole =
   "Cushion-profile sole; material confirmed before quotation";
 
-export const products: Product[] = [
+const originalProducts: Product[] = [
   {
     code: "BQ001",
     slug: "bq001",
@@ -888,6 +889,8 @@ export const products: Product[] = [
     alibabaProductId: "10000046439033",
   },
 ];
+
+export const products: Product[] = [...originalProducts, ...verifiedProducts];
 
 export const collections = [
   {
