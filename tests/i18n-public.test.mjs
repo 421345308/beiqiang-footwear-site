@@ -45,7 +45,7 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   assert.match(catalogHtml, /儿童鞋/);
   assert.match(catalogHtml, /扩展尺码方向/);
   assert.match(catalogHtml, /加绒选项/);
-  assert.match(catalogHtml, /zh\/products\/\?direction=kids#catalog/i);
+  assert.match(catalogHtml, /zh\/collections\/kids-shoes\//i);
   assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?56(?:<!-- -->)?款/);
   assert.match(catalogHtml, /查看更多产品/);
   assert.match(catalogHtml, /浏览全部(?:<!-- -->)?56(?:<!-- -->)?个当前产品款号/);
@@ -273,7 +273,7 @@ test("publishes Chinese sourcing programs and decision-stage buyer resources", a
   }
 });
 
-test("publishes three Chinese product collections with SKU evidence boundaries", async () => {
+test("publishes seven Chinese product collections with product-level boundaries", async () => {
   for (const [path, heading, boundary] of [
     [
       "/zh/collections/wide-toe-box",
@@ -289,6 +289,26 @@ test("publishes three Chinese product collections with SKU evidence boundaries",
       "/zh/collections/breathable-lace-up",
       /针织、网布与织物系带步行鞋/,
       /不代表防水、医疗、测试性能/,
+    ],
+    [
+      "/zh/collections/high-top-shoes",
+      /高帮与袜套式休闲鞋采购选款/,
+      /仍需逐款确认/,
+    ],
+    [
+      "/zh/collections/kids-shoes",
+      /儿童休闲与步行鞋批发选款/,
+      /不等于年龄分级/,
+    ],
+    [
+      "/zh/collections/extended-size-shoes",
+      /延伸至较大欧码/,
+      /不是现货/,
+    ],
+    [
+      "/zh/collections/fleece-lined-shoes",
+      /已有加绒颜色方向/,
+      /可能只适用于个别颜色/,
     ],
   ]) {
     const response = await render(path);

@@ -1,8 +1,18 @@
 import catalogImages from "./catalog-images.json" with { type: "json" };
 import { verifiedProducts } from "./verified-products.ts";
+import {
+  type CatalogDirection,
+  productMatchesCatalogDirection,
+} from "../lib/catalog-filtering.ts";
 
 export type CollectionSlug =
-  "wide-toe-box" | "knit-slip-on" | "breathable-lace-up";
+  | "wide-toe-box"
+  | "knit-slip-on"
+  | "breathable-lace-up"
+  | "high-top-shoes"
+  | "kids-shoes"
+  | "extended-size-shoes"
+  | "fleece-lined-shoes";
 
 export type Product = {
   code: string;
@@ -892,31 +902,91 @@ const originalProducts: Product[] = [
 
 export const products: Product[] = [...originalProducts, ...verifiedProducts];
 
-export const collections = [
+export type ProductCollection = {
+  slug: CollectionSlug;
+  direction: CatalogDirection;
+  name: string;
+  title: string;
+  description: string;
+  buyerIntent: string;
+  selectionBasis: string;
+  proofBoundary: string;
+};
+
+export const collections: ProductCollection[] = [
   {
-    slug: "wide-toe-box" as const,
+    slug: "wide-toe-box",
+    direction: "wide-toe-box",
     name: "Wide Toe Box",
     title: "Roomy-toe walking shoes",
     description:
       "Verified wide toe box styles for comfort-footwear importers, wholesalers and online sellers.",
     buyerIntent: "Buyers building a differentiated wide-fit comfort line.",
+    selectionBasis: "Only styles with reviewed product-level wide-toe evidence are included.",
+    proofBoundary: "This grouping is limited to the listed styles. It does not make every Beiqiang product wide-toe and does not imply a medical or orthopedic benefit.",
   },
   {
-    slug: "knit-slip-on" as const,
+    slug: "knit-slip-on",
+    direction: "knit-slip-on",
     name: "Easy-On Knit",
     title: "Knit slip-on walking shoes",
     description:
       "Easy-on textile and knit options for daily walking, travel and casual assortments.",
     buyerIntent:
       "Buyers prioritizing convenience, range breadth and sample testing.",
+    selectionBasis: "Current products assigned to the easy-on knit and textile direction are shown together.",
+    proofBoundary: "Closure and visible product direction come from reviewed product records. Exact materials, current colors, sizes and commercial terms remain style-specific confirmations.",
   },
   {
-    slug: "breathable-lace-up" as const,
+    slug: "breathable-lace-up",
+    direction: "breathable-lace-up",
     name: "Breathable Lace-Up",
     title: "Breathable lace-up walking shoes",
     description:
       "Knit, mesh and textile lace-up styles with distinct silhouettes and color directions.",
     buyerIntent: "Buyers sourcing summer, athletic and casual lace-up ranges.",
+    selectionBasis: "Current lace-up styles assigned to the knit, mesh or textile sourcing direction are included.",
+    proofBoundary: "Breathable is a sourcing direction based on the relevant upper structure and product record; it is not a waterproof, medical or laboratory-performance claim.",
+  },
+  {
+    slug: "high-top-shoes",
+    direction: "high_top",
+    name: "High-Top / Sock",
+    title: "High-top and sock-style casual shoes for B2B sourcing",
+    description: "Compare current higher-cut and sock-style silhouettes for seasonal, casual and differentiated footwear assortments.",
+    buyerIntent: "Importers, wholesalers and online sellers reviewing higher-cut silhouettes before selecting samples.",
+    selectionBasis: "Products are included when their reviewed name or group identifies a high-top or sock-style construction.",
+    proofBoundary: "The grouping describes the recorded silhouette. Lining, warmth, exact upper materials, available colors, sizes and order terms require style-by-style confirmation.",
+  },
+  {
+    slug: "kids-shoes",
+    direction: "kids",
+    name: "Kids Footwear",
+    title: "Kids casual and walking shoe styles for wholesale review",
+    description: "Review the current children’s footwear candidates in one place before discussing target age range, size ratio, colors and samples.",
+    buyerIntent: "Children’s footwear importers, wholesalers and online sellers preparing a focused sourcing brief.",
+    selectionBasis: "Only products whose reviewed product group identifies a kids direction are included.",
+    proofBoundary: "A kids product grouping does not confirm age grading, compliance, current size availability or market suitability. Those requirements must be named and reviewed for the project.",
+  },
+  {
+    slug: "extended-size-shoes",
+    direction: "large_size",
+    name: "Extended Size",
+    title: "Walking shoe styles with documented extended EU size directions",
+    description: "Compare current styles whose product records reach larger EU size directions, then confirm the exact size run and order ratio before quotation.",
+    buyerIntent: "Buyers looking for walking and casual shoe candidates with a broader documented EU size direction.",
+    selectionBasis: "The current product record must reach EU 46 or EU 47, or explicitly identify a large-size direction.",
+    proofBoundary: "A documented size direction is not current stock or a confirmed production size run. Exact sizes, molds, fit, size ratio and availability remain project confirmations.",
+  },
+  {
+    slug: "fleece-lined-shoes",
+    direction: "fleece",
+    name: "Fleece-Lined Options",
+    title: "Walking shoe styles with documented fleece-lined color options",
+    description: "Review styles whose current color records include a fleece-lined direction for cold-season assortment discussions.",
+    buyerIntent: "Importers, wholesalers and online sellers reviewing cold-season options before sample and material confirmation.",
+    selectionBasis: "At least one documented color option for the listed style includes a fleece-lined direction.",
+    proofBoundary: "The fleece-lined direction may apply only to selected colors. Exact lining material, warmth, current availability, sizes and commercial terms must be confirmed before quotation.",
   },
 ];
 
@@ -929,5 +999,9 @@ export function getCollection(slug: string) {
 }
 
 export function productsInCollection(slug: CollectionSlug) {
-  return products.filter((product) => product.collections.includes(slug));
+  const collection = getCollection(slug);
+  if (!collection) return [];
+  return products.filter((product) =>
+    productMatchesCatalogDirection(product, collection.direction),
+  );
 }

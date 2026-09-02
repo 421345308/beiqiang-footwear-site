@@ -3,7 +3,7 @@ import Link from "next/link";
 import ProductCatalog from "../components/ProductCatalog";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
-import { products } from "../data/products";
+import { products, type CollectionSlug } from "../data/products";
 import {
   type CatalogDirection,
   productMatchesCatalogDirection,
@@ -11,16 +11,17 @@ import {
 
 const catalogDirections: Array<{
   key: CatalogDirection;
+  slug: CollectionSlug;
   title: string;
   copy: string;
 }> = [
-  { key: "wide-toe-box", title: "Roomy-toe walking shoes", copy: "Verified wide-toe styles for comfort-footwear assortments." },
-  { key: "knit-slip-on", title: "Easy-on knit styles", copy: "Slip-on textile and knit options for convenient daily-wear ranges." },
-  { key: "breathable-lace-up", title: "Breathable lace-up styles", copy: "Knit, mesh and textile lace-up directions for warmer markets." },
-  { key: "high_top", title: "High-top and sock styles", copy: "Higher-cut silhouettes for seasonal or differentiated assortments." },
-  { key: "kids", title: "Kids footwear", copy: "Current children’s styles grouped for a faster buyer review." },
-  { key: "large_size", title: "Extended-size directions", copy: "Styles whose documented size direction reaches larger EU sizes." },
-  { key: "fleece", title: "Fleece-lined options", copy: "Documented color options that include a fleece-lined direction." },
+  { key: "wide-toe-box", slug: "wide-toe-box", title: "Roomy-toe walking shoes", copy: "Verified wide-toe styles for comfort-footwear assortments." },
+  { key: "knit-slip-on", slug: "knit-slip-on", title: "Easy-on knit styles", copy: "Slip-on textile and knit options for convenient daily-wear ranges." },
+  { key: "breathable-lace-up", slug: "breathable-lace-up", title: "Breathable lace-up styles", copy: "Knit, mesh and textile lace-up directions for warmer markets." },
+  { key: "high_top", slug: "high-top-shoes", title: "High-top and sock styles", copy: "Higher-cut silhouettes for seasonal or differentiated assortments." },
+  { key: "kids", slug: "kids-shoes", title: "Kids footwear", copy: "Current children’s styles grouped for a faster buyer review." },
+  { key: "large_size", slug: "extended-size-shoes", title: "Extended-size directions", copy: "Styles whose documented size direction reaches larger EU sizes." },
+  { key: "fleece", slug: "fleece-lined-shoes", title: "Fleece-lined options", copy: "Documented color options that include a fleece-lined direction." },
 ];
 
 export const metadata: Metadata = {
@@ -98,14 +99,14 @@ export default function ProductsPage() {
           {catalogDirections.map((direction) => (
             <Link
               key={direction.key}
-              href={`/products/?direction=${direction.key}#catalog`}
+              href={`/collections/${direction.slug}/`}
             >
               <span>
                 {products.filter((product) => productMatchesCatalogDirection(product, direction.key)).length} current styles
               </span>
               <h3>{direction.title}</h3>
               <p>{direction.copy}</p>
-              <strong>Filter the catalogue →</strong>
+              <strong>Open the sourcing collection →</strong>
             </Link>
           ))}
         </div>

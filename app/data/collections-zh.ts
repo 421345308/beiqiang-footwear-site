@@ -34,6 +34,38 @@ export const chineseCollections: ChineseCollection[] = [
     buyerIntent: "采购夏季、运动休闲或日常系带鞋产品组合的进口商、批发商和线上渠道买家。",
     proofBoundary: "透气方向以对应产品的鞋面结构和资料为依据，不代表防水、医疗、测试性能或无条件材料承诺。",
   },
+  {
+    slug: "high-top-shoes",
+    name: "高帮与袜套款",
+    title: "高帮与袜套式休闲鞋采购选款",
+    description: "集中比较当前较高鞋帮和袜套式轮廓，供季节性、休闲或差异化产品组合进行初步选款。",
+    buyerIntent: "希望在打样前比较较高鞋帮轮廓的进口商、批发商和线上渠道买家。",
+    proofBoundary: "本系列只描述产品资料中的鞋帮轮廓；内里、保暖性、准确鞋面材料、可用颜色、尺码与订单条件仍需逐款确认。",
+  },
+  {
+    slug: "kids-shoes",
+    name: "儿童鞋",
+    title: "儿童休闲与步行鞋批发选款",
+    description: "把当前儿童鞋候选款集中展示，便于买家在询价前说明目标年龄、尺码配比、颜色和样品要求。",
+    buyerIntent: "正在准备明确儿童鞋采购简报的进口商、批发商和线上卖家。",
+    proofBoundary: "儿童鞋分类不等于年龄分级、合规、尺码现货或市场适用性已经确认；买家必须点名目标市场和项目要求后逐项审核。",
+  },
+  {
+    slug: "extended-size-shoes",
+    name: "扩展尺码",
+    title: "资料中延伸至较大欧码的步行鞋款",
+    description: "比较当前资料中尺码方向达到EU 46或EU 47的候选款，再在报价前核对实际尺码段与订单码比。",
+    buyerIntent: "寻找较宽欧码方向的步行鞋和休闲鞋候选款，并愿意先核实样品与尺码的B2B买家。",
+    proofBoundary: "资料中的尺码方向不是现货或已确认生产尺码段；准确尺码、模具、版型、码比和可用状态仍按项目确认。",
+  },
+  {
+    slug: "fleece-lined-shoes",
+    name: "加绒选项",
+    title: "已有加绒颜色方向的步行鞋款",
+    description: "查看当前颜色资料中包含加绒方向的鞋款，用于秋冬或寒冷市场的产品组合讨论。",
+    buyerIntent: "希望先比较秋冬候选款，再确认样品、材料和当前可用状态的进口商、批发商与线上卖家。",
+    proofBoundary: "加绒方向可能只适用于个别颜色；准确内里材料、保暖表现、当前可用颜色、尺码和商业条件必须在报价前确认。",
+  },
 ];
 
 export function getChineseCollection(slug: string) {

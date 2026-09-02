@@ -36,6 +36,10 @@ test("exposes a canonical sitemap and robots policy without private buyer routes
   assert.equal(sitemap.status, 200); assert.match(sitemap.headers.get("content-type") || "", /xml/i); assert.match(xml, /https:\/\/www\.beiqiang\.online\/products\/bq001\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/resources\/footwear-rfq-checklist\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/solutions\/private-label-walking-shoes\/?/); assert.doesNotMatch(xml, /admin\/inquiries|buyer-workspace|inquiry-status|\/api\//i);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/private-label-concept\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/product-finder\/?/);
+  for (const slug of ["high-top-shoes", "kids-shoes", "extended-size-shoes", "fleece-lined-shoes"]) {
+    assert.match(xml, new RegExp(`https:\\/\\/www\\.beiqiang\\.online\\/collections\\/${slug}\\/`));
+    assert.match(xml, new RegExp(`https:\\/\\/www\\.beiqiang\\.online\\/zh\\/collections\\/${slug}\\/`));
+  }
   assert.match(xml, /hreflang="en"[^>]+https:\/\/www\.beiqiang\.online\/products\/bq001\//i);
   assert.match(xml, /hreflang="zh-CN"[^>]+https:\/\/www\.beiqiang\.online\/zh\/products\/bq001\//i);
   assert.match(xml, /hreflang="x-default"[^>]+https:\/\/www\.beiqiang\.online\/products\/bq001\//i);

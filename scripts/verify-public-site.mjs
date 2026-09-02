@@ -26,6 +26,46 @@ const ROUTES = [
     required: [/BQ061/i, /AA811/i, /Knitted textile upper/i, /\/request-quote\//i],
   },
   {
+    path: "/collections/high-top-shoes/",
+    label: "English high-top collection",
+    required: [/High-top and sock-style casual shoes/i, /recorded silhouette/i, /collection-high-top-shoes/i],
+  },
+  {
+    path: "/zh/collections/high-top-shoes/",
+    label: "Chinese high-top collection",
+    required: [/高帮与袜套式休闲鞋采购选款/, /仍需逐款确认/, /collection-high-top-shoes/i],
+  },
+  {
+    path: "/collections/kids-shoes/",
+    label: "English kids collection",
+    required: [/Kids casual and walking shoe styles/i, /does not confirm age grading/i, /collection-kids-shoes/i],
+  },
+  {
+    path: "/zh/collections/kids-shoes/",
+    label: "Chinese kids collection",
+    required: [/儿童休闲与步行鞋批发选款/, /不等于年龄分级/, /collection-kids-shoes/i],
+  },
+  {
+    path: "/collections/extended-size-shoes/",
+    label: "English extended-size collection",
+    required: [/documented extended EU size directions/i, /is not current stock/i, /collection-extended-size-shoes/i],
+  },
+  {
+    path: "/zh/collections/extended-size-shoes/",
+    label: "Chinese extended-size collection",
+    required: [/延伸至较大欧码/, /不是现货/, /collection-extended-size-shoes/i],
+  },
+  {
+    path: "/collections/fleece-lined-shoes/",
+    label: "English fleece-lined collection",
+    required: [/documented fleece-lined color options/i, /may apply only to selected colors/i, /collection-fleece-lined-shoes/i],
+  },
+  {
+    path: "/zh/collections/fleece-lined-shoes/",
+    label: "Chinese fleece-lined collection",
+    required: [/已有加绒颜色方向/, /可能只适用于个别颜色/, /collection-fleece-lined-shoes/i],
+  },
+  {
     path: "/robots.txt",
     label: "Crawler policy",
     required: [

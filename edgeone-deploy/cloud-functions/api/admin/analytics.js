@@ -473,6 +473,10 @@ export function buildCommercialAnalytics(
     "wide-toe-box",
     "knit-slip-on",
     "breathable-lace-up",
+    "high-top-shoes",
+    "kids-shoes",
+    "extended-size-shoes",
+    "fleece-lined-shoes",
   ];
   const collectionJourneys = collectionSlugs.map((slug) => {
     const cohort = sourcingInquiries.filter(

@@ -27,7 +27,7 @@ const productRoutes = productSlugs.map((slug) => {
   return { pathname: `/products/${slug}`, output: `products/${slug}/index.html` };
 });
 const chineseProductRoutes = productSlugs.map((slug) => ({ pathname: `/zh/products/${slug}`, output: `zh/products/${slug}/index.html` }));
-const collectionSlugs = ["wide-toe-box", "knit-slip-on", "breathable-lace-up"];
+const collectionSlugs = ["wide-toe-box", "knit-slip-on", "breathable-lace-up", "high-top-shoes", "kids-shoes", "extended-size-shoes", "fleece-lined-shoes"];
 const collectionRoutes = collectionSlugs.map((slug) => ({
   pathname: `/collections/${slug}`,
   output: `collections/${slug}/index.html`,
@@ -170,7 +170,8 @@ const renderSitemapUrl = (url) => {
 };
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n${sitemapUrls.map(renderSitemapUrl).join("\n")}\n</urlset>\n`;
 await writeFile(resolve(outputRoot, "sitemap.xml"), sitemap, "utf8");
-const robots = `User-agent: Googlebot\nAllow: /\nDisallow: /api/\n\nUser-agent: OAI-SearchBot\nAllow: /\nDisallow: /api/\n\nUser-agent: ChatGPT-User\nAllow: /\nDisallow: /api/\n\nUser-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: https://www.beiqiang.online/sitemap.xml\nHost: https://www.beiqiang.online\n`;
+const privateRobotRules = `Disallow: /api/\nDisallow: /admin/\nDisallow: /buyer-workspace/\nDisallow: /inquiry-status/\nDisallow: /zh/buyer-workspace/\nDisallow: /zh/inquiry-status/`;
+const robots = `User-agent: Googlebot\nAllow: /\n${privateRobotRules}\n\nUser-agent: OAI-SearchBot\nAllow: /\n${privateRobotRules}\n\nUser-agent: ChatGPT-User\nAllow: /\n${privateRobotRules}\n\nUser-agent: *\nAllow: /\n${privateRobotRules}\n\nSitemap: https://www.beiqiang.online/sitemap.xml\nHost: https://www.beiqiang.online\n`;
 await writeFile(resolve(outputRoot, "robots.txt"), robots, "utf8");
 
 console.log(outputRoot);

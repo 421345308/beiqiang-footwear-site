@@ -57,8 +57,8 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Kids footwear/i);
   assert.match(html, /Extended-size directions/i);
   assert.match(html, /Fleece-lined options/i);
-  assert.match(html, /products\/\?direction=kids#catalog/i);
-  assert.match(html, /products\/\?direction=fleece#catalog/i);
+  assert.match(html, /collections\/kids-shoes\//i);
+  assert.match(html, /collections\/fleece-lined-shoes\//i);
   assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?56/i);
   assert.match(html, /Show more products/i);
   assert.match(html, /Browse all\s*(?:<!-- -->)?56(?:<!-- -->)?\s*current product codes/i);
@@ -275,6 +275,26 @@ test("server-renders buyer-intent collection pages", async () => {
   assert.match(html, /Compare styles before you request samples/);
   assert.match(html, /program=collection-knit-slip-on/);
   assert.match(html, /CollectionTracking-/);
+});
+
+test("server-renders four additional buyer-intent collections with commercial boundaries", async () => {
+  for (const [slug, heading, boundary, count] of [
+    ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 8],
+    ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 3],
+    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 3],
+    ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 4],
+  ]) {
+    const response = await render(`/collections/${slug}`);
+    const html = await response.text();
+    assert.equal(response.status, 200, slug);
+    assert.match(html, heading, slug);
+    assert.match(html, boundary, slug);
+    assert.match(html, new RegExp(`${count}(?:<!-- -->)? DOCUMENTED OPTIONS`), slug);
+    assert.match(html, new RegExp(`program=collection-${slug}`), slug);
+    assert.match(html, /BreadcrumbList/, slug);
+    assert.match(html, /FAQPage/, slug);
+    assert.doesNotMatch(html, /guaranteed stock|guaranteed price|bestseller|medical benefit|orthopedic benefit/i, slug);
+  }
 });
 
 for (const [slug, expectedTitle, expectedBoundary] of [

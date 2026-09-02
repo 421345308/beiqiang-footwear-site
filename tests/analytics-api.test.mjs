@@ -440,6 +440,7 @@ test("builds a consent-aware commercial funnel without counting internal tests",
     quoted: 1,
     orders: 0,
   });
+  assert.equal(result.workspace.collectionJourneys.length, 7);
   assert.deepEqual(
     result.acquisitionChannels.find((item) => item.channel === "direct"),
     {

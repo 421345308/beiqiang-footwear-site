@@ -56,7 +56,7 @@ export default function Home() {
 
       <section className="section collection-entry" id="collections">
         <div className="section-heading"><div><p className="eyebrow">CURRENT PRODUCT DIRECTIONS</p><h2>Browse by sourcing need, not by one promoted shoe.</h2></div><p>These categories are entry points into the current online selection, not the full factory range. If your target is not shown, send a reference or request the latest line sheet.</p></div>
-        <div className="collection-grid">{collections.map((collection) => <Link key={collection.slug} href={`/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>Explore collection →</strong></Link>)}</div>
+        <div className="collection-grid">{collections.slice(0, 3).map((collection) => <Link key={collection.slug} href={`/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>Explore collection →</strong></Link>)}</div>
         <div className="section-cta"><Link className="button button-secondary" href="/products/">Browse current online selection</Link><Link className="text-link" href="/line-sheet/">Request current line sheet →</Link></div>
       </section>
 

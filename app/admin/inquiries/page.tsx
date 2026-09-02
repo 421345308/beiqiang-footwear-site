@@ -1105,6 +1105,10 @@ function CollectionAnalyticsPanel({
     "wide-toe-box": "Wide toe box",
     "knit-slip-on": "Knit slip-on",
     "breathable-lace-up": "Breathable lace-up",
+    "high-top-shoes": "High-top / sock styles",
+    "kids-shoes": "Kids footwear",
+    "extended-size-shoes": "Extended-size styles",
+    "fleece-lined-shoes": "Fleece-lined options",
   };
   return (
     <section className="admin-collection-analytics">

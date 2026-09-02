@@ -91,6 +91,8 @@ test("preserves an approved sourcing-resource origin in the commercial record", 
 test("preserves only approved collection origins in the commercial record", () => {
   const result = validateInquiry(validPayload({ sourcingProgram: "collection-knit-slip-on" }));
   assert.equal(result.error, undefined); assert.equal(result.inquiry.sourcingProgram, "collection-knit-slip-on");
+  const seasonal = validateInquiry(validPayload({ sourcingProgram: "collection-fleece-lined-shoes" }));
+  assert.equal(seasonal.error, undefined); assert.equal(seasonal.inquiry.sourcingProgram, "collection-fleece-lined-shoes");
   const unsafe = validateInquiry(validPayload({ sourcingProgram: "collection-invented" })); assert.equal(unsafe.inquiry.sourcingProgram, "");
 });
 

@@ -45,7 +45,7 @@ export default function ChineseHome() {
 
       <section className="section collection-entry" id="collections">
         <div className="section-heading"><div><p className="eyebrow">当前产品方向</p><h2>按采购方向浏览，不再用一款鞋代表工厂。</h2></div><p>这些分类只是当前在线选款的入口，不是工厂全部产品。若没有目标款，可发送参考图或索取最新选款资料。</p></div>
-        <div className="collection-grid">{chineseCollections.map((collection) => <Link key={collection.slug} href={`/zh/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>打开产品方向 →</strong></Link>)}</div>
+        <div className="collection-grid">{chineseCollections.slice(0, 3).map((collection) => <Link key={collection.slug} href={`/zh/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>打开产品方向 →</strong></Link>)}</div>
         <div className="section-cta"><Link className="button button-secondary" href="/zh/products/">浏览当前在线选款</Link><Link className="text-link" href="/zh/line-sheet/">索取当前产品资料 →</Link></div>
       </section>
 
