@@ -459,6 +459,14 @@ test("links English and Chinese equivalents for search engines and buyers", asyn
     /https:\/\/www\.beiqiang\.online\/zh\/collections\/breathable-lace-up\/?/,
   );
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/zh\/product-finder\/?/);
+  assert.match(
+    xml,
+    /hreflang="zh-CN"[^>]+https:\/\/www\.beiqiang\.online\/zh\/products\/bq001\//i,
+  );
+  assert.match(
+    xml,
+    /hreflang="x-default"[^>]+https:\/\/www\.beiqiang\.online\/products\/bq001\//i,
+  );
   assert.doesNotMatch(xml, /zh\/inquiry-status|zh\/buyer-workspace/);
 });
 

@@ -4,6 +4,13 @@ import { dirname, resolve } from "node:path";
 const projectRoot = resolve(import.meta.dirname, "..");
 const outputRoot = resolve(projectRoot, "edgeone-export-v1");
 const clientRoot = resolve(projectRoot, "dist", "client");
+const siteOrigin = "https://www.beiqiang.online";
+const factoryVideo = {
+  thumbnail: `${siteOrigin}/videos/beiqiang-factory-proof-poster.jpg`,
+  content: `${siteOrigin}/videos/beiqiang-factory-proof.mp4`,
+  publicationDate: "2026-08-28T00:00:00+08:00",
+  duration: 35,
+};
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("edgeone-export", `${process.pid}-${Date.now()}`);
 
@@ -117,7 +124,51 @@ const sitemapUrls = [
   ...resourceSlugs.map((slug) => ({ path: `/zh/resources/${slug}/`, frequency: "monthly", priority: "0.7" })),
   ...searchableCapabilitySlugs.map((slug) => ({ path: `/${slug}/`, frequency: "monthly", priority: slug === "buyer-guide" ? "0.8" : "0.7" })),
 ];
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map((url) => `  <url><loc>https://www.beiqiang.online${url.path}</loc><changefreq>${url.frequency}</changefreq><priority>${url.priority}</priority></url>`).join("\n")}\n</urlset>\n`;
+const productImages = new Map(
+  await Promise.all(
+    productSlugs.map(async (slug) => {
+      const filenames = await readdir(resolve(projectRoot, "public", "catalog", slug));
+      return [
+        slug,
+        filenames
+          .filter((filename) => /\.(?:jpe?g|png|webp)$/i.test(filename))
+          .sort()
+          .map((filename) => `${siteOrigin}/catalog/${slug}/${filename}`),
+      ];
+    }),
+  ),
+);
+const escapeXml = (value) => value
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;")
+  .replaceAll("'", "&apos;");
+const englishPath = (path) => path === "/zh/" ? "/" : path.startsWith("/zh/") ? path.slice(3) : path;
+const chinesePath = (path) => path === "/" ? "/zh/" : `/zh${path}`;
+const sitemapPathSet = new Set(sitemapUrls.map((url) => url.path));
+const renderSitemapUrl = (url) => {
+  const enPath = englishPath(url.path);
+  const zhPath = chinesePath(enPath);
+  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq\d{3})\/$/);
+  const isChinese = url.path.startsWith("/zh/");
+  const isFactory = url.path === "/factory/" || url.path === "/zh/factory/";
+  const alternates = sitemapPathSet.has(enPath) && sitemapPathSet.has(zhPath)
+    ? [
+        `<xhtml:link rel="alternate" hreflang="en" href="${siteOrigin}${enPath}" />`,
+        `<xhtml:link rel="alternate" hreflang="zh-CN" href="${siteOrigin}${zhPath}" />`,
+        `<xhtml:link rel="alternate" hreflang="x-default" href="${siteOrigin}${enPath}" />`,
+      ]
+    : [];
+  const images = productMatch
+    ? (productImages.get(productMatch[1]) || []).map((image) => `<image:image><image:loc>${escapeXml(image)}</image:loc></image:image>`)
+    : [];
+  const video = isFactory
+    ? [`<video:video><video:thumbnail_loc>${factoryVideo.thumbnail}</video:thumbnail_loc><video:title>${escapeXml(isChinese ? "贝强鞋业工厂工作区域与鞋类生产流程实拍" : "Beiqiang footwear factory and production workflow footage")}</video:title><video:description>${escapeXml(isChinese ? "展示贝强鞋业工作区域、鞋类生产、检查与包装环节的35秒实拍视频。" : "A 35-second view of Beiqiang Footwear working areas, footwear production, checking and packing in Quanzhou, China.")}</video:description><video:content_loc>${factoryVideo.content}</video:content_loc><video:duration>${factoryVideo.duration}</video:duration><video:publication_date>${factoryVideo.publicationDate}</video:publication_date><video:family_friendly>yes</video:family_friendly><video:requires_subscription>no</video:requires_subscription><video:live>no</video:live></video:video>`]
+    : [];
+  return `  <url><loc>${siteOrigin}${url.path}</loc>${[...alternates, ...images, ...video].join("")}<changefreq>${url.frequency}</changefreq><priority>${url.priority}</priority></url>`;
+};
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n${sitemapUrls.map(renderSitemapUrl).join("\n")}\n</urlset>\n`;
 await writeFile(resolve(outputRoot, "sitemap.xml"), sitemap, "utf8");
 const robots = `User-agent: Googlebot\nAllow: /\nDisallow: /api/\n\nUser-agent: OAI-SearchBot\nAllow: /\nDisallow: /api/\n\nUser-agent: ChatGPT-User\nAllow: /\nDisallow: /api/\n\nUser-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: https://www.beiqiang.online/sitemap.xml\nHost: https://www.beiqiang.online\n`;
 await writeFile(resolve(outputRoot, "robots.txt"), robots, "utf8");
