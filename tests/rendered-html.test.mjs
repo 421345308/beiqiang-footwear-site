@@ -51,6 +51,11 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /product pages prepared for online review/i);
   assert.match(html, /not Beiqiang(?:&#x27;|')s entire factory range/i);
   assert.match(html, /Compare styles/i);
+  assert.match(html, /Start by sourcing direction/i);
+  assert.match(html, /Review a product family before individual styles/i);
+  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?31/i);
+  assert.match(html, /Show more products/i);
+  assert.match(html, /Browse all\s*(?:<!-- -->)?31(?:<!-- -->)?\s*current product codes/i);
   assert.match(html, /BQ001/);
   assert.match(html, /BQ030/);
   assert.match(html, /BQ031/);

@@ -39,6 +39,11 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   const catalogHtml = await catalog.text();
   assert.equal(catalog.status, 200);
   assert.match(catalogHtml, /按款号、源款号或产品搜索/);
+  assert.match(catalogHtml, /先按采购方向查看/);
+  assert.match(catalogHtml, /先看产品方向，再看具体款式/);
+  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?31(?:<!-- -->)?款/);
+  assert.match(catalogHtml, /查看更多产品/);
+  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?31(?:<!-- -->)?个当前产品款号/);
   assert.match(catalogHtml, /BQ001/);
   assert.match(catalogHtml, /BQ030/);
   assert.match(catalogHtml, /BQ031/);
