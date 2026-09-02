@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
-import { mkdir, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { join, resolve } from "node:path";
 import { products } from "../app/data/products.ts";
@@ -21,6 +22,10 @@ await writeFile(chineseDataFile, `${JSON.stringify(products.map((product) => ({
   sizeZh: factZh(product.size),
   colorsZh: product.colors.map(colorZh),
   highlightsZh: product.highlights.map(factZh),
+  evidenceHighlightsZh: product.highlights
+    .map((highlight) => ({ source: highlight, translated: factZh(highlight) }))
+    .filter(({ source, translated }) => translated !== source)
+    .map(({ translated }) => translated),
   confirmBeforeQuoteZh: product.confirmBeforeQuote.map(factZh),
 })), null, 2)}\n`, "utf8");
 
@@ -41,3 +46,23 @@ if (result.status !== 0) process.exit(result.status || 1);
 const chineseResult = spawnSync(python, [resolve(projectRoot, "scripts", "generate-line-sheet-zh.py")], { cwd: projectRoot, stdio: "inherit" });
 if (chineseResult.error) throw chineseResult.error;
 if (chineseResult.status !== 0) process.exit(chineseResult.status || 1);
+
+const pdfFiles = [
+  "beiqiang-footwear-line-sheet-2026.pdf",
+  "beiqiang-footwear-line-sheet-zh-2026.pdf",
+];
+const sha256 = (value) => createHash("sha256").update(value).digest("hex");
+const files = {};
+for (const name of pdfFiles) {
+  const outputBytes = await readFile(resolve(projectRoot, "output", "pdf", name));
+  const publicBytes = await readFile(resolve(projectRoot, "public", "downloads", name));
+  if (!outputBytes.equals(publicBytes)) throw new Error(`${name} public and operating copies differ`);
+  files[name] = { sha256: sha256(outputBytes), bytes: outputBytes.length };
+}
+const manifest = {
+  productCount: products.length,
+  pageCount: Math.ceil(products.length / 5) + 2,
+  productDataSha256: sha256(JSON.stringify(products)),
+  files,
+};
+await writeFile(resolve(projectRoot, "app", "data", "line-sheet-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");

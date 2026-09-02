@@ -150,7 +150,8 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         c.linkURL(product_url, (text_x, y + card_h - 10 * mm, text_x + 44 * mm, y + card_h - 4 * mm), relative=0)
         paragraph(c, product["nameZh"], text_x, y + card_h - 12 * mm, text_w, 12 * mm, 8.5, 10.5, INK)
         paragraph(c, f'<b>适合买家：</b>{product["buyerFitZh"]}', text_x, y + card_h - 24 * mm, text_w, 11 * mm, 7, 9, MUTED)
-        paragraph(c, product["summaryZh"], text_x, y + 12 * mm, text_w, 10 * mm, 6.8, 8.3, INK)
+        evidence = "｜".join(product.get("evidenceHighlightsZh", [])[:2])
+        paragraph(c, evidence or product["summaryZh"], text_x, y + 12 * mm, text_w, 10 * mm, 6.8, 8.3, INK)
 
         facts_x = 145 * mm
         facts_w = 45 * mm
