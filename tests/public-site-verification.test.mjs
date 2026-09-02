@@ -1,0 +1,44 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import {
+  formatReport,
+  inspectText,
+  normalizeOrigin,
+  verifyPublicSite,
+} from "../scripts/verify-public-site.mjs";
+
+test("normalizes the public origin and rejects non-http protocols", () => {
+  assert.equal(normalizeOrigin("https://www.beiqiang.online/products/"), "https://www.beiqiang.online");
+  assert.throws(() => normalizeOrigin("file:///tmp/site"), /http or https/i);
+});
+
+test("reports required and forbidden content independently", () => {
+  assert.deepEqual(inspectText("BQ061 ready", [/BQ061/, /AA811/], [/SKU evidence/i]), {
+    missing: ["/AA811/"],
+    forbidden: [],
+  });
+  assert.deepEqual(inspectText("SKU evidence", [], [/SKU evidence/i]), {
+    missing: [],
+    forbidden: ["/SKU evidence/i"],
+  });
+});
+
+test("checks every public acquisition route and produces an actionable failure report", async () => {
+  const content = {
+    "/": "Quanzhou Beiqiang Footwear /request-quote/ 421345308@qq.com",
+    "/products/": "56 product pages BQ061 START BY SOURCING DIRECTION",
+    "/zh/products/": "56 BQ061 采购方向",
+    "/products/bq061/": "BQ061 AA811 Knitted textile upper /request-quote/",
+    "/robots.txt": "User-agent: Googlebot\nUser-agent: OAI-SearchBot\nUser-agent: ChatGPT-User\nDisallow: /admin/\nDisallow: /buyer-workspace/\nDisallow: /inquiry-status/\nSitemap: https://www.beiqiang.online/sitemap.xml",
+    "/sitemap.xml": '<loc>https://www.beiqiang.online/products/bq061/</loc><xhtml:link hreflang="zh-CN"/><image:loc>x</image:loc><video:content_loc>x</video:content_loc>',
+    "/llms.txt": "56 organized product pages BQ061 / AA811 Alibaba Trade Assurance or a signed bilateral contract 421345308@qq.com",
+  };
+  const fetchImpl = async (url) => new Response(content[new URL(url).pathname] || "missing", { status: content[new URL(url).pathname] ? 200 : 404 });
+  const passing = await verifyPublicSite("https://www.beiqiang.online", { fetchImpl });
+  assert.equal(passing.ok, true);
+  assert.equal(passing.passed, 7);
+
+  const failing = await verifyPublicSite("https://www.beiqiang.online", { fetchImpl: async () => new Response("", { status: 503 }) });
+  assert.equal(failing.ok, false);
+  assert.match(formatReport(failing), /FAIL \/products\/ status=503 missing=/);
+});
