@@ -179,14 +179,19 @@ export default function PrivacyPage() {
           <p>
             Buyer-channel, product-direction, closure and shortlist-size choices
             are evaluated in the current browser. When the buyer explicitly
-            adds all matched products to the quote list, a limited summary of
-            buyer channel, product direction, closure preference and up to four
-            candidate style codes is stored on that device and displayed in the
-            quote builder for review. It is submitted only if the buyer sends
-            that quote request, and can be removed before submission. If optional analytics are accepted, the site may record the
+            adds all matched products to the quote list, or explicitly requests
+            a human shortlist review, a limited summary of buyer channel,
+            product direction, closure preference and up to four candidate
+            style codes is stored on that device. A human-review request may
+            contain no candidate code when the filters conflict, so the site
+            does not force an unsupported recommendation. The summary is
+            submitted only if the buyer sends the quote or human-review request,
+            and can be removed before submission. If optional analytics are accepted, the site may record the
             fixed finder action, bounded result style codes and result count; it
             does not record the choice labels as a buyer profile. Products enter
             device storage only when the buyer explicitly adds them to the quote list.
+            A human-review submission creates a sourcing inquiry, not an order,
+            price, stock, feasibility or product-capability confirmation.
           </p>
         </section>
         <section>

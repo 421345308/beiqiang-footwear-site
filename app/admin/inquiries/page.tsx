@@ -751,7 +751,7 @@ type Inquiry = {
   requirements: string;
   projectPath?: string;
   sourcingProgram?: string;
-  finderBrief?: { buyerChannel: string; priority: string; closure: string; styleCodes: string[] } | null;
+  finderBrief?: { mode?: string; buyerChannel: string; priority: string; closure: string; styleCodes: string[] } | null;
   sampleQuantity?: string;
   bulkQuantity?: string;
   preferredTradeTerm?: string;
@@ -6976,7 +6976,8 @@ export default function InquiryAdminPage() {
                   <section className="admin-contact-preferences">
                     <small>PRODUCT FINDER BRIEF · BUYER TARGET</small>
                     <p><strong>{record.finderBrief.priority.replaceAll("_", " ")}</strong> · {record.finderBrief.buyerChannel.replaceAll("_", " ")} · {record.finderBrief.closure.replaceAll("_", " ")}</p>
-                    <span><b>Automated shortlist:</b> {record.finderBrief.styleCodes.join(", ")}</span>
+                    <span><b>Review path:</b> {record.finderBrief.mode === "human_review" ? "Human shortlist requested" : "Automated shortlist carried into RFQ"}</span>
+                    <span><b>Starting candidates:</b> {record.finderBrief.styleCodes.join(", ") || "None — review criteria without forcing a product match"}</span>
                     <span>Use this to understand the buyer&apos;s starting criteria. Re-check product facts, quantity, market, sizes, colors, packing and sample requirements before recommendation or quotation.</span>
                   </section>
                 )}

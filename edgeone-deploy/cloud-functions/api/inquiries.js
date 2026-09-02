@@ -13,6 +13,8 @@ const ARTWORK_STATUSES = new Set(["not_applicable", "not_ready", "reference_only
 const FINDER_BUYER_CHANNELS = new Set(["importer_wholesaler", "online_seller", "brand_private_label", "sourcing_agent"]);
 const FINDER_PRIORITIES = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
 const FINDER_CLOSURES = new Set(["any", "Slip-On", "Lace-Up"]);
+const FINDER_MODES = new Set(["matched_shortlist", "human_review"]);
+const FINDER_STYLE_CODES = new Set(Array.from({ length: 30 }, (_, index) => `BQ${String(index + 1).padStart(3, "0")}`));
 
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";
@@ -23,9 +25,11 @@ function cleanFinderBrief(value, selectedStyleCodes) {
   const buyerChannel = FINDER_BUYER_CHANNELS.has(value.buyerChannel) ? value.buyerChannel : "";
   const priority = FINDER_PRIORITIES.has(value.priority) ? value.priority : "";
   const closure = FINDER_CLOSURES.has(value.closure) ? value.closure : "";
+  const mode = FINDER_MODES.has(value.mode) ? value.mode : "matched_shortlist";
   const selected = new Set(String(selectedStyleCodes || "").toUpperCase().match(/BQ\d{3}/g) || []);
-  const styleCodes = Array.isArray(value.styleCodes) ? [...new Set(value.styleCodes.map((code) => clean(code, 10).toUpperCase()).filter((code) => /^BQ\d{3}$/.test(code) && selected.has(code)))].slice(0, 4) : [];
-  return buyerChannel && priority && closure && styleCodes.length ? { buyerChannel, priority, closure, styleCodes } : null;
+  const styleCodes = Array.isArray(value.styleCodes) ? [...new Set(value.styleCodes.map((code) => clean(code, 10).toUpperCase()).filter((code) => FINDER_STYLE_CODES.has(code) && (mode === "human_review" ? selectedStyleCodes === "CATALOG-2026" : selected.has(code))))].slice(0, 4) : [];
+  const validMode = mode === "human_review" ? selectedStyleCodes === "CATALOG-2026" : styleCodes.length > 0;
+  return buyerChannel && priority && closure && validMode ? { mode, buyerChannel, priority, closure, styleCodes } : null;
 }
 
 function response(status, body) {
@@ -133,7 +137,7 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
     `Preferred contact: ${inquiry.preferredContactMethod || "No preference"}`, `Preferred response language: ${inquiry.preferredResponseLanguage || "No preference"}`, `Buyer time zone / city: ${inquiry.buyerTimezone || "-"}`, `Convenient local contact time: ${inquiry.preferredContactWindow || "-"}`,
     `Project path: ${inquiry.projectPath}`, `Sample quantity: ${inquiry.sampleQuantity || "-"}`, `Bulk quantity: ${inquiry.bulkQuantity || "-"}`,
     `Sourcing program: ${inquiry.sourcingProgram || "Direct / catalogue"}`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "-"}`, `Requested delivery timing: ${inquiry.deliveryTiming || "-"}`,
-    ...(inquiry.finderBrief ? [`Product-finder buyer/channel target: ${inquiry.finderBrief.buyerChannel}`, `Product-finder direction target: ${inquiry.finderBrief.priority}`, `Product-finder closure preference: ${inquiry.finderBrief.closure}`, `Product-finder candidates: ${inquiry.finderBrief.styleCodes.join(", ")}`] : []),
+    ...(inquiry.finderBrief ? [`Product-finder review mode: ${inquiry.finderBrief.mode}`, `Product-finder buyer/channel target: ${inquiry.finderBrief.buyerChannel}`, `Product-finder direction target: ${inquiry.finderBrief.priority}`, `Product-finder closure preference: ${inquiry.finderBrief.closure}`, `Product-finder candidates: ${inquiry.finderBrief.styleCodes.join(", ") || "No forced candidates — human review requested"}`] : []),
     ...(inquiry.adaptationBrief ? [`Adaptation intent: ${inquiry.adaptationBrief.intent}`, `Artwork readiness: ${inquiry.adaptationBrief.artworkStatus}`, `Branding placement target: ${inquiry.adaptationBrief.brandingPlacement || "-"}`, `Color / material target: ${inquiry.adaptationBrief.colorDirection || "-"}`, `Packing / labeling target: ${inquiry.adaptationBrief.packingLabeling || "-"}`] : []),
     `Quote lines: ${inquiry.items.length ? inquiry.items.map((item) => `${item.code}: ${item.quantity || "qty TBD"}; colors ${item.colors || "TBD"}; sizes ${item.sizes || "TBD"}; ${item.notes || ""}`).join(" | ") : "-"}`,
     `Existing sole: ${inquiry.existingSole || "-"}`, `Changes required: ${inquiry.changesRequired || "-"}`, `Buyer target / tests: ${inquiry.targetValues || "-"}`, `NDA / tech pack: ${inquiry.ndaRequired || "No"}`,

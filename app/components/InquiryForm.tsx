@@ -5,27 +5,32 @@ import Link from "next/link";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import InquiryAttachmentUploader from "./InquiryAttachmentUploader";
 import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
+import type { ProductFinderBrief } from "../lib/product-finder-brief";
 
 type InquiryFormProps = {
   styleCode: string;
   styleLabel: string;
-  context: "homepage" | "product";
+  context: "homepage" | "product" | "sourcing_review";
   locale?: "en" | "zh";
+  initialBuyerType?: string;
+  initialMarket?: string;
+  initialRequirements?: string;
+  finderBrief?: ProductFinderBrief | null;
 };
 
 type FormStatus = { kind: "idle" | "sending" | "success" | "error"; message: string };
 
-export default function InquiryForm({ styleCode, styleLabel, context, locale = "en" }: InquiryFormProps) {
+export default function InquiryForm({ styleCode, styleLabel, context, locale = "en", initialBuyerType = "Importer / wholesaler", initialMarket = "", initialRequirements = "", finderBrief = null }: InquiryFormProps) {
   const zh = locale === "zh";
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
-  const [buyerType, setBuyerType] = useState("Importer / wholesaler");
-  const [market, setMarket] = useState("");
+  const [buyerType, setBuyerType] = useState(initialBuyerType);
+  const [market, setMarket] = useState(initialMarket);
   const [quantity, setQuantity] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [contactPreferences, setContactPreferences] = useState<ContactPreferences>(EMPTY_CONTACT_PREFERENCES);
-  const [requirements, setRequirements] = useState("");
+  const [requirements, setRequirements] = useState(initialRequirements);
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: zh ? "提交后系统会保存需求并生成唯一询盘编号和私密查询码。" : "Your request will be saved and assigned a reference number." });
@@ -74,7 +79,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name, company, buyerType, market, quantity, email, whatsapp, requirements, ...contactPreferences,
-          website, consent, styleCode, styleLabel, context,
+          website, consent, styleCode, styleLabel, context, finderBrief,
           formStartedAt: startedAt.current,
           attribution: getAttribution(),
           page: window.location.pathname,

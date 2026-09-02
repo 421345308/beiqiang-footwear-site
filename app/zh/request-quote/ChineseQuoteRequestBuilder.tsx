@@ -75,7 +75,7 @@ export default function ChineseQuoteRequestBuilder() {
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
       const savedFinderBrief = readProductFinderBrief();
-      if (savedFinderBrief) {
+      if (savedFinderBrief?.mode === "matched_shortlist") {
         setFinderBrief(savedFinderBrief);
         setBuyerType(buyerTypeFromFinder(savedFinderBrief.buyerChannel));
         setChannel((current) => current || salesChannelFromFinder(savedFinderBrief.buyerChannel));

@@ -1,6 +1,7 @@
 import type { BuyerChannel, ClosurePreference, ProductPriority } from "./product-finder";
 
 export type ProductFinderBrief = {
+  mode: "matched_shortlist" | "human_review";
   buyerChannel: BuyerChannel;
   priority: ProductPriority;
   closure: ClosurePreference;
@@ -19,8 +20,9 @@ export function sanitizeProductFinderBrief(value: unknown): ProductFinderBrief |
   const styleCodes = Array.isArray(raw.styleCodes)
     ? [...new Set(raw.styleCodes.map((code) => String(code).trim().toUpperCase()).filter((code) => /^BQ\d{3}$/.test(code)))].slice(0, 4)
     : [];
-  if (!styleCodes.length) return null;
-  return { buyerChannel: raw.buyerChannel as BuyerChannel, priority: raw.priority as ProductPriority, closure: raw.closure as ClosurePreference, styleCodes };
+  const mode = raw.mode === "human_review" ? "human_review" : "matched_shortlist";
+  if (mode === "matched_shortlist" && !styleCodes.length) return null;
+  return { mode, buyerChannel: raw.buyerChannel as BuyerChannel, priority: raw.priority as ProductPriority, closure: raw.closure as ClosurePreference, styleCodes };
 }
 
 export function saveProductFinderBrief(brief: ProductFinderBrief) {

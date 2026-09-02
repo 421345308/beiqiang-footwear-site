@@ -5,7 +5,7 @@ import { sourcingPrograms } from "./data/sourcing-programs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const origin = "https://www.beiqiang.online";
-  const staticRoutes = ["", "/products", "/product-finder", "/collections/wide-toe-box", "/collections/knit-slip-on", "/collections/breathable-lace-up", "/line-sheet", "/factory", "/quality-packing", "/oem-odm", "/private-label-concept", "/sample-order-process", "/buyer-guide", "/resources", "/request-quote", "/privacy", "/terms", "/zh", "/zh/products", "/zh/product-finder", "/zh/line-sheet", "/zh/factory", "/zh/quality-packing", "/zh/oem-odm", "/zh/private-label-concept", "/zh/sample-order-process", "/zh/buyer-guide", "/zh/resources", "/zh/request-quote", "/zh/privacy", "/zh/terms"];
+  const staticRoutes = ["", "/products", "/product-finder", "/sourcing-review", "/collections/wide-toe-box", "/collections/knit-slip-on", "/collections/breathable-lace-up", "/line-sheet", "/factory", "/quality-packing", "/oem-odm", "/private-label-concept", "/sample-order-process", "/buyer-guide", "/resources", "/request-quote", "/privacy", "/terms", "/zh", "/zh/products", "/zh/product-finder", "/zh/sourcing-review", "/zh/line-sheet", "/zh/factory", "/zh/quality-packing", "/zh/oem-odm", "/zh/private-label-concept", "/zh/sample-order-process", "/zh/buyer-guide", "/zh/resources", "/zh/request-quote", "/zh/privacy", "/zh/terms"];
   const routes = [
     ...staticRoutes,
     ...products.map((product) => `/products/${product.slug}`),

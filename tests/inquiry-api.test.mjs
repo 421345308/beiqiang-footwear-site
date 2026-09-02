@@ -35,12 +35,22 @@ test("validates a qualified B2B inquiry", () => {
 });
 
 test("keeps a bounded product-finder brief only for styles in the submitted quote", () => {
-  const result = validateInquiry(validPayload({ styleCode: "BQ001, BQ009", finderBrief: { buyerChannel: "online_seller", priority: "easy_on", closure: "Slip-On", styleCodes: ["bq001", "BQ999", "BQ009"], inventedCapability: "confirmed" } }));
+  const result = validateInquiry(validPayload({ styleCode: "BQ001, BQ009", finderBrief: { mode: "matched_shortlist", buyerChannel: "online_seller", priority: "easy_on", closure: "Slip-On", styleCodes: ["bq001", "BQ999", "BQ009"], inventedCapability: "confirmed" } }));
   assert.equal(result.error, undefined);
-  assert.deepEqual(result.inquiry.finderBrief, { buyerChannel: "online_seller", priority: "easy_on", closure: "Slip-On", styleCodes: ["BQ001", "BQ009"] });
+  assert.deepEqual(result.inquiry.finderBrief, { mode: "matched_shortlist", buyerChannel: "online_seller", priority: "easy_on", closure: "Slip-On", styleCodes: ["BQ001", "BQ009"] });
   assert.equal("inventedCapability" in result.inquiry.finderBrief, false);
   const unsafe = validateInquiry(validPayload({ finderBrief: { buyerChannel: "consumer", priority: "bestseller", closure: "zip", styleCodes: ["BQ001"] } }));
   assert.equal(unsafe.inquiry.finderBrief, null);
+});
+
+test("keeps a bounded human shortlist request without inventing a product match", () => {
+  const result = validateInquiry(validPayload({ styleCode: "CATALOG-2026", context: "sourcing_review", finderBrief: { mode: "human_review", buyerChannel: "brand_private_label", priority: "kids", closure: "Slip-On", styleCodes: ["BQ004", "BQ999"] } }));
+  assert.equal(result.error, undefined);
+  assert.deepEqual(result.inquiry.finderBrief, { mode: "human_review", buyerChannel: "brand_private_label", priority: "kids", closure: "Slip-On", styleCodes: ["BQ004"] });
+  const empty = validateInquiry(validPayload({ styleCode: "CATALOG-2026", finderBrief: { mode: "human_review", buyerChannel: "sourcing_agent", priority: "cold_weather", closure: "Lace-Up", styleCodes: [] } }));
+  assert.deepEqual(empty.inquiry.finderBrief.styleCodes, []);
+  const wrongProduct = validateInquiry(validPayload({ styleCode: "BQ001", finderBrief: { mode: "human_review", buyerChannel: "sourcing_agent", priority: "open", closure: "any", styleCodes: [] } }));
+  assert.equal(wrongProduct.inquiry.finderBrief, null);
 });
 
 test("sanitizes a multi-style technical quote request", () => {

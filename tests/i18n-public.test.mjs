@@ -82,6 +82,13 @@ test("publishes a bilingual evidence-led product finder", async () => {
   const english = await render("/product-finder"); const englishHtml = await english.text(); assert.equal(english.status, 200); assert.match(englishHtml, /Move from 30 styles to a reviewable shortlist/); assert.match(englishHtml, /does not predict sales, price or manufacturing feasibility/i);
 });
 
+test("publishes a bilingual human sourcing review path", async () => {
+  const chinese = await render("/zh/sourcing-review"); const chineseHtml = await chinese.text();
+  assert.equal(chinese.status, 200); assert.match(chineseHtml, /筛选器不够时，让业务员看懂整份需求/); assert.match(chineseHtml, /2至4款候选鞋款/); assert.match(chineseHtml, /不是订单/); assert.match(chineseHtml, /hrefLang="en"[^>]+\/sourcing-review\//i);
+  const english = await render("/sourcing-review"); const englishHtml = await english.text();
+  assert.equal(english.status, 200); assert.match(englishHtml, /When filters are not enough/i); assert.match(englishHtml, /2–4 candidate styles/); assert.match(englishHtml, /not an order/i); assert.doesNotMatch(englishHtml, /guaranteed match|guaranteed price/i);
+});
+
 test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet paths", async () => {
   for (const [path, heading, boundary] of [
     ["/zh/factory", /用看得见的证据开始工厂端采购沟通/, /不据此虚构产能、客户品牌或认证/],
@@ -255,7 +262,7 @@ test("includes every Chinese public route in the EdgeOne export contract", async
   assert.match(exporter, /chineseSolutionRoutes/);
   assert.match(exporter, /chineseResourceRoutes/);
   assert.match(exporter, /pathname:\s*"\/zh\/resources"/);
-  for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "product-finder", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
+  for (const slug of ["line-sheet", "factory", "quality-packing", "oem-odm", "product-finder", "sourcing-review", "sample-order-process", "buyer-guide"]) assert.match(exporter, new RegExp(`"${slug}"`));
   assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
   assert.match(exporter, /zh\/collections\/\$\{slug\}\/index\.html/);
 });
