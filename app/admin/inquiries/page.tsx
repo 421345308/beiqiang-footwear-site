@@ -610,6 +610,7 @@ type ReminderSummary = {
   windowEnds: string;
   counts: {
     followUps: number;
+    sourcingReviews: number;
     recommendations: number;
     quotes: number;
     meetings: number;
@@ -627,6 +628,18 @@ type ReminderSummary = {
     owner: string;
     dueDate: string;
     action: string;
+  }[];
+  sourcingReviews: {
+    reference: string;
+    company: string;
+    owner: string;
+    dueDate: string;
+    timing: string;
+    action: string;
+    priority: string;
+    buyerChannel: string;
+    closure: string;
+    startingStyles: string;
   }[];
   recommendations: {
     reference: string;
@@ -1494,6 +1507,10 @@ function ReminderCenter({
               <strong>{summary.counts.followUps}</strong>
             </article>
             <article>
+              <small>HUMAN SHORTLIST PREP</small>
+              <strong>{summary.counts.sourcingReviews}</strong>
+            </article>
+            <article>
               <small>SHORTLIST FOLLOW-UP</small>
               <strong>{summary.counts.recommendations}</strong>
             </article>
@@ -1531,6 +1548,23 @@ function ReminderCenter({
             </article>
           </div>
           <div className="reminder-lists">
+            <div>
+              <h3>Human sourcing review</h3>
+              {summary.sourcingReviews.slice(0, 6).map((item) => (
+                <p key={`${item.reference}-${item.action}`}>
+                  <strong>{item.reference}</strong>
+                  <span>
+                    {item.dueDate} · {item.timing.replaceAll("_", " ")}
+                  </span>
+                  <small>
+                    {item.company} · {item.owner} · {item.buyerChannel.replaceAll("_", " ")} / {item.priority.replaceAll("_", " ")} / {item.closure.replaceAll("_", " ")} · {item.startingStyles}
+                  </small>
+                </p>
+              ))}
+              {!summary.sourcingReviews.length && (
+                <p>No human shortlist awaiting preparation.</p>
+              )}
+            </div>
             <div>
               <h3>Follow-up</h3>
               {summary.followUps.slice(0, 6).map((item) => (

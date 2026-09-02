@@ -141,6 +141,7 @@ export function buildReminderSummary(
       !isInternalTest(record) && !["lost", "spam"].includes(record.status),
   );
   const followUps = [];
+  const sourcingReviews = [];
   const recommendations = [];
   const quotes = [];
   const meetings = [];
@@ -169,6 +170,34 @@ export function buildReminderSummary(
     const recommendation = Array.isArray(record.recommendationSets)
       ? record.recommendationSets.at(-1)
       : null;
+    if (
+      record.status !== "order_confirmed" &&
+      record.finderBrief?.mode === "human_review" &&
+      !record.recommendationSets?.some((item) => item.status === "issued")
+    ) {
+      const dueDate = addDays(
+        String(record.receivedAt || `${today}T00:00:00Z`).slice(0, 10),
+        1,
+      );
+      if (dueDate <= soon)
+        sourcingReviews.push({
+          ...identity,
+          dueDate,
+          timing:
+            dueDate < today
+              ? "overdue"
+              : dueDate === today
+                ? "due_today"
+                : "due_soon",
+          action: "prepare_human_shortlist",
+          priority: record.finderBrief.priority || "not_recorded",
+          buyerChannel: record.finderBrief.buyerChannel || "not_recorded",
+          closure: record.finderBrief.closure || "not_recorded",
+          startingStyles:
+            record.finderBrief.styleCodes?.join(", ") ||
+            "No starting catalog match",
+        });
+    }
     const recommendationFollowUps = Array.isArray(recommendation?.followUps)
       ? recommendation.followUps
       : [];
@@ -467,6 +496,7 @@ export function buildReminderSummary(
       String(b.dueDate || b.validUntil),
     );
   followUps.sort(byDate);
+  sourcingReviews.sort(byDate);
   recommendations.sort(byDate);
   quotes.sort(byDate);
   meetings.sort(byDate);
@@ -481,6 +511,7 @@ export function buildReminderSummary(
     windowEnds: soon,
     counts: {
       followUps: followUps.length,
+      sourcingReviews: sourcingReviews.length,
       recommendations: recommendations.length,
       quotes: quotes.length,
       meetings: meetings.length,
@@ -492,6 +523,7 @@ export function buildReminderSummary(
       payments: payments.length,
       total:
         followUps.length +
+        sourcingReviews.length +
         recommendations.length +
         quotes.length +
         meetings.length +
@@ -503,6 +535,7 @@ export function buildReminderSummary(
         payments.length,
     },
     followUps,
+    sourcingReviews,
     recommendations,
     quotes,
     meetings,
@@ -521,6 +554,7 @@ function digestText(summary) {
     `Window: through ${summary.windowEnds}`,
     "",
     `Overdue follow-ups: ${summary.counts.followUps}`,
+    `Human sourcing reviews awaiting shortlist: ${summary.counts.sourcingReviews}`,
     `Product-shortlist follow-ups: ${summary.counts.recommendations}`,
     `Expired / expiring quotations: ${summary.counts.quotes}`,
     `Sourcing-meeting actions: ${summary.counts.meetings}`,
@@ -536,6 +570,14 @@ function digestText(summary) {
     summary.followUps.forEach((item) =>
       lines.push(
         `${item.dueDate} · ${item.reference} · ${item.company} · ${item.owner} · ${item.action}`,
+      ),
+    );
+  }
+  if (summary.sourcingReviews.length) {
+    lines.push("", "HUMAN SOURCING REVIEWS AWAITING SHORTLIST");
+    summary.sourcingReviews.forEach((item) =>
+      lines.push(
+        `${item.dueDate} · ${item.timing} · ${item.reference} · ${item.company} · ${item.owner} · ${item.buyerChannel} / ${item.priority} / ${item.closure} · ${item.startingStyles} · ${item.action}`,
       ),
     );
   }

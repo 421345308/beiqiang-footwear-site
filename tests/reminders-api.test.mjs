@@ -82,6 +82,20 @@ const records = [
     status: "lost",
     nextActionDue: "2026-01-01",
   },
+  {
+    reference: "BQ-HUMAN",
+    company: "Human Review Buyer",
+    owner: "Sales H",
+    status: "new",
+    receivedAt: "2026-08-22T09:00:00.000Z",
+    finderBrief: {
+      mode: "human_review",
+      buyerChannel: "amazon",
+      priority: "lightweight",
+      closure: "lace_up",
+      styleCodes: [],
+    },
+  },
 ];
 records[1].repeatOrderOpportunities = [
   {
@@ -100,6 +114,7 @@ test("builds one internal action list for follow-up, shortlist, quote and paymen
   const summary = buildReminderSummary(records, today);
   assert.deepEqual(summary.counts, {
     followUps: 1,
+    sourcingReviews: 1,
     recommendations: 1,
     quotes: 1,
     meetings: 0,
@@ -109,9 +124,12 @@ test("builds one internal action list for follow-up, shortlist, quote and paymen
     fulfillmentCases: 1,
     repeatOrders: 1,
     payments: 1,
-    total: 7,
+    total: 8,
   });
   assert.equal(summary.followUps[0].reference, "BQ-A");
+  assert.equal(summary.sourcingReviews[0].reference, "BQ-HUMAN");
+  assert.equal(summary.sourcingReviews[0].action, "prepare_human_shortlist");
+  assert.equal(summary.sourcingReviews[0].startingStyles, "No starting catalog match");
   assert.equal(summary.recommendations[0].stage, "selection_check");
   assert.equal(summary.recommendations[0].timing, "due_today");
   assert.equal(summary.quotes[0].timing, "expiring");
@@ -389,10 +407,12 @@ test("sends at most one reserved reminder digest per calendar day", async () => 
   const first = await handlers.onRequestPost({ request: request(), env });
   const body = await first.json();
   assert.equal(first.status, 200);
-  assert.equal(body.summary.counts.total, 7);
+  assert.equal(body.summary.counts.total, 8);
   assert.equal(reminderRecord.status, "sent");
   assert.equal(mails.length, 1);
   assert.match(mails[0].text, /product shortlist follow-ups/i);
+  assert.match(mails[0].text, /human sourcing reviews awaiting shortlist/i);
+  assert.match(mails[0].text, /BQ-HUMAN/);
   assert.match(mails[0].text, /sourcing-meeting actions/i);
   assert.match(mails[0].text, /confirmed-order changes awaiting buyer/i);
   assert.match(mails[0].text, /fulfillment exceptions/i);
