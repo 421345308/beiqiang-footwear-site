@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
+import CommercialStartingPoints from "../components/CommercialStartingPoints";
 
 export const metadata: Metadata = {
   title: "B2B Footwear Buying Guide | Beiqiang Footwear",
@@ -37,6 +38,7 @@ export default function BuyerGuidePage() {
   return <main>
     <SiteHeader chineseHref="/zh/buyer-guide/" />
     <section className="buyer-guide-hero"><div><p className="eyebrow">B2B FOOTWEAR BUYING GUIDE</p><h1>Know every decision before a bulk order starts.</h1><p>Use one evidence-led path from product discovery to sample, quotation, transaction and shipping handover. Each commercial term is confirmed for the selected project rather than assumed from a catalogue page.</p><div className="hero-actions"><Link className="button" href="/request-quote/">Build a shipping-ready quote brief</Link><Link className="text-link" href="/products/">Compare all products →</Link></div></div><aside><small>USEFUL FIRST MESSAGE</small><strong>Product code + target market + sample and bulk quantity + sizes/colors + delivery destination.</strong><p>This gives the factory enough context to answer the next commercial question instead of sending a generic price.</p></aside></section>
+    <CommercialStartingPoints />
 
     <section className="section buyer-guide-steps"><div className="section-heading"><div><p className="eyebrow">FROM SHORTLIST TO HANDOVER</p><h2>Six decisions, one traceable sourcing record.</h2></div><p>The website keeps product evidence, messages, quotation versions, transaction references and buyer-safe progress connected to the original inquiry.</p></div><div>{buyingSteps.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
 

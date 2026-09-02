@@ -9,6 +9,7 @@ import ChineseSiteHeader from "../../../components/ChineseSiteHeader";
 import InquiryForm from "../../../components/InquiryForm";
 import PrintProductSheetButton from "../../../components/PrintProductSheetButton";
 import ProductShareActions from "../../../components/ProductShareActions";
+import CommercialStartingPoints from "../../../components/CommercialStartingPoints";
 import {
   buyerFitZh,
   closureZh,
@@ -187,6 +188,7 @@ export default async function ChineseProductPage({ params }: Props) {
           <strong>{closureZh(product.closure)}</strong>
         </div>
       </section>
+      <CommercialStartingPoints locale="zh" />
       <section className="section product-spec-section">
         <div className="section-heading">
           <div>

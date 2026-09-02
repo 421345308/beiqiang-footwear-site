@@ -8,6 +8,7 @@ import SiteHeader from "../../components/SiteHeader";
 import AddToQuoteButton from "../../components/AddToQuoteButton";
 import PrintProductSheetButton from "../../components/PrintProductSheetButton";
 import ProductShareActions from "../../components/ProductShareActions";
+import CommercialStartingPoints from "../../components/CommercialStartingPoints";
 import { getProduct, products } from "../../data/products";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -160,6 +161,8 @@ export default async function ProductPage({ params }: Props) {
           <strong>{product.closure}</strong>
         </div>
       </section>
+
+      <CommercialStartingPoints />
 
       <section className="section product-spec-section">
         <div className="section-heading">
