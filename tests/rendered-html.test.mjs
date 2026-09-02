@@ -306,6 +306,18 @@ test("server-renders the exact R1811 Alibaba-listed material configuration", asy
   assert.match(html, /Fleece availability by color/i);
 });
 
+test("server-renders the source-recorded M8811 EVA without confirming its lining", async () => {
+  const response = await render("/products/bq006");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /BQ006/);
+  assert.match(html, /M8811/);
+  assert.match(html, /10000043734620/);
+  assert.match(html, /EVA sole recorded in the source package/i);
+  assert.match(html, /Fleece option by selected color/i);
+  assert.match(html, /Lining material and exact upper composition/i);
+});
+
 test("server-renders lower-tier products conservatively", async () => {
   const response = await render("/products/bq030");
   assert.equal(response.status, 200);

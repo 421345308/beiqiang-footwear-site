@@ -93,6 +93,14 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   assert.match(r1811Html, /已记录配置证据/);
   assert.match(r1811Html, /Alibaba在售配置已记录网布内里/);
   assert.match(r1811Html, /各颜色加绒版本可用情况/);
+
+  const m8811 = await render("/zh/products/bq006");
+  const m8811Html = await m8811.text();
+  assert.equal(m8811.status, 200);
+  assert.match(m8811Html, /已记录配置证据/);
+  assert.match(m8811Html, /来源资料已记录EVA鞋底/);
+  assert.match(m8811Html, /所选颜色对应的加绒版本/);
+  assert.match(m8811Html, /内里材质与鞋面准确组成/);
 });
 
 test("supports a Chinese multi-style sourcing brief without a retail checkout", async () => {

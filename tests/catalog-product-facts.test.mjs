@@ -75,3 +75,18 @@ test("keeps R1811 trunk materials attached to the exact website product identity
     "Alibaba在售配置已记录网布内里",
   );
 });
+
+test("keeps M8811 source-recorded EVA attached to BQ006 only", () => {
+  const bq006 = product("BQ006");
+  assert.equal(bq006.sourceModel, "M8811");
+  assert.equal(bq006.alibabaProductId, "10000043734620");
+  assert.equal(bq006.sole, "EVA sole");
+  assert.match(bq006.highlights.join(" "), /EVA sole recorded in the source package/);
+  assert.match(bq006.confirmBeforeQuote.join(" "), /Fleece option by selected color/);
+  assert.match(bq006.confirmBeforeQuote.join(" "), /Lining material and exact upper composition/);
+  assert.doesNotMatch(bq006.confirmBeforeQuote.join(" "), /Outsole and lining materials/);
+  assert.equal(factZh("EVA sole recorded in the source package"), "来源资料已记录EVA鞋底");
+
+  assert.match(product("BQ008").sole, /material confirmed before quotation/);
+  assert.match(product("BQ011").sole, /material confirmed before quotation/);
+});
