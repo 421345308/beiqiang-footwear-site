@@ -6,12 +6,12 @@ const ROUTES = [
   {
     path: "/",
     label: "English home",
-    required: [/Quanzhou Beiqiang Footwear/i, />Products</i, />Programs</i, />Verify</i, />How to buy</i, /Buyer workspace/i, /\/request-quote\//i, /421345308@qq\.com/i],
+    required: [/Quanzhou Beiqiang Footwear/i, />Products</i, />Programs</i, />Verify</i, />How to buy</i, /Buyer workspace/i, /context-contact-dock/i, /Full inquiry/i, /\/request-quote\//i, /421345308@qq\.com/i],
   },
   {
     path: "/zh/",
     label: "Chinese home",
-    required: [/泉州鞋类工厂供应商/, />产品选款</, />采购方案</, />验证工厂</, />如何采购</, /买家工作台/, /\/zh\/request-quote\//i],
+    required: [/泉州鞋类工厂供应商/, />产品选款</, />采购方案</, />验证工厂</, />如何采购</, /买家工作台/, /context-contact-dock/i, /完整询价/, /\/zh\/request-quote\//i],
   },
   {
     path: "/products/",

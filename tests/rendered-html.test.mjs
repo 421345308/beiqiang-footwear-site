@@ -68,6 +68,26 @@ test("groups bilingual buyer navigation by sourcing stage without hiding commerc
   assert.match(chineseHtml, /href="\/zh\/request-quote\/"[^>]*>询价单/);
 });
 
+test("renders contextual public contact actions without exposing them on private work areas", async () => {
+  const factory = await render("/factory");
+  const factoryHtml = await factory.text();
+  assert.match(factoryHtml, /class="context-contact-dock"/);
+  assert.match(factoryHtml, /factory%20and%20supplier%20information/);
+  assert.match(factoryHtml, /page%3A%20%2Ffactory/);
+  assert.match(factoryHtml, /Full inquiry/);
+
+  const chinese = await render("/zh/collections/fleece-lined-shoes");
+  const chineseHtml = await chinese.text();
+  assert.match(chineseHtml, /class="context-contact-dock"/);
+  assert.match(chineseHtml, /%E5%8A%A0%E7%BB%92%E4%BA%A7%E5%93%81%E6%96%B9%E5%90%91/);
+  assert.match(chineseHtml, /完整询价/);
+
+  for (const path of ["/admin/inquiries", "/buyer-workspace", "/inquiry-status", "/request-quote"]) {
+    const response = await render(path);
+    assert.doesNotMatch(await response.text(), /context-contact-dock/, path);
+  }
+});
+
 test("server-renders the complete searchable product catalogue", async () => {
   const response = await render("/products");
   assert.equal(response.status, 200);

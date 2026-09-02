@@ -25,8 +25,8 @@ test("reports required and forbidden content independently", () => {
 
 test("checks every public acquisition route and produces an actionable failure report", async () => {
   const content = {
-    "/": "Quanzhou Beiqiang Footwear >Products< >Programs< >Verify< >How to buy< Buyer workspace /request-quote/ 421345308@qq.com",
-    "/zh/": "泉州鞋类工厂供应商 >产品选款< >采购方案< >验证工厂< >如何采购< 买家工作台 /zh/request-quote/",
+    "/": "Quanzhou Beiqiang Footwear >Products< >Programs< >Verify< >How to buy< Buyer workspace context-contact-dock Full inquiry /request-quote/ 421345308@qq.com",
+    "/zh/": "泉州鞋类工厂供应商 >产品选款< >采购方案< >验证工厂< >如何采购< 买家工作台 context-contact-dock 完整询价 /zh/request-quote/",
     "/products/": "56 product pages BQ061 START BY SOURCING DIRECTION",
     "/zh/products/": "56 BQ061 采购方向",
     "/products/bq061/": "BQ061 AA811 Knitted textile upper /request-quote/",

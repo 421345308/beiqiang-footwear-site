@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ConsentBanner from "./components/ConsentBanner";
+import ContextContactDock from "./components/ContextContactDock";
 
 export function generateMetadata(): Metadata {
   const origin = "https://www.beiqiang.online";
@@ -37,5 +38,5 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     sameAs: ["https://cn1576227362luzl.m.en.alibaba.com/"],
   };
 
-  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />{children}<ConsentBanner /></body></html>;
+  return <html lang="en"><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }} />{children}<ContextContactDock /><ConsentBanner /></body></html>;
 }
