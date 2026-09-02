@@ -15,6 +15,10 @@ const groups = [
       ["Wide toe box collection", "/collections/wide-toe-box/"],
       ["Knit slip-on collection", "/collections/knit-slip-on/"],
       ["Breathable lace-up collection", "/collections/breathable-lace-up/"],
+      ["High-top / sock collection", "/collections/high-top-shoes/"],
+      ["Kids footwear collection", "/collections/kids-shoes/"],
+      ["Extended-size collection", "/collections/extended-size-shoes/"],
+      ["Fleece-lined collection", "/collections/fleece-lined-shoes/"],
     ],
   },
   {

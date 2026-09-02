@@ -44,6 +44,30 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
 });
 
+test("groups bilingual buyer navigation by sourcing stage without hiding commercial paths", async () => {
+  const english = await render("/");
+  const englishHtml = await english.text();
+  for (const label of ["Products", "Programs", "Verify", "How to buy", "Buyer workspace"]) {
+    assert.match(englishHtml, new RegExp(`>${label}<`), label);
+  }
+  for (const slug of ["wide-toe-box", "knit-slip-on", "breathable-lace-up", "high-top-shoes", "kids-shoes", "extended-size-shoes", "fleece-lined-shoes"]) {
+    assert.match(englishHtml, new RegExp(`/collections/${slug}/`), slug);
+  }
+  assert.match(englishHtml, /Sample &amp; order process/);
+  assert.match(englishHtml, /href="\/request-quote\/"[^>]*>Quote list/);
+
+  const chinese = await render("/zh");
+  const chineseHtml = await chinese.text();
+  for (const label of ["产品选款", "采购方案", "验证工厂", "如何采购", "买家工作台"]) {
+    assert.match(chineseHtml, new RegExp(`>${label}<`), label);
+  }
+  for (const slug of ["wide-toe-box", "knit-slip-on", "breathable-lace-up", "high-top-shoes", "kids-shoes", "extended-size-shoes", "fleece-lined-shoes"]) {
+    assert.match(chineseHtml, new RegExp(`/zh/collections/${slug}/`), slug);
+  }
+  assert.match(chineseHtml, /样品与订单流程/);
+  assert.match(chineseHtml, /href="\/zh\/request-quote\/"[^>]*>询价单/);
+});
+
 test("server-renders the complete searchable product catalogue", async () => {
   const response = await render("/products");
   assert.equal(response.status, 200);

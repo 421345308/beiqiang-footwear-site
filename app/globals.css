@@ -68,6 +68,21 @@ nav { display: flex; gap: 34px; font-size: 13px; font-weight: 700; }
 nav a { position: relative; }
 nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -8px; height: 2px; background: var(--terracotta); transition: right .2s ease; }
 nav a:hover::after, nav a:focus-visible::after { right: 0; }
+.desktop-buyer-nav { align-items: center; gap: clamp(15px, 1.6vw, 28px); }
+.desktop-buyer-nav > a { white-space: nowrap; }
+.nav-menu { position: relative; }
+.nav-menu > summary { display: flex; align-items: center; gap: 6px; list-style: none; cursor: pointer; white-space: nowrap; }
+.nav-menu > summary::-webkit-details-marker { display: none; }
+.nav-menu > summary::after { content: "⌄"; color: var(--terracotta); font-size: 13px; transform: translateY(-2px); }
+.nav-menu[open] > summary::after { transform: rotate(180deg) translateY(2px); }
+.nav-menu[open] > summary { color: var(--terracotta); }
+.nav-menu-panel { width: 340px; padding: 10px; position: absolute; z-index: 32; top: calc(100% + 20px); left: 50%; display: grid; gap: 4px; transform: translateX(-50%); border: 1px solid var(--line); background: var(--paper-light); box-shadow: 0 22px 54px rgba(14,43,36,.18); }
+.nav-menu-panel-wide { width: min(680px, 82vw); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.nav-menu-panel a { min-width: 0; padding: 12px 13px; display: grid; gap: 4px; }
+.nav-menu-panel a:hover, .nav-menu-panel a:focus-visible { background: var(--sage); }
+.nav-menu-panel a::after { display: none; }
+.nav-menu-panel strong { color: var(--forest); font-size: 12px; }
+.nav-menu-panel small { color: var(--muted); font-size: 10px; font-weight: 500; line-height: 1.45; }
 .site-header > .button { justify-self: end; }
 .quote-list-link { justify-self: end; gap: 9px; }
 .quote-list-link span { min-width: 22px; height: 22px; padding: 0 6px; display: grid; place-items: center; border-radius: 20px; background: var(--terracotta); color: white; }

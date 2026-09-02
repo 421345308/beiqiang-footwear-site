@@ -544,11 +544,16 @@ test("keeps the mobile language switch on the matching page", async () => {
     new URL("../app/components/LanguageSelector.tsx", import.meta.url),
     "utf8",
   );
+  const desktop = await readFile(
+    new URL("../app/components/DesktopBuyerNavigation.tsx", import.meta.url),
+    "utf8",
+  );
   assert.match(header, /ChineseMobileNavigation englishHref=\{englishHref\}/);
   assert.match(
     header,
-    /LanguageSelector locale="zh" alternateHref=\{englishHref\}/,
+    /DesktopBuyerNavigation locale="zh" alternateHref=\{englishHref\}/,
   );
+  assert.match(desktop, /LanguageSelector locale=\{locale\} alternateHref=\{alternateHref\}/);
   assert.match(mobile, /href=\{englishHref\}/);
   assert.match(mobile, /hrefLang="en"/);
   assert.match(mobile, /语言 \/ Language/);
