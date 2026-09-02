@@ -293,6 +293,19 @@ test("server-renders the evidence-led BQ009 L1026 product page", async () => {
   );
 });
 
+test("server-renders the exact R1811 Alibaba-listed material configuration", async () => {
+  const response = await render("/products/bq015");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /BQ015/);
+  assert.match(html, /R1811/);
+  assert.match(html, /1601839073314/);
+  assert.match(html, /Stretch fabric upper/i);
+  assert.match(html, /EVA sole/i);
+  assert.match(html, /Mesh lining recorded in Alibaba trunk for the listed configuration/i);
+  assert.match(html, /Fleece availability by color/i);
+});
+
 test("server-renders lower-tier products conservatively", async () => {
   const response = await render("/products/bq030");
   assert.equal(response.status, 200);
