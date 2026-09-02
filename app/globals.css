@@ -107,7 +107,8 @@ nav a:hover::after, nav a:focus-visible::after { right: 0; }
 .mobile-menu-contact p { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
 .mobile-menu-trigger { width: 46px; height: 46px; padding: 0 12px; border: 1px solid var(--forest); background: transparent; cursor: pointer; }
 .mobile-menu-trigger span { height: 2px; margin: 5px 0; display: block; background: var(--forest); }
-.context-contact-dock { position: fixed; z-index: 45; right: 18px; bottom: 18px; display: flex; align-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.22); background: var(--forest-deep); color: white; box-shadow: 0 18px 48px rgba(7,24,19,.28); }
+.context-contact-dock { position: fixed; z-index: 45; right: 18px; bottom: 18px; display: flex; align-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.22); background: var(--forest-deep); color: white; box-shadow: 0 18px 48px rgba(7,24,19,.28); transition: opacity .2s ease, transform .2s ease, visibility .2s step-end; }
+.context-contact-dock-media-hidden { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(12px); }
 .context-contact-dock span { padding: 0 15px; color: #dce8e2; font-size: 10px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
 .context-contact-dock a { min-height: 44px; padding: 0 14px; display: inline-flex; align-items: center; border-left: 1px solid rgba(255,255,255,.18); font-size: 11px; font-weight: 800; }
 .context-contact-dock a:hover, .context-contact-dock a:focus-visible { background: var(--terracotta); }
