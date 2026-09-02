@@ -279,11 +279,14 @@ test("server-renders the evidence-led BQ009 L1026 product page", async () => {
   const response = await render("/products/bq009");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Breathable Mesh Thick-Sole Athletic Walking Shoes/i);
+  assert.match(html, /Breathable Knit Stretch-Fabric Lace-Up Walking Shoes/i);
   assert.match(html, /L1026/);
   assert.match(html, /1601825074604/);
   assert.match(html, /Open BQ009 on Alibaba\.com/);
-  assert.match(html, /Upper, outsole and lining materials/i);
+  assert.match(html, /Knitted stretch-fabric upper/i);
+  assert.match(html, /EVA sole/i);
+  assert.match(html, /Mesh lining recorded in Alibaba trunk/i);
+  assert.doesNotMatch(html, /Breathable Mesh Thick-Sole Athletic Walking Shoes/i);
   assert.doesNotMatch(
     html,
     /orthopedic foot support|bunion friendly|anatomical wide toe box/i,

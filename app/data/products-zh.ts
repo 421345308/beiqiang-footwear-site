@@ -120,6 +120,8 @@ const colors: Record<string, string> = {
 };
 
 const phrases: [RegExp, string][] = [
+  [/Hollow-knit stretch-fabric upper/gi, "镂空针织弹力织物鞋面"],
+  [/Knitted stretch-fabric upper/gi, "针织弹力织物鞋面"],
   [/High-top knitted textile upper/gi, "高帮针织织物鞋面"],
   [/Elastic knitted textile upper/gi, "弹力针织织物鞋面"],
   [/Stretch knitted textile upper/gi, "弹力针织织物鞋面"],
@@ -165,6 +167,7 @@ const phrases: [RegExp, string][] = [
   [/Exact foam execution for the selected order/gi, "所选订单的准确发泡执行"],
   [/Exact material execution for the selected order/gi, "所选订单的准确材料执行"],
   [/Mesh lining recorded in the product package/gi, "产品资料已记录网布内里"],
+  [/Mesh lining recorded in Alibaba trunk/gi, "Alibaba线上正本已记录网布内里"],
   [/EVA \+ PEBA foamed structure recorded in the source package/gi, "来源资料已记录 EVA + PEBA 发泡结构"],
   [/Size range/gi, "尺码范围"],
   [/Fleece availability by color/gi, "各颜色加绒版本可用情况"],
