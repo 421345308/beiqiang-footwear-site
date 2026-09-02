@@ -9,7 +9,7 @@
     "catalog:sync": "node --experimental-strip-types scripts/catalog-maintenance.mjs --write",
     "catalog:check": "node --experimental-strip-types scripts/catalog-maintenance.mjs",
     "pretest": "node --experimental-strip-types --test tests/data-lifecycle-api.test.mjs tests/external-contact-api.test.mjs tests/edgeone-function-bundle-boundaries.test.mjs tests/sample-request-api.test.mjs tests/meeting-request-api.test.mjs tests/meeting-change-request-api.test.mjs tests/meeting-admin-api.test.mjs tests/meeting-calendar-api.test.mjs",
-    "posttest": "node --experimental-strip-types --test tests/search-acquisition.test.mjs tests/i18n-public.test.mjs tests/quote-request-draft.test.mjs tests/quote-list-share.test.mjs tests/public-site-verification.test.mjs",
+    "posttest": "node --experimental-strip-types --test tests/search-acquisition.test.mjs tests/i18n-public.test.mjs tests/quote-request-draft.test.mjs tests/quote-list-share.test.mjs tests/public-site-verification.test.mjs tests/catalog-product-facts.test.mjs",
     "dev": "vinext dev",
     "build": "npm run catalog:check && vinext build",
     "edgeone:build": "npm run build && node scripts/export-edgeone-static.mjs",
