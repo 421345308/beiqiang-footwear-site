@@ -185,12 +185,19 @@ h1 { max-width: 690px; font-size: clamp(50px, 5vw, 78px); line-height: .98; }
 .proof-section { display: grid; grid-template-columns: 51% 49%; background: var(--forest); color: #fffdf8; }
 .proof-image img { height: 100%; min-height: 680px; object-fit: cover; }
 .factory-evidence-video { margin: 0 0 28px; overflow: hidden; background: #101c18; border: 1px solid rgba(23,59,50,.18); }
-.factory-evidence-video video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #101c18; object-fit: cover; }
+.factory-evidence-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #101c18; object-fit: contain; }
 .factory-evidence-video figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 14px 18px; background: #173b32; color: #fffdf8; }
 .factory-evidence-video figcaption strong { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
 .factory-evidence-video figcaption span { color: #c7d5ce; font-size: 12px; }
-.factory-evidence-video-compact { height: 100%; margin: 0; border: 0; }
-.factory-evidence-video-compact video { height: calc(100% - 49px); min-height: 631px; aspect-ratio: auto; }
+.factory-evidence-video figcaption a { flex: 0 0 auto; color: #fffdf8; font-size: 12px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.factory-evidence-video-compact { position: relative; z-index: 1; min-height: 100%; margin: 0; border: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(22px, 5vw, 58px); }
+.factory-evidence-video-compact video { min-height: 0; aspect-ratio: 16 / 9; }
+.factory-video-chapters { padding: 18px; background: #fffdf8; color: var(--ink); }
+.factory-video-chapters summary { cursor: pointer; font-size: 13px; font-weight: 800; letter-spacing: .04em; }
+.factory-video-chapters ol { margin: 18px 0 12px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; list-style: none; }
+.factory-video-chapters li { display: grid; grid-template-columns: 48px 1fr; gap: 10px; font-size: 13px; line-height: 1.45; }
+.factory-video-chapters time { color: var(--terracotta); font-weight: 800; }
+.factory-video-chapters p { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .proof-copy { padding: 90px clamp(36px, 6vw, 100px); display: flex; flex-direction: column; justify-content: center; }
 .eyebrow-light { color: #e4a589; }
 .proof-copy > p:not(.eyebrow) { margin: 28px 0; color: #c7d5ce; line-height: 1.7; }
@@ -1112,6 +1119,21 @@ footer a:hover { color: var(--forest); }
 .commercial-supporting small, .commercial-supporting strong { display: block; }
 .commercial-supporting small { color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .08em; }
 .commercial-supporting strong { margin-top: 8px; font-family: Georgia, serif; font-size: 27px; }
+.admin-contact-interest { margin-top: 24px; padding: 24px; border: 1px solid #9ab7aa; background: #edf5f1; }
+.admin-contact-interest h2 { margin: 5px 0 8px; font-size: clamp(28px, 3.5vw, 42px); }
+.admin-contact-interest > div:first-child > p:last-child, .admin-contact-interest > small, .admin-contact-interest-empty { color: var(--muted); font-size: 11px; line-height: 1.55; }
+.admin-contact-interest-counts { display: grid; grid-template-columns: repeat(3, 1fr); margin: 18px 0 12px; border: 1px solid var(--line); background: white; }
+.admin-contact-interest-counts article { padding: 16px; }
+.admin-contact-interest-counts article + article { border-left: 1px solid var(--line); }
+.admin-contact-interest-counts small, .admin-contact-interest-counts strong { display: block; }
+.admin-contact-interest-counts small { color: var(--muted); font-size: 9px; font-weight: 800; }
+.admin-contact-interest-counts strong { margin-top: 7px; font-family: Georgia, serif; font-size: 28px; }
+.admin-contact-interest-pages { margin-bottom: 12px; border: 1px solid var(--line); background: white; }
+.admin-contact-interest-pages > div { display: grid; grid-template-columns: minmax(220px, 1fr) repeat(3, 100px); }
+.admin-contact-interest-pages > div + div { border-top: 1px solid var(--line); }
+.admin-contact-interest-pages > div > * { min-width: 0; padding: 11px 13px; overflow-wrap: anywhere; font-size: 11px; }
+.admin-contact-interest-pages > div > * + * { border-left: 1px solid var(--line); text-align: center; }
+.admin-contact-interest-pages > div:first-child { background: var(--forest); color: white; }
 .commercial-breakdown { margin-top: 24px; display: grid; grid-template-columns: 1fr 1.25fr; gap: 18px; }
 .commercial-breakdown > div { padding: 18px; background: white; border: 1px solid var(--line); }
 .commercial-breakdown h3 { margin: 0 0 12px; font-family: Georgia, serif; font-size: 21px; }
@@ -1918,7 +1940,7 @@ footer a:hover { color: var(--forest); }
   .quote-card { grid-template-columns: 1fr; }
   .quote-card ol { grid-template-columns: repeat(2, 1fr); }
   .proof-image img { min-height: 520px; }
-  .factory-evidence-video-compact video { min-height: 471px; }
+  .factory-evidence-video-compact { min-height: 620px; }
   .inquiry-section, .product-inquiry-grid { gap: 48px; }
   .catalog-grid { grid-template-columns: repeat(3, 1fr); }
   .product-detail-hero { grid-template-columns: 1fr; }
@@ -1954,6 +1976,10 @@ footer a:hover { color: var(--forest); }
 }
 
 @media (max-width: 700px) {
+  .admin-contact-interest-counts { grid-template-columns: 1fr; }
+  .admin-contact-interest-counts article + article { border-top: 1px solid var(--line); border-left: 0; }
+  .admin-contact-interest-pages { overflow-x: auto; }
+  .admin-contact-interest-pages > div { min-width: 620px; }
   .context-contact-dock { right: 10px; bottom: 10px; max-width: calc(100vw - 20px); }
   .context-contact-dock span { display: none; }
   .context-contact-dock a { padding: 0 12px; }
@@ -2045,6 +2071,8 @@ footer a:hover { color: var(--forest); }
   .capability-brief { padding: 30px 24px; box-shadow: 10px 10px 0 rgba(23,59,50,.12); }
   .capability-gallery { min-height: 0; grid-template-rows: repeat(3, 360px); }
   .factory-evidence-video figcaption { align-items: flex-start; flex-direction: column; }
+  .factory-evidence-video-compact { min-height: 480px; padding: 22px; }
+  .factory-video-chapters ol { grid-template-columns: 1fr; }
   .capability-gallery-lead { grid-row: auto; }
   .capability-step-grid article + article { border-left: 0; }
   .capability-checks article { padding: 56px 24px; }

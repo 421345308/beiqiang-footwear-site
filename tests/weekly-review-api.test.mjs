@@ -87,6 +87,9 @@ const analytics = {
     { codes: "BuyerName · BQ001", shares: 1, opens: 1, prints: 1 },
   ],
   supporting: {
+    whatsappClicks: 5,
+    emailClicks: 3,
+    contextualContactClicks: 6,
     resourceViews: 2,
     comparisonShares: 2,
     comparisonOpens: 1,
@@ -206,6 +209,9 @@ test("saves one immutable aggregate snapshot per day and period", async () => {
   assert.equal(body.snapshot.version, 11);
   assert.equal(body.snapshot.supporting.privateLabelConceptQuoteHandoffs, 1);
   assert.equal(body.snapshot.supporting.productFinderQuoteHandoffs, 1);
+  assert.equal(body.snapshot.supporting.whatsappClicks, 5);
+  assert.equal(body.snapshot.supporting.emailClicks, 3);
+  assert.equal(body.snapshot.supporting.contextualContactClicks, 6);
   assert.equal(body.snapshot.supporting.humanSourcingReviewsAwaitingShortlist, 1);
   assert.equal(body.snapshot.supporting.humanSourcingReviewMedianHours, 36.5);
   assert.equal(body.snapshot.supporting.meetingCalendarDownloads, 2);

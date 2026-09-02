@@ -141,6 +141,9 @@ const events = [
   { event: "product_finder_result", receivedAt: "2026-08-23T08:08:40.000Z", details: { context: "finder_en", styleCodes: "BQ001,BQ002", styleCount: 2 }, attribution: { utmSource: "linkedin" } },
   { event: "product_finder_to_compare", receivedAt: "2026-08-23T08:08:50.000Z", details: { context: "finder_en", styleCodes: "BQ001,BQ002", styleCount: 2 }, attribution: { utmSource: "linkedin" } },
   { event: "product_finder_to_quote", receivedAt: "2026-08-23T08:09:00.000Z", details: { context: "finder_en", styleCodes: "BQ001,BQ002", styleCount: 2 }, attribution: { utmSource: "linkedin" } },
+  { event: "whatsapp_click", page: "/factory/", receivedAt: "2026-08-23T08:09:10.000Z", details: { context: "/factory/", linkType: "context_dock" }, attribution: { utmSource: "linkedin" } },
+  { event: "email_click", page: "/factory/?secret=ignored", receivedAt: "2026-08-23T08:09:20.000Z", details: { context: "/factory/", linkType: "context_dock" }, attribution: { utmSource: "linkedin" } },
+  { event: "whatsapp_click", page: "/products/bq009/", receivedAt: "2026-08-23T08:09:30.000Z", details: { context: "product_detail", styleCode: "BQ009" }, attribution: { utmSource: "linkedin" } },
   {
     event: "product_view",
     receivedAt: "2025-01-01T08:00:00.000Z",
@@ -346,6 +349,11 @@ test("builds a consent-aware commercial funnel without counting internal tests",
   assert.equal(result.funnel.orders, 0);
   assert.equal(result.supporting.mobileMenuOpens, 1);
   assert.equal(result.supporting.mobileMenuLinks, 1);
+  assert.equal(result.supporting.whatsappClicks, 2);
+  assert.equal(result.supporting.emailClicks, 1);
+  assert.equal(result.supporting.contextualContactClicks, 2);
+  assert.deepEqual(result.contactInterest.pages[0], { page: "/factory/", whatsapp: 1, email: 1, total: 2 });
+  assert.match(result.contactInterest.definition, /not a sent message/i);
   assert.equal(result.supporting.sourcingProgramViews, 1);
   assert.equal(result.supporting.sourcingProgramCtas, 1);
   assert.equal(result.supporting.lineSheetLeads, 1);
@@ -417,7 +425,7 @@ test("builds a consent-aware commercial funnel without counting internal tests",
     result.acquisitionChannels.find((item) => item.channel === "linkedin"),
     {
       channel: "linkedin",
-      events: 27,
+      events: 30,
       inquiries: 1,
       qualified: 1,
       sampleDiscussion: 1,

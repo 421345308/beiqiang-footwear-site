@@ -39,7 +39,9 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /\/videos\/beiqiang-factory-proof\.mp4/i);
   assert.match(html, /\/videos\/beiqiang-factory-proof-poster\.jpg/i);
   assert.match(html, /"@type":"VideoObject"/i);
-  assert.match(html, /"duration":"PT35S"/i);
+  assert.match(html, /"duration":"PT3M"/i);
+  assert.match(html, /\/videos\/beiqiang-factory-tour\.mp4/i);
+  assert.match(html, /English scene captions/i);
   assert.match(html, /\/og\.jpg/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
 });

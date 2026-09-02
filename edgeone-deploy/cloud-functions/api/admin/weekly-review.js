@@ -228,6 +228,9 @@ export function sanitizeWeeklyReviewSnapshot(source) {
     comparisonJourneys: safeComparisons(source.comparisonJourneys),
     collectionJourneys: safeCollectionJourneys(source.collectionJourneys),
     supporting: {
+      whatsappClicks: safeNumber(source.supporting?.whatsappClicks),
+      emailClicks: safeNumber(source.supporting?.emailClicks),
+      contextualContactClicks: safeNumber(source.supporting?.contextualContactClicks),
       resourceViews: safeNumber(source.supporting?.resourceViews),
       resourceProductOpens: safeNumber(source.supporting?.resourceProductOpens),
       resourceCtas: safeNumber(source.supporting?.resourceCtas),

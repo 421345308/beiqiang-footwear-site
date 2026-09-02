@@ -484,6 +484,15 @@ type CommercialAnalytics = {
     orders: number;
   };
   salesExecution: SalesExecution;
+  contactInterest: {
+    whatsappClicks: number;
+    emailClicks: number;
+    contextualClicks: number;
+    contextualWhatsappClicks: number;
+    contextualEmailClicks: number;
+    pages: { page: string; whatsapp: number; email: number; total: number }[];
+    definition: string;
+  };
   workspace: {
     accessRequests: number;
     eligibleRequests: number;
@@ -525,6 +534,9 @@ type CommercialAnalytics = {
   supporting: {
     mobileMenuOpens: number;
     mobileMenuLinks: number;
+    whatsappClicks: number;
+    emailClicks: number;
+    contextualContactClicks: number;
     sourcingProgramViews: number;
     sourcingProgramCtas: number;
     lineSheetLeads: number;
@@ -1246,6 +1258,23 @@ function CommercialDashboard({
               </article>
             ))}
           </div>
+          <section className="admin-contact-interest">
+            <div>
+              <p className="eyebrow">CONTACT INTENT</p>
+              <h2>Which public pages start a buyer conversation?</h2>
+              <p>Consent-based clicks only. Use this to improve the page and first-response path, then verify the actual message and inquiry record separately.</p>
+            </div>
+            <div className="admin-contact-interest-counts">
+              <article><small>ALL WHATSAPP OPENS</small><strong>{data.contactInterest.whatsappClicks}</strong></article>
+              <article><small>ALL EMAIL OPENS</small><strong>{data.contactInterest.emailClicks}</strong></article>
+              <article><small>CONTEXTUAL CONTACTS</small><strong>{data.contactInterest.contextualClicks}</strong></article>
+            </div>
+            {data.contactInterest.pages.length ? <div className="admin-contact-interest-pages">
+              <div><strong>Public page</strong><strong>WhatsApp</strong><strong>Email</strong><strong>Total</strong></div>
+              {data.contactInterest.pages.map((item) => <div key={item.page}><span>{item.page}</span><span>{item.whatsapp}</span><span>{item.email}</span><strong>{item.total}</strong></div>)}
+            </div> : <p className="admin-contact-interest-empty">No consented contextual contact clicks in this period.</p>}
+            <small>{data.contactInterest.definition}</small>
+          </section>
           <WorkspaceAnalyticsPanel data={data.workspace} />
           <div className="commercial-supporting">
             <article>
@@ -1255,6 +1284,10 @@ function CommercialDashboard({
             <article>
               <small>MOBILE NAV CLICKS</small>
               <strong>{data.supporting.mobileMenuLinks}</strong>
+            </article>
+            <article>
+              <small>CONTEXT CONTACT CLICKS</small>
+              <strong>{data.supporting.contextualContactClicks || 0}</strong>
             </article>
             <article>
               <small>SOURCING-PAGE VIEWS</small>

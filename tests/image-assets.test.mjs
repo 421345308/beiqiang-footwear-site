@@ -52,11 +52,25 @@ test("keeps complete factory derivatives and a lightweight social preview", asyn
 });
 
 test("keeps both factory-video delivery formats and a lightweight poster", async () => {
-  const webm = await stat(new URL("../public/videos/beiqiang-factory-proof.webm", import.meta.url));
-  const mp4 = await stat(new URL("../public/videos/beiqiang-factory-proof.mp4", import.meta.url));
-  const poster = await readFile(new URL("../public/videos/beiqiang-factory-proof-poster.jpg", import.meta.url));
-  assert.equal(webm.size > 500_000 && webm.size <= 7 * 1024 * 1024, true, "factory WebM is missing or too large");
-  assert.equal(mp4.size > 500_000 && mp4.size <= 12 * 1024 * 1024, true, "factory MP4 is missing or too large");
+  const webm = await stat(new URL("../public/videos/beiqiang-factory-tour.webm", import.meta.url));
+  const mp4 = await stat(new URL("../public/videos/beiqiang-factory-tour.mp4", import.meta.url));
+  const poster = await readFile(new URL("../public/videos/beiqiang-factory-tour-poster.jpg", import.meta.url));
+  const englishCaptions = await readFile(new URL("../public/videos/beiqiang-factory-tour.en.vtt", import.meta.url), "utf8");
+  assert.equal(webm.size > 5_000_000 && webm.size <= 30 * 1024 * 1024, true, "full factory WebM is missing or too large");
+  assert.equal(mp4.size > 5_000_000 && mp4.size <= 28 * 1024 * 1024, true, "full factory MP4 is missing or too large");
   assert.deepEqual([...poster.subarray(0, 3)], [0xff, 0xd8, 0xff]);
   assert.equal(poster.length <= 180 * 1024, true, "factory video poster exceeds 180 KB");
+  assert.match(englishCaptions, /00:00\.000 --> 00:08\.000/);
+  assert.match(englishCaptions, /shoe-box packing preparation/i);
+});
+
+test("keeps footage-derived factory stills web-ready", async () => {
+  const stills = await readdir(new URL("../public/factory-video-stills/", import.meta.url));
+  assert.equal(stills.length >= 8, true);
+  for (const file of stills) {
+    const content = await readFile(new URL(`../public/factory-video-stills/${file}`, import.meta.url));
+    assert.equal(content.subarray(0, 4).toString("ascii"), "RIFF", `${file} should be a RIFF WebP file`);
+    assert.equal(content.subarray(8, 12).toString("ascii"), "WEBP", `${file} should be a WebP file`);
+    assert.equal(content.length <= 150 * 1024, true, `${file} exceeds 150 KB`);
+  }
 });
