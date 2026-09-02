@@ -3,15 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import InquiryForm from "./components/InquiryForm";
-import ProductCard from "./components/ProductCard";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import FactoryEvidenceVideo from "./components/FactoryEvidenceVideo";
 import { collections, products } from "./data/products";
+import { factoryVideoSchema } from "./lib/factory-video-schema";
 import { trackEvent } from "./lib/tracking";
-
-const featuredCodes = ["BQ009", "BQ001", "BQ002", "BQ024", "BQ004", "BQ012"];
-const featured = featuredCodes.map((code) => products.find((product) => product.code === code)!).filter(Boolean);
 
 const faqItems = [
   { question: "Are you a factory or a trading company?", answer: "Beiqiang is a footwear factory supplier in Quanzhou, Fujian, China. We focus on casual walking shoes, verified wide toe box styles, lightweight slip-ons and textile footwear for overseas B2B buyers." },
@@ -35,27 +32,32 @@ export default function Home() {
 
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(factoryVideoSchema("en")) }} />
       <SiteHeader />
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow">FACTORY DIRECT · PRODUCT-PROOF FIRST</p>
-          <h1>A complete walking-shoe range for your next market test.</h1>
-          <p className="hero-lead">Explore 30 documented styles across wide toe box, easy-on knit, breathable lace-up, athletic and seasonal directions—then shortlist samples against your market, quantity and target specification.</p>
-          <div className="hero-actions"><Link className="button" href="/product-finder/">Find 2–4 matching styles</Link><Link className="button button-secondary" href="/products/">Explore all 30 styles</Link><a className="text-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp a sourcing brief <span aria-hidden="true">→</span></a></div>
-          <dl className="hero-facts"><div><dt>30</dt><dd>Product packages in one catalogue</dd></div><div><dt>03</dt><dd>Buyer-intent collections</dd></div><div><dt>01</dt><dd>Inquiry trail for every style</dd></div></dl>
+          <p className="eyebrow">QUANZHOU FOOTWEAR FACTORY · B2B SUPPLY</p>
+          <h1>A footwear factory for wholesale, private-label and OEM projects.</h1>
+          <p className="hero-lead">Beiqiang helps importers, wholesalers, marketplace sellers and brand buyers move from a product direction to a reviewable sample and commercial quotation. Start with the current online selection or send your own reference for a wider factory-range review.</p>
+          <div className="hero-actions"><Link className="button" href="/request-quote/">Discuss a sourcing project</Link><Link className="button button-secondary" href="/factory/">See factory &amp; process</Link><Link className="text-link" href="/products/">Browse current product selection <span aria-hidden="true">→</span></Link></div>
+          <dl className="hero-facts"><div><dt>B2B</dt><dd>Wholesale and private-label supply</dd></div><div><dt>OEM</dt><dd>Project requirements reviewed style by style</dd></div><div><dt>CN</dt><dd>Quanzhou, Fujian, China</dd></div></dl>
         </div>
         <div className="hero-visual">
-          <div className="hero-image-wrap"><img src="/catalog-web/bq009/01_main.webp" alt="BQ009 L1026 mesh thick-sole athletic walking shoe" width={800} height={800} fetchPriority="high" /></div>
-          <div className="floating-card floating-card-top"><span className="dot" /><div><small>CURRENT LEAD STYLE</small><strong>BQ009 / L1026</strong></div></div>
-          <div className="floating-card floating-card-bottom"><small>BUYER WORKFLOW</small><strong>Shortlist · Sample · Confirm</strong><span>No unsupported claims</span></div>
+          <FactoryEvidenceVideo compact />
         </div>
       </section>
 
-      <section className="assurance" aria-label="Supply highlights"><span>Real product evidence</span><span>Style-by-style specifications</span><span>Sample-before-bulk workflow</span><span>Factory-side checking and packing</span></section>
+      <section className="assurance" aria-label="Supply highlights"><span>Factory-side project review</span><span>Real product and process visuals</span><span>Sample-before-bulk workflow</span><span>Written specification confirmation</span></section>
+
+      <section className="section factory-home-intro">
+        <div className="section-heading"><div><p className="eyebrow">START WITH THE SUPPLIER</p><h2>See how Beiqiang supports a sourcing decision.</h2></div><p>The website is a buyer workspace: it introduces the factory, helps narrow product directions and captures the details needed for a useful B2B response. It is not a retail checkout or a claim that every request is already feasible.</p></div>
+        <div className="trust-entry-grid"><Link href="/factory/"><span>01</span><h3>Factory &amp; working areas</h3><p>Review current factory footage and the project path from direction to sample discussion.</p><strong>Visit the factory page →</strong></Link><Link href="/quality-packing/"><span>02</span><h3>Checking &amp; packing</h3><p>Understand which product, assortment and carton details are confirmed for an order.</p><strong>Review quality &amp; packing →</strong></Link><Link href="/oem-odm/"><span>03</span><h3>OEM / ODM review</h3><p>Submit branding, material, color or development targets for feasibility review.</p><strong>Prepare an OEM brief →</strong></Link><Link href="/sample-order-process/"><span>04</span><h3>Sample to formal order</h3><p>Follow the decisions from shortlist and sample through confirmed commercial terms.</p><strong>See the buyer process →</strong></Link></div>
+      </section>
 
       <section className="section collection-entry" id="collections">
-        <div className="section-heading"><div><p className="eyebrow">SHOP BY BUYER INTENT</p><h2>Start with the problem your range needs to solve.</h2></div><p>These collections group products by a real sourcing purpose. Only BQ001 and BQ002 are presented as verified wide toe box styles.</p></div>
+        <div className="section-heading"><div><p className="eyebrow">CURRENT PRODUCT DIRECTIONS</p><h2>Browse by sourcing need, not by one promoted shoe.</h2></div><p>These categories are entry points into the current online selection, not the full factory range. If your target is not shown, send a reference or request the latest line sheet.</p></div>
         <div className="collection-grid">{collections.map((collection) => <Link key={collection.slug} href={`/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>Explore collection →</strong></Link>)}</div>
+        <div className="section-cta"><Link className="button button-secondary" href="/products/">Browse current online selection</Link><Link className="text-link" href="/line-sheet/">Request current line sheet →</Link></div>
       </section>
 
       <section className="section sourcing-program-entry">
@@ -73,25 +75,9 @@ export default function Home() {
         <div className="section-cta"><Link className="button button-secondary" href="/resources/">View all sourcing resources</Link></div>
       </section>
 
-      <section className="section collections">
-        <div className="section-heading"><div><p className="eyebrow">PRIORITY SHORTLIST</p><h2>Six styles to begin a buyer conversation.</h2></div><p>Priority reflects current traffic evidence, range role and product differentiation—not invented sales volume.</p></div>
-        <div className="product-grid">{featured.map((product) => <ProductCard key={product.code} product={product} />)}</div>
-        <div className="section-cta"><Link className="button" href="/products/">View the complete catalogue</Link></div>
-      </section>
-
       <section className="proof-section" id="proof">
-        <div className="proof-image"><FactoryEvidenceVideo compact /></div>
-        <div className="proof-copy"><p className="eyebrow eyebrow-light">FACTORY PROOF, NOT GENERIC PROMISES</p><h2>See the product. Check the details. Reduce sourcing risk.</h2><p>Our buyer workflow is based on real shoe photos, style-by-style specification confirmation and sample checking before bulk-order discussion.</p><ul><li><span>01</span> Product and color selection</li><li><span>02</span> Material, size and packing confirmation</li><li><span>03</span> Sample check before final bulk terms</li></ul><a className="button button-light" href="#inquiry">Prepare your inquiry</a></div>
-      </section>
-
-      <section className="section trust-entry">
-        <div className="section-heading"><div><p className="eyebrow">VERIFY BEFORE YOU BUY</p><h2>Four answers behind every serious sourcing decision.</h2></div><p>Review real evidence, understand what still needs confirmation, and enter the sample discussion with a useful brief.</p></div>
-        <div className="trust-entry-grid">
-          <Link href="/factory/"><span>01</span><h3>Factory</h3><p>See real workshop evidence and how a product direction becomes a checkable project.</p><strong>Review factory evidence →</strong></Link>
-          <Link href="/quality-packing/"><span>02</span><h3>Quality &amp; packing</h3><p>Understand the order details behind checking, sorting and carton preparation.</p><strong>See the checking path →</strong></Link>
-          <Link href="/oem-odm/"><span>03</span><h3>OEM / ODM</h3><p>Choose a base-style or development path without assuming feasibility in advance.</p><strong>Build a project brief →</strong></Link>
-          <Link href="/sample-order-process/"><span>04</span><h3>Sample &amp; order process</h3><p>Know which decision comes next from shortlist through shipping coordination.</p><strong>Follow the order path →</strong></Link>
-        </div>
+        <div className="proof-image"><img src="/factory-web/batch-check.webp" alt="Footwear batch checking and preparation before packing at Beiqiang" loading="lazy" decoding="async" /></div>
+        <div className="proof-copy"><p className="eyebrow eyebrow-light">FROM FACTORY REVIEW TO A COMMERCIAL RESPONSE</p><h2>Turn a sourcing direction into details the factory can check.</h2><p>The current website product pages are a practical starting set—not the limit of Beiqiang&apos;s range. The team can also review a reference image, target market and expected quantity before recommending the next step.</p><ul><li><span>01</span> Product direction or reference</li><li><span>02</span> Material, size, color and packing requirements</li><li><span>03</span> Sample and written commercial confirmation</li></ul><a className="button button-light" href="#inquiry">Prepare your inquiry</a></div>
       </section>
 
       <section className="section process"><div className="section-heading compact"><div><p className="eyebrow">A QUALIFIED SOURCING PATH</p><h2>From catalogue to quotation in three steps.</h2></div></div><div className="process-grid"><article><span>01</span><h3>Build a shortlist</h3><p>Compare product code, closure, size direction, colors and real gallery evidence.</p></article><article><span>02</span><h3>Send order context</h3><p>Share target market, quantity, size ratio, colors, packing and timing.</p></article><article><span>03</span><h3>Confirm by sample</h3><p>Verify high-impact specifications before final price and bulk-order terms.</p></article></div></section>
@@ -99,7 +85,7 @@ export default function Home() {
       <section className="section faq-section"><div className="section-heading compact"><div><p className="eyebrow">BUYER FAQ</p><h2>Answers before you request a sample.</h2></div></div><div className="faq-list">{faqItems.map((item) => <details key={item.question}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div></section>
 
       <section className="inquiry-section" id="inquiry">
-        <div className="inquiry-intro"><p className="eyebrow eyebrow-light">REQUEST A MATCHED SAMPLE</p><h2>Tell us what you want to source.</h2><p>Select any catalogue style. Your inquiry is stored with its product code so the team can respond with the right product context.</p><label className="homepage-style-picker"><span>SELECTED STYLE</span><select value={selectedCode} onChange={(event) => selectProduct(event.target.value)}>{products.map((product) => <option key={product.code} value={product.code}>{product.code} / {product.sourceModel} — {product.name}</option>)}</select></label><div className="contact-links"><a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer">Send via WhatsApp</a><a className="contact-text-link" href="mailto:421345308@qq.com">Email 421345308@qq.com</a><a className="contact-text-link" href="https://cn1576227362luzl.m.en.alibaba.com/" target="_blank" rel="noreferrer">View Alibaba.com store</a></div></div>
+        <div className="inquiry-intro"><p className="eyebrow eyebrow-light">START A FACTORY REVIEW</p><h2>Tell us what you want to source.</h2><p>Choose a current website style or use the full request form to describe another product direction. The product code is a reference for the conversation—not a limit on what you may ask the factory to review.</p><label className="homepage-style-picker"><span>STARTING WEBSITE STYLE</span><select value={selectedCode} onChange={(event) => selectProduct(event.target.value)}>{products.map((product) => <option key={product.code} value={product.code}>{product.code} / {product.sourceModel} — {product.name}</option>)}</select></label><div className="contact-links"><Link className="button button-light" href="/request-quote/?program=reference-style">Describe another style</Link><a className="contact-text-link" href={whatsappHref} target="_blank" rel="noreferrer">Send via WhatsApp</a><a className="contact-text-link" href="mailto:421345308@qq.com">Email 421345308@qq.com</a><a className="contact-text-link" href="https://cn1576227362luzl.m.en.alibaba.com/" target="_blank" rel="noreferrer">View Alibaba.com store</a></div></div>
         <InquiryForm styleCode={selected.code} styleLabel={selectedLabel} context="homepage" />
       </section>
       <SiteFooter />

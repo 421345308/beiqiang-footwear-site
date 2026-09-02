@@ -18,7 +18,7 @@ export default function ProductCard({ product, collectionSlug }: { product: Prod
         <li>{product.closure}</li><li>{product.size}</li><li>{product.colors.length} colors</li>
       </ul>
       <small className="buyer-fit">Best fit: {product.buyerFit}</small>
-      <div className="product-card-actions"><CollectionProductLink slug={collectionSlug} styleCode={product.code} className="product-detail-link" href={`/products/${product.slug}/`}>View evidence <span aria-hidden="true">→</span></CollectionProductLink><AddToQuoteButton product={product} compact /></div>
+      <div className="product-card-actions"><CollectionProductLink slug={collectionSlug} styleCode={product.code} className="product-detail-link" href={`/products/${product.slug}/`}>View product details <span aria-hidden="true">→</span></CollectionProductLink><AddToQuoteButton product={product} compact /></div>
     </article>
   );
 }

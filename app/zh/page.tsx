@@ -1,24 +1,61 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import Link from "next/link";
-import ChineseProductCard from "../components/ChineseProductCard";
 import ChineseSiteFooter from "../components/ChineseSiteFooter";
 import ChineseSiteHeader from "../components/ChineseSiteHeader";
+import FactoryEvidenceVideo from "../components/FactoryEvidenceVideo";
 import { chineseCollections } from "../data/collections-zh";
-import { products } from "../data/products";
+import { factoryVideoSchema } from "../lib/factory-video-schema";
 
 export const metadata: Metadata = {
-  title: "贝强鞋业｜休闲步行鞋工厂与B2B批发供应",
-  description: "泉州贝强鞋业面向进口商、批发商、线上卖家和品牌买家，提供30款真实产品资料、样品讨论、OEM/ODM需求审核与B2B询价。",
+  title: "贝强鞋业｜泉州鞋类工厂、批发与OEM/ODM供应",
+  description: "泉州贝强鞋业面向进口商、批发商、线上卖家和品牌买家，提供鞋类批发、私标与OEM/ODM项目审核、样品沟通和B2B询价。",
   alternates: { canonical: "https://www.beiqiang.online/zh/", languages: { en: "https://www.beiqiang.online/", "zh-CN": "https://www.beiqiang.online/zh/", "x-default": "https://www.beiqiang.online/" } },
-  openGraph: { title: "贝强鞋业｜B2B休闲步行鞋供应", description: "查看30款产品资料，建立多款询价并在大货前确认样品与规格。", url: "https://www.beiqiang.online/zh/", locale: "zh_CN", images: [{ url: "https://www.beiqiang.online/og.jpg", alt: "贝强鞋业B2B鞋类供应" }] },
-  twitter: { card: "summary_large_image", title: "贝强鞋业｜B2B休闲步行鞋供应", description: "查看30款产品资料，建立多款询价并在大货前确认样品与规格。", images: ["https://www.beiqiang.online/og.jpg"] },
+  openGraph: { title: "贝强鞋业｜泉州B2B鞋类工厂供应", description: "了解工厂与合作流程，浏览当前在线选款或提交目标款式，建立批发、私标及OEM/ODM采购需求。", url: "https://www.beiqiang.online/zh/", locale: "zh_CN", images: [{ url: "https://www.beiqiang.online/og.jpg", alt: "贝强鞋业B2B鞋类工厂供应" }] },
+  twitter: { card: "summary_large_image", title: "贝强鞋业｜泉州B2B鞋类工厂供应", description: "了解工厂与合作流程，浏览当前在线选款或提交目标款式。", images: ["https://www.beiqiang.online/og.jpg"] },
 };
-
-const featuredCodes = ["BQ009", "BQ001", "BQ002", "BQ024", "BQ004", "BQ012"];
-const featured = featuredCodes.map((code) => products.find((product) => product.code === code)!).filter(Boolean);
 
 export default function ChineseHome() {
   const brief = encodeURIComponent("您好，贝强鞋业。我希望了解鞋类产品选款、样品与B2B报价，请协助确认适合的款式和需要提供的采购资料。");
-  return <main><ChineseSiteHeader englishHref="/" /><section className="hero" id="top"><div className="hero-copy"><p className="eyebrow">工厂供应 · 产品证据优先</p><h1>用30款真实产品资料，开始下一次鞋类选款。</h1><p className="hero-lead">面向进口商、批发商、Amazon/TikTok卖家、采购代理和品牌买家。先查看款号、图片、结构、尺码与颜色方向，再根据市场、数量和目标规格讨论样品与报价。</p><div className="hero-actions"><Link className="button" href="/zh/product-finder/">匹配2至4款候选鞋</Link><Link className="button button-secondary" href="/zh/products/">查看全部30款</Link><a className="text-link" href={`https://wa.me/8618959805256?text=${brief}`} target="_blank" rel="noreferrer">WhatsApp发送采购需求 →</a></div><dl className="hero-facts"><div><dt>30</dt><dd>已整理产品资料包</dd></div><div><dt>03</dt><dd>主要产品方向</dd></div><div><dt>01</dt><dd>统一询价与后续记录</dd></div></dl></div><div className="hero-visual"><div className="hero-image-wrap"><img src="/catalog-web/bq009/01_main.webp" alt="BQ009 L1026透气网布厚底运动步行鞋" width={800} height={800} fetchPriority="high" /></div><div className="floating-card floating-card-top"><span className="dot" /><div><small>当前重点候选</small><strong>BQ009 / L1026</strong></div></div><div className="floating-card floating-card-bottom"><small>采购流程</small><strong>选款 · 样品 · 确认</strong><span>不使用无依据承诺</span></div></div></section><section className="assurance" aria-label="供应要点"><span>真实产品图片</span><span>逐款规格与待确认项</span><span>大货前样品确认</span><span>工厂端检查与包装讨论</span></section><section className="section sourcing-program-entry"><div className="section-heading"><div><p className="eyebrow">选择采购路径</p><h2>先明确要做的商业决定。</h2></div><p>现有款、私标改款和技术开发需要不同资料。所有价格、MOQ、材料、尺码、包装与交期按具体项目书面确认。</p></div><div className="sourcing-program-entry-grid"><Link href="/zh/solutions/wholesale-walking-shoes/"><span>01 · 现有产品</span><h3>批发与多款测试</h3><p>比较30款产品，建立适合进口、分销或线上渠道测试的候选组合。</p><strong>打开批发采购方案 →</strong></Link><Link href="/zh/solutions/private-label-walking-shoes/"><span>02 · 基础款调整</span><h3>私标与包装需求</h3><p>从现有款号开始，提交颜色、Logo、标签和包装方向，由工厂先审核可行性。</p><strong>打开私标采购方案 →</strong></Link><Link href="/zh/solutions/oem-knit-shoes/"><span>03 · 技术开发</span><h3>新楦、鞋底或测试目标</h3><p>把硬度、材料、模具、测试和保密要求作为买家目标提交，不提前写成贝强现有能力。</p><strong>打开技术开发方案 →</strong></Link></div></section><section className="section"><div className="section-heading"><div><p className="eyebrow">按产品方向浏览</p><h2>用3个产品系列缩小选款范围。</h2></div><p>产品系列按现有资料组织，不把宽鞋头或材料属性扩展到没有逐款证据的产品。</p></div><div className="collection-grid">{chineseCollections.map((collection) => <Link key={collection.slug} href={`/zh/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>打开产品系列 →</strong></Link>)}</div></section><section className="section collections"><div className="section-heading"><div><p className="eyebrow">优先选款</p><h2>先从6款差异化产品开始。</h2></div><p>优先顺序依据现有流量证据、产品组合角色和差异化，不代表虚构销量或平台排名。</p></div><div className="product-grid">{featured.map((product) => <ChineseProductCard key={product.code} product={product} />)}</div><div className="section-cta"><Link className="button" href="/zh/products/">查看完整产品目录</Link><Link className="text-link" href="/zh/resources/">查看采购知识与清单 →</Link></div></section><section className="proof-section" id="process"><div className="proof-image"><img src="/factory-web/batch-check.webp" alt="鞋类产品装箱前批次检查和整理" loading="lazy" decoding="async" /></div><div className="proof-copy"><p className="eyebrow eyebrow-light">用证据降低采购风险</p><h2>从产品资料到正式订单，逐步确认。</h2><p>网站用于选款、收集可报价资料、样品和项目沟通。正式交易通过Alibaba Trade Assurance订单或双方签署合同完成，网站不直接收银行卡付款。</p><ul><li><span>01</span> 比较产品、颜色与尺码方向</li><li><span>02</span> 提交数量、市场、包装和交付要求</li><li><span>03</span> 确认样品、报价版本与正式订单条款</li></ul><Link className="button button-light" href="/zh/request-quote/">建立询价单</Link></div></section><section className="section process" id="contact"><div className="section-heading compact"><div><p className="eyebrow">联系贝强</p><h2>把选款变成可回复的采购资料。</h2></div></div><div className="process-grid"><article><span>01</span><h3>选择候选款</h3><p>使用产品页、比较表和询价单保存准确款号。</p></article><article><span>02</span><h3>补充订单背景</h3><p>说明目标国家、渠道、数量、尺码配比、颜色、包装和时间。</p></article><article><span>03</span><h3>等待工厂审核</h3><p>贝强确认材料、样品、可行性和商业条款后再形成正式报价。</p></article></div><div className="section-cta"><a className="button" href="mailto:421345308@qq.com">邮件：421345308@qq.com</a></div></section><ChineseSiteFooter /></main>;
+  return (
+    <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(factoryVideoSchema("zh")) }} />
+      <ChineseSiteHeader englishHref="/" />
+      <section className="hero" id="top">
+        <div className="hero-copy">
+          <p className="eyebrow">泉州鞋类工厂 · B2B供应</p>
+          <h1>面向批发、私标与OEM项目的鞋类工厂。</h1>
+          <p className="hero-lead">贝强服务进口商、批发商、Amazon/TikTok卖家、采购代理和品牌买家。您可以从当前在线产品开始，也可以直接发送参考款、目标市场和预计数量，由工厂审核更广的产品范围与下一步。</p>
+          <div className="hero-actions"><Link className="button" href="/zh/request-quote/">提交采购项目</Link><Link className="button button-secondary" href="/zh/factory/">查看工厂与流程</Link><Link className="text-link" href="/zh/products/">浏览当前在线选款 →</Link></div>
+          <dl className="hero-facts"><div><dt>B2B</dt><dd>批发与私标供应</dd></div><div><dt>OEM</dt><dd>按具体项目审核要求</dd></div><div><dt>泉州</dt><dd>中国福建鞋类供应基地</dd></div></dl>
+        </div>
+        <div className="hero-visual"><FactoryEvidenceVideo compact locale="zh" /></div>
+      </section>
+
+      <section className="assurance" aria-label="供应要点"><span>工厂端项目审核</span><span>真实产品与流程画面</span><span>大货前样品确认</span><span>书面确认规格与商业条款</span></section>
+
+      <section className="section factory-home-intro">
+        <div className="section-heading"><div><p className="eyebrow">先了解供应商</p><h2>看看贝强如何支持一次采购决定。</h2></div><p>这个网站是买家工作入口：介绍工厂、帮助缩小产品方向，并收集业务可以有效回复的采购资料。它不是零售结账页，也不表示每项定制要求已经可以执行。</p></div>
+        <div className="trust-entry-grid"><Link href="/zh/factory/"><span>01</span><h3>工厂与工作区域</h3><p>查看当前工厂实拍，以及从产品方向到样品讨论的项目路径。</p><strong>打开工厂页面 →</strong></Link><Link href="/zh/quality-packing/"><span>02</span><h3>检查与包装</h3><p>了解订单中需要确认的产品、配码、包装与装箱信息。</p><strong>查看质量与包装 →</strong></Link><Link href="/zh/oem-odm/"><span>03</span><h3>OEM / ODM审核</h3><p>提交Logo、材料、颜色或开发目标，由工厂先审核可行性。</p><strong>准备OEM需求 →</strong></Link><Link href="/zh/sample-order-process/"><span>04</span><h3>从样品到正式订单</h3><p>了解从选款、样品到确认商业条款的每一步决定。</p><strong>查看买家流程 →</strong></Link></div>
+      </section>
+
+      <section className="section sourcing-program-entry">
+        <div className="section-heading"><div><p className="eyebrow">选择采购路径</p><h2>先明确要做的商业决定。</h2></div><p>现有款、私标改款和技术开发需要不同资料。所有价格、MOQ、材料、尺码、包装与交期按具体项目书面确认。</p></div>
+        <div className="sourcing-program-entry-grid"><Link href="/zh/solutions/wholesale-walking-shoes/"><span>01 · 当前产品与更广选款</span><h3>批发与多款测试</h3><p>从网站当前选款开始，或提交目标方向，由工厂审核适合进口、分销或线上渠道测试的组合。</p><strong>打开批发采购方案 →</strong></Link><Link href="/zh/solutions/private-label-walking-shoes/"><span>02 · 基础款调整</span><h3>私标与包装需求</h3><p>从具体产品或参考款开始，提交颜色、Logo、标签和包装方向，由工厂先审核可行性。</p><strong>打开私标采购方案 →</strong></Link><Link href="/zh/solutions/oem-knit-shoes/"><span>03 · 技术开发</span><h3>新楦、鞋底或测试目标</h3><p>把硬度、材料、模具、测试和保密要求作为买家目标提交，不提前写成贝强现有能力。</p><strong>打开技术开发方案 →</strong></Link></div>
+      </section>
+
+      <section className="section collection-entry" id="collections">
+        <div className="section-heading"><div><p className="eyebrow">当前产品方向</p><h2>按采购方向浏览，不再用一款鞋代表工厂。</h2></div><p>这些分类只是当前在线选款的入口，不是工厂全部产品。若没有目标款，可发送参考图或索取最新选款资料。</p></div>
+        <div className="collection-grid">{chineseCollections.map((collection) => <Link key={collection.slug} href={`/zh/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>打开产品方向 →</strong></Link>)}</div>
+        <div className="section-cta"><Link className="button button-secondary" href="/zh/products/">浏览当前在线选款</Link><Link className="text-link" href="/zh/line-sheet/">索取当前产品资料 →</Link></div>
+      </section>
+
+      <section className="proof-section" id="process">
+        <div className="proof-image"><img src="/factory-web/batch-check.webp" alt="贝强鞋业鞋类产品装箱前批次检查与整理" loading="lazy" decoding="async" /></div>
+        <div className="proof-copy"><p className="eyebrow eyebrow-light">从工厂审核到商业回复</p><h2>把产品方向变成工厂可以核对的采购资料。</h2><p>网站当前产品页是实用的起始选款，不是贝强产品范围的上限。业务也可以结合参考图、目标市场和预计数量审核其他工厂款式。</p><ul><li><span>01</span> 产品方向或参考图</li><li><span>02</span> 材料、尺码、颜色与包装要求</li><li><span>03</span> 样品与书面商业条款确认</li></ul><Link className="button button-light" href="/zh/request-quote/">建立采购询价</Link></div>
+      </section>
+
+      <section className="section process" id="contact"><div className="section-heading compact"><div><p className="eyebrow">联系贝强</p><h2>把采购方向变成可以有效回复的项目。</h2></div></div><div className="process-grid"><article><span>01</span><h3>提供产品方向</h3><p>选择当前产品、填写目标品类，或上传清楚的参考款资料。</p></article><article><span>02</span><h3>补充订单背景</h3><p>说明目标国家、渠道、数量、尺码配比、颜色、包装和时间。</p></article><article><span>03</span><h3>等待工厂审核</h3><p>贝强确认材料、样品、可行性和商业条款后再形成正式报价。</p></article></div><div className="section-cta"><Link className="button" href="/zh/request-quote/?program=reference-style">提交其他目标款式</Link><a className="text-link" href={`https://wa.me/8618959805256?text=${brief}`} target="_blank" rel="noreferrer">WhatsApp发送采购需求 →</a><a className="text-link" href="mailto:421345308@qq.com">邮件：421345308@qq.com</a></div><p className="commercial-note">正式交易通过Alibaba Trade Assurance订单或双方签署合同完成；网站不直接收取银行卡付款。</p></section>
+      <ChineseSiteFooter />
+    </main>
+  );
 }

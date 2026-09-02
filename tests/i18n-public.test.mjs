@@ -13,12 +13,13 @@ async function render(pathname) {
   );
 }
 
-test("publishes a Chinese B2B homepage and complete 30-style catalog", async () => {
+test("publishes a factory-first Chinese B2B homepage and current online catalog", async () => {
   const home = await render("/zh");
   const homeHtml = await home.text();
   assert.equal(home.status, 200);
-  assert.match(homeHtml, /用30款真实产品资料，开始下一次鞋类选款/);
-  assert.match(homeHtml, /30款/);
+  assert.match(homeHtml, /面向批发、私标与OEM项目的鞋类工厂/);
+  assert.match(homeHtml, /当前在线选款/);
+  assert.doesNotMatch(homeHtml, /当前重点候选|用30款真实产品资料/);
   assert.match(homeHtml, /English/);
   assert.match(homeHtml, /正式交易通过Alibaba Trade Assurance订单或双方签署合同/);
 
@@ -36,7 +37,7 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const wide = await render("/zh/products/bq001");
   const wideHtml = await wide.text();
   assert.equal(wide.status, 200);
-  assert.match(wideHtml, /该SKU已有宽鞋头证据/);
+  assert.match(wideHtml, /本款资料已确认宽鞋头设计/);
   assert.match(wideHtml, /加入询价单/);
   assert.match(wideHtml, /分享给采购团队/);
   assert.match(wideHtml, /提交样品 \/ 报价需求/);
@@ -50,7 +51,7 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const stretchHtml = await stretch.text();
   assert.equal(stretch.status, 200);
   assert.match(stretchHtml, /弹力织物/);
-  assert.match(stretchHtml, /不根据外观推断鞋楦宽度/);
+  assert.match(stretchHtml, /鞋楦宽度请按本款样品确认/);
   assert.doesNotMatch(stretchHtml, /该SKU已有宽鞋头证据/);
 });
 
@@ -136,7 +137,7 @@ test("publishes Chinese sourcing programs and decision-stage buyer resources", a
 
 test("publishes three Chinese product collections with SKU evidence boundaries", async () => {
   for (const [path, heading, boundary] of [
-    ["/zh/collections/wide-toe-box", /已有SKU证据的宽鞋头步行鞋/, /不代表所有贝强鞋款均为宽鞋头/],
+    ["/zh/collections/wide-toe-box", /已确认宽鞋头设计的步行鞋/, /不代表所有贝强鞋款均为宽鞋头/],
     ["/zh/collections/knit-slip-on", /针织与织物套穿步行鞋/, /材料、可用颜色、尺码、包装与商业条件/],
     ["/zh/collections/breathable-lace-up", /针织、网布与织物系带步行鞋/, /不代表防水、医疗、测试性能/],
   ]) {

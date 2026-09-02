@@ -31,7 +31,7 @@ test("exposes a canonical sitemap and robots policy without private buyer routes
   assert.equal(sitemap.status, 200); assert.match(sitemap.headers.get("content-type") || "", /xml/i); assert.match(xml, /https:\/\/www\.beiqiang\.online\/products\/bq001\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/resources\/footwear-rfq-checklist\/?/); assert.match(xml, /https:\/\/www\.beiqiang\.online\/solutions\/private-label-walking-shoes\/?/); assert.doesNotMatch(xml, /admin\/inquiries|buyer-workspace|inquiry-status|\/api\//i);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/private-label-concept\/?/);
   assert.match(xml, /https:\/\/www\.beiqiang\.online\/product-finder\/?/);
-  const robots = await render("/robots.txt"); const text = await robots.text(); assert.equal(robots.status, 200); assert.match(text, /User-Agent:\s*\*/i); assert.match(text, /Disallow:\s*\/api\//i); assert.match(text, /Sitemap:\s*https:\/\/www\.beiqiang\.online\/sitemap\.xml/i);
+  const robots = await render("/robots.txt"); const text = await robots.text(); assert.equal(robots.status, 200); assert.match(text, /User-Agent:\s*Googlebot/i); assert.match(text, /User-Agent:\s*OAI-SearchBot/i); assert.match(text, /User-Agent:\s*ChatGPT-User/i); assert.match(text, /User-Agent:\s*\*/i); assert.match(text, /Disallow:\s*\/api\//i); assert.match(text, /Sitemap:\s*https:\/\/www\.beiqiang\.online\/sitemap\.xml/i);
 });
 
 test("marks the internal dashboard as noindex", async () => {
@@ -51,5 +51,8 @@ test("includes every sourcing resource in the EdgeOne static export contract", a
   assert.match(exporter, /slug\s*!==\s*"buyer-workspace"/);
   assert.match(exporter, /Disallow: \/api\//);
   const publicRobots = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
+  assert.match(publicRobots, /User-agent:\s*Googlebot/i);
+  assert.match(publicRobots, /User-agent:\s*OAI-SearchBot/i);
+  assert.match(publicRobots, /User-agent:\s*ChatGPT-User/i);
   assert.match(publicRobots, /Disallow:\s*\/api\//i);
 });

@@ -13,10 +13,10 @@ export const chineseCollections: ChineseCollection[] = [
   {
     slug: "wide-toe-box",
     name: "宽鞋头系列",
-    title: "已有SKU证据的宽鞋头步行鞋",
-    description: "面向舒适鞋进口商、批发商和线上卖家的宽鞋头候选款；宽楦表述只用于已有逐款证据的产品。",
+    title: "已确认宽鞋头设计的步行鞋",
+    description: "面向舒适鞋进口商、批发商和线上卖家的宽鞋头候选款；只对资料已确认的具体款式使用宽鞋头描述。",
     buyerIntent: "希望建立差异化宽版舒适鞋产品线，并在大货前审核实物样品的B2B买家。",
-    proofBoundary: "集合归类只反映当前SKU证据，不代表所有贝强鞋款均为宽鞋头，也不构成医疗或矫形声明。",
+    proofBoundary: "本系列只包含当前资料已确认的具体款式，不代表所有贝强鞋款均为宽鞋头，也不构成医疗或矫形声明。",
   },
   {
     slug: "knit-slip-on",
