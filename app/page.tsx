@@ -6,6 +6,7 @@ import InquiryForm from "./components/InquiryForm";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import FactoryEvidenceVideo from "./components/FactoryEvidenceVideo";
+import HomepageFactoryEvidence from "./components/HomepageFactoryEvidence";
 import { collections, products } from "./data/products";
 import { factoryVideoSchema } from "./lib/factory-video-schema";
 import { trackEvent } from "./lib/tracking";
@@ -51,6 +52,7 @@ export default function Home() {
 
       <section className="section factory-home-intro">
         <div className="section-heading"><div><p className="eyebrow">START WITH THE SUPPLIER</p><h2>See how Beiqiang supports a sourcing decision.</h2></div><p>The website is a buyer workspace: it introduces the factory, helps narrow product directions and captures the details needed for a useful B2B response. It is not a retail checkout or a claim that every request is already feasible.</p></div>
+        <HomepageFactoryEvidence />
         <div className="trust-entry-grid"><Link href="/factory/"><span>01</span><h3>Factory &amp; working areas</h3><p>Review current factory footage and the project path from direction to sample discussion.</p><strong>Visit the factory page →</strong></Link><Link href="/quality-packing/"><span>02</span><h3>Checking &amp; packing</h3><p>Understand which product, assortment and carton details are confirmed for an order.</p><strong>Review quality &amp; packing →</strong></Link><Link href="/oem-odm/"><span>03</span><h3>OEM / ODM review</h3><p>Submit branding, material, color or development targets for feasibility review.</p><strong>Prepare an OEM brief →</strong></Link><Link href="/sample-order-process/"><span>04</span><h3>Sample to formal order</h3><p>Follow the decisions from shortlist and sample through confirmed commercial terms.</p><strong>See the buyer process →</strong></Link></div>
       </section>
 
