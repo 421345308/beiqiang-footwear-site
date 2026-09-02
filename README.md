@@ -38,8 +38,9 @@ npm run build
 3. Work on a `codex/*` branch, confirm Node.js `>=22.13.0`, and run `npm test` plus `npm run edgeone:build`.
 4. Review the diff for product accuracy, contact details, links, mobile behavior, SEO, and unsupported claims.
 5. Merge or push to `main`; EdgeOne deploys automatically.
-6. Verify the deployment preview and then `https://www.beiqiang.online/`, including changed pages and every contact CTA.
-7. Record the commit, deployment result, KPI hypothesis, and any follow-up in the operations archive.
+6. Run `npm run verify:deployments`. Both the formal domain and the Sites backup must report the current release ID and the full factory video plus both caption tracks.
+7. Verify the deployment preview and then `https://www.beiqiang.online/`, including changed pages and every contact CTA.
+8. Record the commit, deployment result, KPI hypothesis, and any follow-up in the operations archive.
 
 Release authorization recorded on 23 August 2026: after the automated test, EdgeOne export, lint and diff checks pass, Codex may commit and push Beiqiang website changes directly to GitHub `main` without requesting a separate approval each time. Production-domain verification and rollback discipline remain mandatory.
 
@@ -52,6 +53,8 @@ For rollback, revert the problem commit and redeploy, or select the previous suc
 - If GitHub `main` is ahead of the production `Last-Modified` value, inspect the existing project's deployment record and build log in EdgeOne. Check GitHub App/repository access, production branch `main`, root directory `edgeone-deploy`, install/build/output settings, and whether automatic production deployment is enabled.
 - Do not create a second upload-provider project or move `www.beiqiang.online` merely to bypass a failed GitHub integration. That would split deployment history, environment variables and rollback state. Any hosting migration requires an explicit cutover plan and production acceptance.
 - After recovery, verify the exact commit or deployment timestamp on the project URL and custom domain, then verify changed public pages and unauthenticated API gates. A GitHub push, green local build, CLI link, or successful environment pull is not production proof.
+- `/release.json` is the public, non-sensitive deployment fingerprint. Update `app/data/site-release.ts` for every public release that changes customer-visible capability, then run `npm run verify:deployments`. A missing or older release ID is a hard production failure even when the homepage still returns HTTP 200.
+- The parity command also requests the 180-second MP4 and both WebVTT caption tracks. It does not replace a visual page review or a real inquiry test; it prevents an old production build from being mistaken for the latest release.
 
 Incident resolved on 27 August 2026: deployments from `d06ed69` through `6387e30` were triggered correctly but failed during EdgeOne's Node Functions production bundle. `weekly-review.js` imports the analytics route implementation; both modules declared a local `onRequestGet` binding, and EdgeOne's flattened bundle rejected the duplicate symbol. Commit `8184508` keeps the analytics route's public export name while giving its local binding a unique name, and adds a regression test for this imported-route boundary. EdgeOne deployment `dpjxlgob7t83` succeeded and the custom domain reported `Last-Modified: Thu, 27 Aug 2026 10:57:53 GMT`.
 
