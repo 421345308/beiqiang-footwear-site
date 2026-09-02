@@ -42,6 +42,13 @@ test("supports a pre-submission sourcing brief print mode", () => {
   delete globalThis.window; delete globalThis.document;
 });
 
+test("supports a separate factory supplier-review print mode", () => {
+  let printed = 0; const environment = installPrintEnvironment(() => { printed += 1; });
+  printWithBodyClass("factory-review-pack-printing");
+  assert.equal(printed, 1); assert.equal(environment.classes.has("factory-review-pack-printing"), true);
+  environment.afterPrint(); assert.equal(environment.classes.has("factory-review-pack-printing"), false);
+});
+
 test("removes the print mode if the browser print call fails", () => {
   const environment = installPrintEnvironment(() => { throw new Error("print unavailable"); });
   assert.throws(() => printWithBodyClass("product-sheet-printing"), /print unavailable/); assert.equal(environment.classes.size, 0);
@@ -52,4 +59,5 @@ test("scopes product, comparison, quotation and project print CSS so ordinary pa
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(css, /body\.product-sheet-printing[^\n]+product-print-sheet/); assert.match(css, /body\.comparison-printing[^\n]+catalog-section/); assert.match(css, /body\.buyer-quotation-printing[^\n]+buyer-status-result/); assert.match(css, /body\.buyer-project-printing[^\n]+buyer-status-result/); assert.match(css, /BUYER SOURCING PROJECT SNAPSHOT/); assert.doesNotMatch(css, /\n\s*body\s*>\s*\*:not\(main\)/);
   assert.match(css, /body\.quote-brief-printing[^\n]+quote-builder-layout/); assert.match(css, /BUYER SOURCING BRIEF DRAFT/);
+  assert.match(css, /body\.factory-review-pack-printing[^\n]+factory-review-pack/); assert.match(css, /BUYING-TEAM SUPPLIER REVIEW BRIEF/);
 });

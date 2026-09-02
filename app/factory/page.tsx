@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import CapabilityPage, {
   type CapabilityPageData,
 } from "../components/CapabilityPage";
+import { productCount } from "../data/catalog-meta";
 
 export const metadata: Metadata = {
   title: "Footwear Factory in Quanzhou | Beiqiang Footwear",
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 
 const data: CapabilityPageData = {
   chineseHref: "/zh/factory/",
+  factoryReviewPackProductCount: productCount,
   eyebrow: "QUANZHOU FOOTWEAR SUPPLY",
   title: "A factory-side sourcing conversation built on visible evidence.",
   introduction:

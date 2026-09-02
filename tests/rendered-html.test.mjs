@@ -300,6 +300,8 @@ for (const [slug, expectedTitle, expectedBoundary] of [
 
 for (const [pathname, expected] of [
   ["/factory", /factory-side sourcing conversation/i],
+  ["/factory", /Bring a checkable factory brief into your sourcing meeting/i],
+  ["/zh/factory", /把一份可核对的工厂简报带进采购会议/],
   ["/quality-packing", /Make order details visible/i],
   ["/oem-odm", /confirm feasibility first/i],
   ["/sample-order-process", /order-ready specification/i],

@@ -316,6 +316,33 @@ footer a:hover { color: var(--forest); }
 .capability-closing { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 60px; }
 .capability-closing h2 { max-width: 780px; font-size: clamp(40px, 5vw, 64px); }
 .capability-closing p { max-width: 780px; color: var(--muted); line-height: 1.7; }
+.factory-review-pack { background: var(--paper-light); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.factory-review-pack-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 48px; }
+.factory-review-pack-heading h2 { max-width: 860px; margin: 10px 0 18px; font-size: clamp(38px, 4.5vw, 62px); }
+.factory-review-pack-heading > div > p:last-child { max-width: 780px; color: var(--muted); line-height: 1.7; }
+.factory-review-pack-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.factory-review-pack-actions button { padding: 13px 16px; border: 1px solid var(--forest); background: transparent; color: var(--forest); font: inherit; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.factory-review-pack-actions button:first-child { background: var(--forest); color: #fffdf8; }
+.factory-review-snapshot { display: grid; grid-template-columns: 1.25fr .75fr 1fr; margin-top: 44px; border: 1px solid var(--line); background: #fffdf8; }
+.factory-review-snapshot article { min-height: 150px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
+.factory-review-snapshot article + article { border-left: 1px solid var(--line); }
+.factory-review-snapshot small { color: var(--terracotta); font-size: 9px; font-weight: 800; letter-spacing: .13em; }
+.factory-review-snapshot strong { font-family: Georgia, serif; font-size: 23px; line-height: 1.3; }
+.factory-review-snapshot span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.factory-review-columns { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 18px; }
+.factory-review-columns article { padding: 34px 30px 38px; border: 1px solid var(--line); background: #fffdf8; }
+.factory-review-columns article + article { border-left: 0; }
+.factory-review-columns article:first-child { background: var(--forest); color: #fffdf8; }
+.factory-review-columns h3 { margin: 8px 0 22px; font-family: Georgia, serif; font-size: 26px; }
+.factory-review-columns ul { margin: 0; padding-left: 18px; }
+.factory-review-columns li { margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.factory-review-columns article:first-child li { color: #d8e2dd; }
+.factory-review-text { margin-top: 18px; border: 1px solid var(--line); background: #fffdf8; }
+.factory-review-text summary { padding: 18px 22px; color: var(--forest); font-size: 12px; font-weight: 800; cursor: pointer; }
+.factory-review-text pre { margin: 0; padding: 22px; border-top: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); font-family: inherit; font-size: 12px; line-height: 1.65; }
+.factory-review-pack-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 36px; margin-top: 18px; padding: 24px 28px; background: var(--sage); }
+.factory-review-pack-footer > p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.factory-review-pack-message { min-height: 20px; margin: 12px 0 0; color: var(--forest); font-size: 12px; font-weight: 700; }
 .trust-entry-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
 .trust-entry-grid a { min-height: 300px; padding: 34px 28px; display: flex; flex-direction: column; }
 .trust-entry-grid a + a { border-left: 1px solid var(--line); }
@@ -1880,6 +1907,10 @@ footer a:hover { color: var(--forest); }
   .capability-step-grid { grid-template-columns: repeat(2, 1fr); }
   .capability-step-grid article { border-bottom: 1px solid var(--line); }
   .capability-closing { grid-template-columns: 1fr; align-items: start; }
+  .factory-review-pack-heading, .factory-review-pack-footer { grid-template-columns: 1fr; align-items: start; }
+  .factory-review-snapshot, .factory-review-columns { grid-template-columns: 1fr; }
+  .factory-review-snapshot article + article { border-top: 1px solid var(--line); border-left: 0; }
+  .factory-review-columns article + article { border-top: 0; border-left: 1px solid var(--line); }
   .trust-entry-grid, .product-trust-strip { grid-template-columns: repeat(2, 1fr); }
   .quote-builder-layout { grid-template-columns: 1fr; }
   .status-lookup-hero { grid-template-columns: 1fr; }
@@ -1995,6 +2026,10 @@ footer a:hover { color: var(--forest); }
   .capability-gallery-lead { grid-row: auto; }
   .capability-step-grid article + article { border-left: 0; }
   .capability-checks article { padding: 56px 24px; }
+  .factory-review-pack-actions { width: 100%; }
+  .factory-review-pack-actions button { flex: 1 1 180px; }
+  .factory-review-snapshot article { min-height: 0; }
+  .factory-review-pack-footer { padding: 22px; }
   .trust-entry-grid a + a, .product-trust-strip a + a { border-left: 0; border-top: 1px solid var(--line); }
   .whatsapp-float { right: 12px; bottom: 12px; }
   .admin-header { align-items: flex-start; flex-direction: column; }
@@ -2185,6 +2220,22 @@ footer a:hover { color: var(--forest); }
   body.quote-brief-printing .quote-brief-review summary { display: none; }
   body.quote-brief-printing .quote-brief-review pre { display: block; max-height: none; padding: 0; overflow: visible; background: white; color: #17231f; font-size: 8.5pt; line-height: 1.55; }
   body.quote-brief-printing .quote-brief-review > small { display: block; margin-top: 7mm; padding-top: 4mm; border-top: 2px solid #173b32; color: #4c5c56; font-size: 8pt; }
+  body.factory-review-pack-printing > *:not(main), body.factory-review-pack-printing main > * { display: none !important; }
+  body.factory-review-pack-printing main > .factory-review-pack { display: block !important; width: 100%; margin: 0; padding: 0; border: 0; background: white; color: #17231f; }
+  body.factory-review-pack-printing .factory-review-pack::before { content: "BEIQIANG FOOTWEAR · BUYING-TEAM SUPPLIER REVIEW BRIEF"; display: block; margin-bottom: 6mm; padding-bottom: 4mm; border-bottom: 3px solid #173b32; color: #9d4e36; font-size: 9pt; font-weight: 800; letter-spacing: .11em; }
+  body.factory-review-pack-printing .factory-review-pack-heading { display: block; }
+  body.factory-review-pack-printing .factory-review-pack-heading h2 { margin: 0 0 4mm; font-size: 20pt; }
+  body.factory-review-pack-printing .factory-review-pack-heading .eyebrow, body.factory-review-pack-printing .factory-review-pack-actions, body.factory-review-pack-printing .factory-review-pack-message, body.factory-review-pack-printing .factory-review-text, body.factory-review-pack-printing .hero-actions { display: none !important; }
+  body.factory-review-pack-printing .factory-review-snapshot { display: grid; grid-template-columns: 1.25fr .75fr 1fr; margin-top: 7mm; break-inside: avoid; }
+  body.factory-review-pack-printing .factory-review-snapshot article { min-height: 29mm; padding: 4mm; }
+  body.factory-review-pack-printing .factory-review-snapshot strong { font-size: 10pt; }
+  body.factory-review-pack-printing .factory-review-snapshot span { font-size: 7pt; }
+  body.factory-review-pack-printing .factory-review-columns { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 4mm; break-inside: avoid; }
+  body.factory-review-pack-printing .factory-review-columns article { padding: 5mm; background: white !important; color: #17231f !important; print-color-adjust: exact; }
+  body.factory-review-pack-printing .factory-review-columns h3 { margin: 1mm 0 4mm; font-size: 11pt; }
+  body.factory-review-pack-printing .factory-review-columns li { margin-bottom: 2mm; color: #4c5c56 !important; font-size: 7.5pt; }
+  body.factory-review-pack-printing .factory-review-pack-footer { display: block; margin-top: 5mm; padding: 4mm; background: #eef3ef !important; print-color-adjust: exact; }
+  body.factory-review-pack-printing .factory-review-pack-footer > p { font-size: 7.5pt; }
   body.product-sheet-printing > *:not(main), body.product-sheet-printing main > *:not(.product-print-sheet) { display: none !important; }
   .product-print-sheet { position: absolute; inset: 0; display: block; width: 100%; height: 275mm; box-sizing: border-box; font-family: Arial, sans-serif; }
   .product-print-sheet header { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; padding-bottom: 14px; border-bottom: 3px solid #173b32; }

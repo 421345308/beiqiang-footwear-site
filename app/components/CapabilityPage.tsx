@@ -2,6 +2,7 @@ import Link from "next/link";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
 import FactoryEvidenceVideo from "./FactoryEvidenceVideo";
+import FactoryReviewPack from "./FactoryReviewPack";
 
 export type CapabilityPageData = {
   eyebrow: string;
@@ -23,6 +24,7 @@ export type CapabilityPageData = {
   closingTitle: string;
   closingCopy: string;
   chineseHref: string;
+  factoryReviewPackProductCount?: number;
 };
 
 export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
@@ -74,6 +76,8 @@ export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
         <article><p className="eyebrow eyebrow-light">EVIDENCE AVAILABLE</p><h2>{data.confirmedTitle}</h2><ul>{data.confirmed.map((item) => <li key={item}>{item}</li>)}</ul></article>
         <article><p className="eyebrow">ORDER-BY-ORDER CHECK</p><h2>{data.confirmTitle}</h2><ul>{data.confirm.map((item) => <li key={item}>{item}</li>)}</ul></article>
       </section>
+
+      {data.factoryReviewPackProductCount ? <FactoryReviewPack productCount={data.factoryReviewPackProductCount} /> : null}
 
       <section className="section capability-closing">
         <div><p className="eyebrow">NEXT STEP</p><h2>{data.closingTitle}</h2><p>{data.closingCopy}</p></div>

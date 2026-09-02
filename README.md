@@ -201,13 +201,15 @@ When `alibabaProductId` is present, the product inquiry area links directly to t
 
 The third development stage adds four evidence-led pages that answer the questions buyers usually ask after reviewing a product:
 
-- `/factory/`: verified workshop evidence and the factory-side sourcing path.
+- `/factory/`: verified workshop evidence, the factory-side sourcing path and a bilingual buying-team supplier-review brief that can be copied or printed/saved as PDF.
 - `/quality-packing/`: real checking, sorting and carton-preparation evidence plus order-specific confirmation items.
 - `/oem-odm/`: base-style and development-brief paths with customization feasibility checked before commitment.
 - `/sample-order-process/`: shortlist, specification, sample, bulk-confirmation, checking, packing and shipment-coordination decisions.
 - `/buyer-guide/`: complete buyer decision path, trade-term starting points, freight-data checklist and transaction safety boundaries.
 
 These routes are linked from the global navigation, homepage and every product detail page. `scripts/export-edgeone-static.mjs` exports them and adds them to the sitemap. Keep the pages evidence-led: never add unverified capacity, certificates, customer brands, fixed commercial terms, or unconditional customization promises.
+
+The factory supplier-review brief is generated from the current catalogue count and conservative public company facts. Copying or printing happens only in the buyer's browser and does not create an inquiry or analytics event. The brief is not a third-party audit, certificate, capacity proof, quotation, stock or sample confirmation, contract, order or payment request; named company, compliance and test documents remain subject to project-by-project review.
 
 When adding factory evidence, copy only reviewed source files from `01_产品资产/02_可发布素材/00_最终上传/00_厂家资料/00_精选可用照片/` into `public/factory/`. Do not publish the archive previews or contact-card images from `99_归档参考/`.
 
