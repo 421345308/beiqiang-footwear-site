@@ -5,10 +5,10 @@ import { sourcingPrograms } from "./data/sourcing-programs";
 
 const origin = "https://www.beiqiang.online";
 const factoryVideo = {
-  thumbnail: `${origin}/videos/beiqiang-factory-proof-poster.jpg`,
-  content: `${origin}/videos/beiqiang-factory-proof.mp4`,
-  publicationDate: "2026-08-28T00:00:00+08:00",
-  duration: 35,
+  thumbnail: `${origin}/videos/beiqiang-factory-tour-poster.jpg`,
+  content: `${origin}/videos/beiqiang-factory-tour.mp4`,
+  publicationDate: "2026-09-03T00:00:00+08:00",
+  duration: 180,
 };
 
 function absolute(route: string) {
@@ -114,8 +114,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
                   : "Beiqiang footwear working-area and product-handling footage",
                 thumbnail_loc: factoryVideo.thumbnail,
                 description: isChinese
-                  ? "展示贝强鞋业工作区域、鞋品整理、检查与包装准备的35秒实拍视频。"
-                  : "A 35-second view of Beiqiang Footwear working areas, shoe handling, checking and packing preparation in Quanzhou, China.",
+                  ? "展示贝强鞋业场地外景、材料准备、鞋面车缝、生产线处理、鞋品检查与包装准备的3分钟无声实拍视频。"
+                  : "A three-minute silent tour of Beiqiang Footwear showing material preparation, upper stitching, line handling, shoe checking and packing preparation in Quanzhou, China.",
                 content_loc: factoryVideo.content,
                 duration: factoryVideo.duration,
                 publication_date: factoryVideo.publicationDate,

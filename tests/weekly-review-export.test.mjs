@@ -55,6 +55,9 @@ const analytics = {
   },
   salesExecution: execution,
   supporting: {
+    whatsappClicks: 5,
+    emailClicks: 3,
+    contextualContactClicks: 6,
     resourceViews: 4,
     resourceProductOpens: 2,
     resourceCtas: 1,
@@ -190,6 +193,9 @@ test("exports a Chinese weekly report with evidence and non-prediction boundarie
     /BQ001 · BQ009：2次分享动作、1次分享链接打开、1次打印\/PDF动作/,
   );
   assert.match(report, /采购会议执行证据/);
+  assert.match(report, /联系意向/);
+  assert.match(report, /WhatsApp入口打开：5；Email入口打开：3；情境联系入口点击：6/);
+  assert.match(report, /点击不等于已发消息、已回复、询盘、报价或订单/);
   assert.match(report, /日历文件下载：2次，覆盖1个项目/);
   assert.match(report, /会议变更申请：2；当前待审核：1；已批准：1/);
   assert.match(report, /BQ009：8次产品查看/);

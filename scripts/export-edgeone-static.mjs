@@ -6,10 +6,10 @@ const outputRoot = resolve(projectRoot, "edgeone-export-v1");
 const clientRoot = resolve(projectRoot, "dist", "client");
 const siteOrigin = "https://www.beiqiang.online";
 const factoryVideo = {
-  thumbnail: `${siteOrigin}/videos/beiqiang-factory-proof-poster.jpg`,
-  content: `${siteOrigin}/videos/beiqiang-factory-proof.mp4`,
-  publicationDate: "2026-08-28T00:00:00+08:00",
-  duration: 35,
+  thumbnail: `${siteOrigin}/videos/beiqiang-factory-tour-poster.jpg`,
+  content: `${siteOrigin}/videos/beiqiang-factory-tour.mp4`,
+  publicationDate: "2026-09-03T00:00:00+08:00",
+  duration: 180,
 };
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("edgeone-export", `${process.pid}-${Date.now()}`);
@@ -164,7 +164,7 @@ const renderSitemapUrl = (url) => {
     ? (productImages.get(productMatch[1]) || []).map((image) => `<image:image><image:loc>${escapeXml(image)}</image:loc></image:image>`)
     : [];
   const video = isFactory
-    ? [`<video:video><video:thumbnail_loc>${factoryVideo.thumbnail}</video:thumbnail_loc><video:title>${escapeXml(isChinese ? "贝强鞋业工厂工作区域与鞋类生产流程实拍" : "Beiqiang footwear factory and production workflow footage")}</video:title><video:description>${escapeXml(isChinese ? "展示贝强鞋业工作区域、鞋类生产、检查与包装环节的35秒实拍视频。" : "A 35-second view of Beiqiang Footwear working areas, footwear production, checking and packing in Quanzhou, China.")}</video:description><video:content_loc>${factoryVideo.content}</video:content_loc><video:duration>${factoryVideo.duration}</video:duration><video:publication_date>${factoryVideo.publicationDate}</video:publication_date><video:family_friendly>yes</video:family_friendly><video:requires_subscription>no</video:requires_subscription><video:live>no</video:live></video:video>`]
+    ? [`<video:video><video:thumbnail_loc>${factoryVideo.thumbnail}</video:thumbnail_loc><video:title>${escapeXml(isChinese ? "贝强鞋业工厂工作区域与鞋类生产流程实拍" : "Beiqiang footwear factory and production workflow footage")}</video:title><video:description>${escapeXml(isChinese ? "展示贝强鞋业场地外景、材料准备、鞋面车缝、生产线处理、鞋品检查与包装准备的3分钟无声实拍视频。" : "A three-minute silent tour of Beiqiang Footwear showing material preparation, upper stitching, line handling, shoe checking and packing preparation in Quanzhou, China.")}</video:description><video:content_loc>${factoryVideo.content}</video:content_loc><video:duration>${factoryVideo.duration}</video:duration><video:publication_date>${factoryVideo.publicationDate}</video:publication_date><video:family_friendly>yes</video:family_friendly><video:requires_subscription>no</video:requires_subscription><video:live>no</video:live></video:video>`]
     : [];
   return `  <url><loc>${siteOrigin}${url.path}</loc>${[...alternates, ...images, ...video].join("")}<changefreq>${url.frequency}</changefreq><priority>${url.priority}</priority></url>`;
 };

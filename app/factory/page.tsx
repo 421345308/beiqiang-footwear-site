@@ -32,19 +32,19 @@ const data: CapabilityPageData = {
     "These images come from Beiqiang's verified company material library. They show working areas, footwear handling and carton preparation without unsupported scale or customer-brand claims.",
   images: [
     {
-      src: "/factory/workshop.png",
-      alt: "Beiqiang footwear workshop area in Quanzhou",
-      caption: "Workshop area",
+      src: "/factory-video-stills/factory-exterior.webp",
+      alt: "Exterior of the Beiqiang Footwear working site in Quanzhou",
+      caption: "Quanzhou working site",
     },
     {
-      src: "/factory/workshop-line.png",
-      alt: "Footwear workshop line and working tables",
-      caption: "Working line",
+      src: "/factory-video-stills/stitching-line.webp",
+      alt: "Footwear upper stitching stations in the Beiqiang working area",
+      caption: "Upper stitching stations",
     },
     {
-      src: "/factory/workshop-area.png",
-      alt: "Additional footwear workshop area",
-      caption: "Factory workspace",
+      src: "/factory-video-stills/materials-storage.webp",
+      alt: "Organized finished-shoe storage and order staging area",
+      caption: "Finished-shoe storage",
     },
   ],
   evidenceVideo: true,

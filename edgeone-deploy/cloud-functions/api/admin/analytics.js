@@ -326,6 +326,32 @@ export function buildCommercialAnalytics(
   );
   const countEvent = (name) =>
     periodEvents.filter((event) => event.event === name).length;
+  const contextualContactEvents = periodEvents.filter(
+    (event) =>
+      ["whatsapp_click", "email_click"].includes(event.event) &&
+      event.details?.linkType === "context_dock",
+  );
+  const contactPageMap = new Map();
+  contextualContactEvents.forEach((event) => {
+    const page = String(event.page || "").split(/[?#]/, 1)[0].slice(0, 180);
+    if (!page.startsWith("/") || /^(?:\/zh)?\/(?:admin|buyer-workspace|inquiry-status|request-quote)(?:\/|$)/.test(page)) return;
+    const current = contactPageMap.get(page) || { page, whatsapp: 0, email: 0, total: 0 };
+    if (event.event === "whatsapp_click") current.whatsapp += 1;
+    if (event.event === "email_click") current.email += 1;
+    current.total += 1;
+    contactPageMap.set(page, current);
+  });
+  const contactInterest = {
+    whatsappClicks: countEvent("whatsapp_click"),
+    emailClicks: countEvent("email_click"),
+    contextualClicks: contextualContactEvents.length,
+    contextualWhatsappClicks: contextualContactEvents.filter((event) => event.event === "whatsapp_click").length,
+    contextualEmailClicks: contextualContactEvents.filter((event) => event.event === "email_click").length,
+    pages: [...contactPageMap.values()]
+      .sort((a, b) => b.total - a.total || b.whatsapp - a.whatsapp || a.page.localeCompare(b.page))
+      .slice(0, 12),
+    definition: "Consent-based contact clicks show intent to open WhatsApp or email, not a sent message, buyer identity, reply, inquiry, quotation or order.",
+  };
   const successfulQuoteAdds = periodEvents.filter(
     (event) =>
       event.event === "quote_list_add" && event.details?.inserted !== false,
@@ -723,11 +749,15 @@ export function buildCommercialAnalytics(
         "Website marketing-event counts include only visitors who accepted optional first-party analytics. Buyer-workspace operational events are recorded as necessary service and security activity with hashed identifiers. Inquiry stages are the current state of business inquiries received within the selected period; line-sheet leads are reported separately.",
     },
     funnel,
+    contactInterest,
     salesExecution,
     workspace,
     supporting: {
       mobileMenuOpens: countEvent("mobile_nav_open"),
       mobileMenuLinks: countEvent("mobile_nav_link"),
+      whatsappClicks: contactInterest.whatsappClicks,
+      emailClicks: contactInterest.emailClicks,
+      contextualContactClicks: contactInterest.contextualClicks,
       sourcingProgramViews: countEvent("sourcing_program_view"),
       sourcingProgramCtas: countEvent("sourcing_program_cta"),
       resourceViews: countEvent("resource_view"),

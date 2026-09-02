@@ -79,6 +79,9 @@ export type WeeklyReviewAnalytics = {
   };
   salesExecution: WeeklySalesExecution;
   supporting?: {
+    whatsappClicks?: number;
+    emailClicks?: number;
+    contextualContactClicks?: number;
     resourceViews?: number;
     resourceProductOpens?: number;
     resourceCtas?: number;
@@ -309,6 +312,7 @@ export function buildWeeklyReviewMarkdown({
     "",
     "## 产品组合分享证据",
     `- 分享动作：${analytics.supporting?.comparisonShares || 0}；分享链接打开：${analytics.supporting?.comparisonOpens || 0}。`,
+    `- 联系意向：WhatsApp入口打开：${analytics.supporting?.whatsappClicks || 0}；Email入口打开：${analytics.supporting?.emailClicks || 0}；情境联系入口点击：${analytics.supporting?.contextualContactClicks || 0}。点击不等于已发消息、已回复、询盘、报价或订单。`,
     ...comparisonEvidence(analytics.comparisonJourneys),
     "",
     "## 私标概念到询价",
