@@ -1653,7 +1653,14 @@ footer a:hover { color: var(--forest); }
 .quote-draft-notice strong { color: white; font-size: 12px; }
 .quote-draft-notice span { color: #bfd0c9; font-size: 10px; line-height: 1.5; }
 .quote-draft-notice button { padding: 9px 11px; border: 1px solid rgba(255,255,255,.3); background: transparent; color: white; cursor: pointer; font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.quote-list-share { margin: 0 0 22px; padding: 15px 16px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px 16px; border: 1px solid var(--line); background: #f7f5ef; }
+.quote-list-share > div { display: grid; gap: 4px; }
+.quote-list-share strong { color: var(--forest); font-size: 12px; }
+.quote-list-share span, .quote-list-share p { color: var(--muted); font-size: 10px; line-height: 1.5; }
+.quote-list-share button { padding: 9px 11px; border: 1px solid var(--forest); background: transparent; color: var(--forest); cursor: pointer; font-size: 9px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+.quote-list-share p { grid-column: 1 / -1; min-height: 15px; margin: 0; }
 @media (max-width: 620px) { .quote-draft-notice { grid-template-columns: 1fr; } .quote-draft-notice button { width: 100%; } }
+@media (max-width: 620px) { .quote-list-share { grid-template-columns: 1fr; } .quote-list-share button { width: 100%; } }
 
 /* Sales-curated product shortlist */
 .admin-product-recommendation { border-top: 1px solid var(--line); background: #f3f6f3; }

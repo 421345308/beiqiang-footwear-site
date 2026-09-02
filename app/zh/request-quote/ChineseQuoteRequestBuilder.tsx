@@ -10,6 +10,7 @@ import ContactPreferenceFields, {
 } from "../../components/ContactPreferenceFields";
 import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../../components/AdaptationBriefFields";
 import BuyerQuoteReadiness from "../../components/BuyerQuoteReadiness";
+import QuoteListShare from "../../components/QuoteListShare";
 import { productNameZh } from "../../data/products-zh";
 import { products } from "../../data/products";
 import { getAttribution, trackEvent } from "../../lib/tracking";
@@ -22,6 +23,7 @@ import { assessBuyerQuoteReadiness } from "../../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../../lib/product-finder-brief";
 import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../../lib/quote-request-draft";
+import { mergeSharedQuoteList, parseSharedQuoteCodes } from "../../lib/quote-list-share";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -57,6 +59,7 @@ export default function ChineseQuoteRequestBuilder() {
   const [consent, setConsent] = useState(false);
   const [draftReady, setDraftReady] = useState(false);
   const [draftMessage, setDraftMessage] = useState("");
+  const [shareImportMessage, setShareImportMessage] = useState("");
   const [status, setStatus] = useState<Status>({
     kind: "idle",
     message: "询价单将作为一条完整采购需求保存，并生成询盘编号和私密查询码。",
@@ -82,8 +85,21 @@ export default function ChineseQuoteRequestBuilder() {
     const requestedResource = params.get("resource") || "";
     const requestedPath = params.get("path");
     const requestedConcept = params.get("concept") === "1";
+    const sharedShortlist = params.get("shortlist");
     const timer = window.setTimeout(() => {
-      setLines(readQuoteList());
+      const currentLines = readQuoteList();
+      if (sharedShortlist !== null) {
+        const codes = parseSharedQuoteCodes(sharedShortlist, products.map((product) => product.code));
+        const merged = mergeSharedQuoteList(currentLines, codes, products);
+        setLines(merged.lines);
+        if (merged.imported) saveQuoteList(merged.lines);
+        setShareImportMessage(codes.length
+          ? (merged.imported ? `已导入${merged.imported}款共享产品；原有单款资料保持不变。` : "没有新增款式：产品已在清单中，或当前询价单已满12款。")
+          : "该共享链接没有包含有效的目录款号。");
+        const cleanUrl = new URL(window.location.href);
+        cleanUrl.searchParams.delete("shortlist");
+        window.history.replaceState({}, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
+      } else setLines(currentLines);
       const savedDraft = readQuoteRequestDraft();
       if (savedDraft) {
         applyDraft(savedDraft);
@@ -316,6 +332,7 @@ export default function ChineseQuoteRequestBuilder() {
               浏览全部产品 →
             </Link>
           </div>
+          <QuoteListShare lines={lines} locale="zh" importMessage={shareImportMessage} />
           {lines.length ? (
             lines.map((line, index) => {
               const product = products.find((item) => item.code === line.code);

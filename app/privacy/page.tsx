@@ -174,6 +174,13 @@ export default function PrivacyPage() {
             successful submission, can be cleared from the form and ends with
             the browser-tab session. Consent, anti-spam fields and private
             inquiry access codes are not included in that draft. A
+            buyer can create a team-review link for a quote shortlist. That
+            link contains only up to 12 valid catalogue style codes. It does
+            not include per-style quantities, colors, sizes, notes, price,
+            contact, company, project or access-code data. Opening the link
+            merges valid styles into the recipient&apos;s device shortlist without
+            overwriting existing line details; the shortlist parameter is then
+            removed from the visible browser address. A
             buyer-workspace session token is stored only in browser session
             storage and is removed when you close the workspace, clear site data
             or the browser session ends. Do not use a shared device for

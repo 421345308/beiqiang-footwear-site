@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { products } from "../data/products";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import {
   readQuoteList,
@@ -15,10 +16,12 @@ import ContactPreferenceFields, {
 } from "../components/ContactPreferenceFields";
 import AdaptationBriefFields, { EMPTY_ADAPTATION_BRIEF, type AdaptationBrief } from "../components/AdaptationBriefFields";
 import BuyerQuoteReadiness from "../components/BuyerQuoteReadiness";
+import QuoteListShare from "../components/QuoteListShare";
 import { assessBuyerQuoteReadiness } from "../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../lib/product-finder-brief";
 import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../lib/quote-request-draft";
+import { mergeSharedQuoteList, parseSharedQuoteCodes } from "../lib/quote-list-share";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -54,6 +57,7 @@ export default function QuoteRequestBuilder() {
   const [consent, setConsent] = useState(false);
   const [draftReady, setDraftReady] = useState(false);
   const [draftMessage, setDraftMessage] = useState("");
+  const [shareImportMessage, setShareImportMessage] = useState("");
   const [status, setStatus] = useState<Status>({
     kind: "idle",
     message:
@@ -80,8 +84,21 @@ export default function QuoteRequestBuilder() {
     const requestedResource = params.get("resource") || "";
     const requestedPath = params.get("path");
     const requestedConcept = params.get("concept") === "1";
+    const sharedShortlist = params.get("shortlist");
     const timer = window.setTimeout(() => {
-      setLines(readQuoteList());
+      const currentLines = readQuoteList();
+      if (sharedShortlist !== null) {
+        const codes = parseSharedQuoteCodes(sharedShortlist, products.map((product) => product.code));
+        const merged = mergeSharedQuoteList(currentLines, codes, products);
+        setLines(merged.lines);
+        if (merged.imported) saveQuoteList(merged.lines);
+        setShareImportMessage(codes.length
+          ? (merged.imported ? `Imported ${merged.imported} shared style${merged.imported === 1 ? "" : "s"}; existing line details were preserved.` : "No new styles were imported; they are already listed or this quote list is full.")
+          : "This shared link did not contain a valid catalogue style.");
+        const cleanUrl = new URL(window.location.href);
+        cleanUrl.searchParams.delete("shortlist");
+        window.history.replaceState({}, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
+      } else setLines(currentLines);
       const savedDraft = readQuoteRequestDraft();
       if (savedDraft) {
         applyDraft(savedDraft);
@@ -329,6 +346,7 @@ export default function QuoteRequestBuilder() {
               Browse all products <span aria-hidden="true">→</span>
             </Link>
           </div>
+          <QuoteListShare lines={lines} importMessage={shareImportMessage} />
           {lines.length ? (
             lines.map((line, index) => (
               <article className="quote-line" key={line.code}>
