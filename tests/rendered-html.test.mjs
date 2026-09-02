@@ -115,12 +115,16 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?56/i);
   assert.match(html, /Show more products/i);
   assert.match(html, /Browse all\s*(?:<!-- -->)?56(?:<!-- -->)?\s*current product codes/i);
+  assert.match(html, /Upper[\s\S]*Knitted textile upper/i);
+  assert.match(html, /Sole[\s\S]*EVA/i);
+  assert.match(html, /Product views[\s\S]*6(?:<!-- -->)? images/i);
   assert.match(html, /BQ001/);
   assert.match(html, /BQ030/);
   assert.match(html, /BQ031/);
   assert.match(html, /BQ061/);
   assert.doesNotMatch(html, /Tier [A-E]/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
+  assert.doesNotMatch(html, /INTERNAL SOURCING REVIEW|Evidence-led highlights/i);
 });
 
 test("server-renders the gated current line-sheet lead path", async () => {

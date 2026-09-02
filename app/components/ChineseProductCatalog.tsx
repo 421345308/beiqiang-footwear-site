@@ -242,7 +242,7 @@ export default function ChineseProductCatalog({
           aria-label="已选产品比较"
         >
           <header className="comparison-print-header">
-            <p>贝强鞋业 · 内部采购审核</p>
+            <p>贝强鞋业 · 买家产品评审</p>
             <h1>产品比较候选清单</h1>
             <span>
               已选款号：{compared.map((product) => product.code).join(" · ")}
@@ -251,8 +251,8 @@ export default function ChineseProductCatalog({
           <div className="comparison-heading">
             <div>
               <p className="eyebrow">采购选款</p>
-              <h2>比较已确认事实与报价前待确认项</h2>
-              <p>不根据外观推断材质、宽度、销量或医疗效果。</p>
+              <h2>比较产品信息与具体订单确认项</h2>
+              <p>先用现有产品资料筛选候选款；数量、颜色、材料执行和时间等信息按您的具体需求确认。</p>
             </div>
             <div>
               <button
@@ -348,7 +348,7 @@ export default function ChineseProductCatalog({
                   ))}
                 </tr>
                 <tr className="comparison-review-row">
-                  <th>内部决定</th>
+                  <th>选款意见</th>
                   {compared.map((product) => (
                     <td key={product.code}>
                       □ 首选
@@ -367,7 +367,7 @@ export default function ChineseProductCatalog({
               www.beiqiang.online
             </span>
             <p>
-              仅供内部采购审核。本清单不是报价、采购订单、合同、Trade
+              本清单用于买家选款评审，不是报价、采购订单、合同、Trade
               Assurance订单、付款请求或生产授权。最终规格、数量、尺码配比、包装、价格、贸易条款、付款与交付必须以正式书面文件为准。
             </p>
           </footer>

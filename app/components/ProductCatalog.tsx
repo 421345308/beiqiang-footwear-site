@@ -245,7 +245,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
           aria-label="Selected product comparison"
         >
           <header className="comparison-print-header">
-            <p>BEIQIANG FOOTWEAR · INTERNAL SOURCING REVIEW</p>
+            <p>BEIQIANG FOOTWEAR · BUYER PRODUCT REVIEW</p>
             <h1>Product comparison shortlist</h1>
             <span>
               Selected styles:{" "}
@@ -255,10 +255,11 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
           <div className="comparison-heading">
             <div>
               <p className="eyebrow">BUYER SHORTLIST</p>
-              <h2>Compare verified facts and open confirmations</h2>
+              <h2>Compare product information and order-specific checks</h2>
               <p>
-                Unknown materials or terms stay marked for confirmation. This
-                table does not infer quality, sales rank or medical benefit.
+                Use the available product details to select candidates. Items
+                that depend on quantity, color, material execution or timing
+                are confirmed for your specific request.
               </p>
             </div>
             <div>
@@ -347,7 +348,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                   ))}
                 </tr>
                 <tr>
-                  <th>Evidence-led highlights</th>
+                  <th>Product highlights</th>
                   {compared.map((product) => (
                     <td key={product.code}>
                       <ul>
@@ -371,7 +372,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                   ))}
                 </tr>
                 <tr className="comparison-review-row">
-                  <th>Internal decision</th>
+                  <th>Selection note</th>
                   {compared.map((product) => (
                     <td key={product.code}>
                       □ Preferred
@@ -390,7 +391,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
               www.beiqiang.online
             </span>
             <p>
-              Internal sourcing review only. This sheet is not a quotation,
+              Buyer product review only. This sheet is not a quotation,
               purchase order, contract, Trade Assurance order, payment request
               or production authorization. Confirm final specifications,
               quantity, size ratio, packing, price, trade term, payment and
