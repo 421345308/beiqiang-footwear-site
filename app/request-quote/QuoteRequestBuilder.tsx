@@ -18,6 +18,7 @@ import BuyerQuoteReadiness from "../components/BuyerQuoteReadiness";
 import { assessBuyerQuoteReadiness } from "../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../lib/product-finder-brief";
+import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../lib/quote-request-draft";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -51,6 +52,8 @@ export default function QuoteRequestBuilder() {
   const [finderBrief, setFinderBrief] = useState<ProductFinderBrief | null>(null);
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
+  const [draftReady, setDraftReady] = useState(false);
+  const [draftMessage, setDraftMessage] = useState("");
   const [status, setStatus] = useState<Status>({
     kind: "idle",
     message:
@@ -62,6 +65,13 @@ export default function QuoteRequestBuilder() {
   } | null>(null);
   const startedAt = useRef(0);
 
+  function applyDraft(draft: QuoteRequestDraft) {
+    setName(draft.name); setCompany(draft.company); setBuyerType(draft.buyerType); setMarket(draft.market); setChannel(draft.channel); setEmail(draft.email); setWhatsapp(draft.whatsapp);
+    setContactPreferences(draft.contactPreferences); setProjectPath(draft.projectPath); setSampleQuantity(draft.sampleQuantity); setBulkQuantity(draft.bulkQuantity); setPreferredTradeTerm(draft.preferredTradeTerm);
+    setDeliveryDestination(draft.deliveryDestination); setDeliveryTiming(draft.deliveryTiming); setExistingSole(draft.existingSole); setChangesRequired(draft.changesRequired); setTargetValues(draft.targetValues);
+    setNdaRequired(draft.ndaRequired); setRequirements(draft.requirements); setAdaptationBrief(draft.adaptationBrief); setSourcingProgram(draft.sourcingProgram);
+  }
+
   useEffect(() => {
     startedAt.current = Date.now();
     trackEvent("quote_builder_view");
@@ -72,6 +82,11 @@ export default function QuoteRequestBuilder() {
     const requestedConcept = params.get("concept") === "1";
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
+      const savedDraft = readQuoteRequestDraft();
+      if (savedDraft) {
+        applyDraft(savedDraft);
+        setDraftMessage("Unsubmitted form fields were restored in this browser tab.");
+      }
       const savedFinderBrief = readProductFinderBrief();
       if (savedFinderBrief?.mode === "matched_shortlist") {
         setFinderBrief(savedFinderBrief);
@@ -96,9 +111,20 @@ export default function QuoteRequestBuilder() {
           setRequirements((current) => current || `Buyer prepared a private-label concept for ${concept.styleCode}. The visual is retained by the buyer and remains a target pending factory feasibility and sample review.${concept.notes ? ` Notes: ${concept.notes}` : ""}`.slice(0, 1000));
         }
       }
+      setDraftReady(true);
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!draftReady || accessDetails) return;
+    const timer = window.setTimeout(() => saveQuoteRequestDraft({ name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram }), 250);
+    return () => window.clearTimeout(timer);
+  }, [draftReady, accessDetails, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram]);
+
+  function clearLocalDraft() {
+    clearQuoteRequestDraft(); applyDraft(EMPTY_QUOTE_REQUEST_DRAFT); setDraftMessage("Saved form fields were cleared. Your selected product list is unchanged.");
+  }
 
   function updateLine(index: number, field: keyof QuoteLine, value: string) {
     const next = lines.map((line, lineIndex) =>
@@ -256,6 +282,8 @@ export default function QuoteRequestBuilder() {
         projectPath,
       });
       saveQuoteList([]);
+      clearQuoteRequestDraft();
+      setDraftMessage("The temporary form draft was cleared after successful submission.");
       clearProductFinderBrief();
       setFinderBrief(null);
       setLines([]);
@@ -399,6 +427,7 @@ export default function QuoteRequestBuilder() {
             )}
           </div>
           <BuyerQuoteReadiness readiness={quoteReadiness} />
+          <div className="quote-draft-notice"><p><strong>{draftMessage || "Draft protection is active in this tab."}</strong><span>Unsubmitted form fields stay in this browser tab only, are not sent to Beiqiang, and are cleared after successful submission or when the tab session ends.</span></p><button type="button" onClick={clearLocalDraft}>Clear saved form fields</button></div>
           {finderBrief && (() => {
             const labels = finderBriefLabels(finderBrief);
             return <section className="finder-brief-handoff" aria-label="Imported product finder brief">

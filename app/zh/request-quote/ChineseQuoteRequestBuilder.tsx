@@ -21,6 +21,7 @@ import {
 import { assessBuyerQuoteReadiness } from "../../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../../lib/product-finder-brief";
+import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../../lib/quote-request-draft";
 
 type Status = {
   kind: "idle" | "sending" | "success" | "error";
@@ -54,6 +55,8 @@ export default function ChineseQuoteRequestBuilder() {
   const [finderBrief, setFinderBrief] = useState<ProductFinderBrief | null>(null);
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
+  const [draftReady, setDraftReady] = useState(false);
+  const [draftMessage, setDraftMessage] = useState("");
   const [status, setStatus] = useState<Status>({
     kind: "idle",
     message: "询价单将作为一条完整采购需求保存，并生成询盘编号和私密查询码。",
@@ -63,6 +66,13 @@ export default function ChineseQuoteRequestBuilder() {
     accessCode: string;
   } | null>(null);
   const startedAt = useRef(0);
+
+  function applyDraft(draft: QuoteRequestDraft) {
+    setName(draft.name); setCompany(draft.company); setBuyerType(draft.buyerType); setMarket(draft.market); setChannel(draft.channel); setEmail(draft.email); setWhatsapp(draft.whatsapp);
+    setContactPreferences(draft.contactPreferences); setProjectPath(draft.projectPath); setSampleQuantity(draft.sampleQuantity); setBulkQuantity(draft.bulkQuantity); setPreferredTradeTerm(draft.preferredTradeTerm);
+    setDeliveryDestination(draft.deliveryDestination); setDeliveryTiming(draft.deliveryTiming); setExistingSole(draft.existingSole); setChangesRequired(draft.changesRequired); setTargetValues(draft.targetValues);
+    setNdaRequired(draft.ndaRequired); setRequirements(draft.requirements); setAdaptationBrief(draft.adaptationBrief); setSourcingProgram(draft.sourcingProgram);
+  }
 
   useEffect(() => {
     startedAt.current = Date.now();
@@ -74,6 +84,11 @@ export default function ChineseQuoteRequestBuilder() {
     const requestedConcept = params.get("concept") === "1";
     const timer = window.setTimeout(() => {
       setLines(readQuoteList());
+      const savedDraft = readQuoteRequestDraft();
+      if (savedDraft) {
+        applyDraft(savedDraft);
+        setDraftMessage("已恢复本浏览器标签页中尚未提交的表单内容。");
+      }
       const savedFinderBrief = readProductFinderBrief();
       if (savedFinderBrief?.mode === "matched_shortlist") {
         setFinderBrief(savedFinderBrief);
@@ -98,9 +113,20 @@ export default function ChineseQuoteRequestBuilder() {
           setRequirements((current) => current || `买家已为${concept.styleCode}制作私标概念图；视觉文件由买家保留，所有内容仍是待工厂可行性与样品审核的目标。${concept.notes ? `说明：${concept.notes}` : ""}`.slice(0, 1000));
         }
       }
+      setDraftReady(true);
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!draftReady || accessDetails) return;
+    const timer = window.setTimeout(() => saveQuoteRequestDraft({ name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram }), 250);
+    return () => window.clearTimeout(timer);
+  }, [draftReady, accessDetails, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram]);
+
+  function clearLocalDraft() {
+    clearQuoteRequestDraft(); applyDraft(EMPTY_QUOTE_REQUEST_DRAFT); setDraftMessage("已清除暂存表单内容；已选择的产品清单保持不变。");
+  }
   const technical = projectPath === "technical_development";
   const totalQuantity = useMemo(
     () =>
@@ -247,6 +273,8 @@ export default function ChineseQuoteRequestBuilder() {
         context: "quote_builder_zh",
       });
       saveQuoteList([]);
+      clearQuoteRequestDraft();
+      setDraftMessage("提交成功后，临时表单草稿已清除。");
       clearProductFinderBrief();
       setFinderBrief(null);
       setLines([]);
@@ -388,6 +416,7 @@ export default function ChineseQuoteRequestBuilder() {
             )}
           </div>
           <BuyerQuoteReadiness readiness={quoteReadiness} />
+          <div className="quote-draft-notice"><p><strong>{draftMessage || "当前标签页已开启草稿保护。"}</strong><span>未提交的表单内容只暂存在本浏览器标签页，不会发送给贝强；提交成功或标签页会话结束后清除。</span></p><button type="button" onClick={clearLocalDraft}>清除暂存表单</button></div>
           {finderBrief && (() => {
             const labels = finderBriefLabels(finderBrief, "zh");
             return <section className="finder-brief-handoff" aria-label="从采购选款助手带入的需求">

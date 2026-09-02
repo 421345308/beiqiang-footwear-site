@@ -1648,6 +1648,12 @@ footer a:hover { color: var(--forest); }
 .sourcing-program-close > div:last-child { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
 .sourcing-program-close a:not(.button) { color: white; font-weight: 900; }
 .quote-program-origin { margin: 12px 0 0; color: #d8e4de; font-size: 12px; font-weight: 800; text-transform: capitalize; }
+.quote-draft-notice { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px; margin: 16px 0 0; padding: 14px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.07); }
+.quote-draft-notice p { display: grid; gap: 4px; margin: 0; }
+.quote-draft-notice strong { color: white; font-size: 12px; }
+.quote-draft-notice span { color: #bfd0c9; font-size: 10px; line-height: 1.5; }
+.quote-draft-notice button { padding: 9px 11px; border: 1px solid rgba(255,255,255,.3); background: transparent; color: white; cursor: pointer; font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 620px) { .quote-draft-notice { grid-template-columns: 1fr; } .quote-draft-notice button { width: 100%; } }
 
 /* Sales-curated product shortlist */
 .admin-product-recommendation { border-top: 1px solid var(--line); background: #f3f6f3; }

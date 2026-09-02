@@ -68,6 +68,8 @@ test("supports a Chinese multi-style sourcing brief without a retail checkout", 
   assert.match(html, /现有款调整简报/);
   assert.match(html, /Logo \/ 图稿准备状态/);
   assert.match(html, /以上均为买家目标/);
+  assert.match(html, /当前标签页已开启草稿保护/);
+  assert.match(html, /不会发送给贝强/);
   assert.doesNotMatch(html, /立即付款|信用卡结账|一键下单/);
 });
 
@@ -164,6 +166,8 @@ test("publishes Chinese privacy and terms boundaries", async () => {
   assert.match(privacyHtml, /B2B采购选款助手/);
   assert.match(privacyHtml, /不会把具体选择标签保存成买家画像/);
   assert.match(privacyHtml, /采购会议申请/);
+  assert.match(privacyHtml, /浏览器标签页中的询价草稿/);
+  assert.match(privacyHtml, /正式点击提交前不会发送给贝强/);
   assert.match(privacyHtml, /不会自动建立日历预约/);
   assert.match(privacyHtml, /不证明消息送达、邮件打开、身份、同意、付款或订单/);
   const terms = await render("/zh/terms");

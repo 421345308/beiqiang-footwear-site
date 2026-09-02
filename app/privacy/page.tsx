@@ -167,6 +167,13 @@ export default function PrivacyPage() {
           <p>
             The quote shortlist and most recent inquiry access values may be
             stored on your device so you can continue the request. A
+            multi-style quote form also keeps an unfinished, bounded draft in
+            the current browser tab so accidental refresh or navigation does
+            not erase buyer, project, shipping or technical fields. That draft
+            is not sent to Beiqiang until you submit the form, is cleared after
+            successful submission, can be cleared from the form and ends with
+            the browser-tab session. Consent, anti-spam fields and private
+            inquiry access codes are not included in that draft. A
             buyer-workspace session token is stored only in browser session
             storage and is removed when you close the workspace, clear site data
             or the browser session ends. Do not use a shared device for
