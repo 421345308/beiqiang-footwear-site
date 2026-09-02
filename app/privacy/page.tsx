@@ -35,7 +35,8 @@ export default function PrivacyPage() {
           <h2>What we collect</h2>
           <p>
             When you request the line sheet or submit a B2B inquiry, we collect
-            the contact, company, market, product direction, quantity,
+            the contact, company, market, product direction, quantity, optional
+            buyer target cost or price direction,
             requirements and consent information you provide. If you upload
             buyer files, we store the file, its name, type, size and upload time
             with the inquiry. Private inquiry-thread messages, buyer-facing

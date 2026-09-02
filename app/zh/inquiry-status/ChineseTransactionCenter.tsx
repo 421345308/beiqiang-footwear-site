@@ -32,7 +32,7 @@ type PublicOrderHandoff = {
 };
 
 export type ChineseProjectRequest = {
-  reference: string; receivedAt: string; updatedAt: string; styleCode: string; styleLabel: string; projectPath: string; quantity: string; sampleQuantity: string; preferredTradeTerm: string; deliveryDestination: string; deliveryTiming: string;
+  reference: string; receivedAt: string; updatedAt: string; styleCode: string; styleLabel: string; projectPath: string; quantity: string; sampleQuantity: string; buyerTargetCost: string; preferredTradeTerm: string; deliveryDestination: string; deliveryTiming: string;
   adaptationBrief: { intent: string; artworkStatus: string; brandingPlacement: string; colorDirection: string; packingLabeling: string } | null;
   sourcingReview: { status: string; submittedAt: string; buyerChannel: string; priority: string; closure: string; startingStyles: string[] } | null;
   status: { code: string; label: string; step: number }; buyerUpdate: string;

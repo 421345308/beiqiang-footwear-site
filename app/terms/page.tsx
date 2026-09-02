@@ -69,7 +69,8 @@ export default function TermsPage() {
             review round; stated exclusions and unlisted bulk specifications
             remain unapproved. An inquiry receipt, website message, status
             update or quotation is not acceptance of a production order. Buyer
-            target values, including targets submitted through a quotation
+            target values, including a target cost or price direction and
+            targets submitted through a quotation
             revision brief, remain requests until feasibility review and a new
             written quotation or order document confirms them. A saved quotation
             is subject to its stated validity and commercial boundary;

@@ -56,7 +56,7 @@ test("keeps a bounded human shortlist request without inventing a product match"
 test("sanitizes a multi-style technical quote request", () => {
   const result = validateInquiry(validPayload({
     styleCode: "BQ001, BQ009", context: "quote_list", projectPath: "technical_development",
-    sampleQuantity: "2 pairs", bulkQuantity: "800 pairs", existingSole: "No, new tooling may be required",
+    sampleQuantity: "2 pairs", bulkQuantity: "800 pairs", buyerTargetCost: "USD 9.50/pair FOB target\0", existingSole: "No, new tooling may be required",
     preferredTradeTerm: "DDP_request", deliveryDestination: "US, CA 92335 / FBA code pending", deliveryTiming: "Arrival before 2026-11-15",
     sourcingProgram: "oem-knit-shoes",
     changesRequired: "New last and outsole review", targetValues: "Buyer target only; hardness to be reviewed", ndaRequired: "Yes",
@@ -67,8 +67,14 @@ test("sanitizes a multi-style technical quote request", () => {
   assert.equal(result.inquiry.items.length, 2);
   assert.equal(result.inquiry.items[0].quantity, "400");
   assert.equal(result.inquiry.preferredTradeTerm, "DDP_request");
+  assert.equal(result.inquiry.buyerTargetCost, "USD 9.50/pair FOB target");
   assert.match(result.inquiry.deliveryDestination, /CA 92335/);
   assert.equal(result.inquiry.sourcingProgram, "oem-knit-shoes");
+});
+
+test("accepts BQ031 as a real catalogue candidate in the product-finder brief", () => {
+  const result = validateInquiry(validPayload({ styleCode: "BQ031", finderBrief: { mode: "matched_shortlist", buyerChannel: "importer_wholesaler", priority: "open", closure: "Lace-Up", styleCodes: ["BQ031"] } }));
+  assert.deepEqual(result.inquiry.finderBrief.styleCodes, ["BQ031"]);
 });
 
 test("preserves an approved sourcing-resource origin in the commercial record", () => {
@@ -154,12 +160,14 @@ test("sends separate internal and buyer receipt messages without confirming comm
     getStoreImpl: () => ({ setJSON: async (key, value) => writes.push({ key, value: { ...value } }) }),
     createTransportImpl: () => ({ sendMail: async (mail) => { mails.push(mail); } }),
   });
-  const request = new Request("https://www.beiqiang.online/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://www.beiqiang.online" }, body: JSON.stringify(validPayload({ preferredContactMethod: "email", preferredResponseLanguage: "en", buyerTimezone: "New York ET", preferredContactWindow: "Weekdays after 10:00" })) });
+  const request = new Request("https://www.beiqiang.online/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://www.beiqiang.online" }, body: JSON.stringify(validPayload({ buyerTargetCost: "USD 9.50/pair FOB target", preferredContactMethod: "email", preferredResponseLanguage: "en", buyerTimezone: "New York ET", preferredContactWindow: "Weekdays after 10:00" })) });
   const result = await handler({ request, env: { SMTP_PASS: "test", SMTP_USER: "421345308@qq.com" }, clientIp: "127.0.0.1" });
   const body = await result.json();
   assert.equal(result.status, 201); assert.equal(mails.length, 2); assert.equal(body.buyerConfirmationSent, true);
   assert.match(mails[1].text, /confirms receipt only/i); assert.match(mails[1].text, /remain subject to review and written confirmation/i);
   assert.match(mails[0].text, /Trade-term preference:/i); assert.match(mails[0].text, /Delivery destination:/i);
   assert.match(mails[0].text, /Preferred contact: email/i); assert.match(mails[0].text, /Buyer time zone \/ city: New York ET/i);
+  assert.match(mails[0].text, /USD 9\.50\/pair FOB target.*buyer target only.*not a Beiqiang quotation/i);
+  assert.match(mails[1].text, /USD 9\.50\/pair FOB target.*your target only.*not a Beiqiang quotation or acceptance/i);
   assert.equal(writes.at(-1).value.buyerConfirmationSent, true);
 });

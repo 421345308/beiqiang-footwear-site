@@ -15,6 +15,7 @@ export type QuoteBriefInput = {
   projectPath: string;
   sampleQuantity: string;
   bulkQuantity: string;
+  buyerTargetCost: string;
   preferredTradeTerm: string;
   deliveryDestination: string;
   deliveryTiming: string;
@@ -42,6 +43,7 @@ export function buildQuoteBriefText(input: QuoteBriefInput, locale: "en" | "zh")
         market: "目标市场／渠道",
         path: "项目路径",
         quantity: "样品／大货数量",
+        targetCost: "买家目标成本／价格方向（仅为买家目标，不是贝强报价）",
         trade: "贸易条款／目的地",
         timing: "期望时间",
         styles: "候选款",
@@ -57,6 +59,7 @@ export function buildQuoteBriefText(input: QuoteBriefInput, locale: "en" | "zh")
         market: "Target market / channel",
         path: "Project path",
         quantity: "Sample / bulk quantity",
+        targetCost: "Buyer target cost / price direction (buyer target only; not a Beiqiang quotation)",
         trade: "Trade term / destination",
         timing: "Requested timing",
         styles: "Shortlisted styles",
@@ -106,6 +109,7 @@ export function buildQuoteBriefText(input: QuoteBriefInput, locale: "en" | "zh")
     `${labels.market}: ${clean(input.market, unset)} / ${clean(input.channel, unset)}`,
     `${labels.path}: ${isTechnical ? (zh ? "技术产品开发" : "Technical product development") : (zh ? "现有款调整" : "Existing-style adaptation")}`,
     `${labels.quantity}: ${clean(input.sampleQuantity, unset)} / ${clean(input.bulkQuantity, unset)}`,
+    `${labels.targetCost}: ${clean(input.buyerTargetCost, unset)}`,
     `${labels.trade}: ${clean(input.preferredTradeTerm, unset)} / ${clean(input.deliveryDestination, unset)}`,
     `${labels.timing}: ${clean(input.deliveryTiming, unset)}`,
     "",

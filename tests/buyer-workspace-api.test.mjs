@@ -75,6 +75,7 @@ test("workspace summary exposes a useful whitelist while withholding sensitive p
   const result = workspaceSummary({
     reference: "BQ-20260820-ABCDEF12", receivedAt: "2026-08-20T01:00:00.000Z", updatedAt: "2026-08-23T01:00:00.000Z", status: "order_confirmed",
     styleCode: "BQ001", styleLabel: "Breathable knit walking shoe", bulkQuantity: "600 pairs", preferredTradeTerm: "fob", deliveryDestination: "Hamburg", deliveryTiming: "October 2026",
+    buyerTargetCost: "USD 9.50/pair FOB target",
     items: [{ code: "BQ001", name: "Breathable knit walking shoe", quantity: "400 pairs", colors: "Black / Grey", sizes: "EU 36-46", notes: "SECRET-ITEM-NOTE" }, { code: "BQ009", name: "Stretch textile slip-on", quantity: "200 pairs", colors: "Navy", sizes: "EU 39-46" }],
     quotations: [{ quoteNumber: "BQ-Q1", version: 2, status: "buyer_accepted", currency: "USD", tradeTerm: "FOB Xiamen", validUntil: "2026-09-10", lines: [{ unitPrice: "SECRET-PRICE-9.80" }], paymentTerms: "SECRET-PAYMENT-TERM" }],
     sampleProgram: { status: "buyer_review", sampleReference: "SAMPLE-2", styleCodes: "BQ001, BQ009", quantity: 2, updatedAt: "2026-08-22T01:00:00.000Z", trackingNumber: "SECRET-SAMPLE-TRACKING", acceptanceCriteria: "SECRET-CRITERIA" },
@@ -86,9 +87,10 @@ test("workspace summary exposes a useful whitelist while withholding sensitive p
   assert.deepEqual(result.items, [{ code: "BQ001", name: "Breathable knit walking shoe", quantity: "400 pairs", colors: "Black / Grey", sizes: "EU 36-46" }, { code: "BQ009", name: "Stretch textile slip-on", quantity: "200 pairs", colors: "Navy", sizes: "EU 39-46" }]);
   assert.deepEqual(result.quotation, { quoteNumber: "BQ-Q1", version: "2", status: "Accepted on website", validUntil: "2026-09-10", currency: "USD", tradeTerm: "FOB Xiamen" });
   assert.deepEqual(result.sample, { reference: "SAMPLE-2", status: "Ready for buyer review", styleCodes: ["BQ001", "BQ009"], quantity: "2", updatedAt: "2026-08-22T01:00:00.000Z" });
+  assert.equal(result.buyerTargetCost, "USD 9.50/pair FOB target");
   assert.deepEqual(result.order, { reference: "TA-123", method: "Alibaba Trade Assurance", status: "In production", confirmedAt: "2026-08-21T01:00:00.000Z" });
   assert.deepEqual(result.activity, { buyerFiles: 1, sharedDocuments: 1, messages: 1 });
-  assert.deepEqual(Object.keys(result).sort(), ["action", "activity", "buyerUpdate", "deliveryTiming", "destination", "hasIssuedQuotation", "hasOpenRepeatProject", "hasOrder", "items", "order", "quantity", "quotation", "receivedAt", "recommendation", "reference", "sample", "status", "styleCodes", "styleLabel", "tradeTerm", "updatedAt"].sort());
+  assert.deepEqual(Object.keys(result).sort(), ["action", "activity", "buyerTargetCost", "buyerUpdate", "deliveryTiming", "destination", "hasIssuedQuotation", "hasOpenRepeatProject", "hasOrder", "items", "order", "quantity", "quotation", "receivedAt", "recommendation", "reference", "sample", "status", "styleCodes", "styleLabel", "tradeTerm", "updatedAt"].sort());
   const serialized = JSON.stringify(result);
   for (const secret of ["SECRET-ITEM-NOTE", "SECRET-PRICE", "SECRET-PAYMENT", "SECRET-SAMPLE-TRACKING", "SECRET-CRITERIA", "SECRET-ORDER-URL", "SECRET-ORDER-TRACKING", "SECRET-AMOUNT", "SECRET-REASON", "SECRET-INTRO", "SECRET-FILE-NAME", "SECRET-DOCUMENT-NAME", "SECRET-MESSAGE-BODY", "SECRET-INTERNAL-NEXT-ACTION", "SECRET-INTERNAL-NOTE", "SECRET-TOKEN-HASH"]) assert.equal(serialized.includes(secret), false, `${secret} must not be exposed`);
 });

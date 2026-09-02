@@ -13,6 +13,7 @@ export type QuoteRequestDraft = {
   projectPath: string;
   sampleQuantity: string;
   bulkQuantity: string;
+  buyerTargetCost: string;
   preferredTradeTerm: string;
   deliveryDestination: string;
   deliveryTiming: string;
@@ -47,7 +48,7 @@ function choice(value: unknown, choices: Set<string>, fallback: string) {
 export const EMPTY_QUOTE_REQUEST_DRAFT: QuoteRequestDraft = {
   name: "", company: "", buyerType: "Importer / wholesaler", market: "", channel: "", email: "", whatsapp: "",
   contactPreferences: { preferredContactMethod: "", preferredResponseLanguage: "", buyerTimezone: "", preferredContactWindow: "" },
-  projectPath: "base_style_adaptation", sampleQuantity: "", bulkQuantity: "", preferredTradeTerm: "not_sure", deliveryDestination: "", deliveryTiming: "",
+  projectPath: "base_style_adaptation", sampleQuantity: "", bulkQuantity: "", buyerTargetCost: "", preferredTradeTerm: "not_sure", deliveryDestination: "", deliveryTiming: "",
   existingSole: "Unsure / discuss first", changesRequired: "", targetValues: "", ndaRequired: "No", requirements: "",
   adaptationBrief: { intent: "not_sure", artworkStatus: "not_applicable", brandingPlacement: "", colorDirection: "", packingLabeling: "" }, sourcingProgram: "",
 };
@@ -61,7 +62,7 @@ export function normalizeQuoteRequestDraft(value: unknown): QuoteRequestDraft | 
     name: text(draft.name, 120), company: text(draft.company, 160), buyerType: choice(draft.buyerType, BUYER_TYPES, EMPTY_QUOTE_REQUEST_DRAFT.buyerType),
     market: text(draft.market, 160), channel: text(draft.channel, 160), email: text(draft.email, 180), whatsapp: text(draft.whatsapp, 80),
     contactPreferences: { preferredContactMethod: choice(contact.preferredContactMethod, CONTACT_METHODS, ""), preferredResponseLanguage: choice(contact.preferredResponseLanguage, RESPONSE_LANGUAGES, ""), buyerTimezone: text(contact.buyerTimezone, 80), preferredContactWindow: text(contact.preferredContactWindow, 160) },
-    projectPath: choice(draft.projectPath, PROJECT_PATHS, EMPTY_QUOTE_REQUEST_DRAFT.projectPath), sampleQuantity: text(draft.sampleQuantity, 80), bulkQuantity: text(draft.bulkQuantity, 80),
+    projectPath: choice(draft.projectPath, PROJECT_PATHS, EMPTY_QUOTE_REQUEST_DRAFT.projectPath), sampleQuantity: text(draft.sampleQuantity, 80), bulkQuantity: text(draft.bulkQuantity, 80), buyerTargetCost: text(draft.buyerTargetCost, 120),
     preferredTradeTerm: choice(draft.preferredTradeTerm, TRADE_TERMS, "not_sure"), deliveryDestination: text(draft.deliveryDestination, 300), deliveryTiming: text(draft.deliveryTiming, 200),
     existingSole: text(draft.existingSole, 80) || EMPTY_QUOTE_REQUEST_DRAFT.existingSole, changesRequired: text(draft.changesRequired, 1200), targetValues: text(draft.targetValues, 1200), ndaRequired: draft.ndaRequired === "Yes" ? "Yes" : "No", requirements: text(draft.requirements, 2000),
     adaptationBrief: { intent: choice(adaptation.intent, ADAPTATION_INTENTS, "not_sure"), artworkStatus: choice(adaptation.artworkStatus, ARTWORK_STATES, "not_applicable"), brandingPlacement: text(adaptation.brandingPlacement, 300), colorDirection: text(adaptation.colorDirection, 600), packingLabeling: text(adaptation.packingLabeling, 600) },

@@ -74,7 +74,7 @@ export function workspaceSummary(record) {
   return {
     reference: safeText(record.reference, "", 40), receivedAt: safeText(record.receivedAt, "", 40), updatedAt: safeText(record.updatedAt || record.receivedAt, "", 40),
     status: { code: status[0], label: status[1], step: status[2] }, styleCodes: codes, styleLabel: safeText(record.styleLabel, "Sourcing project", 120),
-    quantity: safeText(record.bulkQuantity || record.quantity, "To confirm", 80), destination: safeText(record.deliveryDestination, "To confirm", 120),
+    quantity: safeText(record.bulkQuantity || record.quantity, "To confirm", 80), buyerTargetCost: safeText(record.buyerTargetCost, "", 120), destination: safeText(record.deliveryDestination, "To confirm", 120),
     deliveryTiming: safeText(record.deliveryTiming, "To confirm", 100), tradeTerm: safeText(record.preferredTradeTerm, "To confirm", 40),
     buyerUpdate: safeText(record.buyerUpdate, "Beiqiang is reviewing this sourcing request.", 500), action, items,
     quotation: quote ? { quoteNumber: safeText(quote.quoteNumber, "Quotation", 80), version: safeText(String(quote.version || ""), "", 20), status: publicWorkflowStatus(quote.status), validUntil: safeText(quote.validUntil, "To confirm", 40), currency: safeText(quote.currency, "", 12), tradeTerm: safeText(quote.tradeTerm, "", 40) } : null,

@@ -45,6 +45,7 @@ export default function ChineseQuoteRequestBuilder() {
   const [projectPath, setProjectPath] = useState("base_style_adaptation");
   const [sampleQuantity, setSampleQuantity] = useState("");
   const [bulkQuantity, setBulkQuantity] = useState("");
+  const [buyerTargetCost, setBuyerTargetCost] = useState("");
   const [preferredTradeTerm, setPreferredTradeTerm] = useState("not_sure");
   const [deliveryDestination, setDeliveryDestination] = useState("");
   const [deliveryTiming, setDeliveryTiming] = useState("");
@@ -73,7 +74,7 @@ export default function ChineseQuoteRequestBuilder() {
 
   function applyDraft(draft: QuoteRequestDraft) {
     setName(draft.name); setCompany(draft.company); setBuyerType(draft.buyerType); setMarket(draft.market); setChannel(draft.channel); setEmail(draft.email); setWhatsapp(draft.whatsapp);
-    setContactPreferences(draft.contactPreferences); setProjectPath(draft.projectPath); setSampleQuantity(draft.sampleQuantity); setBulkQuantity(draft.bulkQuantity); setPreferredTradeTerm(draft.preferredTradeTerm);
+    setContactPreferences(draft.contactPreferences); setProjectPath(draft.projectPath); setSampleQuantity(draft.sampleQuantity); setBulkQuantity(draft.bulkQuantity); setBuyerTargetCost(draft.buyerTargetCost); setPreferredTradeTerm(draft.preferredTradeTerm);
     setDeliveryDestination(draft.deliveryDestination); setDeliveryTiming(draft.deliveryTiming); setExistingSole(draft.existingSole); setChangesRequired(draft.changesRequired); setTargetValues(draft.targetValues);
     setNdaRequired(draft.ndaRequired); setRequirements(draft.requirements); setAdaptationBrief(draft.adaptationBrief); setSourcingProgram(draft.sourcingProgram);
   }
@@ -137,9 +138,9 @@ export default function ChineseQuoteRequestBuilder() {
 
   useEffect(() => {
     if (!draftReady || accessDetails) return;
-    const timer = window.setTimeout(() => saveQuoteRequestDraft({ name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram }), 250);
+    const timer = window.setTimeout(() => saveQuoteRequestDraft({ name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, buyerTargetCost, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram }), 250);
     return () => window.clearTimeout(timer);
-  }, [draftReady, accessDetails, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram]);
+  }, [draftReady, accessDetails, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, buyerTargetCost, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram]);
 
   function clearLocalDraft() {
     clearQuoteRequestDraft(); applyDraft(EMPTY_QUOTE_REQUEST_DRAFT); setDraftMessage("已清除暂存表单内容；已选择的产品清单保持不变。");
@@ -237,6 +238,7 @@ export default function ChineseQuoteRequestBuilder() {
           projectPath,
           sampleQuantity,
           bulkQuantity,
+          buyerTargetCost,
           preferredTradeTerm,
           deliveryDestination,
           deliveryTiming,
@@ -565,6 +567,16 @@ export default function ChineseQuoteRequestBuilder() {
                 placeholder="总数量或每款数量"
               />
             </label>
+            <label>
+              买家目标成本 / 价格方向（选填）
+              <input
+                value={buyerTargetCost}
+                onChange={(event) => setBuyerTargetCost(event.target.value)}
+                maxLength={120}
+                placeholder="例如：目标FOB 9.50美元/双"
+              />
+              <small>仅为买家的商业目标，不是贝强报价或接受价格。</small>
+            </label>
           </fieldset>
           <ContactPreferenceFields
             locale="zh"
@@ -682,7 +694,7 @@ export default function ChineseQuoteRequestBuilder() {
               onChange={(event) => setWebsite(event.target.value)}
             />
           </label>
-          <QuoteBriefReview locale="zh" input={{ lines, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief }} />
+          <QuoteBriefReview locale="zh" input={{ lines, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, buyerTargetCost, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief }} />
           <label className="quote-consent">
             <input
               type="checkbox"

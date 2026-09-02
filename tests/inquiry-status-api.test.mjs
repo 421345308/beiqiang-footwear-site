@@ -7,7 +7,7 @@ const reference = "BQ-20260823-ABCDEF12";
 const accessCode = "0123456789ABCDEF0123";
 const record = {
   reference, receivedAt: "2026-08-23T08:00:00.000Z", status: "quoted", styleCode: "BQ001, BQ009", styleLabel: "Two styles",
-  projectPath: "base_style_adaptation", quantity: "800 pairs", preferredTradeTerm: "FCA", deliveryDestination: "Los Angeles, CA 90001", deliveryTiming: "Arrival in November", accessTokenHash: createHash("sha256").update(accessCode).digest("hex"),
+  projectPath: "base_style_adaptation", quantity: "800 pairs", buyerTargetCost: "USD 9.50/pair FOB target", preferredTradeTerm: "FCA", deliveryDestination: "Los Angeles, CA 90001", deliveryTiming: "Arrival in November", accessTokenHash: createHash("sha256").update(accessCode).digest("hex"),
   internalNote: "Never expose this", nextAction: "Internal only", buyerUpdate: "Quotation details were sent by email.",
   adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Tongue label", colorDirection: "Buyer requests navy; material subject to review", packingLabeling: "Buyer barcode label", internalCapability: "never expose" },
   finderBrief: { mode: "human_review", buyerChannel: "online_seller", priority: "breathable_lace_up", closure: "Lace-Up", styleCodes: ["BQ009", "BAD", "bq009"], internalRouting: "never expose" },
@@ -36,7 +36,7 @@ test("returns only the buyer-safe inquiry status fields", async () => {
   const result = await handler({ request: request() }); const body = await result.json();
   assert.equal(result.status, 200); assert.equal(body.request.status.code, "quotation_stage");
   assert.equal(body.request.items[0].code, "BQ001"); assert.equal(body.request.buyerUpdate, "Quotation details were sent by email.");
-  assert.equal(body.request.preferredTradeTerm, "FCA"); assert.match(body.request.deliveryDestination, /Los Angeles/);
+  assert.equal(body.request.preferredTradeTerm, "FCA"); assert.equal(body.request.buyerTargetCost, "USD 9.50/pair FOB target"); assert.match(body.request.deliveryDestination, /Los Angeles/);
   assert.deepEqual(body.request.adaptationBrief, { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "Tongue label", colorDirection: "Buyer requests navy; material subject to review", packingLabeling: "Buyer barcode label" }); assert.equal(body.request.adaptationBrief.internalCapability, undefined);
   assert.equal(body.request.attachments[0].name, "brand-tech-pack.pdf"); assert.equal(body.request.attachments[0].key, undefined);
   assert.equal(body.request.messages[0].body, "Please confirm the sample size."); assert.equal(body.request.messages[0].internalRouting, undefined); assert.equal(body.request.messages[0].notificationSent, undefined);

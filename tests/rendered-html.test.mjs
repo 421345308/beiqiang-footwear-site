@@ -100,6 +100,8 @@ test("server-renders the multi-style quote and technical development path", asyn
   );
   assert.match(html, /Delivery and trade-term preference/i);
   assert.match(html, /Request DDP review/i);
+  assert.match(html, /Buyer target cost \/ price direction \(optional\)/i);
+  assert.match(html, /not a Beiqiang quotation or acceptance/i);
   assert.match(html, /Response preferences \(optional\)/i);
   assert.match(html, /Preferred contact channel/i);
   assert.match(html, /do not create an appointment/i);
@@ -128,6 +130,8 @@ test("server-renders the Chinese pre-submission buying-brief check", async () =>
   assert.match(html, /采购简报尚不完整/);
   assert.match(html, /完整度用于减少往返追问/);
   assert.match(html, /不是报价承诺、买家评分、订单批准或成交预测/);
+  assert.match(html, /买家目标成本 \/ 价格方向（选填）/);
+  assert.match(html, /不是贝强报价或接受价格/);
 });
 
 test("server-renders the B2B buyer and trade-term guide", async () => {

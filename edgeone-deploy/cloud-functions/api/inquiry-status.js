@@ -100,7 +100,7 @@ export function createInquiryStatusHandler({ getStoreImpl = getStore } = {}) {
         request: {
           reference: record.reference, receivedAt: record.receivedAt, status: publicStatus,
           styleCode: record.styleCode, styleLabel: record.styleLabel, projectPath: record.projectPath,
-          quantity: record.bulkQuantity || record.quantity, sampleQuantity: record.sampleQuantity || "",
+          quantity: record.bulkQuantity || record.quantity, sampleQuantity: record.sampleQuantity || "", buyerTargetCost: record.buyerTargetCost || "",
           preferredTradeTerm: record.preferredTradeTerm || "not_sure", deliveryDestination: record.deliveryDestination || "", deliveryTiming: record.deliveryTiming || "",
           adaptationBrief: record.adaptationBrief ? { intent: record.adaptationBrief.intent || "not_sure", artworkStatus: record.adaptationBrief.artworkStatus || "not_applicable", brandingPlacement: record.adaptationBrief.brandingPlacement || "", colorDirection: record.adaptationBrief.colorDirection || "", packingLabeling: record.adaptationBrief.packingLabeling || "" } : null,
           sourcingReview: buyerSafeSourcingReview(record, buyerRecommendation),

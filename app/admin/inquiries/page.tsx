@@ -775,6 +775,7 @@ type Inquiry = {
   finderBrief?: { mode?: string; buyerChannel: string; priority: string; closure: string; styleCodes: string[] } | null;
   sampleQuantity?: string;
   bulkQuantity?: string;
+  buyerTargetCost?: string;
   preferredTradeTerm?: string;
   deliveryDestination?: string;
   deliveryTiming?: string;
@@ -6463,6 +6464,7 @@ export default function InquiryAdminPage() {
       "Sample review rounds",
       "Sample buyer decision",
       "Bulk quantity",
+      "Buyer target cost / price direction",
       "Trade-term preference",
       "Delivery destination",
       "Delivery timing",
@@ -6552,6 +6554,7 @@ export default function InquiryAdminPage() {
         record.sampleProgram?.reviewRounds?.length || 0,
         record.sampleProgram?.buyerDecision,
         record.bulkQuantity,
+        record.buyerTargetCost,
         record.preferredTradeTerm,
         record.deliveryDestination,
         record.deliveryTiming,
@@ -6947,6 +6950,13 @@ export default function InquiryAdminPage() {
                     <small>STYLES / QUANTITY</small>
                     <strong>{record.styleCode}</strong>
                     <p>{record.bulkQuantity || record.quantity}</p>
+                    {record.buyerTargetCost ? (
+                      <p>
+                        <b>Buyer target cost / price direction:</b>{" "}
+                        {record.buyerTargetCost}{" "}
+                        <small>BUYER TARGET · NOT BEIQIANG QUOTATION</small>
+                      </p>
+                    ) : null}
                     <p>
                       <b>Trade / destination:</b>{" "}
                       {record.preferredTradeTerm || "not sure"} ·{" "}

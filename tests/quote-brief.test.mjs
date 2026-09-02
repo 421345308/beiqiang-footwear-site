@@ -4,12 +4,12 @@ import { buildQuoteBriefText } from "../app/lib/quote-brief.ts";
 
 const input = {
   lines: [{ code: "BQ001", slug: "bq001", sourceModel: "A001", name: "Walking shoe", image: "/catalog-thumbs/bq001.webp", quantity: "300", colors: "black", sizes: "EU 39-45", notes: "plain carton" }],
-  name: "Buyer Name", company: "Buyer Company", buyerType: "Importer / wholesaler", market: "Germany", channel: "Wholesale", email: "buyer@example.com", whatsapp: "+49 123", contactPreferences: { preferredContactMethod: "email", preferredResponseLanguage: "en", buyerTimezone: "Europe/Berlin", preferredContactWindow: "09:00-12:00" }, projectPath: "base_style_adaptation", sampleQuantity: "2 pairs", bulkQuantity: "300 pairs", preferredTradeTerm: "FOB", deliveryDestination: "Hamburg", deliveryTiming: "October", existingSole: "", changesRequired: "", targetValues: "", ndaRequired: "No", requirements: "Confirm packing", adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "tongue", colorDirection: "black", packingLabeling: "plain carton" },
+  name: "Buyer Name", company: "Buyer Company", buyerType: "Importer / wholesaler", market: "Germany", channel: "Wholesale", email: "buyer@example.com", whatsapp: "+49 123", contactPreferences: { preferredContactMethod: "email", preferredResponseLanguage: "en", buyerTimezone: "Europe/Berlin", preferredContactWindow: "09:00-12:00" }, projectPath: "base_style_adaptation", sampleQuantity: "2 pairs", bulkQuantity: "300 pairs", buyerTargetCost: "USD 9.50/pair FOB target", preferredTradeTerm: "FOB", deliveryDestination: "Hamburg", deliveryTiming: "October", existingSole: "", changesRequired: "", targetValues: "", ndaRequired: "No", requirements: "Confirm packing", adaptationBrief: { intent: "private_label", artworkStatus: "vector_ready", brandingPlacement: "tongue", colorDirection: "black", packingLabeling: "plain carton" },
 };
 
 test("builds a buyer-reviewable English sourcing brief without converting it into an order", () => {
   const brief = buildQuoteBriefText(input, "en");
-  assert.match(brief, /Buyer Company/); assert.match(brief, /BQ001/); assert.match(brief, /300/); assert.match(brief, /FOB/); assert.match(brief, /Hamburg/); assert.match(brief, /private_label/); assert.match(brief, /not a Beiqiang quotation/i); assert.doesNotMatch(brief, /order confirmed|payment received|manufacturing approved/i);
+  assert.match(brief, /Buyer Company/); assert.match(brief, /BQ001/); assert.match(brief, /300/); assert.match(brief, /USD 9\.50\/pair FOB target/); assert.match(brief, /buyer target only; not a Beiqiang quotation/i); assert.match(brief, /Hamburg/); assert.match(brief, /private_label/); assert.doesNotMatch(brief, /order confirmed|payment received|manufacturing approved/i);
 });
 
 test("builds the same conservative sourcing brief in Chinese", () => {

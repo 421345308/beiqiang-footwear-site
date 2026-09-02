@@ -14,7 +14,7 @@ const FINDER_BUYER_CHANNELS = new Set(["importer_wholesaler", "online_seller", "
 const FINDER_PRIORITIES = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
 const FINDER_CLOSURES = new Set(["any", "Slip-On", "Lace-Up"]);
 const FINDER_MODES = new Set(["matched_shortlist", "human_review"]);
-const FINDER_STYLE_CODES = new Set(Array.from({ length: 30 }, (_, index) => `BQ${String(index + 1).padStart(3, "0")}`));
+const FINDER_STYLE_CODES = new Set(Array.from({ length: 31 }, (_, index) => `BQ${String(index + 1).padStart(3, "0")}`));
 
 function clean(value, max) {
   return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : "";
@@ -81,6 +81,7 @@ export function validateInquiry(payload, now = Date.now()) {
     projectPath: PROJECT_PATHS.has(payload.projectPath) ? payload.projectPath : "standard_inquiry",
     sampleQuantity: clean(payload.sampleQuantity, 80),
     bulkQuantity: clean(payload.bulkQuantity, 80),
+    buyerTargetCost: clean(payload.buyerTargetCost, 120),
     preferredTradeTerm: TRADE_TERM_PREFERENCES.has(payload.preferredTradeTerm) ? payload.preferredTradeTerm : "not_sure",
     deliveryDestination: clean(payload.deliveryDestination, 240),
     deliveryTiming: clean(payload.deliveryTiming, 160),
@@ -135,7 +136,7 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
     `Company: ${inquiry.company}`, `Buyer type: ${inquiry.buyerType}`, `Market: ${inquiry.market}`,
     `Quantity: ${inquiry.quantity}`, `Email: ${inquiry.email || "-"}`, `WhatsApp: ${inquiry.whatsapp || "-"}`,
     `Preferred contact: ${inquiry.preferredContactMethod || "No preference"}`, `Preferred response language: ${inquiry.preferredResponseLanguage || "No preference"}`, `Buyer time zone / city: ${inquiry.buyerTimezone || "-"}`, `Convenient local contact time: ${inquiry.preferredContactWindow || "-"}`,
-    `Project path: ${inquiry.projectPath}`, `Sample quantity: ${inquiry.sampleQuantity || "-"}`, `Bulk quantity: ${inquiry.bulkQuantity || "-"}`,
+    `Project path: ${inquiry.projectPath}`, `Sample quantity: ${inquiry.sampleQuantity || "-"}`, `Bulk quantity: ${inquiry.bulkQuantity || "-"}`, `Buyer target cost / price direction: ${inquiry.buyerTargetCost || "-"} (buyer target only; not a Beiqiang quotation)`,
     `Sourcing program: ${inquiry.sourcingProgram || "Direct / catalogue"}`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "-"}`, `Requested delivery timing: ${inquiry.deliveryTiming || "-"}`,
     ...(inquiry.finderBrief ? [`Product-finder review mode: ${inquiry.finderBrief.mode}`, `Product-finder buyer/channel target: ${inquiry.finderBrief.buyerChannel}`, `Product-finder direction target: ${inquiry.finderBrief.priority}`, `Product-finder closure preference: ${inquiry.finderBrief.closure}`, `Product-finder candidates: ${inquiry.finderBrief.styleCodes.join(", ") || "No forced candidates — human review requested"}`] : []),
     ...(inquiry.adaptationBrief ? [`Adaptation intent: ${inquiry.adaptationBrief.intent}`, `Artwork readiness: ${inquiry.adaptationBrief.artworkStatus}`, `Branding placement target: ${inquiry.adaptationBrief.brandingPlacement || "-"}`, `Color / material target: ${inquiry.adaptationBrief.colorDirection || "-"}`, `Packing / labeling target: ${inquiry.adaptationBrief.packingLabeling || "-"}`] : []),
@@ -160,7 +161,7 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
     const buyerLines = [
       `Hello ${inquiry.name},`, "", "We received your Beiqiang B2B sourcing request.",
       `Reference: ${reference}`, `Status access code: ${accessCode}`, "Status page: https://www.beiqiang.online/inquiry-status/", "",
-      `Styles: ${inquiry.styleCode}`, `Quantity direction: ${inquiry.quantity}`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "To be discussed"}`, "",
+      `Styles: ${inquiry.styleCode}`, `Quantity direction: ${inquiry.quantity}`, `Buyer target cost / price direction: ${inquiry.buyerTargetCost || "To be discussed"} (your target only; not a Beiqiang quotation or acceptance)`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "To be discussed"}`, "",
       "This confirms receipt only. Product specifications, sample arrangement, price, MOQ, lead time, technical targets and order terms remain subject to review and written confirmation.", "",
       "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.", "421345308@qq.com", "WhatsApp: +86 189 5980 5256",
     ];

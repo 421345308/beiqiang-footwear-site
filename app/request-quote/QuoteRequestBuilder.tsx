@@ -43,6 +43,7 @@ export default function QuoteRequestBuilder() {
   const [projectPath, setProjectPath] = useState("base_style_adaptation");
   const [sampleQuantity, setSampleQuantity] = useState("");
   const [bulkQuantity, setBulkQuantity] = useState("");
+  const [buyerTargetCost, setBuyerTargetCost] = useState("");
   const [preferredTradeTerm, setPreferredTradeTerm] = useState("not_sure");
   const [deliveryDestination, setDeliveryDestination] = useState("");
   const [deliveryTiming, setDeliveryTiming] = useState("");
@@ -72,7 +73,7 @@ export default function QuoteRequestBuilder() {
 
   function applyDraft(draft: QuoteRequestDraft) {
     setName(draft.name); setCompany(draft.company); setBuyerType(draft.buyerType); setMarket(draft.market); setChannel(draft.channel); setEmail(draft.email); setWhatsapp(draft.whatsapp);
-    setContactPreferences(draft.contactPreferences); setProjectPath(draft.projectPath); setSampleQuantity(draft.sampleQuantity); setBulkQuantity(draft.bulkQuantity); setPreferredTradeTerm(draft.preferredTradeTerm);
+    setContactPreferences(draft.contactPreferences); setProjectPath(draft.projectPath); setSampleQuantity(draft.sampleQuantity); setBulkQuantity(draft.bulkQuantity); setBuyerTargetCost(draft.buyerTargetCost); setPreferredTradeTerm(draft.preferredTradeTerm);
     setDeliveryDestination(draft.deliveryDestination); setDeliveryTiming(draft.deliveryTiming); setExistingSole(draft.existingSole); setChangesRequired(draft.changesRequired); setTargetValues(draft.targetValues);
     setNdaRequired(draft.ndaRequired); setRequirements(draft.requirements); setAdaptationBrief(draft.adaptationBrief); setSourcingProgram(draft.sourcingProgram);
   }
@@ -136,9 +137,9 @@ export default function QuoteRequestBuilder() {
 
   useEffect(() => {
     if (!draftReady || accessDetails) return;
-    const timer = window.setTimeout(() => saveQuoteRequestDraft({ name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram }), 250);
+    const timer = window.setTimeout(() => saveQuoteRequestDraft({ name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, buyerTargetCost, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram }), 250);
     return () => window.clearTimeout(timer);
-  }, [draftReady, accessDetails, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram]);
+  }, [draftReady, accessDetails, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, buyerTargetCost, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief, sourcingProgram]);
 
   function clearLocalDraft() {
     clearQuoteRequestDraft(); applyDraft(EMPTY_QUOTE_REQUEST_DRAFT); setDraftMessage("Saved form fields were cleared. Your selected product list is unchanged.");
@@ -246,6 +247,7 @@ export default function QuoteRequestBuilder() {
           projectPath,
           sampleQuantity,
           bulkQuantity,
+          buyerTargetCost,
           preferredTradeTerm,
           deliveryDestination,
           deliveryTiming,
@@ -581,6 +583,16 @@ export default function QuoteRequestBuilder() {
                 placeholder="Total or per style"
               />
             </label>
+            <label>
+              Buyer target cost / price direction (optional)
+              <input
+                value={buyerTargetCost}
+                onChange={(event) => setBuyerTargetCost(event.target.value)}
+                maxLength={120}
+                placeholder="e.g. USD 9.50/pair FOB target"
+              />
+              <small>Your commercial target only—not a Beiqiang quotation or acceptance.</small>
+            </label>
           </fieldset>
           <ContactPreferenceFields
             value={contactPreferences}
@@ -699,7 +711,7 @@ export default function QuoteRequestBuilder() {
               onChange={(event) => setWebsite(event.target.value)}
             />
           </label>
-          <QuoteBriefReview input={{ lines, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief }} />
+          <QuoteBriefReview input={{ lines, name, company, buyerType, market, channel, email, whatsapp, contactPreferences, projectPath, sampleQuantity, bulkQuantity, buyerTargetCost, preferredTradeTerm, deliveryDestination, deliveryTiming, existingSole, changesRequired, targetValues, ndaRequired, requirements, adaptationBrief }} />
           <label className="quote-consent">
             <input
               type="checkbox"
