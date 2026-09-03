@@ -10,8 +10,8 @@ export function factoryVideoSchema(locale: "en" | "zh" = "en") {
     "@type": "VideoObject",
     name: zh ? "贝强鞋业工作区域与鞋品处理实拍" : "Beiqiang footwear working-area and product-handling footage",
     description: zh
-      ? "展示贝强鞋业场地外景、材料准备、鞋面车缝、生产线处理、鞋品检查与包装准备的3分钟实拍视频，提供英文配音及中英文场景字幕。"
-      : "A three-minute tour of Beiqiang Footwear showing the working-site exterior, material preparation, upper stitching, line handling, shoe checking and packing preparation, with English narration and selectable captions.",
+      ? "展示贝强鞋业场地外景、材料准备、鞋面车缝、生产线处理、鞋品检查与包装准备的3分钟实拍视频，配有英文旁白、原创背景音乐及中英文同步字幕。"
+      : "A three-minute tour of Beiqiang Footwear showing the working-site exterior, material preparation, upper stitching, line handling, shoe checking and packing preparation, with English narration, original background music and synchronized captions.",
     thumbnailUrl: `${siteUrl}/videos/beiqiang-factory-tour-poster.jpg`,
     contentUrl: `${siteUrl}/videos/beiqiang-factory-tour.mp4`,
     embedUrl: `${siteUrl}${zh ? "/zh/factory/" : "/factory/"}`,

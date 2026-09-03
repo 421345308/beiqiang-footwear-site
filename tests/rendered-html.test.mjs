@@ -41,7 +41,7 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /"duration":"PT3M"/i);
   assert.match(html, /\/videos\/beiqiang-factory-tour\.mp4/i);
   assert.match(html, /\/videos\/beiqiang-factory-tour\.webm/i);
-  assert.match(html, /English scene captions/i);
+  assert.match(html, /English synchronized captions/i);
   assert.match(html, /Full 3-minute Alibaba\.com factory tour/i);
   assert.match(html, /Factory evidence routes/i);
   assert.match(html, /\/factory-video-stills\/factory-exterior\.webp/i);

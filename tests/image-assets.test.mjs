@@ -61,8 +61,9 @@ test("keeps both factory-video delivery formats and a lightweight poster", async
   assert.equal(mp4.size > 5_000_000 && mp4.size <= edgeOneSafeFileLimit, true, "full factory MP4 exceeds the EdgeOne-safe 24 MiB limit");
   assert.deepEqual([...poster.subarray(0, 3)], [0xff, 0xd8, 0xff]);
   assert.equal(poster.length <= 180 * 1024, true, "factory video poster exceeds 180 KB");
-  assert.match(englishCaptions, /00:00\.000 --> 00:08\.000/);
-  assert.match(englishCaptions, /shoe-box packing preparation/i);
+  assert.match(englishCaptions, /00:00:00\.450 --> 00:00:03\.870/);
+  assert.match(englishCaptions, /Material cutting and component preparation begin the visible workflow/i);
+  assert.match(englishCaptions, /Contact Beiqiang for a current catalog, samples, or an OEM and ODM discussion/i);
 });
 
 test("keeps footage-derived factory stills web-ready", async () => {

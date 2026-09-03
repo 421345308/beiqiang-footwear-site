@@ -40,14 +40,14 @@ export default function FactoryEvidenceVideo({ compact = false, locale = "en" }:
         playsInline
         preload="metadata"
         poster={fullTour ? "/videos/beiqiang-factory-tour-poster.jpg" : "/videos/beiqiang-factory-proof-poster.jpg"}
-        aria-label={zh ? "带英文配音和中英文字幕的贝强鞋业工作区域与鞋类生产流程实拍视频" : "Beiqiang footwear working-area and production footage with English narration and selectable captions"}
+        aria-label={zh ? "带英文配音、原创背景音乐和中英文同步字幕的贝强鞋业工作区域与鞋类生产流程实拍视频" : "Beiqiang footwear working-area and production footage with English narration, original background music and synchronized captions"}
       >
         {fullTour ? (
           <>
             <source src="/videos/beiqiang-factory-tour.mp4" type="video/mp4" />
             <source src="/videos/beiqiang-factory-tour.webm" type="video/webm" />
-            <track kind="captions" src="/videos/beiqiang-factory-tour.en.vtt" srcLang="en" label="English scene captions" default={!zh} />
-            <track kind="captions" src="/videos/beiqiang-factory-tour.zh.vtt" srcLang="zh" label="中文场景字幕" default={zh} />
+            <track kind="captions" src="/videos/beiqiang-factory-tour.en.vtt" srcLang="en" label="English synchronized captions" default={!zh} />
+            <track kind="captions" src="/videos/beiqiang-factory-tour.zh.vtt" srcLang="zh" label="中文同步字幕" default={zh} />
           </>
         ) : (
           <>
@@ -61,7 +61,7 @@ export default function FactoryEvidenceVideo({ compact = false, locale = "en" }:
         <strong>{zh ? "工厂实拍" : "Factory-side footage"}</strong>
         <span>
           {fullTour
-            ? (zh ? "Alibaba.com 3分钟完整工厂视频 · 英文配音 · 可选中英文场景字幕" : "Full 3-minute Alibaba.com factory tour · English narration · selectable English and Chinese captions")
+            ? (zh ? "Alibaba.com 3分钟完整工厂视频 · 英文配音 · 原创背景音乐 · 中英文同步字幕" : "Full 3-minute Alibaba.com factory tour · English narration · original background music · synchronized English and Chinese captions")
             : (zh ? "35秒预览 · 查看工厂页的3分钟完整版" : "35-second preview · watch the full 3-minute tour on the factory page")}
         </span>
         {compact ? <a href={zh ? "/zh/factory/" : "/factory/"}>{zh ? "观看完整版 →" : "Watch full tour →"}</a> : null}

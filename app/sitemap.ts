@@ -114,8 +114,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
                   : "Beiqiang footwear working-area and product-handling footage",
                 thumbnail_loc: factoryVideo.thumbnail,
                 description: isChinese
-                  ? "展示贝强鞋业场地外景、材料准备、鞋面车缝、生产线处理、鞋品检查与包装准备的3分钟实拍视频，提供英文配音及中英文字幕。"
-                  : "A three-minute tour of Beiqiang Footwear showing material preparation, upper stitching, line handling, shoe checking and packing preparation in Quanzhou, China, with English narration and selectable captions.",
+                  ? "展示贝强鞋业场地外景、材料准备、鞋面车缝、生产线处理、鞋品检查与包装准备的3分钟实拍视频，配有英文旁白、原创背景音乐及中英文同步字幕。"
+                  : "A three-minute tour of Beiqiang Footwear showing material preparation, upper stitching, line handling, shoe checking and packing preparation in Quanzhou, China, with English narration, original background music and synchronized captions.",
                 content_loc: factoryVideo.content,
                 duration: factoryVideo.duration,
                 publication_date: factoryVideo.publicationDate,
