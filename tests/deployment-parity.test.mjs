@@ -47,6 +47,8 @@ test("keeps the EdgeOne static export and operator command wired to the release 
   ]);
   assert.match(exporter, /pathname:\s*"\/release\.json"/);
   assert.match(exporter, /output:\s*"release\.json"/);
+  assert.match(exporter, /source:\s*"\/videos\/beiqiang-factory-tour\.en\.vtt"/);
+  assert.match(exporter, /key:\s*"Content-Type",\s*value:\s*"text\/vtt; charset=utf-8"/);
+  assert.doesNotMatch(exporter, /three-minute silent|3分钟无声/i);
   assert.equal(packageJson.scripts["verify:deployments"], "node --experimental-strip-types scripts/verify-deployment-parity.mjs");
 });
-
