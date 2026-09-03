@@ -44,7 +44,7 @@ export default function Home() {
           <dl className="hero-facts"><div><dt>B2B</dt><dd>Wholesale and private-label supply</dd></div><div><dt>OEM</dt><dd>Project requirements reviewed style by style</dd></div><div><dt>CN</dt><dd>Quanzhou, Fujian, China</dd></div></dl>
         </div>
         <div className="hero-visual">
-          <FactoryEvidenceVideo compact />
+          <FactoryEvidenceVideo />
         </div>
       </section>
 
@@ -54,12 +54,6 @@ export default function Home() {
         <div className="section-heading"><div><p className="eyebrow">START WITH THE SUPPLIER</p><h2>See how Beiqiang supports a sourcing decision.</h2></div><p>The website is a buyer workspace: it introduces the factory, helps narrow product directions and captures the details needed for a useful B2B response. It is not a retail checkout or a claim that every request is already feasible.</p></div>
         <HomepageFactoryEvidence />
         <div className="trust-entry-grid"><Link href="/factory/"><span>01</span><h3>Factory &amp; working areas</h3><p>Review current factory footage and the project path from direction to sample discussion.</p><strong>Visit the factory page →</strong></Link><Link href="/quality-packing/"><span>02</span><h3>Checking &amp; packing</h3><p>Understand which product, assortment and carton details are confirmed for an order.</p><strong>Review quality &amp; packing →</strong></Link><Link href="/oem-odm/"><span>03</span><h3>OEM / ODM review</h3><p>Submit branding, material, color or development targets for feasibility review.</p><strong>Prepare an OEM brief →</strong></Link><Link href="/sample-order-process/"><span>04</span><h3>Sample to formal order</h3><p>Follow the decisions from shortlist and sample through confirmed commercial terms.</p><strong>See the buyer process →</strong></Link></div>
-      </section>
-
-      <section className="section collection-entry" id="collections">
-        <div className="section-heading"><div><p className="eyebrow">CURRENT PRODUCT DIRECTIONS</p><h2>Browse by sourcing need, not by one promoted shoe.</h2></div><p>These categories are entry points into the current online selection, not the full factory range. If your target is not shown, send a reference or request the latest line sheet.</p></div>
-        <div className="collection-grid">{collections.slice(0, 3).map((collection) => <Link key={collection.slug} href={`/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>Explore collection →</strong></Link>)}</div>
-        <div className="section-cta"><Link className="button button-secondary" href="/products/">Browse current online selection</Link><Link className="text-link" href="/line-sheet/">Request current line sheet →</Link></div>
       </section>
 
       <section className="section sourcing-program-entry">
@@ -83,6 +77,12 @@ export default function Home() {
       </section>
 
       <section className="section process"><div className="section-heading compact"><div><p className="eyebrow">A QUALIFIED SOURCING PATH</p><h2>From catalogue to quotation in three steps.</h2></div></div><div className="process-grid"><article><span>01</span><h3>Build a shortlist</h3><p>Compare product code, closure, size direction, colors and real gallery evidence.</p></article><article><span>02</span><h3>Send order context</h3><p>Share target market, quantity, size ratio, colors, packing and timing.</p></article><article><span>03</span><h3>Confirm by sample</h3><p>Verify high-impact specifications before final price and bulk-order terms.</p></article></div></section>
+
+      <section className="section collection-entry" id="collections">
+        <div className="section-heading"><div><p className="eyebrow">CURRENT PRODUCT DIRECTIONS</p><h2>Enter the catalogue by sourcing need—not by one oversized product.</h2></div><p>These compact category routes lead to the current 56-style online selection without making one shoe represent the factory. Send a reference for other factory-range options.</p></div>
+        <div className="collection-grid">{collections.slice(0, 3).map((collection) => <Link key={collection.slug} href={`/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>Explore collection →</strong></Link>)}</div>
+        <div className="section-cta"><Link className="button button-secondary" href="/products/">Browse all 56 current website styles</Link><Link className="text-link" href="/line-sheet/">Open the current line sheet →</Link></div>
+      </section>
 
       <section className="section faq-section"><div className="section-heading compact"><div><p className="eyebrow">BUYER FAQ</p><h2>Answers before you request a sample.</h2></div></div><div className="faq-list">{faqItems.map((item) => <details key={item.question}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div></section>
 

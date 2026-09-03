@@ -29,7 +29,7 @@ export default function ChineseHome() {
           <div className="hero-actions"><Link className="button" href="/zh/request-quote/">提交采购项目</Link><Link className="button button-secondary" href="/zh/factory/">查看工厂与流程</Link><Link className="text-link" href="/zh/products/">浏览当前在线选款 →</Link></div>
           <dl className="hero-facts"><div><dt>B2B</dt><dd>批发与私标供应</dd></div><div><dt>OEM</dt><dd>按具体项目审核要求</dd></div><div><dt>泉州</dt><dd>中国福建鞋类供应基地</dd></div></dl>
         </div>
-        <div className="hero-visual"><FactoryEvidenceVideo compact locale="zh" /></div>
+        <div className="hero-visual"><FactoryEvidenceVideo locale="zh" /></div>
       </section>
 
       <section className="assurance" aria-label="供应要点"><span>工厂端项目审核</span><span>真实产品与流程画面</span><span>大货前样品确认</span><span>书面确认规格与商业条款</span></section>
@@ -45,15 +45,15 @@ export default function ChineseHome() {
         <div className="sourcing-program-entry-grid"><Link href="/zh/solutions/wholesale-walking-shoes/"><span>01 · 当前产品与更广选款</span><h3>批发与多款测试</h3><p>从网站当前选款开始，或提交目标方向，由工厂审核适合进口、分销或线上渠道测试的组合。</p><strong>打开批发采购方案 →</strong></Link><Link href="/zh/solutions/private-label-walking-shoes/"><span>02 · 基础款调整</span><h3>私标与包装需求</h3><p>从具体产品或参考款开始，提交颜色、Logo、标签和包装方向，由工厂先审核可行性。</p><strong>打开私标采购方案 →</strong></Link><Link href="/zh/solutions/oem-knit-shoes/"><span>03 · 技术开发</span><h3>新楦、鞋底或测试目标</h3><p>把硬度、材料、模具、测试和保密要求作为买家目标提交，不提前写成贝强现有能力。</p><strong>打开技术开发方案 →</strong></Link></div>
       </section>
 
-      <section className="section collection-entry" id="collections">
-        <div className="section-heading"><div><p className="eyebrow">当前产品方向</p><h2>按采购方向浏览，不再用一款鞋代表工厂。</h2></div><p>这些分类只是当前在线选款的入口，不是工厂全部产品。若没有目标款，可发送参考图或索取最新选款资料。</p></div>
-        <div className="collection-grid">{chineseCollections.slice(0, 3).map((collection) => <Link key={collection.slug} href={`/zh/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>打开产品方向 →</strong></Link>)}</div>
-        <div className="section-cta"><Link className="button button-secondary" href="/zh/products/">浏览当前在线选款</Link><Link className="text-link" href="/zh/line-sheet/">索取当前产品资料 →</Link></div>
-      </section>
-
       <section className="proof-section" id="process">
         <div className="proof-image"><img src="/factory-web/batch-check.webp" alt="贝强鞋业鞋类产品装箱前批次检查与整理" loading="lazy" decoding="async" /></div>
         <div className="proof-copy"><p className="eyebrow eyebrow-light">从工厂审核到商业回复</p><h2>把产品方向变成工厂可以核对的采购资料。</h2><p>网站当前产品页是实用的起始选款，不是贝强产品范围的上限。业务也可以结合参考图、目标市场和预计数量审核其他工厂款式。</p><ul><li><span>01</span> 产品方向或参考图</li><li><span>02</span> 材料、尺码、颜色与包装要求</li><li><span>03</span> 样品与书面商业条款确认</li></ul><Link className="button button-light" href="/zh/request-quote/">建立采购询价</Link></div>
+      </section>
+
+      <section className="section collection-entry" id="collections">
+        <div className="section-heading"><div><p className="eyebrow">当前产品方向</p><h2>用紧凑的分类入口进入产品库，不让单款产品代表工厂。</h2></div><p>这里连接当前网站已整理的56款产品，不是工厂全部产品。未找到目标款时，可以直接发送参考图，由业务审核更广的选款范围。</p></div>
+        <div className="collection-grid">{chineseCollections.slice(0, 3).map((collection) => <Link key={collection.slug} href={`/zh/collections/${collection.slug}/`}><span>{collection.name}</span><h3>{collection.title}</h3><p>{collection.description}</p><strong>打开产品方向 →</strong></Link>)}</div>
+        <div className="section-cta"><Link className="button button-secondary" href="/zh/products/">浏览当前56款网站产品</Link><Link className="text-link" href="/zh/line-sheet/">打开当前产品资料 →</Link></div>
       </section>
 
       <section className="section process" id="contact"><div className="section-heading compact"><div><p className="eyebrow">联系贝强</p><h2>把采购方向变成可以有效回复的项目。</h2></div></div><div className="process-grid"><article><span>01</span><h3>提供产品方向</h3><p>选择当前产品、填写目标品类，或上传清楚的参考款资料。</p></article><article><span>02</span><h3>补充订单背景</h3><p>说明目标国家、渠道、数量、尺码配比、颜色、包装和时间。</p></article><article><span>03</span><h3>等待工厂审核</h3><p>贝强确认材料、样品、可行性和商业条款后再形成正式报价。</p></article></div><div className="section-cta"><Link className="button" href="/zh/request-quote/?program=reference-style">提交其他目标款式</Link><a className="text-link" href={`https://wa.me/8618959805256?text=${brief}`} target="_blank" rel="noreferrer">WhatsApp发送采购需求 →</a><a className="text-link" href="mailto:421345308@qq.com">邮件：421345308@qq.com</a></div><p className="commercial-note">正式交易通过Alibaba Trade Assurance订单或双方签署合同完成；网站不直接收取银行卡付款。</p></section>
