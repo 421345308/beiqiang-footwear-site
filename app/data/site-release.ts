@@ -1,6 +1,6 @@
 export const SITE_RELEASE = {
-  releaseId: "2026-09-03.3",
-  releasedAt: "2026-09-03T09:30:00+08:00",
+  releaseId: "2026-09-03.4",
+  releasedAt: "2026-09-03T10:30:00+08:00",
   productCount: 56,
   lineSheetPages: 14,
   factoryVideo: {
