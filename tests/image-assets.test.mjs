@@ -56,8 +56,9 @@ test("keeps both factory-video delivery formats and a lightweight poster", async
   const mp4 = await stat(new URL("../public/videos/beiqiang-factory-tour.mp4", import.meta.url));
   const poster = await readFile(new URL("../public/videos/beiqiang-factory-tour-poster.jpg", import.meta.url));
   const englishCaptions = await readFile(new URL("../public/videos/beiqiang-factory-tour.en.vtt", import.meta.url), "utf8");
-  assert.equal(webm.size > 5_000_000 && webm.size <= 30 * 1024 * 1024, true, "full factory WebM is missing or too large");
-  assert.equal(mp4.size > 5_000_000 && mp4.size <= 28 * 1024 * 1024, true, "full factory MP4 is missing or too large");
+  const edgeOneSafeFileLimit = 24 * 1024 * 1024;
+  assert.equal(webm.size > 5_000_000 && webm.size <= edgeOneSafeFileLimit, true, "full factory WebM exceeds the EdgeOne-safe 24 MiB limit");
+  assert.equal(mp4.size > 5_000_000 && mp4.size <= edgeOneSafeFileLimit, true, "full factory MP4 exceeds the EdgeOne-safe 24 MiB limit");
   assert.deepEqual([...poster.subarray(0, 3)], [0xff, 0xd8, 0xff]);
   assert.equal(poster.length <= 180 * 1024, true, "factory video poster exceeds 180 KB");
   assert.match(englishCaptions, /00:00\.000 --> 00:08\.000/);
