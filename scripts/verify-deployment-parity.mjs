@@ -25,6 +25,7 @@ export function inspectRelease(value) {
     productCountMatches: value?.productCount === SITE_RELEASE.productCount,
     factoryVideoMatches:
       value?.factoryVideo?.durationSeconds === SITE_RELEASE.factoryVideo.durationSeconds &&
+      JSON.stringify(value?.factoryVideo?.narrationLanguages) === JSON.stringify(SITE_RELEASE.factoryVideo.narrationLanguages) &&
       JSON.stringify(value?.factoryVideo?.captionLanguages) === JSON.stringify(SITE_RELEASE.factoryVideo.captionLanguages),
   };
 }
@@ -99,4 +100,3 @@ async function main() {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
-
