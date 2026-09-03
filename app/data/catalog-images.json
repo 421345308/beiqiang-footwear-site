@@ -156,11 +156,11 @@
   ],
   "bq021": [
     "01_main",
-    "02_upper",
+    "02_black_white",
     "03_fit",
-    "04_sole",
-    "05_colors",
-    "06_scene"
+    "04_grey",
+    "05_white",
+    "06_blue"
   ],
   "bq022": [
     "01_main",
@@ -173,18 +173,18 @@
   "bq023": [
     "01_main",
     "02_upper",
-    "03_fit",
-    "04_sole",
-    "05_colors",
+    "03_black",
+    "04_grey",
+    "05_brown",
     "06_scene"
   ],
   "bq024": [
     "01_main",
     "02_upper",
-    "03_fit",
-    "04_sole",
-    "05_colors",
-    "06_scene"
+    "03_all_black",
+    "04_dark_grey",
+    "05_light_grey",
+    "06_yellow_sole"
   ],
   "bq025": [
     "01_main",

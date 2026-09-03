@@ -50,8 +50,39 @@ test("keeps Alibaba-trunk materials attached to the exact second-batch products"
   assert.equal(product("BQ005").alibabaProductId, "10000043200726");
   assert.equal(product("BQ009").alibabaProductId, "1601825074604");
   assert.equal(product("BQ012").alibabaProductId, "10000043744505");
-  assert.equal(product("BQ024").alibabaProductId, "10000044004948");
+  assert.equal(product("BQ024").alibabaProductId, "10000044041031");
   assert.equal(product("BQ023").sourceModel, "A505", "A830 evidence must not spill into adjacent BQ023/A505");
+});
+
+test("keeps A505 and A830 identities, links and buyer-facing facts separated", () => {
+  const bq023 = product("BQ023");
+  assert.equal(bq023.sourceModel, "A505");
+  assert.equal(bq023.alibabaProductId, "10000044004948");
+  assert.equal(bq023.size, "To be confirmed");
+  assert.equal(bq023.upper, "Knit textile upper");
+  assert.match(bq023.confirmBeforeQuote.join(" "), /Size range/);
+
+  const bq024 = product("BQ024");
+  assert.equal(bq024.sourceModel, "A830");
+  assert.equal(bq024.alibabaProductId, "10000044041031");
+  assert.equal(bq024.size, "EU 37-45");
+  assert.deepEqual(bq024.colors, ["Black White", "All Black", "Black Yellow", "Beige Grey"]);
+  assert.match(bq024.confirmBeforeQuote.join(" "), /Current Alibaba SKU names and image binding/);
+
+  const linkedIds = products.flatMap((item) => item.alibabaProductId ? [item.alibabaProductId] : []);
+  assert.equal(new Set(linkedIds).size, linkedIds.length, "Alibaba product links must be unique across the catalogue");
+});
+
+test("keeps K6212 free of unsupported winter and fleece positioning", () => {
+  const bq021 = product("BQ021");
+  assert.equal(bq021.sourceModel, "K6212");
+  assert.equal(bq021.upper, "Knit textile upper");
+  assert.equal(bq021.size, "EU 35-45");
+  assert.deepEqual(bq021.colors, ["Black White", "All Black", "White", "Blue", "Grey"]);
+  assert.doesNotMatch(
+    [bq021.name, bq021.shortDescription, bq021.group, ...bq021.highlights, ...bq021.confirmBeforeQuote].join(" "),
+    /winter|fleece/i,
+  );
 });
 
 test("renders the second-batch material facts in buyer-readable Chinese", () => {

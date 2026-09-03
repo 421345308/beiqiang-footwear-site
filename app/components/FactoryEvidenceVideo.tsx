@@ -61,7 +61,7 @@ export default function FactoryEvidenceVideo({ compact = false, locale = "en" }:
         <strong>{zh ? "工厂实拍" : "Factory-side footage"}</strong>
         <span>
           {fullTour
-            ? (zh ? "3分钟完整版 · 原片静音 · 可选中英文场景字幕" : "Full 3-minute tour · silent original · English scene captions available")
+            ? (zh ? "Alibaba.com 3分钟完整工厂视频 · 原片静音 · 可选中英文场景字幕" : "Full 3-minute Alibaba.com factory tour · silent original · English scene captions on by default")
             : (zh ? "35秒预览 · 查看工厂页的3分钟完整版" : "35-second preview · watch the full 3-minute tour on the factory page")}
         </span>
         {compact ? <a href={zh ? "/zh/factory/" : "/factory/"}>{zh ? "观看完整版 →" : "Watch full tour →"}</a> : null}

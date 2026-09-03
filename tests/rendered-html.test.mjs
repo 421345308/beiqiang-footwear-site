@@ -35,13 +35,14 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
     html,
     /CURRENT LEAD STYLE|\/catalog-web\/bq009\/01_main\.webp/i,
   );
-  assert.match(html, /\/videos\/beiqiang-factory-proof\.webm/i);
-  assert.match(html, /\/videos\/beiqiang-factory-proof\.mp4/i);
-  assert.match(html, /\/videos\/beiqiang-factory-proof-poster\.jpg/i);
+  assert.doesNotMatch(html, /\/videos\/beiqiang-factory-proof\.(?:webm|mp4)/i);
+  assert.match(html, /\/videos\/beiqiang-factory-tour-poster\.jpg/i);
   assert.match(html, /"@type":"VideoObject"/i);
   assert.match(html, /"duration":"PT3M"/i);
   assert.match(html, /\/videos\/beiqiang-factory-tour\.mp4/i);
+  assert.match(html, /\/videos\/beiqiang-factory-tour\.webm/i);
   assert.match(html, /English scene captions/i);
+  assert.match(html, /Full 3-minute Alibaba\.com factory tour/i);
   assert.match(html, /Factory evidence routes/i);
   assert.match(html, /\/factory-video-stills\/factory-exterior\.webp/i);
   assert.match(html, /\/factory-video-stills\/stitching-line\.webp/i);
