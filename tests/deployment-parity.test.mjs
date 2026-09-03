@@ -41,8 +41,9 @@ test("checks release identity plus the full factory video and both caption track
 });
 
 test("keeps the EdgeOne static export and operator command wired to the release check", async () => {
-  const [exporter, packageJson] = await Promise.all([
+  const [exporter, edgeOneConfig, packageJson] = await Promise.all([
     readFile(new URL("../scripts/export-edgeone-static.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../edgeone-deploy/edgeone.json", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8").then(JSON.parse),
   ]);
   assert.match(exporter, /pathname:\s*"\/release\.json"/);
@@ -50,5 +51,8 @@ test("keeps the EdgeOne static export and operator command wired to the release 
   assert.match(exporter, /source:\s*"\/videos\/beiqiang-factory-tour\.en\.vtt"/);
   assert.match(exporter, /key:\s*"Content-Type",\s*value:\s*"text\/vtt; charset=utf-8"/);
   assert.doesNotMatch(exporter, /three-minute silent|3分钟无声/i);
+  const parsedEdgeOneConfig = JSON.parse(edgeOneConfig);
+  assert.ok(parsedEdgeOneConfig.headers.some((rule) => rule.source === "/videos/beiqiang-factory-tour.en.vtt"));
+  assert.ok(parsedEdgeOneConfig.headers.some((rule) => rule.source === "/videos/beiqiang-factory-tour.zh.vtt"));
   assert.equal(packageJson.scripts["verify:deployments"], "node --experimental-strip-types scripts/verify-deployment-parity.mjs");
 });

@@ -1,0 +1,29 @@
+{
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 301
+    }
+  ],
+  "headers": [
+    {
+      "source": "/videos/beiqiang-factory-tour.en.vtt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/vtt; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/videos/beiqiang-factory-tour.zh.vtt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/vtt; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}
