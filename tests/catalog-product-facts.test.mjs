@@ -90,3 +90,43 @@ test("keeps M8811 source-recorded EVA attached to BQ006 only", () => {
   assert.match(product("BQ008").sole, /material confirmed before quotation/);
   assert.match(product("BQ011").sole, /material confirmed before quotation/);
 });
+
+test("keeps corrected source-package facts attached to BQ011, BQ013, BQ014 and BQ018", () => {
+  const bq011 = product("BQ011");
+  assert.deepEqual(bq011.colors, ["Grey Black", "Grey White", "Grey Green"]);
+
+  const bq013 = product("BQ013");
+  assert.equal(bq013.sourceModel, "T55836");
+  assert.equal(bq013.name, "Knit Textile Slip-On Walking Shoes");
+  assert.equal(bq013.upper, "Knit textile upper");
+  assert.equal(bq013.size, "EU 35-45");
+  assert.doesNotMatch(bq013.confirmBeforeQuote.join(" "), /Size range/);
+
+  const bq014 = product("BQ014");
+  assert.equal(bq014.sourceModel, "A507");
+  assert.equal(bq014.name, "Stretch Textile Slip-On Walking Shoes");
+  assert.deepEqual(bq014.colors, ["Beige White", "Black White", "All Black"]);
+  assert.doesNotMatch(
+    [bq014.name, bq014.shortDescription, bq014.group, ...bq014.highlights, ...bq014.confirmBeforeQuote].join(" "),
+    /autumn|winter|fleece/i,
+  );
+  assert.equal(bq014.alibabaProductId, undefined, "conflicting stored ID must wait for an Accio live readback");
+
+  const bq018 = product("BQ018");
+  assert.equal(bq018.sourceModel, "A116");
+  assert.equal(bq018.name, "Knit Textile Lace-Up Walking Shoes");
+  assert.deepEqual(bq018.colors, ["Lavender", "Cream", "All Black", "Black White"]);
+  assert.doesNotMatch(bq018.confirmBeforeQuote.join(" "), /Closure\/lace construction/);
+  assert.match(bq018.confirmBeforeQuote.join(" "), /Blue option and color image/);
+});
+
+test("renders corrected product names and colors in buyer-readable Chinese", () => {
+  assert.equal(productNameZh(product("BQ013")), "针织织物套穿步行鞋");
+  assert.equal(productNameZh(product("BQ014")), "弹力织物套穿步行鞋");
+  assert.equal(productNameZh(product("BQ018")), "针织织物系带步行鞋");
+  assert.equal(factZh("Knit textile upper"), "针织织物鞋面");
+  assert.equal(
+    factZh("Blue option and color image before adding it to the assortment"),
+    "蓝色选项及对应颜色图片在加入产品组合前确认",
+  );
+});
