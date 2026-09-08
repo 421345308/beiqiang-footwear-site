@@ -22,7 +22,7 @@ export default async function ResourcePage({ params }: Props) {
   const relatedProducts = resource.relatedProductCodes.map((code) => products.find((product) => product.code === code)).filter((product) => product !== undefined);
   const url = `https://www.beiqiang.online/resources/${resource.slug}/`;
   const structuredData = { "@context": "https://schema.org", "@graph": [
-    { "@type": "Article", headline: resource.title, description: resource.description, datePublished: resource.updated, dateModified: resource.updated, mainEntityOfPage: url, author: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." }, publisher: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." } },
+    { "@type": "Article", headline: resource.title, description: resource.description, datePublished: "2026-08-24", dateModified: resource.updated, mainEntityOfPage: url, author: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." }, publisher: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." } },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://www.beiqiang.online/" }, { "@type": "ListItem", position: 2, name: "Sourcing resources", item: "https://www.beiqiang.online/resources/" }, { "@type": "ListItem", position: 3, name: resource.title, item: url }] },
   ] };
   const quoteHref = `/request-quote/?resource=${resource.slug}`;

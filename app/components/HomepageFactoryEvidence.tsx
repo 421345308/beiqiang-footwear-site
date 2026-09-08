@@ -8,16 +8,16 @@ const evidence = {
       alt: "Exterior visible in the Beiqiang factory tour footage",
       label: "SUPPLIER CONTEXT",
       title: "Start with the actual factory tour",
-      body: "Review the full three-minute footage, its scene guide and the limits of what the video proves.",
-      action: "Review factory evidence",
+      body: "See our working areas, upper stitching and shoe-handling process in the full three-minute tour.",
+      action: "Visit the factory",
     },
     {
       href: "/oem-odm/",
       image: "/factory-video-stills/stitching-line.webp",
       alt: "Stitching work area visible in the supplied factory footage",
       label: "WORK-AREA FOOTAGE",
-      title: "Connect a request to a reviewable process",
-      body: "Use a base style, reference image or technical brief so the team can check feasibility before promising customization.",
+      title: "Talk through the changes you need",
+      body: "Choose a base shoe or share your design, then discuss materials, branding and sample options with us.",
       action: "Prepare an OEM brief",
     },
     {
@@ -26,7 +26,7 @@ const evidence = {
       alt: "Packing preparation visible in the supplied factory footage",
       label: "ORDER PREPARATION",
       title: "Define what must be checked before shipment",
-      body: "Product, assortment, labeling, packing and carton requirements are confirmed for the specific order—not inferred from one scene.",
+      body: "Agree the color and size mix, labels, boxes and carton markings before your order is packed.",
       action: "Review checking and packing",
     },
   ],
@@ -37,16 +37,16 @@ const evidence = {
       alt: "贝强工厂完整视频中可见的工厂外部画面",
       label: "供应商背景",
       title: "先看完整工厂实拍",
-      body: "查看三分钟完整视频、场景导览以及视频能够证明和不能证明的边界。",
-      action: "审核工厂证据",
+      body: "看看日常工作区域、鞋面车缝和鞋品整理，先对工厂有一个直观了解。",
+      action: "了解工厂",
     },
     {
       href: "/zh/oem-odm/",
       image: "/factory-video-stills/stitching-line.webp",
       alt: "贝强工厂素材中可见的针车工作区域",
       label: "工作区域实拍",
-      title: "把采购要求变成可审核的流程",
-      body: "提供基础款、参考图或技术资料，由团队先审核可行性，再讨论定制范围。",
+      title: "想改哪里，我们一起具体沟通",
+      body: "提供喜欢的鞋款或设计图，沟通材料、商标和样品，先确定能做什么、怎么做。",
       action: "准备OEM需求",
     },
     {
@@ -55,7 +55,7 @@ const evidence = {
       alt: "贝强工厂素材中可见的包装准备画面",
       label: "订单准备",
       title: "明确出货前需要核对什么",
-      body: "产品、配码、标签、包装与装箱按具体订单确认，不能从一个现场画面直接推定。",
+      body: "各色各码数量、标签、鞋盒和箱唛，都在订单中逐项确认，方便收货和后续销售。",
       action: "查看检查与包装",
     },
   ],
@@ -79,8 +79,8 @@ export default function HomepageFactoryEvidence({ locale = "en" }: { locale?: "e
       ))}
       <p className="homepage-factory-evidence-boundary">
         {locale === "zh"
-          ? "这些图片来自当前工厂视频，用于供应商初步审核。画面出现某个工作区域，不代表所有SKU均采用该工艺，也不构成产能、认证、材料或交期承诺。"
-          : "These stills come from the current factory tour for preliminary supplier review. A visible work area does not mean every SKU uses that process and does not prove capacity, certification, material or lead time."}
+          ? "图片取自贝强工厂实拍视频。具体鞋款的做法和订单安排，请与我们单独确认。"
+          : "Images taken from Beiqiang’s factory video. Construction and production arrangements are confirmed for each style and order."}
       </p>
     </div>
   );

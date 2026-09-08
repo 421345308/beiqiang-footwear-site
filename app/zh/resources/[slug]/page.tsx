@@ -25,7 +25,7 @@ export default async function ChineseResourcePage({ params }: Props) {
   const relatedProducts = resource.relatedProductCodes.map((code) => products.find((product) => product.code === code)).filter((product) => product !== undefined);
   const url = `https://www.beiqiang.online/zh/resources/${resource.slug}/`;
   const structuredData = { "@context": "https://schema.org", "@graph": [
-    { "@type": "Article", headline: resource.title, description: resource.description, datePublished: resource.updated, dateModified: resource.updated, mainEntityOfPage: url, inLanguage: "zh-CN", author: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." }, publisher: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." } },
+    { "@type": "Article", headline: resource.title, description: resource.description, datePublished: "2026-08-28", dateModified: resource.updated, mainEntityOfPage: url, inLanguage: "zh-CN", author: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." }, publisher: { "@type": "Organization", name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd." } },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "中文首页", item: "https://www.beiqiang.online/zh/" }, { "@type": "ListItem", position: 2, name: "采购知识", item: "https://www.beiqiang.online/zh/resources/" }, { "@type": "ListItem", position: 3, name: resource.title, item: url }] },
   ] };
   const quoteHref = `/zh/request-quote/?resource=${resource.slug}`;

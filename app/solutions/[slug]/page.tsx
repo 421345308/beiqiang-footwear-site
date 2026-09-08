@@ -126,8 +126,8 @@ export default async function SourcingProgramPage({ params }: Props) {
       <section className="section sourcing-program-value">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">COMMERCIAL STARTING POINT</p>
-            <h2>Turn product interest into a decision-ready inquiry.</h2>
+            <p className="eyebrow">YOUR ORDER</p>
+            <h2>What we can work through with you.</h2>
           </div>
           <p>{program.evidenceBoundary}</p>
         </div>
@@ -147,9 +147,8 @@ export default async function SourcingProgramPage({ params }: Props) {
           <p className="eyebrow eyebrow-light">WHAT TO PREPARE</p>
           <h2>A complete first brief reduces quotation delays.</h2>
           <p>
-            You do not need every answer before contacting us. Mark unknown
-            items clearly so the next reply can separate confirmed facts from
-            open decisions.
+            Start with what you know. If a quantity, size mix or design detail
+            is undecided, say so—we can work through it together.
           </p>
         </div>
         <ul>
@@ -163,7 +162,7 @@ export default async function SourcingProgramPage({ params }: Props) {
         <div className="section-heading">
           <div>
             <p className="eyebrow">RELEVANT PRODUCT REFERENCES</p>
-            <h2>Start with six documented directions.</h2>
+            <h2>Explore a few starting styles.</h2>
           </div>
           <p>
             Open each product page for the real gallery, current documented
@@ -181,7 +180,7 @@ export default async function SourcingProgramPage({ params }: Props) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">BUYER WORKFLOW</p>
-            <h2>Three controlled decisions before an order.</h2>
+            <h2>From first inquiry to your order.</h2>
           </div>
         </div>
         <div>
@@ -199,7 +198,7 @@ export default async function SourcingProgramPage({ params }: Props) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">BUYER QUESTIONS</p>
-            <h2>Commercial boundaries before you submit.</h2>
+            <h2>Questions buyers often ask.</h2>
           </div>
         </div>
         <div>
@@ -217,8 +216,8 @@ export default async function SourcingProgramPage({ params }: Props) {
 
       <section className="sourcing-program-close">
         <div>
-          <p className="eyebrow eyebrow-light">NEXT COMMERCIAL STEP</p>
-          <h2>Send one brief that sales can actually review.</h2>
+          <p className="eyebrow eyebrow-light">TELL US ABOUT YOUR PROJECT</p>
+          <h2>Let’s talk about the shoes you need.</h2>
           <p>
             Choose products first or begin with your project requirements.
             Quotations, sample terms and order terms are confirmed in writing.
@@ -230,7 +229,7 @@ export default async function SourcingProgramPage({ params }: Props) {
             href={quoteHref}
             className="button button-light"
           >
-            Start this sourcing path
+            Discuss my project
           </SourcingProgramCta>
           <a
             href="https://wa.me/8618959805256"

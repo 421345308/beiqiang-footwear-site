@@ -62,7 +62,7 @@ export const chineseCollections: ChineseCollection[] = [
     slug: "fleece-lined-shoes",
     name: "加绒选项",
     title: "已有加绒颜色方向的步行鞋款",
-    description: "查看当前颜色资料中包含加绒方向的鞋款，用于秋冬或寒冷市场的产品组合讨论。",
+    description: "这些款式的原始资料中有加绒版本。准备秋冬选款时，可以先沟通内里和可选颜色，再安排样品。",
     buyerIntent: "希望先比较秋冬候选款，再确认样品、材料和当前可用状态的进口商、批发商与线上卖家。",
     proofBoundary: "加绒方向可能只适用于个别颜色；准确内里材料、保暖表现、当前可用颜色、尺码和商业条件必须在报价前确认。",
   },

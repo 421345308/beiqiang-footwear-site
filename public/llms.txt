@@ -32,7 +32,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 56 organized product pages; this is not the factory's entire product range.
+- The website currently contains 31 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims are limited to BQ001, BQ002 and BQ031. Other styles are not presented as wide-toe products.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -71,28 +71,3 @@
 - BQ029 / A025: High-Top Sock Knit Walking Shoes — https://www.beiqiang.online/products/bq029/
 - BQ030 / A811: Kids Mesh Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq030/
 - BQ031 / ZX2116: Wide Toe Box Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq031/
-- BQ032 / ZX2212: Regular-Fit Large-Size Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq032/
-- BQ033 / T5503: Low-Profile Breathable Knit Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq033/
-- BQ034 / T5505: Lightweight Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq034/
-- BQ035 / A001: Backless Knit Mule Casual Shoes — https://www.beiqiang.online/products/bq035/
-- BQ036 / 8025: High-Top Knit Sock Slip-On Casual Shoes — https://www.beiqiang.online/products/bq036/
-- BQ037 / H7116: Knit Toe-Cap Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq037/
-- BQ038 / M889: Chunky Knit Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq038/
-- BQ039 / 155: High-Top Stretch-Knit Slip-On Casual Shoes — https://www.beiqiang.online/products/bq039/
-- BQ040 / 1689: MD-Sole Knit Slip-On Casual Shoes — https://www.beiqiang.online/products/bq040/
-- BQ041 / 202: Kids Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq041/
-- BQ042 / 206: Knit Lace-Up Cushion Casual Shoes — https://www.beiqiang.online/products/bq042/
-- BQ043 / 8008: Chunky EVA Knit Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq043/
-- BQ044 / 811: Low-Profile Knit Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq044/
-- BQ045 / A012: Men's High-Top Knit Sock Casual Shoes — https://www.beiqiang.online/products/bq045/
-- BQ046 / A155: High-Top Knit Sock EVA Casual Shoes — https://www.beiqiang.online/products/bq046/
-- BQ047 / A189: Men's High-Top Knit Slip-On Casual Shoes — https://www.beiqiang.online/products/bq047/
-- BQ048 / A212 + A212-1: Knit Slip-On Casual Shoes with Fleece Options — https://www.beiqiang.online/products/bq048/
-- BQ049 / A230: Athletic Knit Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq049/
-- BQ050 / A828: Lightweight Knit Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq050/
-- BQ051 / K6689: Segmented Rubber-Sole Knit Slip-On Shoes — https://www.beiqiang.online/products/bq051/
-- BQ052 / 9212: Bubble-EVA Knit Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq052/
-- BQ053 / 1888: High-Top Elastic-Knit Sock Casual Shoes — https://www.beiqiang.online/products/bq053/
-- BQ059 / A1888: High-Top Knit Sock Casual Shoes — https://www.beiqiang.online/products/bq059/
-- BQ060 / A350: Knit Lace-Up Casual Walking Shoes — https://www.beiqiang.online/products/bq060/
-- BQ061 / AA811: Lightweight Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq061/

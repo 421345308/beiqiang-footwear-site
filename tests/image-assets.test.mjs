@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile, readdir, stat } from "node:fs/promises";
-import { products } from "../app/data/products.ts";
+import { products, heldSourceProducts } from "../app/data/products.ts";
 
 const root = new URL("../public/catalog-thumbs/", import.meta.url);
 
@@ -13,7 +13,7 @@ async function filesBelow(directory, suffix) {
 
 test("keeps a complete product-aligned WebP thumbnail set", async () => {
   const files = (await readdir(root)).filter((name) => /^bq\d{3}\.webp$/.test(name)).sort();
-  assert.deepEqual(files, products.map((product) => `${product.slug}.webp`).sort());
+  assert.deepEqual(files, [...products, ...heldSourceProducts].map((product) => `${product.slug}.webp`).sort());
   for (const file of files) {
     const header = await readFile(new URL(file, root));
     assert.equal(header.subarray(0, 4).toString("ascii"), "RIFF", `${file} should be a RIFF WebP file`);
@@ -35,7 +35,7 @@ test("keeps one optimized web-gallery image for every catalogue source image", a
   assert.equal(derivatives.length, sources.length);
   const sizes = await Promise.all(derivatives.map((file) => stat(file)));
   assert.equal(Math.max(...sizes.map((item) => item.size)) <= 140 * 1024, true, "one product web image exceeds 140 KB");
-  const deploymentBudget = products.length * 340 * 1024;
+  const deploymentBudget = (products.length + heldSourceProducts.length) * 340 * 1024;
   assert.equal(sizes.reduce((sum, item) => sum + item.size, 0) <= deploymentBudget, true, "product web gallery exceeds the per-product deployment budget");
 });
 

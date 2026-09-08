@@ -23,10 +23,10 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   const html = await response.text();
   assert.match(
     html,
-    /A footwear factory for wholesale, private-label and OEM projects/,
+    /Walking shoes for your business/,
   );
-  assert.match(html, /Discuss a sourcing project/);
-  assert.match(html, /Browse current product selection/);
+  assert.match(html, /Tell us what you need/);
+  assert.match(html, /Browse shoe styles/);
   assert.match(html, /421345308@qq\.com/);
   assert.match(html, /8618959805256/);
   assert.match(html, /Open buyer menu/i);
@@ -47,7 +47,7 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /\/factory-video-stills\/factory-exterior\.webp/i);
   assert.match(html, /\/factory-video-stills\/stitching-line\.webp/i);
   assert.match(html, /\/factory-video-stills\/packing-preparation\.webp/i);
-  assert.match(html, /A visible work area does not mean every SKU uses that process/i);
+  assert.match(html, /Construction and production arrangements are confirmed/i);
   assert.match(html, /\/og\.jpg/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
 });
@@ -66,7 +66,7 @@ test("groups bilingual buyer navigation by sourcing stage without hiding commerc
 
   const chinese = await render("/zh");
   const chineseHtml = await chinese.text();
-  for (const label of ["产品选款", "采购方案", "验证工厂", "如何采购", "买家工作台"]) {
+  for (const label of ["产品选款", "采购方案", "了解工厂", "如何采购", "买家工作台"]) {
     assert.match(chineseHtml, new RegExp(`>${label}<`), label);
   }
   for (const slug of ["wide-toe-box", "knit-slip-on", "breathable-lace-up", "high-top-shoes", "kids-shoes", "extended-size-shoes", "fleece-lined-shoes"]) {
@@ -74,7 +74,7 @@ test("groups bilingual buyer navigation by sourcing stage without hiding commerc
   }
   assert.match(chineseHtml, /样品与订单流程/);
   assert.match(chineseHtml, /工厂实拍证据入口/);
-  assert.match(chineseHtml, /画面出现某个工作区域，不代表所有SKU均采用该工艺/);
+  assert.match(chineseHtml, /具体鞋款的做法和订单安排/);
   assert.match(chineseHtml, /href="\/zh\/request-quote\/"[^>]*>询价单/);
 });
 
@@ -102,8 +102,8 @@ test("server-renders the complete searchable product catalogue", async () => {
   const response = await render("/products");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /product pages prepared for online review/i);
-  assert.match(html, /not Beiqiang(?:&#x27;|')s entire factory range/i);
+  assert.match(html, /Walking and casual shoes for wholesale/i);
+  assert.match(html, /Current availability and any changes are confirmed/i);
   assert.match(html, /Compare styles/i);
   assert.match(html, /Start by sourcing direction/i);
   assert.match(html, /Review a product family before individual styles/i);
@@ -113,16 +113,16 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Fleece-lined options/i);
   assert.match(html, /collections\/kids-shoes\//i);
   assert.match(html, /collections\/fleece-lined-shoes\//i);
-  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?56/i);
+  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?31/i);
   assert.match(html, /Show more products/i);
-  assert.match(html, /Browse all\s*(?:<!-- -->)?56(?:<!-- -->)?\s*current product codes/i);
+  assert.match(html, /Browse all\s*(?:<!-- -->)?31(?:<!-- -->)?\s*current product codes/i);
   assert.match(html, /Upper[\s\S]*Knitted textile upper/i);
   assert.match(html, /Sole[\s\S]*EVA/i);
   assert.match(html, /Product views[\s\S]*6(?:<!-- -->)? images/i);
   assert.match(html, /BQ001/);
   assert.match(html, /BQ030/);
   assert.match(html, /BQ031/);
-  assert.match(html, /BQ061/);
+  assert.doesNotMatch(html, /BQ061/);
   assert.doesNotMatch(html, /Tier [A-E]/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
   assert.doesNotMatch(html, /INTERNAL SOURCING REVIEW|Evidence-led highlights/i);
@@ -132,8 +132,8 @@ test("server-renders the gated current line-sheet lead path", async () => {
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /56(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
-  assert.match(html, /Unlock the 56-style PDF/i);
+  assert.match(html, /31(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
+  assert.match(html, /Unlock the 31-style PDF/i);
   assert.match(html, /product-discovery document, not a quotation/i);
   assert.doesNotMatch(
     html,
@@ -365,10 +365,10 @@ test("server-renders buyer-intent collection pages", async () => {
 
 test("server-renders four additional buyer-intent collections with commercial boundaries", async () => {
   for (const [slug, heading, boundary, count] of [
-    ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 8],
-    ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 3],
+    ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 1],
+    ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 2],
     ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 3],
-    ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 4],
+    ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 2],
   ]) {
     const response = await render(`/collections/${slug}`);
     const html = await response.text();
@@ -386,18 +386,18 @@ test("server-renders four additional buyer-intent collections with commercial bo
 for (const [slug, expectedTitle, expectedBoundary] of [
   [
     "wholesale-walking-shoes",
-    /Wholesale walking shoes for importers and online sellers/i,
-    /not as claims of sales volume/i,
+    /Wholesale walking shoes for your next collection/i,
+    /Current colors, sizes, quantities and delivery timing/i,
   ],
   [
     "private-label-walking-shoes",
-    /Private-label walking shoes built from a documented base style/i,
-    /not a guarantee that every logo/i,
+    /Private-label walking shoes for your brand/i,
+    /options depend on the shoe and order quantity/i,
   ],
   [
     "oem-knit-shoes",
-    /OEM knit walking-shoe development starts with a controlled brief/i,
-    /do not prove that a new technical target/i,
+    /Custom knit shoes: discuss your design with our factory/i,
+    /not a promise that a new design/i,
   ],
 ]) {
   test(`server-renders the ${slug} commercial sourcing program`, async () => {
@@ -406,7 +406,7 @@ for (const [slug, expectedTitle, expectedBoundary] of [
     const html = await response.text();
     assert.match(html, expectedTitle);
     assert.match(html, expectedBoundary);
-    assert.match(html, /Turn product interest into a decision-ready inquiry/i);
+    assert.match(html, /What we can work through with you/i);
     assert.match(html, /application\/ld\+json/i);
     assert.doesNotMatch(
       html,

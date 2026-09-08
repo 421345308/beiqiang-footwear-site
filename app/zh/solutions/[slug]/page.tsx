@@ -116,8 +116,8 @@ export default async function ChineseSourcingProgramPage({ params }: Props) {
       <section className="section sourcing-program-value">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">商业起点</p>
-            <h2>把产品兴趣转成可供决策的询盘。</h2>
+            <p className="eyebrow">合作内容</p>
+            <h2>我们会和您一起解决什么。</h2>
           </div>
           <p>{program.evidenceBoundary}</p>
         </div>
@@ -134,9 +134,9 @@ export default async function ChineseSourcingProgramPage({ params }: Props) {
       <section className="sourcing-program-brief">
         <div>
           <p className="eyebrow eyebrow-light">需要准备</p>
-          <h2>完整的首次需求能减少报价延误。</h2>
+          <h2>先准备这些信息，沟通会更顺畅。</h2>
           <p>
-            联系前不必掌握全部答案；请明确标记未知项，让下一次回复把已确认事实与待决定事项分开。
+            还没确定的地方可以留空或写“待定”，我们会在沟通时一起补充。
           </p>
         </div>
         <ul>
@@ -149,7 +149,7 @@ export default async function ChineseSourcingProgramPage({ params }: Props) {
         <div className="section-heading">
           <div>
             <p className="eyebrow">相关产品参考</p>
-            <h2>从6个已有资料的方向开始。</h2>
+            <h2>先看看这些基础鞋款。</h2>
           </div>
           <p>打开产品页查看真实图库、当前已整理事实和报价前仍需确认的项目。</p>
         </div>
@@ -163,7 +163,7 @@ export default async function ChineseSourcingProgramPage({ params }: Props) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">买家流程</p>
-            <h2>正式订单前的三个受控决定。</h2>
+            <h2>从第一次联系到确定订单。</h2>
           </div>
         </div>
         <div>
@@ -180,7 +180,7 @@ export default async function ChineseSourcingProgramPage({ params }: Props) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">买家常见问题</p>
-            <h2>提交前先明确商业边界。</h2>
+            <h2>客户常问的问题。</h2>
           </div>
         </div>
         <div>
@@ -197,8 +197,8 @@ export default async function ChineseSourcingProgramPage({ params }: Props) {
       </section>
       <section className="sourcing-program-close">
         <div>
-          <p className="eyebrow eyebrow-light">下一商业步骤</p>
-          <h2>发送一份业务人员真正能够审核的需求。</h2>
+          <p className="eyebrow eyebrow-light">开始沟通</p>
+          <h2>把您想做的鞋发给我们。</h2>
           <p>
             可以先选择产品，也可以从项目要求开始。报价、样品和订单条款均需书面确认。
           </p>

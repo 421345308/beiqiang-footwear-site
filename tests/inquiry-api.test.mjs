@@ -77,9 +77,9 @@ test("accepts BQ031 as a real catalogue candidate in the product-finder brief", 
   assert.deepEqual(result.inquiry.finderBrief.styleCodes, ["BQ031"]);
 });
 
-test("uses the generated 56-style catalogue allowlist for newer verified products", () => {
-  const result = validateInquiry(validPayload({ styleCode: "BQ061", finderBrief: { mode: "matched_shortlist", buyerChannel: "importer_wholesaler", priority: "breathable_lace_up", closure: "Lace-Up", styleCodes: ["BQ061", "BQ054"] } }));
-  assert.deepEqual(result.inquiry.finderBrief.styleCodes, ["BQ061"]);
+test("excludes held-source codes from a valid catalogue shortlist", () => {
+  const result = validateInquiry(validPayload({ styleCode: "BQ031", finderBrief: { mode: "matched_shortlist", buyerChannel: "importer_wholesaler", priority: "breathable_lace_up", closure: "Lace-Up", styleCodes: ["BQ061", "BQ031"] } }));
+  assert.deepEqual(result.inquiry.finderBrief.styleCodes, ["BQ031"]);
 });
 
 test("preserves an approved sourcing-resource origin in the commercial record", () => {

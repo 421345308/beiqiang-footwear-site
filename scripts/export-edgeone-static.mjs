@@ -1,5 +1,6 @@
 import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { FINDER_STYLE_CODES } from "../edgeone-deploy/cloud-functions/api/catalog-style-codes.js";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const outputRoot = resolve(projectRoot, "edgeone-export-v1");
@@ -20,7 +21,7 @@ await cp(clientRoot, outputRoot, { recursive: true, force: true });
 
 const { default: worker } = await import(workerUrl.href);
 const productSlugs = (await readdir(resolve(projectRoot, "public", "catalog"), { withFileTypes: true }))
-  .filter((entry) => entry.isDirectory() && /^bq\d{3}$/.test(entry.name))
+  .filter((entry) => entry.isDirectory() && FINDER_STYLE_CODES.has(entry.name.toUpperCase()))
   .map((entry) => entry.name)
   .sort();
 const productRoutes = productSlugs.map((slug) => {

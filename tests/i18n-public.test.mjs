@@ -26,13 +26,13 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   const home = await render("/zh");
   const homeHtml = await home.text();
   assert.equal(home.status, 200);
-  assert.match(homeHtml, /面向批发、私标与OEM项目的鞋类工厂/);
-  assert.match(homeHtml, /当前在线选款/);
+  assert.match(homeHtml, /采购休闲鞋，或做自己的品牌/);
+  assert.match(homeHtml, /批发选款/);
   assert.doesNotMatch(homeHtml, /当前重点候选|用30款真实产品资料/);
   assert.match(homeHtml, /English/);
   assert.match(
     homeHtml,
-    /正式交易通过Alibaba Trade Assurance订单或双方签署合同/,
+    /生产和运输安排会在下单前确认/,
   );
 
   const catalog = await render("/zh/products");
@@ -46,13 +46,13 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   assert.match(catalogHtml, /扩展尺码方向/);
   assert.match(catalogHtml, /加绒选项/);
   assert.match(catalogHtml, /zh\/collections\/kids-shoes\//i);
-  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?56(?:<!-- -->)?款/);
+  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?31(?:<!-- -->)?款/);
   assert.match(catalogHtml, /查看更多产品/);
-  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?56(?:<!-- -->)?个当前产品款号/);
+  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?31(?:<!-- -->)?个当前产品款号/);
   assert.match(catalogHtml, /BQ001/);
   assert.match(catalogHtml, /BQ030/);
   assert.match(catalogHtml, /BQ031/);
-  assert.match(catalogHtml, /BQ061/);
+  assert.doesNotMatch(catalogHtml, /BQ061/);
   assert.match(catalogHtml, /比较/);
   assert.doesNotMatch(
     catalogHtml,
@@ -201,7 +201,7 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
       /在大货开始前，弄清每一个关键决定/,
       /网站不收集银行卡、网银密码或验证码/,
     ],
-    ["/zh/line-sheet", /一份可用于选款的目录/, /获取56款产品目录/],
+    ["/zh/line-sheet", /一份可用于选款的目录/, /获取31款产品目录/],
   ]) {
     const response = await render(path);
     const html = await response.text();
@@ -239,18 +239,18 @@ test("publishes Chinese sourcing programs and decision-stage buyer resources", a
   for (const [path, heading, boundary] of [
     [
       "/zh/solutions/wholesale-walking-shoes",
-      /步行鞋批发选款方案/,
-      /网站图片和产品目录是最终报价吗/,
+      /休闲鞋批发：选款、看样/,
+      /产品目录不等于实时库存/,
     ],
     [
       "/zh/solutions/private-label-walking-shoes",
-      /从已有产品证据开始的私标步行鞋项目/,
-      /所有改动都能做/,
+      /品牌贴牌：用现有鞋款/,
+      /可能有各自的起订要求/,
     ],
     [
       "/zh/solutions/oem-knit-shoes",
-      /OEM针织步行鞋开发先从可核对的技术需求开始/,
-      /买家目标、已确认能力、固定项/,
+      /来样定制：一起把鞋款设计谈清楚/,
+      /不能只凭需求书保证测试结果/,
     ],
     [
       "/zh/resources",
@@ -259,18 +259,18 @@ test("publishes Chinese sourcing programs and decision-stage buyer resources", a
     ],
     [
       "/zh/resources/footwear-rfq-checklist",
-      /进口商与批发买家的鞋类询价清单/,
+      /鞋类询价清单：第一次联系工厂怎么说/,
       /未知项可以标记为待确认/,
     ],
     [
       "/zh/resources/shoe-sample-approval-checklist",
-      /大货生产前的鞋类样品审核清单/,
-      /样品通过.*没有足够意义/,
+      /鞋样确认清单：大货前要看哪些地方/,
+      /哪些还没有检查/,
     ],
     [
       "/zh/resources/private-label-walking-shoes-sourcing-guide",
-      /私标步行鞋：从产品候选到正式订单/,
-      /不是信用卡结账/,
+      /第一次做鞋类品牌贴牌：从选款到下单/,
+      /不直接收银行卡款/,
     ],
   ]) {
     const response = await render(path);

@@ -19,225 +19,221 @@ export type SourcingProgram = {
 
 export const sourcingPrograms: SourcingProgram[] = [
   {
-    slug: "wholesale-walking-shoes",
-    eyebrow: "WHOLESALE WALKING SHOES · B2B SOURCING",
-    title: "Wholesale walking shoes for importers and online sellers",
-    description:
-      "Compare documented knit, textile and mesh walking-shoe styles, build a multi-style shortlist and request a quantity-based commercial review.",
-    buyerIntent:
-      "Importers, wholesalers, distributors and marketplace sellers selecting existing styles for a market test or repeatable assortment.",
-    pathLabel: "Existing-style wholesale review",
-    projectPath: "base_style_adaptation",
-    productCodes: ["BQ009", "BQ001", "BQ002", "BQ004", "BQ012", "BQ024"],
-    benefits: [
-      {
-        title: "Current online product selection",
-        copy: "Compare product code, construction, size direction, colors and real images before contacting sales, or send another target style.",
-      },
-      {
-        title: "Multi-style quote list",
-        copy: "Place up to 12 styles in one sourcing brief with quantity, color and size notes for each line.",
-      },
-      {
-        title: "Sample-first decisions",
-        copy: "Use the sample stage to verify the selected product and agreed requirements before bulk-order confirmation.",
-      },
+    "slug": "wholesale-walking-shoes",
+    "eyebrow": "WHOLESALE SHOES",
+    "title": "Wholesale walking shoes for your next collection",
+    "description": "Buy casual and walking shoes for your store, distribution business or online range. Compare styles, request samples and get a quotation for your color and size mix.",
+    "buyerIntent": "For wholesalers, importers and online sellers buying existing shoe styles.",
+    "pathLabel": "Wholesale order",
+    "projectPath": "base_style_adaptation",
+    "productCodes": [
+      "BQ009",
+      "BQ001",
+      "BQ002",
+      "BQ004",
+      "BQ012",
+      "BQ024"
     ],
-    briefItems: [
+    "benefits": [
+      {
+        "title": "Choose a practical assortment",
+        "copy": "Compare slip-ons, lace-ups and selected wide-toe styles. Use the product code to keep different shoes and colors clear."
+      },
+      {
+        "title": "Ask about a trial order",
+        "copy": "Tell us the quantity you want per style and color. We check the minimum and available size mix instead of assuming every combination can be supplied."
+      },
+      {
+        "title": "Check a sample before committing",
+        "copy": "Ask which sample is available, what it costs and whether it matches the version you would order in bulk."
+      }
+    ],
+    "briefItems": [
       "Target market and sales channel",
       "Style codes or product links",
       "Estimated pairs per style",
       "Required colors and size ratio",
       "Packing or labeling request",
-      "Destination and required timing",
+      "Destination and required timing"
     ],
-    workflow: [
+    "workflow": [
       {
-        title: "Shortlist existing styles",
-        copy: "Use documented product pages and the compare tool to narrow the range around your channel and customer.",
+        "title": "Select styles",
+        "copy": "Add up to 12 styles to your quote list, or send a reference and describe the customers you sell to."
       },
       {
-        title: "Submit one buying brief",
-        copy: "Add quantity, color, size, packing, destination and trade-term preference so the reply can address commercial decisions.",
+        "title": "Compare a written quotation",
+        "copy": "We confirm the style, quantity, specifications, packing and delivery arrangements. Ask us to separate product and shipping charges so you know what is included."
       },
       {
-        title: "Review samples and quotation",
-        copy: "Availability, specifications, sample arrangement, price and timing are confirmed style by style in writing.",
-      },
+        "title": "Confirm the sample and order",
+        "copy": "Record any sample changes, agree the final details, then place the order through the agreed Trade Assurance or contract process."
+      }
     ],
-    faq: [
+    "faq": [
       {
-        question: "Can I request several styles in one quotation?",
-        answer:
-          "Yes. Add up to 12 styles to the quote list and enter the quantity, colors and sizes for each product line.",
+        "question": "Can I mix styles, colors and sizes?",
+        "answer": "You can request a mixed order. List pairs per style and color, plus your size ratio. We check each line before confirming the order; availability is not the same for every combination."
       },
       {
-        question: "Are website photos and catalogue details a final quotation?",
-        answer:
-          "No. They support product discovery. Price, availability, specifications, packing, freight and timing are confirmed in a written quotation.",
+        "question": "What is the MOQ for wholesale shoes?",
+        "answer": "Send the specific style and the number of pairs you want. We confirm the minimum and available colors and sizes in the quotation. Branding or custom packing can have additional minimums."
       },
       {
-        question: "Can colors and sizes be mixed?",
-        answer:
-          "A mixed assortment can be reviewed against the selected style, current availability, order quantity and size ratio. It is not confirmed until written into the quotation.",
+        "question": "What if I do not know my size ratio yet?",
+        "answer": "Tell us your intended market and size range, and mark the ratio as undecided. Confirm the final pairs per size before placing the order; size labels alone do not establish fit."
       },
       {
-        question: "How does the order become official?",
-        answer:
-          "After specification and sample decisions, the parties confirm a written quotation and create the agreed Alibaba Trade Assurance order or bilateral contract.",
-      },
+        "question": "Are these shoes in stock?",
+        "answer": "A catalogue entry is not a stock reservation. We check current availability and dispatch or production timing for your selected styles before you order."
+      }
     ],
-    evidenceBoundary:
-      "Priority styles are presented as sourcing starting points, not as claims of sales volume. Product availability and commercial terms remain order-specific.",
+    "evidenceBoundary": "Start with existing styles below. Current colors, sizes, quantities and delivery timing are checked when we prepare your quotation."
   },
   {
-    slug: "private-label-walking-shoes",
-    eyebrow: "PRIVATE LABEL WALKING SHOES · EXISTING STYLE PATH",
-    title: "Private-label walking shoes built from a documented base style",
-    description:
-      "Start from an existing Beiqiang product reference, then discuss feasible logo, color, labeling and packing changes around your market and quantity.",
-    buyerIntent:
-      "Brand, private-label, retail-chain and e-commerce buyers who want to adapt an existing product direction instead of developing every component from zero.",
-    pathLabel: "Existing-style adaptation",
-    projectPath: "base_style_adaptation",
-    productCodes: ["BQ001", "BQ002", "BQ009", "BQ004", "BQ012", "BQ024"],
-    benefits: [
-      {
-        title: "Start with physical evidence",
-        copy: "Each recommended base style has a product code, gallery, documented attributes and a list of facts that still require confirmation.",
-      },
-      {
-        title: "Define branding precisely",
-        copy: "Share the intended logo position, label, insole, box or packing direction so feasibility can be checked against the product.",
-      },
-      {
-        title: "Approve before bulk",
-        copy: "Color, branding, material direction and packaging need written approval and, where applicable, sample evidence before production.",
-      },
+    "slug": "private-label-walking-shoes",
+    "eyebrow": "PRIVATE-LABEL SHOES",
+    "title": "Private-label walking shoes for your brand",
+    "description": "Start your private-label shoe range with an existing Beiqiang style. Discuss your logo, colors, labels and packaging, then confirm samples and order details.",
+    "buyerIntent": "For brands and retailers adding their identity to an existing casual or walking shoe.",
+    "pathLabel": "Brand an existing style",
+    "projectPath": "base_style_adaptation",
+    "productCodes": [
+      "BQ001",
+      "BQ002",
+      "BQ009",
+      "BQ004",
+      "BQ012",
+      "BQ024"
     ],
-    briefItems: [
+    "benefits": [
+      {
+        "title": "Keep the shoe, change the branding",
+        "copy": "Choose a base style first. Tell us which parts should stay the same and where you want your logo."
+      },
+      {
+        "title": "Quote the changes separately",
+        "copy": "Logo method, color, insole, labels and shoe boxes can affect cost and minimum quantities. We discuss the options before you commit."
+      },
+      {
+        "title": "Approve the version you will sell",
+        "copy": "Check the agreed branding and packaging along with the shoe. Keep the approved sample and artwork as the reference for your order."
+      }
+    ],
+    "briefItems": [
       "Base style code or reference",
       "Target market and retail channel",
       "Expected quantity and color count",
       "Logo files and intended positions",
       "Label and packaging requirements",
-      "Required launch or arrival window",
+      "Required launch or arrival window"
     ],
-    workflow: [
+    "workflow": [
       {
-        title: "Choose a base style",
-        copy: "Shortlist the closest existing construction and explain what should remain unchanged and what should be adapted.",
+        "title": "Choose a base shoe",
+        "copy": "Send the product code and intended market. If you have not chosen a style, share a few references and explain what matters most."
       },
       {
-        title: "Review branding feasibility",
-        copy: "The product, component and packing requirements are checked against quantity, process and available production options.",
+        "title": "Agree the branding details",
+        "copy": "Send your logo artwork, size and placement, preferred colors and packing requirements. We confirm feasibility, minimums and sample costs."
       },
       {
-        title: "Approve the agreed version",
-        copy: "Use written specifications and physical sample review where required before confirming the bulk order.",
-      },
+        "title": "Check samples, then place the order",
+        "copy": "Review fit, appearance, logo and packing. Confirm revisions and the production version in writing before approving bulk production."
+      }
     ],
-    faq: [
+    "faq": [
       {
-        question:
-          "Does private label mean every change is automatically available?",
-        answer:
-          "No. Logo, color, label, material and packing requests are reviewed by style and quantity before they become confirmed specifications.",
+        "question": "Can you put my logo on the shoes?",
+        "answer": "We can review your logo request for the selected style. Send the artwork, intended location, size and colors. The suitable method, cost and minimum quantity are confirmed before sampling."
       },
       {
-        question: "What logo file should I prepare?",
-        answer:
-          "A vector file is preferred for production review. Also share the intended position, size, colors and any brand-use requirements.",
+        "question": "Do I need a new mold for private label?",
+        "answer": "Not necessarily. A project using an existing construction may need branding changes only. A new sole shape or last can require separate development. We identify that before quoting the work."
       },
       {
-        question: "Can I use the product photos as an approved sample?",
-        answer:
-          "No. Website images identify a product direction. The approved product, color and branding version must be confirmed separately.",
+        "question": "Can I start with a small batch?",
+        "answer": "Tell us your planned quantity per style and color. We check what is feasible; custom materials, colors and packaging may have their own minimums. No universal small-batch minimum applies to every design."
       },
       {
-        question: "Is accepting a quotation the same as placing an order?",
-        answer:
-          "No. Acceptance records commercial intent. The order becomes official only through the agreed Trade Assurance order or signed contract workflow.",
-      },
+        "question": "What should I send first?",
+        "answer": "A base style or reference image, expected quantity, sales market and a short list of changes. You can send detailed logo artwork after the direction is agreed."
+      }
     ],
-    evidenceBoundary:
-      "The page describes a review path, not a guarantee that every logo, material, color or packaging request is feasible at every quantity.",
+    "evidenceBoundary": "Logo, color and packaging options depend on the shoe and order quantity. We confirm the exact changes, sample costs and schedule before work begins."
   },
   {
-    slug: "oem-knit-shoes",
-    eyebrow: "OEM KNIT SHOES · TECHNICAL DEVELOPMENT INTAKE",
-    title: "OEM knit walking-shoe development starts with a controlled brief",
-    description:
-      "Share the buyer target, reference, tech pack or physical sample so construction, materials, components, testing needs and development risk can be reviewed before quotation.",
-    buyerIntent:
-      "Footwear brands and technical development buyers whose project may require a new last, tooling, sole, material system, performance target, NDA or confidential tech pack.",
-    pathLabel: "Technical product development",
-    projectPath: "technical_development",
-    productCodes: ["BQ001", "BQ002", "BQ004", "BQ009", "BQ012", "BQ019"],
-    benefits: [
-      {
-        title: "Separate targets from facts",
-        copy: "Buyer target values remain development requirements until supported by sample, component confirmation or formal test evidence.",
-      },
-      {
-        title: "Record development inputs",
-        copy: "Attach a tech pack, reference image or file to the private inquiry record instead of scattering critical requirements across messages.",
-      },
-      {
-        title: "Keep revision evidence",
-        copy: "The buyer status page can retain messages, quotations, reviewed documents and next actions under one private reference.",
-      },
+    "slug": "oem-knit-shoes",
+    "eyebrow": "CUSTOM FOOTWEAR DEVELOPMENT",
+    "title": "Custom knit shoes: discuss your design with our factory",
+    "description": "Have a shoe design or sample you want to develop? Share your construction, fit and material requirements with Beiqiang before agreeing development and sampling.",
+    "buyerIntent": "For footwear brands with a design, technical brief or physical reference sample.",
+    "pathLabel": "Custom shoe development",
+    "projectPath": "technical_development",
+    "productCodes": [
+      "BQ001",
+      "BQ002",
+      "BQ004",
+      "BQ009",
+      "BQ012",
+      "BQ019"
     ],
-    briefItems: [
+    "benefits": [
+      {
+        "title": "Find out what can be reused",
+        "copy": "We first compare your requirements with existing constructions. Changing a logo is different from changing a last, sole or material formulation."
+      },
+      {
+        "title": "Understand the work before paying",
+        "copy": "Agree what needs development, any tooling, the sample deliverables and exclusions. Do not assume a reference image describes a production-ready shoe."
+      },
+      {
+        "title": "Test the requirement that matters",
+        "copy": "If you need a specific hardness, rebound or fit, define the measurement and test method. Results are confirmed from the relevant sample or test, not promised from a drawing."
+      }
+    ],
+    "briefItems": [
       "Tech pack, sketch or physical-sample context",
       "Target market and intended use",
       "Last, fit and size requirements",
       "Upper, lining and outsole direction",
       "Target values and requested test method",
-      "Quantity, timing, NDA and destination",
+      "Quantity, timing, NDA and destination"
     ],
-    workflow: [
+    "workflow": [
       {
-        title: "Classify the project",
-        copy: "Identify whether an existing construction can be adapted or whether new development, tooling or supplier validation is required.",
+        "title": "Share a non-confidential outline",
+        "copy": "Describe the shoe, intended use, quantities and essential requirements. If you need an NDA, agree confidentiality terms before sharing sensitive designs."
       },
       {
-        title: "Confirm feasibility boundaries",
-        copy: "Separate buyer targets, confirmed capability, fixed items and results that can exist only after sampling or testing.",
+        "title": "Review construction and costs",
+        "copy": "Discuss which parts can use existing components and which need new development. Confirm sample scope, any tooling charges and what cannot be changed."
       },
       {
-        title: "Define the sample decision",
-        copy: "Agree the sample purpose, deliverables, acceptance criteria and exclusions before treating the project as quotation-ready.",
-      },
+        "title": "Review the sample against your brief",
+        "copy": "Record actual fit, construction and any test results. Agree revisions and outstanding questions before treating the sample as approved for bulk production."
+      }
     ],
-    faq: [
+    "faq": [
       {
-        question:
-          "Can Beiqiang guarantee my target hardness, rebound or test result before sampling?",
-        answer:
-          "No. A target remains a buyer requirement until the relevant construction, component, finished sample and test evidence support an actual result.",
+        "question": "Can you manufacture any design I send?",
+        "answer": "Not every design will fit our available processes or components. We review your brief and explain what can be adapted, what needs further development and what we cannot confirm."
       },
       {
-        question: "Can I send a confidential tech pack?",
-        answer:
-          "The inquiry flow supports private file upload and an NDA requirement flag. Confidentiality terms and review scope still need written confirmation before sensitive development work.",
+        "question": "Can you guarantee a target test result?",
+        "answer": "No result is guaranteed from a brief alone. Agree the test method and acceptance criteria, then evaluate the relevant component or finished sample. A component result is not automatically a finished-shoe result."
       },
       {
-        question: "Is a reference sole proof of a finished-shoe result?",
-        answer:
-          "No. A reference component, complete sample and formal test report are different evidence levels and must be described separately.",
+        "question": "Can I send a confidential tech pack?",
+        "answer": "Contact us with a general outline and your confidentiality requirements first. Agree the NDA and who may review the files before sending sensitive material."
       },
       {
-        question: "When can the factory quote an OEM project?",
-        answer:
-          "A useful quotation requires enough confirmed information about construction, materials, components, quantity, sizes, packing, testing and delivery expectations.",
-      },
+        "question": "When will I receive a development quotation?",
+        "answer": "Once the design, materials, components, quantity and sample requirements are clear enough to price. Missing technical details or supplier checks may need to be resolved first."
+      }
     ],
-    evidenceBoundary:
-      "Reference products show relevant construction directions only. They do not prove that a new technical target, test result, tooling change or formulation is already available.",
-  },
+    "evidenceBoundary": "The styles below are existing construction references, not a promise that a new design, sole, mold or performance requirement can be produced."
+  }
 ];
 
-export function getSourcingProgram(slug: string) {
-  return sourcingPrograms.find((program) => program.slug === slug);
-}
+export function getSourcingProgram(slug: string) { return sourcingPrograms.find(p => p.slug === slug); }

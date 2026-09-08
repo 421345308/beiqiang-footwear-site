@@ -899,7 +899,9 @@ const originalProducts: Product[] = [
   },
 ];
 
-export const products: Product[] = [...originalProducts, ...verifiedProducts];
+// Keep held records for internal reconciliation; they are not public supply offers.
+export const heldSourceProducts: Product[] = verifiedProducts;
+export const products: Product[] = originalProducts;
 
 export type ProductCollection = {
   slug: CollectionSlug;
@@ -982,9 +984,9 @@ export const collections: ProductCollection[] = [
     direction: "fleece",
     name: "Fleece-Lined Options",
     title: "Walking shoe styles with documented fleece-lined color options",
-    description: "Review styles whose current color records include a fleece-lined direction for cold-season assortment discussions.",
+    description: "Ask about fleece-lined versions of these styles for your cold-season range. Confirm the lining and available colors before choosing samples.",
     buyerIntent: "Importers, wholesalers and online sellers reviewing cold-season options before sample and material confirmation.",
-    selectionBasis: "At least one documented color option for the listed style includes a fleece-lined direction.",
+    selectionBasis: "The original product description identifies a fleece-lined version; the option is checked for the selected color and order.",
     proofBoundary: "The fleece-lined direction may apply only to selected colors. Exact lining material, warmth, current availability, sizes and commercial terms must be confirmed before quotation.",
   },
 ];

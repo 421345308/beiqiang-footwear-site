@@ -11,24 +11,24 @@ const ROUTES = [
   {
     path: "/zh/",
     label: "Chinese home",
-    required: [/泉州鞋类工厂供应商/, />产品选款</, />采购方案</, />验证工厂</, />如何采购</, /买家工作台/, /context-contact-dock/i, /完整询价/, /\/zh\/request-quote\//i],
+    required: [/泉州鞋类工厂供应商/, />产品选款</, />采购方案</, />了解工厂</, />如何采购</, /买家工作台/, /context-contact-dock/i, /完整询价/, /\/zh\/request-quote\//i],
   },
   {
     path: "/products/",
     label: "English catalogue",
-    required: [/56\s*product pages/i, /BQ061/i, /START BY SOURCING DIRECTION/i],
+    required: [/Walking and casual shoes for wholesale/i, /BQ031/i, /START BY SOURCING DIRECTION/i],
     forbidden: [/SKU evidence/i],
   },
   {
     path: "/zh/products/",
     label: "Chinese catalogue",
-    required: [/56/, /BQ061/, /采购方向/],
+    required: [/31/, /BQ031/, /采购方向/],
     forbidden: [/SKU evidence/i],
   },
   {
-    path: "/products/bq061/",
+    path: "/products/bq031/",
     label: "Latest English product page",
-    required: [/BQ061/i, /AA811/i, /Knitted textile upper/i, /\/request-quote\//i],
+    required: [/BQ031/i, /ZX2116/i, /Mesh knitted textile upper/i, /\/request-quote\//i],
   },
   {
     path: "/collections/high-top-shoes/",
@@ -87,7 +87,7 @@ const ROUTES = [
     path: "/sitemap.xml",
     label: "Search sitemap",
     required: [
-      /https:\/\/www\.beiqiang\.online\/products\/bq061\//i,
+      /https:\/\/www\.beiqiang\.online\/products\/bq031\//i,
       /hreflang="zh-CN"/i,
       /<image:loc>/i,
       /<video:content_loc>/i,
@@ -98,8 +98,8 @@ const ROUTES = [
     path: "/llms.txt",
     label: "AI-readable business summary",
     required: [
-      /56 organized product pages/i,
-      /BQ061 \/ AA811/i,
+      /31 organized product pages/i,
+      /BQ031 \/ ZX2116/i,
       /Alibaba Trade Assurance or a signed bilateral contract/i,
       /421345308@qq\.com/i,
     ],

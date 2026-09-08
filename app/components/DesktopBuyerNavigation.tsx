@@ -73,14 +73,14 @@ const chineseGroups = [
     label: "采购方案",
     links: [
       ["步行鞋批发", "/zh/solutions/wholesale-walking-shoes/", "整理多款批发采购需求。"],
-      ["私标步行鞋", "/zh/solutions/private-label-walking-shoes/", "准备品牌与目标市场资料。"],
+      ["品牌贴牌鞋", "/zh/solutions/private-label-walking-shoes/", "准备品牌与目标市场资料。"],
       ["OEM针织鞋开发", "/zh/solutions/oem-knit-shoes/", "区分买家目标和已确认能力。"],
       ["OEM / ODM概览", "/zh/oem-odm/", "查看定制资料与确认节点。"],
       ["Logo概念工作台", "/zh/private-label-concept/", "生成非生产确认的图稿沟通简报。"],
     ],
   },
   {
-    label: "验证工厂",
+    label: "了解工厂",
     links: [
       ["工厂与实拍", "/zh/factory/", "查看工厂实拍与供应商资料。"],
       ["检查与包装", "/zh/quality-packing/", "了解检查和包装确认点。"],

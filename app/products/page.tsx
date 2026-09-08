@@ -44,13 +44,12 @@ export default function ProductsPage() {
       <section className="catalog-hero">
         <p className="eyebrow">CURRENT ONLINE SELECTION</p>
         <h1>
-          Compare {products.length} product pages prepared for online review.
+          Walking and casual shoes for wholesale and private label.
         </h1>
         <p>
-          This is a curated website selection, not Beiqiang&apos;s entire
-          factory range. Filter by product code, source model or closure, then
-          ask for the latest line sheet or send a reference style if your target
-          is not shown.
+          Compare styles by construction, closure and fit. Add your choices to one
+          quote list, then tell us your quantity, size mix and destination.
+          Current availability and any changes are confirmed before you order.
         </p>
         <div className="catalog-summary">
           <span>

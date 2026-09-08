@@ -25,10 +25,10 @@ export function productMatchesCatalogDirection(
   }
   if (direction === "kids") return /kids/i.test(product.group);
   if (direction === "large_size") {
-    return /EU (?:37|38)-4[67]|large size/i.test(`${product.size} ${product.group}`);
+    return /EU \d{2}-4[67]|large size/i.test(`${product.size} ${product.group}`);
   }
   if (direction === "fleece") {
-    return product.colors.some((color) => /fleece/i.test(color));
+    return /fleece-lined/i.test([product.shortDescription, ...product.colors].join(" "));
   }
   return product.collections.includes(
     direction as Product["collections"][number],
