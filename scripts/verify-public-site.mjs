@@ -28,7 +28,7 @@ const ROUTES = [
   {
     path: "/products/bq031/",
     label: "Latest English product page",
-    required: [/BQ031/i, /ZX2116/i, /Mesh knitted textile upper/i, /\/request-quote\//i],
+    required: [/BQ031/i, /ZX2116/i, /Stretch knitted textile upper/i, /\/request-quote\//i],
   },
   {
     path: "/collections/high-top-shoes/",

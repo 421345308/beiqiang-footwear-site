@@ -29,7 +29,7 @@ test("checks every public acquisition route and produces an actionable failure r
     "/zh/": "泉州鞋类工厂供应商 >产品选款< >采购方案< >了解工厂< >如何采购< 买家工作台 context-contact-dock 完整询价 /zh/request-quote/",
     "/products/": "Walking and casual shoes for wholesale BQ031 START BY SOURCING DIRECTION",
     "/zh/products/": "31 BQ031 采购方向",
-    "/products/bq031/": "BQ031 ZX2116 Mesh knitted textile upper /request-quote/",
+    "/products/bq031/": "BQ031 ZX2116 Stretch knitted textile upper /request-quote/",
     "/collections/high-top-shoes/": "High-top and sock-style casual shoes recorded silhouette collection-high-top-shoes",
     "/zh/collections/high-top-shoes/": "高帮与袜套式休闲鞋采购选款 仍需逐款确认 collection-high-top-shoes",
     "/collections/kids-shoes/": "Kids casual and walking shoe styles does not confirm age grading collection-kids-shoes",
