@@ -53,6 +53,20 @@ test("keeps a bounded human shortlist request without inventing a product match"
   assert.equal(wrongProduct.inquiry.finderBrief, null);
 });
 
+test("accepts a direct reference inquiry without a catalogue SKU or finder results", () => {
+  const result = validateInquiry(validPayload({
+    styleCode: "CATALOG-2026", styleLabel: "Footwear sourcing consultation",
+    context: "sourcing_review", quantity: "To discuss", finderBrief: null,
+    requirements: "Reference: https://example.com/shoe. Please discuss feasibility before a sample.",
+  }));
+  assert.equal(result.error, undefined);
+  assert.equal(result.inquiry.context, "sourcing_review");
+  assert.equal(result.inquiry.styleCode, "CATALOG-2026");
+  assert.equal(result.inquiry.finderBrief, null);
+  assert.equal(result.inquiry.quantity, "To discuss");
+  assert.match(result.inquiry.requirements, /example.com\/shoe/);
+});
+
 test("sanitizes a multi-style technical quote request", () => {
   const result = validateInquiry(validPayload({
     styleCode: "BQ001, BQ009", context: "quote_list", projectPath: "technical_development",

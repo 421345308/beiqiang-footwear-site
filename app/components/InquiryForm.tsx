@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import OptionalInquiryDetails from "./OptionalInquiryDetails";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import InquiryAttachmentUploader from "./InquiryAttachmentUploader";
 import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
@@ -99,17 +100,18 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
 
   return (
     <form className="inquiry-form" aria-label={zh ? `${styleCode}样品和报价需求` : `${styleCode} sample and quotation request`} onSubmit={submitInquiry} onFocus={markStarted}>
+      <p className="form-instructions">{zh ? "姓名、公司、市场和预计数量为必填；数量未定可写“待讨论”。邮箱与WhatsApp至少填写一项。" : "Name, company, market and estimated quantity are required; you can write “To discuss” for quantity. Please add either email or WhatsApp."}</p>
       <label>{zh ? "联系人姓名" : "Contact name"}<input required value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" maxLength={100} placeholder={zh ? "您的姓名" : "Your name"} /></label>
       <label>{zh ? "公司名称" : "Company name"}<input required value={company} onChange={(event) => setCompany(event.target.value)} autoComplete="organization" maxLength={160} placeholder={zh ? "公司或品牌名称" : "Your company or brand"} /></label>
       <label>{zh ? "买家类型" : "Buyer type"}<select value={buyerType} onChange={(event) => setBuyerType(event.target.value)}><option value="Importer / wholesaler">{zh ? "进口商 / 批发商" : "Importer / wholesaler"}</option><option value="Amazon / TikTok seller">{zh ? "Amazon / TikTok卖家" : "Amazon / TikTok seller"}</option><option value="Brand / private label">{zh ? "品牌 / 私标买家" : "Brand / private label"}</option><option value="Sourcing agent">{zh ? "采购代理" : "Sourcing agent"}</option></select></label>
       <label>{zh ? "目标市场" : "Target market"}<input required value={market} onChange={(event) => setMarket(event.target.value)} maxLength={120} placeholder={zh ? "国家 / 销售渠道" : "Country / sales channel"} /></label>
-      <label>{zh ? "预计数量" : "Expected quantity"}<input required value={quantity} onChange={(event) => setQuantity(event.target.value)} maxLength={80} placeholder={zh ? "试单或大货数量" : "Trial or bulk quantity"} /></label>
+      <label>{zh ? "预计数量" : "Expected quantity"}<input required value={quantity} onChange={(event) => setQuantity(event.target.value)} maxLength={80} placeholder={zh ? "例如300双，或填写“待讨论”" : "e.g. 300 pairs, or To discuss"} /></label>
       <label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" maxLength={180} placeholder="name@company.com" /></label>
       <label className="form-full">WhatsApp<input value={whatsapp} onChange={(event) => setWhatsapp(event.target.value)} autoComplete="tel" maxLength={80} placeholder="Country code + number" /></label>
-      <ContactPreferenceFields locale={locale} value={contactPreferences} onChange={setContactPreferences} />
+      <OptionalInquiryDetails title={zh ? "联系时间与回复方式（选填）" : "Contact time and response preferences (optional)"}><ContactPreferenceFields locale={locale} value={contactPreferences} onChange={setContactPreferences} /></OptionalInquiryDetails>
       <label className="form-full">{zh ? "采购要求" : "Requirements"}<textarea value={requirements} onChange={(event) => setRequirements(event.target.value)} maxLength={2000} placeholder={zh ? "尺码、颜色、Logo、包装、时间、参考款……" : "Sizes, colors, logo, packing, timing, reference style..."} rows={4} /></label>
       <label className="form-honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
-      <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>{zh ? "我同意贝强使用这些资料审核并回复本次B2B采购需求。" : "I agree that Beiqiang may use these details to respond to this sourcing request."}</span></label>
+      <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>{zh ? "我同意贝强使用以上信息联系我并回复本次采购需求。" : "I agree that Beiqiang may use these details to respond to this sourcing request."}</span></label>
       <button className="button button-light form-button" type="submit" disabled={status.kind === "sending" || status.kind === "success"}>{status.kind === "sending" ? (zh ? "正在保存……" : "Saving request…") : status.kind === "success" ? (zh ? "询盘已保存" : "Request saved") : (zh ? "提交样品 / 报价需求" : "Submit sample / quotation request")}</button>
       <p className={`form-note form-note-${status.kind}`} aria-live="polite">{status.message}</p>
       {status.kind === "success" && accessDetails?.accessCode && <><Link className="inquiry-status-link" href={zh ? "/zh/inquiry-status/" : "/inquiry-status/"}>{zh ? "查看项目进度 →" : "Check this request status →"}</Link><InquiryAttachmentUploader reference={accessDetails.reference} accessCode={accessDetails.accessCode} locale={locale} /></>}

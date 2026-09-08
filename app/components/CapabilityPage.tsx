@@ -38,14 +38,15 @@ export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
           <h1>{data.title}</h1>
           <p className="hero-lead">{data.introduction}</p>
           <div className="hero-actions">
-            <Link className="button" href={data.primaryHref || "/#inquiry"}>{data.primaryCta}</Link>
+            <Link className="button" href={data.primaryHref || "/request-quote/"}>{data.primaryCta}</Link>
             <Link className="text-link" href="/products/">Shortlist products <span aria-hidden="true">→</span></Link>
           </div>
         </div>
         <aside className="capability-brief">
-          <small>FOR A USEFUL FIRST REPLY</small>
-          <strong>Share your market, channel, style references, expected quantity and target timing.</strong>
-          <p>We confirm high-impact specifications and commercial terms style by style.</p>
+          <small>NOT SURE WHERE TO START?</small>
+          <strong>A reference, your market and an estimated quantity will help us get started.</strong>
+          <p>You can ask for help choosing a style before building a quote list.</p>
+          <Link className="text-link" href="/sourcing-review/">Ask for sourcing help →</Link>
         </aside>
       </section>
 
@@ -66,22 +67,22 @@ export default function CapabilityPage({ data }: { data: CapabilityPageData }) {
       </section>
 
       <section className="section capability-process">
-        <div className="section-heading compact"><div><p className="eyebrow">BUYER WORKFLOW</p><h2>{data.stepsTitle}</h2></div></div>
+        <div className="section-heading compact"><div><p className="eyebrow">HOW WE WORK TOGETHER</p><h2>{data.stepsTitle}</h2></div></div>
         <div className="capability-step-grid">
           {data.steps.map((step, index) => <article key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{step.title}</h3><p>{step.copy}</p></article>)}
         </div>
       </section>
 
       <section className="capability-checks">
-        <article><p className="eyebrow eyebrow-light">EVIDENCE AVAILABLE</p><h2>{data.confirmedTitle}</h2><ul>{data.confirmed.map((item) => <li key={item}>{item}</li>)}</ul></article>
-        <article><p className="eyebrow">ORDER-BY-ORDER CHECK</p><h2>{data.confirmTitle}</h2><ul>{data.confirm.map((item) => <li key={item}>{item}</li>)}</ul></article>
+        <article><p className="eyebrow eyebrow-light">START HERE</p><h2>{data.confirmedTitle}</h2><ul>{data.confirmed.map((item) => <li key={item}>{item}</li>)}</ul></article>
+        <article><p className="eyebrow">BEFORE YOU ORDER</p><h2>{data.confirmTitle}</h2><ul>{data.confirm.map((item) => <li key={item}>{item}</li>)}</ul></article>
       </section>
 
       {data.factoryReviewPackProductCount ? <FactoryReviewPack productCount={data.factoryReviewPackProductCount} /> : null}
 
       <section className="section capability-closing">
         <div><p className="eyebrow">NEXT STEP</p><h2>{data.closingTitle}</h2><p>{data.closingCopy}</p></div>
-        <div className="hero-actions"><Link className="button" href={data.primaryHref || "/#inquiry"}>Send sourcing requirements</Link><a className="text-link" href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">Discuss on WhatsApp <span aria-hidden="true">→</span></a></div>
+        <div className="hero-actions"><Link className="button" href="/request-quote/">Request a quote</Link><a className="text-link" href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">Discuss on WhatsApp <span aria-hidden="true">→</span></a></div>
       </section>
       <SiteFooter />
     </main>

@@ -157,7 +157,7 @@ test("server-renders the multi-style quote and technical development path", asyn
   assert.match(html, /Copy brief/i);
   assert.match(html, /Print \/ save PDF/i);
   assert.match(html, /reaches Beiqiang only after formal submission/i);
-  assert.match(html, /Existing style adaptation/i);
+  assert.match(html, /Buy an existing style or request changes/i);
   assert.match(html, /Technical product development/i);
   assert.match(
     html,
@@ -416,12 +416,12 @@ for (const [slug, expectedTitle, expectedBoundary] of [
 }
 
 for (const [pathname, expected] of [
-  ["/factory", /factory-side sourcing conversation/i],
+  ["/factory", /Meet the factory behind your next footwear order/i],
   ["/factory", /Bring a checkable factory brief into your sourcing meeting/i],
   ["/zh/factory", /把一份可核对的工厂简报带进采购会议/],
-  ["/quality-packing", /Make order details visible/i],
-  ["/oem-odm", /confirm feasibility first/i],
-  ["/sample-order-process", /order-ready specification/i],
+  ["/quality-packing", /Agree the checks before your shoes are packed/i],
+  ["/oem-odm", /Build your footwear range from a suitable starting style/i],
+  ["/sample-order-process", /Try the sample before you commit to a bulk order/i],
 ]) {
   test(`server-renders the ${pathname} trust page`, async () => {
     const response = await render(pathname);

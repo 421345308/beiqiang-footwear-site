@@ -129,7 +129,7 @@ export default async function ChineseProductPage({ params }: Props) {
           <p className="eyebrow">B2B产品资料</p>
           <div className="product-id-line">
             <span>{product.code}</span>
-            <span>源款号 {product.sourceModel}</span>
+            <span>工厂款号 {product.sourceModel}</span>
             <span>{closureZh(product.closure)}</span>
           </div>
           <h1>{name}</h1>
@@ -138,15 +138,15 @@ export default async function ChineseProductPage({ params }: Props) {
             <li>
               <strong>
                 {product.fitEvidence === "wide_toe_verified"
-                  ? "本款资料已确认宽鞋头设计"
+                  ? "本款为宽鞋头设计"
                   : "鞋楦宽度请按本款样品确认"}
               </strong>
             </li>
             <li>
-              <strong>{product.colors.length}种已整理颜色方向</strong>
+              <strong>{product.colors.length}种配色图片可供参考</strong>
             </li>
             <li>
-              <strong>大货条款前先核对样品与规格</strong>
+              <strong>可先咨询样品，再决定大货</strong>
             </li>
           </ul>
           <div className="hero-actions">
@@ -176,11 +176,11 @@ export default async function ChineseProductPage({ params }: Props) {
           <strong>{product.code}</strong>
         </div>
         <div>
-          <small>源款号</small>
+          <small>工厂款号</small>
           <strong>{product.sourceModel}</strong>
         </div>
         <div>
-          <small>尺码方向</small>
+          <small>尺码</small>
           <strong>{product.size}</strong>
         </div>
         <div>
@@ -195,7 +195,7 @@ export default async function ChineseProductPage({ params }: Props) {
             <p className="eyebrow">当前产品信息</p>
             <h2>先了解这款产品，再讨论样品和报价。</h2>
           </div>
-          <p>当前已知产品资料与仍需按具体订单确认的商业信息分开显示。</p>
+          <p>先用以下信息选款。请告诉我们需要的尺码、颜色和数量，再核实本次订单的可选方案。</p>
         </div>
         <div className="spec-layout">
           <dl className="spec-table">
@@ -204,7 +204,7 @@ export default async function ChineseProductPage({ params }: Props) {
               <dd>{product.code}</dd>
             </div>
             <div>
-              <dt>源款号</dt>
+              <dt>工厂款号</dt>
               <dd>{product.sourceModel}</dd>
             </div>
             <div>
@@ -216,46 +216,46 @@ export default async function ChineseProductPage({ params }: Props) {
               <dd>{closureZh(product.closure)}</dd>
             </div>
             <div>
-              <dt>鞋面方向</dt>
+              <dt>鞋面</dt>
               <dd>{factZh(product.upper)}</dd>
             </div>
             <div>
-              <dt>鞋底方向</dt>
+              <dt>鞋底</dt>
               <dd>{factZh(product.sole)}</dd>
             </div>
             <div>
-              <dt>尺码方向</dt>
+              <dt>尺码</dt>
               <dd>{product.size}</dd>
             </div>
             <div>
-              <dt>已整理颜色</dt>
+              <dt>图片中的配色</dt>
               <dd>{product.colors.map(colorZh).join("、")}</dd>
             </div>
             {recordedHighlights.length ? (
               <div>
-                <dt>已记录配置证据</dt>
+                <dt>产品细节</dt>
                 <dd>{recordedHighlights.map(factZh).join("；")}</dd>
               </div>
             ) : null}
           </dl>
           <aside className="confirmation-card">
             <p className="eyebrow">报价前确认</p>
-            <h3>用准确规格保护双方信任。</h3>
+            <h3>下单前，我们一起确认。</h3>
             <ul>
               {product.confirmBeforeQuote.map((item) => (
                 <li key={item}>{factZh(item)}</li>
               ))}
             </ul>
             <a className="text-link" href="#inquiry">
-              准备这些资料 →
+              咨询这款鞋 →
             </a>
           </aside>
         </div>
       </section>
       <section className="product-gallery">
         <div className="product-evidence-heading">
-          <p className="eyebrow eyebrow-light">真实产品资料包</p>
-          <h2>查看产品和现有视觉方向。</h2>
+          <p className="eyebrow eyebrow-light">看看鞋子的细节</p>
+          <h2>产品实拍与配色参考。</h2>
         </div>
         <div className="detail-gallery-grid">
           {product.images.map((image, index) => (
@@ -280,14 +280,14 @@ export default async function ChineseProductPage({ params }: Props) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">适合买家</p>
-            <h2>把这款鞋作为采购候选，不作为自动承诺。</h2>
+            <h2>这款鞋适合您的产品线吗？</h2>
           </div>
         </div>
         <div className="buyer-grid">
           <article>
             <span>01</span>
             <h3>{buyerFitZh(product)}</h3>
-            <p>根据渠道需求审核鞋型、结构、尺码和颜色方向。</p>
+            <p>可以对照您的客户需求，看看鞋型、穿脱方式和尺码是否合适。图片没说明白的地方，欢迎直接咨询。</p>
           </article>
           <article>
             <span>02</span>
@@ -296,7 +296,7 @@ export default async function ChineseProductPage({ params }: Props) {
           </article>
           <article>
             <span>03</span>
-            <h3>商业资格判断</h3>
+            <h3>商量订单方案</h3>
             <p>提供数量、目标市场和订单要求，便于工厂准备有效报价。</p>
           </article>
         </div>
@@ -306,7 +306,7 @@ export default async function ChineseProductPage({ params }: Props) {
           <div className="section-heading compact">
             <div>
               <p className="eyebrow">样品前先比较</p>
-              <h2>相关采购候选。</h2>
+              <h2>也可以比较这些款式。</h2>
             </div>
           </div>
           <div className="product-grid">
@@ -320,9 +320,9 @@ export default async function ChineseProductPage({ params }: Props) {
         <div className="product-inquiry-grid">
           <div className="product-inquiry-copy">
             <p className="eyebrow eyebrow-light">{product.code} 样品需求</p>
-            <h2>从产品审核进入可回复的询价。</h2>
+            <h2>想了解这款鞋的样品或报价？</h2>
             <p>
-              请说明市场、预计数量和订单关键要求。工厂审核规格后再确认样品和最终商业条款。
+              告诉我们销售市场、大致数量和您最关心的问题。我们核对所选款式后，再与您确认样品安排和报价。
             </p>
             <div className="contact-links">
               <a
@@ -370,7 +370,7 @@ export default async function ChineseProductPage({ params }: Props) {
             <h1>
               {product.code} · {name}
             </h1>
-            <span>源款号 {product.sourceModel}</span>
+            <span>工厂款号 {product.sourceModel}</span>
           </div>
           <strong>
             采购审核资料
@@ -398,7 +398,7 @@ export default async function ChineseProductPage({ params }: Props) {
               <dd>{product.code}</dd>
             </div>
             <div>
-              <dt>源款号</dt>
+              <dt>工厂款号</dt>
               <dd>{product.sourceModel}</dd>
             </div>
             <div>

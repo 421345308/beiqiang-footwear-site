@@ -64,7 +64,7 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const wide = await render("/zh/products/bq001");
   const wideHtml = await wide.text();
   assert.equal(wide.status, 200);
-  assert.match(wideHtml, /本款资料已确认宽鞋头设计/);
+  assert.match(wideHtml, /本款为宽鞋头设计/);
   assert.match(wideHtml, /加入询价单/);
   assert.match(wideHtml, /分享给采购团队/);
   assert.match(wideHtml, /提交样品 \/ 报价需求/);
@@ -90,14 +90,14 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const r1811 = await render("/zh/products/bq015");
   const r1811Html = await r1811.text();
   assert.equal(r1811.status, 200);
-  assert.match(r1811Html, /已记录配置证据/);
+  assert.match(r1811Html, /产品细节/);
   assert.match(r1811Html, /Alibaba在售配置已记录网布内里/);
   assert.match(r1811Html, /各颜色加绒版本可用情况/);
 
   const m8811 = await render("/zh/products/bq006");
   const m8811Html = await m8811.text();
   assert.equal(m8811.status, 200);
-  assert.match(m8811Html, /已记录配置证据/);
+  assert.match(m8811Html, /产品细节/);
   assert.match(m8811Html, /来源资料已记录EVA鞋底/);
   assert.match(m8811Html, /所选颜色对应的加绒版本/);
   assert.match(m8811Html, /内里材质与鞋面准确组成/);
@@ -165,15 +165,15 @@ test("publishes a bilingual human sourcing review path", async () => {
   const chinese = await render("/zh/sourcing-review");
   const chineseHtml = await chinese.text();
   assert.equal(chinese.status, 200);
-  assert.match(chineseHtml, /筛选器不够时，让业务员看懂整份需求/);
-  assert.match(chineseHtml, /2至4款候选鞋款/);
-  assert.match(chineseHtml, /不是订单/);
+  assert.match(chineseHtml, /还没找到想要的鞋/);
+  assert.match(chineseHtml, /有合适选项时，可以建议2至4款/);
+  assert.match(chineseHtml, /不是下单/);
   assert.match(chineseHtml, /hrefLang="en"[^>]+\/sourcing-review\//i);
   const english = await render("/sourcing-review");
   const englishHtml = await english.text();
   assert.equal(english.status, 200);
-  assert.match(englishHtml, /When filters are not enough/i);
-  assert.match(englishHtml, /2–4 candidate styles/);
+  assert.match(englishHtml, /Looking for a shoe you have not found yet/i);
+  assert.match(englishHtml, /Where suitable options exist, we can suggest 2–4 candidates/);
   assert.match(englishHtml, /not an order/i);
   assert.doesNotMatch(englishHtml, /guaranteed match|guaranteed price/i);
 });
@@ -182,19 +182,19 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
   for (const [path, heading, boundary] of [
     [
       "/zh/factory",
-      /用看得见的证据开始工厂端采购沟通/,
-      /不据此虚构产能、客户品牌或认证/,
+      /您的下一批鞋将从怎样的工厂开始/,
+      /宽鞋头信息以具体产品页为准/,
     ],
     [
       "/zh/quality-packing",
-      /在纸箱准备前，把订单要求变成可核对项目/,
+      /先说清怎么检查，再安排装箱/,
       /检查标准与容差/,
     ],
-    ["/zh/oem-odm", /两条采购路径，一个原则：先确认可行性/, /不能提前假定/],
+    ["/zh/oem-odm", /从合适的基础款开始，做自己的鞋款系列/, /目标参数不等于打样后的实际结果/],
     [
       "/zh/sample-order-process",
-      /把产品兴趣转成可下单的规格/,
-      /需要直接商业确认/,
+      /先看样品，再决定大货/,
+      /支付样品费用前，先确认/,
     ],
     [
       "/zh/buyer-guide",

@@ -3,6 +3,18 @@ import ChineseSiteFooter from "../../components/ChineseSiteFooter";
 import ChineseSiteHeader from "../../components/ChineseSiteHeader";
 import SourcingReviewForm from "../../components/SourcingReviewForm";
 
-export const metadata: Metadata = { title: "人工鞋款选款复核｜贝强鞋业", description: "提交目标市场、预计数量和产品方向，由贝强业务员从已有产品事实出发，为B2B采购准备可审核的候选鞋款。", alternates: { canonical: "https://www.beiqiang.online/zh/sourcing-review/", languages: { en: "https://www.beiqiang.online/sourcing-review/", "zh-CN": "https://www.beiqiang.online/zh/sourcing-review/", "x-default": "https://www.beiqiang.online/sourcing-review/" } } };
+export const metadata: Metadata = { title: "鞋款选型与定制咨询｜贝强鞋业", description: "还没选好鞋款？提供销售市场、参考款和大致数量，咨询贝强的选款、定制可行性、样品与报价安排。", alternates: { canonical: "https://www.beiqiang.online/zh/sourcing-review/", languages: { en: "https://www.beiqiang.online/sourcing-review/", "zh-CN": "https://www.beiqiang.online/zh/sourcing-review/", "x-default": "https://www.beiqiang.online/sourcing-review/" } } };
 
-export default function ChineseSourcingReviewPage() { return <main><ChineseSiteHeader englishHref="/sourcing-review/" /><section className="finder-hero"><p className="eyebrow">人工采购复核</p><h1>筛选器不够时，让业务员看懂整份需求。</h1><p>提交目标市场、预计数量和产品方向。贝强业务员会核对已有产品资料、说明缺口，并给出有事实依据的起始候选，不为了成交而强行匹配。</p></section><section className="section sourcing-review-layout"><aside><p className="eyebrow">您将获得什么</p><h2>可继续推进的选款结果，不是自动承诺。</h2><ol><li><strong>2至4款候选鞋款</strong><span>在适用时从贝强当前已有资料的产品中筛选。</span></li><li><strong>匹配理由与信息缺口</strong><span>说明候选为什么可能合适，以及仍需核实的事实。</span></li><li><strong>样品／报价下一步</strong><span>列出讨论样品或准备有效报价还需要的资料。</span></li></ol><small>提交后建立的是采购询盘，不是订单。产品规格、可供性、价格、MOQ、交期、定制和样品结果都需要人工审核与书面确认。</small></aside><SourcingReviewForm locale="zh" /></section><ChineseSiteFooter /></main>; }
+export default function ChineseSourcingReviewPage() { return <main>
+  <ChineseSiteHeader englishHref="/sourcing-review/" />
+  <section className="finder-hero"><p className="eyebrow">选款与定制咨询</p><h1>还没找到想要的鞋？先说说您的想法。</h1><p>告诉我们卖给谁、想找什么款式，以及大致数量。不用先选好款号，也不必准备完整规格。有参考链接，可以直接放进需求里。</p></section>
+  <section className="section sourcing-review-layout">
+    <aside><p className="eyebrow">提交后怎么推进</p><h2>先看有没有合适的起点，再讨论具体做法。</h2>
+      <ol><li><strong>了解您的要求</strong><span>对照现有鞋款，确认哪些可能合适。如果没有匹配款，我们会说明，不用别的鞋替代您的需求。</span></li>
+      <li><strong>沟通候选款和修改</strong><span>有合适选项时，可以建议2至4款，说明还需调整什么。收到参考图，不等于已经确认能够生产。</span></li>
+      <li><strong>确认样品或报价安排</strong><span>一起补齐所需资料，在您决定之前说清费用、时间和下一步。</span></li></ol>
+      <small>这是咨询，不是下单。供货、定制、价格和时间均需书面确认。提交后可私密上传参考图片；涉及保密文件，请先沟通保密协议。</small>
+    </aside>
+    <SourcingReviewForm locale="zh" />
+  </section><ChineseSiteFooter />
+</main>; }

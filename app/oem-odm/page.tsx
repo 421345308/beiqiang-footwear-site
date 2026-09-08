@@ -18,15 +18,15 @@ export const metadata: Metadata = {
 const data: CapabilityPageData = {
   chineseHref: "/zh/oem-odm/",
   eyebrow: "OEM / ODM DISCUSSION",
-  title: "Two sourcing paths, one requirement: confirm feasibility first.",
+  title: "Build your footwear range from a suitable starting style.",
   introduction:
-    "Choose a documented Beiqiang style for adaptation discussion, or share a structured product-development brief. Logo, color, material and packing requests are evaluated against the style, quantity and sample requirements before confirmation.",
+    "Want your own branding, a different color or a new design? Start with a Beiqiang catalogue style, or send your reference. We review the requested changes, quantity and sample needs before agreeing what can be made.",
   primaryCta: "Create a logo concept",
   primaryHref: "/private-label-concept/",
-  proofLabel: "PROCESS EVIDENCE + PRODUCT BRIEF",
-  proofTitle: "Review visible making steps, then define the product brief.",
+  proofLabel: "FROM IDEA TO SAMPLE",
+  proofTitle: "Your design needs a practical production plan.",
   proofCopy:
-    "The footage-derived images document selected material preparation, stitching and upper-finishing steps. They help make a factory discussion concrete, but do not promise that every style uses the same process or that every customization is feasible.",
+    "These factory video stills show material preparation, upper stitching and finishing. The work needed for your project depends on the selected construction and requested changes.",
   images: [
     {
       src: "/factory-video-stills/material-cutting.webp",
@@ -44,42 +44,42 @@ const data: CapabilityPageData = {
       caption: "Upper finishing",
     },
   ],
-  stepsTitle: "Build a brief the factory can evaluate.",
+  stepsTitle: "What we need to discuss your project.",
   steps: [
-    {
-      title: "Choose the path",
-      copy: "Reference an existing product code or provide clear images and a written development direction.",
-    },
-    {
-      title: "Define buyer context",
-      copy: "State the destination market, sales channel, expected quantity and target customer.",
-    },
-    {
-      title: "List required changes",
-      copy: "Mark priorities for color, material, logo, labeling, packing, size range and target timing.",
-    },
-    {
-      title: "Confirm by sample",
-      copy: "Review feasibility, cost drivers and the agreed product direction through the sample process.",
-    },
-  ],
-  confirmedTitle: "Useful starting points",
+  {
+    "title": "Choose a base or share a reference",
+    "copy": "A catalogue code helps us identify the starting shoe. For a new design, send a reference link and describe what needs to be different."
+  },
+  {
+    "title": "Explain your order plan",
+    "copy": "Tell us your sales market, estimated quantity and intended launch timing. A target budget helps us discuss trade-offs, but is not an agreed price."
+  },
+  {
+    "title": "Prioritize the changes",
+    "copy": "Separate essential changes from preferences: logo position, colors, materials, sizes, labels or packaging. Some changes may require different components or tooling."
+  },
+  {
+    "title": "Agree the sample scope",
+    "copy": "Before paying for development, agree what the sample will include, the costs and the checks needed. Technical targets are not guaranteed results."
+  }
+],
+  confirmedTitle: "Ways to start",
   confirmed: [
-    "Current online base-style pages",
-    "Wide toe box, slip-on, lace-up and seasonal directions",
-    "Product-code inquiry trail",
-    "Factory-side sample and requirement discussion",
-  ],
-  confirmTitle: "Never assumed in advance",
+  "Browse current base styles and compare their construction",
+  "Make a logo concept to explain the intended position",
+  "Send a product-specific inquiry with the changes you want",
+  "Ask about a reference before choosing a sample"
+],
+  confirmTitle: "What we check for your project",
   confirm: [
     "Logo method and placement",
     "Custom colors, materials and components",
     "Packaging and labeling execution",
     "MOQ, development cost, sample timing and bulk lead time",
   ],
-  closingTitle: "A complete brief saves time and reduces quotation revisions.",
+  closingTitle: "You do not need every answer before contacting us.",
   closingCopy:
-    "Send the product code or reference, target market, expected quantity, requested changes and timing. We will separate feasible items from details that need further checking.",
+    "Send the style or reference, your market, estimated quantity and the changes that matter most. If you have a confidential tech pack, discuss NDA terms before sharing it.",
 };
 export default function OemOdmPage() {
   return <CapabilityPage data={data} />;

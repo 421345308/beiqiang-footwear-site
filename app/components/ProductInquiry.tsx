@@ -30,8 +30,8 @@ export default function ProductInquiry({ code, label, productName, alibabaProduc
     <div className="product-inquiry-grid">
       <div className="product-inquiry-copy">
         <p className="eyebrow eyebrow-light">{code} SAMPLE REQUEST</p>
-        <h2>Move from product review to a useful quotation.</h2>
-        <p>Share the market, expected quantity and the details that matter to your order. Sample availability and final commercial terms are confirmed after the specification is checked.</p>
+        <h2>Interested in a sample or a quote for this style?</h2>
+        <p>Tell us your sales market, estimated quantity and the questions you want answered. We will check the selected style before confirming sample arrangements and a quotation.</p>
         <div className="contact-links" aria-label={`Contact Beiqiang Footwear about ${code}`}>
           <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { context, styleCode: code })}>Send {code} brief on WhatsApp</a>
           <a className="contact-text-link" href={emailHref} onClick={() => trackEvent("email_click", { context, styleCode: code })}>Email 421345308@qq.com</a>

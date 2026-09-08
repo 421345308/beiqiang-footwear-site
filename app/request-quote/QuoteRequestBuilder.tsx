@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import OptionalInquiryDetails from "../components/OptionalInquiryDetails";
 import { products } from "../data/products";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import {
@@ -427,6 +428,7 @@ export default function QuoteRequestBuilder() {
               <Link className="button" href="/products/">
                 Choose products
               </Link>
+              <Link className="text-link" href="/sourcing-review/">Not chosen a style, or bringing your own reference? Ask us without a product code →</Link>
             </div>
           )}
         </div>
@@ -441,7 +443,7 @@ export default function QuoteRequestBuilder() {
           <div>
             <p className="eyebrow eyebrow-light">BUYER &amp; PROJECT DETAILS</p>
             <h2>
-              Give us enough information for the next commercial decision.
+              Tell us about your order.
             </h2>
             {sourcingProgram && (
               <p className="quote-program-origin">
@@ -449,7 +451,7 @@ export default function QuoteRequestBuilder() {
               </p>
             )}
           </div>
-          <BuyerQuoteReadiness readiness={quoteReadiness} />
+          <OptionalInquiryDetails title="Review the quote checklist"><BuyerQuoteReadiness readiness={quoteReadiness} /></OptionalInquiryDetails>
           <div className="quote-draft-notice"><p><strong>{draftMessage || "Draft protection is active in this tab."}</strong><span>Unsubmitted form fields stay in this browser tab only, are not sent to Beiqiang, and are cleared after successful submission or when the tab session ends.</span></p><button type="button" onClick={clearLocalDraft}>Clear saved form fields</button></div>
           {finderBrief && (() => {
             const labels = finderBriefLabels(finderBrief);
@@ -471,7 +473,7 @@ export default function QuoteRequestBuilder() {
                 onChange={(event) => setProjectPath(event.target.value)}
               />
               <span>
-                <strong>Existing style adaptation</strong>
+                <strong>Buy an existing style or request changes</strong>
                 <small>
                   Start from a Beiqiang product code and discuss colors,
                   branding, labeling or packing.
@@ -502,8 +504,9 @@ export default function QuoteRequestBuilder() {
           </fieldset>
           <fieldset className="form-grid">
             <legend>2. Buyer information</legend>
+            <p className="form-instructions">Name, company and market are required. Add either email or WhatsApp so we can reply. Other details can be left blank if undecided.</p>
             <label>
-              Contact name
+              Contact name (required)
               <input
                 required
                 value={name}
@@ -512,7 +515,7 @@ export default function QuoteRequestBuilder() {
               />
             </label>
             <label>
-              Company
+              Company (required)
               <input
                 required
                 value={company}
@@ -533,7 +536,7 @@ export default function QuoteRequestBuilder() {
               </select>
             </label>
             <label>
-              Target country / market
+              Target country / market (required)
               <input
                 required
                 value={market}
@@ -596,11 +599,13 @@ export default function QuoteRequestBuilder() {
               <small>Your commercial target only—not a Beiqiang quotation or acceptance.</small>
             </label>
           </fieldset>
+          <OptionalInquiryDetails title="Contact time and response preferences (optional)">
           <ContactPreferenceFields
             value={contactPreferences}
             onChange={setContactPreferences}
             legend="3. Response preferences (optional)"
           />
+          </OptionalInquiryDetails>
           <fieldset className="form-grid logistics-fields">
             <legend>4. Delivery and trade-term preference</legend>
             <label>
@@ -647,7 +652,7 @@ export default function QuoteRequestBuilder() {
           </fieldset>
           {technical && (
             <fieldset className="form-grid technical-fields">
-              <legend>5. Technical development gate</legend>
+              <legend>5. Technical development requirements</legend>
               <label>
                 Existing sole acceptable?
                 <select
@@ -691,7 +696,7 @@ export default function QuoteRequestBuilder() {
               </label>
             </fieldset>
           )}
-          {!technical && <AdaptationBriefFields value={adaptationBrief} onChange={setAdaptationBrief} />}
+          {!technical && <OptionalInquiryDetails title="Need branding, color or packing changes? Add details (optional)"><AdaptationBriefFields value={adaptationBrief} onChange={setAdaptationBrief} /></OptionalInquiryDetails>}
           <fieldset className="form-grid">
             <legend>6. Other requirements</legend>
             <label className="form-full">

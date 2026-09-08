@@ -3,6 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import OptionalInquiryDetails from "../../components/OptionalInquiryDetails";
 import InquiryAttachmentUploader from "../../components/InquiryAttachmentUploader";
 import ContactPreferenceFields, {
   EMPTY_CONTACT_PREFERENCES,
@@ -418,6 +419,7 @@ export default function ChineseQuoteRequestBuilder() {
               <Link className="button" href="/zh/products/">
                 选择产品
               </Link>
+              <Link className="text-link" href="/zh/sourcing-review/">还没选好款，或只有参考图？直接咨询，不需要款号 →</Link>
             </div>
           )}
         </div>
@@ -430,14 +432,14 @@ export default function ChineseQuoteRequestBuilder() {
         >
           <div>
             <p className="eyebrow eyebrow-light">买家与项目资料</p>
-            <h2>提供足够信息，让工厂判断下一步。</h2>
+            <h2>说说您准备怎样采购。</h2>
             {sourcingProgram && (
               <p className="quote-program-origin">
                 来源：{sourcingProgram.replaceAll("-", " ")}
               </p>
             )}
           </div>
-          <BuyerQuoteReadiness readiness={quoteReadiness} />
+          <OptionalInquiryDetails title="查看询价资料检查表"><BuyerQuoteReadiness readiness={quoteReadiness} /></OptionalInquiryDetails>
           <div className="quote-draft-notice"><p><strong>{draftMessage || "当前标签页已开启草稿保护。"}</strong><span>未提交的表单内容只暂存在本浏览器标签页，不会发送给贝强；提交成功或标签页会话结束后清除。</span></p><button type="button" onClick={clearLocalDraft}>清除暂存表单</button></div>
           {finderBrief && (() => {
             const labels = finderBriefLabels(finderBrief, "zh");
@@ -459,7 +461,7 @@ export default function ChineseQuoteRequestBuilder() {
                 onChange={(event) => setProjectPath(event.target.value)}
               />
               <span>
-                <strong>现有款调整</strong>
+                <strong>采购现有款，或在现有款上调整</strong>
                 <small>从贝强款号开始，讨论颜色、品牌标识、标签或包装。</small>
               </span>
             </label>
@@ -484,8 +486,9 @@ export default function ChineseQuoteRequestBuilder() {
           </fieldset>
           <fieldset className="form-grid">
             <legend>2. 买家信息</legend>
+            <p className="form-instructions">联系人、公司、目标市场为必填；邮箱与WhatsApp至少填一项。其他资料还没确定，可以先留空。</p>
             <label>
-              联系人
+              联系人（必填）
               <input
                 required
                 value={name}
@@ -494,7 +497,7 @@ export default function ChineseQuoteRequestBuilder() {
               />
             </label>
             <label>
-              公司名称
+              公司名称（必填）
               <input
                 required
                 value={company}
@@ -517,7 +520,7 @@ export default function ChineseQuoteRequestBuilder() {
               </select>
             </label>
             <label>
-              目标国家 / 市场
+              目标国家 / 市场（必填）
               <input
                 required
                 value={market}
@@ -580,12 +583,14 @@ export default function ChineseQuoteRequestBuilder() {
               <small>仅为买家的商业目标，不是贝强报价或接受价格。</small>
             </label>
           </fieldset>
+          <OptionalInquiryDetails title="联系时间与回复方式（选填）">
           <ContactPreferenceFields
             locale="zh"
             value={contactPreferences}
             onChange={setContactPreferences}
             legend="3. 联系偏好（选填）"
           />
+          </OptionalInquiryDetails>
           <fieldset className="form-grid logistics-fields">
             <legend>4. 交付与贸易术语偏好</legend>
             <label>
@@ -626,7 +631,7 @@ export default function ChineseQuoteRequestBuilder() {
           </fieldset>
           {technical && (
             <fieldset className="form-grid technical-fields">
-              <legend>5. 技术开发门禁</legend>
+              <legend>5. 技术开发要求</legend>
               <label>
                 现有鞋底是否可接受？
                 <select
@@ -674,7 +679,7 @@ export default function ChineseQuoteRequestBuilder() {
               </label>
             </fieldset>
           )}
-          {!technical && <AdaptationBriefFields locale="zh" value={adaptationBrief} onChange={setAdaptationBrief} />}
+          {!technical && <OptionalInquiryDetails title="需要加Logo、改颜色或包装？展开填写（选填）"><AdaptationBriefFields locale="zh" value={adaptationBrief} onChange={setAdaptationBrief} /></OptionalInquiryDetails>}
           <fieldset className="form-grid">
             <legend>6. 其他要求</legend>
             <label className="form-full">

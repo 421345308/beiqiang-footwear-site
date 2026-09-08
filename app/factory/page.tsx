@@ -7,7 +7,7 @@ import { productCount } from "../data/catalog-meta";
 export const metadata: Metadata = {
   title: "Footwear Factory in Quanzhou | Beiqiang Footwear",
   description:
-    "Review real Beiqiang workshop, product handling and packing evidence before discussing walking shoe samples and B2B supply requirements.",
+    "Visit Beiqiang's footwear workshop in Quanzhou through our factory video. Explore casual shoes, discuss private-label requirements and plan a sample before ordering.",
   alternates: {
     canonical: "https://www.beiqiang.online/factory/",
     languages: {
@@ -22,14 +22,15 @@ const data: CapabilityPageData = {
   chineseHref: "/zh/factory/",
   factoryReviewPackProductCount: productCount,
   eyebrow: "QUANZHOU FOOTWEAR SUPPLY",
-  title: "A factory-side sourcing conversation built on visible evidence.",
+  title: "Meet the factory behind your next footwear order.",
   introduction:
-    "Beiqiang supplies casual walking shoes, textile footwear and selected verified wide toe box styles from Quanzhou, Fujian. Buyers can review real product packages and working-area evidence before moving into sample and order discussions.",
-  primaryCta: "Send a sourcing brief",
-  proofLabel: "REAL WORKING-AREA EVIDENCE",
-  proofTitle: "Look beyond a generic factory claim.",
+    "We are Beiqiang, a footwear factory supplier in Quanzhou, Fujian. We work with wholesalers, importers and brands sourcing casual walking shoes, slip-ons and textile footwear. Start with our catalogue, or tell us what you need help finding.",
+  primaryCta: "Discuss your footwear project",
+  primaryHref: "/sourcing-review/",
+  proofLabel: "INSIDE BEIQIANG",
+  proofTitle: "Take a look around our workshop.",
   proofCopy:
-    "These images come from Beiqiang's verified company material library. They show working areas, footwear handling and carton preparation without unsupported scale or customer-brand claims.",
+    "Watch our factory video and see the stitching stations, shoe handling and packing areas. For a specific style, ask us about its materials, construction and sample arrangement.",
   images: [
     {
       src: "/factory-video-stills/factory-exterior.webp",
@@ -48,42 +49,42 @@ const data: CapabilityPageData = {
     },
   ],
   evidenceVideo: true,
-  stepsTitle: "How we turn a product direction into a checkable project.",
+  stepsTitle: "From your first question to a sample decision.",
   steps: [
     {
       title: "Shortlist a base style",
-      copy: "Start from the current online product selection or send a clear reference for feasibility discussion.",
+      copy: "Choose a few catalogue styles, or send a reference link and explain what you like about it. You do not need a finished specification to start.",
     },
     {
-      title: "Define the market need",
-      copy: "Share target country, buyer type, channel, quantity direction and key product requirements.",
+      title: "Tell us who you sell to",
+      copy: "Your market, sales channel and estimated order size help us narrow the selection. If the quantity is undecided, say so.",
     },
     {
       title: "Check specifications",
-      copy: "Confirm material, size ratio, colors, construction and packing requirements before final terms.",
+      copy: "We discuss the selected style's materials, sizes, colors and any requested changes. Price and timing depend on these details.",
     },
     {
-      title: "Validate by sample",
-      copy: "Use the agreed sample to review the product direction before a bulk-order decision.",
+      title: "Agree what to sample",
+      copy: "Confirm sample availability, cost and purpose first. Review the fit, finish and agreed changes before deciding on a bulk order.",
     },
   ],
   confirmedTitle: "What you can review now",
   confirmed: [
-    "An expanding selection of organized product packages",
-    "Real product galleries and source model references",
-    "Workshop, checking and packing images",
-    "Direct email, WhatsApp and Alibaba.com contact paths",
+    "Casual shoe styles with product photos and size information",
+    "Slip-on and lace-up options, with wide toe box details on the relevant styles",
+    "Our factory video and workshop photographs",
+    "Direct contact by email, WhatsApp or Alibaba.com",
   ],
-  confirmTitle: "What is confirmed after your brief",
+  confirmTitle: "What we agree before an order",
   confirm: [
     "Exact material and construction",
     "Available size and color matrix",
     "Sample arrangement and customization feasibility",
     "MOQ, price, packing, lead time and trade terms",
   ],
-  closingTitle: "Start with the style and market, not a vague price request.",
+  closingTitle: "Tell us what you would like to source.",
   closingCopy:
-    "A useful brief helps us match a product direction, identify missing specifications and prepare a more relevant sample or quotation discussion.",
+    "A reference, your target market and an estimated quantity are enough to start the conversation. We can work through the remaining details together.",
 };
 export default function FactoryPage() {
   return <CapabilityPage data={data} />;

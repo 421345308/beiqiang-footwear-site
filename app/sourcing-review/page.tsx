@@ -3,6 +3,18 @@ import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
 import SourcingReviewForm from "../components/SourcingReviewForm";
 
-export const metadata: Metadata = { title: "Human Shoe Shortlist Review | Beiqiang Footwear", description: "Ask Beiqiang sales to review your market, quantity and product criteria and prepare an evidence-led footwear shortlist for B2B sourcing.", alternates: { canonical: "https://www.beiqiang.online/sourcing-review/", languages: { en: "https://www.beiqiang.online/sourcing-review/", "zh-CN": "https://www.beiqiang.online/zh/sourcing-review/", "x-default": "https://www.beiqiang.online/sourcing-review/" } } };
+export const metadata: Metadata = { title: "Footwear Sourcing & Custom Shoe Inquiry | Beiqiang", description: "Ask Beiqiang for help selecting wholesale shoes or discussing a custom reference. Share your market and quantity to explore suitable styles and sample options.", alternates: { canonical: "https://www.beiqiang.online/sourcing-review/", languages: { en: "https://www.beiqiang.online/sourcing-review/", "zh-CN": "https://www.beiqiang.online/zh/sourcing-review/", "x-default": "https://www.beiqiang.online/sourcing-review/" } } };
 
-export default function SourcingReviewPage() { return <main><SiteHeader chineseHref="/zh/sourcing-review/" /><section className="finder-hero"><p className="eyebrow">HUMAN SOURCING REVIEW</p><h1>When filters are not enough, let a person review the brief.</h1><p>Submit your market, quantity and product target. Beiqiang sales can review documented styles, explain gaps and prepare a focused starting shortlist without inventing a match.</p></section><section className="section sourcing-review-layout"><aside><p className="eyebrow">WHAT YOU RECEIVE</p><h2>A reviewable next step, not an automatic promise.</h2><ol><li><strong>2–4 candidate styles</strong><span>Selected from currently documented Beiqiang products where relevant.</span></li><li><strong>Match reasons and gaps</strong><span>Why each candidate may fit, plus facts still requiring confirmation.</span></li><li><strong>Sample / quotation path</strong><span>The information needed to discuss samples or prepare a valid quotation.</span></li></ol><small>Submission creates a sourcing inquiry, not an order. Product specification, availability, price, MOQ, lead time, customization and sample result require human review and written confirmation.</small></aside><SourcingReviewForm /></section><SiteFooter /></main>; }
+export default function SourcingReviewPage() { return <main>
+  <SiteHeader chineseHref="/zh/sourcing-review/" />
+  <section className="finder-hero"><p className="eyebrow">FOOTWEAR SOURCING HELP</p><h1>Looking for a shoe you have not found yet?</h1><p>Tell us who you sell to, the style you have in mind and your estimated quantity. You do not need a catalogue code or a finished specification to start. Reference links are welcome.</p></section>
+  <section className="section sourcing-review-layout">
+    <aside><p className="eyebrow">WHAT HAPPENS NEXT</p><h2>First, we work out whether there is a suitable starting point.</h2>
+      <ol><li><strong>Review your requirements</strong><span>We compare your needs with our existing styles. If there is no suitable match, we explain that rather than substitute a different shoe.</span></li>
+      <li><strong>Discuss styles and changes</strong><span>Where suitable options exist, we can suggest 2–4 candidates and discuss what would need to change. A reference is not a promise we can produce it.</span></li>
+      <li><strong>Agree the next step</strong><span>We confirm what is needed for a sample or quotation, including costs and timing before you commit.</span></li></ol>
+      <small>This is an inquiry, not an order. Availability, customization, price and timing require written confirmation. You can attach reference images privately after submitting; discuss NDA terms before sharing confidential files.</small>
+    </aside>
+    <SourcingReviewForm />
+  </section><SiteFooter />
+</main>; }

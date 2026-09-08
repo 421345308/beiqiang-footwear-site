@@ -109,7 +109,7 @@ export default async function ProductPage({ params }: Props) {
           <p className="eyebrow">{product.group.toUpperCase()}</p>
           <div className="product-id-line">
             <span>{product.code}</span>
-            <span>Source model {product.sourceModel}</span>
+            <span>Factory model {product.sourceModel}</span>
             <span>{product.closure}</span>
           </div>
           <h1>{product.name}</h1>
@@ -149,11 +149,11 @@ export default async function ProductPage({ params }: Props) {
           <strong>{product.code}</strong>
         </div>
         <div>
-          <small>SOURCE MODEL</small>
+          <small>FACTORY MODEL</small>
           <strong>{product.sourceModel}</strong>
         </div>
         <div>
-          <small>SIZE DIRECTION</small>
+          <small>SIZES</small>
           <strong>{product.size}</strong>
         </div>
         <div>
@@ -167,12 +167,12 @@ export default async function ProductPage({ params }: Props) {
       <section className="section product-spec-section">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">PRODUCT-PROOF FIRST</p>
-            <h2>Facts for a first sourcing review.</h2>
+            <p className="eyebrow">PRODUCT DETAILS</p>
+            <h2>Materials, sizes and colors at a glance.</h2>
           </div>
           <p>
-            Visible product facts and documented package data are separated from
-            commercial details that still require order-by-order confirmation.
+            Use these details to shortlist the style. Tell us the sizes, colors and
+            quantities you need so we can check the current options for your order.
           </p>
         </div>
         <div className="spec-layout">
@@ -182,7 +182,7 @@ export default async function ProductPage({ params }: Props) {
               <dd>{product.code}</dd>
             </div>
             <div>
-              <dt>Source model</dt>
+              <dt>Factory model</dt>
               <dd>{product.sourceModel}</dd>
             </div>
             <div>
@@ -194,32 +194,32 @@ export default async function ProductPage({ params }: Props) {
               <dd>{product.closure}</dd>
             </div>
             <div>
-              <dt>Upper direction</dt>
+              <dt>Upper</dt>
               <dd>{product.upper}</dd>
             </div>
             <div>
-              <dt>Sole direction</dt>
+              <dt>Sole</dt>
               <dd>{product.sole}</dd>
             </div>
             <div>
-              <dt>Size direction</dt>
+              <dt>Sizes</dt>
               <dd>{product.size}</dd>
             </div>
             <div>
-              <dt>Colors documented</dt>
+              <dt>Colors shown</dt>
               <dd>{product.colors.join(", ")}</dd>
             </div>
           </dl>
           <aside className="confirmation-card">
             <p className="eyebrow">CONFIRM BEFORE QUOTATION</p>
-            <h3>Protect buyer trust with exact specifications.</h3>
+            <h3>Details to agree for your order.</h3>
             <ul>
               {product.confirmBeforeQuote.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
             <a className="text-link" href="#inquiry">
-              Prepare these details →
+              Ask about this style →
             </a>
           </aside>
         </div>
@@ -227,8 +227,8 @@ export default async function ProductPage({ params }: Props) {
 
       <section className="product-gallery">
         <div className="product-evidence-heading">
-          <p className="eyebrow eyebrow-light">REAL PRODUCT PACKAGE</p>
-          <h2>Review the product and available visual directions.</h2>
+          <p className="eyebrow eyebrow-light">SEE THE SHOE UP CLOSE</p>
+          <h2>Product photos and color views.</h2>
         </div>
         <div className="detail-gallery-grid">
           {product.images.map((image, index) => (
@@ -257,7 +257,7 @@ export default async function ProductPage({ params }: Props) {
           <div>
             <p className="eyebrow">BUYER FIT</p>
             <h2>
-              Use this style as a sourcing candidate, not a generic promise.
+              Could this style suit your range?
             </h2>
           </div>
         </div>
@@ -266,13 +266,13 @@ export default async function ProductPage({ params }: Props) {
             <span>01</span>
             <h3>{product.buyerFit}</h3>
             <p>
-              Review the documented silhouette, closure, size and color
-              directions against your channel needs.
+              Compare the shape, fastening and size range with what your
+              customers need. Ask us about any detail you cannot see in the photos.
             </p>
           </article>
           <article>
             <span>02</span>
-            <h3>Sample validation</h3>
+            <h3>Check a sample</h3>
             <p>
               Confirm materials, construction, fit and packing on the selected
               sample before bulk terms.
@@ -280,7 +280,7 @@ export default async function ProductPage({ params }: Props) {
           </article>
           <article>
             <span>03</span>
-            <h3>Commercial qualification</h3>
+            <h3>Discuss your order</h3>
             <p>
               Share quantity, target market and order requirements so the
               factory can prepare a useful quotation.
@@ -294,8 +294,8 @@ export default async function ProductPage({ params }: Props) {
         aria-label="Beiqiang supply information"
       >
         <Link href="/factory/">
-          <strong>Factory evidence</strong>
-          <span>Review real working-area images →</span>
+          <strong>Visit our factory</strong>
+          <span>Watch the factory video →</span>
         </Link>
         <Link href="/quality-packing/">
           <strong>Quality &amp; packing</strong>
@@ -307,7 +307,7 @@ export default async function ProductPage({ params }: Props) {
         </Link>
         <Link href="/sample-order-process/">
           <strong>Sample &amp; order process</strong>
-          <span>See every next decision →</span>
+          <span>From first sample to bulk order →</span>
         </Link>
       </section>
       {related.length > 0 && (
@@ -315,7 +315,7 @@ export default async function ProductPage({ params }: Props) {
           <div className="section-heading compact">
             <div>
               <p className="eyebrow">COMPARE BEFORE SAMPLING</p>
-              <h2>Related sourcing candidates.</h2>
+              <h2>Other styles to compare.</h2>
             </div>
           </div>
           <div className="product-grid">
@@ -344,7 +344,7 @@ export default async function ProductPage({ params }: Props) {
             <h1>
               {product.code} · {product.name}
             </h1>
-            <span>Source model {product.sourceModel}</span>
+            <span>Factory model {product.sourceModel}</span>
           </div>
           <strong>
             SOURCING REVIEW
@@ -376,7 +376,7 @@ export default async function ProductPage({ params }: Props) {
               <dd>{product.code}</dd>
             </div>
             <div>
-              <dt>Source model</dt>
+              <dt>Factory model</dt>
               <dd>{product.sourceModel}</dd>
             </div>
             <div>
@@ -388,15 +388,15 @@ export default async function ProductPage({ params }: Props) {
               <dd>{product.closure}</dd>
             </div>
             <div>
-              <dt>Upper direction</dt>
+              <dt>Upper</dt>
               <dd>{product.upper}</dd>
             </div>
             <div>
-              <dt>Sole direction</dt>
+              <dt>Sole</dt>
               <dd>{product.sole}</dd>
             </div>
             <div>
-              <dt>Size direction</dt>
+              <dt>Sizes</dt>
               <dd>{product.size}</dd>
             </div>
             <div>
