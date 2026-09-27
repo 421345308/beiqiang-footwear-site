@@ -8,11 +8,11 @@ export function generateMetadata(): Metadata {
   return {
     metadataBase: new URL(`${origin}/`),
     verification: { google: "XgyFSK5TBQEyEvk9oQYhXO35Wl_W7hznbBXK9J6g_GM" },
-    title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
-    description: "Wholesale walking shoes, knit slip-ons and private-label footwear from Beiqiang in Quanzhou, China. Explore styles, discuss custom requirements and request a sample quotation.",
+    title: "Walking Shoes Manufacturer & Wholesale Supplier | Beiqiang Footwear",
+    description: "Wholesale walking shoes, knit slip-ons and private-label footwear from Beiqiang, a footwear factory in Quanzhou, China. Explore styles, discuss custom requirements and request a sample quotation.",
     alternates: { canonical: "https://www.beiqiang.online/", languages: { en: "https://www.beiqiang.online/", "zh-CN": "https://www.beiqiang.online/zh/", "x-default": "https://www.beiqiang.online/" } },
     openGraph: {
-      title: "Beiqiang Footwear | Walking & Casual Shoe Factory Supply",
+      title: "Walking Shoes Manufacturer & Wholesale Supplier | Beiqiang Footwear",
       description: "Walking and casual shoes for wholesalers and brands. Explore existing styles, private-label options and the sample-to-order process.",
       type: "website",
       images: [{ url: new URL("/og.jpg", origin).toString(), width: 1536, height: 1024, alt: "Beiqiang Footwear factory supply" }],

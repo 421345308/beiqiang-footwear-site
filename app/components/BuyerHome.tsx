@@ -25,6 +25,15 @@ export default function BuyerHome({ locale = "en" }: { locale?: "en" | "zh" }) {
   ];
   return <main>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(factoryVideoSchema(locale)) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map(([question, answer]) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    }) }} />
     {zh ? <ChineseSiteHeader englishHref="/" /> : <SiteHeader />}
     <section className="hero buyer-home-hero" id="top"><div className="hero-copy">
       <p className="eyebrow">{t("BEIQIANG FOOTWEAR · QUANZHOU, CHINA", "贝强鞋业 · 福建泉州")}</p>
