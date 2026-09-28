@@ -903,6 +903,8 @@ const originalProducts: Product[] = [
 export const heldSourceProducts: Product[] = verifiedProducts;
 export const products: Product[] = originalProducts;
 
+export type CollectionFaq = { question: string; answer: string };
+
 export type ProductCollection = {
   slug: CollectionSlug;
   direction: CatalogDirection;
@@ -912,6 +914,9 @@ export type ProductCollection = {
   buyerIntent: string;
   selectionBasis: string;
   proofBoundary: string;
+  faq?: CollectionFaq[];
+  guideSlug?: string;
+  guideAnchor?: string;
 };
 
 export const collections: ProductCollection[] = [
@@ -919,12 +924,36 @@ export const collections: ProductCollection[] = [
     slug: "wide-toe-box",
     direction: "wide-toe-box",
     name: "Wide Toe Box",
-    title: "Roomy-toe walking shoes",
+    title: "Wide fit and wide toe box walking shoes",
     description:
-      "Verified wide toe box styles for comfort-footwear importers, wholesalers and online sellers.",
-    buyerIntent: "Buyers building a differentiated wide-fit comfort line.",
-    selectionBasis: "Only styles with reviewed product-level wide-toe evidence are included.",
-    proofBoundary: "This grouping is limited to the listed styles. It does not make every Beiqiang product wide-toe and does not imply a medical or orthopedic benefit.",
+      "Wide fit and wide toe box walking shoes for importers, wholesalers and online sellers. Styles listed here carry reviewed wide-toe evidence; width is confirmed per style.",
+    buyerIntent: "Buyers building a differentiated wide-fit or extra-wide comfort range, where width is a purchase decision rather than a size afterthought.",
+    selectionBasis: "Only styles whose product record documents a wide toe box are included. The grouping follows documented toe-box structure rather than a shared width grade, so ask for the width direction of the specific style you shortlist.",
+    proofBoundary: "This grouping is limited to the listed styles. It does not make every Beiqiang product wide-toe, and it does not imply a medical or orthopedic benefit. Wide fit here describes the toe-box direction of the listed styles only.",
+    guideSlug: "wide-fit-shoes-sourcing-guide",
+    guideAnchor: "How to source wide fit and extra wide shoes",
+    faq: [
+      {
+        question: "What is the difference between wide fit and a wide toe box?",
+        answer: "A wide toe box describes the front of the shoe, where the toes sit. Wide fit is a broader shopping term that can also mean the overall last width, the midfoot or the volume over the instep. The styles in this collection are grouped on documented toe-box structure; the other width dimensions are confirmed per style.",
+      },
+      {
+        question: "Do you supply extra wide or wide width shoes?",
+        answer: "Some listed styles are recorded as extra wide at the toe box, and each product page states its own direction. There is no single width grade that covers the whole range, so tell us the width you need and we will confirm which styles can be reviewed against it.",
+      },
+      {
+        question: "Can I check the width before placing an order?",
+        answer: "Yes. That is what samples are for. Name the style, describe the width problem you are solving and the market you sell to, then review the physical sample against that requirement. The sample review is the point where width stops being a description and becomes something you can check.",
+      },
+      {
+        question: "Does a wide toe box mean the shoe fits wide feet?",
+        answer: "Not automatically. Toe-box width is one dimension. Overall fit also depends on the last, the midfoot width, the instep volume and the size you order. Treat the toe-box direction as a starting filter and confirm the rest on the sample.",
+      },
+      {
+        question: "Can I combine wide and regular styles in one order?",
+        answer: "You can put both directions in one request. Quantities, size ratios and minimums are reviewed per style, so state the split you want and we will confirm what is workable before quotation.",
+      },
+    ],
   },
   {
     slug: "knit-slip-on",

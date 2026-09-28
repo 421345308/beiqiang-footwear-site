@@ -19,8 +19,8 @@ const chineseDirections: Array<{
   {
     key: "wide-toe-box",
     slug: "wide-toe-box",
-    title: "宽鞋头舒适步行鞋",
-    copy: "查看已经确认宽鞋头结构的款式，适合舒适鞋采购与系列选款。",
+    title: "宽楦与宽鞋头舒适步行鞋",
+    copy: "查看已经确认宽鞋头结构的款式，适合宽版、加宽方向的舒适鞋采购与系列选款。",
   },
   {
     key: "knit-slip-on",

@@ -15,7 +15,7 @@ const catalogDirections: Array<{
   title: string;
   copy: string;
 }> = [
-  { key: "wide-toe-box", slug: "wide-toe-box", title: "Roomy-toe walking shoes", copy: "Verified wide-toe styles for comfort-footwear assortments." },
+  { key: "wide-toe-box", slug: "wide-toe-box", title: "Wide fit and wide toe box styles", copy: "Wide-toe styles verified at product level for comfort-footwear ranges." },
   { key: "knit-slip-on", slug: "knit-slip-on", title: "Easy-on knit styles", copy: "Slip-on textile and knit options for convenient daily-wear ranges." },
   { key: "breathable-lace-up", slug: "breathable-lace-up", title: "Breathable lace-up styles", copy: "Knit, mesh and textile lace-up directions for warmer markets." },
   { key: "high_top", slug: "high-top-shoes", title: "High-top and sock styles", copy: "Higher-cut silhouettes for seasonal or differentiated assortments." },

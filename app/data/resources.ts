@@ -13,6 +13,7 @@ export type BuyerResource = {
   sections: ResourceSection[];
   checklist: string[];
   relatedProductCodes: string[];
+  relatedCollection?: string;
   nextStep: string;
 };
 
@@ -438,6 +439,80 @@ export const buyerResources: BuyerResource[] = [
       "BQ024"
     ],
     "nextStep": "Send your style, quantity and destination, and we can start at stage one together."
+  },
+  {
+    "slug": "wide-fit-shoes-sourcing-guide",
+    "title": "Wide Fit Shoes: How to Source Wide and Extra Wide Styles",
+    "description": "Why wide means different things to different buyers, how width is decided at the last rather than the size, and what to put in writing before ordering wide fit or extra wide shoes.",
+    "eyebrow": "BUYING GUIDE",
+    "audience": "For comfort-footwear importers and brands",
+    "readingTime": "6-minute guide",
+    "updated": "2026-09-28",
+    "introduction": "Wide fit is one of the most requested and least standardised requirements in footwear. Two suppliers can both answer yes, wide, and mean two different shoes, because there is no shared definition of what wide measures. This guide sets out what width actually describes, where it is decided, and how to write the requirement so that a quotation, a sample and a bulk order all refer to the same thing.",
+    "outcome": "Use the sections below to turn a vague wide requirement into a written specification you can check against a physical sample.",
+    "sections": [
+      {
+        "heading": "Wide is not one measurement",
+        "copy": [
+          "At least four different dimensions get called wide. The toe box is the front of the shoe where the toes sit. The last width is the overall width of the mould the shoe is built on. The midfoot is the area under the arch. The instep volume is the space over the top of the foot.",
+          "A shoe can be generous at the toe and tight across the midfoot, or the reverse. That is why a buyer who asks for a wide shoe without naming the dimension often receives something that measures wide and still does not fit. Name the dimension you are solving for before you ask for a width."
+        ]
+      },
+      {
+        "heading": "Why width is decided at the last, not at the size",
+        "copy": [
+          "Sizing up does not make a shoe wider in the places that matter. A larger size adds length, and adds a little width in proportion, but the shape of the last is unchanged. If the toe box is tapered, a bigger size is still tapered.",
+          "Real width change is a mould decision. Widening the last affects the tooling, the pattern, the material consumption and the minimum quantity that makes the change worthwhile. This is why a supplier cannot promise a wider version of any style on request, and why width is one of the first things to raise rather than the last.",
+          "Ask directly: is the width a property of the existing last, or does it need a new one? The answer decides whether you are choosing a shoe or starting a development project."
+        ]
+      },
+      {
+        "heading": "What to put in writing in your request",
+        "copy": [
+          "State the problem, not only the word. A useful line reads: our customers report pressure across the toes in EU 42, and returns concentrate in the toe box. That gives the supplier something to match. A request that only says we need wide shoes gives them nothing to check against.",
+          "Add a reference the supplier can compare with. The most reliable reference is a shoe your own customers already accept, with the size and the area that works for them. Measurements of a last or of a foot are useful too, but a reference the supplier can hold is harder to misinterpret.",
+          "Keep width separate from testing. If a market requires a particular standard or a test report, that is a different requirement with a different cost and timeline. Raise it as its own line item rather than folding it into the width request."
+        ]
+      },
+      {
+        "heading": "How to describe width when there is no shared scale",
+        "copy": [
+          "Width labels such as E, 2E or 4E are used in some markets and not in others, and the same letter does not mean the same millimetres everywhere. Industry terms for a roomy toe box are likewise used loosely.",
+          "Where no shared scale exists, describe the outcome instead of the label. Say what the wearer should be able to do, how much movement around the toes is acceptable, and whether the shoe must accommodate an insole or an orthotic. Descriptive requirements survive the trip between two factories; letter grades frequently do not.",
+          "If your market does publish a width scale, provide it, and ask for the measurement basis in return. You are looking for the supplier to name what they measured, not to repeat your word back."
+        ]
+      },
+      {
+        "heading": "What a sample can and cannot confirm",
+        "copy": [
+          "A sample confirms the things you can feel and measure on one pair: room around the toes, pressure across the midfoot, where the upper creases, and whether the sole is stable underfoot. It is the point where width stops being a description and becomes something you can check.",
+          "A sample does not confirm consistency across a production run, how the material will behave after months of wear, or whether the style meets a market requirement. Treat the sample as the check you can actually make, and keep the remaining questions as written items to be confirmed rather than assumptions to be carried forward.",
+          "Review the sample against the sentence you wrote in your request. If the requirement was vague, the sample review will be vague too, and the disagreement only appears after the bulk order has arrived."
+        ]
+      },
+      {
+        "heading": "Where buyers get this wrong",
+        "copy": [
+          "Three mistakes recur. Treating toe-box width as total fit, so a roomy front is used to cover a tight midfoot. Assuming one width answer applies across a whole range of styles, when each style sits on its own last. And leaving the width question until after price, when it is the requirement most likely to change the quote.",
+          "The corrective is the same in each case: name the dimension, ask how the width is achieved, and confirm it on a physical sample before the bulk order."
+        ]
+      }
+    ],
+    "checklist": [
+      "The width problem you are solving",
+      "Toe box, midfoot or instep volume",
+      "A reference shoe the supplier can compare",
+      "Target market and sales channel",
+      "Size and insole requirements",
+      "Who confirms the last before bulk"
+    ],
+    "relatedProductCodes": [
+      "BQ001",
+      "BQ002",
+      "BQ031"
+    ],
+    "relatedCollection": "wide-toe-box",
+    "nextStep": "Send the width problem and a reference shoe, and we can review which documented styles are worth sampling."
   }
 ];
 export function getBuyerResource(slug: string) { return buyerResources.find(r => r.slug === slug); }

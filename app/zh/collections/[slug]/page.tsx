@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import ChineseProductCard from "../../../components/ChineseProductCard";
 import ChineseSiteFooter from "../../../components/ChineseSiteFooter";
@@ -53,23 +54,57 @@ export default async function ChineseCollectionPage({ params }: Props) {
   if (!collection) notFound();
   const items = productsInCollection(collection.slug);
   const canonical = `https://www.beiqiang.online/zh/collections/${collection.slug}/`;
+  const faq = collection.faq ?? [
+    {
+      question: "这个集合页等于现货或最终订单条件吗？",
+      answer: "不等于。集合页只是把当前产品资料归到一起，方便您更快完成选款。可用状态、准确材料、尺码、颜色、MOQ、价格、包装和交期，都要按所选款式和数量确认。",
+    },
+    {
+      question: "可以指定混合颜色或尺码吗？",
+      answer: "可以在多款询价中写明需要的颜色与尺码配比。贝强会结合所选款式、数量与当前供应条件审核后，再给出书面报价。",
+    },
+    {
+      question: "选好款式之后下一步是什么？",
+      answer: "先保存相关款号，提供目标市场、销售渠道和预计数量，再沟通样品范围与书面商业条款，之后才进入正式订单。",
+    },
+  ];
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: collection.title,
-    description: collection.description,
-    url: canonical,
-    inLanguage: "zh-CN",
-    mainEntity: {
-      "@type": "ItemList",
-      numberOfItems: items.length,
-      itemListElement: items.map((product, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: `${product.code} ${productNameZh(product)}`,
-        url: `https://www.beiqiang.online/zh/products/${product.slug}/`,
-      })),
-    },
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        name: collection.title,
+        description: collection.description,
+        url: canonical,
+        inLanguage: "zh-CN",
+        mainEntity: {
+          "@type": "ItemList",
+          numberOfItems: items.length,
+          itemListElement: items.map((product, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: `${product.code} ${productNameZh(product)}`,
+            url: `https://www.beiqiang.online/zh/products/${product.slug}/`,
+          })),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "首页", item: "https://www.beiqiang.online/zh/" },
+          { "@type": "ListItem", position: 2, name: "产品", item: "https://www.beiqiang.online/zh/products/" },
+          { "@type": "ListItem", position: 3, name: collection.title, item: canonical },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      },
+    ],
   };
 
   return (
@@ -125,6 +160,13 @@ export default async function ChineseCollectionPage({ params }: Props) {
               <span>03</span> 审核样品、报价和正式订单条款
             </li>
           </ul>
+          {collection.guideSlug ? (
+            <p>
+              <Link href={`/zh/resources/${collection.guideSlug}/`}>
+                {collection.guideAnchor ?? "阅读该方向的采购指南"} →
+              </Link>
+            </p>
+          ) : null}
         </div>
         <div className="proof-copy">
           <p className="eyebrow eyebrow-light">下一商业步骤</p>
@@ -139,6 +181,22 @@ export default async function ChineseCollectionPage({ params }: Props) {
           >
             建立多款询价
           </CollectionQuoteLink>
+        </div>
+      </section>
+      <section className="section resource-article">
+        <div className="section-heading compact">
+          <div>
+            <p className="eyebrow">买家常见问题</p>
+            <h2>从产品方向走到可审核的采购需求。</h2>
+          </div>
+        </div>
+        <div className="faq-list">
+          {faq.map((item) => (
+            <details key={item.question}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
         </div>
       </section>
       <ChineseSiteFooter />

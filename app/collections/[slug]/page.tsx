@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductCard from "../../components/ProductCard";
 import SiteFooter from "../../components/SiteFooter";
@@ -52,7 +53,7 @@ export default async function CollectionPage({ params }: Props) {
   if (!collection) notFound();
   const items = productsInCollection(collection.slug);
   const canonical = `https://www.beiqiang.online/collections/${collection.slug}/`;
-  const faq = [
+  const faq = collection.faq ?? [
     {
       question: "Does this collection confirm current stock or final order terms?",
       answer: "No. It groups current product records for a faster sourcing review. Availability, exact materials, sizes, colors, MOQ, price, packing and timing are confirmed for the selected project.",
@@ -133,6 +134,13 @@ export default async function CollectionPage({ params }: Props) {
             <li><span>02</span> Check product-level size and color directions</li>
             <li><span>03</span> Shortlist styles for a sample discussion</li>
           </ul>
+          {collection.guideSlug ? (
+            <p>
+              <Link href={`/resources/${collection.guideSlug}/`}>
+                {collection.guideAnchor ?? "Read the sourcing guide for this direction"} →
+              </Link>
+            </p>
+          ) : null}
         </div>
         <div className="proof-copy">
           <p className="eyebrow eyebrow-light">COMMERCIAL BOUNDARY</p>

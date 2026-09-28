@@ -1,4 +1,5 @@
 import type { CollectionSlug } from "./products";
+import type { CollectionFaq } from "./products";
 
 export type ChineseCollection = {
   slug: CollectionSlug;
@@ -7,16 +8,43 @@ export type ChineseCollection = {
   description: string;
   buyerIntent: string;
   proofBoundary: string;
+  faq?: CollectionFaq[];
+  guideSlug?: string;
+  guideAnchor?: string;
 };
 
 export const chineseCollections: ChineseCollection[] = [
   {
     slug: "wide-toe-box",
     name: "宽鞋头系列",
-    title: "已确认宽鞋头设计的步行鞋",
-    description: "面向舒适鞋进口商、批发商和线上卖家的宽鞋头候选款；只对资料已确认的具体款式使用宽鞋头描述。",
-    buyerIntent: "希望建立差异化宽版舒适鞋产品线，并在大货前审核实物样品的B2B买家。",
-    proofBoundary: "本系列只包含当前资料已确认的具体款式，不代表所有贝强鞋款均为宽鞋头，也不构成医疗或矫形声明。",
+    title: "宽楦与宽鞋头步行鞋批发选款",
+    description: "面向舒适鞋进口商、批发商和线上卖家的宽楦与宽鞋头候选款；只对资料已确认的具体款式使用宽版描述，宽度需逐款确认。",
+    buyerIntent: "希望建立差异化宽版或加宽舒适鞋产品线的B2B买家，把宽度当作选款决策项，而不只是看尺码。",
+    proofBoundary: "本系列只包含当前资料已确认的具体款式，不代表所有贝强鞋款均为宽楦，也不构成医疗或矫形声明。此处的「宽楦／宽版」仅指所列款式的鞋头结构方向。",
+    guideSlug: "wide-fit-shoes-sourcing-guide",
+    guideAnchor: "宽版与加宽鞋的采购确认方法",
+    faq: [
+      {
+        question: "宽楦和宽鞋头有什么区别？",
+        answer: "宽鞋头说的是鞋的前掌部分，也就是脚趾所在的位置。宽楦是更宽的采购说法，还可能指整只鞋的楦型宽度、中足宽度或脚背容量。本系列的归组依据是资料中已确认的鞋头结构，其他宽度维度仍需按具体款式确认。",
+      },
+      {
+        question: "你们有加宽（extra wide）或宽版尺码的鞋吗？",
+        answer: "系列中部分款式的资料记录了鞋头加宽方向，每个产品页会写明该款自己的方向。全系列不存在统一的宽度等级，请把您需要的宽度告我们，我们会确认哪些款式可以按这个要求来审核。",
+      },
+      {
+        question: "下单前可以确认宽度吗？",
+        answer: "可以，这正是打样的用途。注明款号、说明要解决的宽度问题和销售市场，再拿实物样品对照这个要求来验。样品评审就是宽度从「描述」变成「可核验事项」的环节。",
+      },
+      {
+        question: "鞋头宽就等于适合宽脚吗？",
+        answer: "不一定。鞋头宽度只是其中一个维度，整体合脚程度还取决于楦型、中足宽度、脚背容量和您订的尺码。建议把鞋头方向当作初筛条件，其余在样品上确认。",
+      },
+      {
+        question: "宽版款和常规款可以混在一张订单里吗？",
+        answer: "可以在同一份询价里同时提出这两个方向。数量、码比和起订量都按款式分别审核，请把您想要的比例写清楚，我们会在报价前确认哪些安排可行。",
+      },
+    ],
   },
   {
     slug: "knit-slip-on",

@@ -102,6 +102,15 @@ test("preserves an approved sourcing-resource origin in the commercial record", 
   const unsafe = validateInquiry(validPayload({ sourcingProgram: "resource-invented-page" })); assert.equal(unsafe.inquiry.sourcingProgram, "");
 });
 
+test("keeps every published buyer guide attributable in the commercial record", async () => {
+  const { buyerResources } = await import("../app/data/resources.ts");
+  for (const resource of buyerResources) {
+    const program = `resource-${resource.slug}`;
+    const result = validateInquiry(validPayload({ sourcingProgram: program }));
+    assert.equal(result.inquiry.sourcingProgram, program, `${resource.slug} lost its inquiry attribution; add ${program} to SOURCING_PROGRAMS`);
+  }
+});
+
 test("preserves only approved collection origins in the commercial record", () => {
   const result = validateInquiry(validPayload({ sourcingProgram: "collection-knit-slip-on" }));
   assert.equal(result.error, undefined); assert.equal(result.inquiry.sourcingProgram, "collection-knit-slip-on");
