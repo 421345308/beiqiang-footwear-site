@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!resource) return {};
   const canonical = `https://www.beiqiang.online/zh/resources/${resource.slug}/`;
   const english = `https://www.beiqiang.online/resources/${resource.slug}/`;
-  return { title: `${resource.title} | 贝强鞋业`, description: resource.description, alternates: { canonical, languages: { "zh-CN": canonical, en: english } }, openGraph: { title: resource.title, description: resource.description, url: canonical, type: "article", locale: "zh_CN" } };
+  return { title: `${resource.title} | 贝强鞋业`, description: resource.description, alternates: { canonical, languages: { "zh-CN": canonical, en: english, "x-default": english } }, openGraph: { title: resource.title, description: resource.description, url: canonical, type: "article", locale: "zh_CN" } };
 }
 
 export default async function ChineseResourcePage({ params }: Props) {

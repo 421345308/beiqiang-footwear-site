@@ -14,7 +14,7 @@ export function generateStaticParams() { return buyerResources.map((resource) =>
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resource = getBuyerResource((await params).slug); if (!resource) return {};
   const canonical = `https://www.beiqiang.online/resources/${resource.slug}/`;
-  return { title: `${resource.title} | Beiqiang Footwear`, description: resource.description, alternates: { canonical, languages: { en: canonical, "zh-CN": `https://www.beiqiang.online/zh/resources/${resource.slug}/` } }, openGraph: { title: resource.title, description: resource.description, url: canonical, type: "article" } };
+  return { title: `${resource.title} | Beiqiang Footwear`, description: resource.description, alternates: { canonical, languages: { en: canonical, "zh-CN": `https://www.beiqiang.online/zh/resources/${resource.slug}/`, "x-default": canonical } }, openGraph: { title: resource.title, description: resource.description, url: canonical, type: "article" } };
 }
 
 export default async function ResourcePage({ params }: Props) {

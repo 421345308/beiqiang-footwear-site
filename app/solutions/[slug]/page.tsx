@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: canonical,
         "zh-CN": `https://www.beiqiang.online/zh/solutions/${program.slug}/`,
+        "x-default": canonical,
       },
     },
     openGraph: {

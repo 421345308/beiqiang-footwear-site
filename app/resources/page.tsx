@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     languages: {
       en: "https://www.beiqiang.online/resources/",
       "zh-CN": "https://www.beiqiang.online/zh/resources/",
+      "x-default": "https://www.beiqiang.online/resources/",
     },
   },
   openGraph: {

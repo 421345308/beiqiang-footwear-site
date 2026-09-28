@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${program.title} | 贝强鞋业`,
     description: program.description,
-    alternates: { canonical, languages: { "zh-CN": canonical, en: english } },
+    alternates: { canonical, languages: { "zh-CN": canonical, en: english, "x-default": english } },
     openGraph: {
       title: program.title,
       description: program.description,
