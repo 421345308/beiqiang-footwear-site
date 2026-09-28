@@ -40,7 +40,7 @@ const chineseCollectionRoutes = collectionSlugs.map((slug) => ({
 const solutionSlugs = ["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes"];
 const solutionRoutes = solutionSlugs.map((slug) => ({ pathname: `/solutions/${slug}`, output: `solutions/${slug}/index.html` }));
 const chineseSolutionRoutes = solutionSlugs.map((slug) => ({ pathname: `/zh/solutions/${slug}`, output: `zh/solutions/${slug}/index.html` }));
-const resourceSlugs = ["footwear-rfq-checklist", "shoe-sample-approval-checklist", "private-label-walking-shoes-sourcing-guide"];
+const resourceSlugs = ["footwear-rfq-checklist", "shoe-sample-approval-checklist", "private-label-walking-shoes-sourcing-guide", "shoe-moq-guide", "oem-vs-odm-shoes", "shoe-factory-audit-checklist", "how-to-order-shoes-from-china-factory"];
 const resourceRoutes = resourceSlugs.map((slug) => ({ pathname: `/resources/${slug}`, output: `resources/${slug}/index.html` }));
 const chineseResourceRoutes = resourceSlugs.map((slug) => ({ pathname: `/zh/resources/${slug}`, output: `zh/resources/${slug}/index.html` }));
 const capabilitySlugs = ["factory", "quality-packing", "oem-odm", "private-label-concept", "product-finder", "sourcing-review", "sample-order-process", "buyer-guide", "buyer-workspace", "line-sheet", "privacy", "terms"];
