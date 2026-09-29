@@ -25,8 +25,8 @@ test("reports required and forbidden content independently", () => {
 
 test("checks every public acquisition route and produces an actionable failure report", async () => {
   const content = {
-    "/": "Quanzhou Beiqiang Footwear >Products< >Programs< >Verify< >How to buy< Buyer workspace context-contact-dock Full inquiry /request-quote/ shepeiqiang@gmail.com",
-    "/zh/": "泉州鞋类工厂供应商 >产品选款< >采购方案< >了解工厂< >如何采购< 买家工作台 context-contact-dock 完整询价 /zh/request-quote/",
+    "/": 'Quanzhou Beiqiang Footwear >Products< >Programs< >Verify< >How to buy< Buyer workspace context-contact-dock Full inquiry /request-quote/ shepeiqiang@gmail.com <link rel="icon" href="/favicon.ico"/> /brand/logo-512.png "@type":"ImageObject"',
+    "/zh/": "泉州鞋类工厂供应商 >产品选款< >采购方案< >了解工厂< >如何采购< 买家工作台 context-contact-dock 完整询价 /zh/request-quote/ 泉州贝强鞋业服饰有限公司",
     "/products/": "Walking and casual shoes for wholesale BQ031 START BY SOURCING DIRECTION",
     "/zh/products/": "31 BQ031 采购方向",
     "/products/bq031/": "BQ031 ZX2116 Stretch knitted textile upper /request-quote/",
@@ -42,10 +42,26 @@ test("checks every public acquisition route and produces an actionable failure r
     "/sitemap.xml": '<loc>https://www.beiqiang.online/products/bq031/</loc><xhtml:link hreflang="zh-CN"/><image:loc>x</image:loc><video:content_loc>x</video:content_loc>',
     "/llms.txt": "31 organized product pages BQ031 / ZX2116 Alibaba Trade Assurance or a signed bilateral contract shepeiqiang@gmail.com",
   };
-  const fetchImpl = async (url) => new Response(content[new URL(url).pathname] || "missing", { status: content[new URL(url).pathname] ? 200 : 404 });
+  const binary = { "/brand/logo-512.png": "image/png", "/favicon.ico": "image/x-icon", "/apple-touch-icon.png": "image/png" };
+  const fetchImpl = async (url) => {
+    const path = new URL(url).pathname;
+    const body = content[path] ?? binary[path];
+    if (body === undefined) return new Response("missing", { status: 404 });
+    return new Response(body, { status: 200, headers: binary[path] ? { "content-type": binary[path] } : undefined });
+  };
   const passing = await verifyPublicSite("https://www.beiqiang.online", { fetchImpl });
   assert.equal(passing.ok, true);
-  assert.equal(passing.passed, 16);
+  assert.equal(passing.passed, 19);
+
+  const wrongType = await verifyPublicSite("https://www.beiqiang.online", {
+    fetchImpl: async (url) => {
+      const path = new URL(url).pathname;
+      if (!binary[path]) return new Response(content[path] || "missing", { status: content[path] ? 200 : 404 });
+      return new Response("html", { status: 200, headers: { "content-type": "text/html" } });
+    },
+  });
+  assert.equal(wrongType.ok, false);
+  assert.match(formatReport(wrongType), /FAIL \/brand\/logo-512\.png .*headers=content-type=text\/html/);
 
   const failing = await verifyPublicSite("https://www.beiqiang.online", { fetchImpl: async () => new Response("", { status: 503 }) });
   assert.equal(failing.ok, false);

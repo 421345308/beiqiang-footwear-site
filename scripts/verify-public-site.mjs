@@ -6,12 +6,29 @@ const ROUTES = [
   {
     path: "/",
     label: "English home",
-    required: [/Quanzhou Beiqiang Footwear/i, />Products</i, />Programs</i, />Verify</i, />How to buy</i, /Buyer workspace/i, /context-contact-dock/i, /Full inquiry/i, /\/request-quote\//i, /shepeiqiang@gmail\.com/i],
+    required: [/Quanzhou Beiqiang Footwear/i, />Products</i, />Programs</i, />Verify</i, />How to buy</i, /Buyer workspace/i, /context-contact-dock/i, /Full inquiry/i, /\/request-quote\//i, /shepeiqiang@gmail\.com/i, /<link rel="icon"/i, /favicon\.ico/i, /brand\/logo-512\.png/i, /"@type":"ImageObject"/i],
   },
   {
     path: "/zh/",
     label: "Chinese home",
-    required: [/泉州鞋类工厂供应商/, />产品选款</, />采购方案</, />了解工厂</, />如何采购</, /买家工作台/, /context-contact-dock/i, /完整询价/, /\/zh\/request-quote\//i],
+    required: [/泉州鞋类工厂供应商/, />产品选款</, />采购方案</, />了解工厂</, />如何采购</, /买家工作台/, /context-contact-dock/i, /完整询价/, /\/zh\/request-quote\//i, /泉州贝强鞋业服饰有限公司/],
+  },
+  {
+    path: "/brand/logo-512.png",
+    label: "Organization logo asset",
+    required: [],
+    headers: { "content-type": /image\/png/i },
+  },
+  {
+    path: "/favicon.ico",
+    label: "Legacy favicon",
+    required: [],
+  },
+  {
+    path: "/apple-touch-icon.png",
+    label: "iOS home-screen icon",
+    required: [],
+    headers: { "content-type": /image\/png/i },
   },
   {
     path: "/products/",
@@ -135,7 +152,10 @@ export async function verifyPublicSite(origin, options = {}) {
       });
       const text = await response.text();
       const inspection = inspectText(text, route.required, route.forbidden);
-      const ok = response.ok && inspection.missing.length === 0 && inspection.forbidden.length === 0;
+      const badHeaders = Object.entries(route.headers || {})
+        .filter(([name, pattern]) => !pattern.test(response.headers.get(name) || ""))
+        .map(([name]) => `${name}=${response.headers.get(name) || "missing"}`);
+      const ok = response.ok && inspection.missing.length === 0 && inspection.forbidden.length === 0 && badHeaders.length === 0;
       return {
         label: route.label,
         path: route.path,
@@ -144,6 +164,7 @@ export async function verifyPublicSite(origin, options = {}) {
         ok,
         elapsedMs: Date.now() - startedAt,
         ...inspection,
+        ...(badHeaders.length ? { headers: badHeaders } : {}),
       };
     } catch (error) {
       return {
@@ -176,7 +197,7 @@ export function formatReport(report) {
   for (const item of report.results) {
     const detail = item.error
       ? `error=${item.error}`
-      : `status=${item.status}${item.missing?.length ? ` missing=${item.missing.join(",")}` : ""}${item.forbidden?.length ? ` forbidden=${item.forbidden.join(",")}` : ""}`;
+      : `status=${item.status}${item.missing?.length ? ` missing=${item.missing.join(",")}` : ""}${item.forbidden?.length ? ` forbidden=${item.forbidden.join(",")}` : ""}${item.headers?.length ? ` headers=${item.headers.join(",")}` : ""}`;
     lines.push(`${item.ok ? "PASS" : "FAIL"} ${item.path} ${detail} ${item.elapsedMs}ms`);
   }
   return lines.join("\n");

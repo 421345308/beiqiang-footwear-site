@@ -76,3 +76,40 @@ test("keeps footage-derived factory stills web-ready", async () => {
     assert.equal(content.length <= 150 * 1024, true, `${file} exceeds 150 KB`);
   }
 });
+
+function readPngHeader(buffer) {
+  assert.equal(buffer.subarray(0, 8).toString("hex"), "89504e470d0a1a0a", "not a PNG file");
+  assert.equal(buffer.subarray(12, 16).toString("ascii"), "IHDR", "missing IHDR chunk");
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    bitDepth: buffer[24],
+    colorType: buffer[25],
+  };
+}
+
+test("keeps a square, crawlable brand logo for Organization structured data", async () => {
+  const logo = readPngHeader(await readFile(new URL("../public/brand/logo-512.png", import.meta.url)));
+  assert.equal(logo.width, 512);
+  assert.equal(logo.height, 512);
+  // Color type 6 = truecolour with alpha; Google warns about logos that disappear
+  // on a white background, so the mark must carry its own dark badge.
+  assert.equal(logo.colorType, 6, "brand logo should be RGBA");
+  assert.equal(logo.width >= 112 && logo.height >= 112, true, "logo is below Google's 112x112 minimum");
+
+  const vector = await readFile(new URL("../public/brand/logo.svg", import.meta.url), "utf8");
+  assert.match(vector, /viewBox="0 0 512 512"/);
+  assert.match(vector, /#173b32/, "vector logo should use the site forest token");
+
+  // The favicon the browser and Google fall back to when no <link rel="icon"> wins.
+  const ico = await readFile(new URL("../public/favicon.ico", import.meta.url));
+  assert.deepEqual([...ico.subarray(0, 4)], [0x00, 0x00, 0x01, 0x00], "favicon.ico should be a real ICO container");
+  const favicon = await readFile(new URL("../public/favicon.svg", import.meta.url), "utf8");
+  assert.match(favicon, /#173b32/, "favicon.svg should be the brand mark, not the framework starter icon");
+
+  const apple = readPngHeader(await readFile(new URL("../public/apple-touch-icon.png", import.meta.url)));
+  assert.equal(apple.width, 180);
+  assert.equal(apple.height, 180);
+  // iOS masks the icon itself, so this variant must be opaque.
+  assert.equal(apple.colorType, 2, "apple-touch-icon should be opaque RGB");
+});
