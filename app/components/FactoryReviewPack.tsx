@@ -65,7 +65,7 @@ export default function FactoryReviewPack({ productCount, locale = "en" }: { pro
     <details className="factory-review-text"><summary>{zh ? "展开可复制的完整简报" : "Open the complete copyable brief"}</summary><pre>{reviewText}</pre></details>
     <div className="factory-review-pack-footer">
       <p>{zh ? "本简报不是第三方审厂报告、认证、产能证明、报价、库存确认、样品批准、合同、订单或付款请求。所有项目事实需按具体款式和书面文件确认。" : "This is not a third-party factory audit, certificate, capacity proof, quotation, stock confirmation, sample approval, contract, order or payment request. Confirm every project fact against the specific style and written documents."}</p>
-      <div className="hero-actions"><Link className="button" href={zh ? "/zh/request-quote/" : "/request-quote/"}>{zh ? "提交采购需求" : "Send a sourcing brief"}</Link><a className="text-link" href="mailto:421345308@qq.com">421345308@qq.com</a></div>
+      <div className="hero-actions"><Link className="button" href={zh ? "/zh/request-quote/" : "/request-quote/"}>{zh ? "提交采购需求" : "Send a sourcing brief"}</Link><a className="text-link" href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a></div>
     </div>
     <p className="factory-review-pack-message" aria-live="polite">{message}</p>
   </section>;

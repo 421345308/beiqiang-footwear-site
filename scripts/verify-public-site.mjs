@@ -6,7 +6,7 @@ const ROUTES = [
   {
     path: "/",
     label: "English home",
-    required: [/Quanzhou Beiqiang Footwear/i, />Products</i, />Programs</i, />Verify</i, />How to buy</i, /Buyer workspace/i, /context-contact-dock/i, /Full inquiry/i, /\/request-quote\//i, /421345308@qq\.com/i],
+    required: [/Quanzhou Beiqiang Footwear/i, />Products</i, />Programs</i, />Verify</i, />How to buy</i, /Buyer workspace/i, /context-contact-dock/i, /Full inquiry/i, /\/request-quote\//i, /shepeiqiang@gmail\.com/i],
   },
   {
     path: "/zh/",
@@ -101,7 +101,7 @@ const ROUTES = [
       /31 organized product pages/i,
       /BQ031 \/ ZX2116/i,
       /Alibaba Trade Assurance or a signed bilateral contract/i,
-      /421345308@qq\.com/i,
+      /shepeiqiang@gmail\.com/i,
     ],
   },
 ];

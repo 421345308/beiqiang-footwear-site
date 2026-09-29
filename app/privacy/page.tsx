@@ -283,7 +283,7 @@ export default function PrivacyPage() {
           <p>
             To ask about, correct or request deletion of website inquiry
             information, email{" "}
-            <a href="mailto:421345308@qq.com">421345308@qq.com</a> and include
+            <a href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a> and include
             the inquiry reference. We may request reasonable identity or
             authority verification and assess active orders, disputes, claims
             and record-retention duties before changing or deleting a record.
@@ -380,6 +380,17 @@ export default function PrivacyPage() {
             and do not reveal calendar contents or prove attendance. A change
             request does not alter the confirmed meeting until Beiqiang approves
             it.
+          </p>
+        </section>
+        <section>
+          <h2>Who is responsible for this data</h2>
+          <p>
+            Quanzhou Beiqiang Footwear &amp; Apparel Co., Ltd., No. 26, Xitou,
+            Pengshu Village, Majia Town, Luojiang District, Quanzhou, Fujian
+            362014, China, is the company that handles the personal data
+            described in this notice. Questions about this notice, or a request
+            about a specific inquiry record, can be sent to{" "}
+            <a href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a>.
           </p>
         </section>
       </article>

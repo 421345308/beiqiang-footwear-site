@@ -131,7 +131,7 @@ async function notifyBuyer(record, item, action, env, createTransportImpl) {
         "The meeting supports sourcing communication only. It does not confirm product specifications, sample results, price, availability, production, payment or an order. Formal terms remain subject to the issued quotation and agreed Alibaba Trade Assurance order or signed contract.",
         "",
         "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.",
-        "421345308@qq.com",
+        "shepeiqiang@gmail.com",
         "+86 189 5980 5256",
       ].join("\n"),
     });

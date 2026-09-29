@@ -74,7 +74,7 @@ def footer(c: canvas.Canvas, page_number: int) -> None:
     c.line(16 * mm, 13 * mm, PAGE_W - 16 * mm, 13 * mm)
     c.setFillColor(MUTED)
     c.setFont("Helvetica", 7)
-    c.drawString(16 * mm, 8.5 * mm, "www.beiqiang.online  |  421345308@qq.com  |  WhatsApp +86 189 5980 5256")
+    c.drawString(16 * mm, 8.5 * mm, "www.beiqiang.online  |  shepeiqiang@gmail.com  |  WhatsApp +86 189 5980 5256")
     c.drawRightString(PAGE_W - 16 * mm, 8.5 * mm, f"{page_number}")
 
 

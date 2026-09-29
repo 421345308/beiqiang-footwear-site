@@ -335,9 +335,9 @@ export default async function ChineseProductPage({ params }: Props) {
               </a>
               <a
                 className="contact-text-link"
-                href={`mailto:421345308@qq.com?subject=${encodeURIComponent(`${product.code}样品和报价需求`)}&body=${encodeURIComponent(brief)}`}
+                href={`mailto:shepeiqiang@gmail.com?subject=${encodeURIComponent(`${product.code}样品和报价需求`)}&body=${encodeURIComponent(brief)}`}
               >
-                邮件联系 421345308@qq.com
+                邮件联系 shepeiqiang@gmail.com
               </a>
               <a
                 className="contact-text-link"
@@ -436,7 +436,7 @@ export default async function ChineseProductPage({ params }: Props) {
             <span>OEM/ODM与鞋类批发供应 · 中国福建泉州</span>
           </div>
           <div>
-            <span>421345308@qq.com</span>
+            <span>shepeiqiang@gmail.com</span>
             <span>WhatsApp +86 189 5980 5256</span>
             <span>www.beiqiang.online/zh/products/{product.slug}/</span>
           </div>

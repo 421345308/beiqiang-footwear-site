@@ -387,7 +387,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
           <footer className="comparison-print-footer">
             <strong>Quanzhou Beiqiang Footwear & Apparel Co., Ltd.</strong>
             <span>
-              421345308@qq.com · WhatsApp +86 189 5980 5256 ·
+              shepeiqiang@gmail.com · WhatsApp +86 189 5980 5256 ·
               www.beiqiang.online
             </span>
             <p>

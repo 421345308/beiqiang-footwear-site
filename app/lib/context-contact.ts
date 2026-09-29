@@ -55,7 +55,7 @@ export function buildContextContactLinks(pathname: string) {
     zh,
     context,
     whatsappHref: `https://wa.me/8618959805256?text=${encodeURIComponent(message)}`,
-    emailHref: `mailto:421345308@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
+    emailHref: `mailto:shepeiqiang@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`,
     quoteHref: zh ? "/zh/request-quote/" : "/request-quote/",
   };
 }

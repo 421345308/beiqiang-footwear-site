@@ -9,7 +9,7 @@ function request(decision, note = "") { return new Request("https://www.beiqiang
 
 test("records buyer sample approval without confirming bulk order terms", async () => {
   let saved; const mails = []; const handler = createSampleResponseHandler({ getStoreImpl: () => ({ get: async () => baseRecord(), setJSON: async (key, value) => { saved = value; } }), createTransportImpl: () => ({ sendMail: async (mail) => { mails.push(mail); } }) });
-  const result = await handler({ request: request("approve", "Fit accepted for this sample."), env: { SMTP_PASS: "test", SMTP_USER: "421345308@qq.com" } }); const body = await result.json();
+  const result = await handler({ request: request("approve", "Fit accepted for this sample."), env: { SMTP_PASS: "test", SMTP_USER: "shepeiqiang@gmail.com" } }); const body = await result.json();
   assert.equal(result.status, 200); assert.equal(saved.sampleProgram.status, "buyer_approved"); assert.equal(saved.sampleProgram.buyerDecision, "approved"); assert.equal(saved.sampleProgram.reviewRounds[0].decision, "revision_requested"); assert.equal(saved.sampleProgram.reviewRounds[1].decision, "approved"); assert.equal(saved.sampleProgram.reviewRounds[1].buyerNote, "Fit accepted for this sample."); assert.match(saved.nextAction, /excluded bulk terms/i); assert.equal(saved.nextActionDue, saved.updatedAt.slice(0, 10)); assert.match(saved.buyerUpdate, /review round 2/i); assert.equal(saved.sampleProgram.history.at(-1).actor, "Buyer"); assert.match(body.message, /bulk specifications/i); assert.equal(mails.length, 1); assert.match(mails[0].text, /immutable sample-review round/i);
 });
 

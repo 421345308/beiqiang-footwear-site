@@ -32,9 +32,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     "@type": "Organization",
     name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.",
     url: "https://www.beiqiang.online/",
-    email: "421345308@qq.com",
+    email: "shepeiqiang@gmail.com",
     telephone: "+86 189 5980 5256",
-    address: { "@type": "PostalAddress", addressLocality: "Quanzhou", addressRegion: "Fujian", addressCountry: "CN" },
+    address: { "@type": "PostalAddress", streetAddress: "No. 26, Xitou, Pengshu Village, Majia Town, Luojiang District", addressLocality: "Quanzhou", addressRegion: "Fujian", postalCode: "362014", addressCountry: "CN" },
+    contactPoint: [{ "@type": "ContactPoint", contactType: "sales", email: "shepeiqiang@gmail.com", telephone: "+86 189 5980 5256", availableLanguage: ["en", "zh-CN"] }],
     sameAs: ["https://cn1576227362luzl.m.en.alibaba.com/"],
   };
 

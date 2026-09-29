@@ -191,7 +191,7 @@ test("sends separate internal and buyer receipt messages without confirming comm
     createTransportImpl: () => ({ sendMail: async (mail) => { mails.push(mail); } }),
   });
   const request = new Request("https://www.beiqiang.online/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json", Origin: "https://www.beiqiang.online" }, body: JSON.stringify(validPayload({ buyerTargetCost: "USD 9.50/pair FOB target", preferredContactMethod: "email", preferredResponseLanguage: "en", buyerTimezone: "New York ET", preferredContactWindow: "Weekdays after 10:00" })) });
-  const result = await handler({ request, env: { SMTP_PASS: "test", SMTP_USER: "421345308@qq.com" }, clientIp: "127.0.0.1" });
+  const result = await handler({ request, env: { SMTP_PASS: "test", SMTP_USER: "shepeiqiang@gmail.com" }, clientIp: "127.0.0.1" });
   const body = await result.json();
   assert.equal(result.status, 201); assert.equal(mails.length, 2); assert.equal(body.buyerConfirmationSent, true);
   assert.match(mails[1].text, /confirms receipt only/i); assert.match(mails[1].text, /remain subject to review and written confirmation/i);

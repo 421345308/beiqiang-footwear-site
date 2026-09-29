@@ -67,10 +67,10 @@ Email notification is optional until these EdgeOne Production environment variab
 - `SMTP_HOST=smtp.qq.com`
 - `SMTP_PORT=465`
 - `SMTP_SECURE=true`
-- `SMTP_USER=421345308@qq.com`
+- `SMTP_USER=shepeiqiang@gmail.com`
 - `SMTP_PASS=<QQ mailbox SMTP authorization code>`
-- `SMTP_FROM=421345308@qq.com`
-- `INQUIRY_NOTIFY_TO=421345308@qq.com`
+- `SMTP_FROM=shepeiqiang@gmail.com`
+- `INQUIRY_NOTIFY_TO=shepeiqiang@gmail.com`
 
 After changing environment variables, create a new deployment because existing deployments do not inherit later environment changes. Test with a clearly marked internal inquiry and confirm both the on-page reference number and the received email.
 

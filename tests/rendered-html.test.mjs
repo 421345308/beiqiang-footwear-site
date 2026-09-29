@@ -27,7 +27,7 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   );
   assert.match(html, /Tell us what you need/);
   assert.match(html, /Browse shoe styles/);
-  assert.match(html, /421345308@qq\.com/);
+  assert.match(html, /shepeiqiang@gmail\.com/);
   assert.match(html, /8618959805256/);
   assert.match(html, /Open buyer menu/i);
   assert.match(html, /aria-controls="mobile-buyer-menu"/i);
@@ -428,7 +428,7 @@ for (const [pathname, expected] of [
     assert.equal(response.status, 200);
     const html = await response.text();
     assert.match(html, expected);
-    assert.match(html, /421345308@qq\.com/);
+    assert.match(html, /shepeiqiang@gmail\.com/);
     assert.doesNotMatch(
       html,
       /certified|million pairs|medical|orthopedic|guaranteed customization/i,

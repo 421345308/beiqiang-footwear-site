@@ -163,7 +163,7 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
       `Reference: ${reference}`, `Status access code: ${accessCode}`, "Status page: https://www.beiqiang.online/inquiry-status/", "",
       `Styles: ${inquiry.styleCode}`, `Quantity direction: ${inquiry.quantity}`, `Buyer target cost / price direction: ${inquiry.buyerTargetCost || "To be discussed"} (your target only; not a Beiqiang quotation or acceptance)`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "To be discussed"}`, "",
       "This confirms receipt only. Product specifications, sample arrangement, price, MOQ, lead time, technical targets and order terms remain subject to review and written confirmation.", "",
-      "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.", "421345308@qq.com", "WhatsApp: +86 189 5980 5256",
+      "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.", "shepeiqiang@gmail.com", "WhatsApp: +86 189 5980 5256",
     ];
     try {
       await transport.sendMail({

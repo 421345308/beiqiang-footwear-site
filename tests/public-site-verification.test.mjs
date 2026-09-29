@@ -25,7 +25,7 @@ test("reports required and forbidden content independently", () => {
 
 test("checks every public acquisition route and produces an actionable failure report", async () => {
   const content = {
-    "/": "Quanzhou Beiqiang Footwear >Products< >Programs< >Verify< >How to buy< Buyer workspace context-contact-dock Full inquiry /request-quote/ 421345308@qq.com",
+    "/": "Quanzhou Beiqiang Footwear >Products< >Programs< >Verify< >How to buy< Buyer workspace context-contact-dock Full inquiry /request-quote/ shepeiqiang@gmail.com",
     "/zh/": "泉州鞋类工厂供应商 >产品选款< >采购方案< >了解工厂< >如何采购< 买家工作台 context-contact-dock 完整询价 /zh/request-quote/",
     "/products/": "Walking and casual shoes for wholesale BQ031 START BY SOURCING DIRECTION",
     "/zh/products/": "31 BQ031 采购方向",
@@ -40,7 +40,7 @@ test("checks every public acquisition route and produces an actionable failure r
     "/zh/collections/fleece-lined-shoes/": "已有加绒颜色方向 可能只适用于个别颜色 collection-fleece-lined-shoes",
     "/robots.txt": "User-agent: Googlebot\nUser-agent: OAI-SearchBot\nUser-agent: ChatGPT-User\nDisallow: /admin/\nDisallow: /buyer-workspace/\nDisallow: /inquiry-status/\nSitemap: https://www.beiqiang.online/sitemap.xml",
     "/sitemap.xml": '<loc>https://www.beiqiang.online/products/bq031/</loc><xhtml:link hreflang="zh-CN"/><image:loc>x</image:loc><video:content_loc>x</video:content_loc>',
-    "/llms.txt": "31 organized product pages BQ031 / ZX2116 Alibaba Trade Assurance or a signed bilateral contract 421345308@qq.com",
+    "/llms.txt": "31 organized product pages BQ031 / ZX2116 Alibaba Trade Assurance or a signed bilateral contract shepeiqiang@gmail.com",
   };
   const fetchImpl = async (url) => new Response(content[new URL(url).pathname] || "missing", { status: content[new URL(url).pathname] ? 200 : 404 });
   const passing = await verifyPublicSite("https://www.beiqiang.online", { fetchImpl });

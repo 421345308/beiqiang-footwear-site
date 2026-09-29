@@ -363,7 +363,7 @@ export default function ChineseProductCatalog({
           <footer className="comparison-print-footer">
             <strong>泉州贝强鞋业服饰有限公司</strong>
             <span>
-              421345308@qq.com · WhatsApp +86 189 5980 5256 ·
+              shepeiqiang@gmail.com · WhatsApp +86 189 5980 5256 ·
               www.beiqiang.online
             </span>
             <p>

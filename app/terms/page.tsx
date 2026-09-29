@@ -218,7 +218,7 @@ export default function TermsPage() {
           <h2>Contact</h2>
           <p>
             Questions about these terms or a sourcing request can be sent to{" "}
-            <a href="mailto:421345308@qq.com">421345308@qq.com</a> or WhatsApp{" "}
+            <a href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a> or WhatsApp{" "}
             <a href="https://wa.me/8618959805256">+86 189 5980 5256</a>.
           </p>
         </section>

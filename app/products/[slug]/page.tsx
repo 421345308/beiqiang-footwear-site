@@ -431,7 +431,7 @@ export default async function ProductPage({ params }: Props) {
             </span>
           </div>
           <div>
-            <span>421345308@qq.com</span>
+            <span>shepeiqiang@gmail.com</span>
             <span>WhatsApp +86 189 5980 5256</span>
             <span>www.beiqiang.online/products/{product.slug}/</span>
           </div>

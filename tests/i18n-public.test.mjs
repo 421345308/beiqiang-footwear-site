@@ -293,8 +293,8 @@ test("publishes seven Chinese product collections with product-level boundaries"
   for (const [path, heading, boundary] of [
     [
       "/zh/collections/wide-toe-box",
-      /已确认宽鞋头设计的步行鞋/,
-      /不代表所有贝强鞋款均为宽鞋头/,
+      /宽楦与宽鞋头步行鞋批发选款/,
+      /不代表所有贝强鞋款均为宽楦/,
     ],
     [
       "/zh/collections/knit-slip-on",

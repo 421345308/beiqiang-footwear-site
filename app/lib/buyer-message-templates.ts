@@ -72,7 +72,7 @@ function greeting(record: BuyerMessageRecord) {
 }
 
 const signature =
-  "Best regards,\nBeiqiang Footwear Supply\nQuanzhou, Fujian, China";
+  "Best regards,\nBeiqiang Footwear Supply\nQuanzhou Beiqiang Footwear & Apparel Co., Ltd.\nNo. 26, Xitou, Pengshu Village, Majia Town, Luojiang District, Quanzhou, Fujian 362014, China";
 
 export function recommendedBuyerMessageTemplate(
   record: BuyerMessageRecord,

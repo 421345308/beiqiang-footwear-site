@@ -102,7 +102,7 @@ export default function ChinesePrivacyPage() {
           <h2>联系我们</h2>
           <p>
             隐私或资料请求请联系{" "}
-            <a href="mailto:421345308@qq.com">421345308@qq.com</a>
+            <a href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a>
             ，并提供足以核验项目与代表权限的信息。
           </p>
         </section>
@@ -140,6 +140,14 @@ export default function ChinesePrivacyPage() {
           <h2>采购会议申请</h2>
           <p>
             已核验项目持有人可提交会议目的、优先方式、时区或城市、2至3个按当地时间填写的候选时间、议题、参会职责及优先语言。网站会把申请、审核状态、确认时间与方式、经审核的会议链接、买家可见说明、通知结果、有限数量的日历文件下载时间、改期或取消申请、候选时间和原因、人工审核决定、历史确认时间及事实性会议结果与询盘一同保存。每个申请都由贝强人工审核；提交表单不会自动建立日历预约，也不保证出席或语言支持。下载时间只用于运营跟进，不读取买家日历内容，也不证明实际出席；变更申请在贝强批准前不会改变原确认会议。
+          </p>
+        </section>
+        <section>
+          <h2>由谁负责处理这些数据</h2>
+          <p>
+            泉州贝强鞋业服饰有限公司（地址：中国福建省泉州市洛江区马甲镇彭殊村溪头26号，邮编
+            362014）负责处理本说明中所述的业务联系信息。对本说明有疑问，或需要查询某一条询盘记录的处理情况，可发送邮件至{" "}
+            <a href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a>。
           </p>
         </section>
       </article>

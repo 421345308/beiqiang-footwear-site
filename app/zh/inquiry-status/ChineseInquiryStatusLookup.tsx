@@ -117,7 +117,7 @@ export default function ChineseInquiryStatusLookup() {
       {request.status.code !== "closed" ? <InquiryAttachmentUploader reference={reference} accessCode={accessCode} tone="dark" locale="zh" onUploaded={() => loadRequest(false)} /> : null}
       {request.status.code !== "closed" ? <WorkspaceAccessRequest reference={reference} accessCode={accessCode} requests={request.workspaceAccessRequests || []} locale="zh" onSaved={() => loadRequest(false)} /> : null}
       <div className="buyer-status-boundary"><strong>本页不自动确认的事项</strong><p>价格、MOQ、样品安排、交期、材料、技术目标、付款和订单条款均需另行书面确认。“已收到需求”不是已接受订单；正式交易以Alibaba Trade Assurance订单或双方签署合同为准。</p></div>
-      <div className="hero-actions"><a className="button" href={`mailto:421345308@qq.com?subject=${encodeURIComponent(`跟进项目 ${request.reference}`)}`}>邮件联系并附项目编号</a><a className="text-link" href={`https://wa.me/8618959805256?text=${encodeURIComponent(`您好，贝强鞋业。我想跟进项目 ${request.reference}。`)}`} target="_blank" rel="noreferrer">WhatsApp跟进 →</a></div>
+      <div className="hero-actions"><a className="button" href={`mailto:shepeiqiang@gmail.com?subject=${encodeURIComponent(`跟进项目 ${request.reference}`)}`}>邮件联系并附项目编号</a><a className="text-link" href={`https://wa.me/8618959805256?text=${encodeURIComponent(`您好，贝强鞋业。我想跟进项目 ${request.reference}。`)}`} target="_blank" rel="noreferrer">WhatsApp跟进 →</a></div>
     </section> : <section className="section status-help"><p className="eyebrow">请保护两项信息</p><h2>询盘编号识别项目，私密查询码保护项目。</h2><p>不要公开发布查询码。贝强不会在此页面索取您的邮箱密码、付款密码或内部管理员口令。</p><Link className="text-link" href="/zh/request-quote/">建立新的采购询价 →</Link></section>}
   </>;
 }

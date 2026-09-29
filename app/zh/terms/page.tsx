@@ -87,7 +87,7 @@ export default function ChineseTermsPage() {
           <h2>联系方式</h2>
           <p>
             订单资料或条款问题请联系{" "}
-            <a href="mailto:421345308@qq.com">421345308@qq.com</a> 或 WhatsApp
+            <a href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a> 或 WhatsApp
             +86 189 5980 5256。
           </p>
         </section>
