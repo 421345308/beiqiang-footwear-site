@@ -24,6 +24,9 @@ import { readPrivateLabelConcept } from "../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../lib/product-finder-brief";
 import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../lib/quote-request-draft";
 import { mergeSharedQuoteList, parseSharedQuoteCodes } from "../lib/quote-list-share";
+import ResourceInquiryContext from "../components/ResourceInquiryContext";
+import { buyerResources } from "../data/resources";
+import { findInquiryResource, resourceFromProgram } from "../lib/resource-inquiry";
 import QuoteBriefReview from "../components/QuoteBriefReview";
 
 type Status = {
@@ -116,7 +119,7 @@ export default function QuoteRequestBuilder() {
       }
       if (/^[a-z0-9-]{1,80}$/.test(requestedProgram))
         setSourcingProgram(requestedProgram);
-      else if (/^[a-z0-9-]{1,80}$/.test(requestedResource))
+      else if (findInquiryResource(requestedResource, buyerResources))
         setSourcingProgram(`resource-${requestedResource}`);
       if (
         ["base_style_adaptation", "technical_development"].includes(
@@ -445,12 +448,13 @@ export default function QuoteRequestBuilder() {
             <h2>
               Tell us about your order.
             </h2>
-            {sourcingProgram && (
+            {sourcingProgram && !resourceFromProgram(sourcingProgram, buyerResources) && (
               <p className="quote-program-origin">
                 Started from: {sourcingProgram.replaceAll("-", " ")}
               </p>
             )}
           </div>
+          <ResourceInquiryContext resource={resourceFromProgram(sourcingProgram, buyerResources)} locale="en" offerReview />
           <OptionalInquiryDetails title="Review the quote checklist"><BuyerQuoteReadiness readiness={quoteReadiness} /></OptionalInquiryDetails>
           <div className="quote-draft-notice"><p><strong>{draftMessage || "Draft protection is active in this tab."}</strong><span>Unsubmitted form fields stay in this browser tab only, are not sent to Beiqiang, and are cleared after successful submission or when the tab session ends.</span></p><button type="button" onClick={clearLocalDraft}>Clear saved form fields</button></div>
           {finderBrief && (() => {

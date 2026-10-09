@@ -84,7 +84,7 @@ export const buyerResources: BuyerResource[] = [
     "eyebrow": "BUYING GUIDE",
     "audience": "For footwear buyers and brands",
     "readingTime": "4-minute guide",
-    "updated": "2026-09-08",
+    "updated": "2026-10-10",
     "introduction": "A sample helps you decide whether to place an order. But “looks good” leaves too much open: does it approve the fit, the color, the branding, or all three? Keep a simple record of the exact sample and what you checked.",
     "outcome": "Finish with a clear decision: approved items, changes needed and anything still untested.",
     "sections": [
@@ -120,12 +120,12 @@ export const buyerResources: BuyerResource[] = [
       }
     ],
     "checklist": [
-      "Style or reference",
-      "Quantity and size mix",
-      "Sample version and changes",
-      "Branding and packing",
-      "Destination and timing",
-      "Questions still to confirm"
+      "Style, color, size and sample revision",
+      "What the sample must demonstrate",
+      "Fit, workmanship and appearance checks",
+      "Branding and packing still to review",
+      "Approved items and changes needed",
+      "Untested requirements and next review"
     ],
     "relatedProductCodes": [
       "BQ001",
@@ -142,7 +142,7 @@ export const buyerResources: BuyerResource[] = [
     "eyebrow": "BUYING GUIDE",
     "audience": "For footwear buyers and brands",
     "readingTime": "4-minute guide",
-    "updated": "2026-09-08",
+    "updated": "2026-10-10",
     "introduction": "Your own shoe brand does not always need an entirely new shoe. Starting from an existing style lets you focus the discussion on fit, branding and packaging. A new last or sole is a different development project, with different questions and costs.",
     "outcome": "Decide whether you need an existing-style adaptation or a new design before asking for a price.",
     "sections": [
@@ -178,12 +178,12 @@ export const buyerResources: BuyerResource[] = [
       }
     ],
     "checklist": [
-      "Style or reference",
-      "Quantity and size mix",
-      "Sample version and changes",
-      "Branding and packing",
-      "Destination and timing",
-      "Questions still to confirm"
+      "Base shoe and target market",
+      "Expected pairs by color and size",
+      "Logo artwork and placement",
+      "Changes to the shoe and packaging",
+      "Sample and artwork approval scope",
+      "Minimums and costs still to confirm"
     ],
     "relatedProductCodes": [
       "BQ001",

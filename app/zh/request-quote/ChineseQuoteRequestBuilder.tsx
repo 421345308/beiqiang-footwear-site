@@ -26,6 +26,10 @@ import { readPrivateLabelConcept } from "../../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../../lib/product-finder-brief";
 import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../../lib/quote-request-draft";
 import { mergeSharedQuoteList, parseSharedQuoteCodes } from "../../lib/quote-list-share";
+import ResourceInquiryContext from "../../components/ResourceInquiryContext";
+import { buyerResources } from "../../data/resources";
+import { chineseBuyerResources } from "../../data/resources-zh";
+import { findInquiryResource, resourceFromProgram } from "../../lib/resource-inquiry";
 import QuoteBriefReview from "../../components/QuoteBriefReview";
 
 type Status = {
@@ -117,7 +121,7 @@ export default function ChineseQuoteRequestBuilder() {
       }
       if (/^[a-z0-9-]{1,80}$/.test(requestedProgram))
         setSourcingProgram(requestedProgram);
-      else if (/^[a-z0-9-]{1,80}$/.test(requestedResource))
+      else if (findInquiryResource(requestedResource, buyerResources))
         setSourcingProgram(`resource-${requestedResource}`);
       if (
         ["base_style_adaptation", "technical_development"].includes(
@@ -433,12 +437,13 @@ export default function ChineseQuoteRequestBuilder() {
           <div>
             <p className="eyebrow eyebrow-light">买家与项目资料</p>
             <h2>说说您准备怎样采购。</h2>
-            {sourcingProgram && (
+            {sourcingProgram && !resourceFromProgram(sourcingProgram, chineseBuyerResources) && (
               <p className="quote-program-origin">
                 来源：{sourcingProgram.replaceAll("-", " ")}
               </p>
             )}
           </div>
+          <ResourceInquiryContext resource={resourceFromProgram(sourcingProgram, chineseBuyerResources)} locale="zh" offerReview />
           <OptionalInquiryDetails title="查看询价资料检查表"><BuyerQuoteReadiness readiness={quoteReadiness} /></OptionalInquiryDetails>
           <div className="quote-draft-notice"><p><strong>{draftMessage || "当前标签页已开启草稿保护。"}</strong><span>未提交的表单内容只暂存在本浏览器标签页，不会发送给贝强；提交成功或标签页会话结束后清除。</span></p><button type="button" onClick={clearLocalDraft}>清除暂存表单</button></div>
           {finderBrief && (() => {

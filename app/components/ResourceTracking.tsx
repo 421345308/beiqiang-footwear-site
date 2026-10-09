@@ -14,7 +14,7 @@ export function ResourceView({ slug }: { slug: string }) {
 }
 
 export function ResourceCta({ slug, href, children, className = "button" }: { slug: string; href: string; children: React.ReactNode; className?: string }) {
-  return <Link className={className} href={href} onClick={() => trackEvent("resource_cta", { context: slug, linkType: href.startsWith("/request-quote") ? "quote" : "internal" })}>{children}</Link>;
+  return <Link className={className} href={href} onClick={() => trackEvent("resource_cta", { context: slug, linkType: /^\/(zh\/)?request-quote\//.test(href) ? "quote" : /^\/(zh\/)?sourcing-review\//.test(href) ? "sourcing_review" : "internal" })}>{children}</Link>;
 }
 
 export function ResourceProductLink({ slug, href, styleCode, children }: { slug: string; href: string; styleCode: string; children: React.ReactNode }) {

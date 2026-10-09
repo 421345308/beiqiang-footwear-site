@@ -66,7 +66,7 @@ export const chineseBuyerResources: BuyerResource[] = [
     "eyebrow": "鞋类采购指南",
     "audience": "适合鞋类采购商与品牌客户",
     "readingTime": "约4分钟",
-    "updated": "2026-09-08",
+    "updated": "2026-10-10",
     "introduction": "“样品不错”还不够明确。是外观通过了，还是尺码、商标和包装也都通过了？把样品版本和检查结果写下来，能避免双方理解不一致。",
     "outcome": "最后明确三件事：哪些已确认、哪些要修改、哪些还没有检查。",
     "sections": [
@@ -102,12 +102,12 @@ export const chineseBuyerResources: BuyerResource[] = [
       }
     ],
     "checklist": [
-      "款号或参考图",
-      "数量与尺码配比",
-      "样品版本及修改要求",
-      "商标和包装",
-      "收货地与时间",
-      "还需要确认的问题"
+      "款号、颜色、尺码和样品版本",
+      "样品需要验证的目标",
+      "试穿、做工与外观检查",
+      "仍需审核的商标与包装",
+      "已接受的项目和修改要求",
+      "未验证项目与下一次审核"
     ],
     "relatedProductCodes": [
       "BQ001",
@@ -124,7 +124,7 @@ export const chineseBuyerResources: BuyerResource[] = [
     "eyebrow": "鞋类采购指南",
     "audience": "适合鞋类采购商与品牌客户",
     "readingTime": "约4分钟",
-    "updated": "2026-09-08",
+    "updated": "2026-10-10",
     "introduction": "做自己的鞋类品牌，不一定要从零开发一双鞋。先用合适的现有款式，可以把重点放在合脚程度、商标和包装上。如果要换鞋楦或鞋底，那就是另一类开发工作，不能按普通贴牌来理解。",
     "outcome": "先分清是现有款贴牌，还是需要新设计，再谈数量和费用。",
     "sections": [
@@ -160,12 +160,12 @@ export const chineseBuyerResources: BuyerResource[] = [
       }
     ],
     "checklist": [
-      "款号或参考图",
-      "数量与尺码配比",
-      "样品版本及修改要求",
-      "商标和包装",
-      "收货地与时间",
-      "还需要确认的问题"
+      "基础鞋款与目标市场",
+      "各色各码预计数量",
+      "商标文件与放置位置",
+      "鞋子与包装的改动清单",
+      "样品与商标审核范围",
+      "待确认的起订量与费用"
     ],
     "relatedProductCodes": [
       "BQ001",

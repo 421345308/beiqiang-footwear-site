@@ -17,11 +17,12 @@ type InquiryFormProps = {
   initialMarket?: string;
   initialRequirements?: string;
   finderBrief?: ProductFinderBrief | null;
+  sourcingProgram?: string;
 };
 
 type FormStatus = { kind: "idle" | "sending" | "success" | "error"; message: string };
 
-export default function InquiryForm({ styleCode, styleLabel, context, locale = "en", initialBuyerType = "Importer / wholesaler", initialMarket = "", initialRequirements = "", finderBrief = null }: InquiryFormProps) {
+export default function InquiryForm({ styleCode, styleLabel, context, locale = "en", initialBuyerType = "Importer / wholesaler", initialMarket = "", initialRequirements = "", finderBrief = null, sourcingProgram = "" }: InquiryFormProps) {
   const zh = locale === "zh";
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -80,7 +81,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name, company, buyerType, market, quantity, email, whatsapp, requirements, ...contactPreferences,
-          website, consent, styleCode, styleLabel, context, finderBrief,
+          website, consent, styleCode, styleLabel, context, finderBrief, sourcingProgram,
           formStartedAt: startedAt.current,
           attribution: getAttribution(),
           page: window.location.pathname,

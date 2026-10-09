@@ -2,14 +2,21 @@
 
 import { useEffect, useState } from "react";
 import InquiryForm from "./InquiryForm";
+import ResourceInquiryContext from "./ResourceInquiryContext";
+import { buyerResources } from "../data/resources";
+import { chineseBuyerResources } from "../data/resources-zh";
+import { findInquiryResource } from "../lib/resource-inquiry";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../lib/product-finder-brief";
 
 export default function SourcingReviewForm({ locale = "en" }: { locale?: "en" | "zh" }) {
   const zh = locale === "zh";
+  const [resourceSlug, setResourceSlug] = useState("");
+  const resource = findInquiryResource(resourceSlug, zh ? chineseBuyerResources : buyerResources);
   const [brief, setBrief] = useState<ProductFinderBrief | null>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      setResourceSlug(new URLSearchParams(window.location.search).get("resource") || "");
       const saved = readProductFinderBrief();
       setBrief(saved?.mode === "human_review" ? saved : null);
     }, 0);
@@ -25,6 +32,7 @@ export default function SourcingReviewForm({ locale = "en" }: { locale?: "en" | 
     : "";
 
   return <div className="sourcing-review-form-wrap">
+    <ResourceInquiryContext resource={resource} locale={locale} />
     {labels ? <section className="finder-brief-handoff">
       <p className="eyebrow">{zh ? "已带入的买家目标" : "IMPORTED BUYER TARGET"}</p>
       <h3>{zh ? "我们会参考您选好的条件。" : "We will start with the preferences you selected."}</h3>
@@ -37,6 +45,7 @@ export default function SourcingReviewForm({ locale = "en" }: { locale?: "en" | 
       styleCode="CATALOG-2026"
       styleLabel={zh ? "选款与定制咨询" : "Footwear sourcing consultation"}
       context="sourcing_review"
+      sourcingProgram={resource ? `resource-${resource.slug}` : ""}
       locale={locale}
       initialBuyerType={brief ? buyerTypeFromFinder(brief.buyerChannel) : undefined}
       initialMarket={brief ? salesChannelFromFinder(brief.buyerChannel) : undefined}
