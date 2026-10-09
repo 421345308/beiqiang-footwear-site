@@ -5,6 +5,27 @@ import {
   createAdminAnalyticsHandler,
 } from "../edgeone-deploy/cloud-functions/api/admin/analytics.js";
 
+test("keeps social and AI referrals separate and gives campaign sources precedence", () => {
+  const cases = [
+    ["facebook", { referrer: "https://l.facebook.com/" }],
+    ["instagram", { referrer: "https://l.instagram.com/" }],
+    ["chatgpt", { referrer: "https://chatgpt.com/" }],
+    ["perplexity", { referrer: "https://www.perplexity.ai/" }],
+    ["bing", { referrer: "https://www.bing.com/search?q=shoe" }],
+    ["google", { referrer: "https://www.google.co.uk/" }],
+    ["facebook", { utmSource: "facebook", referrer: "https://www.google.com/" }],
+    ["other", { referrer: "https://example.com/google/facebook" }],
+    ["other", { referrer: "https://facebook.com.example.org/" }],
+    ["other", { utmSource: "unknown-campaign", referrer: "https://www.google.com/" }],
+    ["direct", {}],
+  ];
+  for (const [expected, attribution] of cases) {
+    const result = buildCommercialAnalytics([{ event: "product_view", receivedAt: "2026-08-23T08:00:00Z", attribution }], [], { days: 30, now: new Date("2026-08-23T12:00:00Z") });
+    assert.equal(result.acquisitionChannels[0].channel, expected);
+    assert.equal(result.acquisitionChannels[0].events, 1);
+  }
+});
+
 const events = [
   {
     event: "product_view",
@@ -583,7 +604,8 @@ test("tracks human sourcing reviews from submission through shortlist issuance",
   assert.equal(result.supporting.humanSourcingReviewsOverdue48Hours, 1);
 });
 
-test("returns only an aggregated analytics summary", async () => {
+test("returns only an aggregated analytics summary", async (t) => {
+  t.mock.timers.enable({ apis: ["Date"], now: new Date("2026-08-23T12:00:00Z") });
   const datasets = {
     "beiqiang-events": Object.fromEntries(
       events

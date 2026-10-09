@@ -13,3 +13,11 @@ test("rejects external destinations and short campaign codes", () => {
   assert.throws(() => buildTrackedAcquisitionUrl({ channel: "email", destination: "/products/", campaign: "x" }), /at least 3/i);
   assert.equal(campaignSlug(" Buyer Name / BQ009 "), "buyer-name-bq009");
 });
+
+test("generates separate Facebook, Instagram and AI referral links", () => {
+  for (const [channel, medium] of [["facebook", "social_content"], ["instagram", "social_content"], ["bing", "organic_search"], ["chatgpt", "ai_referral"], ["perplexity", "ai_referral"]]) {
+    const url = new URL(buildTrackedAcquisitionUrl({ channel, destination: "/solutions/wholesale-walking-shoes/", campaign: "sourcing-range" }));
+    assert.equal(url.searchParams.get("utm_source"), channel);
+    assert.equal(url.searchParams.get("utm_medium"), medium);
+  }
+});

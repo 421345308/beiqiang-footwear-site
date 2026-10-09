@@ -41,17 +41,33 @@ function percentage(numerator, denominator) {
     : 0;
 }
 function acquisitionChannel(attribution = {}) {
-  const source = String(attribution.utmSource || "").toLowerCase();
-  const referrer = String(attribution.referrer || "").toLowerCase();
-  const text = `${source} ${referrer}`;
-  if (/linkedin/.test(text)) return "linkedin";
-  if (/whatsapp|wa\.me/.test(text)) return "whatsapp";
-  if (/alibaba|accio/.test(text)) return "alibaba";
-  if (/google|bing|search/.test(text)) return "google";
-  if (/tiktok/.test(text)) return "tiktok";
-  if (/email|newsletter|outreach/.test(text)) return "email";
-  if (/partner|referral|affiliate/.test(text)) return "partner";
-  return source || referrer ? "other" : "direct";
+  const source = String(attribution.utmSource || "").toLowerCase().trim();
+  const aliases = {
+    email: "email", newsletter: "email", outreach: "email",
+    linkedin: "linkedin", facebook: "facebook", fb: "facebook",
+    instagram: "instagram", ig: "instagram", whatsapp: "whatsapp",
+    alibaba: "alibaba", accio: "alibaba", google: "google", bing: "bing",
+    chatgpt: "chatgpt", openai: "chatgpt", perplexity: "perplexity",
+    tiktok: "tiktok", partner: "partner", referral: "partner", affiliate: "partner",
+  };
+  // A supplied campaign source takes precedence over a browser referrer.
+  if (source) return Object.hasOwn(aliases, source) ? aliases[source] : "other";
+  const referrer = String(attribution.referrer || "").trim();
+  if (!referrer) return "direct";
+  let host;
+  try { host = new URL(referrer).hostname.toLowerCase(); } catch { return "other"; }
+  const belongsTo = (domain) => host === domain || host.endsWith(`.${domain}`);
+  if (belongsTo("linkedin.com")) return "linkedin";
+  if (belongsTo("facebook.com") || belongsTo("fb.com")) return "facebook";
+  if (belongsTo("instagram.com")) return "instagram";
+  if (belongsTo("whatsapp.com") || belongsTo("wa.me")) return "whatsapp";
+  if (belongsTo("alibaba.com") || belongsTo("accio.com")) return "alibaba";
+  if (belongsTo("chatgpt.com") || belongsTo("chat.openai.com")) return "chatgpt";
+  if (belongsTo("perplexity.ai")) return "perplexity";
+  if (belongsTo("bing.com")) return "bing";
+  if (/^(?:[^.]+\.)*google\.(?:com|co\.uk|ca|de|fr|com\.au|co\.jp|co\.in|es|it|nl)$/.test(host)) return "google";
+  if (belongsTo("tiktok.com")) return "tiktok";
+  return "other";
 }
 function acquisitionRecord(map, channel) {
   const current = map.get(channel) || {

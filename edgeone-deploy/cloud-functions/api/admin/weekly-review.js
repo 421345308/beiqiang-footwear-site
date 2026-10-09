@@ -35,9 +35,14 @@ function safeDays(value) {
 const CHANNELS = new Set([
   "email",
   "linkedin",
+  "facebook",
+  "instagram",
   "whatsapp",
   "alibaba",
   "google",
+  "bing",
+  "chatgpt",
+  "perplexity",
   "tiktok",
   "partner",
   "direct",
@@ -45,7 +50,7 @@ const CHANNELS = new Set([
 ]);
 function safeChannels(value) {
   return (Array.isArray(value) ? value : [])
-    .slice(0, 9)
+    .slice(0, CHANNELS.size)
     .map((item) => ({
       channel: CHANNELS.has(item?.channel) ? item.channel : "other",
       events: safeNumber(item?.events),

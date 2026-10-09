@@ -83,10 +83,9 @@ export default async function SourcingProgramPage({ params }: Props) {
             name: "Home",
             item: "https://www.beiqiang.online/",
           },
-          { "@type": "ListItem", position: 2, name: "Sourcing programs" },
           {
             "@type": "ListItem",
-            position: 3,
+            position: 2,
             name: program.title,
             item: `https://www.beiqiang.online/solutions/${program.slug}/`,
           },

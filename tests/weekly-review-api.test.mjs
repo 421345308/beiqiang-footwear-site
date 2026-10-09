@@ -5,6 +5,12 @@ import {
   sanitizeWeeklyReviewSnapshot,
 } from "../edgeone-deploy/cloud-functions/api/admin/weekly-review.js";
 
+test("retains every supported channel instead of truncating the expanded portfolio", () => {
+  const channels = ["email", "linkedin", "facebook", "instagram", "whatsapp", "alibaba", "google", "bing", "chatgpt", "perplexity", "tiktok", "partner", "direct", "other"];
+  const result = sanitizeWeeklyReviewSnapshot({ ...analytics, capturedAt: "2026-08-27T09:00:00Z", acquisitionChannels: channels.map((channel) => ({ channel, events: 1 })) });
+  assert.deepEqual(result.acquisitionChannels.map((item) => item.channel), channels);
+});
+
 const execution = {
   response: {
     cohort: 4,

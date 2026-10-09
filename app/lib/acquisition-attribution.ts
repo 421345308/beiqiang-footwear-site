@@ -1,12 +1,17 @@
-export const ACQUISITION_CHANNELS = ["email", "linkedin", "whatsapp", "alibaba", "google", "tiktok", "partner"] as const;
+export const ACQUISITION_CHANNELS = ["email", "linkedin", "facebook", "instagram", "whatsapp", "alibaba", "google", "bing", "chatgpt", "perplexity", "tiktok", "partner"] as const;
 export type AcquisitionChannel = (typeof ACQUISITION_CHANNELS)[number];
 
 const MEDIUM_BY_CHANNEL: Record<AcquisitionChannel, string> = {
   email: "outbound_email",
   linkedin: "social_outreach",
+  facebook: "social_content",
+  instagram: "social_content",
   whatsapp: "direct_message",
   alibaba: "marketplace",
   google: "organic_search",
+  bing: "organic_search",
+  chatgpt: "ai_referral",
+  perplexity: "ai_referral",
   tiktok: "social_content",
   partner: "referral",
 };

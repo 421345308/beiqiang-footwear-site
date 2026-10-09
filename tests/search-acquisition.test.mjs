@@ -13,6 +13,28 @@ async function render(pathname) {
   return worker.fetch(new Request(`http://localhost${pathname}`, { headers: { accept: pathname.endsWith(".xml") ? "application/xml" : "text/html" } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
 }
 
+test("sourcing solution breadcrumbs use real linked ancestors in both languages", async () => {
+  for (const prefix of ["", "/zh"]) {
+    for (const slug of ["wholesale-walking-shoes", "private-label-walking-shoes", "oem-knit-shoes"]) {
+      const pathname = `${prefix}/solutions/${slug}`;
+      const response = await render(pathname);
+      assert.equal(response.status, 200);
+      const html = await response.text();
+      const scripts = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
+      const graphs = scripts.flatMap((match) => { const json = JSON.parse(match[1]); return json["@graph"] || [json]; });
+      const breadcrumbs = graphs.filter((item) => item["@type"] === "BreadcrumbList");
+      assert.ok(breadcrumbs.length, `missing breadcrumbs for ${pathname}`);
+      for (const list of breadcrumbs) {
+        assert.equal(list.itemListElement.length, 2);
+        assert.deepEqual(list.itemListElement.map((item) => item.position), [1, 2]);
+        assert.equal(list.itemListElement[0].item, `https://www.beiqiang.online${prefix}/`);
+        assert.equal(list.itemListElement[1].item, `https://www.beiqiang.online${pathname}/`);
+        for (const item of list.itemListElement) assert.ok(item.name && item.item, `unlinked breadcrumb for ${pathname}`);
+      }
+    }
+  }
+});
+
 test("publishes one useful B2B sourcing hub and three substantial buyer guides", async () => {
   const hub = await render("/resources"); const hubHtml = await hub.text();
   assert.equal(hub.status, 200); assert.match(hubHtml, /Turn product interest into a brief your supplier can review/i); assert.match(hubHtml, /Footwear RFQ Checklist/i); assert.match(hubHtml, /Shoe Sample Approval Checklist/i); assert.match(hubHtml, /Private Label Walking Shoes/i); assert.match(hubHtml, /CollectionPage/);
