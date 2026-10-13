@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ProductBuyingGuide from "../../components/ProductBuyingGuide";
+import { getRelatedProducts } from "../../lib/product-buying-guide";
 import { notFound } from "next/navigation";
 import ProductInquiry from "../../components/ProductInquiry";
 import ProductCard from "../../components/ProductCard";
@@ -59,15 +61,7 @@ function webGalleryImage(source: string) {
 export default async function ProductPage({ params }: Props) {
   const product = getProduct((await params).slug);
   if (!product) notFound();
-  const related = products
-    .filter(
-      (candidate) =>
-        candidate.code !== product.code &&
-        candidate.collections.some((collection) =>
-          product.collections.includes(collection),
-        ),
-    )
-    .slice(0, 3);
+  const related = getRelatedProducts(product, products);
   const label = `${product.code} — ${product.name}`;
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -252,42 +246,7 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="section buyer-use-section">
-        <div className="section-heading compact">
-          <div>
-            <p className="eyebrow">BUYER FIT</p>
-            <h2>
-              Could this style suit your range?
-            </h2>
-          </div>
-        </div>
-        <div className="buyer-grid">
-          <article>
-            <span>01</span>
-            <h3>{product.buyerFit}</h3>
-            <p>
-              Compare the shape, fastening and size range with what your
-              customers need. Ask us about any detail you cannot see in the photos.
-            </p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Check a sample</h3>
-            <p>
-              Confirm materials, construction, fit and packing on the selected
-              sample before bulk terms.
-            </p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Discuss your order</h3>
-            <p>
-              Share quantity, target market and order requirements so the
-              factory can prepare a useful quotation.
-            </p>
-          </article>
-        </div>
-      </section>
+      <ProductBuyingGuide product={product} />
 
       <section
         className="product-trust-strip"

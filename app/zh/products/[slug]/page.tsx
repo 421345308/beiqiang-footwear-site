@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import Link from "next/link";
+import ProductBuyingGuide from "../../../components/ProductBuyingGuide";
+import { getRelatedProducts } from "../../../lib/product-buying-guide";
 import { notFound } from "next/navigation";
 import AddToQuoteButton from "../../../components/AddToQuoteButton";
 import ChineseProductCard from "../../../components/ChineseProductCard";
@@ -11,7 +13,6 @@ import PrintProductSheetButton from "../../../components/PrintProductSheetButton
 import ProductShareActions from "../../../components/ProductShareActions";
 import CommercialStartingPoints from "../../../components/CommercialStartingPoints";
 import {
-  buyerFitZh,
   closureZh,
   colorZh,
   factZh,
@@ -76,15 +77,7 @@ export default async function ChineseProductPage({ params }: Props) {
   if (!product) notFound();
   const name = productNameZh(product);
   const url = `${origin}/zh/products/${product.slug}/`;
-  const related = products
-    .filter(
-      (candidate) =>
-        candidate.code !== product.code &&
-        candidate.collections.some((collection) =>
-          product.collections.includes(collection),
-        ),
-    )
-    .slice(0, 3);
+  const related = getRelatedProducts(product, products);
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -276,31 +269,7 @@ export default async function ChineseProductPage({ params }: Props) {
           ))}
         </div>
       </section>
-      <section className="section buyer-use-section">
-        <div className="section-heading compact">
-          <div>
-            <p className="eyebrow">适合买家</p>
-            <h2>这款鞋适合您的产品线吗？</h2>
-          </div>
-        </div>
-        <div className="buyer-grid">
-          <article>
-            <span>01</span>
-            <h3>{buyerFitZh(product)}</h3>
-            <p>可以对照您的客户需求，看看鞋型、穿脱方式和尺码是否合适。图片没说明白的地方，欢迎直接咨询。</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>样品验证</h3>
-            <p>在确认大货条款前核实所选样品的材料、结构、合脚性与包装。</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>商量订单方案</h3>
-            <p>提供数量、目标市场和订单要求，便于工厂准备有效报价。</p>
-          </article>
-        </div>
-      </section>
+      <ProductBuyingGuide product={product} locale="zh" />
       {related.length > 0 && (
         <section className="section related-section">
           <div className="section-heading compact">

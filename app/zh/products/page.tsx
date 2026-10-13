@@ -105,7 +105,7 @@ export default function ChineseProductsPage() {
           </Link>
           <Link
             className="text-link"
-            href="/zh/request-quote/?program=reference-style"
+            href="/zh/sourcing-review/"
           >
             提交其他款式方向 →
           </Link>

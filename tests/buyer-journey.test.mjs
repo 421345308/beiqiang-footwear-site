@@ -33,6 +33,21 @@ test("a buyer without a selected SKU can find the direct inquiry route in either
   }
 });
 
+for (const [prefix, label] of [["", "Send another product direction"], ["/zh", "提交其他款式方向"]]) {
+  test(`${prefix || "English"} catalog other-direction CTA opens the existing no-SKU inquiry`, async () => {
+    const catalog = await render(`${prefix}/products/`);
+    const cta = catalog.match(/<a\b[^>]*href="([^"]+)"[^>]*>\s*([^<]+)<\/a>/g)
+      ?.find((anchor) => anchor.includes(label));
+    assert.ok(cta, "catalog CTA remains visible");
+    const destination = cta.match(/href="([^"]+)"/)[1];
+    assert.equal(destination, `${prefix}/sourcing-review/`);
+    const inquiry = await render(destination);
+    assert.ok(inquiry.includes('class="inquiry-form"'), "navigation reaches the server-rendered inquiry form");
+    assert.ok(inquiry.includes('CATALOG-2026'), "existing no-SKU context is retained");
+    assert.ok(!inquiry.includes('class="quote-lines"'), "no selected quote lines are required on this route");
+  });
+}
+
 test("optional inquiry groups use native disclosure and preserve fields and form validation", async () => {
   for (const prefix of ["", "/zh"]) {
     const quote = await render(`${prefix}/request-quote/`);

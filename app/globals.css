@@ -268,6 +268,13 @@ h1 { max-width: 690px; font-size: clamp(50px, 5vw, 78px); line-height: .98; }
 .contact-text-link { color: #d5e0db; font-size: 12px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .contact-text-link:hover { color: #fffdf8; }
 .inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.product-buying-guide .buyer-grid p, .product-buying-guide li { font-size: 1rem; line-height: 1.7; }
+.product-buying-guide ul { padding-left: 1.2rem; margin: 1rem 0; }
+.product-buying-guide li + li { margin-top: .8rem; }
+.product-buying-guide .sample-check-note { font-size: .875rem; }
+.product-buying-guide .text-link { display: inline-block; margin-top: .8rem; font-size: .875rem; }
+.product-program-links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #ccd5cf; }
+.product-program-links a { font-size: 1rem; line-height: 1.6; text-decoration: underline; text-underline-offset: .2em; }
 .optional-inquiry-details { grid-column: 1 / -1; border: 1px solid rgba(255,255,255,.24); padding: 0 16px; color: #fffdf8; }
 .optional-inquiry-details > summary { padding: 16px 0; cursor: pointer; font-size: 14px; font-weight: 700; line-height: 1.5; }
 .optional-inquiry-details > summary:focus-visible { outline: 2px solid #e4a589; outline-offset: 4px; }

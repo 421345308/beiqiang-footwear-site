@@ -74,7 +74,7 @@ export default function ProductsPage() {
           </Link>
           <Link
             className="text-link"
-            href="/request-quote/?program=reference-style"
+            href="/sourcing-review/"
           >
             Send another product direction →
           </Link>
