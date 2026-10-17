@@ -47,7 +47,8 @@ def build_catalog() -> tuple[int, int, int]:
     for source in main_sources:
         destination = THUMB_ROOT / f"{source.parent.name}.webp"
         image = rgb_image(source)
-        thumbnail = ImageOps.fit(image, (640, 640), method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
+        # Keep the whole shoe in frame: scale to fit and letterbox instead of cropping.
+        thumbnail = ImageOps.pad(image, (640, 640), method=Image.Resampling.LANCZOS, color=(255, 255, 255), centering=(0.5, 0.5))
         thumbnail.save(destination, "WEBP", quality=78, method=6, exact=True)
         image.close()
 

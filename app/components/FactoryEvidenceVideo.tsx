@@ -38,7 +38,7 @@ export default function FactoryEvidenceVideo({ compact = false, locale = "en" }:
       <video
         controls
         playsInline
-        preload="metadata"
+        preload="none"
         poster={fullTour ? "/videos/beiqiang-factory-tour-poster.jpg" : "/videos/beiqiang-factory-proof-poster.jpg"}
         aria-label={zh ? "带英文配音、原创背景音乐和中英文同步字幕的贝强鞋业工作区域与鞋类生产流程实拍视频" : "Beiqiang footwear working-area and production footage with English narration, original background music and synchronized captions"}
       >

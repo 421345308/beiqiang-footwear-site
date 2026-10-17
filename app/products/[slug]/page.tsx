@@ -300,9 +300,9 @@ export default async function ProductPage({ params }: Props) {
         <header>
           <div>
             <p>BEIQIANG FOOTWEAR · B2B PRODUCT SHEET</p>
-            <h1>
+            <p className="print-sheet-title">
               {product.code} · {product.name}
-            </h1>
+            </p>
             <span>Factory model {product.sourceModel}</span>
           </div>
           <strong>

@@ -7,5 +7,14 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-/products/*
-  Cache-Control: public, max-age=604800
+/catalog/*
+  Cache-Control: public, max-age=2592000
+
+/catalog-web/*
+  Cache-Control: public, max-age=2592000
+
+/catalog-thumbs/*
+  Cache-Control: public, max-age=2592000
+
+/videos/*
+  Cache-Control: public, max-age=2592000

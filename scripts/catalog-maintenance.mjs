@@ -43,7 +43,8 @@ function stableJson(value) {
 async function verifyGeneratedFile(path, expected, label) {
   let actual;
   try { actual = await readFile(path, "utf8"); } catch { fail(`${label} is missing; run npm run catalog:sync.`); }
-  if (actual !== expected) fail(`${label} is stale; run npm run catalog:sync and review the generated diff.`);
+  // Git checkouts on Windows may normalise text to CRLF; generated files are compared by content, not line ending.
+  if (actual.replaceAll("\r\n", "\n") !== expected) fail(`${label} is stale; run npm run catalog:sync and review the generated diff.`);
 }
 
 const manifest = await scanImages();

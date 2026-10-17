@@ -15,15 +15,32 @@ const factoryVideo = {
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("edgeone-export", `${process.pid}-${Date.now()}`);
 
-await rm(outputRoot, { recursive: true, force: true });
-await mkdir(outputRoot, { recursive: true });
-await cp(clientRoot, outputRoot, { recursive: true, force: true });
-
-const { default: worker } = await import(workerUrl.href);
 const productSlugs = (await readdir(resolve(projectRoot, "public", "catalog"), { withFileTypes: true }))
   .filter((entry) => entry.isDirectory() && FINDER_STYLE_CODES.has(entry.name.toUpperCase()))
   .map((entry) => entry.name)
   .sort();
+const deployedCatalogSlugs = new Set(productSlugs);
+
+// EdgeOne Pages rejects deploy payloads over 20,000 files or 25 MiB per file, so only ship
+// assets the public pages actually reference. Unused catalogue directories and the original
+// og.png source stay in the repository but are excluded from the deployed bundle.
+const shouldCopy = (source) => {
+  const relativePath = source.replace(clientRoot, "").replaceAll("\\", "/").replace(/^\//, "");
+  if (relativePath === "og.png") return false;
+  // public/products holds superseded source photography; every public page now reads from
+  // /catalog, /catalog-web or /catalog-thumbs.
+  if (relativePath === "products" || relativePath.startsWith("products/")) return false;
+  const catalogMatch = relativePath.match(/^(?:catalog|catalog-web|catalog-thumbs)\/([^/]+)/);
+  if (!catalogMatch) return true;
+  const slug = catalogMatch[1].replace(/\.webp$/i, "");
+  return deployedCatalogSlugs.has(slug);
+};
+
+await rm(outputRoot, { recursive: true, force: true });
+await mkdir(outputRoot, { recursive: true });
+await cp(clientRoot, outputRoot, { recursive: true, force: true, filter: shouldCopy });
+
+const { default: worker } = await import(workerUrl.href);
 const productRoutes = productSlugs.map((slug) => {
   return { pathname: `/products/${slug}`, output: `products/${slug}/index.html` };
 });
@@ -104,6 +121,47 @@ await writeFile(
   `${JSON.stringify({
     redirects: [{ source: "/index.html", destination: "/", statusCode: 301 }],
     headers: [
+      {
+        source: "/*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+      {
+        source: "/assets/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/catalog/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=2592000" }],
+      },
+      {
+        source: "/catalog-web/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=2592000" }],
+      },
+      {
+        source: "/catalog-thumbs/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=2592000" }],
+      },
+      {
+        source: "/factory/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=2592000" }],
+      },
+      {
+        source: "/factory-web/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=2592000" }],
+      },
+      {
+        source: "/videos/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=2592000" }],
+      },
+      {
+        source: "/downloads/*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=604800" }],
+      },
       {
         source: "/videos/beiqiang-factory-tour.en.vtt",
         headers: [{ key: "Content-Type", value: "text/vtt; charset=utf-8" }],

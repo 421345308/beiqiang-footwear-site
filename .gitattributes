@@ -3,3 +3,9 @@
 *.jpeg binary
 *.png binary
 *.webp binary
+
+# Generated files are compared byte-for-byte by npm run catalog:check.
+app/data/catalog-images.json text eol=lf
+app/data/catalog-meta.json text eol=lf
+app/data/catalog-meta.ts text eol=lf
+public/llms.txt text eol=lf
