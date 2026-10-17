@@ -116,6 +116,33 @@ for (const route of routes) {
     : renderedHtml;
   await writeFile(outputFile, localizedHtml, "utf8");
 }
+
+// EdgeOne serves 404.html for unmatched paths. Render the app's not-found route so
+// buyers who follow an old link land on a branded page instead of the platform default.
+const notFoundProbe = await worker.fetch(
+  new Request(`${siteOrigin}/__not-found-probe__`, {
+    headers: {
+      accept: "text/html",
+      host: "www.beiqiang.online",
+      "x-forwarded-host": "www.beiqiang.online",
+      "x-forwarded-proto": "https",
+    },
+  }),
+  { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+  { waitUntil() {}, passThroughOnException() {} },
+);
+const notFoundHtml = await notFoundProbe.text();
+if (!notFoundHtml.includes("This address does not exist")) {
+  throw new Error(`404 page did not render the branded not-found route (HTTP ${notFoundProbe.status})`);
+}
+await writeFile(
+  resolve(outputRoot, "404.html"),
+  notFoundHtml
+    .replace(/<title>[^<]*<\/title>/, "<title>Page Not Found | Beiqiang Footwear</title>")
+    .replace(/<link[^>]*rel="canonical"[^>]*>/g, "")
+    .replace("<head>", '<head><meta name="robots" content="noindex">'),
+  "utf8",
+);
 await writeFile(
   resolve(outputRoot, "edgeone.json"),
   `${JSON.stringify({
