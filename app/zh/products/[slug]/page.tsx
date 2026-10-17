@@ -336,9 +336,9 @@ export default async function ChineseProductPage({ params }: Props) {
         <header>
           <div>
             <p>贝强鞋业 · B2B产品资料</p>
-            <h1>
+            <p className="print-sheet-title">
               {product.code} · {name}
-            </h1>
+            </p>
             <span>工厂款号 {product.sourceModel}</span>
           </div>
           <strong>
