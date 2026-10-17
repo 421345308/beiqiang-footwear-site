@@ -135,12 +135,16 @@ const notFoundHtml = await notFoundProbe.text();
 if (!notFoundHtml.includes("This address does not exist")) {
   throw new Error(`404 page did not render the branded not-found route (HTTP ${notFoundProbe.status})`);
 }
+// Next already marks the not-found route noindex; only the title and share tags need
+// replacing so an expired link does not present itself as the home page.
+const notFoundTitle = "Page Not Found | Beiqiang Footwear";
 await writeFile(
   resolve(outputRoot, "404.html"),
   notFoundHtml
-    .replace(/<title>[^<]*<\/title>/, "<title>Page Not Found | Beiqiang Footwear</title>")
-    .replace(/<link[^>]*rel="canonical"[^>]*>/g, "")
-    .replace("<head>", '<head><meta name="robots" content="noindex">'),
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${notFoundTitle}</title>`)
+    .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${notFoundTitle}"`)
+    .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${notFoundTitle}"`)
+    .replace(/<link[^>]*rel="canonical"[^>]*>/g, ""),
   "utf8",
 );
 await writeFile(
