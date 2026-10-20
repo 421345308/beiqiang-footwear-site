@@ -35,10 +35,10 @@ npm run build
 
 1. Tie the change to a sales outcome: discovery, trust, qualification, contact, follow-up, sample, quotation, or order.
 2. Use only verified product facts and assets from the Beiqiang workspace.
-3. Work on a `codex/*` branch, confirm Node.js `>=22.13.0`, and run `npm test` plus `npm run edgeone:build`.
+3. Work directly on this repository’s `main`, preserve unrelated edits, confirm the configured Node.js runtime, and run the tests/build appropriate to the change. Do not create task branches or worktrees.
 4. Review the diff for product accuracy, contact details, links, mobile behavior, SEO, and unsupported claims.
-5. Merge or push to `main`; EdgeOne deploys automatically.
-6. Run `npm run verify:deployments`. Both the formal domain and the Sites backup must report the current release ID and the full factory video plus both caption tracks.
+5. Push the verified task change to `main`; EdgeOne deploys automatically.
+6. Run `npm run verify:deployments`. The formal domain must report the intended release and affected assets. A historical Sites backup is not a substitute for production verification.
 7. Verify the deployment preview and then `https://www.beiqiang.online/`, including changed pages and every contact CTA.
 8. Record the commit, deployment result, KPI hypothesis, and any follow-up in the operations archive.
 
