@@ -26,7 +26,7 @@ function cleanFinderBrief(value, selectedStyleCodes) {
   const priority = FINDER_PRIORITIES.has(value.priority) ? value.priority : "";
   const closure = FINDER_CLOSURES.has(value.closure) ? value.closure : "";
   const mode = FINDER_MODES.has(value.mode) ? value.mode : "matched_shortlist";
-  const selected = new Set(String(selectedStyleCodes || "").toUpperCase().match(/BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))/g) || []);
+  const selected = new Set(String(selectedStyleCodes || "").toUpperCase().match(/BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))/g) || []);
   const styleCodes = Array.isArray(value.styleCodes) ? [...new Set(value.styleCodes.map((code) => clean(code, 10).toUpperCase()).filter((code) => FINDER_STYLE_CODES.has(code) && (mode === "human_review" ? selectedStyleCodes === "CATALOG-2026" : selected.has(code))))].slice(0, 4) : [];
   const validMode = mode === "human_review" ? selectedStyleCodes === "CATALOG-2026" : styleCodes.length > 0;
   return buyerChannel && priority && closure && validMode ? { mode, buyerChannel, priority, closure, styleCodes } : null;

@@ -18,7 +18,7 @@ test('published photos retain product-specific provenance and their checked asse
       assert.equal(labels[p.code][i].role,e.role);
       if(e.colour) {
         assert.ok(p.colors.includes(e.colour),`${p.code} ${e.colour}`);
-        assert.equal(media[p.code].images[e.colour],i);
+        assert.ok(media[p.code].views[e.colour].includes(i), `${p.code} ${e.colour} ${i}`);
       }
       if(e.sourceCrop) {
         assert.equal(e.cropBox.length,4);

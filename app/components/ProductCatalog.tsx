@@ -200,6 +200,10 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
             <option value="kids">Kids styles</option>
             <option value="large_size">Extended-size styles</option>
             <option value="clogs-and-vented-shoes">Clogs & vented shoes</option>
+            <option value="casual-sneakers">Casual sneakers</option>
+            <option value="loafers-and-derbies">Loafers & derbies</option>
+            <option value="ankle-boots">Ankle boots</option>
+            <option value="slide-sandals">Slide sandals</option>
             <option value="mule-shoes">Buckle mules</option>
             <option value="fleece">Fleece-lined options</option>
           </select>

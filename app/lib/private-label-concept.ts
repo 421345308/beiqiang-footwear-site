@@ -27,7 +27,7 @@ export function readPrivateLabelConcept(): PrivateLabelConcept | null {
     const artworkStatus = ["not_ready", "reference_only", "vector_ready"].includes(value?.artworkStatus)
       ? value.artworkStatus
       : "not_ready";
-    if (!/^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(styleCode)) return null;
+    if (!/^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(styleCode)) return null;
     return {
       styleCode,
       styleSlug: clean(value?.styleSlug, 30),

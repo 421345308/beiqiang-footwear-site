@@ -47,7 +47,7 @@ export default function BuyerSampleRequest({
   const codes = useMemo(
     () =>
       [
-        ...new Set(availableCodes.filter((code) => /^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code))),
+        ...new Set(availableCodes.filter((code) => /^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code))),
       ].slice(0, 12),
     [availableCodes],
   );

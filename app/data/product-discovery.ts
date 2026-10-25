@@ -4,6 +4,10 @@ import type { CatalogDirection } from "../lib/catalog-filtering";
 
 // Display order is editorial variety, never a sales or popularity ranking.
 export const discoveryCategories: { slug: CollectionSlug; direction: CatalogDirection; en: string; zh: string; cover: string }[] = [
+  { slug: "casual-sneakers", direction: "casual-sneakers", en: "Casual sneakers", zh: "休闲板鞋与运动风鞋", cover: "bq1029" },
+  { slug: "loafers-and-derbies", direction: "loafers-and-derbies", en: "Loafers & derbies", zh: "乐福鞋与德比鞋", cover: "bq1031" },
+  { slug: "ankle-boots", direction: "ankle-boots", en: "Ankle boots", zh: "短靴", cover: "bq1059" },
+  { slug: "slide-sandals", direction: "slide-sandals", en: "Slide sandals", zh: "一字拖鞋", cover: "bq1045" },
   { slug: "knit-slip-on", direction: "knit-slip-on", en: "Knit slip-ons", zh: "针织套穿", cover: "bq004" },
   { slug: "breathable-lace-up", direction: "breathable-lace-up", en: "Lace-up shoes", zh: "系带休闲", cover: "bq018" },
   { slug: "wide-toe-box", direction: "wide-toe-box", en: "Wide toe box", zh: "宽鞋头", cover: "bq001" },
@@ -22,7 +26,7 @@ export function discoveryGroups(products: Product[]) {
   }));
 }
 
-export function diverseProductPreview(products: Product[], limit = 9) {
+export function diverseProductPreview(products: Product[], limit = discoveryCategories.length) {
   const groups = discoveryGroups(products).map(group => ({
     ...group,
     products: [...group.products].sort((a, b) => Number(b.slug === group.cover) - Number(a.slug === group.cover)),

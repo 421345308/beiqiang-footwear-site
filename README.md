@@ -14,7 +14,7 @@ Drizzle support.
 
 The homepage, catalogue and product details share bilingual page components and the scoped `app/studio.css` design system. Product details include a keyboard-accessible image dialog, touch navigation, SKU-specific specifications, a quotation form and a separate printable sheet. Unknown specifications remain explicit.
 
-`factory-source-codes.ts` records 31 own-factory styles. `published-product-codes.ts` adds three approved partner-sourced styles (BQ-LQ059, BQ-LQ060 and BQ-LQ2597). Product details and the English/Chinese PDFs identify the supply mode. Partner products must not receive Beiqiang manufacturer schema. Source records remain in the operations workspace product centre; the website holds its channel projection and images.
+`factory-source-codes.ts` records 31 own-factory styles. `published-product-codes.ts` adds 38 reviewed partner-sourced styles, including the 32 source-linked records in `reviewed-catalog.json`. Product details and the English/Chinese PDFs identify the supply mode. Partner products must not receive Beiqiang manufacturer schema. Source records remain in the operations workspace product centre; the website holds its channel projection and images.
 
 `public-locales.ts` registers complete public languages and generates canonical/alternate URLs and product export routes. English and Simplified Chinese are published. Additional languages require translated content, route implementations and acceptance before registration; adding a language label alone does not create a localized site. Products retain stable identities across languages, quote lists and APIs.
 
@@ -131,12 +131,12 @@ Current public structure:
 - `product_compare` is sent only after optional analytics consent. The protected product-signal table separates views, comparisons, successful quote-list additions and saved inquiries.
 - `tier` remains an internal product-data field. Public cards and detail pages show buyer-relevant facts instead; never expose Tier A–E as a quality, popularity or certification signal.
 
-## 37-Style Line Sheet Lead Path
+## 69-Style Line Sheet Lead Path
 
 - `/line-sheet/` explains the buyer value of the English line sheet; `/zh/line-sheet/` supplies a separately generated Chinese line sheet. Both collect company, market, buyer type, product direction, quantity and a reply channel before revealing the matching-language PDF download.
 - The request is saved through the existing inquiry service with `context: line_sheet` and `styleCode: CATALOG-2026`, so it receives a reference, private status code, SMTP notification and protected-pipeline record.
 - `line_sheet_request` and `line_sheet_download` respect optional analytics consent. The admin dashboard reports line-sheet leads and consented PDF downloads separately from sourcing inquiries.
-- The current English and Chinese PDFs contain 37 products across 10 A4 pages and are generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page. The generated manifest locks the product-data hash, page count, file sizes and public/operating PDF hashes so ordinary tests fail if product facts and downloadable catalogues drift apart.
+- The current English and Chinese PDFs contain 69 products across 16 A4 pages and are generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page. The generated manifest locks the product-data hash, page count, file sizes and public/operating PDF hashes so ordinary tests fail if product facts and downloadable catalogues drift apart.
 - English copies live at `public/downloads/beiqiang-footwear-line-sheet-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-2026.pdf`. Chinese copies live at `public/downloads/beiqiang-footwear-line-sheet-zh-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-zh-2026.pdf`. Each public/operating language pair must have identical hashes.
 - This is a soft conversion gate, not confidential-document access control. Never include internal prices, supplier details, customer information, internal tiers or confidential technical files.
 
@@ -582,3 +582,9 @@ The catalogue has one evidence-led maintenance path so adding a style does not l
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
 - [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+
+## Product photographs and selection
+
+Publication requires a current source binding and reviewed product photographs. A source adoption alone does not publish a product. The reviewed catalogue includes 69 styles; internal source identities remain in the product centre. `catalog-publication-evidence.json` records the added source bindings.
+
+`product-colour-media.json` separates a colour cover from its verified `views`. Public colours without an individual source photograph are excluded. Detail views are filtered by the selected colour; the all-style view retains unassigned photographs without relabelling their colour. Source/output hashes and crop coordinates are retained in `product-photo-provenance.json`; photographs are not AI-recoloured.

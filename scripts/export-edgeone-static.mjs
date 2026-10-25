@@ -251,7 +251,7 @@ const sitemapPathSet = new Set(sitemapUrls.map((url) => url.path));
 const renderSitemapUrl = (url) => {
   const enPath = englishPath(url.path);
   const zhPath = chinesePath(enPath);
-  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858)))\/$/);
+  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq(?:\d{3,4}|-[a-z0-9-]+))\/$/);
   const isChinese = url.path.startsWith("/zh/");
   const isFactory = url.path === "/factory/" || url.path === "/zh/factory/";
   const alternates = sitemapPathSet.has(enPath) && sitemapPathSet.has(zhPath)

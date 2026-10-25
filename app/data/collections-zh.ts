@@ -14,6 +14,10 @@ export type ChineseCollection = {
 };
 
 export const chineseCollections: ChineseCollection[] = [
+{"slug": "slide-sandals", "name": "一字拖鞋", "title": "一字拖鞋批发选款", "description": "按实拍配色、鞋型结构和细节选款，再核对样品与采购要求。", "buyerIntent": "鞋类零售商、进口商与批发采购客户。", "proofBoundary": "材料规格、可供色码、样品合脚程度与交易条件逐款确认。"},
+{"slug": "ankle-boots", "name": "短靴", "title": "短靴批发选款", "description": "按实拍配色、鞋型结构和细节选款，再核对样品与采购要求。", "buyerIntent": "鞋类零售商、进口商与批发采购客户。", "proofBoundary": "材料规格、可供色码、样品合脚程度与交易条件逐款确认。"},
+{"slug": "loafers-and-derbies", "name": "乐福鞋与德比鞋", "title": "乐福鞋与德比鞋批发选款", "description": "按实拍配色、鞋型结构和细节选款，再核对样品与采购要求。", "buyerIntent": "鞋类零售商、进口商与批发采购客户。", "proofBoundary": "材料规格、可供色码、样品合脚程度与交易条件逐款确认。"},
+{"slug": "casual-sneakers", "name": "休闲板鞋与运动风鞋", "title": "休闲板鞋与运动风鞋批发选款", "description": "按实拍配色、鞋型结构和细节选款，再核对样品与采购要求。", "buyerIntent": "鞋类零售商、进口商与批发采购客户。", "proofBoundary": "材料规格、可供色码、样品合脚程度与交易条件逐款确认。"},
 {
   "slug": "clogs-and-vented-shoes",
   "name": "洞洞鞋与镂空鞋",

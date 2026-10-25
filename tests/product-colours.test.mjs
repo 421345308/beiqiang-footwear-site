@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {products} from '../app/data/products.ts';
 import media from '../app/data/product-colour-media.json' with {type:'json'};
-import {productColours,colourImage,galleryImage,withColour} from '../app/lib/product-colours.ts';
+import {productColours,colourImage,colourViews,galleryImage,withColour} from '../app/lib/product-colours.ts';
+import labels from '../app/data/product-photo-labels.json' with {type:'json'};
 import {addProductToQuote,readQuoteList,saveQuoteList} from '../app/lib/quote-list.ts';
 
 test('every mapped colour belongs to its own product and resolves to a reviewed existing photograph',()=>{
@@ -21,8 +22,8 @@ test('every mapped colour belongs to its own product and resolves to a reviewed 
   assert.equal(productColours(mule).find(c=>c.id==='sand').imageIndex,1);
   assert.equal(colourImage(mule,'sand'),1);
   const uncertain=products.find(p=>p.code==='BQ019');
-  assert.equal(productColours(uncertain).find(c=>c.id==='cream').imageIndex,null);
-  assert.equal(colourImage(uncertain,'cream'),4);
+  assert.equal(productColours(uncertain).some(c=>c.id==='cream'),false);
+  assert.ok(!uncertain.colors.includes('Cream'));
   const lace=products.find(p=>p.code==='BQ003');
   assert.equal(colourImage(lace,'pink'),2);
   assert.equal(withColour('/zh/products/bq003/#inquiry','pink'),'/zh/products/bq003/?colour=pink#inquiry');
@@ -43,11 +44,26 @@ test('adding colours merges one style without overwriting quantity, sizes, notes
     assert.equal(readQuoteList().length,1);
     assert.equal(line.colors,'Pink, Grey');
     assert.equal(line.quantity,'300'); assert.equal(line.sizes,'38, 39'); assert.equal(line.notes,'Logo sample');
-    assert.equal(line.image,'/catalog-web/bq003/02_grey.webp?v=20261025-photos');
+    assert.equal(line.image,'/catalog-web/bq003/02_grey.webp?v=20261025-colour-galleries');
     storage.setItem('bq-colour-BQ007','orange');
     addProductToQuote(products.find(p=>p.code==='BQ007'));
     assert.equal(readQuoteList()[1].colors,'Orange');
   } finally {
     for(const [k,v] of Object.entries(old)) { if(v===undefined) delete globalThis[k]; else globalThis[k]=v; }
   }
+});
+
+test('selected-colour galleries never borrow a detail photograph from another colour',()=>{
+  for (const product of products) for (const colour of productColours(product)) {
+    const views = colourViews(product, colour.id);
+    assert.ok(views.includes(colour.imageIndex));
+    assert.equal(new Set(views).size, views.length);
+    for (const index of views) assert.equal(labels[product.code][index].colour,colour.name,`${product.code} ${colour.name} ${index}`);
+  }
+  const product=products.find(p=>p.code==='BQ018');
+  const purple=colourViews(product,'lavender');
+  assert.ok(purple.length>=6);
+  assert.ok(purple.some(i=>labels.BQ018[i].role==='outsole'));
+  assert.ok(purple.some(i=>labels.BQ018[i].role==='top'));
+  assert.ok(colourViews(product,'all-black').every(i=>!purple.includes(i)));
 });

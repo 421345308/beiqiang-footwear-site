@@ -10,7 +10,8 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
   const slipOn = product.closure === "Slip-On";
   const moulded = product.collections.includes("clogs-and-vented-shoes");
   const mule = product.collections.includes("mule-shoes");
-  const shape = moulded
+  const pairedSizes = Boolean(product.sizeNote?.startsWith("Each paired label"));
+  const shape = pairedSizes
     ? (zh ? "本款使用供应商双码标签，每组标签对应一个尺码选项。先核对鞋垫长度，再与目标市场尺码表匹配；不能按连续欧码直接换算。" : "Each paired supplier size label is one size option. Check sample insole lengths against your market size chart; do not convert the labels as a continuous EU size run.")
     : mule
       ? (zh ? "本款采用包头后空结构。供应商标注35–45，需通过样品长度与脚背贴合情况核对尺码；绒面和软木外观不等于已确认材料成分。" : "This mule has a closed toe and open heel. Check the supplier's 35–45 labels against sample length and instep fit. Suede-effect and cork-look surfaces do not establish material composition.")
@@ -26,6 +27,8 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
       ? (zh ? "贴合：核对前掌与脚背空间、搭扣可调范围及行走时脚掌的固定情况。" : "Fit: check forefoot and instep space, buckle adjustment and foot hold during walking.")
       : moulded
         ? (zh ? "结构：核对所选款式的后跟带或包跟结构、开孔位置与穿脱空间；仿鞋带装饰不作为可调系带。" : "Construction: check the selected style's heel strap or covered heel, openings and entry space. Moulded lace-look details are not adjustable laces.")
+      : product.closure === "Zip-Up"
+        ? (zh ? "拉链：检查启闭、鞋口空间及内侧接缝，确认穿着时的贴合情况。" : "Zipper: check operation, entry space and inner seams against sample fit.")
       : slipOn
       ? (zh ? "穿脱：用计划采购的尺码试穿，检查鞋口是否好穿、后跟是否容易滑动。" : "Entry and hold: try the intended size and check how it goes on and whether the heel slips.")
       : (zh ? "系带：检查鞋带调节范围，以及系好后鞋面和后跟的贴合情况。" : "Lacing: check the adjustment range and how the upper and heel hold when the laces are tied."),

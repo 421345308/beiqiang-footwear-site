@@ -339,3 +339,5 @@ body:has(.studio-home) .context-contact-dock,body:has(.studio-catalog) .context-
  .studio-page .studio-text-link,.studio-page .text-link { font-size:12px; }
 }
 @media print { .colour-options-list button { border:0; box-shadow:none!important; } .colour-options-list button:not([aria-pressed=true]) { display:none; } }
+
+.gallery-scope{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.gallery-scope button{border:1px solid #d3d0c8;background:transparent;border-radius:4px;padding:10px 14px;min-height:44px;cursor:pointer;color:#53534e}.gallery-scope button[aria-pressed=true]{background:#252624;color:#fff;border-color:#252624}

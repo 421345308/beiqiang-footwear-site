@@ -196,6 +196,10 @@ export default function ChineseProductCatalog({
             <option value="kids">儿童鞋</option>
             <option value="large_size">扩展尺码款</option>
             <option value="clogs-and-vented-shoes">洞洞鞋与镂空鞋</option>
+            <option value="casual-sneakers">休闲板鞋与运动风鞋</option>
+            <option value="loafers-and-derbies">乐福鞋与德比鞋</option>
+            <option value="ankle-boots">短靴</option>
+            <option value="slide-sandals">一字拖鞋</option>
             <option value="mule-shoes">搭扣穆勒鞋</option>
             <option value="fleece">可选加绒款</option>
           </select>

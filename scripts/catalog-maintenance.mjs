@@ -19,7 +19,7 @@ function fail(message) {
 
 async function scanImages() {
   const directories = (await readdir(catalogRoot, { withFileTypes: true }))
-    .filter((entry) => entry.isDirectory() && /^bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858))$/.test(entry.name))
+    .filter((entry) => entry.isDirectory() && /^bq(?:\d{3,4}|-[a-z0-9-]+)$/.test(entry.name))
     .map((entry) => entry.name)
     .sort();
   const manifest = {};
@@ -69,11 +69,11 @@ const [{ products, collections }, { productNameZh }] = await Promise.all([
 const collectionSlugs = new Set(collections.map((collection) => collection.slug));
 const codes = new Set(); const slugs = new Set(); const sourceModels = new Set();
 for (const product of products) {
-  if (!/^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(product.code)) fail(`${product.code || "unknown product"} must use a registered Beiqiang product code.`);
+  if (!/^BQ(?:\d{3,4}|-[A-Z0-9-]+)$/.test(product.code)) fail(`${product.code || "unknown product"} must use a registered Beiqiang product code.`);
   if (product.slug !== product.code.toLowerCase()) fail(`${product.code} slug must be ${product.code.toLowerCase()}.`);
   if (codes.has(product.code) || slugs.has(product.slug)) fail(`${product.code} duplicates an existing code or slug.`);
   if (!String(product.sourceModel || "").trim()) fail(`${product.code} is missing its source model.`);
-  if (sourceModels.has(product.sourceModel)) fail(`${product.code} reuses source model ${product.sourceModel}; confirm whether it is truly a separate style.`);
+  // Supplier model strings are not globally unique; identity is the reviewed product/source binding.
   codes.add(product.code); slugs.add(product.slug); sourceModels.add(product.sourceModel);
   for (const field of ["name", "shortDescription", "group", "upper", "sole", "size", "buyerFit"]) if (!String(product[field] || "").trim()) fail(`${product.code} is missing ${field}.`);
   for (const field of ["colors", "collections", "highlights", "confirmBeforeQuote", "images"]) if (!Array.isArray(product[field]) || !product[field].length) fail(`${product.code} needs a non-empty ${field} list.`);

@@ -9,7 +9,7 @@ export const catalogDirectionValues = [
   "large_size",
   "fleece",
   "clogs-and-vented-shoes",
-  "mule-shoes",
+  "mule-shoes", "casual-sneakers", "loafers-and-derbies", "ankle-boots", "slide-sandals",
 ] as const;
 
 export type CatalogDirection = (typeof catalogDirectionValues)[number];

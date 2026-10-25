@@ -22,7 +22,7 @@ function publicWorkflowStatus(value, fallback = "Not started") {
   };
   return labels[value] || fallback;
 }
-function uniqueCodes(values) { return Array.from(new Set(values.filter(Boolean).flatMap((value) => String(value).match(/BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))/gi) || []).map((code) => code.toUpperCase()))).slice(0, 20); }
+function uniqueCodes(values) { return Array.from(new Set(values.filter(Boolean).flatMap((value) => String(value).match(/BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))/gi) || []).map((code) => code.toUpperCase()))).slice(0, 20); }
 function latestPublicQuote(record) { return Array.isArray(record.quotations) ? [...record.quotations].reverse().find((item) => ["issued", "buyer_accepted", "buyer_revision_requested", "buyer_declined"].includes(item.status)) : null; }
 
 export function workspaceAction(record, statusCode = "received") {

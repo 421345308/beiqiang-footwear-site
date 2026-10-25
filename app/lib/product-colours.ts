@@ -2,11 +2,19 @@ import media from "../data/product-colour-media.json" with { type: "json" };
 import type { Product } from "../data/products";
 import { productMediaUrl } from "./product-media-url.ts";
 
-type ColourMedia = { images: Record<string, number>; overview?: number };
+type ColourMedia = { images: Record<string, number>; views?: Record<string, number[]>; overview?: number };
 export const colourId = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 export function productColours(product: Product) {
   const entry = (media as Record<string, ColourMedia>)[product.code];
-  return product.colors.map(name => ({ id: colourId(name), name, imageIndex: entry?.images[name] ?? null }));
+  return product.colors.filter(name => Number.isInteger(entry?.images[name]) && Boolean(product.images[entry.images[name]]))
+    .map(name => ({ id: colourId(name), name, imageIndex: entry!.images[name] }));
+}
+export function colourViews(product: Product, id: string): number[] {
+  const colour = productColours(product).find(c => c.id === id);
+  if (!colour) return product.images.map((_, index) => index);
+  const entry = (media as Record<string, ColourMedia>)[product.code];
+  return [...new Set([colour.imageIndex, ...(entry?.views?.[colour.name] ?? [])])]
+    .filter(index => Number.isInteger(index) && Boolean(product.images[index]));
 }
 export function colourOverview(product: Product) {
   return (media as Record<string, ColourMedia>)[product.code]?.overview ?? null;

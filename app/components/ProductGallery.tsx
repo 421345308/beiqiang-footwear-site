@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { PublicLocale } from "../lib/public-locales";
 import type { Product } from "../data/products";
-import { colourImage, colourOverview, galleryImage } from "../lib/product-colours";
+import { colourImage, colourOverview, colourViews, galleryImage } from "../lib/product-colours";
 import { colorZh } from "../data/products-zh";
 import { useProductColour } from "./ProductColourOptions";
 import { productPhotoLabel } from "../lib/product-photo-labels";
@@ -12,18 +12,21 @@ export default function ProductGallery({ product, name, locale }: { product: Pro
   const images = product.images;
   const { id, colour } = useProductColour(product);
   const [manual, setManual] = useState<{id:string; index:number} | null>(null);
+  const [showAll, setShowAll] = useState(false);
   useEffect(() => {
-    const reset = () => setManual(null);
+    const reset = () => { setManual(null); setShowAll(false); };
     window.addEventListener("bq-product-colour", reset);
     return () => window.removeEventListener("bq-product-colour", reset);
   }, []);
-  const active = manual?.id === id ? manual.index : colourImage(product, id);
+  const visible = colourViews(product, showAll ? "" : id);
+  const requested = manual?.id === id ? manual.index : colourImage(product, id);
+  const active = visible.includes(requested) ? requested : visible[0];
   const setActive = (index: number) => setManual({id, index});
   const dialog = useRef<HTMLDialogElement>(null);
   const start = useRef<number | null>(null);
   const zh = locale === "zh";
   const image = (index: number) => galleryImage(images[index]);
-  const move = (direction: number) => setActive((active + direction + images.length) % images.length);
+  const move = (direction: number) => setActive(visible[(visible.indexOf(active) + direction + visible.length) % visible.length]);
   const overview = colourOverview(product);
   const caption = productPhotoLabel(product.code, active, locale) ?? (active === overview ? (zh ? "配色概览" : "Colour overview") : colour?.imageIndex === active ? (zh ? colorZh(colour.name) : colour.name) : (zh ? `产品实拍 · ${active + 1}` : `Product view · ${active + 1}`));
   return <div className="studio-gallery">
@@ -34,10 +37,11 @@ export default function ProductGallery({ product, name, locale }: { product: Pro
         <img src={image(active)} alt={`${name} · ${caption}`} width={1000} height={1000} decoding="async" fetchPriority="high" />
         <span>{zh ? "点击放大" : "Enlarge image"} ↗</span>
       </button>
-      {images.length > 1 && <div className="gallery-controls"><button onClick={() => move(-1)} aria-label={zh ? "上一张图片" : "Previous image"}>←</button><span aria-live="polite">{active + 1} / {images.length}</span><button onClick={() => move(1)} aria-label={zh ? "下一张图片" : "Next image"}>→</button></div>}
+      {visible.length > 1 && <div className="gallery-controls"><button onClick={() => move(-1)} aria-label={zh ? "上一张图片" : "Previous image"}>←</button><span aria-live="polite">{visible.indexOf(active) + 1} / {visible.length}</span><button onClick={() => move(1)} aria-label={zh ? "下一张图片" : "Next image"}>→</button></div>}
     </div>
-    <p className="gallery-caption" aria-live="polite">{caption}{colour && colour.imageIndex === null && <span> · {zh ? "所选配色暂无单独图片" : "Selected colour has no individual photo"}</span>}</p>
-    <div className="studio-thumbnails" aria-label={zh ? "产品图片" : "Product images"}>{images.map((source, index) => <button key={source} className={index === active ? "is-active" : ""} onClick={() => setActive(index)} aria-pressed={index === active} aria-label={`${zh ? "查看" : "View"} ${productPhotoLabel(product.code, index, locale) ?? `${zh ? "图片" : "image"} ${index + 1}`}`} title={productPhotoLabel(product.code,index,locale) ?? undefined}><img src={galleryImage(source,true)} alt="" loading="lazy" width={100} height={100} /></button>)}</div>
+    <p className="gallery-caption" aria-live="polite">{caption}</p>
+    {colour && <div className="gallery-scope"><button type="button" aria-pressed={!showAll} onClick={() => {setShowAll(false);setManual(null);}}>{zh ? colorZh(colour.name) : colour.name} · {colourViews(product,id).length} {zh ? "张" : "photos"}</button><button type="button" aria-pressed={showAll} onClick={() => setShowAll(true)}>{zh ? "查看全款图片" : "All style photos"} · {images.length}</button></div>}
+    <div className="studio-thumbnails" aria-label={zh ? "产品图片" : "Product images"}>{visible.map(index => <button key={images[index]} className={index === active ? "is-active" : ""} onClick={() => setActive(index)} aria-pressed={index === active} aria-label={`${zh ? "查看" : "View"} ${productPhotoLabel(product.code, index, locale) ?? `${zh ? "图片" : "image"} ${index + 1}`}`} title={productPhotoLabel(product.code,index,locale) ?? undefined}><img src={galleryImage(images[index],true)} alt="" loading="lazy" width={100} height={100} /></button>)}</div>
     <dialog ref={dialog} className="gallery-dialog" onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
       <button className="gallery-close" autoFocus onClick={() => dialog.current?.close()} aria-label={zh ? "关闭放大图片" : "Close enlarged image"}>×</button>
       <img src={image(active)} alt={`${name} · ${caption}`} />

@@ -1,3 +1,5 @@
+import reviewedCatalog from "./reviewed-catalog.json" with { type: "json" };
+import colourMedia from "./product-colour-media.json" with { type: "json" };
 import catalogImages from "./catalog-images.json" with { type: "json" };
 import { externalProducts } from "./external-products.ts";
 import { verifiedProducts } from "./verified-products.ts";
@@ -15,7 +17,7 @@ export type CollectionSlug =
   | "extended-size-shoes"
   | "fleece-lined-shoes"
   | "clogs-and-vented-shoes"
-  | "mule-shoes";
+  | "mule-shoes" | "casual-sneakers" | "loafers-and-derbies" | "ankle-boots" | "slide-sandals";
 
 export type Product = {
   code: string;
@@ -24,7 +26,7 @@ export type Product = {
   name: string;
   shortDescription: string;
   group: string;
-  closure: "Slip-On" | "Lace-Up";
+  closure: "Slip-On" | "Lace-Up" | "Zip-Up";
   upper: string;
   sole: string;
   size: string;
@@ -905,7 +907,12 @@ const originalProducts: Product[] = [
 
 // Keep held records for internal reconciliation; they are not public supply offers.
 export const heldSourceProducts: Product[] = verifiedProducts;
-export const products: Product[] = [...originalProducts, ...externalProducts];
+const reviewedProducts = reviewedCatalog.map(record => ({ ...record, images: images(record.slug) })) as Product[];
+export const products: Product[] = [...originalProducts, ...externalProducts, ...reviewedProducts].map(product => ({
+  ...product,
+  // Internal source colour lists are preserved; public choices require real photographs.
+  colors: product.colors.filter(colour => Number.isInteger((colourMedia as Record<string, { images: Record<string, number> }>)[product.code]?.images[colour])),
+}));
 
 export type CollectionFaq = { question: string; answer: string };
 
@@ -924,6 +931,10 @@ export type ProductCollection = {
 };
 
 export const collections: ProductCollection[] = [
+{"slug": "slide-sandals", "direction": "slide-sandals", "name": "Slide sandals", "title": "Slide sandals for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
+{"slug": "ankle-boots", "direction": "ankle-boots", "name": "Ankle boots", "title": "Ankle boots for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
+{"slug": "loafers-and-derbies", "direction": "loafers-and-derbies", "name": "Loafers & derbies", "title": "Loafers & derbies for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
+{"slug": "casual-sneakers", "direction": "casual-sneakers", "name": "Casual sneakers", "title": "Casual sneakers for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
 {
   "slug": "clogs-and-vented-shoes",
   "direction": "clogs-and-vented-shoes",

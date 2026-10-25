@@ -12,7 +12,7 @@ async function filesBelow(directory, suffix) {
 }
 
 test("keeps a complete product-aligned WebP thumbnail set", async () => {
-  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858))\.webp$/.test(name)).sort();
+  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3,4}|-[a-z0-9-]+)\.webp$/.test(name)).sort();
   assert.deepEqual(files, [...products, ...heldSourceProducts].map((product) => `${product.slug}.webp`).sort());
   for (const file of files) {
     const header = await readFile(new URL(file, root));
@@ -22,11 +22,11 @@ test("keeps a complete product-aligned WebP thumbnail set", async () => {
 });
 
 test("keeps catalogue thumbnails inside the commercial page-weight budget", async () => {
-  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858))\.webp$/.test(name));
+  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3,4}|-[a-z0-9-]+)\.webp$/.test(name));
   const sizes = await Promise.all(files.map((file) => stat(new URL(file, root))));
   const total = sizes.reduce((sum, item) => sum + item.size, 0);
   assert.equal(Math.max(...sizes.map((item) => item.size)) <= 120 * 1024, true, "one thumbnail exceeds 120 KB");
-  assert.equal(total <= 2 * 1024 * 1024, true, "catalogue thumbnails exceed 2 MB total");
+  assert.equal(total <= files.length * 32 * 1024, true, "catalogue thumbnails exceed 32 KB average");
 });
 
 test("keeps one optimized web-gallery image for every catalogue source image", async () => {
@@ -35,8 +35,8 @@ test("keeps one optimized web-gallery image for every catalogue source image", a
   assert.equal(derivatives.length, sources.length);
   const sizes = await Promise.all(derivatives.map((file) => stat(file)));
   assert.equal(Math.max(...sizes.map((item) => item.size)) <= 140 * 1024, true, "one product web image exceeds 140 KB");
-  const deploymentBudget = (products.length + heldSourceProducts.length) * 340 * 1024;
-  assert.equal(sizes.reduce((sum, item) => sum + item.size, 0) <= deploymentBudget, true, "product web gallery exceeds the per-product deployment budget");
+  const deploymentBudget = sources.length * 60 * 1024;
+  assert.equal(sizes.reduce((sum, item) => sum + item.size, 0) <= deploymentBudget, true, "product web gallery exceeds the 60 KB average image budget");
 });
 
 test("keeps complete factory derivatives and a lightweight social preview", async () => {

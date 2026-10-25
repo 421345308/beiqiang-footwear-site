@@ -67,16 +67,104 @@
       "colour": "All Black"
     },
     {
-      "role": "outsole"
+      "role": "outsole",
+      "colour": "White"
     },
     {
-      "role": "top"
+      "role": "top",
+      "colour": "White"
     },
     {
-      "role": "heel"
+      "role": "heel",
+      "colour": "White"
     },
     {
-      "role": "pair"
+      "role": "pair",
+      "colour": "White"
+    },
+    {
+      "role": "side",
+      "colour": "White"
+    },
+    {
+      "role": "side",
+      "colour": "Grey"
+    },
+    {
+      "role": "outsole",
+      "colour": "Grey"
+    },
+    {
+      "role": "top",
+      "colour": "Grey"
+    },
+    {
+      "role": "heel",
+      "colour": "Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey"
+    },
+    {
+      "role": "side",
+      "colour": "Pink"
+    },
+    {
+      "role": "outsole",
+      "colour": "Pink"
+    },
+    {
+      "role": "top",
+      "colour": "Pink"
+    },
+    {
+      "role": "heel",
+      "colour": "Pink"
+    },
+    {
+      "role": "pair",
+      "colour": "Pink"
+    },
+    {
+      "role": "side",
+      "colour": "Black White"
+    },
+    {
+      "role": "outsole",
+      "colour": "Black White"
+    },
+    {
+      "role": "top",
+      "colour": "Black White"
+    },
+    {
+      "role": "heel",
+      "colour": "Black White"
+    },
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "side",
+      "colour": "All Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "All Black"
+    },
+    {
+      "role": "top",
+      "colour": "All Black"
+    },
+    {
+      "role": "heel",
+      "colour": "All Black"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
     }
   ],
   "BQ005": [
@@ -227,16 +315,84 @@
       "colour": "All Black"
     },
     {
-      "role": "outsole"
+      "role": "outsole",
+      "colour": "Mint Green"
     },
     {
-      "role": "top"
+      "role": "top",
+      "colour": "Mint Green"
     },
     {
-      "role": "heel"
+      "role": "heel",
+      "colour": "Mint Green"
     },
     {
-      "role": "pair"
+      "role": "pair",
+      "colour": "Mint Green"
+    },
+    {
+      "role": "side",
+      "colour": "Black White"
+    },
+    {
+      "role": "outsole",
+      "colour": "Black White"
+    },
+    {
+      "role": "heel",
+      "colour": "Black White"
+    },
+    {
+      "role": "top",
+      "colour": "Black White"
+    },
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "side",
+      "colour": "Orange"
+    },
+    {
+      "role": "outsole",
+      "colour": "Orange"
+    },
+    {
+      "role": "heel",
+      "colour": "Orange"
+    },
+    {
+      "role": "top",
+      "colour": "Orange"
+    },
+    {
+      "role": "pair",
+      "colour": "Orange"
+    },
+    {
+      "role": "side",
+      "colour": "Mint Green"
+    },
+    {
+      "role": "side",
+      "colour": "All Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "All Black"
+    },
+    {
+      "role": "heel",
+      "colour": "All Black"
+    },
+    {
+      "role": "top",
+      "colour": "All Black"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
     }
   ],
   "BQ010": [
@@ -453,16 +609,64 @@
       "colour": "Black White"
     },
     {
-      "role": "outsole"
+      "role": "outsole",
+      "colour": "Lavender"
     },
     {
-      "role": "heel"
+      "role": "heel",
+      "colour": "Lavender"
     },
     {
-      "role": "top"
+      "role": "top",
+      "colour": "Lavender"
     },
     {
-      "role": "on-foot"
+      "role": "on-foot",
+      "colour": "Lavender"
+    },
+    {
+      "role": "side",
+      "colour": "Lavender"
+    },
+    {
+      "role": "pair",
+      "colour": "Lavender"
+    },
+    {
+      "role": "side",
+      "colour": "Cream"
+    },
+    {
+      "role": "pair",
+      "colour": "Cream"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Cream"
+    },
+    {
+      "role": "side",
+      "colour": "All Black"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "All Black"
+    },
+    {
+      "role": "side",
+      "colour": "Black White"
+    },
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black White"
     }
   ],
   "BQ019": [
@@ -816,16 +1020,92 @@
       "colour": "Green White"
     },
     {
-      "role": "outsole"
+      "role": "outsole",
+      "colour": "Black White"
     },
     {
-      "role": "top"
+      "role": "top",
+      "colour": "Off White"
     },
     {
-      "role": "side"
+      "role": "side",
+      "colour": "Off White"
     },
     {
-      "role": "pair"
+      "role": "pair",
+      "colour": "Off White"
+    },
+    {
+      "role": "side",
+      "colour": "All Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "All Black"
+    },
+    {
+      "role": "side",
+      "colour": "All Black"
+    },
+    {
+      "role": "top",
+      "colour": "All Black"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
+    },
+    {
+      "role": "side",
+      "colour": "Black White"
+    },
+    {
+      "role": "side",
+      "colour": "Black White"
+    },
+    {
+      "role": "top",
+      "colour": "Black White"
+    },
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "side",
+      "colour": "Grey White"
+    },
+    {
+      "role": "side",
+      "colour": "Grey White"
+    },
+    {
+      "role": "top",
+      "colour": "Grey White"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey White"
+    },
+    {
+      "role": "side",
+      "colour": "Off White"
+    },
+    {
+      "role": "side",
+      "colour": "Green White"
+    },
+    {
+      "role": "side",
+      "colour": "Green White"
+    },
+    {
+      "role": "top",
+      "colour": "Green White"
+    },
+    {
+      "role": "pair",
+      "colour": "Green White"
     }
   ],
   "BQ004": [
@@ -989,6 +1269,1106 @@
     },
     {
       "role": "on-foot"
+    }
+  ],
+  "BQ1024": [
+    {
+      "role": "colour",
+      "colour": "Sand"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Khaki"
+    },
+    {
+      "role": "upper",
+      "colour": "Khaki"
+    },
+    {
+      "role": "pair",
+      "colour": "Sand"
+    },
+    {
+      "role": "upper",
+      "colour": "Sand"
+    },
+    {
+      "role": "pair"
+    },
+    {
+      "role": "pair",
+      "colour": "Khaki"
+    },
+    {
+      "role": "pair",
+      "colour": "Sand"
+    }
+  ],
+  "BQ1029": [
+    {
+      "role": "colour",
+      "colour": "Military Green"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Military Green"
+    },
+    {
+      "role": "upper",
+      "colour": "Military Green"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "Military Green"
+    },
+    {
+      "role": "collar"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    }
+  ],
+  "BQ1031": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Camel"
+    },
+    {
+      "role": "pair",
+      "colour": "Camel"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Camel"
+    },
+    {
+      "role": "upper",
+      "colour": "Camel"
+    }
+  ],
+  "BQ1032": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Green"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Green"
+    },
+    {
+      "role": "upper",
+      "colour": "Green"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    }
+  ],
+  "BQ1035": [
+    {
+      "role": "colour",
+      "colour": "Camel"
+    },
+    {
+      "role": "colour",
+      "colour": "Brown"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Camel"
+    },
+    {
+      "role": "outsole",
+      "colour": "Camel"
+    },
+    {
+      "role": "outsole"
+    },
+    {
+      "role": "pair",
+      "colour": "Camel"
+    },
+    {
+      "role": "upper",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Camel"
+    },
+    {
+      "role": "pair",
+      "colour": "Camel"
+    },
+    {
+      "role": "pair",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Camel"
+    }
+  ],
+  "BQ1036": [
+    {
+      "role": "colour",
+      "colour": "Ivory/Navy"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Ivory/Navy"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "heel",
+      "colour": "Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "Black"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    }
+  ],
+  "BQ1037": [
+    {
+      "role": "colour",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige/Navy"
+    },
+    {
+      "role": "colour",
+      "colour": "Black/Orange"
+    },
+    {
+      "role": "upper",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "side",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "collar",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige/Navy"
+    },
+    {
+      "role": "upper",
+      "colour": "White/Grey"
+    }
+  ],
+  "BQ1038": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Brown"
+    },
+    {
+      "role": "upper",
+      "colour": "Brown"
+    },
+    {
+      "role": "upper",
+      "colour": "Brown"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "collar",
+      "colour": "Brown"
+    },
+    {
+      "role": "side",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Brown"
+    }
+  ],
+  "BQ1040": [
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "upper",
+      "colour": "Beige"
+    },
+    {
+      "role": "side",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    },
+    {
+      "role": "side",
+      "colour": "White"
+    },
+    {
+      "role": "collar",
+      "colour": "Beige"
+    },
+    {
+      "role": "upper",
+      "colour": "Beige"
+    }
+  ],
+  "BQ1041": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Yellow"
+    },
+    {
+      "role": "upper",
+      "colour": "Yellow"
+    },
+    {
+      "role": "side"
+    },
+    {
+      "role": "collar",
+      "colour": "Yellow"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Yellow"
+    },
+    {
+      "role": "side",
+      "colour": "Yellow"
+    }
+  ],
+  "BQ1043": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Dark Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Navy"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "heel",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Navy"
+    },
+    {
+      "role": "pair",
+      "colour": "Dark Grey"
+    }
+  ],
+  "BQ1045": [
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "White"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    }
+  ],
+  "BQ1046": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Brown"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Brown"
+    }
+  ],
+  "BQ1047": [
+    {
+      "role": "colour",
+      "colour": "Dark Brown"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Dark Brown"
+    },
+    {
+      "role": "side",
+      "colour": "Dark Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Dark Brown"
+    },
+    {
+      "role": "side",
+      "colour": "Dark Brown"
+    },
+    {
+      "role": "outsole",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Dark Brown"
+    }
+  ],
+  "BQ1048": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "heel",
+      "colour": "Black"
+    },
+    {
+      "role": "top",
+      "colour": "Black"
+    },
+    {
+      "role": "heel",
+      "colour": "Black"
+    }
+  ],
+  "BQ1049": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "outsole"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Khaki"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    }
+  ],
+  "BQ1050": [
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "White"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "White"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    }
+  ],
+  "BQ1051": [
+    {
+      "role": "colour",
+      "colour": "Sand"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Sand"
+    },
+    {
+      "role": "side",
+      "colour": "Sand"
+    },
+    {
+      "role": "collar",
+      "colour": "Sand"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "heel",
+      "colour": "Sand"
+    }
+  ],
+  "BQ1052": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
+  ],
+  "BQ1053": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "heel",
+      "colour": "Beige"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    },
+    {
+      "role": "outsole",
+      "colour": "Black"
+    }
+  ],
+  "BQ1055": [
+    {
+      "role": "colour",
+      "colour": "White/Green"
+    },
+    {
+      "role": "colour",
+      "colour": "Red/Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Purple/Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Coffee"
+    },
+    {
+      "role": "colour",
+      "colour": "All Black"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Purple/Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "White/Green"
+    },
+    {
+      "role": "pair",
+      "colour": "Red/Black"
+    }
+  ],
+  "BQ1056": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Navy"
+    },
+    {
+      "role": "colour",
+      "colour": "Multicolour Green"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Multicolour Green"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    }
+  ],
+  "BQ1057": [
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Blue Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Yellow"
+    },
+    {
+      "role": "colour",
+      "colour": "Turquoise"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "Blue Grey"
+    },
+    {
+      "role": "heel",
+      "colour": "Blue Grey"
+    },
+    {
+      "role": "on-foot",
+      "colour": "White"
+    },
+    {
+      "role": "side",
+      "colour": "Yellow"
+    },
+    {
+      "role": "pair",
+      "colour": "Turquoise"
+    }
+  ],
+  "BQ1058": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "upper",
+      "colour": "White"
+    },
+    {
+      "role": "side",
+      "colour": "White"
+    },
+    {
+      "role": "collar",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "White"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    }
+  ],
+  "BQ1059": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "side",
+      "colour": "Khaki"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "Khaki"
+    },
+    {
+      "role": "heel",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Grey"
+    }
+  ],
+  "BQ1060": [
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "colour",
+      "colour": "Coffee"
+    },
+    {
+      "role": "colour",
+      "colour": "Black/White"
+    },
+    {
+      "role": "colour",
+      "colour": "All Black"
+    },
+    {
+      "role": "side",
+      "colour": "Khaki"
+    },
+    {
+      "role": "collar",
+      "colour": "Khaki"
+    },
+    {
+      "role": "side",
+      "colour": "Coffee"
+    },
+    {
+      "role": "side",
+      "colour": "Black/White"
+    }
+  ],
+  "BQ1061": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "top",
+      "colour": "Black"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Khaki"
+    }
+  ],
+  "BQ1062": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "Blue"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "pair"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Blue"
+    },
+    {
+      "role": "upper",
+      "colour": "Grey"
+    }
+  ],
+  "BQ1063": [
+    {
+      "role": "colour",
+      "colour": "Military Green"
+    },
+    {
+      "role": "colour",
+      "colour": "Dark Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Brown"
+    },
+    {
+      "role": "side",
+      "colour": "Brown"
+    },
+    {
+      "role": "upper",
+      "colour": "Brown"
+    },
+    {
+      "role": "heel",
+      "colour": "Brown"
+    },
+    {
+      "role": "outsole"
+    },
+    {
+      "role": "side",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Military Green"
+    }
+  ],
+  "BQ1065": [
+    {
+      "role": "colour",
+      "colour": "White/Green"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Blue"
+    },
+    {
+      "role": "colour",
+      "colour": "Black/White"
+    },
+    {
+      "role": "pair",
+      "colour": "White/Blue"
+    },
+    {
+      "role": "upper",
+      "colour": "Black/White"
+    },
+    {
+      "role": "heel",
+      "colour": "Black/White"
+    },
+    {
+      "role": "upper",
+      "colour": "White/Green"
+    },
+    {
+      "role": "side",
+      "colour": "White/Green"
+    }
+  ],
+  "BQ1066": [
+    {
+      "role": "colour",
+      "colour": "Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "All Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Black/White"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey"
+    },
+    {
+      "role": "heel",
+      "colour": "Grey"
+    },
+    {
+      "role": "outsole",
+      "colour": "Grey"
+    },
+    {
+      "role": "heel",
+      "colour": "Grey"
+    }
+  ],
+  "BQ1067": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "pair"
+    },
+    {
+      "role": "collar",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "upper",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Beige"
     }
   ]
 }

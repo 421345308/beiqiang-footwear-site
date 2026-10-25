@@ -1,3 +1,5 @@
+import reviewedFactsZh from "./reviewed-catalog-zh.json" with { type: "json" };
+import reviewedCatalog from "./reviewed-catalog.json" with { type: "json" };
 import type { Product } from "./products";
 
 const names: Record<string, string> = {
@@ -67,6 +69,7 @@ const names: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
+"Military Green":"军绿色","Camel":"驼色","Ivory/Navy":"象牙白/藏青","White/Grey":"白灰","Beige/Navy":"米色/藏青","Black/Orange":"黑橙","Dark Brown":"深棕","White/Green":"白绿","Red/Black":"红黑","Purple/Black":"紫黑","Coffee":"咖啡色","Multicolour Green":"绿色混纱","Blue Grey":"蓝灰","Turquoise":"湖蓝","Black/White":"黑白","White/Blue":"白蓝",
   "Khaki": "卡其色",
   "Light Pink": "浅粉色",
   "Sand": "沙色",
@@ -207,12 +210,13 @@ const phrases: [RegExp, string][] = [
 ];
 
 export function productNameZh(product: Product) {
-  return names[product.code] || product.name;
+  return reviewedCatalog.find(item => item.code === product.code)?.nameZh || names[product.code] || product.name;
 }
 export function colorZh(color: string) {
   return colors[color] || color;
 }
 export function factZh(value: string) {
+  if ((reviewedFactsZh as Record<string,string>)[value]) return (reviewedFactsZh as Record<string,string>)[value];
   const exact: Record<string, string> = {
     "Each paired label is one size option; confirm sample insole length before market-size conversion.": "每组双码标签对应一个尺码选项；转换销售市场尺码前，请先核对样品鞋垫长度。",
     "Supplier size labels; confirm sample insole length before market-size conversion.": "此处为供应商尺码标签；转换销售市场尺码前，请先核对样品鞋垫长度。",
@@ -255,9 +259,11 @@ export function factZh(value: string) {
   );
 }
 export function closureZh(value: Product["closure"]) {
-  return value === "Slip-On" ? "套穿" : "系带";
+  return value === "Slip-On" ? "套穿" : value === "Zip-Up" ? "拉链" : "系带";
 }
 export function productSummaryZh(product: Product) {
+  const reviewed = reviewedCatalog.find(item => item.code === product.code);
+  if (reviewed) return reviewed.summaryZh;
   const descriptions: Record<string, string> = {
   "BQ-C2627": "包头镂空鞋面，搭配厚底轮廓和可转动后跟带，提供五种实拍配色。",
   "BQ-CA67": "EVA鞋面搭配包跟结构与侧面开孔；鞋面为模压仿鞋带装饰，采用套穿结构。",

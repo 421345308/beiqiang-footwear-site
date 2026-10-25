@@ -4,6 +4,17 @@
       "White": 0,
       "Black White": 1,
       "All Black": 2
+    },
+    "views": {
+      "White": [
+        0
+      ],
+      "Black White": [
+        1
+      ],
+      "All Black": [
+        2
+      ]
     }
   },
   "BQ002": {
@@ -11,6 +22,17 @@
       "Grey White": 0,
       "Grey Black": 1,
       "Grey Khaki": 2
+    },
+    "views": {
+      "Grey White": [
+        0
+      ],
+      "Grey Black": [
+        1
+      ],
+      "Grey Khaki": [
+        2
+      ]
     }
   },
   "BQ003": {
@@ -20,6 +42,48 @@
       "Pink": 2,
       "Black White": 3,
       "All Black": 4
+    },
+    "views": {
+      "White": [
+        0,
+        9,
+        5,
+        6,
+        7,
+        8
+      ],
+      "Grey": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "Pink": [
+        2,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "Black White": [
+        3,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "All Black": [
+        4,
+        25,
+        26,
+        27,
+        28,
+        29
+      ]
     }
   },
   "BQ004": {
@@ -28,6 +92,20 @@
       "Light Blue": 1,
       "Orange Black": 2,
       "All Black": 3
+    },
+    "views": {
+      "Black White": [
+        0
+      ],
+      "Light Blue": [
+        1
+      ],
+      "Orange Black": [
+        2
+      ],
+      "All Black": [
+        3
+      ]
     }
   },
   "BQ005": {
@@ -36,6 +114,20 @@
       "White": 1,
       "Pink": 2,
       "Black": 3
+    },
+    "views": {
+      "Grey": [
+        0
+      ],
+      "White": [
+        1
+      ],
+      "Pink": [
+        2
+      ],
+      "Black": [
+        3
+      ]
     }
   },
   "BQ006": {
@@ -47,6 +139,29 @@
       "White Pink": 4,
       "All Black": 5,
       "White Green": 6
+    },
+    "views": {
+      "All White": [
+        0
+      ],
+      "White Grey": [
+        1
+      ],
+      "Black White": [
+        2
+      ],
+      "White Purple": [
+        3
+      ],
+      "White Pink": [
+        4
+      ],
+      "All Black": [
+        5
+      ],
+      "White Green": [
+        6
+      ]
     }
   },
   "BQ007": {
@@ -56,6 +171,23 @@
       "Black White": 2,
       "White Khaki": 3,
       "Orange": 4
+    },
+    "views": {
+      "White": [
+        0
+      ],
+      "All Black": [
+        1
+      ],
+      "Black White": [
+        2
+      ],
+      "White Khaki": [
+        3
+      ],
+      "Orange": [
+        4
+      ]
     }
   },
   "BQ008": {
@@ -64,6 +196,20 @@
       "Grey Green": 1,
       "White Black": 2,
       "All Black": 3
+    },
+    "views": {
+      "Black White": [
+        0
+      ],
+      "Grey Green": [
+        1
+      ],
+      "White Black": [
+        2
+      ],
+      "All Black": [
+        3
+      ]
     }
   },
   "BQ009": {
@@ -72,12 +218,54 @@
       "Orange": 1,
       "Mint Green": 2,
       "All Black": 3
+    },
+    "views": {
+      "Black White": [
+        0,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "Orange": [
+        1,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "Mint Green": [
+        2,
+        18,
+        4,
+        6,
+        5,
+        7
+      ],
+      "All Black": [
+        3,
+        19,
+        20,
+        21,
+        22,
+        23
+      ]
     }
   },
   "BQ010": {
     "images": {
       "White Sole Black": 0,
       "All Black": 1
+    },
+    "views": {
+      "White Sole Black": [
+        0
+      ],
+      "All Black": [
+        1
+      ]
     }
   },
   "BQ011": {
@@ -86,13 +274,35 @@
       "Grey White": 1,
       "Grey Green": 2
     },
-    "overview": 3
+    "overview": 3,
+    "views": {
+      "Grey Black": [
+        0
+      ],
+      "Grey White": [
+        1
+      ],
+      "Grey Green": [
+        2
+      ]
+    }
   },
   "BQ012": {
     "images": {
       "Black White": 0,
       "Black Black": 1,
       "Red White": 2
+    },
+    "views": {
+      "Black White": [
+        0
+      ],
+      "Black Black": [
+        1
+      ],
+      "Red White": [
+        2
+      ]
     }
   },
   "BQ013": {
@@ -100,6 +310,17 @@
       "Wine Red": 0,
       "Black": 1,
       "Grey": 2
+    },
+    "views": {
+      "Wine Red": [
+        0
+      ],
+      "Black": [
+        1
+      ],
+      "Grey": [
+        2
+      ]
     }
   },
   "BQ014": {
@@ -107,6 +328,17 @@
       "Beige White": 0,
       "Black White": 1,
       "All Black": 2
+    },
+    "views": {
+      "Beige White": [
+        0
+      ],
+      "Black White": [
+        1
+      ],
+      "All Black": [
+        2
+      ]
     }
   },
   "BQ015": {
@@ -114,6 +346,17 @@
       "Grey White": 0,
       "Black": 1,
       "Black White": 2
+    },
+    "views": {
+      "Grey White": [
+        0
+      ],
+      "Black": [
+        1
+      ],
+      "Black White": [
+        2
+      ]
     }
   },
   "BQ016": {
@@ -122,7 +365,18 @@
       "Pink": 1,
       "Zebra Stripe": 2
     },
-    "overview": 6
+    "overview": 6,
+    "views": {
+      "Black": [
+        0
+      ],
+      "Pink": [
+        1
+      ],
+      "Zebra Stripe": [
+        2
+      ]
+    }
   },
   "BQ017": {
     "images": {
@@ -130,6 +384,20 @@
       "White": 1,
       "Black White": 2,
       "All Black": 3
+    },
+    "views": {
+      "Grey": [
+        0
+      ],
+      "White": [
+        1
+      ],
+      "Black White": [
+        2
+      ],
+      "All Black": [
+        3
+      ]
     }
   },
   "BQ018": {
@@ -138,6 +406,35 @@
       "Cream": 1,
       "All Black": 2,
       "Black White": 3
+    },
+    "views": {
+      "Lavender": [
+        0,
+        8,
+        4,
+        5,
+        6,
+        9,
+        7
+      ],
+      "Cream": [
+        1,
+        10,
+        11,
+        12
+      ],
+      "All Black": [
+        2,
+        13,
+        14,
+        15
+      ],
+      "Black White": [
+        3,
+        16,
+        17,
+        18
+      ]
     }
   },
   "BQ019": {
@@ -145,7 +442,15 @@
       "Black": 0,
       "Light Grey": 1
     },
-    "overview": 4
+    "overview": 4,
+    "views": {
+      "Black": [
+        0
+      ],
+      "Light Grey": [
+        1
+      ]
+    }
   },
   "BQ020": {
     "images": {
@@ -153,6 +458,20 @@
       "All Black": 1,
       "Grey": 2,
       "White": 3
+    },
+    "views": {
+      "Black White": [
+        0
+      ],
+      "All Black": [
+        1
+      ],
+      "Grey": [
+        2
+      ],
+      "White": [
+        3
+      ]
     }
   },
   "BQ021": {
@@ -162,6 +481,23 @@
       "White": 2,
       "Blue": 3,
       "Grey": 4
+    },
+    "views": {
+      "All Black": [
+        0
+      ],
+      "Black White": [
+        1
+      ],
+      "White": [
+        2
+      ],
+      "Blue": [
+        3
+      ],
+      "Grey": [
+        4
+      ]
     }
   },
   "BQ022": {
@@ -169,6 +505,17 @@
       "Black": 0,
       "Black White Stripe": 1,
       "Light Grey": 2
+    },
+    "views": {
+      "Black": [
+        0
+      ],
+      "Black White Stripe": [
+        1
+      ],
+      "Light Grey": [
+        2
+      ]
     }
   },
   "BQ023": {
@@ -176,6 +523,17 @@
       "Black": 0,
       "Grey": 1,
       "Brown": 2
+    },
+    "views": {
+      "Black": [
+        0
+      ],
+      "Grey": [
+        1
+      ],
+      "Brown": [
+        2
+      ]
     }
   },
   "BQ024": {
@@ -184,6 +542,20 @@
       "Black White": 1,
       "Black Yellow": 2,
       "Beige Grey": 3
+    },
+    "views": {
+      "All Black": [
+        0
+      ],
+      "Black White": [
+        1
+      ],
+      "Black Yellow": [
+        2
+      ],
+      "Beige Grey": [
+        3
+      ]
     }
   },
   "BQ025": {
@@ -191,6 +563,17 @@
       "Light Grey": 0,
       "Black White": 1,
       "All Black": 2
+    },
+    "views": {
+      "Light Grey": [
+        0
+      ],
+      "Black White": [
+        1
+      ],
+      "All Black": [
+        2
+      ]
     }
   },
   "BQ026": {
@@ -200,6 +583,23 @@
       "Grey": 2,
       "Red": 3,
       "Pink": 4
+    },
+    "views": {
+      "Black": [
+        0
+      ],
+      "White": [
+        1
+      ],
+      "Grey": [
+        2
+      ],
+      "Red": [
+        3
+      ],
+      "Pink": [
+        4
+      ]
     }
   },
   "BQ027": {
@@ -208,6 +608,20 @@
       "Black": 1,
       "Black White": 2,
       "Grey": 3
+    },
+    "views": {
+      "Cream": [
+        0
+      ],
+      "Black": [
+        1
+      ],
+      "Black White": [
+        2
+      ],
+      "Grey": [
+        3
+      ]
     }
   },
   "BQ028": {
@@ -217,12 +631,37 @@
       "Apricot": 2,
       "White": 3,
       "Blue": 4
+    },
+    "views": {
+      "Black White": [
+        0
+      ],
+      "Grey": [
+        1
+      ],
+      "Apricot": [
+        2
+      ],
+      "White": [
+        3
+      ],
+      "Blue": [
+        4
+      ]
     }
   },
   "BQ029": {
     "images": {
       "All Black": 0,
       "Black White": 1
+    },
+    "views": {
+      "All Black": [
+        0
+      ],
+      "Black White": [
+        1
+      ]
     }
   },
   "BQ030": {
@@ -231,6 +670,20 @@
       "Purple": 1,
       "Grey": 2,
       "Green": 3
+    },
+    "views": {
+      "Pink": [
+        0
+      ],
+      "Purple": [
+        1
+      ],
+      "Grey": [
+        2
+      ],
+      "Green": [
+        3
+      ]
     }
   },
   "BQ031": {
@@ -240,6 +693,45 @@
       "Black White": 2,
       "Off White": 3,
       "Green White": 4
+    },
+    "views": {
+      "Grey White": [
+        0,
+        18,
+        19,
+        20,
+        21
+      ],
+      "All Black": [
+        1,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "Black White": [
+        2,
+        14,
+        5,
+        15,
+        16,
+        17
+      ],
+      "Off White": [
+        3,
+        22,
+        7,
+        6,
+        8
+      ],
+      "Green White": [
+        4,
+        23,
+        24,
+        25,
+        26
+      ]
     }
   },
   "BQ-C2627": {
@@ -249,6 +741,23 @@
       "Beige": 2,
       "Light Pink": 3,
       "Black": 4
+    },
+    "views": {
+      "Blue": [
+        0
+      ],
+      "Khaki": [
+        1
+      ],
+      "Beige": [
+        2
+      ],
+      "Light Pink": [
+        3
+      ],
+      "Black": [
+        4
+      ]
     }
   },
   "BQ-CA67": {
@@ -256,6 +765,17 @@
       "Black": 0,
       "Grey": 1,
       "Khaki": 2
+    },
+    "views": {
+      "Black": [
+        0
+      ],
+      "Grey": [
+        1
+      ],
+      "Khaki": [
+        2
+      ]
     }
   },
   "BQ-M858": {
@@ -263,6 +783,17 @@
       "Black": 0,
       "Sand": 1,
       "Brown": 2
+    },
+    "views": {
+      "Black": [
+        0
+      ],
+      "Sand": [
+        1
+      ],
+      "Brown": [
+        2
+      ]
     }
   },
   "BQ-LQ059": {
@@ -270,6 +801,17 @@
       "Brown": 0,
       "Dark Grey": 1,
       "Black": 2
+    },
+    "views": {
+      "Brown": [
+        0
+      ],
+      "Dark Grey": [
+        1
+      ],
+      "Black": [
+        2
+      ]
     }
   },
   "BQ-LQ060": {
@@ -277,6 +819,17 @@
       "Black Brown": 0,
       "Black Grey": 1,
       "Black": 2
+    },
+    "views": {
+      "Black Brown": [
+        0
+      ],
+      "Black Grey": [
+        1
+      ],
+      "Black": [
+        2
+      ]
     }
   },
   "BQ-LQ2597": {
@@ -284,6 +837,711 @@
       "White Red": 0,
       "Grey": 1,
       "Black": 2
+    },
+    "views": {
+      "White Red": [
+        0
+      ],
+      "Grey": [
+        1
+      ],
+      "Black": [
+        2
+      ]
+    }
+  },
+  "BQ1024": {
+    "images": {
+      "Sand": 0,
+      "Khaki": 1
+    },
+    "views": {
+      "Sand": [
+        0,
+        4,
+        5,
+        8
+      ],
+      "Khaki": [
+        1,
+        2,
+        3,
+        7
+      ]
+    }
+  },
+  "BQ1029": {
+    "images": {
+      "Military Green": 0,
+      "Black": 1
+    },
+    "views": {
+      "Military Green": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "Black": [
+        1,
+        4,
+        7
+      ]
+    }
+  },
+  "BQ1031": {
+    "images": {
+      "Black": 0,
+      "Camel": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        3
+      ],
+      "Camel": [
+        1,
+        2,
+        4,
+        5
+      ]
+    }
+  },
+  "BQ1032": {
+    "images": {
+      "Black": 0,
+      "Green": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        3,
+        4,
+        7
+      ],
+      "Green": [
+        1,
+        5,
+        6
+      ]
+    }
+  },
+  "BQ1035": {
+    "images": {
+      "Camel": 0,
+      "Brown": 1
+    },
+    "views": {
+      "Camel": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        10
+      ],
+      "Brown": [
+        1,
+        6,
+        9
+      ]
+    }
+  },
+  "BQ1036": {
+    "images": {
+      "Ivory/Navy": 0,
+      "Black": 1
+    },
+    "views": {
+      "Ivory/Navy": [
+        0,
+        2
+      ],
+      "Black": [
+        1,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "BQ1037": {
+    "images": {
+      "White/Grey": 0,
+      "Beige/Navy": 1,
+      "Black/Orange": 2
+    },
+    "views": {
+      "White/Grey": [
+        0,
+        3,
+        4,
+        5,
+        7
+      ],
+      "Beige/Navy": [
+        1,
+        6
+      ],
+      "Black/Orange": [
+        2
+      ]
+    }
+  },
+  "BQ1038": {
+    "images": {
+      "Black": 0,
+      "Brown": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        4,
+        7
+      ],
+      "Brown": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        8
+      ]
+    }
+  },
+  "BQ1040": {
+    "images": {
+      "White": 0,
+      "Beige": 1
+    },
+    "views": {
+      "White": [
+        0,
+        3,
+        5
+      ],
+      "Beige": [
+        1,
+        2,
+        4,
+        6,
+        7
+      ]
+    }
+  },
+  "BQ1041": {
+    "images": {
+      "Black": 0,
+      "Yellow": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        5
+      ],
+      "Yellow": [
+        1,
+        2,
+        4,
+        6,
+        7
+      ]
+    }
+  },
+  "BQ1043": {
+    "images": {
+      "Black": 0,
+      "Dark Grey": 1,
+      "Navy": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "Dark Grey": [
+        1,
+        8
+      ],
+      "Navy": [
+        2,
+        7
+      ]
+    }
+  },
+  "BQ1045": {
+    "images": {
+      "White": 0,
+      "Black": 1
+    },
+    "views": {
+      "White": [
+        0,
+        6
+      ],
+      "Black": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ]
+    }
+  },
+  "BQ1046": {
+    "images": {
+      "Black": 0,
+      "Brown": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "Brown": [
+        1,
+        5,
+        6
+      ]
+    }
+  },
+  "BQ1047": {
+    "images": {
+      "Dark Brown": 0,
+      "Black": 1
+    },
+    "views": {
+      "Dark Brown": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "Black": [
+        1,
+        6
+      ]
+    }
+  },
+  "BQ1048": {
+    "images": {
+      "Black": 0
+    },
+    "views": {
+      "Black": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  "BQ1049": {
+    "images": {
+      "Black": 0,
+      "Khaki": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "Khaki": [
+        1,
+        5
+      ]
+    }
+  },
+  "BQ1050": {
+    "images": {
+      "White": 0,
+      "Black": 1
+    },
+    "views": {
+      "White": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "Black": [
+        1,
+        4,
+        6,
+        7
+      ]
+    }
+  },
+  "BQ1051": {
+    "images": {
+      "Sand": 0,
+      "Black": 1
+    },
+    "views": {
+      "Sand": [
+        0,
+        2,
+        3,
+        4,
+        6
+      ],
+      "Black": [
+        1,
+        5
+      ]
+    }
+  },
+  "BQ1052": {
+    "images": {
+      "Black": 0
+    },
+    "views": {
+      "Black": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "BQ1053": {
+    "images": {
+      "Black": 0,
+      "Grey": 1,
+      "Beige": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        4,
+        5,
+        8
+      ],
+      "Grey": [
+        1,
+        6
+      ],
+      "Beige": [
+        2,
+        3,
+        7
+      ]
+    }
+  },
+  "BQ1055": {
+    "images": {
+      "White/Green": 0,
+      "Red/Black": 1,
+      "Purple/Black": 2,
+      "Coffee": 3,
+      "All Black": 4
+    },
+    "views": {
+      "White/Green": [
+        0,
+        8
+      ],
+      "Red/Black": [
+        1,
+        9
+      ],
+      "Purple/Black": [
+        2,
+        7
+      ],
+      "Coffee": [
+        3
+      ],
+      "All Black": [
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "BQ1056": {
+    "images": {
+      "Black": 0,
+      "Navy": 1,
+      "Multicolour Green": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        3,
+        5,
+        6
+      ],
+      "Navy": [
+        1
+      ],
+      "Multicolour Green": [
+        2,
+        4
+      ]
+    }
+  },
+  "BQ1057": {
+    "images": {
+      "White": 0,
+      "Blue Grey": 1,
+      "Yellow": 2,
+      "Turquoise": 3,
+      "Black": 4
+    },
+    "views": {
+      "White": [
+        0,
+        7
+      ],
+      "Blue Grey": [
+        1,
+        5,
+        6
+      ],
+      "Yellow": [
+        2,
+        8
+      ],
+      "Turquoise": [
+        3,
+        9
+      ],
+      "Black": [
+        4
+      ]
+    }
+  },
+  "BQ1058": {
+    "images": {
+      "Black": 0,
+      "Khaki": 1,
+      "White": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        7
+      ],
+      "Khaki": [
+        1
+      ],
+      "White": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "BQ1059": {
+    "images": {
+      "Black": 0,
+      "Grey": 1,
+      "Khaki": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        4,
+        5,
+        7
+      ],
+      "Grey": [
+        1,
+        8
+      ],
+      "Khaki": [
+        2,
+        3,
+        6
+      ]
+    }
+  },
+  "BQ1060": {
+    "images": {
+      "White": 0,
+      "Khaki": 1,
+      "Coffee": 2,
+      "Black/White": 3,
+      "All Black": 4
+    },
+    "views": {
+      "White": [
+        0
+      ],
+      "Khaki": [
+        1,
+        5,
+        6
+      ],
+      "Coffee": [
+        2,
+        7
+      ],
+      "Black/White": [
+        3,
+        8
+      ],
+      "All Black": [
+        4
+      ]
+    }
+  },
+  "BQ1061": {
+    "images": {
+      "Black": 0,
+      "Khaki": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "Khaki": [
+        1,
+        6
+      ]
+    }
+  },
+  "BQ1062": {
+    "images": {
+      "Black": 0,
+      "Grey": 1,
+      "Beige": 2,
+      "Blue": 3
+    },
+    "views": {
+      "Black": [
+        0,
+        4,
+        6
+      ],
+      "Grey": [
+        1,
+        8
+      ],
+      "Beige": [
+        2
+      ],
+      "Blue": [
+        3,
+        7
+      ]
+    }
+  },
+  "BQ1063": {
+    "images": {
+      "Military Green": 0,
+      "Dark Grey": 1,
+      "Brown": 2
+    },
+    "views": {
+      "Military Green": [
+        0,
+        8
+      ],
+      "Dark Grey": [
+        1
+      ],
+      "Brown": [
+        2,
+        3,
+        4,
+        5,
+        7
+      ]
+    }
+  },
+  "BQ1065": {
+    "images": {
+      "White/Green": 0,
+      "White/Blue": 1,
+      "Black/White": 2
+    },
+    "views": {
+      "White/Green": [
+        0,
+        6,
+        7
+      ],
+      "White/Blue": [
+        1,
+        3
+      ],
+      "Black/White": [
+        2,
+        4,
+        5
+      ]
+    }
+  },
+  "BQ1066": {
+    "images": {
+      "Grey": 0,
+      "White": 1,
+      "All Black": 2,
+      "Black/White": 3
+    },
+    "views": {
+      "Grey": [
+        0,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "White": [
+        1
+      ],
+      "All Black": [
+        2
+      ],
+      "Black/White": [
+        3
+      ]
+    }
+  },
+  "BQ1067": {
+    "images": {
+      "Black": 0,
+      "Beige": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "Beige": [
+        1,
+        7
+      ]
     }
   }
 }

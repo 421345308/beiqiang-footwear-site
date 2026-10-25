@@ -18,7 +18,8 @@ export function productPhotoLabel(code: string, index: number, locale: string): 
   if (!photo) return null;
   if (photo.colour) {
     const colour = locale === "zh" ? colorZh(photo.colour) : photo.colour;
-    return photo.sourceCrop ? `${colour} · ${locale === "zh" ? "来源配色合照局部" : "Detail from supplier colour sheet"}` : colour;
+    const role = roles[photo.role]?.[locale === "zh" ? 0 : 1];
+    return photo.sourceCrop ? `${colour} · ${locale === "zh" ? "来源配色合照局部" : "Detail from supplier colour sheet"}` : `${colour}${role ? ` · ${role}` : ""}`;
   }
   return roles[photo.role]?.[locale === "zh" ? 0 : 1] ?? null;
 }

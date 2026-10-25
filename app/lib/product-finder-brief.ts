@@ -18,7 +18,7 @@ export function sanitizeProductFinderBrief(value: unknown): ProductFinderBrief |
   const raw = value as Partial<ProductFinderBrief>;
   if (!BUYER_CHANNELS.has(raw.buyerChannel as BuyerChannel) || !PRIORITIES.has(raw.priority as ProductPriority) || !CLOSURES.has(raw.closure as ClosurePreference)) return null;
   const styleCodes = Array.isArray(raw.styleCodes)
-    ? [...new Set(raw.styleCodes.map((code) => String(code).trim().toUpperCase()).filter((code) => /^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code)))].slice(0, 4)
+    ? [...new Set(raw.styleCodes.map((code) => String(code).trim().toUpperCase()).filter((code) => /^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code)))].slice(0, 4)
     : [];
   const mode = raw.mode === "human_review" ? "human_review" : "matched_shortlist";
   if (mode === "matched_shortlist" && !styleCodes.length) return null;
