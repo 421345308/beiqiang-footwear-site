@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./studio.css";
+import "./europe.css";
 import ConsentBanner from "./components/ConsentBanner";
 import ContextContactDock from "./components/ContextContactDock";
 

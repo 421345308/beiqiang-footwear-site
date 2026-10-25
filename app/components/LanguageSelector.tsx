@@ -1,24 +1,87 @@
-import Link from "next/link";
+"use client";
+import { useEffect, useState } from "react";
+import {
+  publicLocales,
+  basePublicPath,
+  supportsLocalePath,
+  localizedPath,
+  type PublicLocale,
+} from "../lib/public-locales";
 
-export default function LanguageSelector({ locale, alternateHref }: { locale: "en" | "zh"; alternateHref: string }) {
-  const chinese = locale === "zh";
+export default function LanguageSelector({
+  locale,
+  alternateHref,
+  path,
+}: {
+  locale: PublicLocale;
+  alternateHref?: string;
+  path?: string;
+}) {
+  const [current, setCurrent] = useState(
+    path || basePublicPath(alternateHref || "/"),
+  );
+  const [query, setQuery] = useState("");
+  useEffect(() => {
+    const refresh = () => {
+      setCurrent(basePublicPath(window.location.pathname));
+      setQuery(window.location.search + window.location.hash);
+    };
+    refresh();
+    window.addEventListener("popstate", refresh);
+    return () => window.removeEventListener("popstate", refresh);
+  }, [path, alternateHref]);
+  const label = {
+    en: "Language",
+    zh: "语言",
+    de: "Sprache",
+    fr: "Langue",
+    es: "Idioma",
+  }[locale];
+  function href(id: PublicLocale) {
+    return (
+      localizedPath(supportsLocalePath(current, id) ? current : "/", id) + query
+    );
+  }
   return (
-    <details className="language-selector">
-      <summary aria-label={chinese ? "选择网站语言，当前为简体中文" : "Choose website language, currently English"}>
-        <span aria-hidden="true">{chinese ? "语言" : "Language"}</span>
-        <strong>{chinese ? "中文" : "EN"}</strong>
+    <details
+      className="language-selector"
+      onToggle={(event) => {
+        if (event.currentTarget.open)
+          setQuery(window.location.search + window.location.hash);
+      }}
+    >
+      <summary aria-label={label}>
+        <span>{label}</span>
+        <strong>{locale.toUpperCase()}</strong>
       </summary>
-      <div className="language-selector-menu" aria-label={chinese ? "网站语言" : "Website language"}>
-        {chinese ? (
-          <>
-            <span aria-current="page"><b>简体中文</b><small>当前</small></span>
-            <Link href={alternateHref} hrefLang="en" lang="en"><b>English</b><small>EN</small></Link>
-          </>
-        ) : (
-          <>
-            <span aria-current="page"><b>English</b><small>Current</small></span>
-            <Link href={alternateHref} hrefLang="zh-CN" lang="zh-CN"><b>简体中文</b><small>ZH</small></Link>
-          </>
+      <div className="language-selector-menu" aria-label={label}>
+        {publicLocales.map((item) =>
+          item.id === locale ? (
+            <span key={item.id} aria-current="page">
+              <b>{item.label}</b>
+              <small>✓</small>
+            </span>
+          ) : (
+            <a
+              key={item.id}
+              href={href(item.id)}
+              hrefLang={item.hreflang}
+              lang={item.hreflang}
+            >
+              <b>{item.label}</b>
+              <small>
+                {supportsLocalePath(current, item.id)
+                  ? item.id.toUpperCase()
+                  : {
+                      en: "Home",
+                      zh: "首页",
+                      de: "Startseite",
+                      fr: "Accueil",
+                      es: "Inicio",
+                    }[item.id]}
+              </small>
+            </a>
+          ),
         )}
       </div>
     </details>

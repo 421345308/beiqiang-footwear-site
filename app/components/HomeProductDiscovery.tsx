@@ -6,10 +6,10 @@ import { useState } from "react";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { discoveryGroups, diverseProductPreview } from "../data/product-discovery";
-import { localizedPath, type PublicLocale } from "../lib/public-locales";
+import { localizedPath, type LegacyLocale } from "../lib/public-locales";
 import StudioProductCard from "./StudioProductCard";
 
-export default function HomeProductDiscovery({ products, locale }: { products: Product[]; locale: PublicLocale }) {
+export default function HomeProductDiscovery({ products, locale }: { products: Product[]; locale: LegacyLocale }) {
   const zh = locale === "zh";
   const t = (en: string, cn: string) => zh ? cn : en;
   const href = (path: string) => localizedPath(path, locale);

@@ -46,10 +46,10 @@ export function documentedSizes(product: Product): number[] {
   if (!range || +range[2] < +range[1] || +range[2] - +range[1] > 35) return [];
   return Array.from({ length: +range[2] - +range[1] + 1 }, (_, i) => +range[1] + i);
 }
-export function filterCatalog(products: Product[], state: CatalogSelection) {
+export function filterCatalog(products: Product[], state: CatalogSelection, localizedText?: (product: Product) => string) {
   const words = state.q.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
   return products.filter(p => {
-    const haystack = [p.code, p.name, productNameZh(p), p.group, p.upper, p.closure, ...p.colors, ...p.colors.map(colorZh)].join(" ").toLocaleLowerCase();
+    const haystack = [p.code, p.name, productNameZh(p), p.group, p.upper, p.closure, ...p.colors, ...p.colors.map(colorZh), localizedText?.(p) || ""].join(" ").toLocaleLowerCase();
     return words.every(word => haystack.includes(word)) && (!state.direction || productMatchesCatalogDirection(p, state.direction))
       && (!state.closure || p.closure === state.closure) && (!state.colour || Boolean(matchingColour(p, state.colour)))
       && (!state.size || documentedSizes(p).includes(+state.size));

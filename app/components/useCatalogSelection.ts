@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Product } from "../data/products";
 import { defaultSelection, filterCatalog, parseSelection, selectionParams, type CatalogSelection } from "../lib/catalog-selection";
 
-export function useCatalogSelection(products: Product[]) {
+export function useCatalogSelection(products: Product[], localizedText?: (product: Product) => string) {
   const [selection, setSelection] = useState(defaultSelection);
   useEffect(() => {
     const restore = () => setSelection(parseSelection(new URLSearchParams(window.location.search)));
@@ -17,6 +17,6 @@ export function useCatalogSelection(products: Product[]) {
     url.search = selectionParams(next, url.searchParams).toString();
     window.history.replaceState(window.history.state, "", url);
   }
-  const visible = useMemo(() => filterCatalog(products, selection), [products, selection]);
+  const visible = useMemo(() => filterCatalog(products, selection, localizedText), [products, selection, localizedText]);
   return { selection, update, reset: () => update(defaultSelection), visible, shown: visible.slice(0, selection.limit) };
 }

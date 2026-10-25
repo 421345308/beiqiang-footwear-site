@@ -9,10 +9,10 @@ import FactoryEvidenceVideo from "./FactoryEvidenceVideo";
 import HeroProductPreview from "./HeroProductPreview";
 import HomeProductDiscovery from "./HomeProductDiscovery";
 import { products } from "../data/products";
-import { localizedPath, type PublicLocale } from "../lib/public-locales";
+import { localizedPath, type LegacyLocale } from "../lib/public-locales";
 import { factoryVideoSchema } from "../lib/factory-video-schema";
 
-export default function BuyerHome({ locale = "en" }: { locale?: PublicLocale }) {
+export default function BuyerHome({ locale = "en" }: { locale?: LegacyLocale }) {
   const zh=locale === "zh";
   const t=(en: string, cn: string) => zh ? cn : en;
   const href=(path: string) => localizedPath(path,locale);

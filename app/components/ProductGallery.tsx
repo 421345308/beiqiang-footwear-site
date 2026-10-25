@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { PublicLocale } from "../lib/public-locales";
+import type { LegacyLocale } from "../lib/public-locales";
 import type { Product } from "../data/products";
 import { colourImage, colourOverview, colourViews, galleryImage } from "../lib/product-colours";
 import { colorZh } from "../data/products-zh";
 import { useProductColour } from "./ProductColourOptions";
 import { productPhotoLabel } from "../lib/product-photo-labels";
 
-export default function ProductGallery({ product, name, locale }: { product: Product; name: string; locale: PublicLocale }) {
+export default function ProductGallery({ product, name, locale }: { product: Product; name: string; locale: LegacyLocale }) {
   const images = product.images;
   const { id, colour } = useProductColour(product);
   const [manual, setManual] = useState<{id:string; index:number} | null>(null);

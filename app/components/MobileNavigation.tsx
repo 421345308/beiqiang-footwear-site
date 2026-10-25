@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { createPortal } from "react-dom";
+import LanguageSelector from "./LanguageSelector";
 import { trackEvent } from "../lib/tracking";
 import { productCount } from "../data/catalog-meta";
 
@@ -77,13 +79,13 @@ export default function MobileNavigation({ chineseHref = "/zh/" }: { chineseHref
 
   return <div className="mobile-navigation">
     <button ref={triggerRef} className="mobile-menu-trigger" type="button" aria-expanded={open} aria-controls="mobile-buyer-menu" aria-label={open ? "Close buyer menu" : "Open buyer menu"} onClick={() => open ? setOpen(false) : openMenu()}><span /><span /><span /></button>
-    {open && <div className="mobile-menu-layer"><button className="mobile-menu-backdrop" type="button" aria-label="Close buyer menu" onClick={() => setOpen(false)} /><div ref={dialogRef} id="mobile-buyer-menu" className="mobile-menu-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+    {open && createPortal(<div className="mobile-menu-layer"><button className="mobile-menu-backdrop" type="button" aria-label="Close buyer menu" onClick={() => setOpen(false)} /><div ref={dialogRef} id="mobile-buyer-menu" className="mobile-menu-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
       <header><div><small>BEIQIANG B2B</small><h2 id="mobile-menu-title">Buyer menu</h2></div><button type="button" aria-label="Close buyer menu" onClick={() => setOpen(false)}>×</button></header>
       <div className="mobile-menu-scroll">
-        <section className="mobile-language-choice"><h3>Language / 语言</h3><nav aria-label="Website language"><span aria-current="page"><b>English</b><small>Current</small></span><Link href={chineseHref} hrefLang="zh-CN" lang="zh-CN" onClick={() => follow("简体中文")}><span>简体中文</span><b aria-hidden="true">→</b></Link></nav></section>
-        {groups.map((group) => <section key={group.label}><h3>{group.label}</h3><nav aria-label={`${group.label} mobile navigation`}>{group.links.map(([label, href]) => <Link key={href} href={label === "简体中文" ? chineseHref : href} onClick={() => follow(label)}><span>{label}</span><b aria-hidden="true">→</b></Link>)}</nav></section>)}
+        <section className="mobile-language-choice"><LanguageSelector locale="en" alternateHref={chineseHref} /></section>
+        {groups.map((group) => <section key={group.label}><h3>{group.label}</h3><nav aria-label={`${group.label} mobile navigation`}>{group.links.map(([label, href]) => <Link key={href} href={href} onClick={() => follow(label)}><span>{label}</span><b aria-hidden="true">→</b></Link>)}</nav></section>)}
         <section className="mobile-menu-contact"><h3>Start a conversation</h3><Link className="button" href="/request-quote/" onClick={() => follow("request_quote")}>Build a quote request</Link><a href="https://wa.me/8618959805256" target="_blank" rel="noreferrer" onClick={() => follow("whatsapp")}>WhatsApp +86 189 5980 5256</a><a href="mailto:shepeiqiang@gmail.com" onClick={() => follow("email")}>shepeiqiang@gmail.com</a><p>Samples, specifications and commercial terms are confirmed before bulk orders.</p></section>
       </div>
-    </div></div>}
+    </div></div>, document.body)}
   </div>;
 }

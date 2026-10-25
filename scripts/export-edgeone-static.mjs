@@ -1,6 +1,6 @@
 import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import { productPageRoutes } from "../app/lib/public-locales.ts";
+import { productPageRoutes, publicLocales, europePages, basePublicPath, localizedPath, supportsLocalePath } from "../app/lib/public-locales.ts";
 import { collections } from "../app/data/products.ts";
 import { FINDER_STYLE_CODES } from "../edgeone-deploy/cloud-functions/api/catalog-style-codes.js";
 
@@ -64,7 +64,9 @@ const searchableCapabilitySlugs = capabilitySlugs.filter((slug) => slug !== "buy
 const capabilityRoutes = capabilitySlugs.map((slug) => ({ pathname: `/${slug}`, output: `${slug}/index.html` }));
 const chineseCapabilitySlugs = ["line-sheet", "factory", "quality-packing", "oem-odm", "private-label-concept", "product-finder", "sourcing-review", "sample-order-process", "buyer-guide"];
 const chineseCapabilityRoutes = chineseCapabilitySlugs.map((slug) => ({ pathname: `/zh/${slug}`, output: `zh/${slug}/index.html` }));
+const europeRoutes = publicLocales.filter(l => ["de","fr","es"].includes(l.id)).flatMap(l => europePages.map(path => ({pathname: localizedPath(path,l.id).replace(/\/$/, ""), output: `${localizedPath(path,l.id).slice(1)}index.html`, lang:l.hreflang})));
 const routes = [
+  ...europeRoutes,
   { pathname: "/release.json", output: "release.json" },
   { pathname: "/", output: "index.html" },
   { pathname: "/products", output: "products/index.html" },
@@ -109,9 +111,14 @@ for (const route of routes) {
   const outputFile = resolve(outputRoot, route.output);
   await mkdir(dirname(outputFile), { recursive: true });
   const renderedHtml = await response.text();
-  const localizedHtml = route.pathname === "/zh" || route.pathname.startsWith("/zh/")
-    ? renderedHtml.replace('<html lang="en">', '<html lang="zh-CN">')
-    : renderedHtml;
+  const language = publicLocales.find(l => l.prefix && (route.pathname === l.prefix || route.pathname.startsWith(l.prefix + "/")))?.hreflang || "en";
+  let localizedHtml = renderedHtml.replace('<html lang="en">', `<html lang="${language}">`);
+  // Every exported counterpart shares reciprocal alternates, including legacy pages.
+  const base = basePublicPath(route.pathname);
+  const counterparts = publicLocales.filter(l => supportsLocalePath(base,l.id));
+  if (route.pathname !== "/release.json" && !/\/(admin|buyer-workspace|inquiry-status)(\/|$)/.test(route.pathname)) {
+    localizedHtml = localizedHtml.replace(/<link[^>]+rel="alternate"[^>]*>/gi, "").replace("</head>", counterparts.map(l => `<link rel="alternate" hrefLang="${l.hreflang}" href="${siteOrigin}${localizedPath(base,l.id)}"/>`).join("") + `<link rel="alternate" hrefLang="x-default" href="${siteOrigin}${localizedPath(base,"en")}"/></head>`);
+  }
   await writeFile(outputFile, localizedHtml, "utf8");
 }
 
@@ -204,6 +211,8 @@ await writeFile(
   "utf8",
 );
 const sitemapUrls = [
+  ...europeRoutes.map(route => ({path: route.pathname + "/", frequency: "monthly", priority: "0.7"})),
+  ...productRoutes.filter(route => ["de","fr","es"].includes(route.locale)).map(route => ({path:route.pathname + "/", frequency:"monthly", priority:"0.7"})),
   { path: "/", frequency: "weekly", priority: "1.0" },
   { path: "/products/", frequency: "weekly", priority: "0.9" },
   { path: "/resources/", frequency: "weekly", priority: "0.8" },
@@ -245,22 +254,15 @@ const escapeXml = (value) => value
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&apos;");
-const englishPath = (path) => path === "/zh/" ? "/" : path.startsWith("/zh/") ? path.slice(3) : path;
-const chinesePath = (path) => path === "/" ? "/zh/" : `/zh${path}`;
 const sitemapPathSet = new Set(sitemapUrls.map((url) => url.path));
 const renderSitemapUrl = (url) => {
-  const enPath = englishPath(url.path);
-  const zhPath = chinesePath(enPath);
-  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq(?:\d{3,4}|-[a-z0-9-]+))\/$/);
+  const enPath = basePublicPath(url.path);
+
+  const productMatch = url.path.match(/^\/(?:(?:zh|de|fr|es)\/)?products\/(bq(?:\d{3,4}|-[a-z0-9-]+))\/$/);
   const isChinese = url.path.startsWith("/zh/");
   const isFactory = url.path === "/factory/" || url.path === "/zh/factory/";
-  const alternates = sitemapPathSet.has(enPath) && sitemapPathSet.has(zhPath)
-    ? [
-        `<xhtml:link rel="alternate" hreflang="en" href="${siteOrigin}${enPath}" />`,
-        `<xhtml:link rel="alternate" hreflang="zh-CN" href="${siteOrigin}${zhPath}" />`,
-        `<xhtml:link rel="alternate" hreflang="x-default" href="${siteOrigin}${enPath}" />`,
-      ]
-    : [];
+  const alternates = publicLocales.filter(l => sitemapPathSet.has(localizedPath(enPath,l.id))).map(l => `<xhtml:link rel="alternate" hreflang="${l.hreflang}" href="${siteOrigin}${localizedPath(enPath,l.id)}" />`);
+  if (sitemapPathSet.has(enPath)) alternates.push(`<xhtml:link rel="alternate" hreflang="x-default" href="${siteOrigin}${enPath}" />`);
   const images = productMatch
     ? (productImages.get(productMatch[1]) || []).map((image) => `<image:image><image:loc>${escapeXml(image)}</image:loc></image:image>`)
     : [];

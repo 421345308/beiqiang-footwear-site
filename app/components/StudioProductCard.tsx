@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import { productMediaUrl } from "../lib/product-media-url";
 import type { Product } from "../data/products";
 import { closureZh, productNameZh } from "../data/products-zh";
-import { localizedPath, type PublicLocale } from "../lib/public-locales";
+import { localizedPath, type LegacyLocale } from "../lib/public-locales";
 import AddToQuoteButton from "./AddToQuoteButton";
 import { CollectionProductLink } from "./CollectionTracking";
 import ProductColourOptions, { useProductColour } from "./ProductColourOptions";
 import { colourImage, galleryImage, withColour } from "../lib/product-colours";
 
-export default function StudioProductCard({ product, locale = "en", collectionSlug, preferredColour = "" }: { product: Product; locale?: PublicLocale; collectionSlug?: string; preferredColour?: string }) {
+export default function StudioProductCard({ product, locale = "en", collectionSlug, preferredColour = "" }: { product: Product; locale?: LegacyLocale; collectionSlug?: string; preferredColour?: string }) {
   const zh = locale === "zh";
   const name = zh ? productNameZh(product) : product.name;
   const { id, colour, select } = useProductColour(product);

@@ -29,7 +29,7 @@ export default function ContextContactDock() {
     return () => observer.disconnect();
   }, [pathname]);
 
-  if (!shouldShowContextContact(pathname)) return null;
+  if (/^\/(de|fr|es)(\/|$)/.test(pathname) || !shouldShowContextContact(pathname)) return null;
   const links = buildContextContactLinks(pathname);
   const context = pathname.slice(0, 80);
   return (

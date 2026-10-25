@@ -6,9 +6,9 @@ import ChineseSiteFooter from "./ChineseSiteFooter";
 import ProductCatalog from "./ProductCatalog";
 import ChineseProductCatalog from "./ChineseProductCatalog";
 import { products } from "../data/products";
-import { localizedPath, type PublicLocale } from "../lib/public-locales";
+import { localizedPath, type LegacyLocale } from "../lib/public-locales";
 
-export default function CatalogPage({ locale = "en" }: { locale?: PublicLocale }) {
+export default function CatalogPage({ locale = "en" }: { locale?: LegacyLocale }) {
   const zh=locale === "zh";
   const t=(en: string, cn: string) => zh ? cn : en;
   return <main lang={zh ? "zh-CN" : "en"} className="studio-page studio-catalog">

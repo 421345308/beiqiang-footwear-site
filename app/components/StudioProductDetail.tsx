@@ -5,7 +5,7 @@ import type { Product } from "../data/products";
 import { products } from "../data/products";
 import { productNameZh, productSummaryZh, factZh, closureZh, colorZh } from "../data/products-zh";
 import { supplyMode } from "../data/published-product-codes";
-import { localizedPath, siteOrigin, type PublicLocale } from "../lib/public-locales";
+import { localizedPath, siteOrigin, type LegacyLocale } from "../lib/public-locales";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import ChineseSiteHeader from "./ChineseSiteHeader";
@@ -20,7 +20,7 @@ import ProductBuyingGuide from "./ProductBuyingGuide";
 import { getRelatedProducts } from "../lib/product-buying-guide";
 import ProductColourOptions from "./ProductColourOptions";
 
-export default function StudioProductDetail({ product, locale = "en" }: { product: Product; locale?: PublicLocale }) {
+export default function StudioProductDetail({ product, locale = "en" }: { product: Product; locale?: LegacyLocale }) {
   const zh=locale === "zh";
   const t=(en: string, cn: string) => zh ? cn : en;
   const href=(path: string) => localizedPath(path,locale);
