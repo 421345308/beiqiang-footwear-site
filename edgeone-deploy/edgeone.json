@@ -1,4 +1,7 @@
 {
+  "outputDirectory": "dist",
+  "installCommand": "npm ci --prefix ..",
+  "buildCommand": "npm run build",
   "redirects": [
     {
       "source": "/index.html",
