@@ -379,7 +379,7 @@
       "role": "side"
     },
     {
-      "role": "on-foot"
+      "role": "pair"
     }
   ],
   "BQ016": [
@@ -475,7 +475,7 @@
       "colour": "Light Grey"
     },
     {
-      "role": "outsole"
+      "role": "pair"
     },
     {
       "role": "top"

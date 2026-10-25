@@ -887,7 +887,7 @@
         "sourceFile": "主图 (104).JPG",
         "sourceSha256": "2af0d1c748753f484e6612b9c319b4b1153954622c844a408f4ce214bfbff76f",
         "outputSha256": "64237022a050477c769b477c6ea89050ea53cc5aaabf1e9eab0712e06030fb9b",
-        "role": "on-foot"
+        "role": "pair"
       }
     ],
     "BQ016": [
@@ -1108,7 +1108,7 @@
         "sourceFile": "10.jpg",
         "sourceSha256": "49c15a3cdf61418b0e27b3f1ea032623f647a9f64c2acfa968ae6426d7b2103d",
         "outputSha256": "1798c4fd031b03c3c2d27f414490afee671d0dc708f420d970166add9c888b2b",
-        "role": "outsole"
+        "role": "pair"
       },
       {
         "image": "/catalog/bq019/04_sole.jpg",
