@@ -190,6 +190,8 @@ export default function ChineseProductCatalog({
             <option value="high_top">高帮 / 袜套款</option>
             <option value="kids">儿童鞋</option>
             <option value="large_size">扩展尺码款</option>
+            <option value="clogs-and-vented-shoes">洞洞鞋与镂空鞋</option>
+            <option value="mule-shoes">搭扣穆勒鞋</option>
             <option value="fleece">可选加绒款</option>
           </select>
         </label>

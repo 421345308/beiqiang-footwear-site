@@ -82,7 +82,7 @@ function safeProducts(value) {
       quoteAdds: safeNumber(item?.quoteAdds),
       inquiries: safeNumber(item?.inquiries),
     }))
-    .filter((item) => /^BQ(?:\d{3}|-LQ(?:059|060|2597))$/.test(item.code));
+    .filter((item) => /^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(item.code));
 }
 function safeComparisons(value) {
   return (Array.isArray(value) ? value : [])
@@ -93,7 +93,7 @@ function safeComparisons(value) {
           String(item?.codes || "")
             .split(/[·,]/)
             .map((code) => code.trim().toUpperCase())
-            .filter((code) => /^BQ(?:\d{3}|-LQ(?:059|060|2597))$/.test(code)),
+            .filter((code) => /^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code)),
         ),
       ]
         .slice(0, 4)

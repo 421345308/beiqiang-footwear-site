@@ -63,7 +63,7 @@ function buyerSafeSourcingReview(record, buyerRecommendation) {
   const priorities = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
   const closures = new Set(["any", "Slip-On", "Lace-Up"]);
   const startingStyles = Array.isArray(brief.styleCodes)
-    ? [...new Set(brief.styleCodes.map((code) => String(code).trim().toUpperCase()).filter((code) => /^BQ(?:\d{3}|-LQ(?:059|060|2597))$/.test(code)))].slice(0, 4)
+    ? [...new Set(brief.styleCodes.map((code) => String(code).trim().toUpperCase()).filter((code) => /^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code)))].slice(0, 4)
     : [];
   const hasVisibleShortlist = buyerRecommendation && ["issued", "buyer_shortlisted", "revision_requested"].includes(buyerRecommendation.status);
   return {

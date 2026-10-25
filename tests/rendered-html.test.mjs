@@ -114,9 +114,9 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Fleece-lined options/i);
   assert.match(html, /collections\/kids-shoes\//i);
   assert.match(html, /collections\/fleece-lined-shoes\//i);
-  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?34/i);
+  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?37/i);
   assert.match(html, /Show more products/i);
-  assert.match(html, /Browse all\s*(?:<!-- -->)?34(?:<!-- -->)?\s*current product codes/i);
+  assert.match(html, /Browse all\s*(?:<!-- -->)?37(?:<!-- -->)?\s*current product codes/i);
   assert.match(html, /studio-card/);
   assert.match(html, /EU 36-46/);
   assert.match(html, /BQ-LQ2597/);
@@ -133,8 +133,8 @@ test("server-renders the gated current line-sheet lead path", async () => {
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /34(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
-  assert.match(html, /Unlock the 34-style PDF/i);
+  assert.match(html, /37(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
+  assert.match(html, /Unlock the 37-style PDF/i);
   assert.match(html, /product-discovery document, not a quotation/i);
   assert.doesNotMatch(
     html,

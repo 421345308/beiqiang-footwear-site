@@ -159,7 +159,7 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         c.setFont(CN_FONT, 7.2)
         c.drawString(facts_x, y + card_h - 8 * mm, product["closureZh"])
         paragraph(c, f'<b>鞋面：</b>{product["upperZh"]}', facts_x, y + 35 * mm, facts_w, 9 * mm, 6.4, 7.8, INK)
-        paragraph(c, f'<b>尺码：</b>{product["sizeZh"]}', facts_x, y + 26 * mm, facts_w, 7 * mm, 6.4, 7.8, INK)
+        paragraph(c, f'<b>尺码标签：</b>{product["sizeZh"]}', facts_x, y + 28 * mm, facts_w, 7 * mm, 6.4, 7.8, INK)
         colors_text = "、".join(product["colorsZh"][:3]) + ("……" if len(product["colorsZh"]) > 3 else "")
         paragraph(c, f'<b>颜色：</b>{colors_text}', facts_x, y + 22 * mm, facts_w, 8 * mm, 6.1, 7.3, INK)
         confirm = "；".join(product["confirmBeforeQuoteZh"][:2])

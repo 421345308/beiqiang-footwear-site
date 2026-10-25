@@ -12,9 +12,9 @@ async function render(path) {
 }
 
 test('public supply matches the reviewed raw-package register, not image folders', () => {
-  assert.equal(products.length, 34);
+  assert.equal(products.length, 37);
   assert.equal(FACTORY_SOURCE_CODES.size, 31);
-  assert.equal(EXTERNAL_SOURCE_CODES.size, 3);
+  assert.equal(EXTERNAL_SOURCE_CODES.size, 6);
   assert.equal(heldSourceProducts.length, 25);
   assert.deepEqual(new Set(products.map(p => p.code)), PUBLISHED_PRODUCT_CODES);
   assert.deepEqual(FINDER_STYLE_CODES, PUBLISHED_PRODUCT_CODES);

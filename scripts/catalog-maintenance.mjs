@@ -19,7 +19,7 @@ function fail(message) {
 
 async function scanImages() {
   const directories = (await readdir(catalogRoot, { withFileTypes: true }))
-    .filter((entry) => entry.isDirectory() && /^bq(?:\d{3}|-lq(?:059|060|2597))$/.test(entry.name))
+    .filter((entry) => entry.isDirectory() && /^bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858))$/.test(entry.name))
     .map((entry) => entry.name)
     .sort();
   const manifest = {};
@@ -69,7 +69,7 @@ const [{ products, collections }, { productNameZh }] = await Promise.all([
 const collectionSlugs = new Set(collections.map((collection) => collection.slug));
 const codes = new Set(); const slugs = new Set(); const sourceModels = new Set();
 for (const product of products) {
-  if (!/^BQ(?:\d{3}|-LQ(?:059|060|2597))$/.test(product.code)) fail(`${product.code || "unknown product"} must use a registered Beiqiang product code.`);
+  if (!/^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(product.code)) fail(`${product.code || "unknown product"} must use a registered Beiqiang product code.`);
   if (product.slug !== product.code.toLowerCase()) fail(`${product.code} slug must be ${product.code.toLowerCase()}.`);
   if (codes.has(product.code) || slugs.has(product.slug)) fail(`${product.code} duplicates an existing code or slug.`);
   if (!String(product.sourceModel || "").trim()) fail(`${product.code} is missing its source model.`);

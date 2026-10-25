@@ -12,7 +12,7 @@ async function filesBelow(directory, suffix) {
 }
 
 test("keeps a complete product-aligned WebP thumbnail set", async () => {
-  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3}|-lq(?:059|060|2597))\.webp$/.test(name)).sort();
+  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858))\.webp$/.test(name)).sort();
   assert.deepEqual(files, [...products, ...heldSourceProducts].map((product) => `${product.slug}.webp`).sort());
   for (const file of files) {
     const header = await readFile(new URL(file, root));
@@ -22,7 +22,7 @@ test("keeps a complete product-aligned WebP thumbnail set", async () => {
 });
 
 test("keeps catalogue thumbnails inside the commercial page-weight budget", async () => {
-  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3}|-lq(?:059|060|2597))\.webp$/.test(name));
+  const files = (await readdir(root)).filter((name) => /^bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858))\.webp$/.test(name));
   const sizes = await Promise.all(files.map((file) => stat(new URL(file, root))));
   const total = sizes.reduce((sum, item) => sum + item.size, 0);
   assert.equal(Math.max(...sizes.map((item) => item.size)) <= 120 * 1024, true, "one thumbnail exceeds 120 KB");

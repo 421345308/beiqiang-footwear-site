@@ -152,7 +152,7 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         c.setFont("Helvetica-Bold", 7.2)
         c.drawString(facts_x, y + card_h - 8 * mm, product["closure"].upper())
         paragraph(c, f'<b>Upper:</b> {product["upper"]}', facts_x, y + 35 * mm, facts_w, 9 * mm, 6.5, 7.8, INK)
-        paragraph(c, f'<b>Size:</b> {product["size"]}', facts_x, y + 26 * mm, facts_w, 7 * mm, 6.5, 7.8, INK)
+        paragraph(c, f'<b>Size labels:</b> {product["size"]}', facts_x, y + 28 * mm, facts_w, 7 * mm, 6.5, 7.8, INK)
         colors_text = ", ".join(product["colors"][:3]) + ("..." if len(product["colors"]) > 3 else "")
         paragraph(c, f'<b>Colors:</b> {colors_text}', facts_x, y + 22 * mm, facts_w, 8 * mm, 6.2, 7.3, INK)
         confirm = "; ".join(product["confirmBeforeQuote"][:2])

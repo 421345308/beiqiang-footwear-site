@@ -17,6 +17,8 @@ const links = [
   ["儿童鞋产品系列", "/zh/collections/kids-shoes/"],
   ["扩展尺码产品系列", "/zh/collections/extended-size-shoes/"],
   ["加绒产品方向", "/zh/collections/fleece-lined-shoes/"],
+  ["洞洞鞋与镂空鞋", "/zh/collections/clogs-and-vented-shoes/"],
+  ["搭扣穆勒鞋", "/zh/collections/mule-shoes/"],
   ["采购知识与清单", "/zh/resources/"],
   ["步行鞋批发方案", "/zh/solutions/wholesale-walking-shoes/"],
   ["私标步行鞋方案", "/zh/solutions/private-label-walking-shoes/"],

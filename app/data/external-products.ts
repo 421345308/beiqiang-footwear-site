@@ -5,6 +5,134 @@ const gallery = (slug: string) => ["01_main", "02_view", "03_view", "04_view"].m
 // Website projection of the product-centre records, reviewed 2026-10-25.
 // Material chemistry and performance are not inferred from photographs.
 export const externalProducts: Product[] = [
+{
+  "code": "BQ-C2627",
+  "sizeNote": "Each paired label is one size option; confirm sample insole length before market-size conversion.",
+  "sourceModel": "2627BSK",
+  "name": "Platform Clogs with Pivot Heel Strap",
+  "shortDescription": "Closed-toe clogs with ventilation openings, a raised sole profile and a pivoting heel strap. Five photographed color options.",
+  "group": "Clogs and Vented Casual Shoes",
+  "closure": "Slip-On",
+  "upper": "EVA upper",
+  "sole": "Material to be confirmed",
+  "size": "35–36 / 37–38 / 39–40",
+  "colors": [
+    "Blue",
+    "Khaki",
+    "Beige",
+    "Light Pink",
+    "Black"
+  ],
+  "collections": [
+    "clogs-and-vented-shoes"
+  ],
+  "fitEvidence": "unconfirmed",
+  "tier": "New",
+  "buyerFit": "Casual footwear retailers and seasonal assortment buyers",
+  "highlights": [
+    "Pivoting heel strap",
+    "Vented upper and raised sole profile",
+    "Three paired size labels"
+  ],
+  "confirmBeforeQuote": [
+    "Paired size labels and sample insole length",
+    "Separate outsole and lining specifications",
+    "Color and size quantities",
+    "Branding, packing and delivery requirements"
+  ],
+  "alibabaProductId": "1601969885846",
+  "slug": "bq-c2627",
+  "images": [
+    "/catalog/bq-c2627/01_main.jpg",
+    "/catalog/bq-c2627/02_view.jpg",
+    "/catalog/bq-c2627/03_view.jpg",
+    "/catalog/bq-c2627/04_view.jpg"
+  ]
+},
+{
+  "code": "BQ-CA67",
+  "sizeNote": "Each paired label is one size option; confirm sample insole length before market-size conversion.",
+  "sourceModel": "A67",
+  "name": "Closed-Heel Vented Slip-On Shoes",
+  "shortDescription": "EVA-upper casual shoes with a covered heel, side openings and moulded lace-look detailing. The lace-look detail is not adjustable lacing.",
+  "group": "Clogs and Vented Casual Shoes",
+  "closure": "Slip-On",
+  "upper": "EVA upper",
+  "sole": "Material to be confirmed",
+  "size": "36–37 / 38–39 / 40–41 / 42–43 / 44–45",
+  "colors": [
+    "Black",
+    "Grey",
+    "Khaki"
+  ],
+  "collections": [
+    "clogs-and-vented-shoes"
+  ],
+  "fitEvidence": "unconfirmed",
+  "tier": "New",
+  "buyerFit": "Casual footwear retailers and seasonal assortment buyers",
+  "highlights": [
+    "Covered heel and side openings",
+    "Moulded lace-look detail; slip-on construction",
+    "Five paired size labels"
+  ],
+  "confirmBeforeQuote": [
+    "Paired size labels and sample insole length",
+    "Separate outsole and lining specifications",
+    "Color and size quantities",
+    "Branding, packing and delivery requirements"
+  ],
+  "alibabaProductId": "1601969861694",
+  "slug": "bq-ca67",
+  "images": [
+    "/catalog/bq-ca67/01_main.jpg",
+    "/catalog/bq-ca67/02_view.jpg",
+    "/catalog/bq-ca67/03_view.jpg",
+    "/catalog/bq-ca67/04_view.jpg"
+  ]
+},
+{
+  "code": "BQ-M858",
+  "sizeNote": "Supplier size labels; confirm sample insole length before market-size conversion.",
+  "sourceModel": "K858",
+  "name": "Buckle Mules with Suede-Effect Upper",
+  "shortDescription": "Closed-toe, open-heel mules with a buckle strap and a suede-effect upper. Available in photographed black, sand and brown options.",
+  "group": "Buckle Mule Shoes",
+  "closure": "Slip-On",
+  "upper": "Suede-effect upper; composition to be confirmed",
+  "sole": "Material to be confirmed",
+  "size": "35–45",
+  "colors": [
+    "Black",
+    "Sand",
+    "Brown"
+  ],
+  "collections": [
+    "mule-shoes"
+  ],
+  "fitEvidence": "unconfirmed",
+  "tier": "New",
+  "buyerFit": "Casual footwear retailers and mule assortment buyers",
+  "highlights": [
+    "Closed toe and open heel",
+    "Buckle strap with visible adjustment holes",
+    "Supplier size labels 35–45"
+  ],
+  "confirmBeforeQuote": [
+    "Supplier size labels and sample insole length",
+    "Upper composition, footbed and outsole materials",
+    "Color and size quantities",
+    "Branding, packing and delivery requirements"
+  ],
+  "alibabaProductId": "1601969853888",
+  "slug": "bq-m858",
+  "images": [
+    "/catalog/bq-m858/01_main.jpg",
+    "/catalog/bq-m858/02_view.jpg",
+    "/catalog/bq-m858/03_view.jpg",
+    "/catalog/bq-m858/04_view.jpg"
+  ]
+},
   {
     code: "BQ-LQ059", slug: "bq-lq059", sourceModel: "059",
     name: "Panelled Lace-Up Casual Shoes",

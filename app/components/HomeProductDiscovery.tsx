@@ -15,7 +15,7 @@ export default function HomeProductDiscovery({ products, locale }: { products: P
   const groups = discoveryGroups(products);
   const [selected, setSelected] = useState<string>("all");
   const active = groups.find(group => group.slug === selected);
-  const shown = active ? active.products.slice(0, 8) : diverseProductPreview(products);
+  const shown = active ? active.products.slice(0, 9) : diverseProductPreview(products);
   const count = active ? active.products.length : products.length;
   const destination = active ? href(`/collections/${active.slug}`) : href("/products");
 

@@ -90,7 +90,7 @@ function comparisonCodes(value) {
       String(value || "")
         .split(",")
         .map((code) => code.trim().toUpperCase())
-        .filter((code) => /^BQ(?:\d{3}|-LQ(?:059|060|2597))$/.test(code)),
+        .filter((code) => /^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code)),
     ),
   ]
     .slice(0, 4)

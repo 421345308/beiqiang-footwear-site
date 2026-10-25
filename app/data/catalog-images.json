@@ -1,4 +1,16 @@
 {
+  "bq-c2627": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view"
+  ],
+  "bq-ca67": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view"
+  ],
   "bq-lq059": [
     "01_main",
     "02_view",
@@ -12,6 +24,12 @@
     "04_view"
   ],
   "bq-lq2597": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view"
+  ],
+  "bq-m858": [
     "01_main",
     "02_view",
     "03_view",

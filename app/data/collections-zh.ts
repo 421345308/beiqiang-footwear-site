@@ -14,6 +14,34 @@ export type ChineseCollection = {
 };
 
 export const chineseCollections: ChineseCollection[] = [
+{
+  "slug": "clogs-and-vented-shoes",
+  "name": "洞洞鞋与镂空鞋",
+  "title": "洞洞鞋与包跟镂空休闲鞋批发选款",
+  "description": "比较后跟带洞洞鞋和包跟镂空鞋，按鞋型结构、配色及双码标签选择款式。",
+  "buyerIntent": "为现有产品组合补充模压休闲鞋的零售商与批发商。",
+  "proofBoundary": "EVA仅指来源资料确认的鞋面材料；外底材质、防滑表现及涉水适用性须另行确认。双码标签需结合样品长度核对。",
+  "faq": [
+    {
+      "question": "35–36这样的标签是否代表两个独立尺码？",
+      "answer": "不是。35–36是供应商的一组双码标签，对应一个尺码选项。采购前需核对样品鞋垫长度与销售市场的尺码表。"
+    }
+  ]
+},
+{
+  "slug": "mule-shoes",
+  "name": "搭扣穆勒鞋",
+  "title": "包头后空搭扣穆勒鞋批发选款",
+  "description": "浏览绒面效果鞋面与搭扣结构的后空穆勒鞋，比较黑色、沙色和棕色实拍配色。",
+  "buyerIntent": "希望补充后空休闲鞋产品组合的零售商与批发商。",
+  "proofBoundary": "绒面效果与软木外观不代表已确认真皮或软木成分。材料、合脚程度、可供情况及订单条件按具体款式确认。",
+  "faq": [
+    {
+      "question": "这款鞋面是真皮反绒吗？",
+      "answer": "目前来源资料只足以确认绒面效果，不能据此判断真皮成分。采购前需通过材料规格与样品进一步确认。"
+    }
+  ]
+},
   {
     slug: "wide-toe-box",
     name: "宽鞋头系列",

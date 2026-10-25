@@ -13,7 +13,9 @@ export type CollectionSlug =
   | "high-top-shoes"
   | "kids-shoes"
   | "extended-size-shoes"
-  | "fleece-lined-shoes";
+  | "fleece-lined-shoes"
+  | "clogs-and-vented-shoes"
+  | "mule-shoes";
 
 export type Product = {
   code: string;
@@ -26,6 +28,7 @@ export type Product = {
   upper: string;
   sole: string;
   size: string;
+  sizeNote?: string;
   colors: string[];
   collections: CollectionSlug[];
   fitEvidence?: "wide_toe_verified" | "regular_fit" | "unconfirmed";
@@ -921,6 +924,38 @@ export type ProductCollection = {
 };
 
 export const collections: ProductCollection[] = [
+{
+  "slug": "clogs-and-vented-shoes",
+  "direction": "clogs-and-vented-shoes",
+  "name": "Clogs & Vented Shoes",
+  "title": "Clogs and vented casual shoes for wholesale sourcing",
+  "description": "Compare pivot-strap clogs and closed-heel vented shoes, with distinct constructions, colors and paired size labels.",
+  "buyerIntent": "Retailers and wholesalers adding moulded casual footwear to an existing range.",
+  "selectionBasis": "The listed products have photographed ventilation openings and source-recorded EVA uppers. Heel construction differs by style.",
+  "proofBoundary": "EVA describes the recorded upper only. Separate outsole materials, slip resistance and water-use suitability are not established. Confirm size labels against sample measurements.",
+  "faq": [
+    {
+      "question": "Are paired size labels separate sizes?",
+      "answer": "No. A label such as 35\u201336 is one supplier size option. Confirm the sample insole length and your market size chart before ordering."
+    }
+  ]
+},
+{
+  "slug": "mule-shoes",
+  "direction": "mule-shoes",
+  "name": "Buckle Mules",
+  "title": "Closed-toe buckle mule shoes for wholesale sourcing",
+  "description": "Review an open-heel mule with a suede-effect upper, buckle detail and three photographed neutral colors.",
+  "buyerIntent": "Retailers and wholesalers reviewing open-heel casual footwear for their assortment.",
+  "selectionBasis": "The collection is defined by its closed toe, open heel and photographed buckle construction.",
+  "proofBoundary": "Suede-effect and cork-look surfaces do not establish genuine leather or cork composition. Materials, fit, availability and order terms require confirmation.",
+  "faq": [
+    {
+      "question": "Is the upper genuine suede?",
+      "answer": "The source describes a suede-like surface, but does not establish its material composition. Confirm the upper composition on the specification and sample before ordering."
+    }
+  ]
+},
   {
     slug: "wide-toe-box",
     direction: "wide-toe-box",

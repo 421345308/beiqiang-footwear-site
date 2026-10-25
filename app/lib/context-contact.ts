@@ -31,7 +31,7 @@ export function shouldShowContextContact(pathname: string) {
 
 export function describeContactPage(pathname: string, zh: boolean) {
   const path = cleanPublicPath(pathname).replace(/^\/zh(?=\/|$)/, "") || "/";
-  const product = path.match(/^\/products\/(bq(?:\d{3}|-lq(?:059|060|2597)))\/?$/i);
+  const product = path.match(/^\/products\/(bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858)))\/?$/i);
   if (product) return zh ? `产品 ${product[1].toUpperCase()} 页面` : `product ${product[1].toUpperCase()} page`;
   const collection = path.match(/^\/collections\/([^/]+)\/?$/i)?.[1];
   if (collectionLabels[collection || ""]) return collectionLabels[collection!][zh ? 1 : 0];

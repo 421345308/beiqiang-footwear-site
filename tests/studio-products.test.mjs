@@ -8,12 +8,34 @@ import { validateInquiry } from '../edgeone-deploy/cloud-functions/api/inquiries
 import { SITE_RELEASE } from '../app/data/site-release.ts';
 import { discoveryGroups, diverseProductPreview } from '../app/data/product-discovery.ts';
 import { productsInCollection } from '../app/data/products.ts';
+import { getProductBuyingGuide, getRelatedProducts } from '../app/lib/product-buying-guide.ts';
+import { factZh } from '../app/data/products-zh.ts';
+
+test('moulded and mule styles preserve source size labels and construction boundaries', () => {
+  const clog=products.find(p=>p.code==='BQ-C2627');
+  const covered=products.find(p=>p.code==='BQ-CA67');
+  const mule=products.find(p=>p.code==='BQ-M858');
+  assert.equal(clog.size.split(' / ').length,3);
+  assert.equal(covered.size.split(' / ').length,5);
+  assert.equal(covered.closure,'Slip-On');
+  assert.match(covered.shortDescription,/not adjustable lacing/);
+  assert.match(getProductBuyingGuide(clog).shape,/one size option/);
+  assert.match(getProductBuyingGuide(mule).shape,/do not establish material composition/);
+  assert.deepEqual(productsInCollection('clogs-and-vented-shoes').map(p=>p.code),[clog.code,covered.code]);
+  assert.deepEqual(productsInCollection('mule-shoes').map(p=>p.code),[mule.code]);
+  assert.deepEqual(new Set(getRelatedProducts(mule,products).map(p=>p.code)),new Set([clog.code,covered.code]));
+  for(const p of [clog,covered,mule]) {
+    assert.equal(p.sole,'Material to be confirmed');
+    assert.doesNotMatch(p.size,/EU|US|UK/);
+    for(const fact of [p.sizeNote,p.upper,...p.highlights,...p.confirmBeforeQuote]) assert.match(factZh(fact),/[\u4e00-\u9fff]/);
+  }
+});
 
 test('homepage categories use the same inventory as landing pages and representative photos belong to that range', () => {
   const groups = discoveryGroups(products);
   const preview = diverseProductPreview(products);
   assert.equal(new Set(preview.map(p => p.code)).size, preview.length);
-  assert.ok(preview.length <= 8);
+  assert.ok(preview.length <= 9);
   for (const group of groups) {
     assert.deepEqual(group.products.map(p => p.code), productsInCollection(group.slug).map(p => p.code));
     assert.ok(group.products.some(p => p.slug === group.cover), group.slug);

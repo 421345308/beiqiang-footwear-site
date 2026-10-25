@@ -1,6 +1,10 @@
 import type { Product } from "./products";
 
 const names: Record<string, string> = {
+  "BQ-C2627": "厚底后跟带洞洞鞋",
+  "BQ-CA67": "包跟镂空套穿休闲鞋",
+  "BQ-M858": "绒面效果搭扣穆勒鞋",
+
   "BQ-LQ059": "拼接鞋面系带休闲鞋",
   "BQ-LQ060": "网面拼接系带休闲鞋",
   "BQ-LQ2597": "宽鞋头网面系带休闲鞋",
@@ -63,6 +67,9 @@ const names: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
+  "Khaki": "卡其色",
+  "Light Pink": "浅粉色",
+  "Sand": "沙色",
   "White Red": "白红",
   "Black Brown": "黑棕",
   "Black Grey": "黑灰",
@@ -207,6 +214,24 @@ export function colorZh(color: string) {
 }
 export function factZh(value: string) {
   const exact: Record<string, string> = {
+    "Each paired label is one size option; confirm sample insole length before market-size conversion.": "每组双码标签对应一个尺码选项；转换销售市场尺码前，请先核对样品鞋垫长度。",
+    "Supplier size labels; confirm sample insole length before market-size conversion.": "此处为供应商尺码标签；转换销售市场尺码前，请先核对样品鞋垫长度。",
+    "EVA upper": "EVA鞋面",
+    "Pivoting heel strap": "可转动后跟带",
+    "Vented upper and raised sole profile": "镂空鞋面与厚底轮廓",
+    "Three paired size labels": "三组双码标签",
+    "Covered heel and side openings": "包跟结构与侧面开孔",
+    "Moulded lace-look detail; slip-on construction": "模压仿鞋带装饰；套穿结构",
+    "Five paired size labels": "五组双码标签",
+    "Closed toe and open heel": "包头后空结构",
+    "Buckle strap with visible adjustment holes": "带调节孔的搭扣饰带",
+    "Supplier size labels 35\u201345": "供应商标注尺码35–45",
+    "Suede-effect upper; composition to be confirmed": "绒面效果鞋面；材料成分待确认",
+    "Paired size labels and sample insole length": "双码标签与样品鞋垫长度",
+    "Supplier size labels and sample insole length": "供应商尺码标签与样品鞋垫长度",
+    "Separate outsole and lining specifications": "外底及内里各自的材料规格",
+    "Upper composition, footbed and outsole materials": "鞋面成分、鞋床与外底材料",
+
     "Color and size quantities": "颜色、尺码及对应数量",
     "Material specifications and sample fit": "材料规格与样品合脚程度",
     "Branding, packing and delivery requirements": "品牌标识、包装与交付要求",
@@ -234,6 +259,10 @@ export function closureZh(value: Product["closure"]) {
 }
 export function productSummaryZh(product: Product) {
   const descriptions: Record<string, string> = {
+  "BQ-C2627": "包头镂空鞋面，搭配厚底轮廓和可转动后跟带，提供五种实拍配色。",
+  "BQ-CA67": "EVA鞋面搭配包跟结构与侧面开孔；鞋面为模压仿鞋带装饰，采用套穿结构。",
+  "BQ-M858": "包头后空结构，搭配搭扣饰带与绒面效果鞋面，提供黑色、沙色和棕色三种实拍配色。",
+
     "BQ-LQ059": "低帮系带结构，环形鞋带孔搭配大块拼接鞋面及撞色后跟。",
     "BQ-LQ060": "网面侧片与鞋头覆片拼接，织带鞋带孔搭配低帮休闲轮廓。",
     "BQ-LQ2597": "宽鞋头设计，罗纹网面搭配双侧饰条与棕色低底。",

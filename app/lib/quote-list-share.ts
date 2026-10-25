@@ -1,7 +1,7 @@
 import type { Product } from "../data/products";
 import type { QuoteLine } from "./quote-list";
 
-const CODE_PATTERN = /^BQ(?:\d{3}|-LQ(?:059|060|2597))$/;
+const CODE_PATTERN = /^BQ(?:\d{3}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/;
 const MAX_SHARED_STYLES = 12;
 
 export function parseSharedQuoteCodes(value: string, allowedCodes: string[]) {

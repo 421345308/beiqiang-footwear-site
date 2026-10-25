@@ -8,7 +8,13 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
   const high = /high-top|high top/i.test(`${product.name} ${product.upper}`);
   const fleece = /fleece-lined/i.test(product.shortDescription);
   const slipOn = product.closure === "Slip-On";
-  const shape = kids
+  const moulded = product.collections.includes("clogs-and-vented-shoes");
+  const mule = product.collections.includes("mule-shoes");
+  const shape = moulded
+    ? (zh ? "本款使用供应商双码标签，每组标签对应一个尺码选项。先核对鞋垫长度，再与目标市场尺码表匹配；不能按连续欧码直接换算。" : "Each paired supplier size label is one size option. Check sample insole lengths against your market size chart; do not convert the labels as a continuous EU size run.")
+    : mule
+      ? (zh ? "本款采用包头后空结构。供应商标注35–45，需通过样品长度与脚背贴合情况核对尺码；绒面和软木外观不等于已确认材料成分。" : "This mule has a closed toe and open heel. Check the supplier's 35–45 labels against sample length and instep fit. Suede-effect and cork-look surfaces do not establish material composition.")
+    : kids
     ? (zh ? "先对照您所销售的儿童鞋尺码表，不要只凭EU码数推算适用年龄。" : "Compare the listed sizes with your own children's footwear size chart; do not infer an age range from EU sizes alone.")
     : wide
       ? (zh ? "这款为宽鞋头设计。选样时对照您自己的尺码表，比较同码样品的前掌空间；不同款式不能只看图片判断谁更宽。" : "This style has a wide toe box. Compare forefoot room in same-size samples against your own size guide; photos alone cannot establish which style is wider.")
@@ -16,7 +22,11 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
         ? (zh ? "这款是高帮结构。除了鞋底长度，也要看鞋口高度与穿脱方式是否符合您的产品定位。" : "This is a higher-cut style. Consider the collar height and how the shoe is put on, as well as the size range, when comparing it with your existing range.")
         : (zh ? "先比较穿脱方式、鞋型和尺码范围。鞋楦宽度和合脚性需要看样，不能从针织或弹力鞋面推断。" : "Compare the fastening, silhouette and size range first. Knit or stretch uppers do not by themselves establish last width or fit; check a sample.");
   const checks = [
-    slipOn
+    mule
+      ? (zh ? "贴合：核对前掌与脚背空间、搭扣可调范围及行走时脚掌的固定情况。" : "Fit: check forefoot and instep space, buckle adjustment and foot hold during walking.")
+      : moulded
+        ? (zh ? "结构：核对所选款式的后跟带或包跟结构、开孔位置与穿脱空间；仿鞋带装饰不作为可调系带。" : "Construction: check the selected style's heel strap or covered heel, openings and entry space. Moulded lace-look details are not adjustable laces.")
+      : slipOn
       ? (zh ? "穿脱：用计划采购的尺码试穿，检查鞋口是否好穿、后跟是否容易滑动。" : "Entry and hold: try the intended size and check how it goes on and whether the heel slips.")
       : (zh ? "系带：检查鞋带调节范围，以及系好后鞋面和后跟的贴合情况。" : "Lacing: check the adjustment range and how the upper and heel hold when the laces are tied."),
     fleece
@@ -38,9 +48,11 @@ export function getRelatedProducts(product: Product, candidates: Product[], limi
   if (!PUBLISHED_PRODUCT_CODES.has(product.code)) return [];
   const kids = /kids/i.test(product.group);
   const wide = product.fitEvidence === "wide_toe_verified";
+  const isMouldedOrMule = (item: Product) => item.collections.some(group => group === "clogs-and-vented-shoes" || group === "mule-shoes");
   return candidates
     .filter((candidate) => PUBLISHED_PRODUCT_CODES.has(candidate.code)
       && candidate.code !== product.code
+      && isMouldedOrMule(candidate) === isMouldedOrMule(product)
       && /kids/i.test(candidate.group) === kids
       && (!wide || candidate.fitEvidence === "wide_toe_verified")
       && (kids || candidate.closure === product.closure || candidate.collections.some((group) => product.collections.includes(group))))

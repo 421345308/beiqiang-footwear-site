@@ -1,6 +1,7 @@
 import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { productPageRoutes } from "../app/lib/public-locales.ts";
+import { collections } from "../app/data/products.ts";
 import { FINDER_STYLE_CODES } from "../edgeone-deploy/cloud-functions/api/catalog-style-codes.js";
 
 const projectRoot = resolve(import.meta.dirname, "..");
@@ -43,7 +44,7 @@ await cp(clientRoot, outputRoot, { recursive: true, force: true, filter: shouldC
 
 const { default: worker } = await import(workerUrl.href);
 const productRoutes = productPageRoutes(productSlugs).map(route => ({ ...route, output: `${route.pathname.slice(1)}/index.html` }));
-const collectionSlugs = ["wide-toe-box", "knit-slip-on", "breathable-lace-up", "high-top-shoes", "kids-shoes", "extended-size-shoes", "fleece-lined-shoes"];
+const collectionSlugs = collections.map(collection => collection.slug);
 const collectionRoutes = collectionSlugs.map((slug) => ({
   pathname: `/collections/${slug}`,
   output: `collections/${slug}/index.html`,
@@ -250,7 +251,7 @@ const sitemapPathSet = new Set(sitemapUrls.map((url) => url.path));
 const renderSitemapUrl = (url) => {
   const enPath = englishPath(url.path);
   const zhPath = chinesePath(enPath);
-  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq(?:\d{3}|-lq(?:059|060|2597)))\/$/);
+  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq(?:\d{3}|-(?:lq(?:059|060|2597)|c2627|ca67|m858)))\/$/);
   const isChinese = url.path.startsWith("/zh/");
   const isFactory = url.path === "/factory/" || url.path === "/zh/factory/";
   const alternates = sitemapPathSet.has(enPath) && sitemapPathSet.has(zhPath)

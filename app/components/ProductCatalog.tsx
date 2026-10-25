@@ -193,6 +193,8 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
             <option value="high_top">High-top / sock styles</option>
             <option value="kids">Kids styles</option>
             <option value="large_size">Extended-size styles</option>
+            <option value="clogs-and-vented-shoes">Clogs & vented shoes</option>
+            <option value="mule-shoes">Buckle mules</option>
             <option value="fleece">Fleece-lined options</option>
           </select>
         </label>

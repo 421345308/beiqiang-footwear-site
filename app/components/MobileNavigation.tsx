@@ -19,6 +19,8 @@ const groups = [
       ["Kids footwear collection", "/collections/kids-shoes/"],
       ["Extended-size collection", "/collections/extended-size-shoes/"],
       ["Fleece-lined collection", "/collections/fleece-lined-shoes/"],
+      ["Clogs & vented shoes", "/collections/clogs-and-vented-shoes/"],
+      ["Buckle mules", "/collections/mule-shoes/"],
     ],
   },
   {

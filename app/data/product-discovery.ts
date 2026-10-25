@@ -7,6 +7,8 @@ export const discoveryCategories: { slug: CollectionSlug; direction: CatalogDire
   { slug: "knit-slip-on", direction: "knit-slip-on", en: "Knit slip-ons", zh: "针织套穿", cover: "bq004" },
   { slug: "breathable-lace-up", direction: "breathable-lace-up", en: "Lace-up shoes", zh: "系带休闲", cover: "bq018" },
   { slug: "wide-toe-box", direction: "wide-toe-box", en: "Wide toe box", zh: "宽鞋头", cover: "bq001" },
+  { slug: "clogs-and-vented-shoes", direction: "clogs-and-vented-shoes", en: "Clogs & vented", zh: "洞洞鞋与镂空鞋", cover: "bq-c2627" },
+  { slug: "mule-shoes", direction: "mule-shoes", en: "Buckle mules", zh: "搭扣穆勒鞋", cover: "bq-m858" },
   { slug: "kids-shoes", direction: "kids", en: "Kids’ shoes", zh: "童鞋", cover: "bq016" },
   { slug: "high-top-shoes", direction: "high_top", en: "High-top shoes", zh: "高帮鞋", cover: "bq029" },
   { slug: "fleece-lined-shoes", direction: "fleece", en: "Fleece-lined", zh: "加绒款", cover: "bq015" },
@@ -20,7 +22,7 @@ export function discoveryGroups(products: Product[]) {
   }));
 }
 
-export function diverseProductPreview(products: Product[], limit = 8) {
+export function diverseProductPreview(products: Product[], limit = 9) {
   const groups = discoveryGroups(products).map(group => ({
     ...group,
     products: [...group.products].sort((a, b) => Number(b.slug === group.cover) - Number(a.slug === group.cover)),
