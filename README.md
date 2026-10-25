@@ -10,6 +10,16 @@ Drizzle support.
 
 - Node.js `>=22.13.0`
 
+## Core catalogue design and publication model
+
+The homepage, catalogue and product details share bilingual page components and the scoped `app/studio.css` design system. Product details include a keyboard-accessible image dialog, touch navigation, SKU-specific specifications, a quotation form and a separate printable sheet. Unknown specifications remain explicit.
+
+`factory-source-codes.ts` records 31 own-factory styles. `published-product-codes.ts` adds three approved partner-sourced styles (BQ-LQ059, BQ-LQ060 and BQ-LQ2597). Product details and the English/Chinese PDFs identify the supply mode. Partner products must not receive Beiqiang manufacturer schema. Source records remain in the operations workspace product centre; the website holds its channel projection and images.
+
+`public-locales.ts` registers complete public languages and generates canonical/alternate URLs and product export routes. English and Simplified Chinese are published. Additional languages require translated content, route implementations and acceptance before registration; adding a language label alone does not create a localized site. Products retain stable identities across languages, quote lists and APIs.
+
+The 2026-10-25 redesign passed the full 358-test suite, production static export and ESLint (warnings only). The optional standalone TypeScript check still reports nine pre-existing errors in unchanged buyer-workflow components and the unused Cloudflare starter bindings; do not describe it as passing. Release verification must independently check the formal domain.
+
 ## Quick Start
 
 ```bash
@@ -20,7 +30,7 @@ npm run build
 
 ## Production Deployment: GitHub to EdgeOne
 
-- Private repository: `421345308/beiqiang-footwear-site`
+- Public repository: `421345308/beiqiang-footwear-site` (verified via GitHub on 2026-10-25)
 - Production branch: `main`
 - EdgeOne project: `beiqiang-footwear` (`makers-zsvtdpeh3qf1`)
 - Framework preset: `Eleventy` (pure-static deployment path)
@@ -121,12 +131,12 @@ Current public structure:
 - `product_compare` is sent only after optional analytics consent. The protected product-signal table separates views, comparisons, successful quote-list additions and saved inquiries.
 - `tier` remains an internal product-data field. Public cards and detail pages show buyer-relevant facts instead; never expose Tier A–E as a quality, popularity or certification signal.
 
-## 31-Style Line Sheet Lead Path
+## 34-Style Line Sheet Lead Path
 
 - `/line-sheet/` explains the buyer value of the English line sheet; `/zh/line-sheet/` supplies a separately generated Chinese line sheet. Both collect company, market, buyer type, product direction, quantity and a reply channel before revealing the matching-language PDF download.
 - The request is saved through the existing inquiry service with `context: line_sheet` and `styleCode: CATALOG-2026`, so it receives a reference, private status code, SMTP notification and protected-pipeline record.
 - `line_sheet_request` and `line_sheet_download` respect optional analytics consent. The admin dashboard reports line-sheet leads and consented PDF downloads separately from sourcing inquiries.
-- The current English and Chinese PDFs contain 31 products across 9 A4 pages and are generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page. The generated manifest locks the product-data hash, page count, file sizes and public/operating PDF hashes so ordinary tests fail if product facts and downloadable catalogues drift apart.
+- The current English and Chinese PDFs contain 34 products across 9 A4 pages and are generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page. The generated manifest locks the product-data hash, page count, file sizes and public/operating PDF hashes so ordinary tests fail if product facts and downloadable catalogues drift apart.
 - English copies live at `public/downloads/beiqiang-footwear-line-sheet-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-2026.pdf`. Chinese copies live at `public/downloads/beiqiang-footwear-line-sheet-zh-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-zh-2026.pdf`. Each public/operating language pair must have identical hashes.
 - This is a soft conversion gate, not confidential-document access control. Never include internal prices, supplier details, customer information, internal tiers or confidential technical files.
 
@@ -408,7 +418,7 @@ The quote list is an RFQ/order-intent workflow, not a final-price retail cart. F
 
 - English remains the default public website. Buyers can switch to Simplified Chinese from the desktop header, mobile menu and footer; Chinese pages link back to the matching English page where one exists.
 - `/zh/`, `/zh/products/`, all product detail pages, three buyer-intent product collections, `/zh/line-sheet/`, `/zh/factory/`, `/zh/quality-packing/`, `/zh/oem-odm/`, `/zh/sample-order-process/`, `/zh/buyer-guide/`, `/zh/resources/`, the three Chinese sourcing-program pages, the three Chinese buyer-resource articles, `/zh/request-quote/`, `/zh/privacy/` and `/zh/terms/` form the public Chinese commercial journey.
-- The Chinese catalogue keeps the same 31 source-matched product records, product images, quote-list storage and inquiry API as English. Product names and buyer-facing guidance are localized, while canonical style codes and stored product identities remain stable.
+- The Chinese catalogue keeps the same 34 source-matched product records, product images, quote-list storage and inquiry API as English. Product names and buyer-facing guidance are localized, while canonical style codes and stored product identities remain stable.
 - BQ001 and BQ002 are the only styles described as verified wide-toe products. BQ010 uses the confirmed stretch-fabric upper description. Other styles keep last width, materials and commercial terms inside the existing evidence boundaries.
 - Chinese product pages support catalogue search, 2–4 style comparison, quote-list actions, product sharing, printable sourcing sheets, single-style inquiry and buyer-file upload. The Chinese quote page supports multi-style requests, trade-term context and the technical-development gate.
 - Canonical and `hreflang` metadata pair the English and Chinese equivalents. EdgeOne export sets the generated Chinese HTML document language to `zh-CN` and currently publishes 53 Chinese HTML pages. Only public acquisition pages enter `sitemap.xml`.

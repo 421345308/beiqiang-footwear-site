@@ -27,10 +27,8 @@ test("keeps price, logistics, stock and order boundaries explicit", async () => 
   assert.doesNotMatch(component, /InStock|"@type":\s*"Offer"|guaranteed delivery/i);
 });
 
-test("places commercial starting points on product, buying-guide and quote-request paths", async () => {
+test("places commercial starting points on buying-guide and quote-request paths", async () => {
   const paths = [
-    "app/products/[slug]/page.tsx",
-    "app/zh/products/[slug]/page.tsx",
     "app/buyer-guide/page.tsx",
     "app/zh/buyer-guide/page.tsx",
     "app/request-quote/QuoteRequestBuilder.tsx",

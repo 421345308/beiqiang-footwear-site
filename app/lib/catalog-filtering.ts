@@ -25,7 +25,8 @@ export function productMatchesCatalogDirection(
   }
   if (direction === "kids") return /kids/i.test(product.group);
   if (direction === "large_size") {
-    return /EU \d{2}-4[67]|large size/i.test(`${product.size} ${product.group}`);
+    const range = product.size.match(/EU\s*\d{2}\s*[-–]\s*(\d{2})/i);
+    return Boolean(range && Number(range[1]) >= 46) || /large size/i.test(product.group);
   }
   if (direction === "fleece") {
     return /fleece-lined/i.test([product.shortDescription, ...product.colors].join(" "));

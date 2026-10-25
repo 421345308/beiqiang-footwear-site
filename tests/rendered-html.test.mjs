@@ -23,10 +23,10 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   const html = await response.text();
   assert.match(
     html,
-    /Walking shoes for your business/,
+    /Footwear manufacturing/,
   );
-  assert.match(html, /Tell us what you need/);
-  assert.match(html, /Browse shoe styles/);
+  assert.match(html, /Discuss customization/);
+  assert.match(html, /Explore the collection/);
   assert.match(html, /shepeiqiang@gmail\.com/);
   assert.match(html, /8618959805256/);
   assert.match(html, /Open buyer menu/i);
@@ -43,11 +43,11 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /\/videos\/beiqiang-factory-tour\.webm/i);
   assert.match(html, /English synchronized captions/i);
   assert.match(html, /Full 3-minute Alibaba\.com factory tour/i);
-  assert.match(html, /Factory evidence routes/i);
-  assert.match(html, /\/factory-video-stills\/factory-exterior\.webp/i);
+  assert.match(html, /INSIDE THE FACTORY/i);
+  assert.match(html, /\/factory-video-stills\/stitching-line\.webp/i);
   assert.match(html, /\/factory-video-stills\/stitching-line\.webp/i);
   assert.match(html, /\/factory-video-stills\/packing-preparation\.webp/i);
-  assert.match(html, /Construction and production arrangements are confirmed/i);
+  assert.match(html, /Feasibility, sample scope, quantities and costs are agreed/i);
   assert.match(html, /\/og\.jpg/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
 });
@@ -73,8 +73,8 @@ test("groups bilingual buyer navigation by sourcing stage without hiding commerc
     assert.match(chineseHtml, new RegExp(`/zh/collections/${slug}/`), slug);
   }
   assert.match(chineseHtml, /样品与订单流程/);
-  assert.match(chineseHtml, /工厂实拍证据入口/);
-  assert.match(chineseHtml, /具体鞋款的做法和订单安排/);
+  assert.match(chineseHtml, /工厂与生产/);
+  assert.match(chineseHtml, /按选定产品和订单要求评估定制方案/);
   assert.match(chineseHtml, /href="\/zh\/request-quote\/"[^>]*>询价单/);
 });
 
@@ -102,23 +102,23 @@ test("server-renders the complete searchable product catalogue", async () => {
   const response = await render("/products");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Walking and casual shoes for wholesale/i);
-  assert.match(html, /Current availability and any changes are confirmed/i);
+  assert.match(html, /Find your next collection/i);
+  assert.match(html, /Explore styles, compare specifications/i);
   assert.match(html, /Compare styles/i);
-  assert.match(html, /Start by sourcing direction/i);
-  assert.match(html, /Review a product family before individual styles/i);
-  assert.match(html, /High-top and sock styles/i);
+  assert.match(html, /THE FOOTWEAR COLLECTION/i);
+  assert.match(html, /styles in the collection/i);
+  assert.match(html, /High-top \/ sock styles/i);
   assert.match(html, /Kids footwear/i);
-  assert.match(html, /Extended-size directions/i);
+  assert.match(html, /Extended-size styles/i);
   assert.match(html, /Fleece-lined options/i);
   assert.match(html, /collections\/kids-shoes\//i);
   assert.match(html, /collections\/fleece-lined-shoes\//i);
-  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?31/i);
+  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?34/i);
   assert.match(html, /Show more products/i);
-  assert.match(html, /Browse all\s*(?:<!-- -->)?31(?:<!-- -->)?\s*current product codes/i);
-  assert.match(html, /Upper[\s\S]*Knitted textile upper/i);
-  assert.match(html, /Sole[\s\S]*EVA/i);
-  assert.match(html, /Product views[\s\S]*6(?:<!-- -->)? images/i);
+  assert.match(html, /Browse all\s*(?:<!-- -->)?34(?:<!-- -->)?\s*current product codes/i);
+  assert.match(html, /studio-card/);
+  assert.match(html, /EU 36-46/);
+  assert.match(html, /BQ-LQ2597/);
   assert.match(html, /BQ001/);
   assert.match(html, /BQ030/);
   assert.match(html, /BQ031/);
@@ -132,8 +132,8 @@ test("server-renders the gated current line-sheet lead path", async () => {
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /31(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
-  assert.match(html, /Unlock the 31-style PDF/i);
+  assert.match(html, /34(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
+  assert.match(html, /Unlock the 34-style PDF/i);
   assert.match(html, /product-discovery document, not a quotation/i);
   assert.doesNotMatch(
     html,
@@ -260,7 +260,7 @@ test("server-renders the verified BQ001 product page", async () => {
     html,
     /name="twitter:image" content="https:\/\/www\.beiqiang\.online\/catalog-web\/bq001\/01_main\.webp"/i,
   );
-  assert.match(html, /SOURCING REVIEW[\s\S]*NOT A QUOTATION/i);
+  assert.match(html, /Product reference only[\s\S]*not a quotation/i);
   assert.match(html, /Confirm before quotation or order/i);
   assert.match(html, /www\.beiqiang\.online\/products\/bq001\//i);
   assert.match(html, /BQ001 sample \/ quotation request/);
@@ -272,7 +272,7 @@ test("server-renders the verified BQ002 product page", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Extra Wide Toe Box Knit Slip-On Walking Shoes/i);
-  assert.match(html, /Grey White, Grey Black, Grey Khaki/i);
+  assert.match(html, /Grey White[\s\S]*Grey Black[\s\S]*Grey Khaki/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|waterproof/i);
 });
 
@@ -283,10 +283,10 @@ test("server-renders the evidence-led BQ009 L1026 product page", async () => {
   assert.match(html, /Breathable Knit Stretch-Fabric Lace-Up Walking Shoes/i);
   assert.match(html, /L1026/);
   assert.match(html, /1601825074604/);
-  assert.match(html, /Open BQ009 on Alibaba\.com/);
+  assert.match(html, /View BQ009 on Alibaba\.com/);
   assert.match(html, /Knitted stretch-fabric upper/i);
   assert.match(html, /EVA sole/i);
-  assert.match(html, /Mesh lining recorded in Alibaba trunk/i);
+  assert.match(html, /Mesh lining for the listed configuration/i);
   assert.doesNotMatch(html, /Breathable Mesh Thick-Sole Athletic Walking Shoes/i);
   assert.doesNotMatch(
     html,
@@ -303,7 +303,7 @@ test("server-renders the exact R1811 Alibaba-listed material configuration", asy
   assert.match(html, /1601839073314/);
   assert.match(html, /Stretch fabric upper/i);
   assert.match(html, /EVA sole/i);
-  assert.match(html, /Mesh lining recorded in Alibaba trunk for the listed configuration/i);
+  assert.match(html, /Mesh lining for the listed configuration/i);
   assert.match(html, /Fleece availability by color/i);
 });
 
@@ -314,7 +314,7 @@ test("server-renders the source-recorded M8811 EVA without confirming its lining
   assert.match(html, /BQ006/);
   assert.match(html, /M8811/);
   assert.match(html, /10000043734620/);
-  assert.match(html, /EVA sole recorded in the source package/i);
+  assert.match(html, /EVA sole/i);
   assert.match(html, /Fleece option by selected color/i);
   assert.match(html, /Lining material and exact upper composition/i);
 });
@@ -337,8 +337,8 @@ test("server-renders the verified BQ031 ZX2116 product page", async () => {
   assert.match(html, /EU 38-47/);
   assert.match(html, /Stretch knitted textile upper/i);
   assert.match(html, /10000046439033/);
-  assert.match(html, /Open BQ031 on Alibaba\.com/);
-  assert.match(html, /verified product-level wide toe/i);
+  assert.match(html, /View BQ031 on Alibaba\.com/);
+  assert.match(html, /wide toe box/i);
   assert.doesNotMatch(
     html,
     /barefoot|orthopedic|medical|podiatrist|guaranteed fit/i,
@@ -349,7 +349,7 @@ test("uses the Alibaba store fallback only when a product has no mapped listing"
   const response = await render("/products/bq014");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /View Beiqiang Alibaba\.com store/);
+  assert.match(html, /Visit our Alibaba\.com store/);
   assert.doesNotMatch(html, /Open BQ014 on Alibaba\.com/);
 });
 
@@ -367,7 +367,7 @@ test("server-renders four additional buyer-intent collections with commercial bo
   for (const [slug, heading, boundary, count] of [
     ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 1],
     ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 2],
-    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 3],
+    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 6],
     ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 2],
   ]) {
     const response = await render(`/collections/${slug}`);

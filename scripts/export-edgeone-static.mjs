@@ -1,5 +1,6 @@
 import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { productPageRoutes } from "../app/lib/public-locales.ts";
 import { FINDER_STYLE_CODES } from "../edgeone-deploy/cloud-functions/api/catalog-style-codes.js";
 
 const projectRoot = resolve(import.meta.dirname, "..");
@@ -41,10 +42,7 @@ await mkdir(outputRoot, { recursive: true });
 await cp(clientRoot, outputRoot, { recursive: true, force: true, filter: shouldCopy });
 
 const { default: worker } = await import(workerUrl.href);
-const productRoutes = productSlugs.map((slug) => {
-  return { pathname: `/products/${slug}`, output: `products/${slug}/index.html` };
-});
-const chineseProductRoutes = productSlugs.map((slug) => ({ pathname: `/zh/products/${slug}`, output: `zh/products/${slug}/index.html` }));
+const productRoutes = productPageRoutes(productSlugs).map(route => ({ ...route, output: `${route.pathname.slice(1)}/index.html` }));
 const collectionSlugs = ["wide-toe-box", "knit-slip-on", "breathable-lace-up", "high-top-shoes", "kids-shoes", "extended-size-shoes", "fleece-lined-shoes"];
 const collectionRoutes = collectionSlugs.map((slug) => ({
   pathname: `/collections/${slug}`,
@@ -82,7 +80,6 @@ const routes = [
   { pathname: "/zh/terms", output: "zh/terms/index.html" },
   ...chineseCapabilityRoutes,
   ...productRoutes,
-  ...chineseProductRoutes,
   ...collectionRoutes,
   ...chineseCollectionRoutes,
   ...solutionRoutes,
@@ -253,7 +250,7 @@ const sitemapPathSet = new Set(sitemapUrls.map((url) => url.path));
 const renderSitemapUrl = (url) => {
   const enPath = englishPath(url.path);
   const zhPath = chinesePath(enPath);
-  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq\d{3})\/$/);
+  const productMatch = url.path.match(/^\/(?:zh\/)?products\/(bq(?:\d{3}|-lq(?:059|060|2597)))\/$/);
   const isChinese = url.path.startsWith("/zh/");
   const isFactory = url.path === "/factory/" || url.path === "/zh/factory/";
   const alternates = sitemapPathSet.has(enPath) && sitemapPathSet.has(zhPath)

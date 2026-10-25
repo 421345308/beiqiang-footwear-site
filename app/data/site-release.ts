@@ -1,7 +1,9 @@
+import { productCount } from "./catalog-meta.ts";
+
 export const SITE_RELEASE = {
-  releaseId: "2026-10-13.1",
-  releasedAt: "2026-10-13T07:31:50+00:00",
-  productCount: 31,
+  releaseId: "2026-10-25.1",
+  releasedAt: "2026-10-25T03:00:00+00:00",
+  productCount,
   lineSheetPages: 9,
   factoryVideo: {
     durationSeconds: 180,

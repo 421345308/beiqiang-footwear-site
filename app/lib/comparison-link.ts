@@ -1,4 +1,4 @@
-const CODE_PATTERN = /^BQ\d{3}$/;
+const CODE_PATTERN = /^BQ(?:\d{3}|-LQ(?:059|060|2597))$/;
 
 export function parseComparisonCodes(value: string, allowedCodes: string[]) {
   const allowed = new Set(allowedCodes.map((code) => code.toUpperCase()));

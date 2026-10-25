@@ -7,13 +7,15 @@ import { trackEvent } from "../lib/tracking";
 const ALIBABA_STORE = "https://cn1576227362luzl.m.en.alibaba.com/";
 
 type ProductInquiryProps = {
+  locale?: "en" | "zh";
   code: string;
   label: string;
   productName: string;
   alibabaProductId?: string;
 };
 
-export default function ProductInquiry({ code, label, productName, alibabaProductId }: ProductInquiryProps) {
+export default function ProductInquiry({ code, label, productName, alibabaProductId, locale = "en" }: ProductInquiryProps) {
+  const zh = locale === "zh";
   const context = `${code.toLowerCase()}_inquiry`;
 
   useEffect(() => {
@@ -29,16 +31,16 @@ export default function ProductInquiry({ code, label, productName, alibabaProduc
   return (
     <div className="product-inquiry-grid">
       <div className="product-inquiry-copy">
-        <p className="eyebrow eyebrow-light">{code} SAMPLE REQUEST</p>
-        <h2>Interested in a sample or a quote for this style?</h2>
-        <p>Tell us your sales market, estimated quantity and the questions you want answered. We will check the selected style before confirming sample arrangements and a quotation.</p>
+        <p className="eyebrow eyebrow-light">{code} · {zh ? "产品咨询" : "PRODUCT INQUIRY"}</p>
+        <h2>{zh ? "咨询样品与报价" : "Samples & wholesale enquiries"}</h2>
+        <p>{zh ? "请注明目标市场、预计数量及具体要求，我们将确认本款样品与报价方案。" : "Provide your target market, estimated quantity and specifications. We will confirm sample options and prepare a quotation for this style."}</p>
         <div className="contact-links" aria-label={`Contact Beiqiang Footwear about ${code}`}>
-          <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { context, styleCode: code })}>Send {code} brief on WhatsApp</a>
+          <a className="button button-light" href={whatsappHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { context, styleCode: code })}>{zh ? "通过 WhatsApp 咨询" : "Enquire on WhatsApp"} · {code}</a>
           <a className="contact-text-link" href={emailHref} onClick={() => trackEvent("email_click", { context, styleCode: code })}>Email shepeiqiang@gmail.com</a>
-          <a className="contact-text-link" href={alibabaHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("alibaba_click", { context, styleCode: code, linkType: alibabaProductId ? "product" : "store" })}>{alibabaProductId ? `Open ${code} on Alibaba.com` : "View Beiqiang Alibaba.com store"}</a>
+          <a className="contact-text-link" href={alibabaHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("alibaba_click", { context, styleCode: code, linkType: alibabaProductId ? "product" : "store" })}>{alibabaProductId ? (zh ? `查看 ${code} 国际站商品` : `View ${code} on Alibaba.com`) : (zh ? "查看贝强国际站店铺" : "Visit our Alibaba.com store")}</a>
         </div>
       </div>
-      <InquiryForm styleCode={code} styleLabel={label} context="product" />
+      <InquiryForm styleCode={code} styleLabel={label} context="product" locale={locale} />
     </div>
   );
 }

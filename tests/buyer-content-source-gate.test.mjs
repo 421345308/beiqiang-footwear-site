@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { products, heldSourceProducts, productsInCollection } from '../app/data/products.ts';
+import { PUBLISHED_PRODUCT_CODES, EXTERNAL_SOURCE_CODES } from '../app/data/published-product-codes.ts';
 import { FACTORY_SOURCE_CODES } from '../app/data/factory-source-codes.ts';
 import { FINDER_STYLE_CODES } from '../edgeone-deploy/cloud-functions/api/catalog-style-codes.js';
 import { readFile } from 'node:fs/promises';
@@ -11,12 +12,14 @@ async function render(path) {
 }
 
 test('public supply matches the reviewed raw-package register, not image folders', () => {
-  assert.equal(products.length, 31);
+  assert.equal(products.length, 34);
+  assert.equal(FACTORY_SOURCE_CODES.size, 31);
+  assert.equal(EXTERNAL_SOURCE_CODES.size, 3);
   assert.equal(heldSourceProducts.length, 25);
-  assert.deepEqual(new Set(products.map(p => p.code)), FACTORY_SOURCE_CODES);
-  assert.deepEqual(FINDER_STYLE_CODES, FACTORY_SOURCE_CODES);
+  assert.deepEqual(new Set(products.map(p => p.code)), PUBLISHED_PRODUCT_CODES);
+  assert.deepEqual(FINDER_STYLE_CODES, PUBLISHED_PRODUCT_CODES);
   for (const held of heldSourceProducts) assert.ok(!FACTORY_SOURCE_CODES.has(held.code));
-  assert.deepEqual(productsInCollection('extended-size-shoes').map(p=>p.code), ['BQ001','BQ002','BQ031']);
+  assert.deepEqual(productsInCollection('extended-size-shoes').map(p=>p.code), ['BQ001','BQ002','BQ031','BQ-LQ059','BQ-LQ060','BQ-LQ2597']);
   assert.deepEqual(productsInCollection('fleece-lined-shoes').map(p=>p.code), ['BQ006','BQ015']);
 });
 
@@ -32,7 +35,8 @@ test('both homepages render buyer paths and copy without JavaScript or internal 
     const html=await response.text();
     for (const slug of ['wholesale-walking-shoes','private-label-walking-shoes','oem-knit-shoes']) assert.ok(html.includes(`href="${prefix}/solutions/${slug}/"`));
     assert.ok(html.includes(`href="${prefix}/request-quote/"`));
-    assert.ok(html.indexOf('id="solutions"') < html.indexOf('id="collections"'));
+    assert.ok(html.indexOf('class="studio-hero"') >= 0);
+    assert.ok(html.indexOf('class="studio-hero"') < html.indexOf('id="collections"'));
     assert.doesNotMatch(html, /56-style|56款|受控决定|商业起点|工厂端项目审核|buyer workspace: it introduces/i);
   }
 });

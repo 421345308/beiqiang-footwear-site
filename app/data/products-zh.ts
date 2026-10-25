@@ -1,6 +1,9 @@
 import type { Product } from "./products";
 
 const names: Record<string, string> = {
+  "BQ-LQ059": "拼接鞋面系带休闲鞋",
+  "BQ-LQ060": "网面拼接系带休闲鞋",
+  "BQ-LQ2597": "宽鞋头网面系带休闲鞋",
   BQ001: "宽鞋头针织套穿步行鞋",
   BQ002: "加宽鞋头针织套穿步行鞋",
   BQ003: "夏季弹力织物系带休闲鞋",
@@ -60,6 +63,9 @@ const names: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
+  "White Red": "白红",
+  "Black Brown": "黑棕",
+  "Black Grey": "黑灰",
   Black: "黑色",
   White: "白色",
   Grey: "灰色",
@@ -200,6 +206,24 @@ export function colorZh(color: string) {
   return colors[color] || color;
 }
 export function factZh(value: string) {
+  const exact: Record<string, string> = {
+    "Color and size quantities": "颜色、尺码及对应数量",
+    "Material specifications and sample fit": "材料规格与样品合脚程度",
+    "Branding, packing and delivery requirements": "品牌标识、包装与交付要求",
+    "Loop-style lace eyelets": "环形鞋带孔",
+    "Low collar and contrasting heel panel": "低帮鞋口与撞色后跟拼片",
+    "EU 36–48 size range": "EU 36–48尺码范围",
+    "Mesh side inserts": "网面侧片",
+    "Fabric lace loops": "织带鞋带孔",
+    "Wide toe box": "宽鞋头结构",
+    "Ribbed mesh and two side bands": "罗纹网面与双侧饰条",
+    "EU 39–48 size range": "EU 39–48尺码范围",
+    "Panelled upper; composition to be confirmed": "拼接鞋面；材料成分待确认",
+    "Mesh panels and overlays; composition to be confirmed": "网面与覆片拼接；材料成分待确认",
+    "Mesh upper with overlays; composition to be confirmed": "网面搭配覆片；材料成分待确认",
+    "Material to be confirmed": "材质待确认",
+  };
+  if (exact[value]) return exact[value];
   return phrases.reduce(
     (text, [pattern, replacement]) => text.replace(pattern, replacement),
     value,
@@ -209,10 +233,12 @@ export function closureZh(value: Product["closure"]) {
   return value === "Slip-On" ? "套穿" : "系带";
 }
 export function productSummaryZh(product: Product) {
-  const fit = ["BQ001", "BQ002", "BQ031"].includes(product.code)
-    ? "已核实宽鞋头结构"
-    : `${closureZh(product.closure)}结构`;
-  return `${product.sourceModel}款，${fit}，提供${product.colors.length}种已整理颜色方向，适合作为海外B2B选款、样品和报价讨论的候选产品。`;
+  const descriptions: Record<string, string> = {
+    "BQ-LQ059": "低帮系带结构，环形鞋带孔搭配大块拼接鞋面及撞色后跟。",
+    "BQ-LQ060": "网面侧片与鞋头覆片拼接，织带鞋带孔搭配低帮休闲轮廓。",
+    "BQ-LQ2597": "宽鞋头设计，罗纹网面搭配双侧饰条与棕色低底。",
+  };
+  return descriptions[product.code] || `${productNameZh(product)}，${product.size}，提供${product.colors.length}种配色。具体色码组合及定制要求按订单确认。`;
 }
 export function buyerFitZh(product: Product) {
   if (/Kids/i.test(product.group)) return "儿童鞋进口商、批发商及渠道买家";

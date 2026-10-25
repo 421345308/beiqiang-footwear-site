@@ -4,15 +4,17 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { join, resolve } from "node:path";
 import { products } from "../app/data/products.ts";
+import { supplyMode } from "../app/data/published-product-codes.ts";
 import { buyerFitZh, closureZh, colorZh, factZh, productNameZh, productSummaryZh } from "../app/data/products-zh.ts";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const dataFile = resolve(projectRoot, "tmp", "pdfs", "line-sheet-products.json");
 const chineseDataFile = resolve(projectRoot, "tmp", "pdfs", "line-sheet-products-zh.json");
 await mkdir(resolve(projectRoot, "tmp", "pdfs"), { recursive: true });
-await writeFile(dataFile, `${JSON.stringify(products, null, 2)}\n`, "utf8");
+await writeFile(dataFile, `${JSON.stringify(products.map(product => ({ ...product, supplyMode: supplyMode(product.code) })), null, 2)}\n`, "utf8");
 await writeFile(chineseDataFile, `${JSON.stringify(products.map((product) => ({
   ...product,
+  supplyMode: supplyMode(product.code),
   nameZh: productNameZh(product),
   summaryZh: productSummaryZh(product),
   buyerFitZh: buyerFitZh(product),

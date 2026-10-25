@@ -110,7 +110,7 @@ def cover(c: canvas.Canvas, products: list[dict]) -> None:
     c.setFont("Helvetica-Bold", 10)
     c.drawString(18 * mm, 62 * mm, "SAMPLE FIRST. SPECIFICATIONS CONFIRMED BEFORE BULK ORDER.")
     c.setFont("Helvetica", 8.3)
-    paragraph(c, "Factory supply and OEM/ODM discussion. Final price depends on selected style, quantity, materials, size ratio, packing and trade requirements.", 18 * mm, 55 * mm, 170 * mm, 22 * mm, 8.3, 11, colors.HexColor("#D9E3DE"))
+    paragraph(c, "Beiqiang factory styles and partner-sourced products, identified per style. OEM/ODM requirements reviewed individually. Final price depends on selected style, quantity, materials, size ratio, packing and trade requirements.", 18 * mm, 55 * mm, 170 * mm, 22 * mm, 8.3, 11, colors.HexColor("#D9E3DE"))
     c.setFillColor(TERRACOTTA)
     c.roundRect(18 * mm, 24 * mm, 174 * mm, 16 * mm, 2 * mm, fill=1, stroke=0)
     c.setFillColor(WHITE)
@@ -143,7 +143,7 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         c.linkURL(product_url, (text_x, y + card_h - 10 * mm, text_x + 44 * mm, y + card_h - 4 * mm), relative=0)
         paragraph(c, product["name"], text_x, y + card_h - 12 * mm, text_w, 15 * mm, 9, 11, INK, True)
         paragraph(c, f'<b>Buyer fit:</b> {product["buyerFit"]}', text_x, y + card_h - 26 * mm, text_w, 11 * mm, 7.3, 9, MUTED)
-        highlights = " | ".join(product["highlights"][:3])
+        highlights = 'Partner sourced' if product['supplyMode'] == 'partner-sourced' else 'Beiqiang factory style'
         paragraph(c, highlights, text_x, y + 12 * mm, text_w, 10 * mm, 7.1, 8.6, INK)
 
         facts_x = 145 * mm

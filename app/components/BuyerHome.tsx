@@ -1,62 +1,55 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import ChineseSiteHeader from "./ChineseSiteHeader";
 import ChineseSiteFooter from "./ChineseSiteFooter";
 import FactoryEvidenceVideo from "./FactoryEvidenceVideo";
-import HomepageFactoryEvidence from "./HomepageFactoryEvidence";
+import StudioProductCard from "./StudioProductCard";
+import { products } from "../data/products";
+import { localizedPath, type PublicLocale } from "../lib/public-locales";
 import { factoryVideoSchema } from "../lib/factory-video-schema";
 
-export default function BuyerHome({ locale = "en" }: { locale?: "en" | "zh" }) {
-  const zh = locale === "zh";
-  const t = (en: string, cn: string) => zh ? cn : en;
-  const href = (path: string) => `${zh ? "/zh" : ""}${path}`;
-  const paths = [
-    ["wholesale-walking-shoes", t("01 · WHOLESALE", "01 · 批发选款"), t("Choose shoes for your next order", "为店铺或渠道选一批鞋"), t("Compare existing styles and put several in one quote list. Tell us your quantity and size mix; we will check availability and sample options for those styles.", "从现有款式中选款，把不同款号加入同一张询价单。告诉我们数量和尺码配比，我们逐款核对可供颜色、样品及报价。")],
-    ["private-label-walking-shoes", t("02 · YOUR BRAND", "02 · 品牌贴牌"), t("Put your brand on an existing style", "用现有鞋款做自己的品牌"), t("Start with a shoe you like. Share your logo, preferred colors and packaging ideas so we can explain which changes are possible and what they mean for your order.", "选定基础鞋款，再沟通商标、配色、鞋垫和鞋盒。我们会说明哪些能改、哪些需要另外打样，以及对数量和费用的影响。")],
-    ["oem-knit-shoes", t("03 · YOUR DESIGN", "03 · 来样开发"), t("Discuss a shoe you want to develop", "有自己的设计，先一起看怎么做"), t("Send a sketch, reference or sample brief. We will review construction and materials before agreeing any development work, tooling or sample cost.", "可以先发设计图、参考款或样品说明。涉及鞋楦、鞋底、材料和测试的要求，先沟通可行性，再约定开发内容和打样费用。")],
-  ];
-  const faqs = [
-    [t("What is your minimum order quantity?", "最低起订量是多少？"), t("It depends on the style and the changes you need. Tell us how many pairs you want per style and color. We will confirm the minimum, size mix and sample options in your quotation; custom materials or packaging may have separate minimums.", "请先告诉我们款式、每款数量和颜色。现有款采购与定制订单的要求不同；定制材料、颜色或鞋盒也可能有单独的起订要求，我们会在报价中分别说明。")],
-    [t("Can I order samples first?", "能先看样品再下大货吗？"), t("You can request samples. We check availability for your chosen style, then confirm the sample version, cost and shipping before you pay. For a custom shoe, agree what the sample will demonstrate before work starts.", "可以先提出样品需求。我们核对所选款式后，会先说明样品版本、费用和寄送方式。定制样品还要事先约定要验证哪些内容，再安排打样。")],
-    [t("What happens after I send an inquiry?", "提交需求后，你们会怎么跟进？"), t("We review your style, quantity and destination, ask for any missing details, and discuss suitable samples and a written quotation. Before you order, check the agreed specifications, packing, payment terms and schedule with us.", "我们先看款式、数量和收货地，有缺少的信息会联系您补充，再沟通样品和书面报价。下单前，一起确认鞋款规格、包装、付款方式和时间安排。")],
-    [t("How long will production and shipping take?", "多久可以出货？"), t("We confirm dispatch or production timing after checking the style and order details. Custom materials, quantity and sample revisions affect production; shipping time depends on the destination and service. Tell us when you need the shoes to arrive.", "选定款式和订单要求后，我们再核对出货或生产时间。定制材料、数量和改样会影响排期，运输时间则取决于目的地和方式。请尽量告诉我们希望何时收到货。")],
-    [t("Are all your shoes wide fit?", "所有鞋款都是宽楦吗？"), t("No. Wide-toe styles are identified individually: BQ001, BQ002 and BQ031. Other styles should not be treated as wide fit. Check fit on a sample before choosing a size range for your market.", "不是。宽鞋头款目前单独标注为 BQ001、BQ002 和 BQ031，不能把其他款式都当作宽楦。面向不同市场选尺码时，建议先通过样品确认合脚程度。")],
-  ];
-  return <main>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(factoryVideoSchema(locale)) }} />
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqs.map(([question, answer]) => ({
-        "@type": "Question",
-        name: question,
-        acceptedAnswer: { "@type": "Answer", text: answer },
-      })),
-    }) }} />
-    {zh ? <ChineseSiteHeader englishHref="/" /> : <SiteHeader />}
-    <section className="hero buyer-home-hero" id="top"><div className="hero-copy">
-      <p className="eyebrow">{t("BEIQIANG FOOTWEAR · QUANZHOU, CHINA", "贝强鞋业 · 福建泉州")}</p>
-      <h1>{t("Walking shoes for your business. A factory to work with.", "采购休闲鞋，或做自己的品牌，从这里开始。")}</h1>
-      <p className="hero-lead">{t("Source casual and walking shoes from Beiqiang in Quanzhou. Whether you are buying for wholesale or building a private-label range, start with the right style—then work through samples, specifications and packing with us.", "贝强为批发商、线上卖家和品牌客户提供休闲鞋与日常步行鞋。您可以从现有款式选起，也可以带着自己的设计来谈。先选对鞋，再把样品、规格、包装和订单安排逐项谈清楚。")}</p>
-      <div className="hero-actions"><Link className="button" href={href("/request-quote/")}>{t("Tell us what you need", "告诉我们您想做什么")}</Link><Link className="button button-secondary" href={href("/products/")}>{t("Browse shoe styles", "浏览鞋款")}</Link></div>
-      <p className="commercial-note">{t("Wholesale · Private label · Custom footwear inquiries", "批发采购 · 品牌贴牌 · 来样定制")}</p>
-    </div><div className="hero-visual"><FactoryEvidenceVideo locale={locale} /></div></section>
-    <section className="section sourcing-program-entry" id="solutions"><div className="section-heading"><div><p className="eyebrow">{t("HOW CAN WE HELP?", "您需要哪种合作？")}</p><h2>{t("Three ways to start.", "从您的采购目标出发。")}</h2></div></div><div className="sourcing-program-entry-grid">{paths.map(([slug,label,title,copy]) => <Link key={slug} href={href(`/solutions/${slug}/`)}><span>{label}</span><h3>{title}</h3><p>{copy}</p><strong>{t("Explore this option", "了解合作方式")} →</strong></Link>)}</div></section>
-    <section className="section factory-home-intro"><div className="section-heading"><div><p className="eyebrow">{t("MEET THE FACTORY", "先了解工厂")}</p><h2>{t("See the work behind the shoes.", "先看看鞋子是在哪里做出来的。")}</h2></div><p>{t("Watch our three-minute factory video, from upper stitching to shoe checking and packing preparation. For a style you are considering, ask us about the sample and specifications you need to check.", "三分钟实拍视频展示鞋面车缝、生产处理、鞋品检查和包装准备。对具体款式感兴趣时，我们再一起确认需要看的样品和产品细节。")}</p></div><HomepageFactoryEvidence locale={locale} /><div className="section-cta"><Link className="button button-secondary" href={href("/factory/")}>{t("Take a closer look at the factory", "进一步了解工厂")}</Link><a className="text-link" href="https://cn1576227362luzl.m.en.alibaba.com/" target="_blank" rel="noreferrer">{t("Find Beiqiang on Alibaba.com", "查看贝强阿里巴巴国际站店铺")} →</a></div></section>
-    <section className="proof-section" id="process"><div className="proof-image"><img src="/factory-web/batch-check.webp" alt={t("Shoe checking and packing preparation at Beiqiang", "贝强鞋业鞋品检查与包装准备")} loading="lazy" decoding="async" /></div><div className="proof-copy"><p className="eyebrow eyebrow-light">{t("BEFORE YOU PLACE AN ORDER", "下单前，把这些谈清楚")}</p><h2>{t("Know what you are buying—and what happens next.", "不只看一张产品图，而是确认整笔订单。")}</h2><ul><li><span>01</span>{t("Style, fit, materials and sample version", "款式、合脚程度、材料与样品版本")}</li><li><span>02</span>{t("Quantity by color and size, branding and packaging", "各颜色和尺码数量、商标及包装")}</li><li><span>03</span>{t("Written price, payment terms and delivery plan", "书面报价、付款约定与交付安排")}</li></ul><Link className="button button-light" href={href("/sample-order-process/")}>{t("See the sample-to-order process", "了解从样品到下单的流程")}</Link></div></section>
-    <section className="section collection-entry" id="collections"><div className="section-heading"><div><p className="eyebrow">{t("FIND YOUR STARTING STYLE", "先找到合适的鞋款")}</p><h2>{t("Build a range that fits your customers.", "按客户的需求选款。")}</h2></div><p>{t("Browse slip-ons, lace-ups and selected wide-toe styles. Add several products to one quote list to discuss an assortment, rather than sending a separate inquiry for each shoe.", "从一脚蹬、系带款和宽鞋头款等分类开始。可以把多款鞋加入同一张询价单，统一沟通配色、尺码和数量，不用每款重复询问。")}</p></div><div className="collection-grid">{[
-      ["knit-slip-on", t("Easy-on shoes", "一脚蹬休闲鞋"), t("Knit and textile slip-on styles for everyday assortments.", "针织与织物鞋面，日常休闲选款。")],
-      ["breathable-lace-up", t("Lace-up walking shoes", "系带步行鞋"), t("Compare upper construction, colors and size ranges.", "比较鞋面结构、配色和尺码范围。")],
-      ["wide-toe-box", t("Wide fit and wide-toe styles", "宽楦与宽鞋头款式"), t("For buyers sourcing wide fit, wide toe box or extra wide comfort ranges.", "面向宽楦、宽鞋头或加宽舒适系列的选款。")],
-    ].map(([slug,title,copy]) => <Link key={slug} href={href(`/collections/${slug}/`)}><h3>{title}</h3><p>{copy}</p><strong>{t("View styles", "查看鞋款")} →</strong></Link>)}</div><div className="section-cta"><Link className="button button-secondary" href={href("/products/")}>{t("Browse the catalogue", "浏览产品目录")}</Link><Link className="text-link" href={href("/line-sheet/")}>{t("Get the product line sheet", "获取产品资料")} →</Link></div></section>
-    <section className="section resource-home-entry"><div className="section-heading"><div><p className="eyebrow">{t("PRACTICAL BUYING GUIDES", "采购前，先弄懂这些")}</p><h2>{t("Your first shoe order, with fewer unanswered questions.", "让第一次合作更有把握。")}</h2></div></div><div className="resource-home-grid">{[
-      ["footwear-rfq-checklist", t("What should I send for a shoe quotation?", "询价时要提供哪些资料？"), t("A checklist for styles, quantities, sizes and delivery requirements.", "把款式、数量、尺码和收货要求一次说明白。")],
-      ["shoe-sample-approval-checklist", t("What should I check on a shoe sample?", "收到鞋样，要检查什么？"), t("Review fit, construction, color and packing before agreeing the bulk version.", "从合脚程度、做工到配色和包装，确认大货要按哪个版本做。")],
-      ["private-label-walking-shoes-sourcing-guide", t("How do I start a private-label shoe order?", "第一次做品牌贴牌，怎么开始？"), t("Choose a base style and separate branding changes from new development.", "从基础鞋款开始，分清贴牌改款和重新开发的区别。")],
-    ].map(([slug,title,copy]) => <Link key={slug} href={href(`/resources/${slug}/`)}><h3>{title}</h3><p>{copy}</p><strong>{t("Read the guide", "查看指南")} →</strong></Link>)}</div><div className="section-cta"><Link className="text-link" href={href("/resources/")}>{t("Compare all buyer guides", "查看全部采购指南")} →</Link></div></section>
-    <section className="section faq-section"><div className="section-heading"><h2>{t("Before you get in touch", "您可能还想问")}</h2></div><div className="faq-list">{faqs.map(([q,a]) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
-    <section className="inquiry-section buyer-home-contact" id="inquiry"><div className="inquiry-intro"><p className="eyebrow eyebrow-light">{t("LET’S TALK ABOUT YOUR ORDER", "聊聊您的订单")}</p><h2>{t("Have a style in mind? Send it over.", "有想做的鞋款？发给我们看看。")}</h2><p>{t("A product code or reference image, your expected quantity and destination are enough to start the conversation. If you are still choosing, tell us who you sell to and what you need from the shoe.", "先发款号或参考图，说明预计数量和收货地，就可以开始沟通。还没选好款也没关系，告诉我们您的客户群体，以及希望鞋子具备什么特点。")}</p><div className="contact-links"><Link className="button button-light" href={href("/request-quote/")}>{t("Request a quotation", "提交采购需求")}</Link><a className="contact-text-link" href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a><a className="contact-text-link" href="https://wa.me/8618959805256" target="_blank" rel="noreferrer">WhatsApp +86 189 5980 5256</a></div></div><div className="inquiry-intro"><h3>{t("What we will discuss with you", "我们会和您确认")}</h3><p>{t("Suitable styles and any changes you want; sample availability and cost; quantities, specifications and a written quotation. Production and shipping arrangements are confirmed before you order.", "合适的款式和需要改动的部分、样品能否安排及费用、数量与规格，以及书面报价。生产和运输安排会在下单前确认，不让您只凭猜测做决定。")}</p><Link className="contact-text-link" href={href("/quality-packing/")}>{t("Read about product checks and packing", "了解产品检查与包装")} →</Link></div></section>
+export default function BuyerHome({ locale = "en" }: { locale?: PublicLocale }) {
+  const zh=locale === "zh";
+  const t=(en: string, cn: string) => zh ? cn : en;
+  const href=(path: string) => localizedPath(path,locale);
+  const featured=["BQ001","BQ018","BQ-LQ2597","BQ-LQ060"].map(code=>products.find(p=>p.code===code)!);
+  return <main lang={zh ? "zh-CN" : "en"} className="studio-page studio-home">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(factoryVideoSchema(locale))}} />
+    {zh ? <ChineseSiteHeader englishHref="/" /> : <SiteHeader chineseHref="/zh/" />}
+    <section className="studio-hero" id="top">
+      <div className="studio-hero-copy">
+        <p className="eyebrow"><span className="studio-rule" /> {t("BEIQIANG · QUANZHOU, CHINA","贝强鞋业 · 中国泉州")}</p>
+        <h1>{t("Footwear manufacturing.","专注鞋履制造")}<br/><em>{t("Made for your brand.","服务品牌定制")}</em></h1>
+        <p className="studio-hero-lead">{t("Casual and walking shoes for brands, importers and wholesalers. Explore our collection, factory and OEM/ODM services.","面向品牌商、进口商及批发客户，提供休闲鞋、步行鞋与 OEM/ODM 服务。了解贝强工厂，浏览现有款式，开展品牌定制。")}</p>
+        <div className="studio-hero-actions"><Link className="button" href={href("/products")}>{t("Explore the collection","浏览产品系列")} ↗</Link><Link className="studio-text-link" href={href("/sourcing-review")}>{t("Discuss customization","咨询品牌定制")} →</Link></div>
+        <div className="studio-hero-foot"><span>{t("OEM / ODM","OEM / ODM 开发")}</span><span>{t("Private label","品牌贴牌")}</span><span>{t("Wholesale supply","鞋类批发")}</span></div>
+      </div>
+      <div className="studio-hero-image"><img src="/factory-video-stills/stitching-line.webp" alt={t("Upper stitching at Beiqiang's Quanzhou factory","贝强泉州工厂鞋面车缝工序")} width={1600} height={900} fetchPriority="high" /><div className="studio-image-caption"><span>01 / {t("INSIDE BEIQIANG","贝强工厂")}</span><Link href={href("/factory")}>{t("Explore our factory","了解生产流程")} ↗</Link></div><span className="studio-vertical-label">FOOTWEAR · CRAFT · COLLABORATION</span></div>
+    </section>
+    <div className="studio-intro-strip"><p>{t("From product selection to brand development.","从产品选型，到品牌开发。")}</p><span>{t("A manufacturing and sourcing partner in Quanzhou.","立足泉州，连接制造与采购。")}</span></div>
+    <section className="studio-section" id="collections">
+      <div className="studio-section-heading"><div><p className="eyebrow">{t("SELECTED STYLES","精选鞋款")}</p><h2>{t("A collection to build on.","为您的系列，选择合适鞋款")}</h2></div><Link className="studio-text-link" href={href("/products")}>{t("View all styles","查看全部产品")} ↗</Link></div>
+      <div className="studio-product-grid">{featured.map(product=><StudioProductCard key={product.code} product={product} locale={locale} />)}</div>
+      <nav className="studio-category-links" aria-label={t("Product collections","产品分类")}>{[["knit-slip-on",t("Knit slip-ons","针织套穿鞋")],["breathable-lace-up",t("Lace-up shoes","系带休闲鞋")],["wide-toe-box",t("Wide toe box styles","宽鞋头鞋款")],["extended-size-shoes",t("Extended sizes","扩展尺码")]].map(([slug,title])=><Link key={slug} href={href(`/collections/${slug}`)}>{title}<span>↗</span></Link>)}</nav>
+    </section>
+    <section className="studio-factory" id="factory"><div className="studio-factory-video"><FactoryEvidenceVideo locale={locale} /></div><div className="studio-factory-copy"><p className="eyebrow">{t("INSIDE THE FACTORY","工厂与生产")}</p><h2>{t("A closer look at the work.","看见每一道工序")}</h2><p>{t("Quanzhou Beiqiang Footwear & Apparel Co., Ltd. is based in Fujian, China. Our factory footage follows material preparation, upper stitching, shoe finishing and packing.","泉州贝强鞋业服饰有限公司位于福建泉州。通过工厂实拍，了解材料准备、鞋面车缝、鞋品整理与包装等实际工作环节。")}</p><dl><div><dt>{t("Location","生产所在地")}</dt><dd>{t("Quanzhou, Fujian, China","中国 · 福建 · 泉州")}</dd></div><div><dt>{t("Business","合作业务")}</dt><dd>OEM / ODM · {t("Private label · Wholesale","品牌贴牌 · 批发")}</dd></div></dl><Link className="studio-text-link" href={href("/factory")}>{t("Factory & company profile","工厂与公司介绍")} ↗</Link></div></section>
+    <section className="studio-section studio-custom" id="customization"><div className="studio-section-heading"><div><p className="eyebrow">{t("OEM / ODM & PRIVATE LABEL","OEM / ODM 与品牌定制")}</p><h2>{t("Your brand. The right details.","从产品细节，建立品牌识别")}</h2></div><p>{t("Start with an existing style or a development brief. Each specification is reviewed against the selected shoe and order requirements.","以现有鞋款或开发需求为起点，按选定产品和订单要求评估定制方案。")}</p></div>
+      <div className="studio-custom-grid">{[
+        ["01",t("Branding & identity","商标与品牌标识"),t("Define logo placement, insole artwork and label requirements for the chosen style.","结合选定款式，评估商标位置、鞋垫图案及标签要求。"),"/catalog-thumbs/bq018.webp"],
+        ["02",t("Materials & construction","材料与结构开发"),t("Review upper materials, colours and construction against your design or reference sample.","依据设计或参考样，评估鞋面材料、配色与结构要求。"),"/factory-video-stills/stitching-line.webp"],
+        ["03",t("Packaging & presentation","包装与交付呈现"),t("Prepare shoe-box, label and carton-mark specifications for your sales channel.","结合销售渠道，确定鞋盒、标签及外箱标识方案。"),"/factory-video-stills/packing-preparation.webp"],
+      ].map(([number,title,copy,img])=><article key={number}><div className="studio-custom-image"><img src={img} alt={title} width={640} height={430} loading="lazy" /><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></article>)}</div>
+      <div className="studio-custom-foot"><p>{t("Feasibility, sample scope, quantities and costs are agreed before development.","开发前明确可行性、样品范围、数量与费用。")}</p><Link className="button button-secondary" href={href("/oem-odm")}>{t("Explore customization","了解定制服务")} ↗</Link></div>
+    </section>
+    <section className="studio-process"><div><p className="eyebrow">{t("WORKING WITH BEIQIANG","合作流程")}</p><h2>{t("Clear steps. Defined specifications.","明确要求，有序推进")}</h2></div><ol>{[
+      [t("Product brief","需求评估"),t("Styles, market and quantity","款式、市场与数量")],
+      [t("Sample review","样品确认"),t("Fit, materials and details","合脚程度、材料与细节")],
+      [t("Order agreement","订单确认"),t("Specifications, price and timing","规格、报价与排期")],
+      [t("Checks & delivery","检查与交付"),t("Product checks, packing and shipment","产品检查、包装与运输")],
+    ].map(([title,copy],i)=><li key={title}><span>0{i+1}</span><h3>{title}</h3><p>{copy}</p></li>)}</ol><Link className="studio-text-link" href={href("/sample-order-process")}>{t("Sample & order process","查看样品与订单流程")} ↗</Link></section>
+    <section className="studio-contact-band" id="inquiry"><div><p className="eyebrow">{t("START A PROJECT","产品合作")}</p><h2>{t("Let’s develop your next collection.","开启下一季产品合作")}</h2><p>{t("Share a style reference, target market and expected quantity. We will review the product and customization requirements.","提供款式参考、目标市场和预计数量，我们将评估产品与定制要求。")}</p></div><div><Link className="button button-light" href={href("/sourcing-review")}>{t("Discuss your project","提交合作需求")} ↗</Link><a className="studio-contact-email" href="mailto:shepeiqiang@gmail.com">shepeiqiang@gmail.com</a></div></section>
     {zh ? <ChineseSiteFooter /> : <SiteFooter />}
   </main>;
 }

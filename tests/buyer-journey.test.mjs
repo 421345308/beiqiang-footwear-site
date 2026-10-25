@@ -33,10 +33,10 @@ test("a buyer without a selected SKU can find the direct inquiry route in either
   }
 });
 
-for (const [prefix, label] of [["", "Send another product direction"], ["/zh", "提交其他款式方向"]]) {
+for (const [prefix, label] of [["", "Discuss your requirements"], ["/zh", "提交定制需求"]]) {
   test(`${prefix || "English"} catalog other-direction CTA opens the existing no-SKU inquiry`, async () => {
     const catalog = await render(`${prefix}/products/`);
-    const cta = catalog.match(/<a\b[^>]*href="([^"]+)"[^>]*>\s*([^<]+)<\/a>/g)
+    const cta = catalog.match(/<a\b[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)
       ?.find((anchor) => anchor.includes(label));
     assert.ok(cta, "catalog CTA remains visible");
     const destination = cta.match(/href="([^"]+)"/)[1];

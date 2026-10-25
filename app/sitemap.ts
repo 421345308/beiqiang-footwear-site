@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { productPageRoutes, pageAlternates } from "./lib/public-locales.ts";
 import { collections, products } from "./data/products";
 import { buyerResources } from "./data/resources";
 import { sourcingPrograms } from "./data/sourcing-programs";
@@ -59,10 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
   const routes = [
     ...staticRoutes,
-    ...products.flatMap((product) => [
-      `/products/${product.slug}`,
-      `/zh/products/${product.slug}`,
-    ]),
+    ...productPageRoutes(products.map(product => product.slug)).map(route => route.pathname),
     ...collections.flatMap((collection) => [
       `/collections/${collection.slug}`,
       `/zh/collections/${collection.slug}`,
@@ -94,11 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ...(routeSet.has(enRoute) && routeSet.has(zhRoute)
         ? {
             alternates: {
-              languages: {
-                en: absolute(enRoute),
-                "zh-CN": absolute(zhRoute),
-                "x-default": absolute(enRoute),
-              },
+              languages: pageAlternates(enRoute || "/").languages,
             },
           }
         : {}),

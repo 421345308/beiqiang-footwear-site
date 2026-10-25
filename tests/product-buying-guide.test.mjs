@@ -35,7 +35,7 @@ test("related styles separate children and adults and respect confirmed wide-toe
     assert.ok(related.every((candidate) => /kids/i.test(candidate.group) === /kids/i.test(item.group)));
     assert.ok(related.every((candidate) => products.some((current) => current.code === candidate.code)));
     if (item.fitEvidence === "wide_toe_verified") {
-      assert.equal(related.length, 2, "do not fill a third slot with an unverified wide fit");
+      assert.equal(related.length, Math.min(3, products.filter(p=>p.fitEvidence === 'wide_toe_verified').length - 1));
       assert.ok(related.every((candidate) => candidate.fitEvidence === "wide_toe_verified"));
     }
   }

@@ -23,7 +23,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
   const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState(
-    "Select 2 to 4 styles for a buyer-safe side-by-side comparison.",
+    "Select 2–4 styles to compare specifications.",
   );
   const trackedSharedComparison = useRef("");
 
@@ -177,7 +177,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
           </select>
         </label>
         <label>
-          <span>Sourcing direction</span>
+          <span>Collection</span>
           <select
             value={direction}
             onChange={(event) => {
@@ -185,7 +185,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
               setVisibleLimit(PAGE_SIZE);
             }}
           >
-            <option value="All">All directions</option>
+            <option value="All">All collections</option>
             <option value="wide-toe-box">Roomy toe</option>
             <option value="knit-slip-on">Easy-on knit</option>
             <option value="breathable-lace-up">Breathable lace-up</option>
@@ -445,9 +445,9 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
           <p>No matching style in the current online selection.</p>
           <Link
             className="text-link"
-            href="/request-quote/?program=reference-style"
+            href="/sourcing-review/"
           >
-            Send your target style for factory review →
+            Discuss another style →
           </Link>
         </div>
       )}

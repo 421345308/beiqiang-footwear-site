@@ -149,7 +149,7 @@ export default function ChineseProductCatalog({
     <>
       <div className="catalog-tools" aria-label="产品目录筛选">
         <label>
-          <span>按款号、源款号或产品搜索</span>
+          <span>搜索产品或款号</span>
           <input
             value={query}
             onChange={(event) => {
@@ -174,7 +174,7 @@ export default function ChineseProductCatalog({
           </select>
         </label>
         <label>
-          <span>采购方向</span>
+          <span>产品分类</span>
           <select
             value={direction}
             onChange={(event) => {
@@ -316,7 +316,7 @@ export default function ChineseProductCatalog({
                   ))}
                 </tr>
                 <tr>
-                  <th>尺码方向</th>
+                  <th>尺码范围</th>
                   {compared.map((product) => (
                     <td key={product.code}>{product.size}</td>
                   ))}

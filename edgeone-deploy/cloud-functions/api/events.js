@@ -11,7 +11,7 @@ function cleanStyleCodes(value) {
   const result = [];
   for (const raw of clean(value, 160).split(",")) {
     const code = raw.trim().toUpperCase();
-    if (!/^BQ\d{3}$/.test(code) || result.includes(code)) continue;
+    if (!/^BQ(?:\d{3}|-LQ(?:059|060|2597))$/.test(code) || result.includes(code)) continue;
     result.push(code);
     if (result.length === 4) break;
   }

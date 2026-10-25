@@ -1,4 +1,5 @@
 import catalogImages from "./catalog-images.json" with { type: "json" };
+import { externalProducts } from "./external-products.ts";
 import { verifiedProducts } from "./verified-products.ts";
 import {
   type CatalogDirection,
@@ -901,7 +902,7 @@ const originalProducts: Product[] = [
 
 // Keep held records for internal reconciliation; they are not public supply offers.
 export const heldSourceProducts: Product[] = verifiedProducts;
-export const products: Product[] = originalProducts;
+export const products: Product[] = [...originalProducts, ...externalProducts];
 
 export type CollectionFaq = { question: string; answer: string };
 
@@ -1005,7 +1006,7 @@ export const collections: ProductCollection[] = [
     title: "Walking shoe styles with documented extended EU size directions",
     description: "Compare current styles whose product records reach larger EU size directions, then confirm the exact size run and order ratio before quotation.",
     buyerIntent: "Buyers looking for walking and casual shoe candidates with a broader documented EU size direction.",
-    selectionBasis: "The current product record must reach EU 46 or EU 47, or explicitly identify a large-size direction.",
+    selectionBasis: "The recorded size range reaches EU 46 or above, or explicitly identifies a large-size direction.",
     proofBoundary: "A documented size direction is not current stock or a confirmed production size run. Exact sizes, molds, fit, size ratio and availability remain project confirmations.",
   },
   {

@@ -1,5 +1,5 @@
 import type { Product } from "../data/products";
-import { FACTORY_SOURCE_CODES } from "../data/factory-source-codes.ts";
+import { PUBLISHED_PRODUCT_CODES } from "../data/published-product-codes.ts";
 
 export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "en") {
   const zh = locale === "zh";
@@ -35,11 +35,11 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
 
 /** Relevance for comparison, not a recommendation based on sales or verified fit. */
 export function getRelatedProducts(product: Product, candidates: Product[], limit = 3): Product[] {
-  if (!FACTORY_SOURCE_CODES.has(product.code)) return [];
+  if (!PUBLISHED_PRODUCT_CODES.has(product.code)) return [];
   const kids = /kids/i.test(product.group);
   const wide = product.fitEvidence === "wide_toe_verified";
   return candidates
-    .filter((candidate) => FACTORY_SOURCE_CODES.has(candidate.code)
+    .filter((candidate) => PUBLISHED_PRODUCT_CODES.has(candidate.code)
       && candidate.code !== product.code
       && /kids/i.test(candidate.group) === kids
       && (!wide || candidate.fitEvidence === "wide_toe_verified")

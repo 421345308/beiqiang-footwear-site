@@ -116,7 +116,7 @@ def cover(c: canvas.Canvas, products: list[dict]) -> None:
     c.setFillColor(WHITE)
     c.setFont(CN_FONT, 10)
     c.drawString(18 * mm, 62 * mm, "先看样品，再确认大货规格")
-    paragraph(c, "工厂供货与OEM/ODM需求讨论。最终价格取决于选定款式、数量、材料、尺码配比、包装和贸易要求。", 18 * mm, 55 * mm, 170 * mm, 22 * mm, 8.5, 12, colors.HexColor("#D9E3DE"))
+    paragraph(c, "自有工厂鞋款与合作供应商产品逐款标注。OEM/ODM需求按款评估。最终价格取决于选定款式、数量、材料、尺码配比、包装和贸易要求。", 18 * mm, 55 * mm, 170 * mm, 22 * mm, 8.5, 12, colors.HexColor("#D9E3DE"))
     c.setFillColor(TERRACOTTA)
     c.roundRect(18 * mm, 24 * mm, 174 * mm, 16 * mm, 2 * mm, fill=1, stroke=0)
     c.setFillColor(WHITE)
@@ -150,7 +150,7 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         c.linkURL(product_url, (text_x, y + card_h - 10 * mm, text_x + 44 * mm, y + card_h - 4 * mm), relative=0)
         paragraph(c, product["nameZh"], text_x, y + card_h - 12 * mm, text_w, 12 * mm, 8.5, 10.5, INK)
         paragraph(c, f'<b>适合买家：</b>{product["buyerFitZh"]}', text_x, y + card_h - 24 * mm, text_w, 11 * mm, 7, 9, MUTED)
-        evidence = "｜".join(product.get("evidenceHighlightsZh", [])[:2])
+        evidence = '合作供应商供货' if product['supplyMode'] == 'partner-sourced' else '贝强自有工厂鞋款'
         paragraph(c, evidence or product["summaryZh"], text_x, y + 12 * mm, text_w, 10 * mm, 6.8, 8.3, INK)
 
         facts_x = 145 * mm

@@ -34,8 +34,8 @@ def save_catalog_webp(image: Image.Image, destination: Path) -> None:
 
 def build_catalog() -> tuple[int, int, int]:
     manifest = json.loads(CATALOG_MANIFEST.read_text(encoding="utf-8"))
-    main_sources = sorted(CATALOG_ROOT.glob("bq[0-9][0-9][0-9]/01_main.jpg"))
-    all_sources = sorted(CATALOG_ROOT.glob("bq[0-9][0-9][0-9]/*.jpg"))
+    main_sources = sorted(CATALOG_ROOT.glob("bq*/01_main.jpg"))
+    all_sources = sorted(CATALOG_ROOT.glob("bq*/*.jpg"))
     actual_slugs = [source.parent.name for source in main_sources]
     if actual_slugs != sorted(manifest):
         raise SystemExit("Catalogue main images do not match catalog-images.json; run npm run catalog:sync")

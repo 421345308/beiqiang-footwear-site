@@ -26,29 +26,29 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   const home = await render("/zh");
   const homeHtml = await home.text();
   assert.equal(home.status, 200);
-  assert.match(homeHtml, /采购休闲鞋，或做自己的品牌/);
-  assert.match(homeHtml, /批发选款/);
+  assert.match(homeHtml, /专注鞋履制造/);
+  assert.match(homeHtml, /品牌贴牌/);
   assert.doesNotMatch(homeHtml, /当前重点候选|用30款真实产品资料/);
   assert.match(homeHtml, /English/);
   assert.match(
     homeHtml,
-    /生产和运输安排会在下单前确认/,
+    /规格、报价与排期/,
   );
 
   const catalog = await render("/zh/products");
   const catalogHtml = await catalog.text();
   assert.equal(catalog.status, 200);
-  assert.match(catalogHtml, /按款号、源款号或产品搜索/);
-  assert.match(catalogHtml, /先按采购方向查看/);
-  assert.match(catalogHtml, /先看产品方向，再看具体款式/);
-  assert.match(catalogHtml, /高帮与袜套款/);
+  assert.match(catalogHtml, /搜索产品或款号/);
+  assert.match(catalogHtml, /休闲与步行鞋系列/);
+  assert.match(catalogHtml, /款产品可供选型/);
+  assert.match(catalogHtml, /高帮 \/ 袜套款/);
   assert.match(catalogHtml, /儿童鞋/);
-  assert.match(catalogHtml, /扩展尺码方向/);
-  assert.match(catalogHtml, /加绒选项/);
+  assert.match(catalogHtml, /扩展尺码款/);
+  assert.match(catalogHtml, /可选加绒款/);
   assert.match(catalogHtml, /zh\/collections\/kids-shoes\//i);
-  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?31(?:<!-- -->)?款/);
+  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?34(?:<!-- -->)?款/);
   assert.match(catalogHtml, /查看更多产品/);
-  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?31(?:<!-- -->)?个当前产品款号/);
+  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?34(?:<!-- -->)?个当前产品款号/);
   assert.match(catalogHtml, /BQ001/);
   assert.match(catalogHtml, /BQ030/);
   assert.match(catalogHtml, /BQ031/);
@@ -64,7 +64,7 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const wide = await render("/zh/products/bq001");
   const wideHtml = await wide.text();
   assert.equal(wide.status, 200);
-  assert.match(wideHtml, /本款为宽鞋头设计/);
+  assert.match(wideHtml, /本款为宽鞋头结构/);
   assert.match(wideHtml, /加入询价单/);
   assert.match(wideHtml, /分享给采购团队/);
   assert.match(wideHtml, /提交样品 \/ 报价需求/);
@@ -84,21 +84,21 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const stretchHtml = await stretch.text();
   assert.equal(stretch.status, 200);
   assert.match(stretchHtml, /弹力织物/);
-  assert.match(stretchHtml, /鞋楦宽度请按本款样品确认/);
+  assert.match(stretchHtml, /鞋楦宽度和合脚性需要看样/);
   assert.doesNotMatch(stretchHtml, /该SKU已有宽鞋头证据/);
 
   const r1811 = await render("/zh/products/bq015");
   const r1811Html = await r1811.text();
   assert.equal(r1811.status, 200);
   assert.match(r1811Html, /产品细节/);
-  assert.match(r1811Html, /Alibaba在售配置已记录网布内里/);
+  assert.match(r1811Html, /所列配置采用网布内里/);
   assert.match(r1811Html, /各颜色加绒版本可用情况/);
 
   const m8811 = await render("/zh/products/bq006");
   const m8811Html = await m8811.text();
   assert.equal(m8811.status, 200);
   assert.match(m8811Html, /产品细节/);
-  assert.match(m8811Html, /来源资料已记录EVA鞋底/);
+  assert.match(m8811Html, /EVA鞋底/);
   assert.match(m8811Html, /所选颜色对应的加绒版本/);
   assert.match(m8811Html, /内里材质与鞋面准确组成/);
 });
@@ -201,7 +201,7 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
       /在大货开始前，弄清每一个关键决定/,
       /网站不收集银行卡、网银密码或验证码/,
     ],
-    ["/zh/line-sheet", /一份可用于选款的目录/, /获取31款产品目录/],
+    ["/zh/line-sheet", /一份可用于选款的目录/, /获取34款产品目录/],
   ]) {
     const response = await render(path);
     const html = await response.text();
@@ -521,7 +521,7 @@ test("includes every Chinese public route in the EdgeOne export contract", async
     new URL("../scripts/export-edgeone-static.mjs", import.meta.url),
     "utf8",
   );
-  assert.match(exporter, /chineseProductRoutes/);
+  assert.match(exporter, /productPageRoutes/);
   assert.match(exporter, /chineseCollectionRoutes/);
   assert.match(exporter, /pathname:\s*"\/zh"/);
   assert.match(exporter, /pathname:\s*"\/zh\/products"/);
@@ -543,7 +543,7 @@ test("includes every Chinese public route in the EdgeOne export contract", async
     "buyer-guide",
   ])
     assert.match(exporter, new RegExp(`"${slug}"`));
-  assert.match(exporter, /zh\/products\/\$\{slug\}\/index\.html/);
+  assert.match(exporter, /productPageRoutes\(productSlugs\)/);
   assert.match(exporter, /zh\/collections\/\$\{slug\}\/index\.html/);
 });
 

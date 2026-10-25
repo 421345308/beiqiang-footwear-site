@@ -1,0 +1,38 @@
+import type { Product } from "./products.ts";
+
+const confirmations = ["Color and size quantities", "Material specifications and sample fit", "Branding, packing and delivery requirements"];
+const gallery = (slug: string) => ["01_main", "02_view", "03_view", "04_view"].map(name => `/catalog/${slug}/${name}.jpg`);
+// Website projection of the product-centre records, reviewed 2026-10-25.
+// Material chemistry and performance are not inferred from photographs.
+export const externalProducts: Product[] = [
+  {
+    code: "BQ-LQ059", slug: "bq-lq059", sourceModel: "059",
+    name: "Panelled Lace-Up Casual Shoes",
+    shortDescription: "Low-top casual shoes with loop eyelets, broad upper panels and a contrasting heel panel.",
+    group: "Lace-Up Casual Shoes", closure: "Lace-Up", upper: "Panelled upper; composition to be confirmed", sole: "Material to be confirmed",
+    size: "EU 36-48", colors: ["Black", "Brown", "Dark Grey"], collections: ["extended-size-shoes"],
+    fitEvidence: "unconfirmed", tier: "New", buyerFit: "Casual footwear retailers and wholesalers",
+    highlights: ["Loop-style lace eyelets", "Low collar and contrasting heel panel", "EU 36–48 size range"], confirmBeforeQuote: confirmations,
+    images: gallery("bq-lq059"), alibabaProductId: "1601972951733",
+  },
+  {
+    code: "BQ-LQ060", slug: "bq-lq060", sourceModel: "060",
+    name: "Mesh-Panel Lace-Up Casual Shoes",
+    shortDescription: "Layered low-top shoes with mesh side panels, fabric lace loops and a contrasting toe overlay.",
+    group: "Lace-Up Casual Shoes", closure: "Lace-Up", upper: "Mesh panels and overlays; composition to be confirmed", sole: "Material to be confirmed",
+    size: "EU 36-48", colors: ["Black Brown", "Black", "Black Grey"], collections: ["extended-size-shoes"],
+    fitEvidence: "unconfirmed", tier: "New", buyerFit: "Casual footwear retailers and wholesalers",
+    highlights: ["Mesh side inserts", "Fabric lace loops", "EU 36–48 size range"], confirmBeforeQuote: confirmations,
+    images: gallery("bq-lq060"), alibabaProductId: "1601972944790",
+  },
+  {
+    code: "BQ-LQ2597", slug: "bq-lq2597", sourceModel: "2597",
+    name: "Wide Toe Box Mesh Lace-Up Casual Shoes",
+    shortDescription: "Wide toe box casual shoes with a ribbed mesh upper, two side bands and a low-profile brown sole.",
+    group: "Wide Toe Box Casual Shoes", closure: "Lace-Up", upper: "Mesh upper with overlays; composition to be confirmed", sole: "Material to be confirmed",
+    size: "EU 39-48", colors: ["Black", "White Red", "Grey"], collections: ["wide-toe-box", "extended-size-shoes"],
+    fitEvidence: "wide_toe_verified", tier: "New", buyerFit: "Wide toe box footwear retailers and wholesalers",
+    highlights: ["Wide toe box", "Ribbed mesh and two side bands", "EU 39–48 size range"], confirmBeforeQuote: confirmations,
+    images: gallery("bq-lq2597"), alibabaProductId: "1601973797610",
+  },
+];

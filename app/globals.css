@@ -2349,7 +2349,7 @@ footer a:hover { color: var(--forest); }
   body.factory-review-pack-printing .factory-review-columns li { margin-bottom: 2mm; color: #4c5c56 !important; font-size: 7.5pt; }
   body.factory-review-pack-printing .factory-review-pack-footer { display: block; margin-top: 5mm; padding: 4mm; background: #eef3ef !important; print-color-adjust: exact; }
   body.factory-review-pack-printing .factory-review-pack-footer > p { font-size: 7.5pt; }
-  body.product-sheet-printing > *:not(main), body.product-sheet-printing main > *:not(.product-print-sheet) { display: none !important; }
+  body.product-sheet-printing > *:not(main):not(.zh-page), body.product-sheet-printing main > *:not(.product-print-sheet) { display: none !important; }
   .product-print-sheet { position: absolute; inset: 0; display: block; width: 100%; height: 275mm; box-sizing: border-box; font-family: Arial, sans-serif; }
   .product-print-sheet header { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; padding-bottom: 14px; border-bottom: 3px solid #173b32; }
   .product-print-sheet header p { margin: 0 0 6px; color: #9d4e36; font-size: 8pt; font-weight: 800; letter-spacing: .13em; }

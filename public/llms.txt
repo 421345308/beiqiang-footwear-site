@@ -32,9 +32,9 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 31 organized product pages; this is not the factory's entire product range.
+- The website currently contains 34 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
-- Wide-toe claims are limited to BQ001, BQ002 and BQ031. Other styles are not presented as wide-toe products.
+- Wide-toe claims apply only to individually identified styles. Own-factory and partner-sourced styles are distinguished on product pages.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
 - Formal transactions proceed through Alibaba Trade Assurance or a signed bilateral contract.
 
@@ -71,3 +71,6 @@
 - BQ029 / A025: High-Top Sock Knit Walking Shoes — https://www.beiqiang.online/products/bq029/
 - BQ030 / A811: Kids Mesh Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq030/
 - BQ031 / ZX2116: Wide Toe Box Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq031/
+- BQ-LQ059 / 059: Panelled Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq059/
+- BQ-LQ060 / 060: Mesh-Panel Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq060/
+- BQ-LQ2597 / 2597: Wide Toe Box Mesh Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq2597/

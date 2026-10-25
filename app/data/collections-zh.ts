@@ -82,7 +82,7 @@ export const chineseCollections: ChineseCollection[] = [
     slug: "extended-size-shoes",
     name: "扩展尺码",
     title: "资料中延伸至较大欧码的步行鞋款",
-    description: "比较当前资料中尺码方向达到EU 46或EU 47的候选款，再在报价前核对实际尺码段与订单码比。",
+    description: "浏览尺码范围达到 EU 46 及以上的鞋款，在报价前确认可供尺码与订单码比。",
     buyerIntent: "寻找较宽欧码方向的步行鞋和休闲鞋候选款，并愿意先核实样品与尺码的B2B买家。",
     proofBoundary: "资料中的尺码方向不是现货或已确认生产尺码段；准确尺码、模具、版型、码比和可用状态仍按项目确认。",
   },

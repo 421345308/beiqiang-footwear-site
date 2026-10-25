@@ -29,8 +29,8 @@ const englishGroups = [
     links: [
       ["Wholesale walking shoes", "/solutions/wholesale-walking-shoes/", "Build a multi-style wholesale brief."],
       ["Private-label walking shoes", "/solutions/private-label-walking-shoes/", "Prepare branding and market requirements."],
-      ["OEM knit-shoe development", "/solutions/oem-knit-shoes/", "Separate buyer targets from confirmed capability."],
-      ["OEM / ODM overview", "/oem-odm/", "Review customization inputs and confirmation points."],
+      ["OEM knit-shoe development", "/solutions/oem-knit-shoes/", "Discuss your design and development requirements."],
+      ["OEM / ODM overview", "/oem-odm/", "Materials, branding and packaging options."],
       ["Logo concept studio", "/private-label-concept/", "Create a non-production artwork discussion brief."],
     ],
   },
@@ -47,7 +47,7 @@ const englishGroups = [
     links: [
       ["B2B buyer guide", "/buyer-guide/", "Follow the decisions from shortlist to order handover."],
       ["Sourcing resources", "/resources/", "Use buyer checklists and decision guides."],
-      ["Request human review", "/sourcing-review/", "Ask Beiqiang to review a broader sourcing brief."],
+      ["Contact us", "/sourcing-review/", "Ask Beiqiang to review a broader sourcing brief."],
     ],
   },
 ] as const;
@@ -92,7 +92,7 @@ const chineseGroups = [
     links: [
       ["B2B采购指南", "/zh/buyer-guide/", "从选款到订单交接逐步核对。"],
       ["采购知识与清单", "/zh/resources/", "使用买家清单和决策指南。"],
-      ["申请人工复核", "/zh/sourcing-review/", "让贝强业务员审核完整采购需求。"],
+      ["产品与定制咨询", "/zh/sourcing-review/", "让贝强业务员审核完整采购需求。"],
     ],
   },
 ] as const;
@@ -105,7 +105,7 @@ export default function DesktopBuyerNavigation({ locale = "en", alternateHref }:
       {groups.map((group) => (
         <details className="nav-menu" key={group.label}>
           <summary>{group.label}</summary>
-          <div className={`nav-menu-panel${group.wide ? " nav-menu-panel-wide" : ""}`}>
+          <div className={`nav-menu-panel${"wide" in group && group.wide ? " nav-menu-panel-wide" : ""}`}>
             {group.links.map(([label, href, description]) => (
               <Link href={href} key={href}>
                 <strong>{label}</strong>
