@@ -3,10 +3,13 @@
 import { useEffect } from "react";
 import InquiryForm from "./InquiryForm";
 import { trackEvent } from "../lib/tracking";
+import type { Product } from "../data/products";
+import { useProductColour } from "./ProductColourOptions";
 
 const ALIBABA_STORE = "https://cn1576227362luzl.m.en.alibaba.com/";
 
 type ProductInquiryProps = {
+  product: Product;
   locale?: "en" | "zh";
   code: string;
   label: string;
@@ -14,7 +17,8 @@ type ProductInquiryProps = {
   alibabaProductId?: string;
 };
 
-export default function ProductInquiry({ code, label, productName, alibabaProductId, locale = "en" }: ProductInquiryProps) {
+export default function ProductInquiry({ product, code, label, productName, alibabaProductId, locale = "en" }: ProductInquiryProps) {
+  const { colour } = useProductColour(product);
   const zh = locale === "zh";
   const context = `${code.toLowerCase()}_inquiry`;
 
@@ -22,7 +26,7 @@ export default function ProductInquiry({ code, label, productName, alibabaProduc
     trackEvent("product_view", { context: "product", styleCode: code });
   }, [code]);
 
-  const brief = `Hello Beiqiang, I am interested in ${code} ${productName}. Please discuss sample availability and quotation requirements.`;
+  const brief = `Hello Beiqiang, I am interested in ${code} ${productName}.${colour ? ` Requested colour: ${colour.name}.` : ""} Please discuss sample availability and quotation requirements.`;
   const whatsappHref = `https://wa.me/8618959805256?text=${encodeURIComponent(brief)}`;
   const emailHref = `mailto:shepeiqiang@gmail.com?subject=${encodeURIComponent(`${code} sample / quotation request`)}&body=${encodeURIComponent(brief)}`;
   const productSlug = productName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -40,7 +44,7 @@ export default function ProductInquiry({ code, label, productName, alibabaProduc
           <a className="contact-text-link" href={alibabaHref} target="_blank" rel="noreferrer" onClick={() => trackEvent("alibaba_click", { context, styleCode: code, linkType: alibabaProductId ? "product" : "store" })}>{alibabaProductId ? (zh ? `查看 ${code} 国际站商品` : `View ${code} on Alibaba.com`) : (zh ? "查看贝强国际站店铺" : "Visit our Alibaba.com store")}</a>
         </div>
       </div>
-      <InquiryForm styleCode={code} styleLabel={label} context="product" locale={locale} />
+      <InquiryForm styleCode={code} styleLabel={label} context="product" locale={locale} selectedColour={colour?.name || ""} />
     </div>
   );
 }

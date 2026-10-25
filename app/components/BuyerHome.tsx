@@ -5,6 +5,7 @@ import SiteFooter from "./SiteFooter";
 import ChineseSiteHeader from "./ChineseSiteHeader";
 import ChineseSiteFooter from "./ChineseSiteFooter";
 import FactoryEvidenceVideo from "./FactoryEvidenceVideo";
+import HeroProductPreview from "./HeroProductPreview";
 import HomeProductDiscovery from "./HomeProductDiscovery";
 import { products } from "../data/products";
 import { localizedPath, type PublicLocale } from "../lib/public-locales";
@@ -26,11 +27,7 @@ export default function BuyerHome({ locale = "en" }: { locale?: PublicLocale }) 
         <div className="studio-hero-actions"><Link className="button" href="#collections">{t("Find your product","按需求浏览产品")} ↗</Link><Link className="studio-text-link" href={href("/sourcing-review")}>{t("Discuss customization","咨询品牌定制")} →</Link></div>
         <div className="studio-hero-foot"><span>{t("OEM / ODM","OEM / ODM 开发")}</span><span>{t("Private label","品牌贴牌")}</span><span>{t("Wholesale supply","鞋类批发")}</span></div>
       </div>
-      <div className="studio-product-cover">
-        <div className="cover-heading"><span>{t("THE BEIQIANG COLLECTION","贝强产品系列")}</span><span>BQ018</span></div>
-        <Link className="cover-main" href={href("/products/bq018")} aria-label={t("View BQ018 knit lace-up shoes","查看 BQ018 针织系带鞋")}><img src="/catalog-thumbs/bq018.webp" alt={t("BQ018 purple knit lace-up shoe with a white sole","BQ018 紫色针织系带鞋，白色鞋底")} width={640} height={640} fetchPriority="high" /><span><strong>BQ018</strong>{t("Knit lace-up shoes","针织系带休闲鞋")} <b aria-hidden="true">↗</b></span></Link>
-        <div className="cover-other-styles"><Link href={href("/collections/wide-toe-box")}><img src="/catalog-thumbs/bq001.webp" alt="" width={160} height={136} /><span>{t("Wide toe box","宽鞋头系列")}<small>{t("Explore styles","浏览鞋款")} ↗</small></span></Link><Link href={href("/collections/kids-shoes")}><img src="/catalog-thumbs/bq016.webp" alt="" width={160} height={160} /><span>{t("Kids’ collection","童鞋系列")}<small>{t("Explore styles","浏览鞋款")} ↗</small></span></Link></div>
-      </div>
+      <HeroProductPreview product={products.find(p => p.code === "BQ003")!} locale={locale} />
     </section>
     <div className="studio-intro-strip"><p>{t("From product selection to brand development.","从产品选型，到品牌开发。")}</p><span>{t("A manufacturing and sourcing partner in Quanzhou.","立足泉州，连接制造与采购。")}</span></div>
     <HomeProductDiscovery products={products} locale={locale} />

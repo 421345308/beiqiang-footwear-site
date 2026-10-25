@@ -7,6 +7,7 @@ import { getAttribution, trackEvent } from "../lib/tracking";
 import InquiryAttachmentUploader from "./InquiryAttachmentUploader";
 import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
 import type { ProductFinderBrief } from "../lib/product-finder-brief";
+import { colorZh } from "../data/products-zh";
 
 type InquiryFormProps = {
   styleCode: string;
@@ -18,11 +19,12 @@ type InquiryFormProps = {
   initialRequirements?: string;
   finderBrief?: ProductFinderBrief | null;
   sourcingProgram?: string;
+  selectedColour?: string;
 };
 
 type FormStatus = { kind: "idle" | "sending" | "success" | "error"; message: string };
 
-export default function InquiryForm({ styleCode, styleLabel, context, locale = "en", initialBuyerType = "Importer / wholesaler", initialMarket = "", initialRequirements = "", finderBrief = null, sourcingProgram = "" }: InquiryFormProps) {
+export default function InquiryForm({ styleCode, styleLabel, context, locale = "en", initialBuyerType = "Importer / wholesaler", initialMarket = "", initialRequirements = "", finderBrief = null, sourcingProgram = "", selectedColour = "" }: InquiryFormProps) {
   const zh = locale === "zh";
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -33,6 +35,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
   const [whatsapp, setWhatsapp] = useState("");
   const [contactPreferences, setContactPreferences] = useState<ContactPreferences>(EMPTY_CONTACT_PREFERENCES);
   const [requirements, setRequirements] = useState(initialRequirements);
+  const submittedRequirements = [selectedColour ? `Requested colour: ${selectedColour}` : "", requirements].filter(Boolean).join("\n");
   const [website, setWebsite] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: zh ? "提交后系统会保存需求并生成唯一询盘编号和私密查询码。" : "Your request will be saved and assigned a reference number." });
@@ -55,9 +58,9 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
       zh ? `预计数量：${quantity || "待讨论"}` : `Expected quantity: ${quantity || "To be discussed"}`,
       `Email: ${email || (zh ? "未提供" : "Not provided")}`,
       `WhatsApp: ${whatsapp || (zh ? "未提供" : "Not provided")}`,
-      zh ? `其他要求：${requirements || "请确认样品、颜色、尺码配比、包装和时间。"}` : `Requirements: ${requirements || "Please confirm sample, colors, size ratio, packing and timing."}`,
+      zh ? `其他要求：${submittedRequirements || "请确认样品、颜色、尺码配比、包装和时间。"}` : `Requirements: ${submittedRequirements || "Please confirm sample, colors, size ratio, packing and timing."}`,
     ].join("\n"),
-    [buyerType, company, email, market, name, quantity, requirements, styleCode, styleLabel, whatsapp, zh],
+    [buyerType, company, email, market, name, quantity, submittedRequirements, styleCode, styleLabel, whatsapp, zh],
   );
 
   function markStarted() {
@@ -80,7 +83,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name, company, buyerType, market, quantity, email, whatsapp, requirements, ...contactPreferences,
+          name, company, buyerType, market, quantity, email, whatsapp, requirements: submittedRequirements, ...contactPreferences,
           website, consent, styleCode, styleLabel, context, finderBrief, sourcingProgram,
           formStartedAt: startedAt.current,
           attribution: getAttribution(),
@@ -101,6 +104,7 @@ export default function InquiryForm({ styleCode, styleLabel, context, locale = "
 
   return (
     <form className="inquiry-form" aria-label={zh ? `${styleCode}样品和报价需求` : `${styleCode} sample and quotation request`} onSubmit={submitInquiry} onFocus={markStarted}>
+      {selectedColour && <p className="form-full selected-colour-summary" role="status">{zh ? "本次咨询配色" : "Colour in this enquiry"}：<strong>{zh ? colorZh(selectedColour) : selectedColour}</strong></p>}
       <p className="form-instructions">{zh ? "姓名、公司、市场和预计数量为必填；数量未定可写“待讨论”。邮箱与WhatsApp至少填写一项。" : "Name, company, market and estimated quantity are required; you can write “To discuss” for quantity. Please add either email or WhatsApp."}</p>
       <label>{zh ? "联系人姓名" : "Contact name"}<input required value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" maxLength={100} placeholder={zh ? "您的姓名" : "Your name"} /></label>
       <label>{zh ? "公司名称" : "Company name"}<input required value={company} onChange={(event) => setCompany(event.target.value)} autoComplete="organization" maxLength={160} placeholder={zh ? "公司或品牌名称" : "Your company or brand"} /></label>

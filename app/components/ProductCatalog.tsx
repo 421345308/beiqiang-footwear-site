@@ -6,6 +6,7 @@ import type { Product } from "../data/products";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import { trackEvent } from "../lib/tracking";
 import ProductCard from "./ProductCard";
+import { ComparisonColour } from "./ProductColourOptions";
 import ComparisonShareActions from "./ComparisonShareActions";
 import { parseComparisonCodes } from "../lib/comparison-link";
 import {
@@ -21,11 +22,15 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
   const [direction, setDirection] = useState("All");
   const [sort, setSort] = useState("code_asc");
   const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
+  const [compareOpen, setCompareOpen] = useState(false);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState(
     "Select 2–4 styles to compare specifications.",
   );
   const trackedSharedComparison = useRef("");
+  useEffect(() => {
+    if (compareOpen) document.getElementById("product-comparison")?.scrollIntoView({ block: "start" });
+  }, [compareOpen]);
 
   const visible = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -80,6 +85,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
       if (codes.length >= 2) {
         const styleCodes = codes.join(",");
         setCompareCodes(codes);
+        setCompareOpen(true);
         setCompareMessage(
           `Shared comparison loaded · ${codes.length}/4 styles.`,
         );
@@ -211,7 +217,8 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
           Showing {Math.min(shown.length, visible.length)} of {visible.length}
         </strong>
       </div>
-      <aside className="compare-tray">
+      {compared.length >= 2 && !compareOpen && <button className="mobile-compare-shortcut" type="button" onClick={() => setCompareOpen(true)}>Compare {compared.length} styles ↗</button>}
+      <aside className={`compare-tray${compareCodes.length ? " has-selection" : ""}`}>
         <div>
           <strong>Compare styles</strong>
           <span>{compareMessage}</span>
@@ -238,13 +245,14 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
             </button>
           )}
         </div>
+        {compared.length >= 2 && <button type="button" className="compare-open" aria-expanded={compareOpen} aria-controls="product-comparison" onClick={() => setCompareOpen(open => !open)}>{compareOpen ? "Close comparison" : "View comparison"} ↗</button>}
       </aside>
-      {compared.length >= 2 ? (
+      {compared.length >= 2 && compareOpen ? (
         <ComparisonShareActions codes={compareCodes} />
       ) : null}
-      {compared.length >= 2 ? (
+      {compared.length >= 2 && compareOpen ? (
         <section
-          className="product-comparison comparison-en"
+          id="product-comparison" className="product-comparison comparison-en"
           aria-label="Selected product comparison"
         >
           <header className="comparison-print-header">
@@ -278,6 +286,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
               </Link>
             </div>
           </div>
+          <p className="comparison-mobile-hint">Swipe across to view the other selected styles →</p>
           <div className="comparison-scroll">
             <table>
               <thead>
@@ -285,14 +294,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                   <th>Comparison</th>
                   {compared.map((product) => (
                     <th key={product.code}>
-                      <img
-                        src={`/catalog-thumbs/${product.slug}.webp`}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        width={640}
-                        height={640}
-                      />
+                      <ComparisonColour product={product} />
                       <Link href={`/products/${product.slug}/`}>
                         {product.code}
                       </Link>

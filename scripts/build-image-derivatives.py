@@ -34,6 +34,7 @@ def save_catalog_webp(image: Image.Image, destination: Path) -> None:
 
 def build_catalog() -> tuple[int, int, int]:
     manifest = json.loads(CATALOG_MANIFEST.read_text(encoding="utf-8"))
+    published_slugs = {code.lower() for code in json.loads((PROJECT_ROOT / "app/data/product-colour-media.json").read_text(encoding="utf-8"))}
     main_sources = sorted(CATALOG_ROOT.glob("bq*/01_main.jpg"))
     all_sources = sorted(CATALOG_ROOT.glob("bq*/*.jpg"))
     actual_slugs = [source.parent.name for source in main_sources]
@@ -59,6 +60,13 @@ def build_catalog() -> tuple[int, int, int]:
         image = rgb_image(source)
         image.thumbnail((1000, 1000), Image.Resampling.LANCZOS)
         save_catalog_webp(image, destination)
+        if source.parent.name not in published_slugs:
+            image.close()
+            continue
+        small_dir = PUBLIC_ROOT / "catalog-small" / source.parent.name
+        small_dir.mkdir(parents=True, exist_ok=True)
+        image.thumbnail((180, 180), Image.Resampling.LANCZOS)
+        image.save(small_dir / f"{source.stem}.webp", "WEBP", quality=76, method=6)
         image.close()
 
     output_bytes = sum(path.stat().st_size for path in CATALOG_WEB_ROOT.rglob("*.webp"))

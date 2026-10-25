@@ -1,4 +1,5 @@
 import type { Product } from "../data/products";
+import { selectedColourName, colourId, colourImage, galleryImage } from "./product-colours.ts";
 
 export type QuoteLine = {
   code: string;
@@ -23,7 +24,7 @@ export function readQuoteList(): QuoteLine[] {
   if (typeof window === "undefined") return [];
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    return Array.isArray(parsed) ? parsed.filter((item) => item?.code && item?.slug).slice(0, 12).map((item) => ({ ...item, image: `/catalog-thumbs/${item.slug}.webp` })) : [];
+    return Array.isArray(parsed) ? parsed.filter((item) => item?.code && item?.slug).slice(0, 12).map((item) => ({ ...item, image: typeof item.image === "string" && /^\/catalog-web\/[a-z0-9-]+\/[a-z0-9_-]+\.webp$/.test(item.image) && item.image.split("/")[2] === item.slug ? item.image : `/catalog-thumbs/${item.slug}.webp` })) : [];
   } catch {
     return [];
   }
@@ -35,18 +36,28 @@ export function saveQuoteList(lines: QuoteLine[]) {
   notify();
 }
 
-export function addProductToQuote(product: Product) {
+export function addProductToQuote(product: Product, requestedColour = selectedColourName(product)) {
   const lines = readQuoteList();
-  if (lines.some((line) => line.code === product.code)) return false;
+  const color = product.colors.includes(requestedColour) ? requestedColour : "";
+  const image = color ? galleryImage(product.images[colourImage(product, colourId(color))]) : `/catalog-thumbs/${product.slug}.webp`;
+  const existing = lines.find(line => line.code === product.code);
+  if (existing) {
+    if (color && !existing.colors.split(",").map(c => c.trim()).includes(color)) {
+      existing.colors = [existing.colors, color].filter(Boolean).join(", ");
+      existing.image = image;
+      saveQuoteList(lines);
+    }
+    return false;
+  }
   if (lines.length >= 12) return false;
   saveQuoteList([...lines, {
     code: product.code,
     slug: product.slug,
     sourceModel: product.sourceModel,
     name: product.name,
-    image: `/catalog-thumbs/${product.slug}.webp`,
+    image,
     quantity: "",
-    colors: "",
+    colors: color,
     sizes: "",
     notes: "",
   }]);

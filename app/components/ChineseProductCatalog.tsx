@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -15,6 +14,7 @@ import { parseComparisonCodes } from "../lib/comparison-link";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import { trackEvent } from "../lib/tracking";
 import ChineseProductCard from "./ChineseProductCard";
+import { ComparisonColour } from "./ProductColourOptions";
 import ComparisonShareActions from "./ComparisonShareActions";
 import {
   isCatalogDirection,
@@ -33,11 +33,15 @@ export default function ChineseProductCatalog({
   const [direction, setDirection] = useState("全部");
   const [sort, setSort] = useState("code_asc");
   const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
+  const [compareOpen, setCompareOpen] = useState(false);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [message, setMessage] = useState(
-    "请选择2至4款产品进行并排比较。所有未知信息继续保留为待确认。 ",
+    "选择 2–4 款，比较配色、尺码与产品规格。",
   );
   const trackedSharedComparison = useRef("");
+  useEffect(() => {
+    if (compareOpen) document.getElementById("product-comparison")?.scrollIntoView({ block: "start" });
+  }, [compareOpen]);
   const visible = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     const filtered = products.filter((product) => {
@@ -93,6 +97,7 @@ export default function ChineseProductCatalog({
       if (codes.length >= 2) {
         const styleCodes = codes.join(",");
         setCompareCodes(codes);
+        setCompareOpen(true);
         setMessage(`已载入分享的产品比较 · ${codes.length}/4款。`);
         if (trackedSharedComparison.current !== styleCodes) {
           trackedSharedComparison.current = styleCodes;
@@ -135,7 +140,7 @@ export default function ChineseProductCatalog({
     let already = 0;
     for (const product of compared) {
       if (existing.has(product.code)) already += 1;
-      else if (addProductToQuote(product)) inserted += 1;
+      if (addProductToQuote(product)) inserted += 1;
       trackEvent("quote_list_add", {
         styleCode: product.code,
         context: "comparison_zh",
@@ -208,7 +213,8 @@ export default function ChineseProductCatalog({
           显示{Math.min(shown.length, visible.length)}款，共{visible.length}款
         </strong>
       </div>
-      <aside className="compare-tray">
+      {compared.length >= 2 && !compareOpen && <button className="mobile-compare-shortcut" type="button" onClick={() => setCompareOpen(true)}>对比所选 {compared.length} 款 ↗</button>}
+      <aside className={`compare-tray${compareCodes.length ? " has-selection" : ""}`}>
         <div>
           <strong>产品比较</strong>
           <span>{message}</span>
@@ -235,13 +241,14 @@ export default function ChineseProductCatalog({
             </button>
           )}
         </div>
+        {compared.length >= 2 && <button type="button" className="compare-open" aria-expanded={compareOpen} aria-controls="product-comparison" onClick={() => setCompareOpen(open => !open)}>{compareOpen ? "收起对比" : "查看对比"} ↗</button>}
       </aside>
-      {compared.length >= 2 ? (
+      {compared.length >= 2 && compareOpen ? (
         <ComparisonShareActions codes={compareCodes} locale="zh" />
       ) : null}
-      {compared.length >= 2 ? (
+      {compared.length >= 2 && compareOpen ? (
         <section
-          className="product-comparison comparison-zh"
+          id="product-comparison" className="product-comparison comparison-zh"
           aria-label="已选产品比较"
         >
           <header className="comparison-print-header">
@@ -254,7 +261,7 @@ export default function ChineseProductCatalog({
           <div className="comparison-heading">
             <div>
               <p className="eyebrow">采购选款</p>
-              <h2>比较产品信息与具体订单确认项</h2>
+              <h2>对比所选鞋款</h2>
               <p>先用现有产品资料筛选候选款；数量、颜色、材料执行和时间等信息按您的具体需求确认。</p>
             </div>
             <div>
@@ -270,6 +277,7 @@ export default function ChineseProductCatalog({
               </Link>
             </div>
           </div>
+          <p className="comparison-mobile-hint">左右滑动查看其他所选鞋款 →</p>
           <div className="comparison-scroll">
             <table>
               <thead>
@@ -277,14 +285,7 @@ export default function ChineseProductCatalog({
                   <th>比较项目</th>
                   {compared.map((product) => (
                     <th key={product.code}>
-                      <img
-                        src={`/catalog-thumbs/${product.slug}.webp`}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        width={640}
-                        height={640}
-                      />
+                      <ComparisonColour product={product} locale="zh" />
                       <Link href={`/zh/products/${product.slug}/`}>
                         {product.code}
                       </Link>
@@ -313,7 +314,7 @@ export default function ChineseProductCatalog({
                   ))}
                 </tr>
                 <tr>
-                  <th>鞋底方向</th>
+                  <th>鞋底</th>
                   {compared.map((product) => (
                     <td key={product.code}>{factZh(product.sole)}</td>
                   ))}
@@ -325,7 +326,7 @@ export default function ChineseProductCatalog({
                   ))}
                 </tr>
                 <tr>
-                  <th>已整理颜色</th>
+                  <th>配色范围</th>
                   {compared.map((product) => (
                     <td key={product.code}>
                       {product.colors.map(colorZh).join(" · ")}

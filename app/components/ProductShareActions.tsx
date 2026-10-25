@@ -2,16 +2,22 @@
 
 import { useState } from "react";
 import { trackEvent } from "../lib/tracking";
+import type { Product } from "../data/products";
+import { useProductColour } from "./ProductColourOptions";
+import { withColour } from "../lib/product-colours";
 
-type Props = { code: string; name: string; url: string; locale?: "en" | "zh" };
+type Props = { product: Product; code: string; name: string; url: string; locale?: "en" | "zh" };
 
 export default function ProductShareActions({
   code,
   name,
-  url,
+  url: baseUrl,
+  product,
   locale = "en",
 }: Props) {
   const [status, setStatus] = useState("");
+  const { id } = useProductColour(product);
+  const url = withColour(baseUrl, id);
   const zh = locale === "zh";
   const text = zh
     ? `请查看贝强鞋业 ${code} — ${name}。产品事实、图片和询价前待确认事项：${url}`
