@@ -6,6 +6,22 @@ import { pageAlternates, productPageRoutes, publicLocales } from '../app/lib/pub
 import { buildQuoteListShareUrl, parseSharedQuoteCodes, mergeSharedQuoteList } from '../app/lib/quote-list-share.ts';
 import { validateInquiry } from '../edgeone-deploy/cloud-functions/api/inquiries.js';
 import { SITE_RELEASE } from '../app/data/site-release.ts';
+import { discoveryGroups, diverseProductPreview } from '../app/data/product-discovery.ts';
+import { productsInCollection } from '../app/data/products.ts';
+
+test('homepage categories use the same inventory as landing pages and representative photos belong to that range', () => {
+  const groups = discoveryGroups(products);
+  const preview = diverseProductPreview(products);
+  assert.equal(new Set(preview.map(p => p.code)).size, preview.length);
+  assert.ok(preview.length <= 8);
+  for (const group of groups) {
+    assert.deepEqual(group.products.map(p => p.code), productsInCollection(group.slug).map(p => p.code));
+    assert.ok(group.products.some(p => p.slug === group.cover), group.slug);
+    assert.ok(preview.some(p => group.products.includes(p)), `Missing range: ${group.slug}`);
+  }
+  assert.deepEqual(diverseProductPreview([]), []);
+  assert.deepEqual(diverseProductPreview(products, 0), []);
+});
 
 test('supplier product identity survives quote sharing and inquiry validation', () => {
   for (const code of EXTERNAL_SOURCE_CODES) {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { discoveryCategories } from "../../data/product-discovery";
 import { notFound } from "next/navigation";
 import ProductCard from "../../components/ProductCard";
 import SiteFooter from "../../components/SiteFooter";
@@ -107,7 +108,7 @@ export default async function CollectionPage({ params }: Props) {
   };
 
   return (
-    <main>
+    <main lang="en" className="studio-page studio-collection">
       <CollectionView slug={collection.slug} />
       <script
         type="application/ld+json"
@@ -115,19 +116,32 @@ export default async function CollectionPage({ params }: Props) {
       />
       <SiteHeader chineseHref={`/zh/collections/${collection.slug}/`} />
       <section className="collection-hero">
-        <p className="eyebrow">BUYER-INTENT COLLECTION</p>
+        <p className="eyebrow">FOOTWEAR COLLECTION</p>
         <h1>{collection.title}</h1>
         <p>{collection.description}</p>
-        <div className="collection-intent">
-          <span>BUYER INTENT</span>
-          <strong>{collection.buyerIntent}</strong>
+
+      </section>
+
+      <nav className="collection-switcher" aria-label="Product collections"><Link href="/products/">All products</Link>{discoveryCategories.map(item => <Link key={item.slug} href={`/collections/${item.slug}/`} aria-current={item.slug === collection.slug ? "page" : undefined}>{item.en}</Link>)}</nav>
+      <section className="section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">{items.length} DOCUMENTED OPTIONS</p>
+            <h2>Explore the styles.</h2>
+          </div>
+          <p>Each product page shows reviewed facts, real gallery assets and the items that must be confirmed before quotation.</p>
+        </div>
+        <div className="product-grid catalog-grid studio-product-grid">
+          {items.map((product) => (
+            <ProductCard key={product.code} product={product} collectionSlug={collection.slug} />
+          ))}
         </div>
       </section>
 
       <section className="proof-section">
         <div className="proof-copy">
-          <p className="eyebrow eyebrow-light">WHY THESE STYLES APPEAR</p>
-          <h2>A collection based on reviewed product records.</h2>
+          <p className="eyebrow eyebrow-light">ABOUT THIS COLLECTION</p>
+          <h2>Product selection notes.</h2>
           <p>{collection.selectionBasis}</p>
           <ul>
             <li><span>01</span> Compare documented construction and silhouette</li>
@@ -143,25 +157,10 @@ export default async function CollectionPage({ params }: Props) {
           ) : null}
         </div>
         <div className="proof-copy">
-          <p className="eyebrow eyebrow-light">COMMERCIAL BOUNDARY</p>
-          <h2>Collection fit is not an order confirmation.</h2>
+          <p className="eyebrow eyebrow-light">ORDER REQUIREMENTS</p>
+          <h2>Confirm the details for your order.</h2>
           <p>{collection.proofBoundary}</p>
           <p>Price, MOQ, current availability, packing, lead time and trade terms require written confirmation for the selected products and quantity.</p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">{items.length} DOCUMENTED OPTIONS</p>
-            <h2>Compare styles before you request samples.</h2>
-          </div>
-          <p>Each product page shows reviewed facts, real gallery assets and the items that must be confirmed before quotation.</p>
-        </div>
-        <div className="product-grid catalog-grid">
-          {items.map((product) => (
-            <ProductCard key={product.code} product={product} collectionSlug={collection.slug} />
-          ))}
         </div>
       </section>
 
@@ -169,7 +168,7 @@ export default async function CollectionPage({ params }: Props) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">BUYER QUESTIONS</p>
-            <h2>Move from a product family to a reviewable sourcing brief.</h2>
+            <h2>Questions about this collection.</h2>
           </div>
         </div>
         <div className="faq-list">
@@ -186,7 +185,7 @@ export default async function CollectionPage({ params }: Props) {
         <div>
           <p className="eyebrow eyebrow-light">BUILD A MARKET-FIT SHORTLIST</p>
           <h2>Tell us your buyer, channel and expected quantity.</h2>
-          <p>We will compare the selected options and discuss suitable samples without turning a product direction into an unsupported supply promise.</p>
+          <p>Include your selected style codes, colours and sizes so we can review samples and prepare a quotation.</p>
         </div>
         <CollectionQuoteLink
           slug={collection.slug}

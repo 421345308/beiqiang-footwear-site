@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { discoveryCategories } from "../../../data/product-discovery";
 import { notFound } from "next/navigation";
 import ChineseProductCard from "../../../components/ChineseProductCard";
 import ChineseSiteFooter from "../../../components/ChineseSiteFooter";
@@ -108,7 +109,7 @@ export default async function ChineseCollectionPage({ params }: Props) {
   };
 
   return (
-    <main>
+    <main lang="zh-CN" className="studio-page studio-collection">
       <CollectionView slug={collection.slug} />
       <script
         type="application/ld+json"
@@ -119,22 +120,20 @@ export default async function ChineseCollectionPage({ params }: Props) {
         <p className="eyebrow">按采购方向选款</p>
         <h1>{collection.title}</h1>
         <p>{collection.description}</p>
-        <div className="collection-intent">
-          <span>适合买家</span>
-          <strong>{collection.buyerIntent}</strong>
-        </div>
+
       </section>
+      <nav className="collection-switcher" aria-label="产品系列"><Link href="/zh/products/">全部产品</Link>{discoveryCategories.map(item => <Link key={item.slug} href={`/zh/collections/${item.slug}/`} aria-current={item.slug === collection.slug ? "page" : undefined}>{item.zh}</Link>)}</nav>
       <section className="section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">{items.length}款当前产品</p>
-            <h2>先比较产品信息，再决定需要哪些样品。</h2>
+            <h2>浏览本系列鞋款</h2>
           </div>
           <p>
             每个产品页展示当前资料、真实图库和报价前待确认项；把候选款加入询价单后，可一次提交数量、颜色和尺码需求。
           </p>
         </div>
-        <div className="product-grid catalog-grid">
+        <div className="product-grid catalog-grid studio-product-grid">
           {items.map((product) => (
             <ChineseProductCard
               key={product.code}
@@ -146,8 +145,8 @@ export default async function ChineseCollectionPage({ params }: Props) {
       </section>
       <section className="proof-section">
         <div className="proof-copy">
-          <p className="eyebrow eyebrow-light">证据边界</p>
-          <h2>集合帮助选款，不替代逐款确认。</h2>
+          <p className="eyebrow eyebrow-light">产品与订购说明</p>
+          <h2>按具体鞋款确认采购要求</h2>
           <p>{collection.proofBoundary}</p>
           <ul>
             <li>
@@ -169,8 +168,8 @@ export default async function ChineseCollectionPage({ params }: Props) {
           ) : null}
         </div>
         <div className="proof-copy">
-          <p className="eyebrow eyebrow-light">下一商业步骤</p>
-          <h2>建立可由业务人员审核的多款询价。</h2>
+          <p className="eyebrow eyebrow-light">样品与报价</p>
+          <h2>集中提交候选款与采购要求</h2>
           <p>
             网站用于选款和需求整理；正式价格、MOQ、材料、包装、交期与交易方式均需书面确认。
           </p>
@@ -187,7 +186,7 @@ export default async function ChineseCollectionPage({ params }: Props) {
         <div className="section-heading compact">
           <div>
             <p className="eyebrow">买家常见问题</p>
-            <h2>从产品方向走到可审核的采购需求。</h2>
+            <h2>选款与采购常见问题</h2>
           </div>
         </div>
         <div className="faq-list">

@@ -26,7 +26,8 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
     /Footwear manufacturing/,
   );
   assert.match(html, /Discuss customization/);
-  assert.match(html, /Explore the collection/);
+  assert.match(html, /href="#collections"/);
+  assert.match(html, /id="discovery-title"/);
   assert.match(html, /shepeiqiang@gmail\.com/);
   assert.match(html, /8618959805256/);
   assert.match(html, /Open buyer menu/i);
@@ -358,7 +359,7 @@ test("server-renders buyer-intent collection pages", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Knit slip-on walking shoes/);
-  assert.match(html, /Compare styles before you request samples/);
+  assert.ok(html.indexOf('class="product-grid') < html.indexOf('class="proof-section"'), 'Products precede supporting purchase copy');
   assert.match(html, /program=collection-knit-slip-on/);
   assert.match(html, /CollectionTracking-/);
 });

@@ -5,7 +5,7 @@ import SiteFooter from "./SiteFooter";
 import ChineseSiteHeader from "./ChineseSiteHeader";
 import ChineseSiteFooter from "./ChineseSiteFooter";
 import FactoryEvidenceVideo from "./FactoryEvidenceVideo";
-import StudioProductCard from "./StudioProductCard";
+import HomeProductDiscovery from "./HomeProductDiscovery";
 import { products } from "../data/products";
 import { localizedPath, type PublicLocale } from "../lib/public-locales";
 import { factoryVideoSchema } from "../lib/factory-video-schema";
@@ -14,7 +14,7 @@ export default function BuyerHome({ locale = "en" }: { locale?: PublicLocale }) 
   const zh=locale === "zh";
   const t=(en: string, cn: string) => zh ? cn : en;
   const href=(path: string) => localizedPath(path,locale);
-  const featured=["BQ001","BQ018","BQ-LQ2597","BQ-LQ060"].map(code=>products.find(p=>p.code===code)!);
+
   return <main lang={zh ? "zh-CN" : "en"} className="studio-page studio-home">
     <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(factoryVideoSchema(locale))}} />
     {zh ? <ChineseSiteHeader englishHref="/" /> : <SiteHeader chineseHref="/zh/" />}
@@ -23,17 +23,17 @@ export default function BuyerHome({ locale = "en" }: { locale?: PublicLocale }) 
         <p className="eyebrow"><span className="studio-rule" /> {t("BEIQIANG · QUANZHOU, CHINA","贝强鞋业 · 中国泉州")}</p>
         <h1>{t("Footwear manufacturing.","专注鞋履制造")}<br/><em>{t("Made for your brand.","服务品牌定制")}</em></h1>
         <p className="studio-hero-lead">{t("Casual and walking shoes for brands, importers and wholesalers. Explore our collection, factory and OEM/ODM services.","面向品牌商、进口商及批发客户，提供休闲鞋、步行鞋与 OEM/ODM 服务。了解贝强工厂，浏览现有款式，开展品牌定制。")}</p>
-        <div className="studio-hero-actions"><Link className="button" href={href("/products")}>{t("Explore the collection","浏览产品系列")} ↗</Link><Link className="studio-text-link" href={href("/sourcing-review")}>{t("Discuss customization","咨询品牌定制")} →</Link></div>
+        <div className="studio-hero-actions"><Link className="button" href="#collections">{t("Find your product","按需求浏览产品")} ↗</Link><Link className="studio-text-link" href={href("/sourcing-review")}>{t("Discuss customization","咨询品牌定制")} →</Link></div>
         <div className="studio-hero-foot"><span>{t("OEM / ODM","OEM / ODM 开发")}</span><span>{t("Private label","品牌贴牌")}</span><span>{t("Wholesale supply","鞋类批发")}</span></div>
       </div>
-      <div className="studio-hero-image"><img src="/factory-video-stills/stitching-line.webp" alt={t("Upper stitching at Beiqiang's Quanzhou factory","贝强泉州工厂鞋面车缝工序")} width={1600} height={900} fetchPriority="high" /><div className="studio-image-caption"><span>01 / {t("INSIDE BEIQIANG","贝强工厂")}</span><Link href={href("/factory")}>{t("Explore our factory","了解生产流程")} ↗</Link></div><span className="studio-vertical-label">FOOTWEAR · CRAFT · COLLABORATION</span></div>
+      <div className="studio-product-cover">
+        <div className="cover-heading"><span>{t("THE BEIQIANG COLLECTION","贝强产品系列")}</span><span>BQ018</span></div>
+        <Link className="cover-main" href={href("/products/bq018")} aria-label={t("View BQ018 knit lace-up shoes","查看 BQ018 针织系带鞋")}><img src="/catalog-thumbs/bq018.webp" alt={t("BQ018 purple knit lace-up shoe with a white sole","BQ018 紫色针织系带鞋，白色鞋底")} width={640} height={640} fetchPriority="high" /><span><strong>BQ018</strong>{t("Knit lace-up shoes","针织系带休闲鞋")} <b aria-hidden="true">↗</b></span></Link>
+        <div className="cover-other-styles"><Link href={href("/collections/wide-toe-box")}><img src="/catalog-thumbs/bq001.webp" alt="" width={160} height={136} /><span>{t("Wide toe box","宽鞋头系列")}<small>{t("Explore styles","浏览鞋款")} ↗</small></span></Link><Link href={href("/collections/kids-shoes")}><img src="/catalog-thumbs/bq016.webp" alt="" width={160} height={160} /><span>{t("Kids’ collection","童鞋系列")}<small>{t("Explore styles","浏览鞋款")} ↗</small></span></Link></div>
+      </div>
     </section>
     <div className="studio-intro-strip"><p>{t("From product selection to brand development.","从产品选型，到品牌开发。")}</p><span>{t("A manufacturing and sourcing partner in Quanzhou.","立足泉州，连接制造与采购。")}</span></div>
-    <section className="studio-section" id="collections">
-      <div className="studio-section-heading"><div><p className="eyebrow">{t("SELECTED STYLES","精选鞋款")}</p><h2>{t("A collection to build on.","为您的系列，选择合适鞋款")}</h2></div><Link className="studio-text-link" href={href("/products")}>{t("View all styles","查看全部产品")} ↗</Link></div>
-      <div className="studio-product-grid">{featured.map(product=><StudioProductCard key={product.code} product={product} locale={locale} />)}</div>
-      <nav className="studio-category-links" aria-label={t("Product collections","产品分类")}>{[["knit-slip-on",t("Knit slip-ons","针织套穿鞋")],["breathable-lace-up",t("Lace-up shoes","系带休闲鞋")],["wide-toe-box",t("Wide toe box styles","宽鞋头鞋款")],["extended-size-shoes",t("Extended sizes","扩展尺码")]].map(([slug,title])=><Link key={slug} href={href(`/collections/${slug}`)}>{title}<span>↗</span></Link>)}</nav>
-    </section>
+    <HomeProductDiscovery products={products} locale={locale} />
     <section className="studio-factory" id="factory"><div className="studio-factory-video"><FactoryEvidenceVideo locale={locale} /></div><div className="studio-factory-copy"><p className="eyebrow">{t("INSIDE THE FACTORY","工厂与生产")}</p><h2>{t("A closer look at the work.","看见每一道工序")}</h2><p>{t("Quanzhou Beiqiang Footwear & Apparel Co., Ltd. is based in Fujian, China. Our factory footage follows material preparation, upper stitching, shoe finishing and packing.","泉州贝强鞋业服饰有限公司位于福建泉州。通过工厂实拍，了解材料准备、鞋面车缝、鞋品整理与包装等实际工作环节。")}</p><dl><div><dt>{t("Location","生产所在地")}</dt><dd>{t("Quanzhou, Fujian, China","中国 · 福建 · 泉州")}</dd></div><div><dt>{t("Business","合作业务")}</dt><dd>OEM / ODM · {t("Private label · Wholesale","品牌贴牌 · 批发")}</dd></div></dl><Link className="studio-text-link" href={href("/factory")}>{t("Factory & company profile","工厂与公司介绍")} ↗</Link></div></section>
     <section className="studio-section studio-custom" id="customization"><div className="studio-section-heading"><div><p className="eyebrow">{t("OEM / ODM & PRIVATE LABEL","OEM / ODM 与品牌定制")}</p><h2>{t("Your brand. The right details.","从产品细节，建立品牌识别")}</h2></div><p>{t("Start with an existing style or a development brief. Each specification is reviewed against the selected shoe and order requirements.","以现有鞋款或开发需求为起点，按选定产品和订单要求评估定制方案。")}</p></div>
       <div className="studio-custom-grid">{[

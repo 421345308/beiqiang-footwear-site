@@ -78,6 +78,7 @@ export default function ChineseProductCatalog({
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const params = new URLSearchParams(window.location.search);
+      setQuery((params.get("q") || "").slice(0, 80));
       const requestedDirection = params.get("direction");
       const requestedClosure = params.get("closure");
       const codes = parseComparisonCodes(

@@ -54,6 +54,7 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
         <div className="studio-secondary-actions"><PrintProductSheetButton styleCode={product.code} locale={locale} /><ProductShareActions code={product.code} name={name} url={schema.url} locale={locale} /></div>
       </div>
     </section>
+    <aside className="studio-product-proof"><div><p className="eyebrow">{t("YOUR SUPPLY PARTNER","产品与供货")}</p><h2>{external ? t("Sourcing support from Beiqiang","由贝强协调供货与采购") : t("Meet the factory behind the collection","了解产品背后的贝强工厂")}</h2><p>{external ? t("This style is sourced through a manufacturing partner. Beiqiang coordinates specification review, sample requirements and the quotation for your selected configuration.","本款通过合作供应商供货。贝强根据所选配置，协调规格确认、样品要求与报价。") : t("See Beiqiang’s production footage and company profile, then discuss samples and branding requirements for this style.","查看贝强生产实拍与公司介绍，再结合本款讨论样品及品牌定制要求。")}</p></div><div>{!external && <Link className="studio-text-link" href={href("/factory")}>{t("Factory & production","查看工厂与生产")} ↗</Link>}<a className="studio-text-link" href="#inquiry">{t(`Discuss ${product.code} samples`, `咨询 ${product.code} 样品`)} ↗</a></div></aside>
     <section className="studio-order-details">
       <div><p className="eyebrow">{t("PRODUCT & ORDER DETAILS","产品与订单信息")}</p><h2>{t("From selection to specification.","从选款到订单确认")}</h2></div>
       <div className="studio-accordions">
