@@ -280,7 +280,7 @@ export default function ProductFinder({
               />
               <div>
                 <small>
-                  {product.code} · {product.sourceModel}
+                  {product.code}
                 </small>
                 <h3>{zh ? productNameZh(product) : product.name}</h3>
                 <p>

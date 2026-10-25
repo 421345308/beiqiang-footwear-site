@@ -138,7 +138,7 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         text_w = 73 * mm
         c.setFillColor(FOREST)
         c.setFont("Helvetica-Bold", 11)
-        c.drawString(text_x, y + card_h - 8 * mm, f'{product["code"]}  /  {product["sourceModel"]}')
+        c.drawString(text_x, y + card_h - 8 * mm, product["code"])
         product_url = f'https://www.beiqiang.online/products/{product["slug"]}/'
         c.linkURL(product_url, (text_x, y + card_h - 10 * mm, text_x + 44 * mm, y + card_h - 4 * mm), relative=0)
         paragraph(c, product["name"], text_x, y + card_h - 12 * mm, text_w, 15 * mm, 9, 11, INK, True)

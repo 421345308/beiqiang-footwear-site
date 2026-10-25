@@ -14,7 +14,7 @@ export default function CatalogPage({ locale = "en" }: { locale?: PublicLocale }
   return <main lang={zh ? "zh-CN" : "en"} className="studio-page studio-catalog">
     {zh ? <ChineseSiteHeader englishHref="/products/" /> : <SiteHeader chineseHref="/zh/products/" />}
     <section className="studio-catalog-intro">
-      <div><p className="eyebrow">{t("THE FOOTWEAR COLLECTION", "贝强产品系列")}</p><h1>{t("Find your next collection.", "休闲与步行鞋系列")}</h1><p>{t("Explore styles, compare specifications and build a quotation list for your market.", "浏览鞋款、比较规格，为您的品牌或销售渠道整理采购清单。")}</p></div>
+      <div><p className="eyebrow">{t("THE FOOTWEAR COLLECTION", "贝强产品系列")}</p><h1>{t("Find your next collection.", "鞋履产品系列")}</h1><p>{t("Explore styles, compare specifications and build a quotation list for your market.", "浏览鞋款、比较规格，为您的品牌或销售渠道整理采购清单。")}</p></div>
       <div className="catalog-intro-aside"><span>{products.length.toString().padStart(2,"0")}</span><p>{t("styles in the collection", "款产品可供选型")}</p><Link href={localizedPath("/sourcing-review",locale)}>{t("Custom development", "咨询产品定制")} ↗</Link></div>
     </section>
     <section className="studio-catalog-body" id="catalog">{zh ? <ChineseProductCatalog products={products} /> : <ProductCatalog products={products} />}</section>

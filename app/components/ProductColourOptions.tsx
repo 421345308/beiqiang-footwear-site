@@ -14,12 +14,12 @@ function subscribe(callback: () => void) {
 export function useProductColour(product: Product) {
   const get = useCallback(() => memory.get(product.code) ?? selectedColourFromStorage(product), [product]);
   const id = useSyncExternalStore(subscribe, get, () => "");
-  function select(next: string) {
+  const select = useCallback((next: string) => {
     if (next && !productColours(product).some(c => c.id === next)) return;
     memory.set(product.code, next);
     try { sessionStorage.setItem(`bq-colour-${product.code}`, next); } catch { /* In-memory selection still works. */ }
     window.dispatchEvent(new Event(eventName));
-  }
+  }, [product]);
   return { id, select, colour: productColours(product).find(c => c.id === id) };
 }
 export default function ProductColourOptions({ product, locale = "en", detail = false }: { product: Product; locale?: "en" | "zh"; detail?: boolean }) {

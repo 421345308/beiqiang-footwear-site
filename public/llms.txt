@@ -46,72 +46,72 @@
 
 ## Current website product pages
 
-- BQ001 / BQ-001: Wide Toe Box Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq001/
-- BQ002 / BQ-002: Extra Wide Toe Box Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq002/
-- BQ003 / R1218: Summer Stretch-Fabric Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq003/
-- BQ004 / A502: Lightweight Knit Slip-On Casual Shoes — https://www.beiqiang.online/products/bq004/
-- BQ005 / A503: Summer Hollow-Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq005/
-- BQ006 / M8811: Autumn Winter Chunky Knit Lace-Up Shoes — https://www.beiqiang.online/products/bq006/
-- BQ007 / L0017: Breathable Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq007/
-- BQ008 / L1009: Mesh Thick-Sole Athletic Walking Shoes — https://www.beiqiang.online/products/bq008/
-- BQ009 / L1026: Breathable Knit Stretch-Fabric Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq009/
-- BQ010 / R1601: Stretch Fabric Toe-Cap Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq010/
-- BQ011 / A002: Men's Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq011/
-- BQ012 / M8506: Breathable Knit Chunky Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq012/
-- BQ013 / T55836: Knit Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq013/
-- BQ014 / A507: Stretch Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq014/
-- BQ015 / R1811: Autumn Winter Textile Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq015/
-- BQ016 / 201: Kids Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq016/
-- BQ017 / A008: Quilted Textile Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq017/
-- BQ018 / A116: Knit Textile Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq018/
-- BQ019 / A206: Honeycomb-Knit Lace-Up Casual Walking Shoes — https://www.beiqiang.online/products/bq019/
-- BQ020 / A218: Summer Hollow-Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq020/
-- BQ021 / K6212: Knit Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq021/
-- BQ022 / A2208: Striped Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq022/
-- BQ023 / A505: Knit Textile Low-Cut Slip-On Walking Shoes — https://www.beiqiang.online/products/bq023/
-- BQ024 / A830: Knit Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq024/
-- BQ025 / A1689: Low-Cut Chevron Knit Slip-On Shoes — https://www.beiqiang.online/products/bq025/
-- BQ026 / T5828: Breathable Eyelet Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq026/
-- BQ027 / K6116: Cream Knit Wave-Sole Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq027/
-- BQ028 / BISCUIT: Shell-Toe Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq028/
-- BQ029 / A025: High-Top Sock Knit Walking Shoes — https://www.beiqiang.online/products/bq029/
-- BQ030 / A811: Kids Mesh Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq030/
-- BQ031 / ZX2116: Wide Toe Box Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq031/
-- BQ-C2627 / 2627BSK: Platform Clogs with Pivot Heel Strap — https://www.beiqiang.online/products/bq-c2627/
-- BQ-CA67 / A67: Closed-Heel Vented Slip-On Shoes — https://www.beiqiang.online/products/bq-ca67/
-- BQ-M858 / K858: Buckle Mules with Suede-Effect Upper — https://www.beiqiang.online/products/bq-m858/
-- BQ-LQ059 / 059: Panelled Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq059/
-- BQ-LQ060 / 060: Mesh-Panel Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq060/
-- BQ-LQ2597 / 2597: Wide Toe Box Mesh Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq2597/
-- BQ1024 / 8856: Mesh Panel Casual Sneakers — https://www.beiqiang.online/products/bq1024/
-- BQ1029 / 726C: Layered Mesh Lace-Up Sneakers — https://www.beiqiang.online/products/bq1029/
-- BQ1031 / D11: Chunky Sole Derby Shoes — https://www.beiqiang.online/products/bq1031/
-- BQ1032 / CH33: Panelled Lace-Up Casual Sneakers — https://www.beiqiang.online/products/bq1032/
-- BQ1035 / 888-D: Platform High-Top Lace-Up Shoes — https://www.beiqiang.online/products/bq1035/
-- BQ1036 / 1936: Panelled Low-Top Casual Sneakers — https://www.beiqiang.online/products/bq1036/
-- BQ1037 / W33: Colour-Block Low-Top Sneakers — https://www.beiqiang.online/products/bq1037/
-- BQ1038 / AR288: Layered Upper Casual Shoes — https://www.beiqiang.online/products/bq1038/
-- BQ1040 / 813: Low-Top Cupsole Casual Sneakers — https://www.beiqiang.online/products/bq1040/
-- BQ1041 / C268: Side-Zip Low-Top Casual Shoes — https://www.beiqiang.online/products/bq1041/
-- BQ1043 / 556: Knit Slip-On Casual Shoes — https://www.beiqiang.online/products/bq1043/
-- BQ1045 / F18: Wide-Strap Slide Sandals — https://www.beiqiang.online/products/bq1045/
-- BQ1046 / AR299: Panelled Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq1046/
-- BQ1047 / 0073: Metal-Trim Slip-On Loafers — https://www.beiqiang.online/products/bq1047/
-- BQ1048 / 964: Closed-Heel Moulded Slip-On Shoes — https://www.beiqiang.online/products/bq1048/
-- BQ1049 / B75: Textile Low-Top Lace-Up Sneakers — https://www.beiqiang.online/products/bq1049/
-- BQ1050 / 315: Contrast-Panel Low-Top Sneakers — https://www.beiqiang.online/products/bq1050/
-- BQ1051 / 936: Mesh Lace-Up Casual Sneakers — https://www.beiqiang.online/products/bq1051/
-- BQ1052 / D818: Black Plain-Toe Derby Shoes — https://www.beiqiang.online/products/bq1052/
-- BQ1053 / F263: Vented Clogs with Pivot Heel Strap — https://www.beiqiang.online/products/bq1053/
-- BQ1055 / B803: Textured Sole Knit Slip-On Shoes — https://www.beiqiang.online/products/bq1055/
-- BQ1056 / 555: Low-Cut Knit Slip-On Shoes — https://www.beiqiang.online/products/bq1056/
-- BQ1057 / H10: Ankle-Collar Knit Sock Shoes — https://www.beiqiang.online/products/bq1057/
-- BQ1058 / AS795: Chunky Sole Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq1058/
-- BQ1059 / 5612: Side-Zip Ankle Boots — https://www.beiqiang.online/products/bq1059/
-- BQ1060 / AA23: Knit Slip-On Shoes with Open Sole Sidewalls — https://www.beiqiang.online/products/bq1060/
-- BQ1061 / L895: Lined High-Top Lace-Up Shoes — https://www.beiqiang.online/products/bq1061/
-- BQ1062 / D02: Textile Short-Lace Casual Shoes — https://www.beiqiang.online/products/bq1062/
-- BQ1063 / 1712: Outdoor-Style Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq1063/
-- BQ1065 / J55: Colour-Block Mesh Lace-Up Shoes — https://www.beiqiang.online/products/bq1065/
-- BQ1066 / WS6: High-Cuff Knit Sock Shoes — https://www.beiqiang.online/products/bq1066/
-- BQ1067 / D11: Camouflage-Panel Textile Casual Shoes — https://www.beiqiang.online/products/bq1067/
+- BQ001: Wide Toe Box Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq001/
+- BQ002: Extra Wide Toe Box Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq002/
+- BQ003: Summer Stretch-Fabric Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq003/
+- BQ004: Lightweight Knit Slip-On Casual Shoes — https://www.beiqiang.online/products/bq004/
+- BQ005: Summer Hollow-Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq005/
+- BQ006: Autumn Winter Chunky Knit Lace-Up Shoes — https://www.beiqiang.online/products/bq006/
+- BQ007: Breathable Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq007/
+- BQ008: Mesh Thick-Sole Athletic Walking Shoes — https://www.beiqiang.online/products/bq008/
+- BQ009: Breathable Knit Stretch-Fabric Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq009/
+- BQ010: Stretch Fabric Toe-Cap Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq010/
+- BQ011: Men's Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq011/
+- BQ012: Breathable Knit Chunky Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq012/
+- BQ013: Knit Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq013/
+- BQ014: Stretch Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq014/
+- BQ015: Autumn Winter Textile Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq015/
+- BQ016: Kids Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq016/
+- BQ017: Quilted Textile Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq017/
+- BQ018: Knit Textile Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq018/
+- BQ019: Honeycomb-Knit Lace-Up Casual Walking Shoes — https://www.beiqiang.online/products/bq019/
+- BQ020: Summer Hollow-Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq020/
+- BQ021: Knit Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq021/
+- BQ022: Striped Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq022/
+- BQ023: Knit Textile Low-Cut Slip-On Walking Shoes — https://www.beiqiang.online/products/bq023/
+- BQ024: Knit Textile Slip-On Walking Shoes — https://www.beiqiang.online/products/bq024/
+- BQ025: Low-Cut Chevron Knit Slip-On Shoes — https://www.beiqiang.online/products/bq025/
+- BQ026: Breathable Eyelet Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq026/
+- BQ027: Cream Knit Wave-Sole Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq027/
+- BQ028: Shell-Toe Knit Slip-On Walking Shoes — https://www.beiqiang.online/products/bq028/
+- BQ029: High-Top Sock Knit Walking Shoes — https://www.beiqiang.online/products/bq029/
+- BQ030: Kids Mesh Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq030/
+- BQ031: Wide Toe Box Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq031/
+- BQ-C2627: Platform Clogs with Pivot Heel Strap — https://www.beiqiang.online/products/bq-c2627/
+- BQ-CA67: Closed-Heel Vented Slip-On Shoes — https://www.beiqiang.online/products/bq-ca67/
+- BQ-M858: Buckle Mules with Suede-Effect Upper — https://www.beiqiang.online/products/bq-m858/
+- BQ-LQ059: Panelled Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq059/
+- BQ-LQ060: Mesh-Panel Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq060/
+- BQ-LQ2597: Wide Toe Box Mesh Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq2597/
+- BQ1024: Mesh Panel Casual Sneakers — https://www.beiqiang.online/products/bq1024/
+- BQ1029: Layered Mesh Lace-Up Sneakers — https://www.beiqiang.online/products/bq1029/
+- BQ1031: Chunky Sole Derby Shoes — https://www.beiqiang.online/products/bq1031/
+- BQ1032: Panelled Lace-Up Casual Sneakers — https://www.beiqiang.online/products/bq1032/
+- BQ1035: Platform High-Top Lace-Up Shoes — https://www.beiqiang.online/products/bq1035/
+- BQ1036: Panelled Low-Top Casual Sneakers — https://www.beiqiang.online/products/bq1036/
+- BQ1037: Colour-Block Low-Top Sneakers — https://www.beiqiang.online/products/bq1037/
+- BQ1038: Layered Upper Casual Shoes — https://www.beiqiang.online/products/bq1038/
+- BQ1040: Low-Top Cupsole Casual Sneakers — https://www.beiqiang.online/products/bq1040/
+- BQ1041: Side-Zip Low-Top Casual Shoes — https://www.beiqiang.online/products/bq1041/
+- BQ1043: Knit Slip-On Casual Shoes — https://www.beiqiang.online/products/bq1043/
+- BQ1045: Wide-Strap Slide Sandals — https://www.beiqiang.online/products/bq1045/
+- BQ1046: Panelled Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq1046/
+- BQ1047: Metal-Trim Slip-On Loafers — https://www.beiqiang.online/products/bq1047/
+- BQ1048: Closed-Heel Moulded Slip-On Shoes — https://www.beiqiang.online/products/bq1048/
+- BQ1049: Textile Low-Top Lace-Up Sneakers — https://www.beiqiang.online/products/bq1049/
+- BQ1050: Contrast-Panel Low-Top Sneakers — https://www.beiqiang.online/products/bq1050/
+- BQ1051: Mesh Lace-Up Casual Sneakers — https://www.beiqiang.online/products/bq1051/
+- BQ1052: Black Plain-Toe Derby Shoes — https://www.beiqiang.online/products/bq1052/
+- BQ1053: Vented Clogs with Pivot Heel Strap — https://www.beiqiang.online/products/bq1053/
+- BQ1055: Textured Sole Knit Slip-On Shoes — https://www.beiqiang.online/products/bq1055/
+- BQ1056: Low-Cut Knit Slip-On Shoes — https://www.beiqiang.online/products/bq1056/
+- BQ1057: Ankle-Collar Knit Sock Shoes — https://www.beiqiang.online/products/bq1057/
+- BQ1058: Chunky Sole Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq1058/
+- BQ1059: Side-Zip Ankle Boots — https://www.beiqiang.online/products/bq1059/
+- BQ1060: Knit Slip-On Shoes with Open Sole Sidewalls — https://www.beiqiang.online/products/bq1060/
+- BQ1061: Lined High-Top Lace-Up Shoes — https://www.beiqiang.online/products/bq1061/
+- BQ1062: Textile Short-Lace Casual Shoes — https://www.beiqiang.online/products/bq1062/
+- BQ1063: Outdoor-Style Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq1063/
+- BQ1065: Colour-Block Mesh Lace-Up Shoes — https://www.beiqiang.online/products/bq1065/
+- BQ1066: High-Cuff Knit Sock Shoes — https://www.beiqiang.online/products/bq1066/
+- BQ1067: Camouflage-Panel Textile Casual Shoes — https://www.beiqiang.online/products/bq1067/

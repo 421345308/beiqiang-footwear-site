@@ -2,7 +2,7 @@
   {
     "code": "BQ1024",
     "slug": "bq1024",
-    "sourceModel": "8856",
+    "sourceModel": "BQ1024",
     "name": "Mesh Panel Casual Sneakers",
     "nameZh": "拼接网面缝线底休闲鞋",
     "shortDescription": "Mesh panels with stitched overlays. Lace-up low-top construction. Visible stitched sole edge.",
@@ -37,7 +37,7 @@
   {
     "code": "BQ1029",
     "slug": "bq1029",
-    "sourceModel": "726C",
+    "sourceModel": "BQ1029",
     "name": "Layered Mesh Lace-Up Sneakers",
     "nameZh": "网面拼接系带运动风休闲鞋",
     "shortDescription": "Layered mesh-panel upper. Adjustable lace-up fastening. Sculpted sole edge and raised tread.",
@@ -72,7 +72,7 @@
   {
     "code": "BQ1031",
     "slug": "bq1031",
-    "sourceModel": "D11",
+    "sourceModel": "BQ1031",
     "name": "Chunky Sole Derby Shoes",
     "nameZh": "厚底圆头德比鞋",
     "shortDescription": "Plain round-toe derby profile. Open-lacing quarters. Chunky notched sole edge.",
@@ -107,7 +107,7 @@
   {
     "code": "BQ1032",
     "slug": "bq1032",
-    "sourceModel": "CH33",
+    "sourceModel": "BQ1032",
     "name": "Panelled Lace-Up Casual Sneakers",
     "nameZh": "拼接鞋面厚底系带休闲鞋",
     "shortDescription": "Panelled upper with a raised toe cap. Lace-up fastening and rear pull loop. Sculpted sole and textured bottom.",
@@ -142,7 +142,7 @@
   {
     "code": "BQ1035",
     "slug": "bq1035",
-    "sourceModel": "888-D",
+    "sourceModel": "BQ1035",
     "name": "Platform High-Top Lace-Up Shoes",
     "nameZh": "侧拉链高帮厚底休闲鞋",
     "shortDescription": "High-top lace-up construction. Inner-side zipper. Raised sole profile and toe cap.",
@@ -177,7 +177,7 @@
   {
     "code": "BQ1036",
     "slug": "bq1036",
-    "sourceModel": "1936",
+    "sourceModel": "BQ1036",
     "name": "Panelled Low-Top Casual Sneakers",
     "nameZh": "拼接低帮系带休闲鞋",
     "shortDescription": "Contrasting upper panels. Lace-up low-top construction. Patterned outsole.",
@@ -212,7 +212,7 @@
   {
     "code": "BQ1037",
     "slug": "bq1037",
-    "sourceModel": "W33",
+    "sourceModel": "BQ1037",
     "name": "Colour-Block Low-Top Sneakers",
     "nameZh": "拼色低帮系带板鞋",
     "shortDescription": "Colour-block upper and sole edge. Lace-up low-top construction. Stitched toe overlay.",
@@ -248,7 +248,7 @@
   {
     "code": "BQ1038",
     "slug": "bq1038",
-    "sourceModel": "AR288",
+    "sourceModel": "BQ1038",
     "name": "Layered Upper Casual Shoes",
     "nameZh": "拼接鞋面纹路底休闲鞋",
     "shortDescription": "Layered panels with mesh inserts. Low collar and lace-up fastening. Sculpted sole profile.",
@@ -283,7 +283,7 @@
   {
     "code": "BQ1040",
     "slug": "bq1040",
-    "sourceModel": "813",
+    "sourceModel": "BQ1040",
     "name": "Low-Top Cupsole Casual Sneakers",
     "nameZh": "低帮缝线包边板鞋",
     "shortDescription": "Low-top cupsole profile. Lace-up fastening. Contrast heel and sole details.",
@@ -318,7 +318,7 @@
   {
     "code": "BQ1041",
     "slug": "bq1041",
-    "sourceModel": "C268",
+    "sourceModel": "BQ1041",
     "name": "Side-Zip Low-Top Casual Shoes",
     "nameZh": "侧拉链低帮休闲鞋",
     "shortDescription": "Side-zip entry. Low-top silhouette. Contrasting sole edge.",
@@ -353,7 +353,7 @@
   {
     "code": "BQ1043",
     "slug": "bq1043",
-    "sourceModel": "556",
+    "sourceModel": "BQ1043",
     "name": "Knit Slip-On Casual Shoes",
     "nameZh": "针织套穿休闲鞋",
     "shortDescription": "Knitted textile upper. Low-cut slip-on opening. Rear pull loop.",
@@ -389,7 +389,7 @@
   {
     "code": "BQ1045",
     "slug": "bq1045",
-    "sourceModel": "F18",
+    "sourceModel": "BQ1045",
     "name": "Wide-Strap Slide Sandals",
     "nameZh": "宽带一字拖鞋",
     "shortDescription": "Wide single strap. Open toe and heel. Patterned bottom surface.",
@@ -424,7 +424,7 @@
   {
     "code": "BQ1046",
     "slug": "bq1046",
-    "sourceModel": "AR299",
+    "sourceModel": "BQ1046",
     "name": "Panelled Lace-Up Ankle Boots",
     "nameZh": "拼接鞋面系带短靴",
     "shortDescription": "Ankle-height lace-up silhouette. Layered upper panels. Raised tread blocks.",
@@ -459,7 +459,7 @@
   {
     "code": "BQ1047",
     "slug": "bq1047",
-    "sourceModel": "0073",
+    "sourceModel": "BQ1047",
     "name": "Metal-Trim Slip-On Loafers",
     "nameZh": "金属扣饰乐福鞋",
     "shortDescription": "Slip-on loafer profile. Metal trim across the vamp. Stitched apron toe.",
@@ -494,7 +494,7 @@
   {
     "code": "BQ1048",
     "slug": "bq1048",
-    "sourceModel": "964",
+    "sourceModel": "BQ1048",
     "name": "Closed-Heel Moulded Slip-On Shoes",
     "nameZh": "包跟模压套穿休闲鞋",
     "shortDescription": "Covered heel and closed toe. Slip-on opening. Textured outsole surface.",
@@ -528,7 +528,7 @@
   {
     "code": "BQ1049",
     "slug": "bq1049",
-    "sourceModel": "B75",
+    "sourceModel": "BQ1049",
     "name": "Textile Low-Top Lace-Up Sneakers",
     "nameZh": "织物系带低帮休闲鞋",
     "shortDescription": "Textile upper with lace-up fastening. Low-top collar. Contrast sole edge.",
@@ -563,7 +563,7 @@
   {
     "code": "BQ1050",
     "slug": "bq1050",
-    "sourceModel": "315",
+    "sourceModel": "BQ1050",
     "name": "Contrast-Panel Low-Top Sneakers",
     "nameZh": "拼色低帮系带板鞋",
     "shortDescription": "Contrast side panels. Lace-up fastening. Low-top casual silhouette.",
@@ -598,7 +598,7 @@
   {
     "code": "BQ1051",
     "slug": "bq1051",
-    "sourceModel": "936",
+    "sourceModel": "BQ1051",
     "name": "Mesh Lace-Up Casual Sneakers",
     "nameZh": "网孔鞋面系带休闲鞋",
     "shortDescription": "Open-texture mesh upper. Lace-up fastening. Sculpted sole edge.",
@@ -633,7 +633,7 @@
   {
     "code": "BQ1052",
     "slug": "bq1052",
-    "sourceModel": "D818",
+    "sourceModel": "BQ1052",
     "name": "Black Plain-Toe Derby Shoes",
     "nameZh": "黑色圆头系带德比鞋",
     "shortDescription": "Plain round toe. Open-lacing derby construction. Stitched heel panels.",
@@ -667,7 +667,7 @@
   {
     "code": "BQ1053",
     "slug": "bq1053",
-    "sourceModel": "F263",
+    "sourceModel": "BQ1053",
     "name": "Vented Clogs with Pivot Heel Strap",
     "nameZh": "后跟带镂空洞洞鞋",
     "shortDescription": "Ventilation openings. Pivoting heel strap. Closed-toe clog silhouette.",
@@ -703,7 +703,7 @@
   {
     "code": "BQ1055",
     "slug": "bq1055",
-    "sourceModel": "B803",
+    "sourceModel": "BQ1055",
     "name": "Textured Sole Knit Slip-On Shoes",
     "nameZh": "纹路底针织套穿休闲鞋",
     "shortDescription": "Knit slip-on upper. Low-cut opening. Sculpted sole profile.",
@@ -741,7 +741,7 @@
   {
     "code": "BQ1056",
     "slug": "bq1056",
-    "sourceModel": "555",
+    "sourceModel": "BQ1056",
     "name": "Low-Cut Knit Slip-On Shoes",
     "nameZh": "针织浅口套穿休闲鞋",
     "shortDescription": "Knitted textile upper. Low-cut slip-on opening. Patterned sole edge.",
@@ -777,7 +777,7 @@
   {
     "code": "BQ1057",
     "slug": "bq1057",
-    "sourceModel": "H10",
+    "sourceModel": "BQ1057",
     "name": "Ankle-Collar Knit Sock Shoes",
     "nameZh": "袜套鞋口针织休闲鞋",
     "shortDescription": "Continuous knit ankle cuff. Slip-on construction. Sculpted EVA outsole.",
@@ -815,7 +815,7 @@
   {
     "code": "BQ1058",
     "slug": "bq1058",
-    "sourceModel": "AS795",
+    "sourceModel": "BQ1058",
     "name": "Chunky Sole Lace-Up Casual Shoes",
     "nameZh": "拼接厚底系带休闲鞋",
     "shortDescription": "Layered upper panels. Lace-up fastening. Chunky sole profile.",
@@ -851,7 +851,7 @@
   {
     "code": "BQ1059",
     "slug": "bq1059",
-    "sourceModel": "5612",
+    "sourceModel": "BQ1059",
     "name": "Side-Zip Ankle Boots",
     "nameZh": "侧拉链纹路底短靴",
     "shortDescription": "Ankle-height covered upper. Side-zip fastening. Patterned outsole.",
@@ -887,7 +887,7 @@
   {
     "code": "BQ1060",
     "slug": "bq1060",
-    "sourceModel": "AA23",
+    "sourceModel": "BQ1060",
     "name": "Knit Slip-On Shoes with Open Sole Sidewalls",
     "nameZh": "中空侧墙针织套穿鞋",
     "shortDescription": "Knit slip-on upper. Pull loops at the opening. Openings along the sole sidewall.",
@@ -925,7 +925,7 @@
   {
     "code": "BQ1061",
     "slug": "bq1061",
-    "sourceModel": "L895",
+    "sourceModel": "BQ1061",
     "name": "Lined High-Top Lace-Up Shoes",
     "nameZh": "绒里系带高帮休闲鞋",
     "shortDescription": "Lace-up high-top construction. Visible pile lining. Raised sole edge.",
@@ -960,7 +960,7 @@
   {
     "code": "BQ1062",
     "slug": "bq1062",
-    "sourceModel": "D02",
+    "sourceModel": "BQ1062",
     "name": "Textile Short-Lace Casual Shoes",
     "nameZh": "织物短系带休闲鞋",
     "shortDescription": "Textile upper. Short-lace fastening. Stitched apron outline.",
@@ -997,7 +997,7 @@
   {
     "code": "BQ1063",
     "slug": "bq1063",
-    "sourceModel": "1712",
+    "sourceModel": "BQ1063",
     "name": "Outdoor-Style Lace-Up Casual Shoes",
     "nameZh": "户外风系带休闲鞋",
     "shortDescription": "Layered lace-up upper. Low collar. Raised outsole tread.",
@@ -1033,7 +1033,7 @@
   {
     "code": "BQ1065",
     "slug": "bq1065",
-    "sourceModel": "J55",
+    "sourceModel": "BQ1065",
     "name": "Colour-Block Mesh Lace-Up Shoes",
     "nameZh": "拼色网面系带休闲鞋",
     "shortDescription": "Colour-block mesh panels. Lace-up fastening. Contrast sole details.",
@@ -1069,7 +1069,7 @@
   {
     "code": "BQ1066",
     "slug": "bq1066",
-    "sourceModel": "WS6",
+    "sourceModel": "BQ1066",
     "name": "High-Cuff Knit Sock Shoes",
     "nameZh": "高筒袜套针织休闲鞋",
     "shortDescription": "High knit cuff. Slip-on sock construction. Sculpted sole profile.",
@@ -1106,7 +1106,7 @@
   {
     "code": "BQ1067",
     "slug": "bq1067",
-    "sourceModel": "D11",
+    "sourceModel": "BQ1067",
     "name": "Camouflage-Panel Textile Casual Shoes",
     "nameZh": "迷彩拼接织物休闲鞋",
     "shortDescription": "Textile and camouflage panels. Short-lace fastening. Stitched apron toe.",

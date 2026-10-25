@@ -63,7 +63,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ001",
     slug: "bq001",
-    sourceModel: "BQ-001",
+    sourceModel: "BQ001",
     name: "Wide Toe Box Knit Slip-On Walking Shoes",
     shortDescription:
       "Roomy-toe knit slip-on direction for comfort-footwear sourcing.",
@@ -89,7 +89,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ002",
     slug: "bq002",
-    sourceModel: "BQ-002",
+    sourceModel: "BQ002",
     name: "Extra Wide Toe Box Knit Slip-On Walking Shoes",
     shortDescription:
       "Extra-roomy grey knit range for wide-fit comfort assortments.",
@@ -115,7 +115,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ003",
     slug: "bq003",
-    sourceModel: "R1218",
+    sourceModel: "BQ003",
     name: "Summer Stretch-Fabric Lace-Up Casual Shoes",
     shortDescription:
       "Light, open-knit lace-up style for summer casual assortments.",
@@ -140,7 +140,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ004",
     slug: "bq004",
-    sourceModel: "A502",
+    sourceModel: "BQ004",
     name: "Lightweight Knit Slip-On Casual Shoes",
     shortDescription:
       "Flexible easy-on knit style for marketplace assortment testing.",
@@ -171,7 +171,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ005",
     slug: "bq005",
-    sourceModel: "A503",
+    sourceModel: "BQ005",
     name: "Summer Hollow-Knit Lace-Up Walking Shoes",
     shortDescription:
       "Breathable lace-up direction for men and women casual ranges.",
@@ -196,7 +196,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ006",
     slug: "bq006",
-    sourceModel: "M8811",
+    sourceModel: "BQ006",
     name: "Autumn Winter Chunky Knit Lace-Up Shoes",
     shortDescription:
       "Chunky lace-up style with regular and selected fleece-lined options.",
@@ -234,7 +234,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ007",
     slug: "bq007",
-    sourceModel: "L0017",
+    sourceModel: "BQ007",
     name: "Breathable Textile Slip-On Walking Shoes",
     shortDescription:
       "Easy-on walking style with elastic-lace appearance and five colors.",
@@ -259,7 +259,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ008",
     slug: "bq008",
-    sourceModel: "L1009",
+    sourceModel: "BQ008",
     name: "Mesh Thick-Sole Athletic Walking Shoes",
     shortDescription:
       "Lace-up mesh athletic style supporting a broader sport-casual range.",
@@ -284,7 +284,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ009",
     slug: "bq009",
-    sourceModel: "L1026",
+    sourceModel: "BQ009",
     name: "Breathable Knit Stretch-Fabric Lace-Up Walking Shoes",
     shortDescription:
       "Breathable knitted stretch-fabric direction with an EVA sole and four color options.",
@@ -309,7 +309,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ010",
     slug: "bq010",
-    sourceModel: "R1601",
+    sourceModel: "BQ010",
     name: "Stretch Fabric Toe-Cap Lace-Up Walking Shoes",
     shortDescription:
       "Low-top stretch-fabric style with a distinct toe-cap construction.",
@@ -334,7 +334,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ011",
     slug: "bq011",
-    sourceModel: "A002",
+    sourceModel: "BQ011",
     name: "Men's Textile Slip-On Walking Shoes",
     shortDescription:
       "Straightforward men's easy-on walking style for daily assortments.",
@@ -359,7 +359,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ012",
     slug: "bq012",
-    sourceModel: "M8506",
+    sourceModel: "BQ012",
     name: "Breathable Knit Chunky Lace-Up Walking Shoes",
     shortDescription:
       "Chunky lace-up knit style for daily walking and travel ranges.",
@@ -384,7 +384,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ013",
     slug: "bq013",
-    sourceModel: "T55836",
+    sourceModel: "BQ013",
     name: "Knit Textile Slip-On Walking Shoes",
     shortDescription:
       "Knit-textile easy-on style with three source-recorded colors for casual ranges.",
@@ -412,7 +412,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ014",
     slug: "bq014",
-    sourceModel: "A507",
+    sourceModel: "BQ014",
     name: "Stretch Textile Slip-On Walking Shoes",
     shortDescription:
       "Stretch-textile easy-on style with three neutral color directions for daily casual ranges.",
@@ -439,7 +439,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ015",
     slug: "bq015",
-    sourceModel: "R1811",
+    sourceModel: "BQ015",
     name: "Autumn Winter Textile Lace-Up Walking Shoes",
     shortDescription:
       "Stretch-fabric lace-up style with regular and optional fleece-lined variants.",
@@ -468,7 +468,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ016",
     slug: "bq016",
-    sourceModel: "201",
+    sourceModel: "BQ016",
     name: "Kids Knit Slip-On Walking Shoes",
     shortDescription:
       "Kids easy-on knit style for school and daily casual assortments.",
@@ -497,7 +497,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ017",
     slug: "bq017",
-    sourceModel: "A008",
+    sourceModel: "BQ017",
     name: "Quilted Textile Lace-Up Walking Shoes",
     shortDescription:
       "Diamond-texture lace-up style for visual assortment differentiation.",
@@ -522,7 +522,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ018",
     slug: "bq018",
-    sourceModel: "A116",
+    sourceModel: "BQ018",
     name: "Knit Textile Lace-Up Walking Shoes",
     shortDescription:
       "Lavender-led knit lace-up style for color-driven assortment testing.",
@@ -551,7 +551,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ019",
     slug: "bq019",
-    sourceModel: "A206",
+    sourceModel: "BQ019",
     name: "Honeycomb-Knit Lace-Up Casual Walking Shoes",
     shortDescription:
       "Honeycomb-texture upper and cloud-like sole silhouette for visual distinction.",
@@ -576,7 +576,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ020",
     slug: "bq020",
-    sourceModel: "A218",
+    sourceModel: "BQ020",
     name: "Summer Hollow-Knit Lace-Up Walking Shoes",
     shortDescription:
       "Open-knit summer lace-up style with four neutral color directions.",
@@ -596,7 +596,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ021",
     slug: "bq021",
-    sourceModel: "K6212",
+    sourceModel: "BQ021",
     name: "Knit Textile Slip-On Walking Shoes",
     shortDescription:
       "Easy-on knit textile style with five reviewed color directions.",
@@ -624,7 +624,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ022",
     slug: "bq022",
-    sourceModel: "A2208",
+    sourceModel: "BQ022",
     name: "Striped Knit Slip-On Walking Shoes",
     shortDescription:
       "Ribbed stripe upper for a clearly differentiated easy-on assortment.",
@@ -649,7 +649,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ023",
     slug: "bq023",
-    sourceModel: "A505",
+    sourceModel: "BQ023",
     name: "Knit Textile Low-Cut Slip-On Walking Shoes",
     shortDescription:
       "Low-cut knit textile easy-on style in three reviewed neutral colors.",
@@ -674,7 +674,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ024",
     slug: "bq024",
-    sourceModel: "A830",
+    sourceModel: "BQ024",
     name: "Knit Textile Slip-On Walking Shoes",
     shortDescription:
       "Knit textile easy-on style with four current commercial color options.",
@@ -703,7 +703,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ025",
     slug: "bq025",
-    sourceModel: "A1689",
+    sourceModel: "BQ025",
     name: "Low-Cut Chevron Knit Slip-On Shoes",
     shortDescription:
       "Low-cut easy-on style with chevron texture and speckled-sole direction.",
@@ -728,7 +728,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ026",
     slug: "bq026",
-    sourceModel: "T5828",
+    sourceModel: "BQ026",
     name: "Breathable Eyelet Knit Lace-Up Walking Shoes",
     shortDescription:
       "Light lace-up profile with a visible eyelet construction.",
@@ -757,7 +757,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ027",
     slug: "bq027",
-    sourceModel: "K6116",
+    sourceModel: "BQ027",
     name: "Cream Knit Wave-Sole Lace-Up Walking Shoes",
     shortDescription:
       "Cream-led lace-up knit style with diagonal texture and wave-sole appearance.",
@@ -782,7 +782,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ028",
     slug: "bq028",
-    sourceModel: "BISCUIT",
+    sourceModel: "BQ028",
     name: "Shell-Toe Knit Slip-On Walking Shoes",
     shortDescription:
       "Shell-toe easy-on style with a visible chevron outsole pattern.",
@@ -811,7 +811,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ029",
     slug: "bq029",
-    sourceModel: "A025",
+    sourceModel: "BQ029",
     name: "High-Top Sock Knit Walking Shoes",
     shortDescription:
       "High-top sock silhouette for seasonal and fashion-casual assortments.",
@@ -840,7 +840,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ030",
     slug: "bq030",
-    sourceModel: "A811",
+    sourceModel: "BQ030",
     name: "Kids Mesh Lace-Up Walking Shoes",
     shortDescription:
       "Kids lace-up mesh style with bright color directions for school and casual use.",
@@ -869,7 +869,7 @@ const originalProducts: Product[] = [
   {
     code: "BQ031",
     slug: "bq031",
-    sourceModel: "ZX2116",
+    sourceModel: "BQ031",
     name: "Wide Toe Box Knit Lace-Up Walking Shoes",
     shortDescription:
       "Verified wide-toe knit lace-up direction with an extended EU 38-47 size range.",
@@ -910,6 +910,7 @@ export const heldSourceProducts: Product[] = verifiedProducts;
 const reviewedProducts = reviewedCatalog.map(record => ({ ...record, images: images(record.slug) })) as Product[];
 export const products: Product[] = [...originalProducts, ...externalProducts, ...reviewedProducts].map(product => ({
   ...product,
+  sourceModel: product.code,
   // Internal source colour lists are preserved; public choices require real photographs.
   colors: product.colors.filter(colour => Number.isInteger((colourMedia as Record<string, { images: Record<string, number> }>)[product.code]?.images[colour])),
 }));

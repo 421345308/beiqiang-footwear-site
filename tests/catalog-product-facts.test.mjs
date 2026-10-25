@@ -51,19 +51,19 @@ test("keeps Alibaba-trunk materials attached to the exact second-batch products"
   assert.equal(product("BQ009").alibabaProductId, "1601825074604");
   assert.equal(product("BQ012").alibabaProductId, "10000043744505");
   assert.equal(product("BQ024").alibabaProductId, "10000044041031");
-  assert.equal(product("BQ023").sourceModel, "A505", "A830 evidence must not spill into adjacent BQ023/A505");
+  assert.equal(product("BQ023").sourceModel, "BQ023", "A830 evidence must not spill into adjacent BQ023/A505");
 });
 
 test("keeps A505 and A830 identities, links and buyer-facing facts separated", () => {
   const bq023 = product("BQ023");
-  assert.equal(bq023.sourceModel, "A505");
+  assert.equal(bq023.sourceModel, "BQ023");
   assert.equal(bq023.alibabaProductId, "10000044004948");
   assert.equal(bq023.size, "To be confirmed");
   assert.equal(bq023.upper, "Knit textile upper");
   assert.match(bq023.confirmBeforeQuote.join(" "), /Size range/);
 
   const bq024 = product("BQ024");
-  assert.equal(bq024.sourceModel, "A830");
+  assert.equal(bq024.sourceModel, "BQ024");
   assert.equal(bq024.alibabaProductId, "10000044041031");
   assert.equal(bq024.size, "EU 37-45");
   assert.deepEqual(bq024.colors, ["Black White", "All Black", "Black Yellow", "Beige Grey"]);
@@ -75,7 +75,7 @@ test("keeps A505 and A830 identities, links and buyer-facing facts separated", (
 
 test("keeps K6212 free of unsupported winter and fleece positioning", () => {
   const bq021 = product("BQ021");
-  assert.equal(bq021.sourceModel, "K6212");
+  assert.equal(bq021.sourceModel, "BQ021");
   assert.equal(bq021.upper, "Knit textile upper");
   assert.equal(bq021.size, "EU 35-45");
   assert.deepEqual(bq021.colors, ["Black White", "All Black", "White", "Blue", "Grey"]);
@@ -94,7 +94,7 @@ test("renders the second-batch material facts in buyer-readable Chinese", () => 
 
 test("keeps R1811 trunk materials attached to the exact website product identity", () => {
   const bq015 = product("BQ015");
-  assert.equal(bq015.sourceModel, "R1811");
+  assert.equal(bq015.sourceModel, "BQ015");
   assert.equal(bq015.alibabaProductId, "1601839073314");
   assert.equal(bq015.upper, "Stretch fabric upper");
   assert.equal(bq015.sole, "EVA sole");
@@ -109,7 +109,7 @@ test("keeps R1811 trunk materials attached to the exact website product identity
 
 test("keeps M8811 source-recorded EVA attached to BQ006 only", () => {
   const bq006 = product("BQ006");
-  assert.equal(bq006.sourceModel, "M8811");
+  assert.equal(bq006.sourceModel, "BQ006");
   assert.equal(bq006.alibabaProductId, "10000043734620");
   assert.equal(bq006.sole, "EVA sole");
   assert.match(bq006.highlights.join(" "), /EVA sole recorded in the source package/);
@@ -127,14 +127,14 @@ test("keeps corrected source-package facts attached to BQ011, BQ013, BQ014 and B
   assert.deepEqual(bq011.colors, ["Grey Black", "Grey White", "Grey Green"]);
 
   const bq013 = product("BQ013");
-  assert.equal(bq013.sourceModel, "T55836");
+  assert.equal(bq013.sourceModel, "BQ013");
   assert.equal(bq013.name, "Knit Textile Slip-On Walking Shoes");
   assert.equal(bq013.upper, "Knit textile upper");
   assert.equal(bq013.size, "EU 35-45");
   assert.doesNotMatch(bq013.confirmBeforeQuote.join(" "), /Size range/);
 
   const bq014 = product("BQ014");
-  assert.equal(bq014.sourceModel, "A507");
+  assert.equal(bq014.sourceModel, "BQ014");
   assert.equal(bq014.name, "Stretch Textile Slip-On Walking Shoes");
   assert.deepEqual(bq014.colors, ["Beige White", "Black White", "All Black"]);
   assert.doesNotMatch(
@@ -144,7 +144,7 @@ test("keeps corrected source-package facts attached to BQ011, BQ013, BQ014 and B
   assert.equal(bq014.alibabaProductId, undefined, "conflicting stored ID must wait for an Accio live readback");
 
   const bq018 = product("BQ018");
-  assert.equal(bq018.sourceModel, "A116");
+  assert.equal(bq018.sourceModel, "BQ018");
   assert.equal(bq018.name, "Knit Textile Lace-Up Walking Shoes");
   assert.deepEqual(bq018.colors, ["Lavender", "Cream", "All Black", "Black White"]);
   assert.doesNotMatch(bq018.confirmBeforeQuote.join(" "), /Closure\/lace construction/);

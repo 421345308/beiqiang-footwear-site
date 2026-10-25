@@ -120,7 +120,7 @@ export const externalProducts: Product[] = [
   "images": gallery("bq-m858")
 },
   {
-    code: "BQ-LQ059", slug: "bq-lq059", sourceModel: "059",
+    code: "BQ-LQ059", slug: "bq-lq059", sourceModel: "BQ-LQ059",
     name: "Panelled Lace-Up Casual Shoes",
     shortDescription: "Low-top casual shoes with loop eyelets, broad upper panels and a contrasting heel panel.",
     group: "Lace-Up Casual Shoes", closure: "Lace-Up", upper: "Panelled upper; composition to be confirmed", sole: "Material to be confirmed",
@@ -130,7 +130,7 @@ export const externalProducts: Product[] = [
     images: gallery("bq-lq059"), alibabaProductId: "1601972951733",
   },
   {
-    code: "BQ-LQ060", slug: "bq-lq060", sourceModel: "060",
+    code: "BQ-LQ060", slug: "bq-lq060", sourceModel: "BQ-LQ060",
     name: "Mesh-Panel Lace-Up Casual Shoes",
     shortDescription: "Layered low-top shoes with mesh side panels, fabric lace loops and a contrasting toe overlay.",
     group: "Lace-Up Casual Shoes", closure: "Lace-Up", upper: "Mesh panels and overlays; composition to be confirmed", sole: "Material to be confirmed",
@@ -140,7 +140,7 @@ export const externalProducts: Product[] = [
     images: gallery("bq-lq060"), alibabaProductId: "1601972944790",
   },
   {
-    code: "BQ-LQ2597", slug: "bq-lq2597", sourceModel: "2597",
+    code: "BQ-LQ2597", slug: "bq-lq2597", sourceModel: "BQ-LQ2597",
     name: "Wide Toe Box Mesh Lace-Up Casual Shoes",
     shortDescription: "Wide toe box casual shoes with a ribbed mesh upper, two side bands and a low-profile brown sole.",
     group: "Wide Toe Box Casual Shoes", closure: "Lace-Up", upper: "Mesh upper with overlays; composition to be confirmed", sole: "Material to be confirmed",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import {
@@ -16,10 +16,9 @@ import { trackEvent } from "../lib/tracking";
 import ChineseProductCard from "./ChineseProductCard";
 import { ComparisonColour } from "./ProductColourOptions";
 import ComparisonShareActions from "./ComparisonShareActions";
-import {
-  isCatalogDirection,
-  productMatchesCatalogDirection,
-} from "../lib/catalog-filtering";
+import CatalogFilters from "./CatalogFilters";
+import { useCatalogSelection } from "./useCatalogSelection";
+import { matchingColour } from "../lib/catalog-selection";
 
 const PAGE_SIZE = 12;
 
@@ -28,11 +27,7 @@ export default function ChineseProductCatalog({
 }: {
   products: Product[];
 }) {
-  const [query, setQuery] = useState("");
-  const [closure, setClosure] = useState("全部");
-  const [direction, setDirection] = useState("全部");
-  const [sort, setSort] = useState("code_asc");
-  const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
+  const { selection, update, reset, visible, shown } = useCatalogSelection(products);
   const [compareOpen, setCompareOpen] = useState(false);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [message, setMessage] = useState(
@@ -42,39 +37,6 @@ export default function ChineseProductCatalog({
   useEffect(() => {
     if (compareOpen) document.getElementById("product-comparison")?.scrollIntoView({ block: "start" });
   }, [compareOpen]);
-  const visible = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    const filtered = products.filter((product) => {
-      const matchesClosure =
-        closure === "全部" || closureZh(product.closure) === closure;
-      const matchesDirection =
-        direction === "全部" ||
-        productMatchesCatalogDirection(product, direction);
-      const haystack = [
-        product.code,
-        product.sourceModel,
-        product.name,
-        productNameZh(product),
-        product.group,
-        ...product.colors,
-        ...product.colors.map(colorZh),
-      ]
-        .join(" ")
-        .toLowerCase();
-      return (
-        matchesClosure &&
-        matchesDirection &&
-        (!normalized || haystack.includes(normalized))
-      );
-    });
-    return filtered.sort((left, right) => {
-      if (sort === "code_desc") return right.code.localeCompare(left.code);
-      if (sort === "slip_on") return Number(right.closure === "Slip-On") - Number(left.closure === "Slip-On") || left.code.localeCompare(right.code);
-      if (sort === "lace_up") return Number(right.closure === "Lace-Up") - Number(left.closure === "Lace-Up") || left.code.localeCompare(right.code);
-      return left.code.localeCompare(right.code);
-    });
-  }, [closure, direction, products, query, sort]);
-  const shown = visible.slice(0, visibleLimit);
   const compared = compareCodes
     .map((code) => products.find((product) => product.code === code))
     .filter((product): product is Product => Boolean(product));
@@ -82,18 +44,10 @@ export default function ChineseProductCatalog({
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const params = new URLSearchParams(window.location.search);
-      setQuery((params.get("q") || "").slice(0, 80));
-      const requestedDirection = params.get("direction");
-      const requestedClosure = params.get("closure");
       const codes = parseComparisonCodes(
         params.get("compare") || "",
         products.map((product) => product.code),
       );
-      if (isCatalogDirection(requestedDirection)) {
-        setDirection(requestedDirection);
-      }
-      if (requestedClosure === "Slip-On") setClosure("套穿");
-      if (requestedClosure === "Lace-Up") setClosure("系带");
       if (codes.length >= 2) {
         const styleCodes = codes.join(",");
         setCompareCodes(codes);
@@ -153,70 +107,7 @@ export default function ChineseProductCatalog({
 
   return (
     <>
-      <div className="catalog-tools" aria-label="产品目录筛选">
-        <label>
-          <span>搜索产品或款号</span>
-          <input
-            value={query}
-            onChange={(event) => {
-              setQuery(event.target.value);
-              setVisibleLimit(PAGE_SIZE);
-            }}
-            placeholder="例如 BQ009、L1026、套穿"
-          />
-        </label>
-        <label>
-          <span>穿脱结构</span>
-          <select
-            value={closure}
-            onChange={(event) => {
-              setClosure(event.target.value);
-              setVisibleLimit(PAGE_SIZE);
-            }}
-          >
-            <option>全部</option>
-            <option>套穿</option>
-            <option>系带</option>
-          </select>
-        </label>
-        <label>
-          <span>产品分类</span>
-          <select
-            value={direction}
-            onChange={(event) => {
-              setDirection(event.target.value);
-              setVisibleLimit(PAGE_SIZE);
-            }}
-          >
-            <option value="全部">全部方向</option>
-            <option value="wide-toe-box">宽鞋头方向</option>
-            <option value="knit-slip-on">针织易穿方向</option>
-            <option value="breathable-lace-up">透气系带方向</option>
-            <option value="high_top">高帮 / 袜套款</option>
-            <option value="kids">儿童鞋</option>
-            <option value="large_size">扩展尺码款</option>
-            <option value="clogs-and-vented-shoes">洞洞鞋与镂空鞋</option>
-            <option value="casual-sneakers">休闲板鞋与运动风鞋</option>
-            <option value="loafers-and-derbies">乐福鞋与德比鞋</option>
-            <option value="ankle-boots">短靴</option>
-            <option value="slide-sandals">一字拖鞋</option>
-            <option value="mule-shoes">搭扣穆勒鞋</option>
-            <option value="fleece">可选加绒款</option>
-          </select>
-        </label>
-        <label>
-          <span>产品排序</span>
-          <select value={sort} onChange={(event) => { setSort(event.target.value); setVisibleLimit(PAGE_SIZE); }}>
-            <option value="code_asc">按款号 · 早期款优先</option>
-            <option value="code_desc">按款号 · 新款优先</option>
-            <option value="slip_on">套穿款优先</option>
-            <option value="lace_up">系带款优先</option>
-          </select>
-        </label>
-        <strong>
-          显示{Math.min(shown.length, visible.length)}款，共{visible.length}款
-        </strong>
-      </div>
+      <CatalogFilters products={products} selection={selection} update={update} reset={reset} count={visible.length} shown={shown.length} locale="zh" />
       {compared.length >= 2 && !compareOpen && <button className="mobile-compare-shortcut" type="button" onClick={() => setCompareOpen(true)}>对比所选 {compared.length} 款 ↗</button>}
       <aside className={`compare-tray${compareCodes.length ? " has-selection" : ""}`}>
         <div>
@@ -293,7 +184,7 @@ export default function ChineseProductCatalog({
                       <Link href={`/zh/products/${product.slug}/`}>
                         {product.code}
                       </Link>
-                      <small>{product.sourceModel}</small>
+
                     </th>
                   ))}
                 </tr>
@@ -397,7 +288,7 @@ export default function ChineseProductCatalog({
                 >
                   {compareCodes.includes(product.code) ? "✓ 比较中" : "+ 比较"}
                 </button>
-                <ChineseProductCard product={product} />
+                <ChineseProductCard product={product} preferredColour={matchingColour(product, selection.colour)} />
               </div>
             ))}
           </div>
@@ -408,7 +299,7 @@ export default function ChineseProductCatalog({
                 className="button"
                 type="button"
                 onClick={() =>
-                  setVisibleLimit((current) => current + PAGE_SIZE)
+                  update({ limit: selection.limit + PAGE_SIZE })
                 }
               >
                 查看更多产品
@@ -418,6 +309,7 @@ export default function ChineseProductCatalog({
         </>
       ) : (
         <div className="catalog-empty">
+          <button className="button button-secondary" type="button" onClick={reset}>{"清除筛选，查看全部鞋款"}</button>
           <p>当前在线选款中没有匹配产品。</p>
           <Link
             className="text-link"

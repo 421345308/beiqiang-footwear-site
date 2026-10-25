@@ -69,6 +69,8 @@ const names: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
+  "Yellow": "黄色",
+  "Navy": "藏蓝色",
 "Military Green":"军绿色","Camel":"驼色","Ivory/Navy":"象牙白/藏青","White/Grey":"白灰","Beige/Navy":"米色/藏青","Black/Orange":"黑橙","Dark Brown":"深棕","White/Green":"白绿","Red/Black":"红黑","Purple/Black":"紫黑","Coffee":"咖啡色","Multicolour Green":"绿色混纱","Blue Grey":"蓝灰","Turquoise":"湖蓝","Black/White":"黑白","White/Blue":"白蓝",
   "Khaki": "卡其色",
   "Light Pink": "浅粉色",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
@@ -9,19 +9,14 @@ import ProductCard from "./ProductCard";
 import { ComparisonColour } from "./ProductColourOptions";
 import ComparisonShareActions from "./ComparisonShareActions";
 import { parseComparisonCodes } from "../lib/comparison-link";
-import {
-  isCatalogDirection,
-  productMatchesCatalogDirection,
-} from "../lib/catalog-filtering";
+import CatalogFilters from "./CatalogFilters";
+import { useCatalogSelection } from "./useCatalogSelection";
+import { matchingColour } from "../lib/catalog-selection";
 
 const PAGE_SIZE = 12;
 
 export default function ProductCatalog({ products }: { products: Product[] }) {
-  const [query, setQuery] = useState("");
-  const [closure, setClosure] = useState("All");
-  const [direction, setDirection] = useState("All");
-  const [sort, setSort] = useState("code_asc");
-  const [visibleLimit, setVisibleLimit] = useState(PAGE_SIZE);
+  const { selection, update, reset, visible, shown } = useCatalogSelection(products);
   const [compareOpen, setCompareOpen] = useState(false);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState(
@@ -32,36 +27,6 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
     if (compareOpen) document.getElementById("product-comparison")?.scrollIntoView({ block: "start" });
   }, [compareOpen]);
 
-  const visible = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    const filtered = products.filter((product) => {
-      const matchesClosure = closure === "All" || product.closure === closure;
-      const matchesDirection =
-        direction === "All" ||
-        productMatchesCatalogDirection(product, direction);
-      const haystack = [
-        product.code,
-        product.sourceModel,
-        product.name,
-        product.group,
-        ...product.colors,
-      ]
-        .join(" ")
-        .toLowerCase();
-      return (
-        matchesClosure &&
-        matchesDirection &&
-        (!normalized || haystack.includes(normalized))
-      );
-    });
-    return filtered.sort((left, right) => {
-      if (sort === "code_desc") return right.code.localeCompare(left.code);
-      if (sort === "slip_on") return Number(right.closure === "Slip-On") - Number(left.closure === "Slip-On") || left.code.localeCompare(right.code);
-      if (sort === "lace_up") return Number(right.closure === "Lace-Up") - Number(left.closure === "Lace-Up") || left.code.localeCompare(right.code);
-      return left.code.localeCompare(right.code);
-    });
-  }, [closure, direction, products, query, sort]);
-  const shown = visible.slice(0, visibleLimit);
   const compared = compareCodes
     .map((code) => products.find((product) => product.code === code))
     .filter((product): product is Product => Boolean(product));
@@ -69,19 +34,10 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const params = new URLSearchParams(window.location.search);
-      setQuery((params.get("q") || "").slice(0, 80));
-      const requestedDirection = params.get("direction");
-      const requestedClosure = params.get("closure");
       const codes = parseComparisonCodes(
         params.get("compare") || "",
         products.map((product) => product.code),
       );
-      if (isCatalogDirection(requestedDirection)) {
-        setDirection(requestedDirection);
-      }
-      if (requestedClosure === "Slip-On" || requestedClosure === "Lace-Up") {
-        setClosure(requestedClosure);
-      }
       if (codes.length >= 2) {
         const styleCodes = codes.join(",");
         setCompareCodes(codes);
@@ -157,70 +113,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
 
   return (
     <>
-      <div className="catalog-tools" aria-label="Product catalogue filters">
-        <label>
-          <span>Search by code, model or product</span>
-          <input
-            value={query}
-            onChange={(event) => {
-              setQuery(event.target.value);
-              setVisibleLimit(PAGE_SIZE);
-            }}
-            placeholder="Try BQ009, L1026 or slip-on"
-          />
-        </label>
-        <label>
-          <span>Closure</span>
-          <select
-            value={closure}
-            onChange={(event) => {
-              setClosure(event.target.value);
-              setVisibleLimit(PAGE_SIZE);
-            }}
-          >
-            <option>All</option>
-            <option>Slip-On</option>
-            <option>Lace-Up</option>
-          </select>
-        </label>
-        <label>
-          <span>Collection</span>
-          <select
-            value={direction}
-            onChange={(event) => {
-              setDirection(event.target.value);
-              setVisibleLimit(PAGE_SIZE);
-            }}
-          >
-            <option value="All">All collections</option>
-            <option value="wide-toe-box">Roomy toe</option>
-            <option value="knit-slip-on">Easy-on knit</option>
-            <option value="breathable-lace-up">Breathable lace-up</option>
-            <option value="high_top">High-top / sock styles</option>
-            <option value="kids">Kids styles</option>
-            <option value="large_size">Extended-size styles</option>
-            <option value="clogs-and-vented-shoes">Clogs & vented shoes</option>
-            <option value="casual-sneakers">Casual sneakers</option>
-            <option value="loafers-and-derbies">Loafers & derbies</option>
-            <option value="ankle-boots">Ankle boots</option>
-            <option value="slide-sandals">Slide sandals</option>
-            <option value="mule-shoes">Buckle mules</option>
-            <option value="fleece">Fleece-lined options</option>
-          </select>
-        </label>
-        <label>
-          <span>Order products</span>
-          <select value={sort} onChange={(event) => { setSort(event.target.value); setVisibleLimit(PAGE_SIZE); }}>
-            <option value="code_asc">Product code · earliest first</option>
-            <option value="code_desc">Product code · newest first</option>
-            <option value="slip_on">Slip-on styles first</option>
-            <option value="lace_up">Lace-up styles first</option>
-          </select>
-        </label>
-        <strong>
-          Showing {Math.min(shown.length, visible.length)} of {visible.length}
-        </strong>
-      </div>
+      <CatalogFilters products={products} selection={selection} update={update} reset={reset} count={visible.length} shown={shown.length} locale="en" />
       {compared.length >= 2 && !compareOpen && <button className="mobile-compare-shortcut" type="button" onClick={() => setCompareOpen(true)}>Compare {compared.length} styles ↗</button>}
       <aside className={`compare-tray${compareCodes.length ? " has-selection" : ""}`}>
         <div>
@@ -302,7 +195,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                       <Link href={`/products/${product.slug}/`}>
                         {product.code}
                       </Link>
-                      <small>{product.sourceModel}</small>
+
                     </th>
                   ))}
                 </tr>
@@ -427,7 +320,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                     ? "✓ Comparing"
                     : "+ Compare"}
                 </button>
-                <ProductCard product={product} />
+                <ProductCard product={product} preferredColour={matchingColour(product, selection.colour)} />
               </div>
             ))}
           </div>
@@ -441,7 +334,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                 className="button"
                 type="button"
                 onClick={() =>
-                  setVisibleLimit((current) => current + PAGE_SIZE)
+                  update({ limit: selection.limit + PAGE_SIZE })
                 }
               >
                 Show more products
@@ -451,6 +344,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
         </>
       ) : (
         <div className="catalog-empty">
+          <button className="button button-secondary" type="button" onClick={reset}>{"Clear filters and view all styles"}</button>
           <p>No matching style in the current online selection.</p>
           <Link
             className="text-link"
