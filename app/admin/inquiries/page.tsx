@@ -1,5 +1,6 @@
 "use client";
 
+import { productMediaUrl } from "../../lib/product-media-url";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -3124,7 +3125,7 @@ function ProductRecommendationEditor({
                 />
                 <Image
                   unoptimized
-                  src={`/catalog-thumbs/${product.slug}.webp`}
+                  src={productMediaUrl(`/catalog-thumbs/${product.slug}.webp`)}
                   alt=""
                   width={64}
                   height={64}

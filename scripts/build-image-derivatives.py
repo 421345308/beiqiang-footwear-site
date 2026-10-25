@@ -1,6 +1,7 @@
 from pathlib import Path
 from io import BytesIO
 import json
+import argparse
 from PIL import Image, ImageOps
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -23,7 +24,7 @@ def rgb_image(source: Path) -> Image.Image:
 
 def save_catalog_webp(image: Image.Image, destination: Path) -> None:
     """Keep every gallery image inside the tested page-weight budget."""
-    for quality in range(80, 49, -5):
+    for quality in range(75, 49, -5):
         output = BytesIO()
         image.save(output, "WEBP", quality=quality, method=6, exact=True)
         payload = output.getvalue()
@@ -32,7 +33,7 @@ def save_catalog_webp(image: Image.Image, destination: Path) -> None:
             return
 
 
-def build_catalog() -> tuple[int, int, int]:
+def build_catalog(slugs: set[str] | None = None) -> tuple[int, int, int]:
     manifest = json.loads(CATALOG_MANIFEST.read_text(encoding="utf-8"))
     published_slugs = {code.lower() for code in json.loads((PROJECT_ROOT / "app/data/product-colour-media.json").read_text(encoding="utf-8"))}
     main_sources = sorted(CATALOG_ROOT.glob("bq*/01_main.jpg"))
@@ -46,6 +47,8 @@ def build_catalog() -> tuple[int, int, int]:
     source_bytes = sum(source.stat().st_size for source in all_sources)
 
     for source in main_sources:
+        if slugs is not None and source.parent.name not in slugs:
+            continue
         destination = THUMB_ROOT / f"{source.parent.name}.webp"
         image = rgb_image(source)
         # Keep the whole shoe in frame: scale to fit and letterbox instead of cropping.
@@ -54,6 +57,8 @@ def build_catalog() -> tuple[int, int, int]:
         image.close()
 
     for source in all_sources:
+        if slugs is not None and source.parent.name not in slugs:
+            continue
         destination_dir = CATALOG_WEB_ROOT / source.parent.name
         destination_dir.mkdir(parents=True, exist_ok=True)
         destination = destination_dir / f"{source.stem}.webp"
@@ -101,7 +106,13 @@ def mb(value: int) -> str:
 
 
 def main() -> None:
-    catalog_source, catalog_web, thumbs = build_catalog()
+    parser = argparse.ArgumentParser(description="Build web image derivatives without altering source photographs")
+    parser.add_argument("--slugs", nargs="+", help="Rebuild only these catalogue folders; skip factory and social assets")
+    args = parser.parse_args()
+    catalog_source, catalog_web, thumbs = build_catalog(set(args.slugs) if args.slugs else None)
+    if args.slugs:
+        print(f"Updated {len(args.slugs)} catalogue folders; gallery total {mb(catalog_web)}, thumbnails {mb(thumbs)}")
+        return
     factory_count, factory_source, factory_web = build_factory()
     social_source, social_output = build_social_preview()
     print(f"Catalogue originals: {mb(catalog_source)} -> web gallery {mb(catalog_web)}")

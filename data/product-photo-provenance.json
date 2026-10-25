@@ -1,0 +1,2391 @@
+{
+  "reviewedOn": "2026-10-25",
+  "processing": "EXIF orientation, white alpha compositing, fit and encoding. C2627 colour images use documented rectangular crops of the supplier colour sheet, retaining the full shoe and original background. No AI generation, recolouring, product retouching or synthetic backgrounds.",
+  "products": {
+    "BQ001": [
+      {
+        "image": "/catalog/bq001/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1132.JPG",
+        "sourceSha256": "db586ebda1cdd8444f7e7b5894a2c55abf3c93d41323e4c910424e3379b675a6",
+        "outputSha256": "c829a831bf7d71d06e45b93c7a79b2c95b99bf42be341550fa4fd3587d6e971f",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq001/02_toe.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1120.JPG",
+        "sourceSha256": "8b833b8bbb37e77b2a27fcf632b18928b1fed7dbd7fdf2426beed3d63c840b6d",
+        "outputSha256": "ebd34296b11b780f2f5ec00e606af00bb748129ecd8c60ea16853e7b201a2175",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq001/03_walk.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1127.JPG",
+        "sourceSha256": "cbff6544eb19c61b93cec533aa8e44561a48d375499565baca6cb8d7dc16b78f",
+        "outputSha256": "b1a16da21a8f496f2dd845797e64859096b944ec88fe92e2cb9b358c8a80c855",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq001/04_comfort.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1133.JPG",
+        "sourceSha256": "f4f7dcd03dc776c3a832cbb880611b9b28f49d9ca69923207486e1ab0540bb2c",
+        "outputSha256": "00b71e9dfd62e2df40e925c2df8c54e4a8816abc5573ed6b9e5ed25fc2086819",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq001/05_light.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1135.JPG",
+        "sourceSha256": "094a0d07f47999ac6822bb0ce0e80b529f7005a4fd970bf3ae66d5542735cae7",
+        "outputSha256": "ebecc2a19eb6b172164fea9dca849a99a0cd72101e0fa9053ca8b1c1530d1ff7",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq001/06_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1136.JPG",
+        "sourceSha256": "133bafa6f50bbf0196244377dcc5f1ef704982daa1cb46634680aa6a2553d88b",
+        "outputSha256": "d659ca094a9da72c439483a2063579c9d8e2279ff015b2884a6f6e894519813b",
+        "role": "pair"
+      }
+    ],
+    "BQ002": [
+      {
+        "image": "/catalog/bq002/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1145.JPG",
+        "sourceSha256": "97abf43c5201cc528e3831fb5c00639068d6d9dcf80f39ac5949461c472bbad6",
+        "outputSha256": "df6640e071e771bca78a77d1990b4cd4dae91b5a38417277a1a0c19851af2f23",
+        "role": "colour",
+        "colour": "Grey White"
+      },
+      {
+        "image": "/catalog/bq002/02_toe.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1150.JPG",
+        "sourceSha256": "2d7b5b0f90073587c19fda777e35d4963e3dd05549ddb9a1d251d14e3d81b9dc",
+        "outputSha256": "9f91482aded4326781e8b060ea5e2eecdc0b79fc0b3064e849c42bf574fc4ff8",
+        "role": "colour",
+        "colour": "Grey Black"
+      },
+      {
+        "image": "/catalog/bq002/03_walk.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1153.JPG",
+        "sourceSha256": "d2dd5f5b34c0eeeaef76a5a923de793953284301234255561a07ca4dc6df5ef4",
+        "outputSha256": "e5e413a4d7d5da3f1015859a7c302bfc49451c098b8fa571c6e0ea85d11d9831",
+        "role": "colour",
+        "colour": "Grey Khaki"
+      },
+      {
+        "image": "/catalog/bq002/04_comfort.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1146.JPG",
+        "sourceSha256": "1b6425b692ecb57ff7d6ce8a66460ec6b63b3ac59295d37b1f46ab0dee322adb",
+        "outputSha256": "9dc76d2b7d39f5da637b96f1ae533aebb7dee12420e8f6662550ed3cc778b6fe",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq002/05_light.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1148.JPG",
+        "sourceSha256": "e64d951aa316a75051df0666a7c490a27585f76d5d6b7cbb72d1a8db817bf810",
+        "outputSha256": "914050d6f3a44a55a2554909076c5ebc98b10a271f13c417cd1ada28138d9385",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq002/06_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A1158.JPG",
+        "sourceSha256": "acd08df1464904fe1646abecbe9b90ddf212bcf32ec427c9888bd526c2701f87",
+        "outputSha256": "4bc65fa7d6dca63952a7fca620de76909a8fbae7df27c02b50d665b1e798e378",
+        "role": "pair"
+      }
+    ],
+    "BQ003": [
+      {
+        "image": "/catalog/bq003/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4184.JPG",
+        "sourceSha256": "22a5b5440223c7de066c3534370fc81b6de7e7763fbc91c3dbe35131d6d5b82c",
+        "outputSha256": "2ba8444ba6357d008a6e0ecf613d98ba939bc1550ca2e6dcb1d970a238ee2b3d",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq003/02_grey.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4181.JPG",
+        "sourceSha256": "eab5c4670aed4124c0dac5221b0c7e1d6181bdc613fca926318ec618e63671ee",
+        "outputSha256": "117b49dd75d6fb6855aa24aad240229457b93fa92ac331b1ce88b46fbdccf646",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq003/03_pink.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4178.JPG",
+        "sourceSha256": "0c48d47edba6f0a8559dc62c6618e1abf0c8211d77b78709d708b4c003532ab7",
+        "outputSha256": "10244220d3dc3338db025b5a53c819fa7846152cc10a7cd81015f1d1732eb534",
+        "role": "colour",
+        "colour": "Pink"
+      },
+      {
+        "image": "/catalog/bq003/04_blackw.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4187.JPG",
+        "sourceSha256": "9cb78a9bbf7c3ffb28c96a7c19d75c6ff187203c55c40549719584ec532062ec",
+        "outputSha256": "186ee2b5f91274a332034ab73396ee2a103d1b966d8801d711e1ce35345d38ef",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq003/05_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4190.JPG",
+        "sourceSha256": "9c6d2342143f445560b0be1f8838786779468b4ea2bcb310d146d5e29ffc89aa",
+        "outputSha256": "93b60ca642ad5d48c2499ac4585eb749b70e124531e7424df8bcf749388ee647",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq003/06_outsole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4185.JPG",
+        "sourceSha256": "4610eff16486b630b386dd40b540eca4e911f2663e91fa87f6a5c9a3dce7975c",
+        "outputSha256": "e0ab0717ce45386284479166c78ca17a279bf71aebcffa63ff5c84381e09fcc6",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq003/07_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4195.JPG",
+        "sourceSha256": "0a22d83cd831f4fcf16bcc1f5d39fbb1b87de33505598711031e4956a35c6e4c",
+        "outputSha256": "6ccb9cbd8a559389cecefd00ed78d5a4af7a2eba643683bf27c8b51f0afa94c3",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq003/08_heel.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4329.JPG",
+        "sourceSha256": "dd6d3f0b634610ebcd4a0e0b211967a1f8e27c43a72c76ae0868773e19ff48ae",
+        "outputSha256": "0936dcf4ae7920a117920992c29c5ca3cda4937927c4ed7f37bf3308b8b7cb63",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq003/09_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A4200.JPG",
+        "sourceSha256": "d0de4f2d6e9804560c63caace35e71ae60931724234eb8754451a56beb7561bb",
+        "outputSha256": "1c765c6de5a88116efbc85ce4e5c94d73641656401759087d57ae5c5a38a7c04",
+        "role": "pair"
+      }
+    ],
+    "BQ005": [
+      {
+        "image": "/catalog/bq005/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "30.jpg",
+        "sourceSha256": "b4362ab6246b1dd43e15d3559d281dc8c0716e245e2eabe9f64210887027ebb0",
+        "outputSha256": "17b386ee081d1b9583d093ac387816583291d312f3adb4222ab2fa51751d4fda",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq005/02_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "32.jpg",
+        "sourceSha256": "f187fd36b633f21570679a174f237bd44703a36a531c5af5ca65a4d721df8c6d",
+        "outputSha256": "5bbb7b8effadd3b6316107731e35ed9ea38f6e14417502ada69ef0843835eb8d",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq005/03_white.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "29.jpg",
+        "sourceSha256": "d61e176480b4dc75015ca1f96c40c88251b071967dda81557eb77f072ee53d85",
+        "outputSha256": "7ff76fd70537000f73ae9292b51b4224c3fb33a0857d407f5a6dd70986b74c45",
+        "role": "colour",
+        "colour": "Pink"
+      },
+      {
+        "image": "/catalog/bq005/04_pink.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "28.jpg",
+        "sourceSha256": "31c64de58653dfcb5e995db89618321671188bfe0f375c5321a3695b76317419",
+        "outputSha256": "9343199b3d1e38e07e2cb291238a4ffe2bb0ea41be38c807d1c54d674e2cd3df",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq005/05_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "20.jpg",
+        "sourceSha256": "2ed136dbd7f2b6a98b994e8478eba0b012b97eede13be4266322a6e8086096f2",
+        "outputSha256": "5554bb81db80917e25b57b97a6d7b5459e7cc6b92aecc9d9e5446335d7be55a9",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq005/06_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "21.jpg",
+        "sourceSha256": "6fddefb9eba9981fbda798bd5eac92359571e70ad51763262f81d6f960376ce4",
+        "outputSha256": "71595f941b533eb5e982ddff5f39e0aa71238a09c625fce63171955b0313c46c",
+        "role": "collar"
+      },
+      {
+        "image": "/catalog/bq005/07_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "24.jpg",
+        "sourceSha256": "af8aae5f3c031f4b05e9d5b61f3ed2a9663d06fe828bb6bbd2fd457cd9d7f24c",
+        "outputSha256": "666e7701d1f71dec6cec714d580825daf5e025433df7d8276828926f0d67fedf",
+        "role": "upper"
+      },
+      {
+        "image": "/catalog/bq005/08_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "36.jpg",
+        "sourceSha256": "3199232c74cfd76bb8eab180281887e6626666344abc2de2511e5876d717656c",
+        "outputSha256": "78e2f0e053980957e32cd6331e13d96f71c25b38f41c73d1da5738bcb5637b1b",
+        "role": "on-foot"
+      }
+    ],
+    "BQ006": [
+      {
+        "image": "/catalog/bq006/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "51.jpg",
+        "sourceSha256": "62a5d740a77920d05a4fa29e4d87cd5adbef4de59c0618f89ac1c139922ab6a0",
+        "outputSha256": "ed25d35fc3073fd62fb35b63b2dd93c09e659a41a67ece318dd26d81fe7205c8",
+        "role": "colour",
+        "colour": "All White"
+      },
+      {
+        "image": "/catalog/bq006/02_white.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "52.jpg",
+        "sourceSha256": "f05deaee3075241859ef29ece5755ede5846995bb7fec53dee83ee162c132b43",
+        "outputSha256": "e7418ad40bbcbecb30001f863b71d793c345e77050b3addc65da823fd2c2dfa8",
+        "role": "colour",
+        "colour": "White Grey"
+      },
+      {
+        "image": "/catalog/bq006/03_grey.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "53.jpg",
+        "sourceSha256": "a8b438ddef185db9de8ce4072cbf3dfd15fe8a0e9fa55fd7fdfbcc92d3e49ae9",
+        "outputSha256": "a44a12b9bdfc860662ff4bb6d7b60762276810de5bd8d7cc6380f7678cad2f84",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq006/04_blackw.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "54.jpg",
+        "sourceSha256": "7ddb7910e906c038cb45d7c7217a46f5c739601d457c3d907e3ae0e4dbc7eea7",
+        "outputSha256": "f425b0498623d5fdf7323db4a0ec5994e33616ac6ebfa12389f5b9845ff8d4c1",
+        "role": "colour",
+        "colour": "White Purple"
+      },
+      {
+        "image": "/catalog/bq006/05_purple.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "55.jpg",
+        "sourceSha256": "368e03b708459fd335e41cff4f2b5381dd0ab0601bd06f2bcf852879e924ab8e",
+        "outputSha256": "1737789c329066326bad287436f1a1eeeda4791d0aa0a38c39d84a530c8335eb",
+        "role": "colour",
+        "colour": "White Pink"
+      },
+      {
+        "image": "/catalog/bq006/06_pink.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "56.jpg",
+        "sourceSha256": "0ac6452c44bcee6ffef4c9365e160341fa680f259d2e9f851ec98a3d926509c7",
+        "outputSha256": "840dd16363c198919a541a8491e03557c1b9fcf4ac98ab7efe26388639891b84",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq006/07_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "44.jpg",
+        "sourceSha256": "05d1e39319afb1baf54c03cd07b42010c3ceacb152ffea7eb4a71fa2d2c6bfcb",
+        "outputSha256": "ca5c25f45e15fb48c9f2dc9a81b3509b618d45eca2632a756889c8863c704150",
+        "role": "colour",
+        "colour": "White Green"
+      },
+      {
+        "image": "/catalog/bq006/08_outsole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "17.jpg",
+        "sourceSha256": "5c9bf628ffdb213a655c920eb60c39224614f992e34114e8b5e2edb36ac3ace2",
+        "outputSha256": "e7f7b7cd951ecea72a2fbe314fdfff45366ef149717a1a395d034cb8d6636215",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq006/09_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "20.jpg",
+        "sourceSha256": "3a954ef5c37a1ee9bef03f1e639f08d40acd5fb361a6933094962fdf0a751c67",
+        "outputSha256": "029cb25ffdc7b264229b745613da2756a3a73fc0509a52c18c57185f24777780",
+        "role": "upper"
+      },
+      {
+        "image": "/catalog/bq006/10_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "7.jpg",
+        "sourceSha256": "e888a50e56ae214df14a56ada1e729dd739b2ca07cd7c8093bc946778567955a",
+        "outputSha256": "e9dfc8736417d1470851e3564a465996ea3d785adab50ae3753d11d0310bfe16",
+        "role": "on-foot"
+      }
+    ],
+    "BQ007": [
+      {
+        "image": "/catalog/bq007/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (43).JPG",
+        "sourceSha256": "0ade9d46663fd1d4005a2beb763941a95e2eb404db94fe623879921ae74919d4",
+        "outputSha256": "701925b2873a97d9e25a54ae06735e7d4554587573416950d4c418a886444e14",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq007/02_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (44).JPG",
+        "sourceSha256": "279f9f19aa7645c3b5c23b4a3bedd37eb52a61bd6c962e01e13d0bbefa99f8cf",
+        "outputSha256": "f6e7b12aba90f185405e82757b3f744caf08fdfe6233600ea19e8c37ec1b5336",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq007/03_blackw.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (46).JPG",
+        "sourceSha256": "0c6b991d785da0c831174050d688676ee3430a139ee0443b3cbd2ee751eca62a",
+        "outputSha256": "fc56e817ceee6812888e2ebee799fb393b6730d3a9fc966d972ea48e2e61ec1d",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq007/04_khaki.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (47).JPG",
+        "sourceSha256": "962a0f6d1266a705af9cd326f0d9b62596f4991d69c197ddfd125c38f90c3400",
+        "outputSha256": "c670fc75756c037e7841e7364045f43de8a9a941926cf30ee4d73cdeb85a1202",
+        "role": "colour",
+        "colour": "White Khaki"
+      },
+      {
+        "image": "/catalog/bq007/05_orange.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (45).JPG",
+        "sourceSha256": "d799891a6ff6aa25def669e4a0d713a7a7fe8cd5f2f24bd0ab1ff32653249a9b",
+        "outputSha256": "18977986ebaf4c67f6fb170a2e040c23d1b3c216b314b47200ee2e5cb162e5cb",
+        "role": "colour",
+        "colour": "Orange"
+      },
+      {
+        "image": "/catalog/bq007/06_outsole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (48).JPG",
+        "sourceSha256": "54a553f120dfb75d2716c9a12f548fab4bf91d4fbc593c94d3f37d79c3945ecf",
+        "outputSha256": "a756c5df859810716040cd4d165d4c9209c78ff188175ebc376050120697f438",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq007/07_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (18).JPG",
+        "sourceSha256": "b493fb4873dc982c9d973eb3d2635d5cfd83970c5bec9f3da0091faa2dd1e3ef",
+        "outputSha256": "60abf0c734ba8392c106cdb31f41779f33eb9c36de272e3600049376d00c109c",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq007/08_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (27).JPG",
+        "sourceSha256": "d5a18136aef983e33274c476b7e8b3351f8100c9162d5ea4733212b3b2e78509",
+        "outputSha256": "de7fb0be6fa744835e9b1a55e10fe029e81dd626c10c41199c893e6d1a302434",
+        "role": "pair"
+      }
+    ],
+    "BQ008": [
+      {
+        "image": "/catalog/bq008/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5799.JPG",
+        "sourceSha256": "d68cc0d0d57bdde1656455c2f1daa59c365cce327ee19d6804995c3033a5c8c5",
+        "outputSha256": "a9477903c4bcb2e2fa5da899f2eb2ddfca94b559e0e959eb0cd08a4db11aef8f",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq008/02_greeng.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5800.JPG",
+        "sourceSha256": "507c0c46e8a1c7010746093367bf30e9660723a257e8a3c6497be589a2d14e8e",
+        "outputSha256": "4a1f3db31c808bb5dd0c3457dad2c11fd88d359a8f0435a81a53bcc66f88f36d",
+        "role": "colour",
+        "colour": "Grey Green"
+      },
+      {
+        "image": "/catalog/bq008/03_white.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5801.JPG",
+        "sourceSha256": "69279b0ac6b815413df75b762671ddd86f1c0a51203e9fc9fceb008cefa763b7",
+        "outputSha256": "b6eb537165afe058de81faf956c2622b67ed47924a98f3e423453e976229cd36",
+        "role": "colour",
+        "colour": "White Black"
+      },
+      {
+        "image": "/catalog/bq008/04_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5802.JPG",
+        "sourceSha256": "f77ee66565f5ac02c70207a0e0169b374ed5bb65ca4e7334fc679d4d6989f599",
+        "outputSha256": "14e9c98dc59d66b2e61880e6d2b6d062d13d63ba602b2e60df989e0355df55e4",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq008/05_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5806.JPG",
+        "sourceSha256": "0b8ee64a10c824fc5ff763a020832bb1145ca414d196671059ec104249e38ec6",
+        "outputSha256": "eed00c95e771bc0fbaa920d53b742d061e502d013c1d4ce33d5544a42929a51d",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq008/06_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5815.JPG",
+        "sourceSha256": "b9eefa0c7bd12123385e071d9b53d2aa7d5c7ac77bdacfa4183e21d0a51195e8",
+        "outputSha256": "d1f257361af4d9f71db76d56c0ee43401c13a09e740e36f0099f5ffffe708baa",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq008/07_heel.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5842.JPG",
+        "sourceSha256": "213ce00634a7a67b4964ba0494536b62f06f6548fc33ff6742de8c014b7a49ea",
+        "outputSha256": "3a20e549bd3c2ed9d56563667e9eaef25dbf4d53406d3d73df716505134a8c3d",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq008/08_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5848.JPG",
+        "sourceSha256": "292d76813f6abbf4622cb6a8fedd26a9a230538594a85d3fc447c16ffb54a9d4",
+        "outputSha256": "32ff47684d85b000d4fcaf51ea4bd694c3d340d556dd0ec519e6b84df98808b0",
+        "role": "pair"
+      }
+    ],
+    "BQ009": [
+      {
+        "image": "/catalog/bq009/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7598.JPG",
+        "sourceSha256": "ab4534c81c563f1a4b8c9a70cd9b4464ac1504ce9be2ad5aa4d25057c36ab400",
+        "outputSha256": "ddec3a8c7ea219627ee10c5f138794da07d9778067d4d55d6f672189f3fd9c6a",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq009/02_orange.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7597.JPG",
+        "sourceSha256": "49a7492f7b7ac0a2c1dc70c5ac0c6b164b5bc6fd3e2e83897f8e23031147d135",
+        "outputSha256": "38e4539e815238db791301131e631b9ba7f14f90eaa306310d1e25978b7f3f71",
+        "role": "colour",
+        "colour": "Orange"
+      },
+      {
+        "image": "/catalog/bq009/03_mint.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7596.JPG",
+        "sourceSha256": "0edda280d4c579216a56a031ae9996e8d81e4b5c8254a95612002812bc3562f9",
+        "outputSha256": "cc85a7f03ce2483f8138f695e1660b3534a5af7aefdc194603c92591e7aeea73",
+        "role": "colour",
+        "colour": "Mint Green"
+      },
+      {
+        "image": "/catalog/bq009/04_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7599.JPG",
+        "sourceSha256": "4899df3ec89efb7694adee355c15deda63f37bd6269103827f50fffa77cab6f9",
+        "outputSha256": "b195635557511309b999c707e286c5e9a015f79bf666bfab54a05fd0008d71af",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq009/05_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7602.JPG",
+        "sourceSha256": "7e95041e484b5fecd8121d88ab8ba986ed519301dabde15449768d532de21d14",
+        "outputSha256": "cf183f2128a7be18320999c6030620f5d8f5aa088628df499994c09f56fd62df",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq009/06_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7615.JPG",
+        "sourceSha256": "d9dc629e44d72fec0bce22d568ceca28139742bd3a78e475b9d6472480a1a5f4",
+        "outputSha256": "d868beb628c2d36f818b7e6d445818b6dc84bbe6d80e46fefd040ad3e7c6e8c1",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq009/07_heel.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7607.JPG",
+        "sourceSha256": "47d66ced163e1d34321fb4f6889058d64c2e1af092e05579466dc95e103bc2a7",
+        "outputSha256": "13240ebbb22566693d78b4e973cb0de1bc4f139aca76b33a1c3506f2077c4fd0",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq009/08_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A7620.JPG",
+        "sourceSha256": "dbab5a3fa1c82f984b4e7383462149ffa9646ffccdedd44410cb212dcba2e853",
+        "outputSha256": "df17631ba963f32e60a7f232dad1c000e26be55172effc9039bbb4b48c3af587",
+        "role": "pair"
+      }
+    ],
+    "BQ010": [
+      {
+        "image": "/catalog/bq010/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "白色白底.jpg",
+        "sourceSha256": "c5eae2bfa389a19728a20c1c1ed20b488c7999c8a3ab267e27e34641220ce46a",
+        "outputSha256": "91d1266e901b66aa8e1e1b553f2cf28ba91b2b15924969cd2b765ffaf66764f5",
+        "role": "colour",
+        "colour": "White Sole Black"
+      },
+      {
+        "image": "/catalog/bq010/02_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "黑色白底.jpg",
+        "sourceSha256": "e52f17bdd0b4bcbbf7c05b8dd73e85154276690f17ffc31af351f54690f03730",
+        "outputSha256": "f894ecc5c37c2d4d403ef1428558fc2b72d04ba9e4fb6a55d2a0269357219764",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq010/03_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X627A4104.jpg",
+        "sourceSha256": "2bed1f3055a570256751a8af75cf05a5232e9c91aa835b34e6b81091cd64c69a",
+        "outputSha256": "a160380652a43a7d4aee172204415d1a5318c11e49c79ea0a24880be039af573",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq010/04_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X627A4114.jpg",
+        "sourceSha256": "bb70b41854ba0938eb76205f5e0d33e90e6b28d36b9f0e83df304269322d5890",
+        "outputSha256": "c7d613853b151674ed4bace88b900661982bf250ce56e2581bdb9315e41b08d4",
+        "role": "collar"
+      },
+      {
+        "image": "/catalog/bq010/05_detail.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X627A4117.jpg",
+        "sourceSha256": "93e23e3dd1f1c6c5554c3c5c1abb2ee7156806ab00b5fa3e03225060bd4c8564",
+        "outputSha256": "301a56ad02e3aaf9328e83f2f32dbbe470fc6d293fe4b1d9a1b481503cb03957",
+        "role": "upper"
+      },
+      {
+        "image": "/catalog/bq010/06_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X627A4056.jpg",
+        "sourceSha256": "8eb590914febf094da21911077ed5547246bea21295efbea12efc2f1b506d9b1",
+        "outputSha256": "824bc52045742807d76a8817ada298fcb07f445e1e77354d12ad1143bf4cd50e",
+        "role": "on-foot"
+      }
+    ],
+    "BQ011": [
+      {
+        "image": "/catalog/bq011/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A2151.jpg",
+        "sourceSha256": "c9b155162fec45a34d2ecfa9892120c5560807aba8f84ed56355055ab4277810",
+        "outputSha256": "e5261888dac75bb45d3fee978eb2bc4a1057687996b55e1e63c3d6b9cd56a670",
+        "role": "colour",
+        "colour": "Grey Black"
+      },
+      {
+        "image": "/catalog/bq011/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A2152.jpg",
+        "sourceSha256": "2fc906f587fdb531a8a133ab1a2573a3b036223e6dcea4c77f3c943c8fa48b32",
+        "outputSha256": "f805782dfc584bcbe013236f3456ea1c67873733ff938b169bc099f5adad596d",
+        "role": "colour",
+        "colour": "Grey White"
+      },
+      {
+        "image": "/catalog/bq011/03_slip.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A2153.jpg",
+        "sourceSha256": "6350b1739ba86de163e815c2b66f4743a47c4bb00d844641f96c63aaaffbe6ce",
+        "outputSha256": "5fe04720f23954714e2cfa61f06dbb79cd2670f80796df6f2974176476b905e4",
+        "role": "colour",
+        "colour": "Grey Green"
+      },
+      {
+        "image": "/catalog/bq011/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A2344.jpg",
+        "sourceSha256": "ae87dac6dad3ca0708003b4deddc7bd0b5dfcbc0b0465e081843e885c81212f6",
+        "outputSha256": "4d6f2159879e3f1956754ce24dfd86f424fd9181536a08f452a3a1ec3da9ac0a",
+        "role": "overview"
+      },
+      {
+        "image": "/catalog/bq011/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A2336.jpg",
+        "sourceSha256": "2a400c70346b15698dc33ac8c180a6bb4f61a86031704f753e9a3196beef496f",
+        "outputSha256": "c2ad99ae75d2be15da75a3683059a7cb1b4017bbd2a00750f2b412c3fbdd1bd4",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq011/06_walk.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A3010.jpg",
+        "sourceSha256": "da2ee668136fb4c46be4d66b78317de91cdae675b27b0b83a87ebe29d6810466",
+        "outputSha256": "121dcbc2cedfdfe9a6f6685aee4deb330a15b0239a16fd989f6355e556fde3cf",
+        "role": "on-foot"
+      }
+    ],
+    "BQ012": [
+      {
+        "image": "/catalog/bq012/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (67).JPG",
+        "sourceSha256": "6f009096b69aef0f587b18e4d59ef28299cbd7632b2f38f42310bcf5b90a89d8",
+        "outputSha256": "6a10c1d660c878fc5a35d0c85b64e7dd37b477035dbd79f941543d13c52e6bc9",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq012/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (65).JPG",
+        "sourceSha256": "dfcc74774d27fd8e56f279b090141ef14a1831cd167f9a20ddfd2c4a016d69bb",
+        "outputSha256": "04e873c204b4301d67b8f2b8d614fac9fd9eb97f922473de716ca740c28b9c6c",
+        "role": "colour",
+        "colour": "Black Black"
+      },
+      {
+        "image": "/catalog/bq012/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (66).JPG",
+        "sourceSha256": "469a4c7f55b417f5509429d10616f834b29abed08633e4681a8801a49339ee42",
+        "outputSha256": "6e9d3bd35ae83234550d03c80bd17b947cd6f32222f9e8ae2f5aaf8571b10d14",
+        "role": "colour",
+        "colour": "Red White"
+      },
+      {
+        "image": "/catalog/bq012/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (71).JPG",
+        "sourceSha256": "eec3846fbc4beae4b0a2d32c7eec12cf2a2764aade7213290b41e162070d30b6",
+        "outputSha256": "b7ea5b94c03ef5c9dc679235a222bba59221ae4f60b325d2609145eff26fbade",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq012/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (79).JPG",
+        "sourceSha256": "47434d1c2126fce9c0a4205b63b05843aee87d81db5243b25cfa3087f3a33d8d",
+        "outputSha256": "6fee91cd64e9089db24a0c6b4b0f8bf0a69c8f69b569aff16cfdcc35b5daa2c0",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq012/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (75).JPG",
+        "sourceSha256": "6f71f5ed2366b2783d1683c9bac2fcd0854b5e87dccb10ecb1fcd52fc7f1aa94",
+        "outputSha256": "ec884fcc1bb197b7e6b62020716e244ef19f371f1f90d27d4ce31879881572ee",
+        "role": "pair"
+      }
+    ],
+    "BQ013": [
+      {
+        "image": "/catalog/bq013/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "白底 (2).JPG",
+        "sourceSha256": "98846811ae4b3884d4284d9cb939a8b124165d22d859909edbd5fb786ef09342",
+        "outputSha256": "c81ab4ea1a321ba69da501a5379fcd23be98d82c05c4949eef43e15b7fa117c2",
+        "role": "colour",
+        "colour": "Wine Red"
+      },
+      {
+        "image": "/catalog/bq013/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "白底 (3).JPG",
+        "sourceSha256": "a6cc65195e43fafdd72be13bf276be890cc50575d3af4a3ddda3b50692b07fea",
+        "outputSha256": "623f25d5bec90a49b3b3e95e2e04fd6819419bb6cbdd660dbd2fca34180756c0",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq013/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "白底 (8).JPG",
+        "sourceSha256": "97eab8d5c6fc4e269dc2559f2d990f2c2bd72c4e5cb8dd7e01182a1808e98f26",
+        "outputSha256": "5d7387eddb49b53828f51b1096bf03f88c3627471203f351d428747c2c19ecb4",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq013/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "白底 (6).JPG",
+        "sourceSha256": "67bc360d2fbb5ff44f5d8b0ddf661361be6809fffd387c9e161e89afb14b5b89",
+        "outputSha256": "21ff38805a907d9bd1c3d904243537c863d541d6a630a73bd4f0485b68255c96",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq013/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "白底 (12).JPG",
+        "sourceSha256": "963df6b4a24c5fc5cb60c2eda3881e4859ecb267b1e35ab7687485f06e83f902",
+        "outputSha256": "c4ac275af2d5cbcd13785457827ca9dca492d162ed998f23eb2a1a1a6a4d9162",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq013/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "白底 (11).JPG",
+        "sourceSha256": "674e4f36c3fec9ba91a887a78157bfaed8284876ac616c4d47ed5e9a03175032",
+        "outputSha256": "083ea1fbd261cb0119e14737adc58bfc70a10969bb536764c2cd4ed2b9208b9d",
+        "role": "pair"
+      }
+    ],
+    "BQ014": [
+      {
+        "image": "/catalog/bq014/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (67).JPG",
+        "sourceSha256": "d12d5e96a0ca969d01b57478901ec7a9776d6c9b0b59202b2fcf1e29453d61ac",
+        "outputSha256": "4f57b47e4d0bae0de1a8d07da2a51adaffa4fc9bb3b898fd8243eb0018eeb4d3",
+        "role": "colour",
+        "colour": "Beige White"
+      },
+      {
+        "image": "/catalog/bq014/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (63).JPG",
+        "sourceSha256": "f2a7d17263767e38dddc8271b87d4789706bbdbdb7bb009397158498e14f09cf",
+        "outputSha256": "0519b31bb95f717b93f7021ac17a18ba4b8938ce4b170c1c9802bb3caa4ea493",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq014/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (64).JPG",
+        "sourceSha256": "f480c95c86eb6ef8de675970727d0a53b83bd19db318645ce35daa1db9f66cf6",
+        "outputSha256": "953e4f4b082116e51269f21005789fc41bcb5c23506eb5568b22960369752827",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq014/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (72).JPG",
+        "sourceSha256": "7dd9babb94e814c868529825eeff1d324607ccb61187a2de8904e5400b8f2e14",
+        "outputSha256": "96c8618ef5d88f8e6858532efd1106cb1284267a8e0181b76763a50cca5bfd73",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq014/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (73).JPG",
+        "sourceSha256": "81cf728245ff69eed9f14cf5a81dc9a80ecbac3960e15fab577d3f7a59b109c3",
+        "outputSha256": "a429d34662b185fef77e514d1e053937d161c76a292bedc63e19b92c82a72cc2",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq014/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (83).JPG",
+        "sourceSha256": "fd432d27584ceb7f15dd28da4925fe129158fa64f98f1edb85f4d352936e84a8",
+        "outputSha256": "5aa7058690894a75bc5e04e3c0ad4bd9b3774559265512f993aa158c238ee524",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq014/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (40).JPG",
+        "sourceSha256": "689bec68d396bfead43b83ad17f5d3cca243dfc1cd1facfc880723495cf8af98",
+        "outputSha256": "9cbffcd1a75aecdd2b775300d2a7a4cbc907fdade807ea9fdb8faadde40be322",
+        "role": "on-foot"
+      }
+    ],
+    "BQ015": [
+      {
+        "image": "/catalog/bq015/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (121).JPG",
+        "sourceSha256": "6e1d2d5499c22cc0aea9ea1a773ed21137218cd6a46335ea59f9f0ce85287f4a",
+        "outputSha256": "7943536e3b98f860287d716f508dc13285bd0ce0d711f970ba68404cc43f028d",
+        "role": "colour",
+        "colour": "Grey White"
+      },
+      {
+        "image": "/catalog/bq015/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (122).JPG",
+        "sourceSha256": "7bddda1fd8b71c148b2f98ca8209a0e2d35324dcc74d788217af1b58e85ec6b1",
+        "outputSha256": "7f70218045cef874ce17ab39ae414d80906252a1d260507387b9c37761c73844",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq015/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (125).JPG",
+        "sourceSha256": "796fc7cf1928d9f5ca543fb01a06483ef466fe715d08068130948cb4f9b4d326",
+        "outputSha256": "89c6f91885e891156ba826cfc9029c25e1ecb8e7eb8cd27ce410e700b9d39967",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq015/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (129).JPG",
+        "sourceSha256": "cb9d27564e536f7c66f0355adaa44562ec6bea3ca6f9757a18112ad9cbb6a19e",
+        "outputSha256": "058fb761fc32885bd2d890f589f6b159060382712d4ca87e7c352a93d7cff904",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq015/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (136).JPG",
+        "sourceSha256": "953e6e29f02e5c8e41d29be177eadbf2d511f17caf8796c846609fb3fa87606c",
+        "outputSha256": "d4f2c4aefa95e68dbcfd1da4595eba13f21d9e21a5a0ba2d80f7641176445797",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq015/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (131).JPG",
+        "sourceSha256": "bc861f2b81bd4f94c931fb9a7a372b130bdebcf54862dcfe98ee7cb63fa74d91",
+        "outputSha256": "b058cd6cc273645a8dc62ba17b16bd327d5676dde35396562ac4013ec3600836",
+        "role": "side"
+      },
+      {
+        "image": "/catalog/bq015/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (104).JPG",
+        "sourceSha256": "2af0d1c748753f484e6612b9c319b4b1153954622c844a408f4ce214bfbff76f",
+        "outputSha256": "64237022a050477c769b477c6ea89050ea53cc5aaabf1e9eab0712e06030fb9b",
+        "role": "on-foot"
+      }
+    ],
+    "BQ016": [
+      {
+        "image": "/catalog/bq016/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "27.jpg",
+        "sourceSha256": "b16cacb81e7de6d840d694dfedf27bb4c6f1b2d53ad2523a8345db6b92bc5ec5",
+        "outputSha256": "cff9bcdeb08236857a8ffb1b974e07d7f64ffafe23c3bd3f40d039e48e68da27",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq016/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "26.jpg",
+        "sourceSha256": "881cc220772d213c9d41ca9d5a220dd95e67978fff170b8625c7e3ae8f368041",
+        "outputSha256": "2ff82f0fccb1462863e4566763d93869c62f8bb08d54c6bd67e3adbd862a4474",
+        "role": "colour",
+        "colour": "Pink"
+      },
+      {
+        "image": "/catalog/bq016/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "28.jpg",
+        "sourceSha256": "116904c6cda6ef99cec0e93ff28fb5fb481bc6991ebfe49fd5bb15199a0bb79a",
+        "outputSha256": "ca02c58186b052c53e98f543ef7539c1ef122befa7560a3e4060d5fe461919a6",
+        "role": "colour",
+        "colour": "Zebra Stripe"
+      },
+      {
+        "image": "/catalog/bq016/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "15.jpg",
+        "sourceSha256": "5b60c9c8601400b7a016ba314686eb6620d4b0148116ff883ef152142f58f39d",
+        "outputSha256": "d1743b526737ceef5762d0ef3dd045a1b692a9bfb6561f0db0f4a4bdb09edfdf",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq016/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "21.jpg",
+        "sourceSha256": "26ca0a4fcda662c90ad44d84188671589f51e2dd81772554b8708a42ce6bdb57",
+        "outputSha256": "893355e04748c8178364f149f914ea7dbda7a48a9807586f5f79d7a2781cdcb5",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq016/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "23.jpg",
+        "sourceSha256": "1e7a3de34163c810f701f49bca4b15bd69b68095b706e1f6db0f9077b37d590f",
+        "outputSha256": "b65da32db54fb6b981aed685a8b1e3521605b4dd86e98860f897a60b454fb3fa",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq016/07_overview.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "12.jpg",
+        "sourceSha256": "c496c7790fa8e519e39e5e67bc7e8756e3a0d95c787b9d882404b07e97d4edac",
+        "outputSha256": "2ddf92e487a3933695dc4ff8f78f1d05b27efa5caa57e274aa4ea4be31ef57c2",
+        "role": "overview"
+      }
+    ],
+    "BQ017": [
+      {
+        "image": "/catalog/bq017/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (81).JPG",
+        "sourceSha256": "46424f41c4d54bf636adfd82e483dda10568fb0768fc8581980a2c171c2bf1b7",
+        "outputSha256": "3fb7a40d32d4e7e37eeb9c03704ba9f3f25c94eab58917fa71c3e21ea2b4ffa7",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq017/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (82).JPG",
+        "sourceSha256": "26162456e54c7c33e7ff3ca4cf91073ebee09b0d8880357f36ea5fb77a119551",
+        "outputSha256": "36905bf772374f5877a2b480777eb7fe6e889310410535cb79371ce6b4692308",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq017/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (84).JPG",
+        "sourceSha256": "79fb4b51e1fe1d755a4c18804d5a6f3e0a3b11f39e0bead79de343c163fcd5b2",
+        "outputSha256": "d0279b821adad7663f40fb5be8e8ea6a370b67a226e320ca8e92d21a1792a652",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq017/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (83).JPG",
+        "sourceSha256": "c68ba48c5bd76c87625c75f617fcd65e329fe1e25dbdbe75f2a208d53cd5c8e9",
+        "outputSha256": "4b253f3bd0f5c13c90af27f4b66953d1f583abfeb74025e932ab547c9c23a9b7",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq017/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (85).JPG",
+        "sourceSha256": "b2860769d3d3c0605b519b083225d1cba02f1a6484585ca712d00135d7f78aff",
+        "outputSha256": "782443d8e70ef4aca0e9ea6975c4bf43908647afb7200ccac4a481acb8cfa425",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq017/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (72).JPG",
+        "sourceSha256": "53bda08c08c8bbe2c712ac4d9cb9ade0476788ddbdeec43f623d4373c68d7ab7",
+        "outputSha256": "bc45d6ccb4eb651a3760a6e81ccecae816379ae815b6a6e9ab3b2e1547556356",
+        "role": "on-foot"
+      },
+      {
+        "image": "/catalog/bq017/07_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (56).JPG",
+        "sourceSha256": "1b6ba0ce122a641d7b50a822934ac9b6720ac803a06e76b5f2462baf5a69174e",
+        "outputSha256": "62aef695199685e960995ed0952ddf9fe432a1ce63e6b15bf157d28281e027c1",
+        "role": "top"
+      }
+    ],
+    "BQ018": [
+      {
+        "image": "/catalog/bq018/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1 (1).jpg",
+        "sourceSha256": "bb21a3d94c6a5c0f6fbe60fa7ad1f70e72809196435774ffa504f465c4f9cedc",
+        "outputSha256": "40e794cf65550174d672eeaac3cccede617107b4f99c311d1233b6d06b0595bb",
+        "role": "colour",
+        "colour": "Lavender"
+      },
+      {
+        "image": "/catalog/bq018/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1 (13).jpg",
+        "sourceSha256": "ff2ca2644d32db5739abd6f8f80a99c1d92a46618fdf4edd3b1927e19a485c5a",
+        "outputSha256": "018af67b8ad7e829b87442e24d683c69ffbe0b5835d821ac7ebf4e7cc3ad3531",
+        "role": "colour",
+        "colour": "Cream"
+      },
+      {
+        "image": "/catalog/bq018/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1 (7).jpg",
+        "sourceSha256": "fc6a9c4cb1aabbb6c29dbcd390b7558f02e57d8c59e4922ae451471fe5ea8456",
+        "outputSha256": "fa4e6074ee0826a72b7a2017f1db3d3859222aaeeb30f401701be156530cfac7",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq018/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1 (10).JPG",
+        "sourceSha256": "aa0a855ab906b11c368706c0fb1df8317eea7a217c0c6633be7c23d229fa68c7",
+        "outputSha256": "c27e9254c2da897682e80d0b6e328a5f390df2b817b943a0915fda5f8f8e6124",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq018/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1 (3).JPG",
+        "sourceSha256": "cbcb678a2ef2c650ba028f0d8aa65c7144f38d38d799c3b4d60da8591ca67d72",
+        "outputSha256": "4a3fec46e9f0b5e3cb9f58c96886c2905179c1e458bb1ef6f7355f2393b84d09",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq018/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1 (4).jpg",
+        "sourceSha256": "b62d15d7925fd55426fa8f00a11ed5ad247112ed5fed867b77d820712624f628",
+        "outputSha256": "168e5ad78da11a2bc0f522970ead2db36ca4036289fbac6c798a80f77caf8e7b",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq018/07_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1 (5).jpg",
+        "sourceSha256": "401e4b4360834117cfe7585a908df10d73ed6fac49c90760b59e853ea9bedc48",
+        "outputSha256": "d6acfb6c0558648c1583cc99fd1084c981762bcf7ad81200eb5c410d27fbb9f4",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq018/08_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_1612.jpg",
+        "sourceSha256": "36913951cc8fb60a03f09c64311815e080e95c9f99514dc82217ee71433ed4bf",
+        "outputSha256": "9dab07b841989a6f12cadc5c16896512ddc9c2e30fdff5f5f6b99ad54d795a6b",
+        "role": "on-foot"
+      }
+    ],
+    "BQ019": [
+      {
+        "image": "/catalog/bq019/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "20.jpg",
+        "sourceSha256": "1564e05acbe4879943833d03fd429e3f9402baddf9f0b24a5f98d9eefeda04a3",
+        "outputSha256": "35ca5c6f4126fc009dd6007479a8842c6b4140a0a2ac1e3af006138122731da5",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq019/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "18.jpg",
+        "sourceSha256": "c8c91f624c11d9fa5794db8694834dc6f05557b4165eddc1fcce178992646e80",
+        "outputSha256": "18ea7622fe093ab1972a55c558ee69122317e939aa04780a23400f985bf0291a",
+        "role": "colour",
+        "colour": "Light Grey"
+      },
+      {
+        "image": "/catalog/bq019/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "10.jpg",
+        "sourceSha256": "49c15a3cdf61418b0e27b3f1ea032623f647a9f64c2acfa968ae6426d7b2103d",
+        "outputSha256": "1798c4fd031b03c3c2d27f414490afee671d0dc708f420d970166add9c888b2b",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq019/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "15.jpg",
+        "sourceSha256": "8b9b9329330781e621e89399ba3ea75eb9bccd5eee82064fb85c97481803c54f",
+        "outputSha256": "6e3d958cd4aca31490d48233ac35870862c887c4d8d5d32f2ff5e7b12d594811",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq019/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "3.jpg",
+        "sourceSha256": "c8284080f92d4c039ae90ac9fd9b8e1c4e507401135805dec95f4893bf17b2a8",
+        "outputSha256": "88b1d0195ecdb9de37c5899238884f8b9a917cd13e75b68fca9de4c78b20e246",
+        "role": "overview"
+      },
+      {
+        "image": "/catalog/bq019/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1.jpg",
+        "sourceSha256": "037c4ae5a3e2d44357f1375d372eb4e3581e42c53ac7b0537dbc9f009ed7c2af",
+        "outputSha256": "d029ee0fd22664c62e080ffc796650dff9c4fc2ef083964f9ae9e2a7da481636",
+        "role": "on-foot"
+      }
+    ],
+    "BQ020": [
+      {
+        "image": "/catalog/bq020/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (89).JPG",
+        "sourceSha256": "bb1bdbc23f4b951a97d28fae83306627980cf7ec46d69f0746fa21fb487dbdcd",
+        "outputSha256": "0ceb77724b787d8396494b0666ba4bd9eea57e3ee5a5f99ffcceb847f0fc93f7",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq020/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (90).JPG",
+        "sourceSha256": "58f2e4d771988405535d389a773607138f57ba467100b92ed07b58a600714198",
+        "outputSha256": "4ec93ae2eeebc2495a5c2f96c2c95b8089e89febb0d0cbaf85b481425aa5d139",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq020/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (91).JPG",
+        "sourceSha256": "5570ebe31e91ce573b2c1ae057c138dd332be252c9632ca2428b3ce58ee46e7b",
+        "outputSha256": "4af2e81438fee111c6d3bef768319425c48018bfbe27c9ee6ffb16f80ea52e90",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq020/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (92).JPG",
+        "sourceSha256": "238a9a10facd53d9b176050c5062906238aa809a1cf90ef544c9f939bb1d3c0f",
+        "outputSha256": "3dd24d84d011f39d4bd00198cb79f02c968e00644754d01b243cc10c6817b784",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq020/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (93).JPG",
+        "sourceSha256": "1785dfe0661b173c7ad2bb8dd845f7b342ab1c55ff258cfa9634b83ebbe50ba7",
+        "outputSha256": "4fedba0026923d37270e5636cf370280541322d5a5337a62eef9ce1cf8b34425",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq020/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (61).jpg",
+        "sourceSha256": "47f551ee8913131030c91c280a5ca7ece7f04a0d065566baf21f8169426ac0e4",
+        "outputSha256": "fc8c4919405d1cb1c76ea91690f2eed2fa3f849440face6c8c2650453b43370a",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq020/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (56).jpg",
+        "sourceSha256": "0d63adb9fb6f87f389ec5ddd4a2ad15fbdfa4c09076ede0946399e72f7fc61b1",
+        "outputSha256": "c644cf44ba42e0b617b9cce460d9b9dfe866a28de8e280a62ecd78ef8a338d1d",
+        "role": "on-foot"
+      }
+    ],
+    "BQ021": [
+      {
+        "image": "/catalog/bq021/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "23.jpg",
+        "sourceSha256": "29445d7b57bdf2a5d074766c19c0d9bbfc18693459b9d89a7f0277019726b2f7",
+        "outputSha256": "888a117fe351c7eedfaf4b6e50985e0e5dfd4039e2c6c91004e1e624bc2914e3",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq021/02_black_white.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "25.jpg",
+        "sourceSha256": "57d8ccbe29ac1857b3948d8b8843dcb0623d535c89da1283650e93a9265ffe24",
+        "outputSha256": "6a03d18b3fcc81dcee8cfa9d9ef0f83b6e518de86f62bc1fa64e71de719c69c6",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq021/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "26.jpg",
+        "sourceSha256": "7debf262d180600fb09aa3b5d14c2c9904956457d182ec3d2bd84d3d74207b8f",
+        "outputSha256": "d843f5e6c2874519694336427ce35e94294f2dfc847799783939eec1290db740",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq021/04_grey.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "24.jpg",
+        "sourceSha256": "78e124a12ac19efd157a3cba29d8df1be6625233666ea4a4c3fc70f204eda378",
+        "outputSha256": "7b24fb4f64917aa4b0bec42eaf1011a577e55595394660858a3b11c0eaa6e5a0",
+        "role": "colour",
+        "colour": "Blue"
+      },
+      {
+        "image": "/catalog/bq021/05_white.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "27.jpg",
+        "sourceSha256": "c4ccb2d38a7a237919cf0104e0ffc2086c5bd5b34478b1d32eadf5f0b387e213",
+        "outputSha256": "f6d515de03a7a1e0f7412609495c3a0ef6e16a3bb62f209fa190f025c3f3da12",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq021/06_blue.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1.jpg",
+        "sourceSha256": "1120a8e8029d39743f6283879484cbdbd17882ad20670e94fc70a0d273390ec8",
+        "outputSha256": "e35a692848bdd5c3ec6375c5893834ac7d9c428f520818f3b57afec1d02d4c88",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq021/07_collar.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "22.jpg",
+        "sourceSha256": "0b255e0510d91fefd37b88a7d63e63535be2b4c1ed1dfc1b90a2de60cae319b3",
+        "outputSha256": "88ca12853ea5716441d055eab771a19bd1ecdf16ba32c24c4d46de6cdcf12e2c",
+        "role": "collar"
+      },
+      {
+        "image": "/catalog/bq021/08_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "45.jpg",
+        "sourceSha256": "67bfe68d513ce2d2333fb783e7df3b1f1d579f74ed7d621ccc93bd4150bc6bea",
+        "outputSha256": "5938d6260c45466cf4116cf1c440c5351190da3104ba938553f5ba86d7581658",
+        "role": "upper"
+      },
+      {
+        "image": "/catalog/bq021/09_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "12.jpg",
+        "sourceSha256": "f83d20ee871246dc45cc27ec77bc43e01425e4e8cf92cbab3e41242acc52baf9",
+        "outputSha256": "e00fa8b585727bbbf139c280a5e835faac16ee6e32d3be49772321263e415614",
+        "role": "on-foot"
+      }
+    ],
+    "BQ022": [
+      {
+        "image": "/catalog/bq022/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "11.jpg",
+        "sourceSha256": "a3c63ce1e94fa8a54cade240a9d86932db51eb3d8b95176dbb9fc894be2b66e7",
+        "outputSha256": "c08ca344138229c402bf83e472feb21c64b506e3fa225222306ffb3b002360e5",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq022/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "12.jpg",
+        "sourceSha256": "a0dc497560d912a865a1ee74ae75d04fda147c34616a98e8f64b0b3f8a03fed3",
+        "outputSha256": "6ba2f8856eba178ce1f7e9d0e499b1f2d37dab306739f9802203d93a4131ff6b",
+        "role": "colour",
+        "colour": "Black White Stripe"
+      },
+      {
+        "image": "/catalog/bq022/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "10.jpg",
+        "sourceSha256": "9e54f12a72374f2bc658e6d770c7e623b9a90c60525913eda80a372301ab6175",
+        "outputSha256": "70e1bb7d036f7fbf2495e8c09b9443e0368bd3685f5cebc613f1c5f43e7e9517",
+        "role": "colour",
+        "colour": "Light Grey"
+      },
+      {
+        "image": "/catalog/bq022/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "3.jpg",
+        "sourceSha256": "0dfdb912c793b79b6bca1d65f531f5f98b30f3bbd0e5a40671cf5efd7edcaa15",
+        "outputSha256": "678ba6180f887103d66f67ce9eb16b2d8f8e7e917902ebd3fe269ba73713c4f3",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq022/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "11.jpg",
+        "sourceSha256": "e3ef225091286a5c24e911512ce4f9f4a004910a0e958afafd25c24cc12b04c8",
+        "outputSha256": "3497e041be48b265eea044bd1f2dac3712f2837a8f6f38d5ad3143d82897236a",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq022/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "17.jpg",
+        "sourceSha256": "c799dcd389f7cf9f084b61710afcdec229466dbca601d93a9a7c1e4a89eaf280",
+        "outputSha256": "38815b1d993a771247d26859b4ec872bfc9f7ad2fc9308681e948bfc055b5742",
+        "role": "collar"
+      },
+      {
+        "image": "/catalog/bq022/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "18.jpg",
+        "sourceSha256": "7e461e2865c529b1d0a517c26fc59d961e3b5333257cc24238effd8ead2e8c00",
+        "outputSha256": "ae6cccd5f9c2cac994dc5a226d1055b3c787988864b1a181cba241f7dbaa9307",
+        "role": "on-foot"
+      }
+    ],
+    "BQ023": [
+      {
+        "image": "/catalog/bq023/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "1.jpg",
+        "sourceSha256": "b77387ceab823dbff7073f4d7c9169a0d83769896d71d109ef5e8d74155f172f",
+        "outputSha256": "a8657af409a0997516d802a77aa947c59c4136e0840d91867bbd24bc739200a9",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq023/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "2.jpg",
+        "sourceSha256": "8fc8723a86567a66d728cfef8bf0cc7e6a164cf8573bb0531cffc013da4730c5",
+        "outputSha256": "c2db05e0067a0c3180890476abf91e26499df82e54be156a7e7dabfa622745d3",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq023/03_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "3.jpg",
+        "sourceSha256": "a86df68016c7d4bdb0230b9b6078f62b45d2509ef7356ca9362ec03e47c1b8f3",
+        "outputSha256": "7152faa948ff19dd404219a193c52455138edafd91f55dad81a3b4ff138fb176",
+        "role": "colour",
+        "colour": "Brown"
+      },
+      {
+        "image": "/catalog/bq023/04_grey.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "19.jpg",
+        "sourceSha256": "f382e6c437220d35bb979fc4faffb6a13772776a2dab026a93143f6b558446d5",
+        "outputSha256": "04710f247e4fb1340b2a200b3077d145b3f25f35ab4fa9c21ad4a5d8976c068c",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq023/05_brown.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "20.jpg",
+        "sourceSha256": "7f1490b1477f0cea18b399d4f9fb4603096806069bc11eaced0f86a0c83c4eb7",
+        "outputSha256": "1d25494439148c18b498541176c1ea8bc2e72c7caf26f731b6b6969cff868f34",
+        "role": "collar"
+      },
+      {
+        "image": "/catalog/bq023/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "22.jpg",
+        "sourceSha256": "95ecab46c4dbfa3ddbc7874902a2c37f17a40aae1ef2b76147ad0ca137e0f77b",
+        "outputSha256": "e551934a57af320e41c777c662ea80057ff463a61d708dc9cc37f0581e602d0b",
+        "role": "upper"
+      },
+      {
+        "image": "/catalog/bq023/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "10.jpg",
+        "sourceSha256": "828c2c77884ca5d6ce08d91250a1e4a816fb331ccbe1d8aa91f676cb194bf0f1",
+        "outputSha256": "b22145006156d4f756ae7bb2b66e313500845b29015a5e83695fbbc67f07f7d3",
+        "role": "on-foot"
+      }
+    ],
+    "BQ024": [
+      {
+        "image": "/catalog/bq024/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_7642.jpg",
+        "sourceSha256": "caea2953dfc55791111de14efb0f2bb7197f52c9fab00e20774200b71ff62dbc",
+        "outputSha256": "c183cebc4a42d91d3fb4333ac6d8ed8433596d0011d35c51367f28ea36435aab",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq024/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_7651.jpg",
+        "sourceSha256": "f803006a9df298d196747dabc06e8ebf50338f025f63c0c6493667029421b119",
+        "outputSha256": "4512c61e8ef5e2c5540ae6df9656e4db9cca5d0410170b49bb8cda5605d3872a",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq024/03_all_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_7648.jpg",
+        "sourceSha256": "5ec63ae24c2b3a1074ae714b00f1cbc6228312edf4cc462c33b6b4ba6222f2d4",
+        "outputSha256": "80ec944357c99165bbfd6c96f054411deaa254afe000062c03fd921b154ef9a3",
+        "role": "colour",
+        "colour": "Black Yellow"
+      },
+      {
+        "image": "/catalog/bq024/04_dark_grey.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_7645.png",
+        "sourceSha256": "fa853200dd268acf672e34b9bf3e661a4c14f92204f6b3ce526d416d0841612b",
+        "outputSha256": "e3b7546346fee55d1ab79bc5e30a26adc8a61c31c0fb7ed81863e2fba60177b8",
+        "role": "colour",
+        "colour": "Beige Grey"
+      },
+      {
+        "image": "/catalog/bq024/05_light_grey.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_7655.jpg",
+        "sourceSha256": "26fdbefea2e4175fd2a3d961cfcd271b0c75160267ddf55ee7fa89c93c3e3581",
+        "outputSha256": "167aeaba8f0cb5360dbb6b2a84b1fc783da8f0b34695967ba82feb62ce1808c6",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq024/06_yellow_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_7654.jpg",
+        "sourceSha256": "ee8df634a2e4e5e4ef7ecf7e27d7310d2181ea2108d02adcda60e05cf3bc3086",
+        "outputSha256": "30ab994a1850db26ade27bdd4f1fe5a8e23f039c45a1be0ca12de60b251d6452",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq024/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "DSC_8388.jpg",
+        "sourceSha256": "f4dfbb5c99fb9ce351edc156627c8ad4338e45c972b077ce6f757cf70d094e00",
+        "outputSha256": "effce4532a8d7832c8c8324a0507cdd8b30cb1a646d1e2ff04e1cd57b74a494a",
+        "role": "on-foot"
+      }
+    ],
+    "BQ025": [
+      {
+        "image": "/catalog/bq025/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A9293.jpg",
+        "sourceSha256": "dba521200a61e66ea9e7fecb6b9b3b4a9e7c71adeefdd28539f90d5a538fca18",
+        "outputSha256": "04cb17de7b2e6a7afaf10e8b5108de5e507039b1fcf38bf41eda9b2841247f65",
+        "role": "colour",
+        "colour": "Light Grey"
+      },
+      {
+        "image": "/catalog/bq025/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A9294.jpg",
+        "sourceSha256": "b3b4501396d8f9bd54b73b6bbb3b4ceaad9d1a472fbec4d1f3032abc9da6b6ee",
+        "outputSha256": "14a4fc1dad5b5856e3cb2eb08874de9b2ed5d8784c49ffa376520a3e8303bfe3",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq025/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A9295.jpg",
+        "sourceSha256": "5961bbc40fcdd153c3073f60c9d77faca56ca27d03beb8bb6d39f772890b6fa1",
+        "outputSha256": "fc7ba042bc2f585aa0b5f0a7956b8120c2ec9ed9638df6b0f9c189a00960acb0",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq025/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A9296.jpg",
+        "sourceSha256": "ad6bf4df328bb0bc4bb612fc32d62c5d40dca1b20bb25558ee31b4d48da74589",
+        "outputSha256": "8c760d2dc655d8753a8534338bbf5c27e9138d72023c4228a080825cb455ba1d",
+        "role": "side"
+      },
+      {
+        "image": "/catalog/bq025/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A9725.jpg",
+        "sourceSha256": "eded6e9eb6cb82fcb00afe61a0a0a52792a1b12a259803c60df588397a296944",
+        "outputSha256": "c61a5ba396f79b982d0bdc9553cebedcd167ba618d0d4e55e84ba2417450e3be",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq025/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A9726.jpg",
+        "sourceSha256": "ccf62f138ced46d90adaecfbe5539896a896e00b1f833bf32204deca0f17bbc5",
+        "outputSha256": "55e384648edb6974e28ab9dea27beef969c349549bf111d6aa35b9cd07a4ff93",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq025/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A0049.jpg",
+        "sourceSha256": "c69d9b97fc71a8e167be51b4bbb654ef46b58a00ef10936526af841971769a87",
+        "outputSha256": "e0ded79f0c3a9a3dd8fad33272a3ed464f03be9f152264e9aa490e4866dba202",
+        "role": "on-foot"
+      }
+    ],
+    "BQ026": [
+      {
+        "image": "/catalog/bq026/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8144.JPG",
+        "sourceSha256": "1f4b428360e7d32cffad8f8ec236170b45fdd677f66e9c966e0f1c3e4f41c42f",
+        "outputSha256": "22eb6837abedc553d473ea18df07370363440b670bab39cc83d94288ba295069",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq026/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8143.JPG",
+        "sourceSha256": "d8325e79abd3fd60e522e3a3424bcf348de0e44e4988a12b6dbf8ccf0afc49df",
+        "outputSha256": "1d9317be1063fe339b03bccbb7f200bf367367b92b840c7b83035a053532f91d",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq026/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8145.JPG",
+        "sourceSha256": "a10547c35491827255d00f1341bbb94037389a36ab51c58bd1117ee10bd3c313",
+        "outputSha256": "2e6019baab790a6d3f8bfed67f3aa9a8551c2f7b6944acb8fc2c5bac64c61f9d",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq026/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8142.JPG",
+        "sourceSha256": "68b1e04da2928c03cb4a50fcfbd5f33bf829528bd4b0c5ac3761f3670e2b6373",
+        "outputSha256": "dc15aa308a555d5c8500ebc2a61df1f3c997dba53f8fe769aa7b917325b67491",
+        "role": "colour",
+        "colour": "Red"
+      },
+      {
+        "image": "/catalog/bq026/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8140.JPG",
+        "sourceSha256": "3b764652dc19dfda7a2164d4fe1065dcfef9a4f82a3b55376cd601f668389e06",
+        "outputSha256": "af7e55573da18424d25f620184ed2f3bbaa5a4054a1d7fbcabd3d5c5dbd505bf",
+        "role": "colour",
+        "colour": "Pink"
+      },
+      {
+        "image": "/catalog/bq026/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8146.JPG",
+        "sourceSha256": "5f800e47bda10aa9565c05ae4b79212ddd138856dbaa1386bbad1684b2541304",
+        "outputSha256": "5a63c9a3512d23cef1b8fa92807f46a335ff94702caadd1c6d3df4a4d30b91b9",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq026/07_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8173.JPG",
+        "sourceSha256": "4d1d220c42ad3c99f23c5b4cecffcc80a7b10aeeb54c87be961d7e6a0f72afa4",
+        "outputSha256": "88794e663dd140c047873d4a9920f157d038989f0f8be9aa904ce53bbcd5a940",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq026/08_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A8155.JPG",
+        "sourceSha256": "39711a302e951677ecc0d016ff6077746686495686d2651ae2ec8c9bd89d2713",
+        "outputSha256": "f092358dca4c84e0a62e4f9e23107c60d9525ad4d570734a6dbd02fc14b277be",
+        "role": "pair"
+      }
+    ],
+    "BQ027": [
+      {
+        "image": "/catalog/bq027/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A0520.jpg",
+        "sourceSha256": "a5edd286430a0acbc32338410bf1a56c1f7b9b5e41ca921742f8ba6f2a0188f3",
+        "outputSha256": "4439141059ff22395869a14c14b4d68939f960275c9f12218974f03d69e096ed",
+        "role": "colour",
+        "colour": "Cream"
+      },
+      {
+        "image": "/catalog/bq027/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A0522.jpg",
+        "sourceSha256": "5e2737e1bb8612807644c555f7132c82b6c9c64e4eab5e4cb397e2eb5486ad0a",
+        "outputSha256": "02af579003e8f28531e8061f37ff283ac151b03d3c569895314c01cdf2cba23d",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq027/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A0524.jpg",
+        "sourceSha256": "029f2b818e7712aacfdce04ca4b4115689085d76a528fbfeb071cb2ec44cde40",
+        "outputSha256": "e00dbda23d307d3f89e295c9e9f2ad355a8321efb65af59ff2977764aaf37283",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq027/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A0526.jpg",
+        "sourceSha256": "cddf53297daabbce13251b97e21905bfdd6d9e9a7967e94474a9b7e0784b5ff2",
+        "outputSha256": "3f63515170bdc0a844e03d54a239aaa2c206120b29f2ca08950ff516035c46c8",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq027/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "x366A2489.jpg",
+        "sourceSha256": "a82a062b91b8c39d69ae7243fb12120ee12512621d4b3a6f93956e37350b4a97",
+        "outputSha256": "89fcd39244a64578a1bbaf244ae3620460c88d0ce7a59451ee5ae789bc56b921",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq027/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A0795.jpg",
+        "sourceSha256": "6d8b1793d78cf25224c8eee6dcfe7bfded4d20e0f9755a9e6d3b5e9ed209a80b",
+        "outputSha256": "4319c3a6c172f465e54b27aa81110ed09ee0a5d00e2e5230e81f27c0438c77b8",
+        "role": "heel"
+      },
+      {
+        "image": "/catalog/bq027/07_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "X366A1493.jpg",
+        "sourceSha256": "5fa9c8e6247434943b975dd8334082bb821f385e16de610f55aadd9b1f8b5e7b",
+        "outputSha256": "497c099d59bd0b5429cf57712b757371a181262fd9a568a6fc2c2d98df249710",
+        "role": "on-foot"
+      }
+    ],
+    "BQ028": [
+      {
+        "image": "/catalog/bq028/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "45.jpg",
+        "sourceSha256": "38c6e5d84e6d438ab4395c2bb45bbf64fb793e8903c3920c9ecdf13f9163ff69",
+        "outputSha256": "f109222c176fef8eab414bd7e70b8c1bb35cf54bfd1bbf979bcf66c34224e1b8",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq028/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "46.jpg",
+        "sourceSha256": "a2cbfb5282db3799b0a1f7f9fab48961b011cc77c8701fa3021dba528e21e067",
+        "outputSha256": "7103ecfd484bb561074083ee3bf028e366f65dde33107b89bea3cba3be36aa72",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq028/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "43.jpg",
+        "sourceSha256": "fc3c6575e181d3fb4fcb58a0c2fdc2756acbc34cbced1d8b9563225c4ea22a5d",
+        "outputSha256": "18e0ef735d4d02366eda8b41ab1e69d60acc93b73624697b885da37640fc1d77",
+        "role": "colour",
+        "colour": "Apricot"
+      },
+      {
+        "image": "/catalog/bq028/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "44.jpg",
+        "sourceSha256": "6dae5e198f977cba512daf728c783de0fffe3af00532c4a69208f42b7315fe18",
+        "outputSha256": "d6544689c201be9263588f647602f0411bdf594845d50d6d624b3a30a4fd7e84",
+        "role": "colour",
+        "colour": "White"
+      },
+      {
+        "image": "/catalog/bq028/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "47.jpg",
+        "sourceSha256": "916936a6f546d1707e51a4f07479e30904c4177e9eb9837cc4262460f82c6674",
+        "outputSha256": "be3cf83765b376190ad9bdb487427a034eded82c470c7bf900f62ed18bda0eea",
+        "role": "colour",
+        "colour": "Blue"
+      },
+      {
+        "image": "/catalog/bq028/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "11.jpg",
+        "sourceSha256": "88b464d967284c7a4d6926e2e8bb6d5de53db1ffc898ff86ed9158de5732db08",
+        "outputSha256": "9cac186e21cbb609fe63bd6a3366112c54dfd02226ca2e9548bdf42d835aeff5",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq028/07_collar.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "19.jpg",
+        "sourceSha256": "3f2960328dc6fff66aa212bacd2db5fa70cadc32981e1f75891ebede29ec317d",
+        "outputSha256": "373cb60c139ea246b5f64c7c61a95b447d0eb7a6c071a220c733ee91b5f9bf9d",
+        "role": "collar"
+      },
+      {
+        "image": "/catalog/bq028/08_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "10.jpg",
+        "sourceSha256": "c4bd3d66bd325eee1dda7f1cf2c20336b0fb840a7a0acac72419e4c1626a3737",
+        "outputSha256": "8858be685c6926687f4558db51df7bb37d118152f3119e14e636fdd8ba188e69",
+        "role": "upper"
+      },
+      {
+        "image": "/catalog/bq028/09_on-foot.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "31.jpg",
+        "sourceSha256": "a44e377058f6dd752322e96608c12e2691064845f0741d6cffd72c00f27c917b",
+        "outputSha256": "5c9a9f51e385587b258b434f5ba137e590e38ef87ed913046c99783f1653ba9c",
+        "role": "on-foot"
+      }
+    ],
+    "BQ029": [
+      {
+        "image": "/catalog/bq029/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "PD2A6333.JPG",
+        "sourceSha256": "cd0a955a4b4f273543374ff61781b267357932d2a3fc0e308f535bd6794f44d1",
+        "outputSha256": "22c3f5aa47eb937e6cda1d670e6c38e815e0261642844e8133dde2a17aa4939d",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq029/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "PD2A6334.JPG",
+        "sourceSha256": "baa2e0be92c632aa89ac9e9ac2957cf85a8f2a3a84e46727a69d97fbb315a70e",
+        "outputSha256": "9fff99ec52f8bb468fd5ef4784d8212a755c2266c9d09f2ebd596466c1b5a33e",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq029/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "PD2A6335.JPG",
+        "sourceSha256": "e4334bed9778e667eb2b8f503fb31be22334c9c0479fc288a7522619a8f5804c",
+        "outputSha256": "0fcdea802cf618667dac1b1bdf482b6375c319ba07df0a278123012f857a5d1f",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq029/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "PD2A6331.JPG",
+        "sourceSha256": "bd2d87611ed6bf0395942397e4158bf370d8164ebfe3740172cf528e69e047f5",
+        "outputSha256": "c4c25442fbad8eaf8908ff4b366e33e7c3240cc4e453efa65f10bd5ad309247d",
+        "role": "side"
+      },
+      {
+        "image": "/catalog/bq029/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "0S8A5388.JPG",
+        "sourceSha256": "a1cd28460f3530c905906d04d011146a35d683ab9e2765ac1d41d8ce4a591116",
+        "outputSha256": "49bb28fa9af53c8e7cf81b18fe231f160e8ccc2d99a3fe1c48e254c09f247ccc",
+        "role": "on-foot"
+      },
+      {
+        "image": "/catalog/bq029/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "IMG_0948.JPG",
+        "sourceSha256": "7f79da6b49a00c897944c47d028ea7210dcfebb2c224e323a0a10cdfb12181c4",
+        "outputSha256": "5b0fc89bc2c905ed9b04d160961cf7eed3f5f81db4edfdf9ac8b32c19d5a9212",
+        "role": "pair"
+      }
+    ],
+    "BQ030": [
+      {
+        "image": "/catalog/bq030/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (49).JPG",
+        "sourceSha256": "1cb884e1dff73be47478a65128c59978fca7bd002be6412f8322d8bb192f5b58",
+        "outputSha256": "8369a941692a4f4b63b131be892e8035a08972df6d533f7e2b6e9d315f418ce6",
+        "role": "colour",
+        "colour": "Pink"
+      },
+      {
+        "image": "/catalog/bq030/02_upper.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (50).JPG",
+        "sourceSha256": "7a0079148586c825d9cc289f8cdd75e8bc68e7530ed83619d899000c848a4d40",
+        "outputSha256": "fa875b0314080f2fb1ba8d7230fb80753456f88a2928eda84fb4bb2fa5b5f622",
+        "role": "colour",
+        "colour": "Purple"
+      },
+      {
+        "image": "/catalog/bq030/03_fit.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (51).JPG",
+        "sourceSha256": "8ce6a8d1c4b268a5ef0cf0e70f8a7186f3b9e1c75aeb26970227774d7d298c87",
+        "outputSha256": "ccb17a6143eb71ce4553e6393a8e333f4443ad062859769d5dd174182fd70613",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq030/04_sole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (52).JPG",
+        "sourceSha256": "9616b36e004baef39c316b70563cc48054cf3f3414213590691f1175c0c41e9f",
+        "outputSha256": "7071ae5ab7cd293839a5478ceb5433623208d3a95b3f65dda7fb06d5cf2a4519",
+        "role": "colour",
+        "colour": "Green"
+      },
+      {
+        "image": "/catalog/bq030/05_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (53).JPG",
+        "sourceSha256": "9831c0621a28179116a63744d20387811819c8452f98cfe0df974d0db3a65bd1",
+        "outputSha256": "3f3f3f551eaa00a4596482b76f5ff96f5aeab11691e48cafe65428d574d97060",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq030/06_scene.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (44).jpg",
+        "sourceSha256": "e6b95633a5a13b613968b15720154576a26c47d9c8a9fe161027705de5057741",
+        "outputSha256": "2ee643e2ed4acb73043e20da5a4d3cc082d3299cbc56c968857fedc25dc262ff",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq030/07_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (42).jpg",
+        "sourceSha256": "eb14399a2c198bc290b5a699321c23e2c59196626ca51b1a7110f59eb0fb113e",
+        "outputSha256": "edf50de16d6f6bf5f6f9e474d03dfa5863797f170a8483a41aaa79ebe2dff728",
+        "role": "pair"
+      }
+    ],
+    "BQ031": [
+      {
+        "image": "/catalog/bq031/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5338.JPG",
+        "sourceSha256": "a7e2e6cdb8e1d54ede9e2c228a7e1835fbc3fed176592afc56cecba358cf4d40",
+        "outputSha256": "51f4f98a9e3b553fbec8ec1836904887cf1b4b6fc28b649c3ffe53c286c9dda0",
+        "role": "colour",
+        "colour": "Grey White"
+      },
+      {
+        "image": "/catalog/bq031/02_outsole.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5328.JPG",
+        "sourceSha256": "f57a2688ec69db28500586336bbb5f16e81766a71053e555103c4812ec91a754",
+        "outputSha256": "38f2f977271daa4f3c75428d01ce6bb83d65b09d24f2e848c0191bc00b24d54f",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq031/03_colors.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5333.JPG",
+        "sourceSha256": "a6c69eed70ad322bdb40c7b0c4b568707f76f4f6fc768a3d37cf3d04a6cc8f8f",
+        "outputSha256": "51897480b80337f85f78a5f7e51763c380e794d9f0685769ad84831f6c1672f8",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq031/04_all_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5342.JPG",
+        "sourceSha256": "32d13cf132353dc6f0e2e6b62fa5442f1fd24e2c9771817237bd7cbbb6037c31",
+        "outputSha256": "2fe578e7fb79709cb3b93f159c8ad68fe9fb7b052788e9255b4ec65da6cea028",
+        "role": "colour",
+        "colour": "Off White"
+      },
+      {
+        "image": "/catalog/bq031/05_off_white.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5346.JPG",
+        "sourceSha256": "9a53004e85a05458e4f168409a423c7d5a5605993569450a9662918dd0ba155a",
+        "outputSha256": "f5725d4b7d91c550e729b8693dfa7e5af06dde1905e10640619d1b0c5a9217d2",
+        "role": "colour",
+        "colour": "Green White"
+      },
+      {
+        "image": "/catalog/bq031/06_green_white.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5334.JPG",
+        "sourceSha256": "19ee7bb048ddbc84540f78b9ba03200a633347cf52588e6b502ece1503ad9a53",
+        "outputSha256": "19ae9cf0d9918b33d9a7a7e66bb357eab8f8418238b6ef5a7ddfb351043f8770",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq031/07_top.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5344.JPG",
+        "sourceSha256": "805f35e2dc720c8217c4b1dd392807975e9bc51ec58adfe3fcc0fc9ed4ea6aef",
+        "outputSha256": "94eca8f0581bf425cff7b10a180989c9a52904c6f6a818b7317d4dd84ddb696a",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq031/08_side.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5343.JPG",
+        "sourceSha256": "5c5cc90236c8abf649baf65f38d1d17e41225522ba0cabb0f009fa5f3223b765",
+        "outputSha256": "6226359ffe6bb757d025a960dac8bbdd0bcffe1f2c98b19ce8ae4ce312c56d70",
+        "role": "side"
+      },
+      {
+        "image": "/catalog/bq031/09_pair.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "5M4A5354.JPG",
+        "sourceSha256": "20e666e03cc56ee942aa8aaee565c34832a4495b29f7115b50b8036dd10bfb4a",
+        "outputSha256": "30ac9f01c95d3638eb827f5eac89438a764d99924330aa9deddcd137c7e2ec71",
+        "role": "pair"
+      }
+    ],
+    "BQ004": [
+      {
+        "image": "/catalog/bq004/01_main.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "01 (5).png",
+        "sourceSha256": "5694f9f0f586a9fc74ab7c20918e242565ed78234a06bd5f582cdeeae14c440d",
+        "outputSha256": "95c42463d72449e31e903d41f69d0648d0231fc78c3a81ec221a230e973afd90",
+        "role": "colour",
+        "colour": "Black White"
+      },
+      {
+        "image": "/catalog/bq004/02_orange.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "01 (6).png",
+        "sourceSha256": "d328bb0b67e3297a72c6b7611380ea13242d700c658457f43a9ae58a85bacc09",
+        "outputSha256": "f8f55fd98b2c0fd8aaaad42dfbef3dfa8b49a4b03b5dd34abe5895cd2062631e",
+        "role": "colour",
+        "colour": "Light Blue"
+      },
+      {
+        "image": "/catalog/bq004/03_blue.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "01 (7).png",
+        "sourceSha256": "95e34830ab5ab6705795a4c00e80fe4a007c45d265d5fab7c9af5c6fba78e2f4",
+        "outputSha256": "db5e7e6e4908f32440a19489b6ab99b66b2a7fc478373b30fca9598be8475cce",
+        "role": "colour",
+        "colour": "Orange Black"
+      },
+      {
+        "image": "/catalog/bq004/04_blackw.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "01 (8).png",
+        "sourceSha256": "95dd94cc8a38b6d69c21b5d922605ebced9ab1af37a61da36845f0a409d7f616",
+        "outputSha256": "34118623df605f2edbba5c5f57deb0d7ed85e62e2bc727f0149eabbed99daefa",
+        "role": "colour",
+        "colour": "All Black"
+      },
+      {
+        "image": "/catalog/bq004/05_black.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (43).JPG",
+        "sourceSha256": "2bbba2447f29564ddfaa74ff41961fe969e96f43f697d2efd7dce762a1572354",
+        "outputSha256": "ce101b839b09aeda949ddb1b8bc95d4aa7165bf13319d91fa455e87a03218b18",
+        "role": "on-foot"
+      },
+      {
+        "image": "/catalog/bq004/06_weight.jpg",
+        "sourceKind": "factory-original-package",
+        "sourceFile": "主图 (21).jpg",
+        "sourceSha256": "383052012539fd1aaf0b646d8d00c7eb0652390ae8b0179c04dc1688248b9fa4",
+        "outputSha256": "a0f32cef9cb661341f093425f73fa04de50b8acb967d641cf00bcb30854c4428",
+        "role": "pair"
+      }
+    ],
+    "BQ-CA67": [
+      {
+        "image": "/catalog/bq-ca67/01_main.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://baoduo.sooxie.com/detail/2439758",
+        "sourceUrl": "https://images.xiecdn.com/baoduo/fnedsrkmgcsnwg3sn5pbhvepaiqv3uri.jpg!bac",
+        "sourceFile": "fnedsrkmgcsnwg3sn5pbhvepaiqv3uri.jpg",
+        "sourceSha256": "0489df2544b16ec034129b589a25f37d25b0527ee628e2301ed30f68eadf55d0",
+        "outputSha256": "6ea9209f373114268388e427ed3737b1562d7ccc7cbae5adcacd3f9d8e6cbd3c",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq-ca67/02_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://baoduo.sooxie.com/detail/2439758",
+        "sourceUrl": "https://images.xiecdn.com/baoduo/brq72da2fhl1pqi3ida40jtv2p36ey8q.jpg!bac",
+        "sourceFile": "brq72da2fhl1pqi3ida40jtv2p36ey8q.jpg",
+        "sourceSha256": "f2ac58299776b0e796d6f294f38161f4064171a62579739fc11f87a8af044db9",
+        "outputSha256": "634d4a7f4f4cd4a4bb5fe4d46b01d1138f0092628411bb3e555c4ccfaf1912f0",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq-ca67/03_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://baoduo.sooxie.com/detail/2439758",
+        "sourceUrl": "https://images.xiecdn.com/baoduo/jxr7rajtob5tlbrisrmi0s83iiyj1qaa.jpg!bac",
+        "sourceFile": "jxr7rajtob5tlbrisrmi0s83iiyj1qaa.jpg",
+        "sourceSha256": "5d9e5ade3b3528d4fae5c7f89faeb0769000130111a272f8a9c9b85c7bcad905",
+        "outputSha256": "bcaf864263dd7446e54d1f80ae872ae8122bb2547cb5ee3518ed7a3dd8fadc30",
+        "role": "colour",
+        "colour": "Khaki"
+      },
+      {
+        "image": "/catalog/bq-ca67/04_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://baoduo.sooxie.com/detail/2439758",
+        "sourceUrl": "https://images.xiecdn.com/baoduo/d4z7bj1eho9o2isme72qfe4xipj9579s.jpg!bac",
+        "sourceFile": "d4z7bj1eho9o2isme72qfe4xipj9579s.jpg",
+        "sourceSha256": "92dc5f859fd12dd64a98da0f45af036fa4b2e345d99524c1193b3b0f806dc34d",
+        "outputSha256": "90029778b0eb00e4f9181c2ac9ee9bf4be5aac2dc08ad0218948439c07ca15c0",
+        "role": "on-foot"
+      },
+      {
+        "image": "/catalog/bq-ca67/05_pair.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://baoduo.sooxie.com/detail/2439758",
+        "sourceUrl": "https://images.xiecdn.com/baoduo/kcr6jhqk6eknqlu32ilzoxukmcbnddn5.jpg!bac",
+        "sourceFile": "kcr6jhqk6eknqlu32ilzoxukmcbnddn5.jpg",
+        "sourceSha256": "8b684fa98d5bb660507ce18ddeba622baaebd87385e340fb109519c24b7eae60",
+        "outputSha256": "65a3675a5f98c66ec9ed22733498a4359fc505e21faf056e1cf4d95947a86db5",
+        "role": "pair"
+      }
+    ],
+    "BQ-M858": [
+      {
+        "image": "/catalog/bq-m858/01_main.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huat.sooxie.com/detail/2484343",
+        "sourceUrl": "https://images.xiecdn.com/huat/2e9ytaesubrc0xmxsr6lwx7hafgul0kg.jpg!bac",
+        "sourceFile": "2e9ytaesubrc0xmxsr6lwx7hafgul0kg.jpg",
+        "sourceSha256": "75314119ec8beda5ad2242a92407b8f41a12b127d2f1d1171042461b7675c33f",
+        "outputSha256": "3eb6241a4f7b3123d1373c3ef15d2d0f3906d5967e5abd57739ba8915fc6d229",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq-m858/02_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huat.sooxie.com/detail/2484343",
+        "sourceUrl": "https://images.xiecdn.com/huat/14m3cus2urhvoa4hxegymqq8qiviy6jc.jpg!bac",
+        "sourceFile": "14m3cus2urhvoa4hxegymqq8qiviy6jc.jpg",
+        "sourceSha256": "a8f2a0df3eb02313a329fa74fdda1ec33fdf905e4ce97a20417e21ef1cffe7dc",
+        "outputSha256": "5d6ee45ce623b8bd9faadb7c38cb91f5456a0c4dcbf1228895d738c4baca9f20",
+        "role": "colour",
+        "colour": "Sand"
+      },
+      {
+        "image": "/catalog/bq-m858/03_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huat.sooxie.com/detail/2484343",
+        "sourceUrl": "https://images.xiecdn.com/huat/cvayocfk2lkhi9e8ere90vxvkl62kw49.jpg!bac",
+        "sourceFile": "cvayocfk2lkhi9e8ere90vxvkl62kw49.jpg",
+        "sourceSha256": "4c614f2a43de271c3f0385d449a0838c77a1bbec00698899b5efb14ba973b33f",
+        "outputSha256": "c3e222c336faebcaf988663bf079d8a0e538c67e77fc506b824063243d68baae",
+        "role": "colour",
+        "colour": "Brown"
+      },
+      {
+        "image": "/catalog/bq-m858/04_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huat.sooxie.com/detail/2484343",
+        "sourceUrl": "https://images.xiecdn.com/huat/cz08q21phabou2b7cdx2em7kcdtoggwk.jpg!bac",
+        "sourceFile": "cz08q21phabou2b7cdx2em7kcdtoggwk.jpg",
+        "sourceSha256": "0a98b3e0277f465a4514df6f1210763eea7c8f7884878988eb09804478a62792",
+        "outputSha256": "d3dc79d2838214e4332402e82020e75bddac1db982b1a0c0bd83666e7139d5b7",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq-m858/05_outsole.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huat.sooxie.com/detail/2484343",
+        "sourceUrl": "https://images.xiecdn.com/huat/gsvom5iz3xf7akzxltd0zdjy6wqflocz.jpg!bac",
+        "sourceFile": "gsvom5iz3xf7akzxltd0zdjy6wqflocz.jpg",
+        "sourceSha256": "7ef328309f82187933499fde4fa07faa27036427f543eac74b13026736058784",
+        "outputSha256": "d4a790181a825103e16290615bc447d37a2cc4adf2cc3d76cd1ff3a4db053d42",
+        "role": "outsole"
+      },
+      {
+        "image": "/catalog/bq-m858/06_on-foot.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huat.sooxie.com/detail/2484343",
+        "sourceUrl": "https://images.xiecdn.com/huat/b3c8nx09pvgo9ivlsth2d7cfipxojfq0.jpg!bac",
+        "sourceFile": "b3c8nx09pvgo9ivlsth2d7cfipxojfq0.jpg",
+        "sourceSha256": "e9c46486c982ca62c65ad2399ab86decf0c7ecfa523dbfd6b06165fe4cf9a498",
+        "outputSha256": "728520c49f272c0aedfec1b485ed26c2427da90df28ba6a85cef8dd47715a7cc",
+        "role": "on-foot"
+      },
+      {
+        "image": "/catalog/bq-m858/07_pair.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huat.sooxie.com/detail/2484343",
+        "sourceUrl": "https://images.xiecdn.com/huat/k10xopbw4dcwpc32ywtgk5o5dkp46jdx.jpg!bac",
+        "sourceFile": "k10xopbw4dcwpc32ywtgk5o5dkp46jdx.jpg",
+        "sourceSha256": "454c976e34d19e1f5b5e71bc45ceb7660cbaceec055470ed594d0b79cf56b2c9",
+        "outputSha256": "d7bd90796d975eaf5e9ac3a27b5a49c420371c329fa31c7062faf797a027133d",
+        "role": "pair"
+      }
+    ],
+    "BQ-LQ059": [
+      {
+        "image": "/catalog/bq-lq059/01_main.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2559453",
+        "sourceUrl": "https://images.xiecdn.com/luqi/rru49gc1kfzti54uph6mgrs1bru9xf22.jpg!bac",
+        "sourceFile": "rru49gc1kfzti54uph6mgrs1bru9xf22.jpg",
+        "sourceSha256": "301ac33379ac5eff9c53b327b45b5016fb3c6ad786f241e416b834717b1d82f2",
+        "outputSha256": "cfa8298bdf6c9693008a414e688c89e4a62fa108aaed5f60046a525b8228aa7f",
+        "role": "colour",
+        "colour": "Brown"
+      },
+      {
+        "image": "/catalog/bq-lq059/02_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2559453",
+        "sourceUrl": "https://images.xiecdn.com/luqi/fsopim01k54vvodt0k2hizjp1y6dzmfv.jpg!bac",
+        "sourceFile": "fsopim01k54vvodt0k2hizjp1y6dzmfv.jpg",
+        "sourceSha256": "0cfe9b7398202f154a416444f439a4a7d22f4ce47bdb695478f2301534688dd8",
+        "outputSha256": "e8d70923cab0c037bf2f81e0d615ad8883e152f0c62d0eca6a18ad891143068e",
+        "role": "colour",
+        "colour": "Dark Grey"
+      },
+      {
+        "image": "/catalog/bq-lq059/03_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2559453",
+        "sourceUrl": "https://images.xiecdn.com/luqi/6abbs71d7f1wu37b0g75xbsivbhbgvam.jpg!bac",
+        "sourceFile": "6abbs71d7f1wu37b0g75xbsivbhbgvam.jpg",
+        "sourceSha256": "fda514878d3775c1ac0c0b638aa69c7a169151cab5581736bfa5b3636b814758",
+        "outputSha256": "093ac23df27737d41c6c310db506f84dd35c7f45d59582024783ad97683d5eb7",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq-lq059/04_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2559453",
+        "sourceUrl": "https://images.xiecdn.com/luqi/0i6sly1nekfx7ggtdam2hc6ozkj8t764.jpg!bac",
+        "sourceFile": "0i6sly1nekfx7ggtdam2hc6ozkj8t764.jpg",
+        "sourceSha256": "dcd7893ca3ace178a09c5fa67ea5f38ba9e127e5b0d64c276289f2386930a3c6",
+        "outputSha256": "e9a2820b718d80995517772f9fcd3c7e1a12a6cf0d5128f1e00c2986751b93f1",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq-lq059/05_side.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2559453",
+        "sourceUrl": "https://images.xiecdn.com/luqi/dmw50uqqjfzuai3amks9x3z9623ocd7v.jpg!bac",
+        "sourceFile": "dmw50uqqjfzuai3amks9x3z9623ocd7v.jpg",
+        "sourceSha256": "1b6d9c6217ab1adbcb6ea4ce47605e9148e7df495f2e707997b625368da6e572",
+        "outputSha256": "f434601e49c511feddcd45f17e70f3292261b0b5e57ad7cc1aa2352f8b5e3468",
+        "role": "side"
+      },
+      {
+        "image": "/catalog/bq-lq059/06_on-foot.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2559453",
+        "sourceUrl": "https://images.xiecdn.com/luqi/6v3p4gw6g1g9hs6flz1dbsvscgbnl86r.jpg!bac",
+        "sourceFile": "6v3p4gw6g1g9hs6flz1dbsvscgbnl86r.jpg",
+        "sourceSha256": "5f567b622ca40a10fdc2582acfae798b9120d63d52e099f7a28f768dccc4e94f",
+        "outputSha256": "e6fd1692f8264355f886d7e838120262612cbc33404db3d99dc835f7740c55d1",
+        "role": "on-foot"
+      }
+    ],
+    "BQ-LQ060": [
+      {
+        "image": "/catalog/bq-lq060/01_main.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2560210",
+        "sourceUrl": "https://images.xiecdn.com/luqi/5gd1a80kgcvruhyyv95lujywaf41pe6i.jpg!bac",
+        "sourceFile": "5gd1a80kgcvruhyyv95lujywaf41pe6i.jpg",
+        "sourceSha256": "4173b12880aadee5d6c012592e411db2490e8d3245d6e4bcbe131ebe0e6a9fef",
+        "outputSha256": "c78b460eaacea2e5eb902b32163fb98971dfbae815f5dfafc3915ee2283eecd6",
+        "role": "colour",
+        "colour": "Black Brown"
+      },
+      {
+        "image": "/catalog/bq-lq060/02_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2560210",
+        "sourceUrl": "https://images.xiecdn.com/luqi/s6r0m4lx6qglra991vdovridx2wbhwq0.jpg!bac",
+        "sourceFile": "s6r0m4lx6qglra991vdovridx2wbhwq0.jpg",
+        "sourceSha256": "b88dfc1f7bf43216227edaf122a57bded6567236efa71971da0f7ac04b021a5f",
+        "outputSha256": "c709efdb4583566dda5f26fdf8c5d464dcc8a3efccbeac78d9943f4807e32f59",
+        "role": "colour",
+        "colour": "Black Grey"
+      },
+      {
+        "image": "/catalog/bq-lq060/03_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2560210",
+        "sourceUrl": "https://images.xiecdn.com/luqi/xg34cln7ms15avgcsamlsx64lzcjgpyh.jpg!bac",
+        "sourceFile": "xg34cln7ms15avgcsamlsx64lzcjgpyh.jpg",
+        "sourceSha256": "f7f6ffb025eb4f71a83b82d462ba4c3ac41f5a413639e5f634fffad730dc6612",
+        "outputSha256": "b85fc4cbb078e430aff23be8d5f860b2eff9eb9b37ccbaf125b7f91a812a48dd",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq-lq060/04_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2560210",
+        "sourceUrl": "https://images.xiecdn.com/luqi/u5878pzoru9epq6fq7y9wqq07poiazcm.jpg!bac",
+        "sourceFile": "u5878pzoru9epq6fq7y9wqq07poiazcm.jpg",
+        "sourceSha256": "6a0f9992c55df696a4924c63777927a2f45d8bc25e6218ace7377f66ff2721f3",
+        "outputSha256": "46801252b2ce6351e7307e1c372bded72e901a5d2bac0c080d9675891bf8adbb",
+        "role": "top"
+      },
+      {
+        "image": "/catalog/bq-lq060/05_side.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2560210",
+        "sourceUrl": "https://images.xiecdn.com/luqi/yylavijf044byb963ywtu4ymjj7pw9gx.jpg!bac",
+        "sourceFile": "yylavijf044byb963ywtu4ymjj7pw9gx.jpg",
+        "sourceSha256": "863e50416b085cf2d1c64ae5d5450adf3f22ea1217866114ccb7ce078623c5eb",
+        "outputSha256": "26642020224ad979e4b2bd3c94822bd25626ac39b5b3ddd1bc79f66be1ffe51b",
+        "role": "side"
+      },
+      {
+        "image": "/catalog/bq-lq060/06_on-foot.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2560210",
+        "sourceUrl": "https://images.xiecdn.com/luqi/l68ydvi8qiu41gbd0wz72o36nmft4ham.jpg!bac",
+        "sourceFile": "l68ydvi8qiu41gbd0wz72o36nmft4ham.jpg",
+        "sourceSha256": "e6b4568fa1f7ad78e5723acb850f68953c6085f86927ff932bcb2b7ffbb0b29f",
+        "outputSha256": "8fcdae8ea863099103ba43241a2dac926b827977026aee85a4dc87269fad6ae4",
+        "role": "on-foot"
+      }
+    ],
+    "BQ-LQ2597": [
+      {
+        "image": "/catalog/bq-lq2597/01_main.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2410682",
+        "sourceUrl": "https://images.xiecdn.com/luqi/31kyvmwrgbhqu2a61rncvqp5ji0i51r7.jpg!bac",
+        "sourceFile": "31kyvmwrgbhqu2a61rncvqp5ji0i51r7.jpg",
+        "sourceSha256": "a96a2136af7bd8ca96d126e7c8f5ad447f49880b2f0c800960bba5d323fa5777",
+        "outputSha256": "5434880fb599cca386ddf682550ca0bb8dfeb3a95d44b08ffa39732f3f83a0f9",
+        "role": "colour",
+        "colour": "White Red"
+      },
+      {
+        "image": "/catalog/bq-lq2597/02_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2410682",
+        "sourceUrl": "https://images.xiecdn.com/luqi/ci217l8b9b66acfv355bzyhl5bb9lrr5.jpg!bac",
+        "sourceFile": "ci217l8b9b66acfv355bzyhl5bb9lrr5.jpg",
+        "sourceSha256": "07059d7466336d578123884d3ad0b4e31ee8f765a5205c23983d3a5e902bfa05",
+        "outputSha256": "bb07deba3e8f8ee6e8bc97752f6df6622c54b832d776cc48c0e7e3091d8b261d",
+        "role": "colour",
+        "colour": "Grey"
+      },
+      {
+        "image": "/catalog/bq-lq2597/03_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2410682",
+        "sourceUrl": "https://images.xiecdn.com/luqi/petpbuw28asvrshj908x70xec8gb9fly.jpg!bac",
+        "sourceFile": "petpbuw28asvrshj908x70xec8gb9fly.jpg",
+        "sourceSha256": "f6cb16907a4ad2c697e585836080e584ddca4b7d9f6643f119863bb9da7756e4",
+        "outputSha256": "f67c6adf1f0c31a7d8c182ed4d03a13718a5113d96c97386c72fee8357413f5c",
+        "role": "colour",
+        "colour": "Black"
+      },
+      {
+        "image": "/catalog/bq-lq2597/04_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://luqi.sooxie.com/detail/2410682",
+        "sourceUrl": "https://images.xiecdn.com/luqi/w5m65fzbd1a6m909u01hap2xsqz1frxr.jpg!bac",
+        "sourceFile": "w5m65fzbd1a6m909u01hap2xsqz1frxr.jpg",
+        "sourceSha256": "95e6347099e812fcd539c12011da4edce88a74e31d5571c1c6d4f7247a373a69",
+        "outputSha256": "e990d59d5abdb1cdd9eb15997b005a8080aa19b6020c318a4558b34842429ff5",
+        "role": "on-foot"
+      }
+    ],
+    "BQ-C2627": [
+      {
+        "image": "/catalog/bq-c2627/01_main.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huohuo.sooxie.com/detail/2557137",
+        "sourceUrl": "https://images.xiecdn.com/huohuo/luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg!bac",
+        "sourceFile": "luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg",
+        "sourceSha256": "f2109e8f2ddea3d4ccb18bb0b47ec5479e40ecf9b3b0ba4a07b498b1b5a3a3f6",
+        "outputSha256": "f7dd419a463cf548a2b928bf94b0ebfa72a9f544964c6f0fda7bf57113ede352",
+        "role": "colour",
+        "colour": "Blue",
+        "sourceCrop": true,
+        "cropBox": [
+          6,
+          382,
+          370,
+          580
+        ]
+      },
+      {
+        "image": "/catalog/bq-c2627/02_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huohuo.sooxie.com/detail/2557137",
+        "sourceUrl": "https://images.xiecdn.com/huohuo/luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg!bac",
+        "sourceFile": "luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg",
+        "sourceSha256": "f2109e8f2ddea3d4ccb18bb0b47ec5479e40ecf9b3b0ba4a07b498b1b5a3a3f6",
+        "outputSha256": "756bbdbd7c60109ddba70093f6927aa9cc4ef1915e45c5aa3840ade598f08f20",
+        "role": "colour",
+        "colour": "Khaki",
+        "sourceCrop": true,
+        "cropBox": [
+          194,
+          44,
+          584,
+          252
+        ]
+      },
+      {
+        "image": "/catalog/bq-c2627/03_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huohuo.sooxie.com/detail/2557137",
+        "sourceUrl": "https://images.xiecdn.com/huohuo/luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg!bac",
+        "sourceFile": "luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg",
+        "sourceSha256": "f2109e8f2ddea3d4ccb18bb0b47ec5479e40ecf9b3b0ba4a07b498b1b5a3a3f6",
+        "outputSha256": "3387f3a07ab5ca21d5700257e19385f3a39261cfac8666531ddc8d86dfcdef92",
+        "role": "colour",
+        "colour": "Beige",
+        "sourceCrop": true,
+        "cropBox": [
+          382,
+          792,
+          747,
+          991
+        ]
+      },
+      {
+        "image": "/catalog/bq-c2627/04_view.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huohuo.sooxie.com/detail/2557137",
+        "sourceUrl": "https://images.xiecdn.com/huohuo/luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg!bac",
+        "sourceFile": "luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg",
+        "sourceSha256": "f2109e8f2ddea3d4ccb18bb0b47ec5479e40ecf9b3b0ba4a07b498b1b5a3a3f6",
+        "outputSha256": "e107511b57a5db97f23cb5875d81e41b324ba6cfdb41e87042dbd8f79d470f1c",
+        "role": "colour",
+        "colour": "Light Pink",
+        "sourceCrop": true,
+        "cropBox": [
+          396,
+          394,
+          738,
+          580
+        ]
+      },
+      {
+        "image": "/catalog/bq-c2627/05_colour.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huohuo.sooxie.com/detail/2557137",
+        "sourceUrl": "https://images.xiecdn.com/huohuo/luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg!bac",
+        "sourceFile": "luzk3fxnqjt3tg73vb41cbdvb6bis646.jpg",
+        "sourceSha256": "f2109e8f2ddea3d4ccb18bb0b47ec5479e40ecf9b3b0ba4a07b498b1b5a3a3f6",
+        "outputSha256": "6f06a9de18eb5aac883f9859a7ca05fcccef26dfac8e53e7d7ab9f6262faf682",
+        "role": "colour",
+        "colour": "Black",
+        "sourceCrop": true,
+        "cropBox": [
+          6,
+          785,
+          370,
+          988
+        ]
+      },
+      {
+        "image": "/catalog/bq-c2627/06_on-foot.jpg",
+        "sourceKind": "supplier-public-photo",
+        "sourcePage": "https://huohuo.sooxie.com/detail/2557137",
+        "sourceUrl": "https://images.xiecdn.com/huohuo/qw0xkrgx9p603f9n3xuw5s6oc4gm6wuu.jpg!bac",
+        "sourceFile": "qw0xkrgx9p603f9n3xuw5s6oc4gm6wuu.jpg",
+        "sourceSha256": "c170c5543fc1851558ed0c1d59057f4d422329c59175ae613e3bedbbb8b4b9a3",
+        "outputSha256": "408a32dd5603f1a55a93fa36a1a416adda15f388ca6880ef469c25dacf150423",
+        "role": "on-foot"
+      }
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 import media from "../data/product-colour-media.json" with { type: "json" };
 import type { Product } from "../data/products";
+import { productMediaUrl } from "./product-media-url.ts";
 
 type ColourMedia = { images: Record<string, number>; overview?: number };
 export const colourId = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -16,7 +17,7 @@ export function colourImage(product: Product, id: string) {
   return colour?.imageIndex ?? colourOverview(product) ?? 0;
 }
 export function galleryImage(source: string, small = false) {
-  return source.replace("/catalog/", small ? "/catalog-small/" : "/catalog-web/").replace(/\.jpg$/i, ".webp");
+  return productMediaUrl(source.replace("/catalog/", small ? "/catalog-small/" : "/catalog-web/").replace(/\.jpg$/i, ".webp"));
 }
 export function selectedColourFromStorage(product: Product): string {
   if (typeof window === "undefined") return "";

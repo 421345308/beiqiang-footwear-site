@@ -1,5 +1,6 @@
 "use client";
 
+import { productMediaUrl } from "../lib/product-media-url";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { products } from "../data/products";
@@ -51,7 +52,7 @@ export default function PrivateLabelConceptStudio({ locale = "en" }: { locale?: 
   const [message, setMessage] = useState(zh ? "Logo只在本浏览器处理，不会自动上传。" : "Your logo stays in this browser and is not uploaded automatically.");
   const dragging = useRef(false);
   const product = useMemo(() => products.find((item) => item.code === selectedCode) || products[0], [selectedCode]);
-  const productImage = `/catalog-thumbs/${product.slug}.webp`;
+  const productImage = productMediaUrl(`/catalog-thumbs/${product.slug}.webp`);
 
   useEffect(() => {
     const requested = new URLSearchParams(window.location.search).get("style")?.toUpperCase();

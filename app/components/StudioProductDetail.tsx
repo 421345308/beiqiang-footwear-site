@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { productMediaUrl } from "../lib/product-media-url";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
@@ -36,7 +37,7 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
   const sole=product.sole.startsWith("Cushion-profile") ? t("Material to be confirmed", "材质待确认") : fact(product.sole);
   const description=external ? (zh ? productSummaryZh(product) : product.shortDescription) : t(`${product.name}. Available in ${product.colors.length} colours, ${product.size}. Colour-size combinations and custom requirements are confirmed for each order.`,productSummaryZh(product));
   const related=getRelatedProducts(product, products, 4);
-  const schema={"@context":"https://schema.org","@type":"Product",name,sku:product.code,model:product.sourceModel,description,url:`${siteOrigin}${href(`/products/${product.slug}`)}`,image:product.images.map(img=>`${siteOrigin}${img}`),...(!external ? {manufacturer:{"@type":"Organization",name:"Quanzhou Beiqiang Footwear & Apparel Co., Ltd."}} : {})};
+  const schema={"@context":"https://schema.org","@type":"Product",name,sku:product.code,model:product.sourceModel,description,url:`${siteOrigin}${href(`/products/${product.slug}`)}`,image:product.images.map(img=>`${siteOrigin}${productMediaUrl(img)}`),...(!external ? {manufacturer:{"@type":"Organization",name:"Quanzhou Beiqiang Footwear & Apparel Co., Ltd."}} : {})};
   const breadcrumb={"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{ "@type":"ListItem",position:1,name:t("Home","首页"),item:`${siteOrigin}${href("/")}`},{"@type":"ListItem",position:2,name:t("Products","产品系列"),item:`${siteOrigin}${href("/products")}`},{"@type":"ListItem",position:3,name:product.code,item:schema.url}]};
   return <main lang={zh ? "zh-CN" : "en"} className="studio-page studio-product-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}} /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(breadcrumb)}} />
@@ -70,7 +71,7 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
     <section className="studio-section"><div className="studio-section-heading"><div><p className="eyebrow">{t("EXPLORE THE COLLECTION","更多鞋款")}</p><h2>{t("Related styles","相关产品")}</h2></div><Link className="text-link" href={href("/products")}>{t("All products","全部产品")} ↗</Link></div><div className="studio-product-grid">{related.map(item=><StudioProductCard key={item.code} product={item} locale={locale} />)}</div></section>
     <section className="product-print-sheet" aria-label={t("Product specification sheet","产品资料表")}>
       <header><p>BEIQIANG FOOTWEAR</p><h1>{name}</h1><p>{product.code} · {product.sourceModel}</p></header>
-      <div className="studio-print-body"><img src={product.images[0]} alt={name} /><div><p>{description}</p><dl className="studio-specs"><div><dt>{t("Upper","鞋面")}</dt><dd>{fact(product.upper)}</dd></div><div><dt>{t("Sole","鞋底")}</dt><dd>{sole}</dd></div><div><dt>{t("Sizes","尺码")}</dt><dd>{product.size}{product.sizeNote && <small className="studio-size-note">{fact(product.sizeNote)}</small>}</dd></div><div><dt>{t("Colours","配色")}</dt><dd>{product.colors.map(c=>zh ? colorZh(c) : c).join(" · ")}</dd></div></dl><p>{external ? t("Supplied through a manufacturing partner.","通过合作供应商供货。") : t("Beiqiang factory style.","贝强自有工厂鞋款。")}</p></div></div>
+      <div className="studio-print-body"><img src={productMediaUrl(product.images[0])} alt={name} /><div><p>{description}</p><dl className="studio-specs"><div><dt>{t("Upper","鞋面")}</dt><dd>{fact(product.upper)}</dd></div><div><dt>{t("Sole","鞋底")}</dt><dd>{sole}</dd></div><div><dt>{t("Sizes","尺码")}</dt><dd>{product.size}{product.sizeNote && <small className="studio-size-note">{fact(product.sizeNote)}</small>}</dd></div><div><dt>{t("Colours","配色")}</dt><dd>{product.colors.map(c=>zh ? colorZh(c) : c).join(" · ")}</dd></div></dl><p>{external ? t("Supplied through a manufacturing partner.","通过合作供应商供货。") : t("Beiqiang factory style.","贝强自有工厂鞋款。")}</p></div></div>
       <p>{t("Product reference only. This sheet is not a quotation or order confirmation. Confirm specifications, quantities, prices, sample terms and delivery in the written quotation.","本资料仅供选型，不构成报价或订单确认。具体规格、数量、价格、样品及交付要求以书面报价为准。")}</p><p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd. · shepeiqiang@gmail.com · +86 189 5980 5256</p><p>{schema.url}</p>
     </section>
     {zh ? <ChineseSiteFooter /> : <SiteFooter />}

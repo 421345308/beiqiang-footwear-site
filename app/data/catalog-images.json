@@ -3,25 +3,32 @@
     "01_main",
     "02_view",
     "03_view",
-    "04_view"
+    "04_view",
+    "05_colour",
+    "06_on-foot"
   ],
   "bq-ca67": [
     "01_main",
     "02_view",
     "03_view",
-    "04_view"
+    "04_view",
+    "05_pair"
   ],
   "bq-lq059": [
     "01_main",
     "02_view",
     "03_view",
-    "04_view"
+    "04_view",
+    "05_side",
+    "06_on-foot"
   ],
   "bq-lq060": [
     "01_main",
     "02_view",
     "03_view",
-    "04_view"
+    "04_view",
+    "05_side",
+    "06_on-foot"
   ],
   "bq-lq2597": [
     "01_main",
@@ -33,28 +40,37 @@
     "01_main",
     "02_view",
     "03_view",
-    "04_view"
+    "04_view",
+    "05_outsole",
+    "06_on-foot",
+    "07_pair"
   ],
   "bq001": [
     "01_main",
     "02_toe",
     "03_walk",
     "04_comfort",
-    "05_light"
+    "05_light",
+    "06_pair"
   ],
   "bq002": [
     "01_main",
     "02_toe",
     "03_walk",
     "04_comfort",
-    "05_light"
+    "05_light",
+    "06_pair"
   ],
   "bq003": [
     "01_main",
     "02_grey",
     "03_pink",
     "04_blackw",
-    "05_black"
+    "05_black",
+    "06_outsole",
+    "07_top",
+    "08_heel",
+    "09_pair"
   ],
   "bq004": [
     "01_main",
@@ -70,7 +86,9 @@
     "03_white",
     "04_pink",
     "05_black",
-    "06_sole"
+    "06_sole",
+    "07_upper",
+    "08_on-foot"
   ],
   "bq006": [
     "01_main",
@@ -79,14 +97,20 @@
     "04_blackw",
     "05_purple",
     "06_pink",
-    "07_black"
+    "07_black",
+    "08_outsole",
+    "09_upper",
+    "10_on-foot"
   ],
   "bq007": [
     "01_main",
     "02_black",
     "03_blackw",
     "04_khaki",
-    "05_orange"
+    "05_orange",
+    "06_outsole",
+    "07_top",
+    "08_pair"
   ],
   "bq008": [
     "01_main",
@@ -94,21 +118,27 @@
     "03_white",
     "04_black",
     "05_sole",
-    "06_top"
+    "06_top",
+    "07_heel",
+    "08_pair"
   ],
   "bq009": [
     "01_main",
     "02_orange",
     "03_mint",
     "04_black",
-    "05_sole"
+    "05_sole",
+    "06_top",
+    "07_heel",
+    "08_pair"
   ],
   "bq010": [
     "01_main",
     "02_black",
     "03_scene",
     "04_scene",
-    "05_detail"
+    "05_detail",
+    "06_on-foot"
   ],
   "bq011": [
     "01_main",
@@ -140,7 +170,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_on-foot"
   ],
   "bq015": [
     "01_main",
@@ -148,7 +179,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_on-foot"
   ],
   "bq016": [
     "01_main",
@@ -156,7 +188,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_overview"
   ],
   "bq017": [
     "01_main",
@@ -164,7 +197,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_top"
   ],
   "bq018": [
     "01_main",
@@ -172,7 +206,9 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_top",
+    "08_on-foot"
   ],
   "bq019": [
     "01_main",
@@ -188,7 +224,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_on-foot"
   ],
   "bq021": [
     "01_main",
@@ -196,7 +233,10 @@
     "03_fit",
     "04_grey",
     "05_white",
-    "06_blue"
+    "06_blue",
+    "07_collar",
+    "08_upper",
+    "09_on-foot"
   ],
   "bq022": [
     "01_main",
@@ -204,7 +244,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_on-foot"
   ],
   "bq023": [
     "01_main",
@@ -212,7 +253,8 @@
     "03_black",
     "04_grey",
     "05_brown",
-    "06_scene"
+    "06_scene",
+    "07_on-foot"
   ],
   "bq024": [
     "01_main",
@@ -220,7 +262,8 @@
     "03_all_black",
     "04_dark_grey",
     "05_light_grey",
-    "06_yellow_sole"
+    "06_yellow_sole",
+    "07_on-foot"
   ],
   "bq025": [
     "01_main",
@@ -228,7 +271,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_on-foot"
   ],
   "bq026": [
     "01_main",
@@ -236,7 +280,9 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_top",
+    "08_pair"
   ],
   "bq027": [
     "01_main",
@@ -244,7 +290,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_on-foot"
   ],
   "bq028": [
     "01_main",
@@ -252,7 +299,10 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_collar",
+    "08_upper",
+    "09_on-foot"
   ],
   "bq029": [
     "01_main",
@@ -268,7 +318,8 @@
     "03_fit",
     "04_sole",
     "05_colors",
-    "06_scene"
+    "06_scene",
+    "07_pair"
   ],
   "bq031": [
     "01_main",
@@ -276,7 +327,10 @@
     "03_colors",
     "04_all_black",
     "05_off_white",
-    "06_green_white"
+    "06_green_white",
+    "07_top",
+    "08_side",
+    "09_pair"
   ],
   "bq032": [
     "01_main",

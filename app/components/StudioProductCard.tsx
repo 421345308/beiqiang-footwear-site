@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { productMediaUrl } from "../lib/product-media-url";
 import type { Product } from "../data/products";
 import { closureZh, productNameZh } from "../data/products-zh";
 import { localizedPath, type PublicLocale } from "../lib/public-locales";
@@ -15,7 +16,7 @@ export default function StudioProductCard({ product, locale = "en", collectionSl
   const href = withColour(localizedPath(`/products/${product.slug}`, locale), id);
   return <article className="product-card catalog-card studio-card">
     <CollectionProductLink slug={collectionSlug} styleCode={product.code} className="product-image" href={href}>
-      <img src={id ? galleryImage(product.images[colourImage(product, id)]) : `/catalog-thumbs/${product.slug}.webp`} alt={`${name}${colour && colour.imageIndex !== null ? ` · ${colour.name}` : ""}`} loading="lazy" decoding="async" width={640} height={640} />
+      <img src={id ? galleryImage(product.images[colourImage(product, id)]) : productMediaUrl(`/catalog-thumbs/${product.slug}.webp`)} alt={`${name}${colour && colour.imageIndex !== null ? ` · ${colour.name}` : ""}`} loading="lazy" decoding="async" width={640} height={640} />
       <span className="card-image-action" aria-hidden="true">↗</span>
     </CollectionProductLink>
     <div className="product-meta"><span className="product-code">{product.code}</span><span>{zh ? closureZh(product.closure) : product.closure}</span></div>

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { productMediaUrl } from "../lib/product-media-url";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { products } from "../data/products";
@@ -272,7 +273,7 @@ export default function ProductFinder({
           {matches.map(({ product, reasons }) => (
             <article key={product.code}>
               <img
-                src={`/catalog-thumbs/${product.slug}.webp`}
+                src={productMediaUrl(`/catalog-thumbs/${product.slug}.webp`)}
                 alt={`${product.code} ${zh ? productNameZh(product) : product.name}`}
                 width="640"
                 height="640"

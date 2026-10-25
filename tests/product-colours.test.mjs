@@ -12,14 +12,17 @@ test('every mapped colour belongs to its own product and resolves to a reviewed 
     for (const [name,index] of Object.entries(media[p.code].images)) {
       assert.ok(p.colors.includes(name),`${p.code}: ${name}`);
       assert.ok(Number.isInteger(index) && p.images[index],`${p.code}: ${index}`);
-      assert.ok(fs.existsSync(`public${galleryImage(p.images[index],true)}`),`${p.code}: small image`);
+      assert.ok(fs.existsSync(`public${galleryImage(p.images[index],true).split('?')[0]}`),`${p.code}: small image`);
     }
     assert.equal(new Set(productColours(p).map(c=>c.id)).size,p.colors.length);
     assert.equal(colourImage(p,''),0);
   }
   const mule=products.find(p=>p.code==='BQ-M858');
-  assert.equal(productColours(mule).find(c=>c.id==='sand').imageIndex,null);
+  assert.equal(productColours(mule).find(c=>c.id==='sand').imageIndex,1);
   assert.equal(colourImage(mule,'sand'),1);
+  const uncertain=products.find(p=>p.code==='BQ019');
+  assert.equal(productColours(uncertain).find(c=>c.id==='cream').imageIndex,null);
+  assert.equal(colourImage(uncertain,'cream'),4);
   const lace=products.find(p=>p.code==='BQ003');
   assert.equal(colourImage(lace,'pink'),2);
   assert.equal(withColour('/zh/products/bq003/#inquiry','pink'),'/zh/products/bq003/?colour=pink#inquiry');
@@ -40,7 +43,7 @@ test('adding colours merges one style without overwriting quantity, sizes, notes
     assert.equal(readQuoteList().length,1);
     assert.equal(line.colors,'Pink, Grey');
     assert.equal(line.quantity,'300'); assert.equal(line.sizes,'38, 39'); assert.equal(line.notes,'Logo sample');
-    assert.equal(line.image,'/catalog-web/bq003/02_grey.webp');
+    assert.equal(line.image,'/catalog-web/bq003/02_grey.webp?v=20261025-photos');
     storage.setItem('bq-colour-BQ007','orange');
     addProductToQuote(products.find(p=>p.code==='BQ007'));
     assert.equal(readQuoteList()[1].colors,'Orange');

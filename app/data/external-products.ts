@@ -1,7 +1,8 @@
+import catalogImages from "./catalog-images.json" with { type: "json" };
 import type { Product } from "./products.ts";
 
 const confirmations = ["Color and size quantities", "Material specifications and sample fit", "Branding, packing and delivery requirements"];
-const gallery = (slug: string) => ["01_main", "02_view", "03_view", "04_view"].map(name => `/catalog/${slug}/${name}.jpg`);
+const gallery = (slug: string) => (catalogImages as Record<string, string[]>)[slug].map(name => `/catalog/${slug}/${name}.jpg`);
 // Website projection of the product-centre records, reviewed 2026-10-25.
 // Material chemistry and performance are not inferred from photographs.
 export const externalProducts: Product[] = [
@@ -42,12 +43,7 @@ export const externalProducts: Product[] = [
   ],
   "alibabaProductId": "1601969885846",
   "slug": "bq-c2627",
-  "images": [
-    "/catalog/bq-c2627/01_main.jpg",
-    "/catalog/bq-c2627/02_view.jpg",
-    "/catalog/bq-c2627/03_view.jpg",
-    "/catalog/bq-c2627/04_view.jpg"
-  ]
+  "images": gallery("bq-c2627")
 },
 {
   "code": "BQ-CA67",
@@ -84,12 +80,7 @@ export const externalProducts: Product[] = [
   ],
   "alibabaProductId": "1601969861694",
   "slug": "bq-ca67",
-  "images": [
-    "/catalog/bq-ca67/01_main.jpg",
-    "/catalog/bq-ca67/02_view.jpg",
-    "/catalog/bq-ca67/03_view.jpg",
-    "/catalog/bq-ca67/04_view.jpg"
-  ]
+  "images": gallery("bq-ca67")
 },
 {
   "code": "BQ-M858",
@@ -126,12 +117,7 @@ export const externalProducts: Product[] = [
   ],
   "alibabaProductId": "1601969853888",
   "slug": "bq-m858",
-  "images": [
-    "/catalog/bq-m858/01_main.jpg",
-    "/catalog/bq-m858/02_view.jpg",
-    "/catalog/bq-m858/03_view.jpg",
-    "/catalog/bq-m858/04_view.jpg"
-  ]
+  "images": gallery("bq-m858")
 },
   {
     code: "BQ-LQ059", slug: "bq-lq059", sourceModel: "059",

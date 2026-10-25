@@ -1,4 +1,5 @@
-import type { Product } from "../data/products";
+import { productMediaUrl } from "./product-media-url.ts";
+import { products, type Product } from "../data/products.ts";
 import { selectedColourName, colourId, colourImage, galleryImage } from "./product-colours.ts";
 
 export type QuoteLine = {
@@ -24,7 +25,14 @@ export function readQuoteList(): QuoteLine[] {
   if (typeof window === "undefined") return [];
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    return Array.isArray(parsed) ? parsed.filter((item) => item?.code && item?.slug).slice(0, 12).map((item) => ({ ...item, image: typeof item.image === "string" && /^\/catalog-web\/[a-z0-9-]+\/[a-z0-9_-]+\.webp$/.test(item.image) && item.image.split("/")[2] === item.slug ? item.image : `/catalog-thumbs/${item.slug}.webp` })) : [];
+    return Array.isArray(parsed) ? parsed.filter((item) => item?.code && item?.slug).slice(0, 12).map((item) => {
+      const product = products.find(p => p.code === item.code && p.slug === item.slug);
+      const colour = String(item.colors || "").split(",").map(c => c.trim()).reverse().find(c => product?.colors.includes(c));
+      // Re-resolve the saved request after catalogue photography changes; a legacy
+      // image position can now represent a different colour or viewing angle.
+      const image = product ? galleryImage(product.images[colourImage(product, colour ? colourId(colour) : "")]) : productMediaUrl(`/catalog-thumbs/${item.slug}.webp`);
+      return { ...item, image };
+    }) : [];
   } catch {
     return [];
   }

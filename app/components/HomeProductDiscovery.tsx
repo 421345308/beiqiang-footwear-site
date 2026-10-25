@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { productMediaUrl } from "../lib/product-media-url";
 import { useState } from "react";
 import Link from "next/link";
 import type { Product } from "../data/products";
@@ -29,7 +30,7 @@ export default function HomeProductDiscovery({ products, locale }: { products: P
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault(); setSelected(group.slug);
       }}>
-        <img src={`/catalog-thumbs/${group.cover}.webp`} alt="" width={160} height={160} loading="lazy" />
+        <img src={productMediaUrl(`/catalog-thumbs/${group.cover}.webp`)} alt="" width={160} height={160} loading="lazy" />
         <strong>{zh ? group.zh : group.en}</strong><span>{group.products.length} {t("styles","款")} <span aria-hidden="true">↗</span></span>
       </a>)}
     </nav>
