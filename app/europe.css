@@ -287,6 +287,7 @@
   gap: 20px;
 }
 .europe-product-hero {
+  display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   padding: 0 4% 60px;
   gap: 4%;
