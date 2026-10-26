@@ -1,3 +1,5 @@
+import { t } from "../app/data/europe-copy.ts";
+import { productFact } from "../app/data/europe-products.ts";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { products } from '../app/data/products.ts';
@@ -86,8 +88,9 @@ test('supplier pages render accurate origins and indexable localized product fac
     assert.equal(schema.sku,code);
     assert.equal(schema.manufacturer,undefined);
     assert.equal(schema.offers,undefined);
-    assert.match(html,/manufacturing partner|合作供应商/);
-    assert.ok(html.includes(product.sole) || /材质|橡胶|EVA|PVC|PU|TPR/.test(html));
+    if (["de", "fr", "es"].includes(locale.id)) assert.ok(html.includes(t(locale.id, "partner")));
+    else assert.match(html,/manufacturing partner|合作供应商/);
+    assert.ok(html.includes(product.sole) || (["de", "fr", "es"].includes(locale.id) && html.includes(productFact(product.sole, locale.id))) || /材质|橡胶|EVA|PVC|PU|TPR/.test(html));
     assert.match(html,/product-print-sheet/);
     assert.match(html,new RegExp(`href="https://www.beiqiang.online${path}/"`));
     assert.ok(schemas.some(s=>s['@type']==='BreadcrumbList'));

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -132,6 +131,12 @@ export default function EuropePage({
             __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
           }}
         />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org", "@type": "BreadcrumbList",
+          itemListElement: [["/", t(locale, "home")], ["/products/", t(locale, "products")], [path, product.code]].map(([route, name], i) => ({
+            "@type": "ListItem", position: i + 1, name, item: `${siteOrigin}${href(route)}`,
+          })),
+        }).replace(/</g, "\\u003c") }} />
         <EuropeProduct product={product} locale={locale} />
       </>
     );
@@ -242,9 +247,9 @@ export default function EuropePage({
         ) : path === "/line-sheet/" ? (
           <>
             <p>{t(locale, "pdfNote")}</p>
-            <Link className="button" href="/line-sheet/" lang="en">
-              {t(locale, "englishPdf")}
-            </Link>
+            <a className="button" href={`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`} download>
+              {t(locale, "downloadPdf")}
+            </a>
             <a className="studio-text-link" href={href("/products")}>
               {t(locale, "browse")}
             </a>

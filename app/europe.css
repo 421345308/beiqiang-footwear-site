@@ -167,7 +167,8 @@
   flex-direction: column;
   gap: 12px;
 }
-.europe-footer p {
+.europe-site .europe-footer p {
+  color: #e5e1d8;
   margin: 0;
 }
 .europe-filter-grid,
@@ -672,4 +673,13 @@
 }
 .europe-gallery > .europe-link-button {
   margin-right: 18px;
+}
+
+@media print {
+  .europe-print-sheet { display: none; }
+  body.product-sheet-printing .europe-print-sheet { display: block; position: static; height: auto; color: #252624; }
+  body.product-sheet-printing .europe-site { background: white; }
+  .europe-print-sheet > header { display: block; }
+  .europe-print-sheet .studio-specs { margin: 0; font-size: 10pt; }
+  .europe-print-sheet a { overflow-wrap: anywhere; color: inherit; }
 }

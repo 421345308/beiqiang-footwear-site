@@ -120,7 +120,7 @@ export default function BuyerMeetingRequest({
   const [slots, setSlots] = useState(["", "", ""]);
   const [agenda, setAgenda] = useState("");
   const [attendees, setAttendees] = useState("");
-  const [language, setLanguage] = useState(locale);
+  const [language, setLanguage] = useState<string>(locale);
   const [confirmed, setConfirmed] = useState(false);
   const [saving, setSaving] = useState(false);
   function updateSlot(index: number, value: string) {

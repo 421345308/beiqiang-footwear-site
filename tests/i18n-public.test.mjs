@@ -38,17 +38,17 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   const catalog = await render("/zh/products");
   const catalogHtml = await catalog.text();
   assert.equal(catalog.status, 200);
-  assert.match(catalogHtml, /搜索产品或款号/);
-  assert.match(catalogHtml, /休闲与步行鞋系列/);
+  assert.match(catalogHtml, /搜索产品/);
+  assert.match(catalogHtml, /鞋履产品系列/);
   assert.match(catalogHtml, /款产品可供选型/);
-  assert.match(catalogHtml, /高帮 \/ 袜套款/);
-  assert.match(catalogHtml, /儿童鞋/);
-  assert.match(catalogHtml, /扩展尺码款/);
-  assert.match(catalogHtml, /可选加绒款/);
+  assert.match(catalogHtml, /高帮鞋/);
+  assert.match(catalogHtml, /童鞋/);
+  assert.match(catalogHtml, /扩展尺码/);
+  assert.match(catalogHtml, /加绒款/);
   assert.match(catalogHtml, /zh\/collections\/kids-shoes\//i);
-  assert.match(catalogHtml, /显示(?:<!-- -->)?12(?:<!-- -->)?款，共(?:<!-- -->)?37(?:<!-- -->)?款/);
+  assert.match(catalogHtml, /69 款符合条件 · 已显示 12 款/);
   assert.match(catalogHtml, /查看更多产品/);
-  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?37(?:<!-- -->)?个当前产品款号/);
+  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?69(?:<!-- -->)?个当前产品款号/);
   assert.match(catalogHtml, /BQ001/);
   assert.match(catalogHtml, /BQ030/);
   assert.match(catalogHtml, /BQ031/);
@@ -201,7 +201,7 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
       /在大货开始前，弄清每一个关键决定/,
       /网站不收集银行卡、网银密码或验证码/,
     ],
-    ["/zh/line-sheet", /一份可用于选款的目录/, /获取37款产品目录/],
+    ["/zh/line-sheet", /一份可用于选款的目录/, /获取69款产品目录/],
   ]) {
     const response = await render(path);
     const html = await response.text();
@@ -570,12 +570,10 @@ test("keeps the mobile language switch on the matching page", async () => {
     /DesktopBuyerNavigation locale="zh" alternateHref=\{englishHref\}/,
   );
   assert.match(desktop, /LanguageSelector locale=\{locale\} alternateHref=\{alternateHref\}/);
-  assert.match(mobile, /href=\{englishHref\}/);
-  assert.match(mobile, /hrefLang="en"/);
-  assert.match(mobile, /语言 \/ Language/);
-  assert.match(selector, /href=\{alternateHref\}/);
-  assert.match(selector, /简体中文/);
-  assert.match(selector, /English/);
+  assert.match(mobile, /LanguageSelector locale="zh" alternateHref=\{englishHref\}/);
+  assert.match(selector, /href=\{href\(item.id\)\}/);
+  assert.match(selector, /publicLocales.map/);
+  assert.match(selector, /window.location.search \+ window.location.hash/);
   const styles = await readFile(
     new URL("../app/globals.css", import.meta.url),
     "utf8",

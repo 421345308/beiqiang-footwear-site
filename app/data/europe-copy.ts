@@ -2,6 +2,7 @@
 export const europeLocales = ["de", "fr", "es"] as const;
 export type EuropeLocale = (typeof europeLocales)[number];
 export const copy = {
+  printProduct: ["Produktblatt drucken / speichern", "Imprimer / enregistrer la fiche produit", "Imprimir / guardar la ficha del producto"],
   home: ["Startseite", "Accueil", "Inicio"],
   products: ["Kollektion", "Collection", "Colección"],
   finder: ["Schuhe auswählen", "Trouver des modèles", "Encontrar modelos"],
@@ -312,9 +313,9 @@ export const copy = {
     "Código de acceso privado",
   ],
   receiptNote: [
-    "Bewahren Sie Nummer und Zugangscode vertraulich auf. Eingangs-E-Mails und der geschützte Projektbereich sind derzeit auf Englisch verfügbar. Ihre gewünschte Antwortsprache wird mitgesendet.",
-    "Conservez la référence et le code en lieu sûr. Les e-mails de réception et l’espace projet sécurisé sont actuellement en anglais. Votre langue de réponse souhaitée est transmise avec la demande.",
-    "Guarde la referencia y el código de forma privada. Los correos de recepción y el área de proyecto protegida están disponibles actualmente en inglés. Se transmite el idioma de respuesta solicitado.",
+    "Bewahren Sie Nummer und Zugangscode vertraulich auf. Die Eingangsbestätigung wird in Ihrer gewählten Sprache versendet. Der geschützte Projektbereich ist derzeit auf Englisch und Chinesisch verfügbar. Ihre gewünschte Antwortsprache wird mitgesendet.",
+    "Conservez la référence et le code en lieu sûr. L’accusé de réception est envoyé dans la langue choisie. L’espace projet sécurisé est actuellement en anglais et en chinois. Votre langue de réponse souhaitée est transmise avec la demande.",
+    "Guarde la referencia y el código de forma privada. El acuse de recibo se envía en el idioma elegido. El área de proyecto protegida está disponible actualmente en inglés y chino. Se transmite el idioma de respuesta solicitado.",
   ],
   statusEnglish: [
     "Projektstatus ansehen (Englisch)",
@@ -432,10 +433,11 @@ export const copy = {
   saved: ["Auswahl gespeichert", "Choix enregistré", "Preferencia guardada"],
   lineSheet: ["Produktkatalog", "Catalogue produits", "Catálogo de productos"],
   pdfNote: [
-    "Der aktuelle PDF-Katalog ist auf Englisch und Chinesisch verfügbar. Für Produktdetails in Ihrer Sprache nutzen Sie die Online-Kollektion.",
-    "Le catalogue PDF actuel est disponible en anglais et en chinois. Consultez la collection en ligne pour les détails dans votre langue.",
-    "El catálogo PDF actual está disponible en inglés y chino. Consulte la colección en línea para ver los detalles en su idioma.",
+    "Laden Sie den deutschen Katalog mit Modellnummern, Fotos und dokumentierten Produktangaben herunter. Aktuelle Farbfotos und Details finden Sie über die Links im PDF.",
+    "Téléchargez le catalogue en français avec les références, photos et caractéristiques documentées. Les liens du PDF ouvrent les photos par coloris et les détails actualisés.",
+    "Descargue el catálogo en español con referencias, fotos y características documentadas. Los enlaces del PDF muestran fotos por color y detalles actualizados.",
   ],
+  downloadPdf: ["PDF-Katalog herunterladen", "Télécharger le catalogue PDF", "Descargar catálogo PDF"],
   englishPdf: [
     "Katalog anfordern (Englisch)",
     "Demander le catalogue (anglais)",

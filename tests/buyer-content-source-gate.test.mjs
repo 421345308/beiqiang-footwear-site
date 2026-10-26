@@ -12,14 +12,14 @@ async function render(path) {
 }
 
 test('public supply matches the reviewed raw-package register, not image folders', () => {
-  assert.equal(products.length, 37);
+  assert.equal(products.length, 69);
   assert.equal(FACTORY_SOURCE_CODES.size, 31);
-  assert.equal(EXTERNAL_SOURCE_CODES.size, 6);
+  assert.equal(EXTERNAL_SOURCE_CODES.size, 38);
   assert.equal(heldSourceProducts.length, 25);
   assert.deepEqual(new Set(products.map(p => p.code)), PUBLISHED_PRODUCT_CODES);
   assert.deepEqual(FINDER_STYLE_CODES, PUBLISHED_PRODUCT_CODES);
   for (const held of heldSourceProducts) assert.ok(!FACTORY_SOURCE_CODES.has(held.code));
-  assert.deepEqual(productsInCollection('extended-size-shoes').map(p=>p.code), ['BQ001','BQ002','BQ031','BQ-LQ059','BQ-LQ060','BQ-LQ2597']);
+  assert.deepEqual(productsInCollection('extended-size-shoes').map(p=>p.code), ['BQ001','BQ002','BQ031','BQ-LQ059','BQ-LQ060','BQ-LQ2597','BQ1031','BQ1037','BQ1043','BQ1047','BQ1055','BQ1056','BQ1057','BQ1058','BQ1060','BQ1061','BQ1062','BQ1063','BQ1066','BQ1067']);
   assert.deepEqual(productsInCollection('fleece-lined-shoes').map(p=>p.code), ['BQ006','BQ015']);
 });
 

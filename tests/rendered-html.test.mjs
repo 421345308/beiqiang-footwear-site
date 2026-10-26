@@ -108,15 +108,15 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Compare styles/i);
   assert.match(html, /THE FOOTWEAR COLLECTION/i);
   assert.match(html, /styles in the collection/i);
-  assert.match(html, /High-top \/ sock styles/i);
-  assert.match(html, /Kids footwear/i);
-  assert.match(html, /Extended-size styles/i);
-  assert.match(html, /Fleece-lined options/i);
+  assert.match(html, /High-top shoes/i);
+  assert.match(html, /Kids(?:’|&#x27;|&apos;)? shoes/i);
+  assert.match(html, /Extended sizes/i);
+  assert.match(html, /Fleece-lined/i);
   assert.match(html, /collections\/kids-shoes\//i);
   assert.match(html, /collections\/fleece-lined-shoes\//i);
-  assert.match(html, /Showing\s*(?:<!-- -->)?12(?:<!-- -->)?\s*of\s*(?:<!-- -->)?37/i);
+  assert.match(html, /69 matching styles · 12 shown/i);
   assert.match(html, /Show more products/i);
-  assert.match(html, /Browse all\s*(?:<!-- -->)?37(?:<!-- -->)?\s*current product codes/i);
+  assert.match(html, /Browse all\s*(?:<!-- -->)?69(?:<!-- -->)?\s*current product codes/i);
   assert.match(html, /studio-card/);
   assert.match(html, /EU 36-46/);
   assert.match(html, /BQ-LQ2597/);
@@ -133,8 +133,8 @@ test("server-renders the gated current line-sheet lead path", async () => {
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /37(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
-  assert.match(html, /Unlock the 37-style PDF/i);
+  assert.match(html, /69(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
+  assert.match(html, /Unlock the 69-style PDF/i);
   assert.match(html, /product-discovery document, not a quotation/i);
   assert.doesNotMatch(
     html,
@@ -277,12 +277,12 @@ test("server-renders the verified BQ002 product page", async () => {
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|waterproof/i);
 });
 
-test("server-renders the evidence-led BQ009 L1026 product page", async () => {
+test("server-renders the evidence-led BQ009 product page without legacy supplier codes", async () => {
   const response = await render("/products/bq009");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Breathable Knit Stretch-Fabric Lace-Up Walking Shoes/i);
-  assert.match(html, /L1026/);
+  assert.doesNotMatch(html, /L1026/);
   assert.match(html, /1601825074604/);
   assert.match(html, /View BQ009 on Alibaba\.com/);
   assert.match(html, /Knitted stretch-fabric upper/i);
@@ -295,12 +295,12 @@ test("server-renders the evidence-led BQ009 L1026 product page", async () => {
   );
 });
 
-test("server-renders the exact R1811 Alibaba-listed material configuration", async () => {
+test("server-renders the exact BQ015 Alibaba-listed material configuration", async () => {
   const response = await render("/products/bq015");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /BQ015/);
-  assert.match(html, /R1811/);
+  assert.doesNotMatch(html, /R1811/);
   assert.match(html, /1601839073314/);
   assert.match(html, /Stretch fabric upper/i);
   assert.match(html, /EVA sole/i);
@@ -308,12 +308,12 @@ test("server-renders the exact R1811 Alibaba-listed material configuration", asy
   assert.match(html, /Fleece availability by color/i);
 });
 
-test("server-renders the source-recorded M8811 EVA without confirming its lining", async () => {
+test("server-renders the source-recorded BQ006 EVA without confirming its lining", async () => {
   const response = await render("/products/bq006");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /BQ006/);
-  assert.match(html, /M8811/);
+  assert.doesNotMatch(html, /M8811/);
   assert.match(html, /10000043734620/);
   assert.match(html, /EVA sole/i);
   assert.match(html, /Fleece option by selected color/i);
@@ -329,12 +329,12 @@ test("server-renders lower-tier products conservatively", async () => {
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
 });
 
-test("server-renders the verified BQ031 ZX2116 product page", async () => {
+test("server-renders the verified BQ031 product page without legacy supplier codes", async () => {
   const response = await render("/products/bq031");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Wide Toe Box Knit Lace-Up Walking Shoes/i);
-  assert.match(html, /ZX2116/);
+  assert.doesNotMatch(html, /ZX2116/);
   assert.match(html, /EU 38-47/);
   assert.match(html, /Stretch knitted textile upper/i);
   assert.match(html, /10000046439033/);
@@ -366,9 +366,9 @@ test("server-renders buyer-intent collection pages", async () => {
 
 test("server-renders four additional buyer-intent collections with commercial boundaries", async () => {
   for (const [slug, heading, boundary, count] of [
-    ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 1],
+    ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 5],
     ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 2],
-    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 6],
+    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 20],
     ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 2],
   ]) {
     const response = await render(`/collections/${slug}`);

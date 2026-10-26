@@ -1,1 +1,3 @@
 dist/
+.edgeone/
+package-lock.json

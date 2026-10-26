@@ -1,3 +1,4 @@
+import { buildInquiryReceipt } from "../_lib/inquiry-receipt.js";
 import { createHash, randomUUID } from "node:crypto";
 import { getStore } from "@edgeone/pages-blob";
 import nodemailer from "nodemailer";
@@ -158,19 +159,14 @@ async function sendNotifications(inquiry, reference, accessCode, env, createTran
   } catch (error) { console.error("Internal inquiry notification failed", reference, error); }
 
   if (inquiry.email) {
-    const buyerLines = [
-      `Hello ${inquiry.name},`, "", "We received your Beiqiang B2B sourcing request.",
-      `Reference: ${reference}`, `Status access code: ${accessCode}`, "Status page: https://www.beiqiang.online/inquiry-status/", "",
-      `Styles: ${inquiry.styleCode}`, `Quantity direction: ${inquiry.quantity}`, `Buyer target cost / price direction: ${inquiry.buyerTargetCost || "To be discussed"} (your target only; not a Beiqiang quotation or acceptance)`, `Trade-term preference: ${inquiry.preferredTradeTerm}`, `Delivery destination: ${inquiry.deliveryDestination || "To be discussed"}`, "",
-      "This confirms receipt only. Product specifications, sample arrangement, price, MOQ, lead time, technical targets and order terms remain subject to review and written confirmation.", "",
-      "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.", "shepeiqiang@gmail.com", "WhatsApp: +86 189 5980 5256",
-    ];
+    const receipt = buildInquiryReceipt(inquiry, reference, accessCode);
+    const buyerLines = receipt.lines;
     try {
       await transport.sendMail({
         from: env.SMTP_FROM || env.SMTP_USER || "421345308@qq.com", to: inquiry.email, replyTo: recipient,
-        subject: `Beiqiang request received · ${reference}`,
+        subject: receipt.subject,
         text: buyerLines.join("\n"),
-        html: `<h2>Your sourcing request has been received</h2><pre style="font:14px/1.6 Arial,sans-serif;white-space:pre-wrap">${escapeHtml(buyerLines.join("\n"))}</pre>`,
+        html: `<h2>${escapeHtml(receipt.heading)}</h2><pre style="font:14px/1.6 Arial,sans-serif;white-space:pre-wrap">${escapeHtml(buyerLines.join("\n"))}</pre>`,
       });
       buyerConfirmationSent = true;
     } catch (error) { console.error("Buyer inquiry confirmation failed", reference, error); }

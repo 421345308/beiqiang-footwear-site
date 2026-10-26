@@ -19,6 +19,8 @@ import {
 } from "../lib/product-colours";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import { supplyMode } from "../data/published-product-codes";
+import PrintProductSheetButton from "./PrintProductSheetButton";
+import { siteOrigin } from "../lib/public-locales";
 import { trackEvent } from "../lib/tracking";
 
 export function EuropeAdd({
@@ -393,8 +395,24 @@ export default function EuropeProduct({
           >
             {t(locale, "quote")} ↗
           </a>
+          <PrintProductSheetButton styleCode={product.code} locale={locale} />
           <p className="europe-note">{t(locale, "availability")}</p>
         </div>
+      </section>
+      <section className="product-print-sheet europe-print-sheet">
+        <header><p>BEIQIANG · {product.code}</p><h2 className="print-sheet-title">{name}</h2></header>
+        <div className="studio-print-body">
+          <img src={galleryImage(product.images[colourImage(product, id)])} alt={name} width={600} height={600} />
+          <dl className="studio-specs">
+            {(["upper", "sole", "size", "closure"] as const).map((key) => <div key={key}><dt>{t(locale, key === "size" ? "sizes" : key)}</dt><dd>{productFact(product[key], locale)}</dd></div>)}
+            <div><dt>{t(locale, "colour")}</dt><dd>{colour ? productColour(colour.name, locale) : productColours(product).map(c => productColour(c.name, locale)).join(" / ")}</dd></div>
+          </dl>
+        </div>
+        {product.sizeNote && <p>{t(locale, "paired")}</p>}
+        <p>{t(locale, supplyMode(product.code) === "partner-sourced" ? "partner" : "own")}</p>
+        <p>{t(locale, "availability")}</p>
+        <p>{t(locale, product.fitEvidence === "wide_toe_verified" ? "wideNote" : "fitNote")}</p>
+        <p><a href={withColour(`${siteOrigin}${localizedPath(`/products/${product.slug}`, locale)}`, id)}>{withColour(`${siteOrigin}${localizedPath(`/products/${product.slug}`, locale)}`, id)}</a></p>
       </section>
       <section className="europe-content">
         <h2>{t(locale, "specs")}</h2>

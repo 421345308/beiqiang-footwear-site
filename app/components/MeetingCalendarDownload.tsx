@@ -7,6 +7,7 @@ export default function MeetingCalendarDownload({ reference, accessCode, request
   const meeting = [...requests].reverse().find((item) => item.status === "confirmed"); const [saving, setSaving] = useState(false); const zh = locale === "zh";
   if (!meeting) return null;
   async function download() {
+    if (!meeting || saving) return;
     setSaving(true); onStatus(zh ? "正在生成受保护的日历文件……" : "Preparing the protected calendar file…");
     try {
       const response = await fetch("/api/meeting-calendar", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reference, accessCode, requestId: meeting.id }) });

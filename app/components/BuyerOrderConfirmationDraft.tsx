@@ -73,6 +73,7 @@ export default function BuyerOrderConfirmationDraft({
     setRevisionFields((current) => current.includes(value) ? current.filter((item) => item !== value) : [...current, value]);
   }
   async function respond() {
+    if (!latest || saving) return;
     if (!mode || !confirmed) {
       onStatus(zh ? "请选择决定并确认该操作的边界。" : "Choose a decision and confirm the boundary first.");
       return;

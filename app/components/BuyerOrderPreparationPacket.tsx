@@ -142,6 +142,7 @@ export default function BuyerOrderPreparationPacket({
   }
   async function submit(event: React.FormEvent) {
     event.preventDefault();
+    if (!orderRequest || !canSubmit || saving) return;
     if (!confirmed) {
       onStatus(
         zh
