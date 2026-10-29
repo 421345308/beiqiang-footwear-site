@@ -47,7 +47,9 @@ test("keeps Alibaba-trunk materials attached to the exact second-batch products"
   }
 
   assert.equal(product("BQ004").alibabaProductId, "10000043201799");
-  assert.equal(product("BQ005").alibabaProductId, "10000043200726");
+  // Product-centre identity and official product.get readbacks, 2026-10-29.
+  assert.equal(product("BQ003").alibabaProductId, "10000043200726");
+  assert.equal(product("BQ005").alibabaProductId, "1601815020244");
   assert.equal(product("BQ009").alibabaProductId, "1601825074604");
   assert.equal(product("BQ012").alibabaProductId, "10000043744505");
   assert.equal(product("BQ024").alibabaProductId, "10000044041031");

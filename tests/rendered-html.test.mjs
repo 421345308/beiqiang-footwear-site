@@ -23,10 +23,10 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   const html = await response.text();
   assert.match(
     html,
-    /Footwear manufacturing/,
+    /Everyday casual footwear/,
   );
-  assert.match(html, /Discuss customization/);
-  assert.match(html, /href="#collections"/);
+  assert.match(html, /Plan a sample/);
+  assert.match(html, /href="#selected-styles"/);
   assert.match(html, /id="discovery-title"/);
   assert.match(html, /shepeiqiang@gmail\.com/);
   assert.match(html, /8618959805256/);
@@ -47,7 +47,7 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /INSIDE THE FACTORY/i);
   assert.match(html, /\/factory-video-stills\/stitching-line\.webp/i);
   assert.match(html, /\/factory-video-stills\/stitching-line\.webp/i);
-  assert.match(html, /\/factory-video-stills\/packing-preparation\.webp/i);
+  assert.match(html, /\/factory-video-stills\/material-cutting\.webp/i);
   assert.match(html, /Feasibility, sample scope, quantities and costs are agreed/i);
   assert.match(html, /\/og\.jpg/i);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|bunion friendly/i);
@@ -75,7 +75,7 @@ test("groups bilingual buyer navigation by sourcing stage without hiding commerc
   }
   assert.match(chineseHtml, /样品与订单流程/);
   assert.match(chineseHtml, /工厂与生产/);
-  assert.match(chineseHtml, /按选定产品和订单要求评估定制方案/);
+  assert.match(chineseHtml, /现款取样、现款改样和新结构开发/);
   assert.match(chineseHtml, /href="\/zh\/request-quote\/"[^>]*>询价单/);
 });
 
@@ -129,12 +129,15 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.doesNotMatch(html, /INTERNAL SOURCING REVIEW|Evidence-led highlights/i);
 });
 
-test("server-renders the gated current line-sheet lead path", async () => {
+test("server-renders public catalogues before optional selection help", async () => {
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /69(?:<!-- -->)? styles[\s\S]*One buyer-ready shortlist/i);
-  assert.match(html, /Unlock the 69-style PDF/i);
+  assert.match(html, /8 selected styles/i);
+  assert.match(html, /href="\/downloads\/beiqiang-selected-casual-footwear.pdf"/i);
+  assert.match(html, /href="\/downloads\/beiqiang-footwear-line-sheet-2026.pdf"/i);
+  assert.match(html, /Request selection advice/i);
+  assert.doesNotMatch(html, /Unlock the|Buyer-safe facts/i);
   assert.match(html, /product-discovery document, not a quotation/i);
   assert.doesNotMatch(
     html,

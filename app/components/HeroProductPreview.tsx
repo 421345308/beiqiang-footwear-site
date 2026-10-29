@@ -13,7 +13,7 @@ export default function HeroProductPreview({ product, locale }: {product: Produc
     <div className="cover-heading"><span>{zh ? "产品实拍 / 配色预览" : "THE COLLECTION / COLOUR STUDY"}</span><span>{product.code}</span></div>
     <a className="cover-main" href={withColour(localizedPath(`/products/${product.slug}`,locale),id)}>
       <img src={galleryImage(product.images[colourImage(product,id)])} alt={zh ? productNameZh(product) : product.name} width={1000} height={1000} fetchPriority="high" />
-      <span><strong>{product.code}</strong>{zh ? "弹力织物系带休闲鞋" : "Stretch-fabric lace-up shoes"}<b aria-hidden="true">↗</b></span>
+      <span><strong>{product.code}</strong>{zh ? productNameZh(product) : product.name}<b aria-hidden="true">↗</b></span>
     </a>
     <ProductColourOptions product={product} locale={locale} />
     <p className="cover-footnote">{zh ? "点击配色查看实拍 · 进入单款了解规格与样品" : "Explore the colours. Open the style for specifications and samples."}</p>

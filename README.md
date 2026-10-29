@@ -137,12 +137,11 @@ Current public structure:
 
 ## 69-Style Line Sheet Lead Path
 
-- `/line-sheet/` explains the buyer value of the English line sheet; `/zh/line-sheet/` supplies a separately generated Chinese line sheet. Both collect company, market, buyer type, product direction, quantity and a reply channel before revealing the matching-language PDF download.
-- The request is saved through the existing inquiry service with `context: line_sheet` and `styleCode: CATALOG-2026`, so it receives a reference, private status code, SMTP notification and protected-pipeline record.
-- `line_sheet_request` and `line_sheet_download` respect optional analytics consent. The admin dashboard reports line-sheet leads and consented PDF downloads separately from sourcing inquiries.
-- The current English and Chinese PDFs contain 69 products across 16 A4 pages and are generated from `app/data/products.ts`; run `npm run line-sheet:build` after product-data changes, then render and visually inspect every page. The generated manifest locks the product-data hash, page count, file sizes and public/operating PDF hashes so ordinary tests fail if product facts and downloadable catalogues drift apart.
-- English copies live at `public/downloads/beiqiang-footwear-line-sheet-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-2026.pdf`. Chinese copies live at `public/downloads/beiqiang-footwear-line-sheet-zh-2026.pdf` and `output/pdf/beiqiang-footwear-line-sheet-zh-2026.pdf`. Each public/operating language pair must have identical hashes.
-- This is a soft conversion gate, not confidential-document access control. Never include internal prices, supplier details, customer information, internal tiers or confidential technical files.
+- `/line-sheet/` and `/zh/line-sheet/` show a public six-page, eight-style English selection and a direct full-catalogue link in the page language. Buyers can preview or download before submitting any details.
+- The optional selection-advice form reuses the existing inquiry service and `line_sheet` context. Submission saves a private follow-up reference; it is no longer a download gate. Existing saved requests and analytics event names remain compatible.
+- English and Chinese PDFs contain 69 products across 16 A4 pages. Their files and manifests remain generated from the website product source. The German/French/Spanish catalogues keep their existing translations and links.
+- `app/data/selected-assortment.ts` is the website projection of the operations product matrix. Specifications, colours and photos are read from the current product records. The reviewed eight-style PDF comes from the operations project's `国际B2B精选册` source and includes a partner-sourced style not currently listed as a website product; the PDF uses its verified Alibaba link.
+- The operations project retains the selection rationale, image provenance and internal economic model. Internal costs and margins are not included in the website or buyer PDF.
 
 ## Buyer Relationship Memory
 

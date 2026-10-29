@@ -17,7 +17,7 @@ export default function LineSheetLeadForm() {
   const [email, setEmail] = useState(""); const [whatsapp, setWhatsapp] = useState(""); const [notes, setNotes] = useState("");
   const [contactPreferences, setContactPreferences] = useState<ContactPreferences>(EMPTY_CONTACT_PREFERENCES);
   const [website, setWebsite] = useState(""); const [consent, setConsent] = useState(false);
-  const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: `Submit once to unlock the current ${productCount}-style PDF and create a follow-up reference.` });
+  const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: `Send your selection brief when you would like a tailored response.` });
   const [access, setAccess] = useState<{ reference: string; accessCode: string } | null>(null);
   const startedAt = useRef(0); const startedTracked = useRef(false);
 
@@ -44,14 +44,14 @@ export default function LineSheetLeadForm() {
       if (!response.ok || !result.ok) throw new Error(result.message || "The catalogue request could not be saved.");
       const details = { reference: result.reference, accessCode: result.accessCode || "" }; setAccess(details);
       if (details.accessCode) localStorage.setItem("beiqiang_last_inquiry_access", JSON.stringify(details));
-      setStatus({ kind: "success", message: `Catalogue unlocked. Reference: ${details.reference}. Save the private status code below for follow-up.` });
+      setStatus({ kind: "success", message: `Selection request saved. Reference: ${details.reference}. Save the private status code below for follow-up.` });
       trackEvent("line_sheet_request", { context: "line_sheet", reference: details.reference });
     } catch (error) { setStatus({ kind: "error", message: error instanceof Error ? error.message : "The catalogue request could not be saved." }); }
   }
 
   return (
-    <form className="line-sheet-form" onSubmit={submit} onFocus={markStarted} aria-label="Request the Beiqiang footwear line sheet">
-      <div className="line-sheet-form-heading"><p className="eyebrow">BUYER ACCESS</p><h2>Tell us what you source.</h2><p>We use these details only to deliver and follow up on this B2B product request.</p></div>
+    <form className="line-sheet-form" onSubmit={submit} onFocus={markStarted} aria-label="Request footwear selection advice">
+      <div className="line-sheet-form-heading"><p className="eyebrow">SELECTION REQUEST</p><h2>Tell us what you source.</h2><p>We use these details only to deliver and follow up on this B2B product request.</p></div>
       <div className="line-sheet-form-grid">
         <label>Contact name<input required value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" maxLength={100} placeholder="Your name" /></label>
         <label>Company name<input required value={company} onChange={(event) => setCompany(event.target.value)} autoComplete="organization" maxLength={160} placeholder="Company or brand" /></label>
@@ -66,7 +66,7 @@ export default function LineSheetLeadForm() {
         <label className="form-honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
         <label className="form-consent"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>I agree that Beiqiang may use these details to deliver and follow up on this sourcing request.</span></label>
       </div>
-      <button className="button" type="submit" disabled={status.kind === "sending" || status.kind === "success"}>{status.kind === "sending" ? "Saving request…" : status.kind === "success" ? "Catalogue unlocked" : `Unlock the ${productCount}-style PDF`}</button>
+      <button className="button" type="submit" disabled={status.kind === "sending" || status.kind === "success"}>{status.kind === "sending" ? "Saving request…" : status.kind === "success" ? "Request saved" : "Request selection advice"}</button>
       <p className={`form-note form-note-${status.kind}`} aria-live="polite">{status.message}</p>
       {status.kind === "success" && access ? <div className="line-sheet-download"><a className="button button-light" href={DOWNLOAD_PATH} download onClick={() => trackEvent("line_sheet_download", { context: "line_sheet", reference: access.reference, linkType: "pdf" })}>Download the PDF</a><p><strong>Private status code:</strong> {access.accessCode || "Sent separately"}</p><Link href="/inquiry-status/">Check follow-up status →</Link></div> : null}
       <small>The PDF is a product-discovery document, not a quotation. Availability, materials, size ratio, MOQ, price, packing and lead time require written confirmation.</small>

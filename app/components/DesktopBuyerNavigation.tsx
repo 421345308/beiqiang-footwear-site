@@ -14,7 +14,7 @@ const englishGroups = [
     links: [
       [`All ${productCount} products`, "/products/", "Search, filter and compare the current online catalogue."],
       ["Find styles", "/product-finder/", "Answer a few sourcing questions to narrow the current range."],
-      ["Download line sheet", "/line-sheet/", "Request the current buyer-ready product PDF."],
+      ["Download line sheet", "/line-sheet/", "Preview selected styles or open the full product catalogue."],
       ["Wide toe box", "/collections/wide-toe-box/", "SKU-specific roomy-toe candidates."],
       ["Knit slip-on", "/collections/knit-slip-on/", "Easy-on knit and textile directions."],
       ["Breathable lace-up", "/collections/breathable-lace-up/", "Knit, mesh and textile lace-up directions."],
@@ -61,7 +61,7 @@ const chineseGroups = [
     links: [
       [`全部${productCount}款产品`, "/zh/products/", "搜索、筛选和比较当前已上线产品。"],
       ["采购选款助手", "/zh/product-finder/", "按采购问题缩小当前选款范围。"],
-      ["申请产品目录", "/zh/line-sheet/", "获取当前面向买家的产品PDF。"],
+      ["浏览产品目录", "/zh/line-sheet/", "预览精选款式或打开完整产品目录。"],
       ["宽鞋头系列", "/zh/collections/wide-toe-box/", "仅限有产品级宽鞋头依据的候选。"],
       ["针织易穿系列", "/zh/collections/knit-slip-on/", "针织和织物易穿方向。"],
       ["透气系带系列", "/zh/collections/breathable-lace-up/", "针织、网布和织物系带方向。"],

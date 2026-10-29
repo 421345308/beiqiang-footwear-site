@@ -8,6 +8,7 @@ import ChineseSiteFooter from "./ChineseSiteFooter";
 import FactoryEvidenceVideo from "./FactoryEvidenceVideo";
 import HeroProductPreview from "./HeroProductPreview";
 import HomeProductDiscovery from "./HomeProductDiscovery";
+import SelectedStyles from "./SelectedStyles";
 import { products } from "../data/products";
 import { localizedPath, type LegacyLocale } from "../lib/public-locales";
 import { factoryVideoSchema } from "../lib/factory-video-schema";
@@ -23,21 +24,22 @@ export default function BuyerHome({ locale = "en" }: { locale?: LegacyLocale }) 
     <section className="studio-hero" id="top">
       <div className="studio-hero-copy">
         <p className="eyebrow"><span className="studio-rule" /> {t("BEIQIANG · QUANZHOU, CHINA","贝强鞋业 · 中国泉州")}</p>
-        <h1>{t("Footwear manufacturing.","专注鞋履制造")}<br/><em>{t("Made for your brand.","服务品牌定制")}</em></h1>
-        <p className="studio-hero-lead">{t("Casual and walking shoes for brands, importers and wholesalers. Explore our collection, factory and OEM/ODM services.","面向品牌商、进口商及批发客户，提供休闲鞋、步行鞋与 OEM/ODM 服务。了解贝强工厂，浏览现有款式，开展品牌定制。")}</p>
-        <div className="studio-hero-actions"><Link className="button" href="#collections">{t("Find your product","按需求浏览产品")} ↗</Link><Link className="studio-text-link" href={href("/sourcing-review")}>{t("Discuss customization","咨询品牌定制")} →</Link></div>
+        <h1>{t("Everyday casual footwear.","日常休闲鞋系列")}<br/><em>{t("Build your next range.","为下一批采购选款")}</em></h1>
+        <p className="studio-hero-lead">{t("Factory styles and selected sourcing for importers, wholesalers and established brands. Start with a focused casual range, then plan the samples and order that fit your market.","面向进口商、批发商与已有销售的品牌，提供本厂休闲系列和精选配套货源。从适合市场的款式开始，再明确样品与订单方案。")}</p>
+        <div className="studio-hero-actions"><Link className="button" href="#selected-styles">{t("Browse selected styles","浏览精选款式")} ↗</Link><Link className="studio-text-link" href={href("/sample-order-process")}>{t("Plan a sample","了解选样路径")} →</Link></div>
         <div className="studio-hero-foot"><span>{t("OEM / ODM","OEM / ODM 开发")}</span><span>{t("Private label","品牌贴牌")}</span><span>{t("Wholesale supply","鞋类批发")}</span></div>
       </div>
-      <HeroProductPreview product={products.find(p => p.code === "BQ003")!} locale={locale} />
+      <HeroProductPreview product={products.find(p => p.code === "BQ008")!} locale={locale} />
     </section>
     <div className="studio-intro-strip"><p>{t("From product selection to brand development.","从产品选型，到品牌开发。")}</p><span>{t("A manufacturing and sourcing partner in Quanzhou.","立足泉州，连接制造与采购。")}</span></div>
+    <SelectedStyles locale={locale} />
     <HomeProductDiscovery products={products} locale={locale} />
-    <section className="studio-factory" id="factory"><div className="studio-factory-video"><FactoryEvidenceVideo locale={locale} /></div><div className="studio-factory-copy"><p className="eyebrow">{t("INSIDE THE FACTORY","工厂与生产")}</p><h2>{t("A closer look at the work.","看见每一道工序")}</h2><p>{t("Quanzhou Beiqiang Footwear & Apparel Co., Ltd. is based in Fujian, China. Our factory footage follows material preparation, upper stitching, shoe finishing and packing.","泉州贝强鞋业服饰有限公司位于福建泉州。通过工厂实拍，了解材料准备、鞋面车缝、鞋品整理与包装等实际工作环节。")}</p><dl><div><dt>{t("Location","生产所在地")}</dt><dd>{t("Quanzhou, Fujian, China","中国 · 福建 · 泉州")}</dd></div><div><dt>{t("Business","合作业务")}</dt><dd>OEM / ODM · {t("Private label · Wholesale","品牌贴牌 · 批发")}</dd></div></dl><Link className="studio-text-link" href={href("/factory")}>{t("Factory & company profile","工厂与公司介绍")} ↗</Link></div></section>
-    <section className="studio-section studio-custom" id="customization"><div className="studio-section-heading"><div><p className="eyebrow">{t("OEM / ODM & PRIVATE LABEL","OEM / ODM 与品牌定制")}</p><h2>{t("Your brand. The right details.","从产品细节，建立品牌识别")}</h2></div><p>{t("Start with an existing style or a development brief. Each specification is reviewed against the selected shoe and order requirements.","以现有鞋款或开发需求为起点，按选定产品和订单要求评估定制方案。")}</p></div>
+    <section className="studio-factory" id="factory"><div className="studio-factory-video"><FactoryEvidenceVideo locale={locale} /></div><div className="studio-factory-copy"><p className="eyebrow">{t("INSIDE THE FACTORY","工厂与生产")}</p><h2>{t("A closer look at the work.","看见每一道工序")}</h2><p>{t("Established in Quanzhou in 2015, Beiqiang has a manufacturing base of over 3,000 square metres and an annual output of 200,000 pairs. See material preparation, upper stitching, shoe finishing and packing in our factory footage.","贝强于2015年在泉州成立，制造场地超过3000平方米，年产20万双。通过真实工厂画面，了解材料准备、鞋面车缝、鞋品整理与包装。")}</p><dl><div><dt>{t("Location","生产所在地")}</dt><dd>{t("Quanzhou, Fujian, China","中国 · 福建 · 泉州")}</dd></div><div><dt>{t("Business","合作业务")}</dt><dd>OEM / ODM · {t("Private label · Wholesale","品牌贴牌 · 批发")}</dd></div></dl><Link className="studio-text-link" href={href("/factory")}>{t("Factory & company profile","工厂与公司介绍")} ↗</Link></div></section>
+    <section className="studio-section studio-custom" id="customization"><div className="studio-section-heading"><div><p className="eyebrow">{t("OEM / ODM & PRIVATE LABEL","OEM / ODM 与品牌定制")}</p><h2>{t("Choose your starting point.","选择适合的合作起点")}</h2></div><p>{t("Existing styles, adaptations and new constructions need different sample plans. Tell us what you want to evaluate, and we will define the next step with you.","现款取样、现款改样和新结构开发，需要不同的样品方案。先明确要评估什么，再确定下一步交付。")}</p></div>
       <div className="studio-custom-grid">{[
-        ["01",t("Branding & identity","商标与品牌标识"),t("Define logo placement, insole artwork and label requirements for the chosen style.","结合选定款式，评估商标位置、鞋垫图案及标签要求。"),productMediaUrl("/catalog-thumbs/bq018.webp")],
-        ["02",t("Materials & construction","材料与结构开发"),t("Review upper materials, colours and construction against your design or reference sample.","依据设计或参考样，评估鞋面材料、配色与结构要求。"),"/factory-video-stills/stitching-line.webp"],
-        ["03",t("Packaging & presentation","包装与交付呈现"),t("Prepare shoe-box, label and carton-mark specifications for your sales channel.","结合销售渠道，确定鞋盒、标签及外箱标识方案。"),"/factory-video-stills/packing-preparation.webp"],
+        ["01",t("Select an existing style","现款选样"),t("Choose the style, colour and size. Receive a sample proposal with applicable charges, timing and the version to review.","选择款式、颜色和尺码，按对应版本明确样品费用、时间和评估内容。"),productMediaUrl("/catalog-thumbs/bq018.webp")],
+        ["02",t("Adapt a factory style","现款改样"),t("Share your branding, colour or packaging brief. Review feasible changes, sample scope and the cost difference for your chosen style.","提供品牌、配色或包装要求，结合所选款式评估可做调整、样品范围与成本变化。"),"/factory-video-stills/stitching-line.webp"],
+        ["03",t("Explore a new construction","新结构开发评估"),t("Start with a feasibility review of the design, tooling, materials and tests. Agree the scope and sample acceptance criteria before development.","先评估设计、模具、材料与测试要求，明确开发范围及样品验收条件后再推进。"),"/factory-video-stills/material-cutting.webp"],
       ].map(([number,title,copy,img])=><article key={number}><div className="studio-custom-image"><img src={img} alt={title} width={640} height={430} loading="lazy" /><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></article>)}</div>
       <div className="studio-custom-foot"><p>{t("Feasibility, sample scope, quantities and costs are agreed before development.","开发前明确可行性、样品范围、数量与费用。")}</p><Link className="button button-secondary" href={href("/oem-odm")}>{t("Explore customization","了解定制服务")} ↗</Link></div>
     </section>

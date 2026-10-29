@@ -26,7 +26,7 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   const home = await render("/zh");
   const homeHtml = await home.text();
   assert.equal(home.status, 200);
-  assert.match(homeHtml, /专注鞋履制造/);
+  assert.match(homeHtml, /日常休闲鞋系列/);
   assert.match(homeHtml, /品牌贴牌/);
   assert.doesNotMatch(homeHtml, /当前重点候选|用30款真实产品资料/);
   assert.match(homeHtml, /English/);
@@ -201,7 +201,7 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
       /在大货开始前，弄清每一个关键决定/,
       /网站不收集银行卡、网银密码或验证码/,
     ],
-    ["/zh/line-sheet", /一份可用于选款的目录/, /获取69款产品目录/],
+    ["/zh/line-sheet", /从有区分的款式开始/, /提交选款需求/],
   ]) {
     const response = await render(path);
     const html = await response.text();

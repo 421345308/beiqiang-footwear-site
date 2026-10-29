@@ -135,7 +135,7 @@ const originalProducts: Product[] = [
     ],
     confirmBeforeQuote: ["Exact material execution for the selected order", ...commonConfirm],
     images: images("bq003"),
-    alibabaProductId: "1601815020244",
+    alibabaProductId: "10000043200726",
   },
   {
     code: "BQ004",
@@ -191,7 +191,7 @@ const originalProducts: Product[] = [
     ],
     confirmBeforeQuote: ["Exact material execution for the selected order", ...commonConfirm],
     images: images("bq005"),
-    alibabaProductId: "10000043200726",
+    alibabaProductId: "1601815020244",
   },
   {
     code: "BQ006",
