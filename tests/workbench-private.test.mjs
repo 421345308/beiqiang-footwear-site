@@ -19,9 +19,9 @@ function fixture() {
   };
   const deps = { getStoreImpl(options) { assert.deepEqual(options, { name: STORE_NAME, consistency: 'strong' }); return store; }, nowImpl: () => date, createTransportImpl: () => ({ async sendMail(message) { mail.push(message); }, close() {} }) };
   const auth = createWorkbenchAuthHandlers(deps), api = createWorkbenchHandlers(deps), runner = createWorkbenchRunnerHandler(deps);
-  async function request(handler, body, { cookie, csrf, origin = ORIGIN, method = 'POST', path = '/api/workbench', bearer, customEnv = env } = {}) {
-    const headers = { origin, 'content-type': 'application/json' }; if (cookie) headers.cookie = cookie; if (csrf) headers['x-workbench-token'] = csrf; if (bearer) headers.authorization = `Bearer ${bearer}`;
-    const response = await handler({ env: customEnv, request: new Request(ORIGIN + path, { method, headers, ...(method === 'GET' ? {} : { body: JSON.stringify(body) }) }) });
+  async function request(handler, body, { cookie, csrf, origin = ORIGIN, requestOrigin = ORIGIN, fetchSite, contentType = 'application/json', forwardedHost, method = 'POST', path = '/api/workbench', bearer, customEnv = env } = {}) {
+    const headers = { 'content-type': contentType }; if (origin !== null) headers.origin = origin; if (cookie) headers.cookie = cookie; if (csrf) headers['x-workbench-token'] = csrf; if (bearer) headers.authorization = `Bearer ${bearer}`; if (fetchSite) headers['sec-fetch-site'] = fetchSite; if (forwardedHost) headers['x-forwarded-host'] = forwardedHost;
+    const response = await handler({ env: customEnv, request: new Request(requestOrigin + path, { method, headers, ...(method === 'GET' ? {} : { body: JSON.stringify(body) }) }) });
     return { status: response.status, body: await response.json(), cookie: response.headers.get('set-cookie'), response };
   }
   async function login() {
@@ -78,6 +78,19 @@ test('same-origin JSON and per-session CSRF are required; logout revokes on serv
   assert.equal((await f.call({ action: 'create', task: { title: 'Example' } }, { cookie: s.cookie })).status, 403);
   assert.equal((await f.request(f.auth.onRequestPost, { action: 'logout' }, s)).status, 200);
   assert.equal((await f.request(f.api.onRequestGet, null, { method: 'GET', cookie: s.cookie })).status, 401);
+});
+
+test('configured public Origin works behind an internal proxy while all CSRF checks remain enforced', async () => {
+  const f = fixture(), s = await f.login();
+  const proxy = { ...s, requestOrigin: 'http://internal-edge-proxy:9000', fetchSite: 'same-origin' };
+  assert.equal((await f.call({ action: 'create', task: { title: 'Proxy request' } }, proxy)).status, 201);
+  assert.equal((await f.request(f.auth.onRequestPost, { action: 'request', email: 'other@example.com' }, proxy)).status, 202);
+  assert.equal((await f.call({ action: 'create', task: { title: 'Evil origin' } }, { ...proxy, origin: 'https://evil.example', forwardedHost: 'workbench.example.com' })).status, 403);
+  assert.equal((await f.call({ action: 'create', task: { title: 'Missing origin' } }, { ...proxy, origin: null, forwardedHost: 'workbench.example.com' })).status, 403);
+  assert.equal((await f.call({ action: 'create', task: { title: 'Cross-site' } }, { ...proxy, fetchSite: 'cross-site' })).status, 403);
+  assert.equal((await f.call({ action: 'create', task: { title: 'Wrong CSRF' } }, { ...proxy, csrf: 'wrong' })).status, 403);
+  assert.equal((await f.call({ action: 'create', task: { title: 'Wrong content type' } }, { ...proxy, contentType: 'text/plain' })).status, 415);
+  assert.equal((await f.call({ action: 'create', task: { title: 'Missing session' } }, { ...proxy, cookie: undefined })).status, 401);
 });
 
 async function imported(f, s, content = '第一行\r\n原结果\r\n') {

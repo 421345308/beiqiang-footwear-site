@@ -29,7 +29,9 @@ export function settings(env = {}) {
   return { owner, secret, origin };
 }
 export function sameOrigin(request, config) {
-  if (new URL(request.url).origin !== config.origin || request.headers.get('origin') !== config.origin || (request.headers.get('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) throw new ApiError(403, '请从当前工作台页面提交。');
+  // EdgeOne may supply an internal proxy URL. Trust the configured public origin,
+  // never request.url or caller-controlled forwarded host headers, for this check.
+  if (request.headers.get('origin') !== config.origin || (request.headers.get('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) throw new ApiError(403, '请从当前工作台页面提交。');
   if ((request.headers.get('content-type') || '').split(';')[0] !== 'application/json') throw new ApiError(415, '请求必须使用JSON。');
 }
 export async function payload(request, max = 128000) {
