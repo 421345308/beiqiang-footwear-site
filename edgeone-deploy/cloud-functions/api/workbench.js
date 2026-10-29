@@ -14,8 +14,15 @@ export function createWorkbenchHandlers(options = {}) {
       if (url.searchParams.has('document')) { const doc = await documentFor(store, url.searchParams.get('document')); if (!doc) throw new ApiError(404, '该资料尚未迁移到私有云工作台。'); return reply(200, { document: doc }); }
       const tasks = await allLatest(store, 'tasks'), rawRuns = await allLatest(store, 'runs'), runs = await Promise.all(rawRuns.map(run => runFor(store, run.id, now, false)));
       const runner = env.WORKBENCH_RUNNER_SECRET ? await getJSON(store, 'runner/heartbeat.json') : null;
-      const connected = Boolean(Buffer.byteLength(String(env.WORKBENCH_RUNNER_SECRET || '')) >= 32 && runner && now.getTime() - Date.parse(runner.at) < 150000);
-      return reply(200, { goals: await getJSON(store, 'goals/current.json') || { long_term: '', phase: '' }, tasks, runs, capabilities: { model: 'gpt-6.1-sol', local_edit: false, external_actions: false, runner_connected: connected, runner_status: connected ? 'online' : 'offline', storage: 'private_blob', can_accept_proposals: false, source_sync: { mode: 'snapshot_review', connected: false, local_authoritative: true, can_accept_changes: false } }, csrf_token: current.csrf_token });
+      const mode = env.WORKBENCH_RUNNER_MODE === 'manual_cloud' ? 'manual_cloud' : 'self_hosted';
+      const configured = Buffer.byteLength(String(env.WORKBENCH_RUNNER_SECRET || '')) >= 32;
+      const activeSessions = (await Promise.all(runs.filter(run => run.status === 'running').map(async run => {
+        const claim = await getJSON(store, `claims/${run.id}.json`);
+        return claim && Date.parse(claim.lease_expires_at) > now.getTime() ? { run_id: run.id, started_at: claim.created_at, last_seen_at: claim.last_seen_at || claim.created_at, lease_expires_at: claim.lease_expires_at } : null;
+      }))).filter(Boolean);
+      const connected = mode === 'self_hosted' && Boolean(configured && runner && now.getTime() - Date.parse(runner.at) < 150000);
+      const runnerStatus = mode === 'manual_cloud' ? (activeSessions.length ? 'manual_cloud_active' : 'manual_cloud_idle') : (connected ? 'online' : 'offline');
+      return reply(200, { goals: await getJSON(store, 'goals/current.json') || { long_term: '', phase: '' }, tasks, runs, capabilities: { model: 'gpt-6.1-sol', local_edit: false, external_actions: false, runner_mode: mode, runner_configured: configured, runner_connected: connected, runner_status: runnerStatus, runner_last_seen: runner?.at || null, runner_active_sessions: activeSessions, storage: 'private_blob', can_accept_proposals: false, source_sync: { mode: 'snapshot_review', connected: false, local_authoritative: true, can_accept_changes: false } }, csrf_token: current.csrf_token });
     } catch (error) { return handleError(error); }
   }
   async function onRequestPost({ request, env = {} }) {

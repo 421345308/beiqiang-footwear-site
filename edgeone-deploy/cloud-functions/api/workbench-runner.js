@@ -14,12 +14,20 @@ export function createWorkbenchRunnerHandler(options = {}) {
       await putJSON(store, 'runner/heartbeat.json', { at: stamp });
       if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp });
       if (body.action === 'claim') {
-        const queued = (await allLatest(store, 'runs')).filter(run => run.status === 'queued').sort((a, b) => a.created_at.localeCompare(b.created_at));
+        const targeted = Object.hasOwn(body, 'run_id');
+        if (env.WORKBENCH_RUNNER_MODE === 'manual_cloud' && !targeted) throw new ApiError(400, '手动云任务必须指定run_id，不能领取其他排队任务。');
+        let queued;
+        if (targeted) {
+          const selected = await latest(store, 'runs', identifier(body.run_id));
+          if (!selected) throw new ApiError(404, '指定运行记录不存在。');
+          if (selected.status !== 'queued') throw new ApiError(409, '指定运行未在排队，不能重复领取。');
+          queued = [selected];
+        } else queued = (await allLatest(store, 'runs')).filter(run => run.status === 'queued').sort((a, b) => a.created_at.localeCompare(b.created_at));
         for (const run of queued) {
-          const token = deps.randomBytesImpl(32).toString('hex'), claim = { token_hash: hash(token), created_at: stamp, lease_expires_at: new Date(now.getTime() + LEASE_MS).toISOString() };
-          try { await putJSON(store, `claims/${run.id}.json`, claim, true); } catch (error) { if (error.status === 409) continue; throw error; }
+          const token = deps.randomBytesImpl(32).toString('hex'), claim = { token_hash: hash(token), created_at: stamp, last_seen_at: stamp, lease_expires_at: new Date(now.getTime() + LEASE_MS).toISOString() };
+          try { await putJSON(store, `claims/${run.id}.json`, claim, true); } catch (error) { if (error.status === 409 && !targeted) continue; throw error; }
           const current = await latest(store, 'runs', run.id);
-          if (current.status !== 'queued') continue;
+          if (current.status !== 'queued') { if (targeted) throw new ApiError(409, '指定运行状态已变化，未领取。'); continue; }
           const updated = await revision(store, 'runs', { ...current, status: 'running', updated_at: stamp }, current.version);
           const document = run.source ? await getJSON(store, versionKey('documents', hash(run.source).slice(0, 32), run.source_version)) : null;
           return reply(200, { job: { ...updated, lease_token: token, lease_expires_at: claim.lease_expires_at, document } });
@@ -29,7 +37,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
       const id = identifier(body.run_id), run = await runFor(store, id, now, false), claim = await getJSON(store, `claims/${id}.json`);
       if (!claim || typeof body.lease_token !== 'string' || !safeEqual(hash(body.lease_token), claim.token_hash) || Date.parse(claim.lease_expires_at) <= now.getTime() || run.status !== 'running') throw new ApiError(409, '执行租约已到期、已停止或已完成；不得重复执行。');
       if (body.action === 'heartbeat') {
-        claim.lease_expires_at = new Date(now.getTime() + LEASE_MS).toISOString(); await putJSON(store, `claims/${id}.json`, claim); return reply(200, { ok: true, lease_expires_at: claim.lease_expires_at });
+        claim.last_seen_at = stamp; claim.lease_expires_at = new Date(now.getTime() + LEASE_MS).toISOString(); await putJSON(store, `claims/${id}.json`, claim); return reply(200, { ok: true, lease_expires_at: claim.lease_expires_at });
       }
       if (body.action === 'event') {
         if (!body.event || typeof body.event !== 'object' || Array.isArray(body.event) || JSON.stringify(body.event).length > 12000) throw new ApiError(400, '事件内容无效或过长。');

@@ -165,3 +165,56 @@ test('stale source and cross-source changes cannot be accepted', async () => {
   assert.equal((await f.call({ action: 'review', run_id: job.id, decision: 'accept', expected_version: complete.body.run.version }, s)).status, 409);
   assert.equal((await f.call({ action: 'review', run_id: job.id, decision: 'reject', expected_version: complete.body.run.version }, s)).body.run.status, 'rejected');
 });
+
+async function queuedTask(f, s, title) {
+  const task = (await f.call({ action: 'create', task: { title } }, s)).body.task;
+  const queued = await f.call({ action: 'enqueue', task_id: task.id, instruction: '仅完成这个有界任务' }, s);
+  assert.equal(queued.status, 201); return queued.body.run;
+}
+
+test('targeted claim selects exactly the requested run and leaves other queued work untouched', async () => {
+  const f = fixture(), s = await f.login();
+  const first = await queuedTask(f, s, '先排队任务'), target = await queuedTask(f, s, '指定任务');
+  const responses = await Promise.all([f.run({ action: 'claim', run_id: target.id }), f.run({ action: 'claim', run_id: target.id })]);
+  assert.deepEqual(responses.map(r => r.status).sort(), [200, 409]);
+  assert.equal(responses.find(r => r.status === 200).body.job.id, target.id);
+  const untouched = await f.request(f.api.onRequestGet, null, { ...s, method: 'GET', path: `/api/workbench?run_id=${first.id}` });
+  assert.equal(untouched.body.run.status, 'queued'); assert.equal(f.data.has(`claims/${first.id}.json`), false);
+  assert.equal((await f.run({ action: 'claim', run_id: 'f'.repeat(32) })).status, 404);
+  assert.equal((await f.run({ action: 'claim', run_id: 'invalid' })).status, 400);
+  assert.equal((await f.run({ action: 'claim', run_id: target.id })).status, 409);
+  assert.equal((await f.run({ action: 'claim' })).body.job.id, first.id);
+});
+
+test('manual cloud reports bounded active leases, never an always-on executor, and requires a target', async () => {
+  const f = fixture(), s = await f.login(); f.env.WORKBENCH_RUNNER_MODE = 'manual_cloud';
+  const run = await queuedTask(f, s, '单次云任务');
+  const bootstrap = async () => (await f.request(f.api.onRequestGet, null, { ...s, method: 'GET' })).body;
+  assert.equal((await f.run({ action: 'claim' })).status, 400);
+  await f.run({ action: 'heartbeat' });
+  let state = await bootstrap(); assert.equal(state.capabilities.runner_mode, 'manual_cloud'); assert.equal(state.capabilities.runner_connected, false); assert.equal(state.capabilities.runner_status, 'manual_cloud_idle'); assert.ok(state.capabilities.runner_last_seen); assert.deepEqual(state.capabilities.runner_active_sessions, []);
+  const job = (await f.run({ action: 'claim', run_id: run.id })).body.job;
+  state = await bootstrap(); assert.equal(state.capabilities.runner_status, 'manual_cloud_active'); assert.equal(state.capabilities.runner_connected, false); assert.equal(state.capabilities.runner_active_sessions[0].run_id, run.id);
+  assert.deepEqual(Object.keys(state.capabilities.runner_active_sessions[0]).sort(), ['last_seen_at', 'lease_expires_at', 'run_id', 'started_at']);
+  f.advance(60000); await f.run({ action: 'heartbeat', run_id: run.id, lease_token: job.lease_token });
+  state = await bootstrap(); assert.ok(Date.parse(state.capabilities.runner_active_sessions[0].last_seen_at) > Date.parse(job.created_at));
+  f.advance(10 * 60000 + 1);
+  for (const action of ['heartbeat', 'event', 'complete', 'fail']) {
+    const expired = await f.run({ action, run_id: run.id, lease_token: job.lease_token, event: { type: 'late' }, result: { summary: 'late', changes: [], next_steps: [] }, error: 'late' }); assert.equal(expired.status, 409);
+  }
+  state = await bootstrap(); assert.equal(state.capabilities.runner_status, 'manual_cloud_idle'); assert.deepEqual(state.capabilities.runner_active_sessions, []); assert.equal(state.runs[0].status, 'interrupted');
+  f.env.WORKBENCH_RUNNER_MODE = ''; await f.run({ action: 'heartbeat' }); state = await bootstrap(); assert.equal(state.capabilities.runner_mode, 'self_hosted'); assert.equal(state.capabilities.runner_connected, true); assert.equal(state.capabilities.runner_status, 'online');
+});
+
+test('cancelled session and wrong lease cannot return results to a replacement run', async () => {
+  const f = fixture(), s = await f.login(), original = await queuedTask(f, s, '可重排任务');
+  const oldJob = (await f.run({ action: 'claim', run_id: original.id })).body.job;
+  assert.equal((await f.call({ action: 'cancel', run_id: original.id }, s)).status, 200);
+  const replacement = (await f.call({ action: 'enqueue', task_id: original.task_id, instruction: '重新核验' }, s)).body.run;
+  const newJob = (await f.run({ action: 'claim', run_id: replacement.id })).body.job;
+  const result = { summary: '旧会话结果', changes: [], next_steps: [] };
+  assert.equal((await f.run({ action: 'complete', run_id: original.id, lease_token: oldJob.lease_token, result })).status, 409);
+  assert.equal((await f.run({ action: 'complete', run_id: replacement.id, lease_token: oldJob.lease_token, result })).status, 409);
+  const detail = await f.request(f.api.onRequestGet, null, { ...s, method: 'GET', path: `/api/workbench?run_id=${replacement.id}` }); assert.equal(detail.body.run.status, 'running'); assert.equal(detail.body.run.result, null);
+  assert.equal((await f.run({ action: 'complete', run_id: replacement.id, lease_token: newJob.lease_token, result: { summary: '新会话有效结果', changes: [], next_steps: [] } })).status, 200);
+});
