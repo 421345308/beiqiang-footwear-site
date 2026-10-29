@@ -91,6 +91,7 @@ const routes = [
   ...chineseResourceRoutes,
   ...capabilityRoutes,
   { pathname: "/admin/inquiries", output: "admin/inquiries/index.html" },
+  { pathname: "/admin/workbench", output: "admin/workbench/index.html" },
 ];
 
 for (const route of routes) {

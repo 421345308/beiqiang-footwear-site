@@ -74,6 +74,16 @@ Incident resolved on 27 August 2026: deployments from `d06ed69` through `6387e30
 
 ## Inquiry Storage and Notification
 
+### Private owner workbench
+
+`/admin/workbench/` is exported as a noindex login shell. Business records are fetched only through authenticated `/api/workbench`; they are never bundled into public assets. `/api/workbench-auth` sends a one-use, 15-minute login link to the exact server-configured owner, then issues an 8-hour HttpOnly/Secure/SameSite session. Configure `WORKBENCH_OWNER_EMAIL` and a randomly generated `WORKBENCH_SESSION_SECRET` of at least 32 bytes in the deployment environment. Existing `SMTP_PASS` and optional SMTP settings are reused. Missing configuration returns 503, not public access.
+
+Data uses the server-only `beiqiang-owner-workbench-v1` Blob store. Explicit import accepts four allowlisted document snapshots and their task cards. The current mode is `snapshot_review`: local project documents remain authoritative; proposals can be reviewed/downloaded, but source changes cannot be accepted in cloud until an actual synchronization path exists. Do not treat importing a snapshot as a project cutover.
+
+An optional independent executor authenticates to `/api/workbench-runner` with `WORKBENCH_RUNNER_SECRET` (at least 32 random bytes). This secret must never reach browser code. Without a live authenticated heartbeat, the UI reports offline and queued requests remain queued. Deploying these endpoints does not provision a cloud executor or model subscription. External customer messaging and platform edits are not supported through this workbench.
+
+Tests: `node --test tests/workbench-private.test.mjs`. Confirm production no-session rejection, owner email delivery and a real login separately after deployment; mocked mail/storage tests do not prove those services work in production.
+
 The production form posts to `/api/inquiries`. EdgeOne Cloud Functions persist each validated inquiry in the `beiqiang-inquiries` Blob store before returning success. Conversion events are written to the separate `beiqiang-events` store. Blob storage is provided by EdgeOne Makers and does not require a database connection string.
 
 Email notification is optional until these EdgeOne Production environment variables are configured. Never commit the QQ authorization code to GitHub:

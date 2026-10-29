@@ -12,7 +12,7 @@ export default function ConsentBanner() {
   const isChinese = pathname === "/zh" || pathname.startsWith("/zh/");
   const [visible, setVisible] = useState(false);
   useEffect(() => { const refresh=()=>setVisible(analyticsConsent()===null); const timer=window.setTimeout(refresh,0); window.addEventListener("beiqiang-consent-changed",refresh); return ()=>{window.clearTimeout(timer);window.removeEventListener("beiqiang-consent-changed",refresh);}; }, []);
-  if (!visible) return null;
+  if (!visible || pathname.startsWith("/admin/")) return null;
   function choose(value: boolean) { setAnalyticsConsent(value); setVisible(false); }
   const language = pathname.split("/")[1] as EuropeLocale;
   if (europeLocales.includes(language)) return <aside className="consent-banner" aria-label={t(language,"privacyChoice")}><div><strong>{t(language,"privacyChoice")}</strong><p>{t(language,"consentText")}</p><a href={`/${language}/privacy/`}>{t(language,"privacy")}</a></div><div><button className="button button-small button-secondary" onClick={()=>choose(false)}>{t(language,"essential")}</button><button className="button button-small" onClick={()=>choose(true)}>{t(language,"analytics")}</button></div></aside>;
