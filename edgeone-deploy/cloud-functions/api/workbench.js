@@ -23,6 +23,13 @@ export function createWorkbenchHandlers(options = {}) {
     try {
       const config = settings(env), store = storeFor(deps), now = deps.nowImpl(), current = await requireSession(request, config, store, now);
       const url = new URL(request.url);
+      if (url.searchParams.get('import_versions') === '1') {
+        const documents = await allLatest(store, 'documents'), tasks = await allLatest(store, 'tasks');
+        return reply(200, {
+          documents: [...SOURCE_PATHS].map(path => ({ path, version: documents.find(doc => doc.path === path)?.version || 0 })),
+          tasks: tasks.filter(task => (!task.source || SOURCE_PATHS.has(task.source)) && task.id === hash(task.source + '\n' + task.title).slice(0, 32)).map(task => ({ source: task.source, title: task.title, version: task.version })),
+        });
+      }
       if (url.searchParams.has('run_id')) return reply(200, { run: await runFor(store, url.searchParams.get('run_id'), now) });
       if (url.searchParams.has('document')) { const doc = await documentFor(store, url.searchParams.get('document')); if (!doc) throw new ApiError(404, '该资料尚未迁移到私有云工作台。'); return reply(200, { document: doc }); }
       const tasks = await allLatest(store, 'tasks'), rawRuns = await allLatest(store, 'runs'), runs = await Promise.all(rawRuns.map(run => runFor(store, run.id, now, false)));

@@ -250,3 +250,22 @@ test('local application confirmation requires owner, exact run version and match
   assert.equal((await f.call(body, s)).status, 409);
   assert.equal((await f.call({ ...body, expected_version: confirmed.body.run.version }, s)).status, 409);
 });
+
+
+test('import version metadata is owner-only and omits content and noncanonical task identities', async () => {
+  const f = fixture();
+  assert.equal((await f.request(f.api.onRequestGet, null, { method: 'GET', path: '/api/workbench?import_versions=1' })).status, 401);
+  const s = await f.login(), task = await imported(f, s);
+  await f.call({ action: 'create', task: { title: '手动任务', source: SOURCE } }, s);
+  const response = await f.request(f.api.onRequestGet, null, { ...s, method: 'GET', path: '/api/workbench?import_versions=1' });
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.body.documents.find(doc => doc.path === SOURCE), { path: SOURCE, version: 1 });
+  assert.equal(response.body.documents.length, 4);
+  assert.deepEqual(response.body.tasks, [{ source: SOURCE, title: task.title, version: 1 }]);
+  assert.doesNotMatch(JSON.stringify(response.body), /原结果|csrf|fixture-only|content|owner|旧任务结果/);
+  const update = { action: 'import', documents: [{ path: SOURCE, content: '新内容', expected_version: 1 }], tasks: [{ title: task.title, source: SOURCE, expected_version: 1 }] };
+  assert.equal((await f.call(update, s)).status, 201);
+  const before = f.writes.length;
+  assert.equal((await f.call(update, s)).status, 409);
+  assert.equal(f.writes.length, before);
+});
