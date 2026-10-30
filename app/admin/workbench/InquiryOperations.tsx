@@ -129,7 +129,7 @@ export default function InquiryOperations({ request, cloudInstruction, active = 
     try {
       const result = await request<{run: AgentRun}>("/api/operations", {action: "enqueue_agent", reference, source_hash: detail.source_hash, expected_version: detail.handling.version, instruction});
       setDetail(previous => previous ? {...previous, agent_runs: [result.run, ...(previous.agent_runs || []).filter(r => r.id !== result.run.id)]} : previous);
-      setNotice("Agent任务已排队，尚未开始分析。复制云端指令后，到官方 Codex Cloud 选择“贝强经营工作台”环境并启动。");
+      setNotice("已提交Agent任务。需要启动时，复制云端指令，到官方 Codex Cloud 选择“贝强经营工作台”环境执行。最新进展请看下方实时状态。");
     } catch (error) { setNotice(error instanceof Error ? error.message : "排队失败，请刷新状态后核实。"); }
     finally { actionLock.current = false; if (mounted.current) setBusy(false); }
   };
@@ -143,8 +143,8 @@ export default function InquiryOperations({ request, cloudInstruction, active = 
   const copyCloud = async (id: string) => {
     try {
       const content = cloudInstruction(id);
-      try { await navigator.clipboard.writeText(content); setCloudText(""); setNotice("云端执行指令已复制；复制不会启动任务。请到官方 Cloud 粘贴后执行。"); }
-      catch { setCloudText(content); setNotice("浏览器未允许自动复制，请在下方选择完整指令手动复制。尚未启动任务。"); }
+      try { await navigator.clipboard.writeText(content); setCloudText(""); setNotice("已复制云端执行指令；复制操作不会启动任务。需要启动时请到官方 Cloud 粘贴执行，最新进展请看下方实时状态。"); }
+      catch { setCloudText(content); setNotice("浏览器未允许自动复制，已在下方显示完整指令供手动复制。最新进展请看下方实时状态。"); }
     } catch (error) { setNotice(error instanceof Error ? error.message : "生成指令失败。"); }
   };
   const previewProposal = (item: Proposal) => {
