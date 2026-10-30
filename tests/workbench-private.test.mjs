@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createWorkbenchAuthHandlers } from '../edgeone-deploy/cloud-functions/api/workbench-auth.js';
 import { createWorkbenchHandlers } from '../edgeone-deploy/cloud-functions/api/workbench.js';
 import { createWorkbenchRunnerHandler } from '../edgeone-deploy/cloud-functions/api/workbench-runner.js';
-import { COOKIE, hash, STORE_NAME } from '../edgeone-deploy/cloud-functions/_lib/workbench.js';
+import { COOKIE, hash, STORE_NAME, versionKey } from '../edgeone-deploy/cloud-functions/_lib/workbench.js';
 
 const ORIGIN = 'https://workbench.example.com';
 const SOURCE = '00_总控台/当前状态.md';
@@ -217,4 +217,36 @@ test('cancelled session and wrong lease cannot return results to a replacement r
   assert.equal((await f.run({ action: 'complete', run_id: replacement.id, lease_token: oldJob.lease_token, result })).status, 409);
   const detail = await f.request(f.api.onRequestGet, null, { ...s, method: 'GET', path: `/api/workbench?run_id=${replacement.id}` }); assert.equal(detail.body.run.status, 'running'); assert.equal(detail.body.run.result, null);
   assert.equal((await f.run({ action: 'complete', run_id: replacement.id, lease_token: newJob.lease_token, result: { summary: '新会话有效结果', changes: [], next_steps: [] } })).status, 200);
+});
+
+
+test('local application confirmation requires owner, exact run version and matching newer imported snapshot', async () => {
+  const f = fixture(), s = await f.login(), task = await imported(f, s);
+  await f.call({ action: 'enqueue', task_id: task.id, instruction: '修订结果' }, s);
+  const job = (await f.run({ action: 'claim' })).body.job;
+  const result = { summary: '建议修订', changes: [{ path: SOURCE, before: '原结果', after: '已核验结果', reason: '测试依据' }], next_steps: [] };
+  const complete = await f.run({ action: 'complete', run_id: job.id, lease_token: job.lease_token, result });
+  const body = { action: 'confirm_local_application', run_id: job.id, expected_version: complete.body.run.version };
+  assert.equal((await f.call(body)).status, 401);
+  assert.equal((await f.call(body, { ...s, csrf: 'wrong' })).status, 403);
+  assert.equal((await f.call({ ...body, expected_version: body.expected_version - 1 }, s)).status, 409);
+  assert.equal((await f.call(body, s)).status, 409);
+  const oldKey = versionKey('documents', hash(SOURCE).slice(0, 32), 1), old = f.data.get(oldKey);
+  f.data.delete(oldKey);
+  assert.match((await f.call(body, s)).body.error, /历史快照/);
+  f.data.set(oldKey, old);
+  assert.equal((await f.call({ action: 'import', documents: [{ path: SOURCE, content: '其他修订', expected_version: 1 }], tasks: [] }, s)).status, 201);
+  assert.equal((await f.call(body, s)).status, 409);
+  const content = '第一行\n已核验结果\n';
+  assert.equal((await f.call({ action: 'import', documents: [{ path: SOURCE, content, expected_version: 2 }], tasks: [] }, s)).status, 201);
+  const beforeWrites = f.writes.length, confirmed = await f.call(body, s);
+  assert.equal(confirmed.status, 200);
+  assert.equal(confirmed.body.run.status, 'accepted');
+  assert.equal(confirmed.body.run.version, body.expected_version + 1);
+  assert.equal(confirmed.body.run.review_origin, 'local');
+  assert.equal(confirmed.body.run.reviewed_at, '2026-10-29T00:00:00.000Z');
+  assert.deepEqual(confirmed.body.run.local_application, { source: SOURCE, source_hash: old.hash, applied_hash: hash(content), source_version: 1, imported_version: 3 });
+  assert.deepEqual(f.writes.slice(beforeWrites).map(x => x.key), [versionKey('runs', job.id, body.expected_version + 1)]);
+  assert.equal((await f.call(body, s)).status, 409);
+  assert.equal((await f.call({ ...body, expected_version: confirmed.body.run.version }, s)).status, 409);
 });

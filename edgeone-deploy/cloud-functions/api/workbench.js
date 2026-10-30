@@ -1,4 +1,17 @@
-import { ApiError, SOURCE_PATHS, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, lockKey, normalize, payload, putJSON, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text, validateProposal } from '../_lib/workbench.js';
+import { ApiError, SOURCE_PATHS, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, lockKey, normalize, payload, putJSON, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
+
+// Owner attestation plus imported-snapshot equality, never a local filesystem check.
+export async function confirmLocalApplication(store, run, now) {
+  if (run.status !== 'awaiting_review' || !SOURCE_PATHS.has(run.source) || !Number.isInteger(run.source_version) || run.source_version < 1) throw new ApiError(409, '该提案没有可确认的原文修改。');
+  const oldDoc = await getJSON(store, versionKey('documents', hash(run.source).slice(0, 32), run.source_version));
+  if (!oldDoc || oldDoc.path !== run.source || oldDoc.version !== run.source_version || oldDoc.hash !== run.source_hash || hash(normalize(oldDoc.content)) !== run.source_hash) throw new ApiError(409, '原始历史快照缺失或不一致，无法确认本地回写。');
+  const checked = validateProposal(run, run.result, oldDoc);
+  if (!checked.result.changes.length) throw new ApiError(409, '该提案没有原文修改，请使用结论审阅流程。');
+  const expectedHash = hash(checked.content), imported = await documentFor(store, run.source);
+  if (!imported || imported.version <= run.source_version || imported.hash !== expectedHash || hash(normalize(imported.content)) !== expectedHash) throw new ApiError(409, '请先在项目中审阅回写，再导入与提案结果一致的新快照。');
+  const stamp = now.toISOString();
+  return revision(store, 'runs', { ...run, status: 'accepted', review_origin: 'local', reviewed_at: stamp, updated_at: stamp, local_application: { source: run.source, source_hash: run.source_hash, applied_hash: expectedHash, source_version: run.source_version, imported_version: imported.version } }, run.version);
+}
 
 function taskFields(input = {}) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw new ApiError(400, '任务内容必须是对象。');
@@ -64,6 +77,11 @@ export function createWorkbenchHandlers(options = {}) {
       if (body.action === 'cancel') {
         const run = await runFor(store, body.run_id, now, false); if (!['queued', 'running', 'interrupted'].includes(run.status)) throw new ApiError(409, '该运行当前不可停止。');
         const updated = await revision(store, 'runs', { ...run, status: 'cancelled', updated_at: stamp }, run.version); await releaseLock(store, run); return reply(200, { run: updated, message: '已停止队列/接收结果；已领取的执行器在下一次续租时停止。' });
+      }
+      if (body.action === 'confirm_local_application') {
+        const run = await runFor(store, body.run_id, now, false);
+        if (body.expected_version !== run.version) throw new ApiError(409, '提案版本或审核状态已变化。');
+        return reply(200, { run: await confirmLocalApplication(store, run, now), message: '已确认本地回写：管理员确认且新导入快照与提案一致；服务器未直接读取本地磁盘。' });
       }
       if (body.action === 'review') {
         const run = await runFor(store, body.run_id, now, false);
