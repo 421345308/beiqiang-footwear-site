@@ -94,12 +94,43 @@ export async function rateSlot(store, prefix, slots, date) {
   throw new ApiError(429, '请求过于频繁，请稍后再试。');
 }
 export async function documentFor(store, path) { return latest(store, 'documents', hash(path).slice(0, 32)); }
-export const lockKey = run => `active/${hash(run.source || `task:${run.task_id}`)}.json`;
-export async function releaseLock(store, run) { const key = lockKey(run), active = await getJSON(store, key); if (active?.run_id === run.id) await store.delete(key); }
+const lockId = run => hash(run.kind === 'inquiry_review' ? `inquiry:${run.inquiry_reference}` : run.source || `task:${run.task_id}`);
+// Legacy keys are read only. The first append-only lock version supersedes them.
+export const lockKey = run => `active/${lockId(run)}.json`;
+export async function activeLock(store, run) {
+  const id = lockId(run), prefix = `object_locks/${id}/`; let cursor, newest = null; const seen = new Set();
+  do {
+    const page = await store.list({ prefix, limit: 200, paginate: false, consistency: 'strong', ...(cursor ? { cursor } : {}) });
+    for (const { key } of page.blobs || []) if (!newest || key > newest) newest = key;
+    cursor = page.cursor;
+    if (cursor && seen.has(cursor)) throw new ApiError(503, '任务占用分页异常。');
+    if (cursor) seen.add(cursor);
+  } while (cursor);
+  if (newest) return getJSON(store, newest);
+  return { ...(await getJSON(store, lockKey(run)) || { run_id: null }), id, version: 0 };
+}
+async function lockRevision(store, current, runId) {
+  const next = { id: current.id, run_id: runId, version: current.version + 1 };
+  await putJSON(store, versionKey('object_locks', next.id, next.version), next, true); return next;
+}
+export async function acquireLock(store, run) {
+  const current = await activeLock(store, run);
+  if (current.run_id) throw new ApiError(409, '该业务对象已有排队或执行中的任务。');
+  return lockRevision(store, current, run.id);
+}
+export async function releaseLock(store, run) {
+  const current = await activeLock(store, run); if (current.run_id !== run.id) return;
+  try { await lockRevision(store, current, null); }
+  catch (error) { if (error.status !== 409) throw error; }
+}
 export async function runFor(store, id, now, events = true) {
-  const run = await latest(store, 'runs', identifier(id)); if (!run) throw new ApiError(404, '运行记录不存在。');
+  let run = await latest(store, 'runs', identifier(id)); if (!run) throw new ApiError(404, '运行记录不存在。');
   const claim = await getJSON(store, `claims/${id}.json`);
-  if (['queued', 'running'].includes(run.status) && claim && Date.parse(claim.lease_expires_at) <= now.getTime()) run.status = 'interrupted';
+  if (['queued', 'running'].includes(run.status) && claim && Date.parse(claim.lease_expires_at) <= now.getTime()) {
+    try { run = await revision(store, 'runs', { ...run, status: 'interrupted', error: '执行租约已到期，请核对结果后重新发起。', updated_at: now.toISOString() }, run.version); }
+    catch (error) { if (error.status !== 409) throw error; run = await latest(store, 'runs', id); }
+    if (!['queued', 'running'].includes(run.status)) await releaseLock(store, run);
+  }
   if (events) run.events = (await records(store, `events/${id}/`, 1000)).sort((a, b) => a.at.localeCompare(b.at));
   return run;
 }

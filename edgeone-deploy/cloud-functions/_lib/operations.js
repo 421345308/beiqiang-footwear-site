@@ -50,6 +50,8 @@ export function createOperationsStore({ inquiryStore, opsStore }) {
       return result.filter(Boolean).sort((a, b) => b.created_at.localeCompare(a.created_at));
     },
     proposal: (ref, id) => getJSON(opsStore, `proposals/${reference(ref)}/${id}.json`),
+    async runIds(ref) { return (await allKeys(opsStore, `inquiry_runs/${reference(ref)}/`)).map(key => key.split('/').at(-1).replace(/\.json$/, '')); },
+    indexRun: (ref, id) => putJSON(opsStore, `inquiry_runs/${reference(ref)}/${id}.json`, { run_id: id }, true),
     saveProposal: proposal => putJSON(opsStore, `proposals/${proposal.reference}/${proposal.id}.json`, proposal, true),
     // One conditional object is the commit: handling and decision succeed together.
     commit: handling => putJSON(opsStore, `handling/${handling.reference}/${String(handling.version).padStart(12, '0')}.json`, handling, true),

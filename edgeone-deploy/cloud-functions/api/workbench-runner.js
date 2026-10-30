@@ -1,4 +1,5 @@
 import { ApiError, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, payload, putJSON, releaseLock, reply, revision, runFor, safeEqual, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
+import { isInquiryRun, validateInquiryBinding, validateInquiryResult } from '../_lib/operations-agent.js';
 
 const LEASE_MS = 10 * 60000;
 export function createWorkbenchRunnerHandler(options = {}) {
@@ -13,6 +14,11 @@ export function createWorkbenchRunnerHandler(options = {}) {
       const body = await payload(request, 150000), store = storeFor(deps), now = deps.nowImpl(), stamp = now.toISOString();
       await putJSON(store, 'runner/heartbeat.json', { at: stamp });
       if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp });
+      if (body.action === 'status') {
+        const run = await runFor(store, identifier(body.run_id), now, false);
+        const fields = ['id', 'kind', 'inquiry_reference', 'source_hash', 'handling_version', 'status', 'version', 'title', 'summary', 'result', 'changes', 'error', 'created_at', 'updated_at', 'session_id', 'model', 'usage'];
+        return reply(200, { run: Object.fromEntries(fields.filter(key => run[key] !== undefined).map(key => [key, run[key]])) });
+      }
       if (body.action === 'claim') {
         const targeted = Object.hasOwn(body, 'run_id');
         if (env.WORKBENCH_RUNNER_MODE === 'manual_cloud' && !targeted) throw new ApiError(400, '手动云任务必须指定run_id，不能领取其他排队任务。');
@@ -24,13 +30,34 @@ export function createWorkbenchRunnerHandler(options = {}) {
           queued = [selected];
         } else queued = (await allLatest(store, 'runs')).filter(run => run.status === 'queued').sort((a, b) => a.created_at.localeCompare(b.created_at));
         for (const run of queued) {
+          // Load and verify context before consuming the one-use claim key.
+          let document = null;
+          try {
+            if (isInquiryRun(run)) await validateInquiryBinding(deps, run);
+            else if (run.source) {
+              document = await getJSON(store, versionKey('documents', hash(run.source).slice(0, 32), run.source_version));
+              if (!document || document.hash !== run.source_hash || document.version !== run.source_version) throw new ApiError(409, '原资料快照缺失或已变化。');
+            }
+          } catch (error) {
+            if (error instanceof ApiError && [404, 409].includes(error.status)) {
+              const failed = await revision(store, 'runs', { ...run, status: 'failed', error: '任务来源或处理版本已变化，请重新发起。', updated_at: stamp }, run.version);
+              await releaseLock(store, failed); if (!targeted) continue;
+            }
+            throw error;
+          }
           const token = deps.randomBytesImpl(32).toString('hex'), claim = { token_hash: hash(token), created_at: stamp, last_seen_at: stamp, lease_expires_at: new Date(now.getTime() + LEASE_MS).toISOString() };
           try { await putJSON(store, `claims/${run.id}.json`, claim, true); } catch (error) { if (error.status === 409 && !targeted) continue; throw error; }
-          const current = await latest(store, 'runs', run.id);
-          if (current.status !== 'queued') { if (targeted) throw new ApiError(409, '指定运行状态已变化，未领取。'); continue; }
-          const updated = await revision(store, 'runs', { ...current, status: 'running', updated_at: stamp }, current.version);
-          const document = run.source ? await getJSON(store, versionKey('documents', hash(run.source).slice(0, 32), run.source_version)) : null;
-          return reply(200, { job: { ...updated, lease_token: token, lease_expires_at: claim.lease_expires_at, document } });
+          try {
+            const current = await latest(store, 'runs', run.id);
+            if (current.status !== 'queued') throw new ApiError(409, '指定运行状态已变化，未领取。');
+            const updated = await revision(store, 'runs', { ...current, status: 'running', updated_at: stamp }, current.version);
+            return reply(200, { job: { ...updated, lease_token: token, lease_expires_at: claim.lease_expires_at, document } });
+          } catch (error) {
+            // If another writer transitioned successfully, preserve its lease.
+            const current = await latest(store, 'runs', run.id), own = await getJSON(store, `claims/${run.id}.json`);
+            if (current?.status !== 'running' && own?.token_hash === claim.token_hash) await store.delete(`claims/${run.id}.json`);
+            throw error;
+          }
         }
         return reply(200, { job: null });
       }
@@ -44,7 +71,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
         await putJSON(store, `events/${id}/${now.getTime()}-${deps.randomBytesImpl(8).toString('hex')}.json`, { ...body.event, at: stamp }, true); return reply(201, { ok: true });
       }
       if (body.action === 'complete') {
-        const checked = validateProposal(run, body.result, run.source ? await documentFor(store, run.source) : null);
+        const checked = isInquiryRun(run) ? { result: validateInquiryResult(body.result) } : validateProposal(run, body.result, run.source ? await documentFor(store, run.source) : null);
         const updated = await revision(store, 'runs', { ...run, result: checked.result, changes: checked.result.changes, summary: checked.result.summary, status: 'awaiting_review', updated_at: stamp, session_id: typeof body.session_id === 'string' ? text(body.session_id, 160) : null, usage: body.usage && typeof body.usage === 'object' ? body.usage : null }, run.version);
         await releaseLock(store, run); return reply(200, { run: updated });
       }

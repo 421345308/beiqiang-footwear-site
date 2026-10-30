@@ -1,5 +1,6 @@
 import { CONTROL_ID, controlFor, importStatus, instructionWithControl, saveControl } from '../_lib/workbench-control.js';
-import { ApiError, SOURCE_PATHS, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, lockKey, normalize, payload, putJSON, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
+import { ownerRunView } from '../_lib/operations-agent.js';
+import { ApiError, SOURCE_PATHS, acquireLock, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, normalize, payload, putJSON, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
 
 // Owner attestation plus imported-snapshot equality, never a local filesystem check.
 export async function confirmLocalApplication(store, run, now) {
@@ -31,9 +32,9 @@ export function createWorkbenchHandlers(options = {}) {
           tasks: tasks.filter(task => (!task.source || SOURCE_PATHS.has(task.source)) && task.id === hash(task.source + '\n' + task.title).slice(0, 32)).map(task => ({ source: task.source, title: task.title, version: task.version })),
         });
       }
-      if (url.searchParams.has('run_id')) return reply(200, { run: await runFor(store, url.searchParams.get('run_id'), now) });
+      if (url.searchParams.has('run_id')) return reply(200, { run: await ownerRunView(deps, await runFor(store, url.searchParams.get('run_id'), now)) });
       if (url.searchParams.has('document')) { const doc = await documentFor(store, url.searchParams.get('document')); if (!doc) throw new ApiError(404, '该资料尚未迁移到私有云工作台。'); return reply(200, { document: doc }); }
-      const tasks = await allLatest(store, 'tasks'), rawRuns = await allLatest(store, 'runs'), runs = await Promise.all(rawRuns.map(run => runFor(store, run.id, now, false)));
+      const tasks = await allLatest(store, 'tasks'), rawRuns = await allLatest(store, 'runs'), runs = await Promise.all(rawRuns.map(async run => ownerRunView(deps, await runFor(store, run.id, now, false))));
       const runner = env.WORKBENCH_RUNNER_SECRET ? await getJSON(store, 'runner/heartbeat.json') : null;
       const mode = env.WORKBENCH_RUNNER_MODE === 'manual_cloud' ? 'manual_cloud' : 'self_hosted';
       const configured = Buffer.byteLength(String(env.WORKBENCH_RUNNER_SECRET || '')) >= 32;
@@ -81,7 +82,7 @@ export function createWorkbenchHandlers(options = {}) {
         const instruction = instructionWithControl(text(body.instruction, 12000, true), control), doc = task.source ? await documentFor(store, task.source) : null;
         if (task.source && !doc) throw new ApiError(409, '原业务资料尚未迁移，请先导入选中来源。');
         const run = { id: deps.randomBytesImpl(16).toString('hex'), task_id: task.id, title: task.title, source: task.source, source_hash: doc?.hash || null, source_version: doc?.version || null, instruction, control_snapshot: control, model: 'gpt-6.1-sol', status: 'queued', created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
-        const key = lockKey(run); await putJSON(store, key, { run_id: run.id, at: stamp }, true);
+        await acquireLock(store, run);
         try { return reply(201, { run: await revision(store, 'runs', run, 0), message: '已持久排队；只有执行器领取后才会运行。' }); }
         catch (error) { await releaseLock(store, run); throw error; }
       }
@@ -96,6 +97,7 @@ export function createWorkbenchHandlers(options = {}) {
       }
       if (body.action === 'review') {
         const run = await runFor(store, body.run_id, now, false);
+        if (run.kind === 'inquiry_review') throw new ApiError(409, '询盘处理方案请在网站询盘中审阅。');
         if (run.status !== 'awaiting_review' || body.expected_version !== run.version || !['accept', 'reject'].includes(body.decision)) throw new ApiError(409, '提案版本或审核状态已变化。');
         if (body.decision === 'accept') {
           const doc = run.source ? await documentFor(store, run.source) : null, checked = validateProposal(run, run.result, doc);

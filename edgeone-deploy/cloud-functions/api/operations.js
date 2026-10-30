@@ -1,5 +1,7 @@
-import { ApiError, dependencies, handleError, payload, reply, requireSession, sameOrigin, settings, storeFor } from '../_lib/workbench.js';
+import { ApiError, acquireLock, activeLock, dependencies, handleError, latest, payload, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text } from '../_lib/workbench.js';
 import { OPS_STORE, SOURCE, createOperationsStore, handlingFields, handlingView, reference, safeInquiry, sourceHash } from '../_lib/operations.js';
+import { agentProposal, agentRunView, inquiryContext, inquiryRunFor } from '../_lib/operations-agent.js';
+import { controlFor, instructionWithControl } from '../_lib/workbench-control.js';
 
 export function createOperationsHandlers(options = {}) {
   const deps = dependencies(options);
@@ -10,9 +12,14 @@ export function createOperationsHandlers(options = {}) {
   }
   async function detail(store, ref) {
     const record = await store.source(ref), handling = await store.handling(ref), proposals = await store.proposals(ref);
+    const wb = storeFor(deps), runs = [];
+    for (const id of store.runIds ? await store.runIds(ref) : []) {
+      if (await inquiryRunFor(wb, id, ref)) runs.push(await runFor(wb, id, deps.nowImpl(), false));
+    }
+    runs.sort((a, b) => b.created_at.localeCompare(a.created_at));
     // Decisions live in the same versioned object as handling; immutable proposals remain intact.
     const decisions = handling.decisions || {};
-    return { inquiry: safeInquiry(record, true), handling: handlingView(handling, record), source_hash: sourceHash(record), proposals: proposals.map(p => ({ ...p, decision: decisions[p.id] || null })), source: SOURCE, updated_at: deps.nowImpl().toISOString() };
+    return { inquiry: safeInquiry(record, true), handling: handlingView(handling, record), source_hash: sourceHash(record), proposals: [...proposals.map(p => ({ ...p, decision: decisions[p.id] || null, stale: p.source_hash !== sourceHash(record) || p.handling_version !== handling.version })), ...runs.map(run => agentProposal(run, record, handling)).filter(Boolean)].sort((a, b) => b.created_at.localeCompare(a.created_at)), agent_runs: runs.map(run => agentRunView(run, record, handling)), source: SOURCE, updated_at: deps.nowImpl().toISOString() };
   }
   async function onRequestGet({ request, env = {} }) {
     try {
@@ -35,6 +42,26 @@ export function createOperationsHandlers(options = {}) {
   async function onRequestPost({ request, env = {} }) {
     try {
       await authorize(request, env, true); const body = await payload(request, 20000), store = adapter(), ref = reference(body.reference), record = await store.source(ref), handling = await store.handling(ref), stamp = deps.nowImpl().toISOString();
+      if (body.action === 'enqueue_agent') {
+        if (body.source_hash !== sourceHash(record) || body.expected_version !== handling.version) throw new ApiError(409, '询盘或处理版本已变化，请刷新后重新发起。');
+        const wb = storeFor(deps), control = await controlFor(wb), userInstruction = body.instruction === undefined ? '' : text(body.instruction, 12000), instruction = instructionWithControl(userInstruction || '整理已确认需求、待核信息与下一动作，不外发、不承诺未确认价格/材料/交期', control);
+        const run = { id: deps.randomBytesImpl(16).toString('hex'), kind: 'inquiry_review', task_id: null, title: `网站询盘处理 · ${ref}`, source: null, inquiry_reference: ref, source_hash: sourceHash(record), source_version: null, handling_version: handling.version, inquiry_context: inquiryContext(record, handling), instruction, control_snapshot: control, model: 'gpt-6.1-sol', status: 'queued', version: 0, created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
+        const active = await activeLock(wb, run);
+        if (active.run_id) {
+          const existing = await latest(wb, 'runs', active.run_id);
+          if (existing) {
+            const checked = await runFor(wb, existing.id, deps.nowImpl(), false);
+            if (['queued', 'running'].includes(checked.status)) throw new ApiError(409, '该询盘已有排队或执行中的任务，请先查看或停止。');
+            await releaseLock(wb, checked);
+          } else throw new ApiError(409, '任务正在创建，请稍后刷新。');
+        }
+        await acquireLock(wb, run);
+        try {
+          await store.indexRun(ref, run.id);
+          const saved = await revision(wb, 'runs', run, 0);
+          return reply(201, { run: agentRunView(saved, record, handling), source: SOURCE, message: '已排队，等待指定 Sol 执行；尚未生成或发送处理内容。' });
+        } catch (error) { await releaseLock(wb, run); throw error; }
+      }
       if (body.action === 'prepare') {
         if (body.source_hash !== sourceHash(record) || body.expected_version !== handling.version) throw new ApiError(409, '询盘或处理记录已变化，请刷新后重新准备。');
         if (!['manual', 'rule_assisted'].includes(body.method)) throw new ApiError(400, '请明确选择人工编辑或规则辅助。');
@@ -43,7 +70,8 @@ export function createOperationsHandlers(options = {}) {
       }
       if (body.action === 'review') {
         if (typeof body.proposal_id !== 'string' || !/^[a-f0-9]{32}$/.test(body.proposal_id) || !['accept', 'reject'].includes(body.decision)) throw new ApiError(400, '审阅参数无效。');
-        const proposal = await store.proposal(ref, body.proposal_id);
+        let proposal = await store.proposal(ref, body.proposal_id);
+        if (!proposal) { const run = await inquiryRunFor(storeFor(deps), body.proposal_id, ref); if (run) proposal = agentProposal(run, record, handling); }
         if (!proposal) throw new ApiError(404, '提案不存在。');
         if (handling.decisions?.[proposal.id]) throw new ApiError(409, '该提案已审阅，请刷新。');
         if (body.decision === 'accept' && (proposal.source_hash !== sourceHash(record) || proposal.handling_version !== handling.version)) throw new ApiError(409, '询盘或处理版本已变化，请重新准备。');
