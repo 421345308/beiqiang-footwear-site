@@ -1,3 +1,4 @@
+import { CONTROL_ID, controlFor, importStatus, instructionWithControl, saveControl } from '../_lib/workbench-control.js';
 import { ApiError, SOURCE_PATHS, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, lockKey, normalize, payload, putJSON, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
 
 // Owner attestation plus imported-snapshot equality, never a local filesystem check.
@@ -42,13 +43,15 @@ export function createWorkbenchHandlers(options = {}) {
       }))).filter(Boolean);
       const connected = mode === 'self_hosted' && Boolean(configured && runner && now.getTime() - Date.parse(runner.at) < 150000);
       const runnerStatus = mode === 'manual_cloud' ? (activeSessions.length ? 'manual_cloud_active' : 'manual_cloud_idle') : (connected ? 'online' : 'offline');
-      return reply(200, { goals: await getJSON(store, 'goals/current.json') || { long_term: '', phase: '' }, tasks, runs, capabilities: { model: 'gpt-6.1-sol', local_edit: false, external_actions: false, runner_mode: mode, runner_configured: configured, runner_connected: connected, runner_status: runnerStatus, runner_last_seen: runner?.at || null, runner_active_sessions: activeSessions, storage: 'private_blob', can_accept_proposals: false, source_sync: { mode: 'snapshot_review', connected: false, local_authoritative: true, can_accept_changes: false } }, csrf_token: current.csrf_token });
+      return reply(200, { control: await controlFor(store), status_snapshot: await latest(store, 'status_snapshots', CONTROL_ID), goals: await getJSON(store, 'goals/current.json') || { long_term: '', phase: '' }, tasks, runs, capabilities: { model: 'gpt-6.1-sol', local_edit: false, external_actions: false, runner_mode: mode, runner_configured: configured, runner_connected: connected, runner_status: runnerStatus, runner_last_seen: runner?.at || null, runner_active_sessions: activeSessions, storage: 'private_blob', can_accept_proposals: false, source_sync: { mode: 'snapshot_review', connected: false, local_authoritative: true, can_accept_changes: false } }, csrf_token: current.csrf_token });
     } catch (error) { return handleError(error); }
   }
   async function onRequestPost({ request, env = {} }) {
     try {
       const config = settings(env); sameOrigin(request, config); const store = storeFor(deps), now = deps.nowImpl(); await requireSession(request, config, store, now, true);
       const body = await payload(request, 350000), stamp = now.toISOString();
+      if (body.action === 'save_control') return reply(200, { control: await saveControl(store, body, stamp) });
+      if (body.action === 'import_status') return reply(201, { status_snapshot: await importStatus(store, body, stamp) });
       if (body.action === 'create') {
         const fields = taskFields(body.task);
         if (fields.source && !SOURCE_PATHS.has(fields.source)) throw new ApiError(400, '此资料不在本次工作台迁移范围内。');
@@ -74,9 +77,10 @@ export function createWorkbenchHandlers(options = {}) {
       }
       if (body.action === 'enqueue') {
         const task = await latest(store, 'tasks', identifier(body.task_id)); if (!task) throw new ApiError(404, '任务不存在。');
-        const instruction = text(body.instruction, 12000, true), doc = task.source ? await documentFor(store, task.source) : null;
+        const control = await controlFor(store);
+        const instruction = instructionWithControl(text(body.instruction, 12000, true), control), doc = task.source ? await documentFor(store, task.source) : null;
         if (task.source && !doc) throw new ApiError(409, '原业务资料尚未迁移，请先导入选中来源。');
-        const run = { id: deps.randomBytesImpl(16).toString('hex'), task_id: task.id, title: task.title, source: task.source, source_hash: doc?.hash || null, source_version: doc?.version || null, instruction, model: 'gpt-6.1-sol', status: 'queued', created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
+        const run = { id: deps.randomBytesImpl(16).toString('hex'), task_id: task.id, title: task.title, source: task.source, source_hash: doc?.hash || null, source_version: doc?.version || null, instruction, control_snapshot: control, model: 'gpt-6.1-sol', status: 'queued', created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
         const key = lockKey(run); await putJSON(store, key, { run_id: run.id, at: stamp }, true);
         try { return reply(201, { run: await revision(store, 'runs', run, 0), message: '已持久排队；只有执行器领取后才会运行。' }); }
         catch (error) { await releaseLock(store, run); throw error; }
