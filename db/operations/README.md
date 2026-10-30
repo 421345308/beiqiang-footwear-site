@@ -1,20 +1,20 @@
 # 私有经营数据库
 
-部署选型：Supabase Pro、一个 Micro 项目、新加坡。现有 EdgeOne 网站、负责人登录、客户询盘原件与附件继续使用原服务。本目录只迁共用经营状态，不创建另一套登录或客户副本。选型费用与执行器部署条件统一见经营仓库 `08_工具链/08_经营工作台/PRODUCT.md`。
+部署选型：通用PostgreSQL，优先现有机器开源自建；Supabase付费托管不再是采购前提。现有 EdgeOne 网站、负责人登录、客户询盘原件与附件继续使用原服务。本目录只迁共用经营状态，不创建另一套登录或客户副本。选型费用与执行器部署条件统一见经营仓库 `08_工具链/08_经营工作台/PRODUCT.md`。
 
 ## 已实现与验证范围
 
 `001_private_backend.sql` 建私有 `beiqiang_private` schema、当前对象表、不可覆盖的依据历史、任务/运行/占用索引及迁移批次。业务请求使用同一个事务；版本冲突不会覆盖其他任务。后端通过服务端 PostgreSQL 连接访问，不能把此 schema 加入公开 Data API。
 
-已用隔离 PostgreSQL 验证并发创建、条件更新、回滚、双领取、历史与当前记录一致、鉴权资料隔离、整条询盘处理、备份恢复及真实本机 Sol 结果采纳。尚未创建 Supabase 项目，因此 EdgeOne 到 Supabase 的真实网络、服务商权限与恢复流程仍须在新项目验收。默认 `WORKBENCH_STORAGE=blob` 保持原线上来源，不因代码发布切库。
+已用隔离 PostgreSQL 验证并发创建、条件更新、回滚、双领取、历史与当前记录一致、鉴权资料隔离、整条询盘处理、备份恢复及真实本机 Sol 结果采纳。尚未部署生产数据库，因此 EdgeOne 到所选数据库/业务服务的真实网络、权限与恢复流程仍须在目标环境验收。默认 `WORKBENCH_STORAGE=blob` 保持原线上来源，不因代码发布切库。
 
 ## 服务端配置
 
 | 变量 | 用途 |
 | --- | --- |
 | `WORKBENCH_STORAGE` | `blob` 为现状；完成迁移后改 `postgres` |
-| `WORKBENCH_DATABASE_URL` | 仅服务端保存的数据库连接；优先 Supavisor IPv4 transaction pooler 6543 |
-| `WORKBENCH_DATABASE_CA` | 如项目证书需要，填写 Supabase 提供的可信 CA PEM；不能关闭证书校验 |
+| `WORKBENCH_DATABASE_URL` | 仅服务端保存的数据库连接；Supavisor 6543仅适用于选择Supabase时 |
+| `WORKBENCH_DATABASE_CA` | 如部署证书需要，填写可信 CA PEM；不能关闭证书校验 |
 | `WORKBENCH_DATABASE_MIGRATION_ID` | 已验证迁移批次标识 |
 | `WORKBENCH_MAINTENANCE` | `enabled` 暂停经营读写和领取；负责人登录、原询盘服务保持原流程 |
 | `WORKBENCH_RUNNER_MODE` | 原线上 `manual_cloud`；私有常驻执行器验收后改 `self_hosted` |
@@ -24,7 +24,7 @@
 
 ## 首次迁移
 
-1. 开通项目，核实际地区、收费档、池连接及 CA；先从 EdgeOne 验证连通。用管理员初始化 SQL，为运行角色授予 `beiqiang_backend`，核未授权用户无法读取私有表。
+1. 准备所选自建/托管数据库，核真实资源、私有连接及 CA；先从 EdgeOne 验证连接路径，不能直接暴露未受保护的数据库端口。用管理员初始化 SQL，为运行角色授予 `beiqiang_backend`，核未授权用户无法读取私有表。
 2. 完成一次服务商备份/恢复验证。停止新任务进入，排空已有运行，设置 `WORKBENCH_MAINTENANCE=enabled` 并核接口返回 `BUSINESS_MAINTENANCE`。不要直接删除正在运行的租约。
 3. 受控终端通过环境注入数据库与原 Blob 部署身份 `BEIQIANG_DEPLOY_TOKEN`，执行以下命令。文件必须位于被 Git 忽略的私有目录，Linux 权限 0600；Windows 使用当前用户私有目录与相应 ACL。不得上传导出包。
 
