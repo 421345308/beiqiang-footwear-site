@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import s from "./operations.module.css";
+import type { DispatchReadiness } from "./ExecutionReadiness";
 
 type Fields = { internal_note: string; next_action: string; handling_status: "open" | "handled" };
 type Handling = Fields & { version: number; updated_at?: string; effective_status?: string; pending?: boolean };
@@ -18,7 +19,9 @@ const empty: Fields = { internal_note: "", next_action: "", handling_status: "op
 const labels: Record<keyof Fields, string> = { internal_note: "内部处理意见", next_action: "下一动作", handling_status: "待办状态" };
 const textValue = (key: keyof Fields, value: string) => key === "handling_status" ? value === "handled" ? "本次已处理" : "待处理" : value || "（未填写）";
 
-export default function InquiryOperations({ request, cloudInstruction, active = true, requestedReference, requestKey = 0 }: { request: Request; cloudInstruction: (id: string) => string; active?: boolean; requestedReference?: string; requestKey?: number }) {
+export default function InquiryOperations({ request, cloudInstruction, active = true, requestedReference, requestKey = 0, execution }: { request: Request; cloudInstruction: (id: string) => string; active?: boolean; requestedReference?: string; requestKey?: number; execution?: DispatchReadiness }) {
+  const manualCloud = !execution || execution.mode === "manual_cloud";
+  const autoReady = execution?.mode === "self_hosted" && execution.enabled && execution.ready;
   const [view, setView] = useState<"pending" | "all">("pending");
   const [includeTests, setIncludeTests] = useState(false);
   const [listing, setListing] = useState<Listing | null>(null);
@@ -129,7 +132,7 @@ export default function InquiryOperations({ request, cloudInstruction, active = 
     try {
       const result = await request<{run: AgentRun}>("/api/operations", {action: "enqueue_agent", reference, source_hash: detail.source_hash, expected_version: detail.handling.version, instruction});
       setDetail(previous => previous ? {...previous, agent_runs: [result.run, ...(previous.agent_runs || []).filter(r => r.id !== result.run.id)]} : previous);
-      setNotice("已提交Agent任务。需要启动时，复制云端指令，到官方 Codex Cloud 选择“贝强经营工作台”环境执行。最新进展请看下方实时状态。");
+      setNotice(manualCloud ? "已提交Agent任务。需要启动时，复制云端指令，到官方 Codex Cloud 选择“贝强经营工作台”环境执行。最新进展请看下方实时状态。" : "已提交Agent任务。最新领取、运行与结果请看下方实时状态。");
     } catch (error) { setNotice(error instanceof Error ? error.message : "排队失败，请刷新状态后核实。"); }
     finally { actionLock.current = false; if (mounted.current) setBusy(false); }
   };
@@ -209,11 +212,11 @@ export default function InquiryOperations({ request, cloudInstruction, active = 
           <hr/><section className={s.agent} aria-label="Agent处理方案"><h3>让Agent准备方案</h3><p className={s.help}>Agent根据这条询盘及当前处理版本分析，只生成内部方案；你审阅采纳后才保存，不自动发信。人工输入另行保留，不会随状态刷新被覆盖。</p>
             <label htmlFor="ops-instruction">本次补充要求（可选）</label><textarea id="ops-instruction" value={instruction} maxLength={4000} rows={2} disabled={busy} onChange={event => setInstruction(event.target.value)} placeholder="例如：先列出需要确认的供货条件和下一步…"/>
             <button className={s.primary} disabled={busy || sourceChanged || activeRuns.length > 0} onClick={() => void enqueueAgent()}>让Agent准备方案</button>
-            <p className={s.help}>排队不等于开始；当前通过复制指令人工启动官方 Cloud。运行状态每5秒更新，返回页面时也会重新核实。</p>
+            <p className={s.help}>{manualCloud ? "排队不等于开始；当前通过复制指令人工启动官方 Cloud。" : autoReady ? "自动领取已就绪；排队不等于开始，以执行器实际领取为准。" : "自动领取尚未就绪；任务会保存排队，当前限制见任务执行页。"}运行状态每5秒更新，返回页面时也会重新核实。</p>
             {(detail.agent_runs || []).map(run => <article className={s.agentRun} key={run.id}><div className={s.row}><strong>{runLabels[run.status] || run.status}</strong><span>{run.model || "gpt-6.1-sol"}</span></div><small>运行 {run.id} · {when(run.updated_at || run.created_at)}</small>
-              {run.status === "queued" && <p>尚未开始。请复制指令后到官方 Cloud 启动。</p>}{run.status === "running" && <p>已被执行器领取，正在分析；等待正式结果回传。</p>}
+              {run.status === "queued" && <p>{manualCloud ? "尚未开始。请复制指令后到官方 Cloud 启动。" : autoReady ? "排队等候执行器自动领取，尚未开始。" : "已保存排队，等待执行条件就绪。"}</p>}{run.status === "running" && <p>已被执行器领取，正在分析；等待正式结果回传。</p>}
               {run.summary && <p>{run.summary}</p>}{run.error && <p className={s.error}>{run.error}</p>}{["failed", "interrupted"].includes(run.status) && <p className={s.error}>本次未形成可采纳结果。请核实原因后重新准备，原处理记录保留。</p>}{run.stale && ["queued", "running", "awaiting_review"].includes(run.status) && <p className={s.error}>来源或处理版本已变化，此运行的旧方案不能直接采纳。</p>}
-              <div className={s.actions}>{run.status === "queued" && <button disabled={busy} onClick={() => void copyCloud(run.id)}>复制云端执行指令</button>}{["queued", "running"].includes(run.status) && <button disabled={busy} onClick={() => void cancelRun(run.id)}>{run.status === "queued" ? "取消排队" : "停止本次运行"}</button>}{detail.proposals.some(p => p.id === run.id && !p.decision) && <button disabled={busy} onClick={() => { const item = detail.proposals.find(p => p.id === run.id); if (item) previewProposal(item); }}>查看Agent方案</button>}</div>
+              <div className={s.actions}>{manualCloud && run.status === "queued" && <button disabled={busy} onClick={() => void copyCloud(run.id)}>复制云端执行指令</button>}{["queued", "running"].includes(run.status) && <button disabled={busy} onClick={() => void cancelRun(run.id)}>{run.status === "queued" ? "取消排队" : "停止本次运行"}</button>}{detail.proposals.some(p => p.id === run.id && !p.decision) && <button disabled={busy} onClick={() => { const item = detail.proposals.find(p => p.id === run.id); if (item) previewProposal(item); }}>查看Agent方案</button>}</div>
             </article>)}
             {cloudText && <label className={s.cloudCopy}>完整云端执行指令<textarea readOnly rows={10} value={cloudText} onFocus={event => event.target.select()}/><button onClick={() => setCloudText("")}>收起指令</button></label>}
           </section><hr/><h3>人工整理处理意见</h3><p className={s.help}>这些是内部经营记录；“本次已处理”不代表已发信或已成交。原需求出现新变化后会重新进入待办。</p>

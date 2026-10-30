@@ -1,3 +1,5 @@
+import { unifiedTasks, dispatchReadiness } from '../_lib/task-service.js';
+import { businessHandlers } from '../_lib/business-storage.js';
 import { CONTROL_ID, controlFor, importStatus, instructionWithControl, saveControl } from '../_lib/workbench-control.js';
 import { ownerRunView } from '../_lib/operations-agent.js';
 import { ApiError, SOURCE_PATHS, acquireLock, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, normalize, payload, putJSON, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
@@ -20,6 +22,7 @@ function taskFields(input = {}) {
   return { title: text(input.title, 240, true), status: typeof input.status === 'string' ? text(input.status, 80) : '待开始', owner: typeof input.owner === 'string' ? text(input.owner, 240) : '管理员', result: typeof input.result === 'string' ? text(input.result, 12000) : '', next: typeof input.next === 'string' ? text(input.next, 12000) : '', dependency: typeof input.dependency === 'string' ? text(input.dependency, 4000) : '', source: typeof input.source === 'string' ? text(input.source, 500) : '', evidence: [] };
 }
 export function createWorkbenchHandlers(options = {}) {
+  if (!options.businessContext) return businessHandlers(options, createWorkbenchHandlers);
   const deps = dependencies(options);
   async function onRequestGet({ request, env = {} }) {
     try {
@@ -44,8 +47,8 @@ export function createWorkbenchHandlers(options = {}) {
       }))).filter(Boolean);
       const connected = mode === 'self_hosted' && Boolean(configured && runner && now.getTime() - Date.parse(runner.at) < 150000);
       const runnerStatus = mode === 'manual_cloud' ? (activeSessions.length ? 'manual_cloud_active' : 'manual_cloud_idle') : (connected ? 'online' : 'offline');
-      return reply(200, { control: await controlFor(store), status_snapshot: await latest(store, 'status_snapshots', CONTROL_ID), goals: await getJSON(store, 'goals/current.json') || { long_term: '', phase: '' }, tasks, runs, capabilities: { model: 'gpt-6.1-sol', local_edit: false, external_actions: false, runner_mode: mode, runner_configured: configured, runner_connected: connected, runner_status: runnerStatus, runner_last_seen: runner?.at || null, runner_active_sessions: activeSessions, storage: 'private_blob', can_accept_proposals: false, source_sync: { mode: 'snapshot_review', connected: false, local_authoritative: true, can_accept_changes: false } }, csrf_token: current.csrf_token });
-    } catch (error) { return handleError(error); }
+      return reply(200, { control: await controlFor(store), status_snapshot: await latest(store, 'status_snapshots', CONTROL_ID), goals: await getJSON(store, 'goals/current.json') || { long_term: '', phase: '' }, tasks, runs, unified_tasks: await unifiedTasks(deps, tasks, runs), capabilities: { backend: options.backend, dispatch: await dispatchReadiness(deps, env, now), model: 'gpt-6.1-sol', local_edit: false, external_actions: false, runner_mode: mode, runner_configured: configured, runner_connected: connected, runner_status: runnerStatus, runner_last_seen: runner?.at || null, runner_active_sessions: activeSessions, storage: options.backend?.kind || 'private_blob', can_accept_proposals: false, source_sync: { mode: 'snapshot_review', connected: false, local_authoritative: true, can_accept_changes: false } }, csrf_token: current.csrf_token });
+    } catch (error) { if (options.transactional) throw error; return handleError(error); }
   }
   async function onRequestPost({ request, env = {} }) {
     try {
@@ -107,7 +110,7 @@ export function createWorkbenchHandlers(options = {}) {
         return reply(200, { run: updated, message: body.decision === 'accept' ? '已确认无需原文修改的结论；本地原资料未改变。' : '已拒绝，提案和证据保留。' });
       }
       throw new ApiError(400, '未知工作台操作。');
-    } catch (error) { return handleError(error); }
+    } catch (error) { if (options.transactional) throw error; return handleError(error); }
   }
   return { onRequestGet, onRequestPost };
 }

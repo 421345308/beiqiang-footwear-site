@@ -70,7 +70,7 @@ function fixture() {
     async list({ prefix, limit = Infinity }) { return { blobs: [...data.keys()].filter(key => key.startsWith(prefix)).slice(0, limit).map(key => ({ key })) }; },
     createUploadUrl() { assert.fail('Private workbench must never sign a public object URL'); },
   };
-  const deps = { getStoreImpl(options) { assert.deepEqual(options, { name: STORE_NAME, consistency: 'strong' }); return store; }, nowImpl: () => date, createTransportImpl: () => ({ async sendMail(message) { mail.push(message); }, close() {} }) };
+  const deps = { getStoreImpl(options) { if (['beiqiang-inquiries', 'beiqiang-operations-v1'].includes(options.name)) return {async get(){return null;},async list(){return {blobs:[]};}}; assert.deepEqual(options, { name: STORE_NAME, consistency: 'strong' }); return store; }, nowImpl: () => date, createTransportImpl: () => ({ async sendMail(message) { mail.push(message); }, close() {} }) };
   const auth = createWorkbenchAuthHandlers(deps), api = createWorkbenchHandlers(deps), runner = createWorkbenchRunnerHandler(deps);
   async function request(handler, body, { cookie, csrf, origin = ORIGIN, requestOrigin = ORIGIN, fetchSite, contentType = 'application/json', forwardedHost, method = 'POST', path = '/api/workbench', bearer, customEnv = env } = {}) {
     const headers = { 'content-type': contentType }; if (origin !== null) headers.origin = origin; if (cookie) headers.cookie = cookie; if (csrf) headers['x-workbench-token'] = csrf; if (bearer) headers.authorization = `Bearer ${bearer}`; if (fetchSite) headers['sec-fetch-site'] = fetchSite; if (forwardedHost) headers['x-forwarded-host'] = forwardedHost;

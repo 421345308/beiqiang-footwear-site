@@ -1,10 +1,13 @@
+import { businessHandlers } from '../_lib/business-storage.js';
 import { ApiError, acquireLock, activeLock, dependencies, handleError, latest, payload, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text } from '../_lib/workbench.js';
 import { OPS_STORE, SOURCE, createOperationsStore, handlingFields, handlingView, reference, safeInquiry, sourceHash } from '../_lib/operations.js';
 import { agentProposal, agentRunView, inquiryContext, inquiryRunFor } from '../_lib/operations-agent.js';
 import { controlFor, instructionWithControl } from '../_lib/workbench-control.js';
 
 export function createOperationsHandlers(options = {}) {
+  if (!options.businessContext) return businessHandlers(options, createOperationsHandlers);
   const deps = dependencies(options);
+  const sourceInfo = { ...SOURCE, backend: options.backend?.kind || 'private_blob', postgres: options.backend?.kind === 'postgres' };
   const adapter = () => options.adapter || createOperationsStore({ inquiryStore: deps.getStoreImpl({ name: 'beiqiang-inquiries', consistency: 'strong' }), opsStore: deps.getStoreImpl({ name: OPS_STORE, consistency: 'strong' }) });
   async function authorize(request, env, write = false) {
     const config = settings(env); if (write) sameOrigin(request, config);
@@ -19,7 +22,7 @@ export function createOperationsHandlers(options = {}) {
     runs.sort((a, b) => b.created_at.localeCompare(a.created_at));
     // Decisions live in the same versioned object as handling; immutable proposals remain intact.
     const decisions = handling.decisions || {};
-    return { inquiry: safeInquiry(record, true), handling: handlingView(handling, record), source_hash: sourceHash(record), proposals: [...proposals.map(p => ({ ...p, decision: decisions[p.id] || null, stale: p.source_hash !== sourceHash(record) || p.handling_version !== handling.version })), ...runs.map(run => agentProposal(run, record, handling)).filter(Boolean)].sort((a, b) => b.created_at.localeCompare(a.created_at)), agent_runs: runs.map(run => agentRunView(run, record, handling)), source: SOURCE, updated_at: deps.nowImpl().toISOString() };
+    return { inquiry: safeInquiry(record, true), handling: handlingView(handling, record), source_hash: sourceHash(record), proposals: [...proposals.map(p => ({ ...p, decision: decisions[p.id] || null, stale: p.source_hash !== sourceHash(record) || p.handling_version !== handling.version })), ...runs.map(run => agentProposal(run, record, handling)).filter(Boolean)].sort((a, b) => b.created_at.localeCompare(a.created_at)), agent_runs: runs.map(run => agentRunView(run, record, handling)), source: sourceInfo, updated_at: deps.nowImpl().toISOString() };
   }
   async function onRequestGet({ request, env = {} }) {
     try {
@@ -36,8 +39,8 @@ export function createOperationsHandlers(options = {}) {
       items.sort((a, b) => String(b.updatedAt || b.receivedAt || '').localeCompare(String(a.updatedAt || a.receivedAt || '')) || a.reference.localeCompare(b.reference));
       const includeTests = url.searchParams.get('include_tests') === '1', visible = includeTests ? items : items.filter(item => !item.internalTest);
       const all = url.searchParams.get('view') === 'all' || url.searchParams.get('status') === 'all', filtered = all ? visible : visible.filter(item => item.pending);
-      return reply(200, { items: filtered.slice(cursor, cursor + limit), total: filtered.length, source_total: items.length, test_total: items.filter(item => item.internalTest).length, pending_total: visible.filter(item => item.pending).length, pagecursor: cursor + limit < filtered.length ? String(cursor + limit) : null, source: SOURCE, updated_at: deps.nowImpl().toISOString(), csrf_token: current.csrf_token });
-    } catch (error) { return handleError(error); }
+      return reply(200, { items: filtered.slice(cursor, cursor + limit), total: filtered.length, source_total: items.length, test_total: items.filter(item => item.internalTest).length, pending_total: visible.filter(item => item.pending).length, pagecursor: cursor + limit < filtered.length ? String(cursor + limit) : null, source: sourceInfo, updated_at: deps.nowImpl().toISOString(), csrf_token: current.csrf_token });
+    } catch (error) { if (options.transactional) throw error; return handleError(error); }
   }
   async function onRequestPost({ request, env = {} }) {
     try {
@@ -59,14 +62,14 @@ export function createOperationsHandlers(options = {}) {
         try {
           await store.indexRun(ref, run.id);
           const saved = await revision(wb, 'runs', run, 0);
-          return reply(201, { run: agentRunView(saved, record, handling), source: SOURCE, message: '已排队，等待指定 Sol 执行；尚未生成或发送处理内容。' });
+          return reply(201, { run: agentRunView(saved, record, handling), source: sourceInfo, message: '已排队，等待指定 Sol 执行；尚未生成或发送处理内容。' });
         } catch (error) { await releaseLock(wb, run); throw error; }
       }
       if (body.action === 'prepare') {
         if (body.source_hash !== sourceHash(record) || body.expected_version !== handling.version) throw new ApiError(409, '询盘或处理记录已变化，请刷新后重新准备。');
         if (!['manual', 'rule_assisted'].includes(body.method)) throw new ApiError(400, '请明确选择人工编辑或规则辅助。');
         const proposal = { id: deps.randomBytesImpl(16).toString('hex'), reference: ref, source_hash: sourceHash(record), handling_version: handling.version, fields: handlingFields(body.fields), method: body.method, generated_by_ai: false, created_at: stamp };
-        await store.saveProposal(proposal); return reply(201, { proposal, source: SOURCE });
+        await store.saveProposal(proposal); return reply(201, { proposal, source: sourceInfo });
       }
       if (body.action === 'review') {
         if (typeof body.proposal_id !== 'string' || !/^[a-f0-9]{32}$/.test(body.proposal_id) || !['accept', 'reject'].includes(body.decision)) throw new ApiError(400, '审阅参数无效。');
@@ -82,10 +85,10 @@ export function createOperationsHandlers(options = {}) {
         const next = { ...handling, ...(body.decision === 'accept' ? proposal.fields : {}), reference: ref, version: handling.version + 1, updated_at: stamp, decisions: { ...(handling.decisions || {}), [proposal.id]: decision } };
         if (body.decision === 'accept') next.handled_source_hash = proposal.fields.handling_status === 'handled' ? proposal.source_hash : null;
         await store.commit(next);
-        return reply(200, { handling: handlingView(next, record), proposal: { ...proposal, decision }, source: SOURCE, message: body.decision === 'accept' ? '内部处理已保存；未发送消息。' : '已拒绝提案；原询盘未改变。' });
+        return reply(200, { handling: handlingView(next, record), proposal: { ...proposal, decision }, source: sourceInfo, message: body.decision === 'accept' ? '内部处理已保存；未发送消息。' : '已拒绝提案；原询盘未改变。' });
       }
       throw new ApiError(400, '未知运营操作。');
-    } catch (error) { return handleError(error); }
+    } catch (error) { if (options.transactional) throw error; return handleError(error); }
   }
   return { onRequestGet, onRequestPost };
 }

@@ -56,14 +56,20 @@ export function text(value, max, required = false) {
 export function identifier(value) { if (typeof value !== 'string' || !/^[a-f0-9]{32}$/.test(value)) throw new ApiError(400, '记录编号无效。'); return value; }
 export function versionKey(kind, id, version) { return `${kind}/${id}/${String(version).padStart(8, '0')}.json`; }
 export async function latest(store, kind, id) {
+  if (store.latest) return store.latest(kind, id);
   const all = await records(store, `${kind}/${id}/`, 1000); return all.sort((a, b) => b.version - a.version)[0] || null;
 }
 export async function allLatest(store, kind) {
+  if (store.allLatest) return store.allLatest(kind);
   const all = await records(store, `${kind}/`, 3000), map = new Map();
   for (const item of all) if (!map.has(item.id) || map.get(item.id).version < item.version) map.set(item.id, item);
   return [...map.values()].sort((a, b) => (b.updated_at || '').localeCompare(a.updated_at || ''));
 }
 export async function revision(store, kind, item, expected) {
+  if (store.revision) {
+    try { return await store.revision(kind, item, expected); }
+    catch (error) { if (error?.code === 'PRECONDITION_FAILED') throw new ApiError(409, '资料版本已变化，请刷新。'); throw error; }
+  }
   const current = await latest(store, kind, item.id);
   if ((current?.version || 0) !== expected) throw new ApiError(409, '资料版本已变化，请刷新。');
   const next = { ...item, version: expected + 1 }; await putJSON(store, versionKey(kind, item.id, next.version), next, true); return next;
@@ -98,7 +104,9 @@ const lockId = run => hash(run.kind === 'inquiry_review' ? `inquiry:${run.inquir
 // Legacy keys are read only. The first append-only lock version supersedes them.
 export const lockKey = run => `active/${lockId(run)}.json`;
 export async function activeLock(store, run) {
-  const id = lockId(run), prefix = `object_locks/${id}/`; let cursor, newest = null; const seen = new Set();
+  const id = lockId(run);
+  if (store.latest) return await store.latest('object_locks', id) || { ...(await getJSON(store, lockKey(run)) || {run_id: null}), id, version: 0 };
+  const prefix = `object_locks/${id}/`; let cursor, newest = null; const seen = new Set();
   do {
     const page = await store.list({ prefix, limit: 200, paginate: false, consistency: 'strong', ...(cursor ? { cursor } : {}) });
     for (const { key } of page.blobs || []) if (!newest || key > newest) newest = key;

@@ -1,8 +1,10 @@
+import { businessRequest } from '../_lib/business-storage.js';
 import { ApiError, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, payload, putJSON, releaseLock, reply, revision, runFor, safeEqual, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
 import { isInquiryRun, validateInquiryBinding, validateInquiryResult } from '../_lib/operations-agent.js';
 
 const LEASE_MS = 10 * 60000;
 export function createWorkbenchRunnerHandler(options = {}) {
+  if (!options.businessContext) return context => businessRequest(context, options, scoped => ({onRequestPost: createWorkbenchRunnerHandler(scoped)}), 'onRequestPost', 'runner');
   const deps = dependencies(options);
   return async function onRequestPost({ request, env = {} }) {
     try {
@@ -12,7 +14,9 @@ export function createWorkbenchRunnerHandler(options = {}) {
       if (!safeEqual(authorization, `Bearer ${env.WORKBENCH_RUNNER_SECRET}`)) throw new ApiError(401, '执行器身份无效。');
       if ((request.headers.get('content-type') || '').split(';')[0] !== 'application/json') throw new ApiError(415, '请求必须使用JSON。');
       const body = await payload(request, 150000), store = storeFor(deps), now = deps.nowImpl(), stamp = now.toISOString();
-      await putJSON(store, 'runner/heartbeat.json', { at: stamp });
+      const priorHeartbeat = await getJSON(store, 'runner/heartbeat.json');
+      const caps = body.action === 'heartbeat' && !body.run_id && body.capabilities;
+      await putJSON(store, 'runner/heartbeat.json', { at: stamp, ...(priorHeartbeat?.capabilities ? { capabilities: priorHeartbeat.capabilities } : {}), ...(caps ? {capabilities: {ready: caps.ready === true, auth: caps.auth === 'chatgpt' ? 'chatgpt' : 'unknown', model: caps.model === 'gpt-6.1-sol' ? caps.model : 'unknown'}} : {}) });
       if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp });
       if (body.action === 'status') {
         const run = await runFor(store, identifier(body.run_id), now, false);
@@ -22,6 +26,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
       if (body.action === 'claim') {
         const targeted = Object.hasOwn(body, 'run_id');
         if (env.WORKBENCH_RUNNER_MODE === 'manual_cloud' && !targeted) throw new ApiError(400, '手动云任务必须指定run_id，不能领取其他排队任务。');
+        if (!targeted && (env.WORKBENCH_AUTODISPATCH !== 'enabled' || priorHeartbeat?.capabilities?.ready !== true || priorHeartbeat?.capabilities?.auth !== 'chatgpt' || priorHeartbeat?.capabilities?.model !== 'gpt-6.1-sol')) throw new ApiError(409, '自动领取尚未启用或执行器尚未通过登录预检。');
         let queued;
         if (targeted) {
           const selected = await latest(store, 'runs', identifier(body.run_id));
@@ -42,6 +47,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
             if (error instanceof ApiError && [404, 409].includes(error.status)) {
               const failed = await revision(store, 'runs', { ...run, status: 'failed', error: '任务来源或处理版本已变化，请重新发起。', updated_at: stamp }, run.version);
               await releaseLock(store, failed); if (!targeted) continue;
+              return reply(409, {error: failed.error});
             }
             throw error;
           }
@@ -79,7 +85,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
         const updated = await revision(store, 'runs', { ...run, status: 'failed', error: text(body.error, 4000, true), updated_at: stamp }, run.version); await releaseLock(store, run); return reply(200, { run: updated });
       }
       throw new ApiError(400, '未知执行器操作。');
-    } catch (error) { return handleError(error); }
+    } catch (error) { if (options.transactional) throw error; return handleError(error); }
   };
 }
 export const onRequestPost = createWorkbenchRunnerHandler();

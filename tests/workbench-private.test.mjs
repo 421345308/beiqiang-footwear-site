@@ -9,7 +9,7 @@ const ORIGIN = 'https://workbench.example.com';
 const SOURCE = '00_总控台/当前状态.md';
 function fixture() {
   let date = new Date('2026-10-29T00:00:00Z'); const data = new Map(), writes = [], mail = [];
-  const env = { WORKBENCH_OWNER_EMAIL: 'owner@example.com', WORKBENCH_SESSION_SECRET: 'fixture-only-32-byte-session-secret-long', WORKBENCH_RUNNER_SECRET: 'fixture-only-32-byte-runner-secret-long', WORKBENCH_ORIGIN: ORIGIN, SMTP_PASS: 'test-not-a-real-smtp-credential', SMTP_USER: 'sender@example.com' };
+  const env = { WORKBENCH_AUTODISPATCH: 'enabled', WORKBENCH_OWNER_EMAIL: 'owner@example.com', WORKBENCH_SESSION_SECRET: 'fixture-only-32-byte-session-secret-long', WORKBENCH_RUNNER_SECRET: 'fixture-only-32-byte-runner-secret-long', WORKBENCH_ORIGIN: ORIGIN, SMTP_PASS: 'test-not-a-real-smtp-credential', SMTP_USER: 'sender@example.com' };
   const store = {
     async get(key) { return structuredClone(data.get(key) ?? null); },
     async setJSON(key, value, options) { if (options.onlyIfNew && data.has(key)) { const error = new Error('conditional conflict'); error.code = 'PRECONDITION_FAILED'; throw error; } writes.push({ key, options }); data.set(key, structuredClone(value)); },
@@ -17,7 +17,7 @@ function fixture() {
     async list({ prefix, limit = Infinity }) { return { blobs: [...data.keys()].filter(key => key.startsWith(prefix)).slice(0, limit).map(key => ({ key })) }; },
     createUploadUrl() { assert.fail('Private workbench must never sign a public object URL'); },
   };
-  const deps = { getStoreImpl(options) { assert.deepEqual(options, { name: STORE_NAME, consistency: 'strong' }); return store; }, nowImpl: () => date, createTransportImpl: () => ({ async sendMail(message) { mail.push(message); }, close() {} }) };
+  const deps = { getStoreImpl(options) { if (['beiqiang-inquiries', 'beiqiang-operations-v1'].includes(options.name)) return {async get(){return null;},async list(){return {blobs:[]};}}; assert.deepEqual(options, { name: STORE_NAME, consistency: 'strong' }); return store; }, nowImpl: () => date, createTransportImpl: () => ({ async sendMail(message) { mail.push(message); }, close() {} }) };
   const auth = createWorkbenchAuthHandlers(deps), api = createWorkbenchHandlers(deps), runner = createWorkbenchRunnerHandler(deps);
   async function request(handler, body, { cookie, csrf, origin = ORIGIN, requestOrigin = ORIGIN, fetchSite, contentType = 'application/json', forwardedHost, method = 'POST', path = '/api/workbench', bearer, customEnv = env } = {}) {
     const headers = { 'content-type': contentType }; if (origin !== null) headers.origin = origin; if (cookie) headers.cookie = cookie; if (csrf) headers['x-workbench-token'] = csrf; if (bearer) headers.authorization = `Bearer ${bearer}`; if (fetchSite) headers['sec-fetch-site'] = fetchSite; if (forwardedHost) headers['x-forwarded-host'] = forwardedHost;
@@ -30,7 +30,7 @@ function fixture() {
     return { cookie: verified.cookie.split(';')[0], csrf: verified.body.csrf_token, token, verified };
   }
   const call = (body, options) => request(api.onRequestPost, body, options);
-  const run = body => request(runner, body, { bearer: env.WORKBENCH_RUNNER_SECRET });
+  const run = async body => { if (body.action === 'claim' && !body.run_id) await request(runner, {action:'heartbeat',capabilities:{ready:true,model:'gpt-6.1-sol',auth:'chatgpt'}}, {bearer:env.WORKBENCH_RUNNER_SECRET}); return request(runner, body, { bearer: env.WORKBENCH_RUNNER_SECRET }); };
   return { env, data, writes, mail, store, auth, api, runner, request, login, call, run, advance(ms) { date = new Date(date.getTime() + ms); } };
 }
 

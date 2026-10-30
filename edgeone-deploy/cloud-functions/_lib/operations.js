@@ -32,10 +32,12 @@ export function createOperationsStore({ inquiryStore, opsStore }) {
       if (!record || record.reference !== ref) throw new ApiError(404, '询盘不存在。'); return record;
     },
     async handling(ref) {
+      if (opsStore.latest) return await opsStore.latest('handling', reference(ref)) || { reference: ref, version: 0, internal_note: '', next_action: '', handling_status: 'open', updated_at: null };
       const keys = await allKeys(opsStore, `handling/${reference(ref)}/`);
       const last = keys.sort().at(-1); return last ? await getJSON(opsStore, last) : { reference: ref, version: 0, internal_note: '', next_action: '', handling_status: 'open', updated_at: null };
     },
     async listHandlings() {
+      if (opsStore.allLatest) return new Map((await opsStore.allLatest('handling')).map(item => [item.reference, item]));
       const keys = await allKeys(opsStore, 'handling/'), latest = new Map(), result = new Map();
       for (const key of keys) { const ref = key.split('/')[1]; if (!latest.has(ref) || latest.get(ref) < key) latest.set(ref, key); }
       const selected = [...latest.entries()];
