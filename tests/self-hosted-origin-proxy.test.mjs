@@ -138,3 +138,35 @@ test('SCF compatibility rejects spoofed platform headers without runtime markers
     if (saved.name === undefined) delete process.env.SCF_FUNCTIONNAME; else process.env.SCF_FUNCTIONNAME = saved.name;
   }
 });
+
+
+test('EdgeOne parsed body shadow/Promise does not replace original JSON, multipart or binary bytes', async () => {
+  let captured;
+  const proxy = createUnifiedOriginProxy({ requestImpl: (_target, options, callback) => {
+    const request = new EventEmitter(); request.destroy = () => {};
+    request.end = body => { captured = { body, options }; const response = new EventEmitter(); response.headers = {}; response.statusCode = 401; callback(response); response.emit('end'); };
+    return request;
+  } });
+  for (const { contentType, raw, parsed } of [
+    { contentType: 'application/json', raw: Buffer.from('{  "action" : "verify", "label": "保留字节" }'), parsed: Promise.resolve({ action: 'verify', label: '保留字节' }) },
+    { contentType: 'application/json', raw: Buffer.from('{ "action": "logout" }'), parsed: { action: 'logout' } },
+    { contentType: 'multipart/form-data; boundary=exact-boundary', raw: Buffer.concat([Buffer.from('--exact-boundary\r\nContent-Disposition: form-data; name="file"; filename="proof.bin"\r\nContent-Type: application/octet-stream\r\n\r\n'), Buffer.from([0, 255, 3]), Buffer.from('\r\n--exact-boundary--\r\n')]), parsed: Promise.resolve({ file: 'platform-parsed-form' }) },
+    { contentType: 'application/pdf', raw: Buffer.from([0, 255, 12, 13, 10]), parsed: Buffer.from([0, 255, 12, 13, 10]) },
+  ]) {
+    const request = new Request(`${publicUrl}/api/storage-upload?token=isolated`, { method: 'PUT', headers: { 'content-type': contentType }, body: raw });
+    Object.defineProperty(request, 'body', { get: () => parsed, configurable: true });
+    const response = await proxy({ env: environment, request });
+    assert.equal(response.status, 401); assert.deepEqual(captured.body, raw); assert.equal(captured.options.headers['content-type'], contentType); assert.equal(captured.options.headers['content-length'], String(raw.length));
+  }
+});
+
+test('EdgeOne body-shadow path still enforces byte limit and rejects underlying stream failure', async () => {
+  let calls = 0;
+  const proxy = createUnifiedOriginProxy({ maxBodyBytes: 3, requestImpl: () => { calls++; throw new Error('must not send invalid body'); } });
+  const request = new Request(`${publicUrl}/api/events`, { method: 'POST', body: '1234' });
+  Object.defineProperty(request, 'body', { get: () => Promise.resolve({}), configurable: true });
+  assert.equal((await proxy({ env: environment, request })).status, 413);
+  const broken = new Request(`${publicUrl}/api/events`, { method: 'POST', body: new ReadableStream({ start(controller) { controller.error(new Error('broken source')); } }), duplex: 'half' });
+  Object.defineProperty(broken, 'body', { get: () => Promise.resolve({}), configurable: true });
+  assert.equal((await proxy({ env: environment, request: broken })).status, 400); assert.equal(calls, 0);
+});

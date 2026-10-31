@@ -44,7 +44,11 @@ export function createUnifiedOriginProxy({ requestImpl = https.request, timeoutM
     const chunks = []; let size = 0;
     if (Number(request.headers.get('content-length')) > maxBodyBytes) return failure(413, 'Request too large');
     try {
-      if (request.body) for await (const chunk of request.body) { size += chunk.byteLength; if (size > maxBodyBytes) return failure(413, 'Request too large'); chunks.push(Buffer.from(chunk)); }
+      // EdgeOne shadows request.body with parsed JSON/form data (or its
+      // Promise). Read the standard Web Request stream through its prototype
+      // accessor so bytes, multipart boundaries and size checks stay intact.
+      const rawBody = Reflect.get(Request.prototype, 'body', request);
+      if (rawBody) for await (const chunk of rawBody) { size += chunk.byteLength; if (size > maxBodyBytes) return failure(413, 'Request too large'); chunks.push(Buffer.from(chunk)); }
     } catch { return failure(400, 'Invalid request body'); }
     const body = Buffer.concat(chunks); if (body.length) headers['content-length'] = String(body.length);
     return new Promise(resolve => {
