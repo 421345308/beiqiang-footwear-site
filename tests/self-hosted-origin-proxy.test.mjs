@@ -91,16 +91,50 @@ test('real private-CA TLS validates SAN and trusted CA, rejects wrong CA without
 });
 
 
-test('origin rejection diagnoses runtime hostname without query/cookies and never trusts spoofed forwarding headers', async () => {
+test('production SCF internal HTTP URL forwards only with reserved runtime markers and overwritten allowlisted ingress host', async () => {
+  const saved = { run: process.env.TENCENTCLOUD_RUNENV, name: process.env.SCF_FUNCTIONNAME };
+  process.env.TENCENTCLOUD_RUNENV = 'SCF'; process.env.SCF_FUNCTIONNAME = 'isolated-function';
+  try {
+    let captured;
+    const proxy = createUnifiedOriginProxy({ requestImpl: (target, options, callback) => {
+      captured = { target, options };
+      const request = new EventEmitter(); request.destroy = () => {};
+      request.end = () => { const incoming = new EventEmitter(); incoming.headers = {}; incoming.statusCode = 401; callback(incoming); incoming.emit('data', Buffer.from('authentication required')); incoming.emit('end'); };
+      return request;
+    } });
+    const request = new Request('http://pages-pro-13-b3ec.pages-scf-sg-pro.qcloudteo.com/api/workbench?run_id=example', { headers: { 'eo-pages-host': 'www.beiqiang.online', 'x-forwarded-host': 'attacker.invalid', 'x-forwarded-proto': 'http', origin: publicUrl, cookie: 'session=protected', 'x-workbench-token': 'csrf-proof' } });
+    const response = await proxy({ env: environment, request });
+    assert.equal(response.status, 401); assert.equal(response.headers.has('x-beiqiang-origin-check'), false);
+    assert.equal(captured.target.protocol, 'https:'); assert.equal(captured.target.pathname, '/api/workbench'); assert.equal(captured.target.search, '?run_id=example');
+    assert.equal(captured.options.headers['x-forwarded-host'], 'www.beiqiang.online'); assert.equal(captured.options.headers['x-forwarded-proto'], 'https');
+    assert.equal(captured.options.headers.origin, publicUrl); assert.equal(captured.options.headers.cookie, 'session=protected'); assert.equal(captured.options.headers['x-workbench-token'], 'csrf-proof');
+    assert.equal(captured.options.headers['x-beiqiang-proxy-secret'], environment.SELF_HOSTED_PROXY_SECRET); assert.equal(captured.options.rejectUnauthorized, true); assert.equal(captured.options.checkServerIdentity, checkServerIdentity);
+  } finally {
+    if (saved.run === undefined) delete process.env.TENCENTCLOUD_RUNENV; else process.env.TENCENTCLOUD_RUNENV = saved.run;
+    if (saved.name === undefined) delete process.env.SCF_FUNCTIONNAME; else process.env.SCF_FUNCTIONNAME = saved.name;
+  }
+});
+
+test('SCF compatibility rejects spoofed platform headers without runtime markers, wrong hosts, suffix tricks and invalid ingress values', async () => {
+  const saved = { run: process.env.TENCENTCLOUD_RUNENV, name: process.env.SCF_FUNCTIONNAME };
   let calls = 0;
   const proxy = createUnifiedOriginProxy({ requestImpl: () => { calls++; throw new Error('must not reach backend'); } });
-  const request = new Request('http://localhost:9000/api/workbench?token=private-query', { headers: { 'eo-pages-host': 'www.beiqiang.online', 'x-forwarded-host': 'www.beiqiang.online', 'x-forwarded-proto': 'https', cookie: 'private-cookie=value' } });
-  const response = await proxy({ env: environment, request });
-  assert.equal(response.status, 403); assert.equal(calls, 0);
-  const diagnostic = response.headers.get('x-beiqiang-origin-check');
-  assert.deepEqual(JSON.parse(diagnostic), { schemeHttp: true, schemeHttps: false, publicHostMatch: false, loopbackHost: true, hasPort: true, eoPagesHostAllowed: true, runtimeHostname: 'localhost', scfRuntime: process.env.TENCENTCLOUD_RUNENV === 'SCF', scfFunctionPresent: !!process.env.SCF_FUNCTIONNAME });
-  assert.ok(Object.entries(JSON.parse(diagnostic)).filter(([key]) => key !== 'runtimeHostname').every(([, value]) => typeof value === 'boolean'));
-  assert.doesNotMatch(diagnostic, /private-query|private-cookie|www|9000/);
-  const unknown = await proxy({ env: environment, request: new Request('https://untrusted.invalid/api/workbench', { headers: { 'eo-pages-host': 'untrusted.invalid' } }) });
-  assert.equal(JSON.parse(unknown.headers.get('x-beiqiang-origin-check')).eoPagesHostAllowed, false);
+  const internal = 'http://pages-pro-13-b3ec.pages-scf-sg-pro.qcloudteo.com';
+  async function denied(base, host = 'www.beiqiang.online') {
+    const request = new Request(`${base}/api/workbench?token=private-query`, { headers: { 'eo-pages-host': host, 'x-forwarded-host': 'www.beiqiang.online', 'x-forwarded-proto': 'https' } });
+    const response = await proxy({ env: environment, request }); assert.equal(response.status, 403, `${base} ${host}`); assert.equal(response.headers.has('x-beiqiang-origin-check'), false);
+  }
+  try {
+    delete process.env.TENCENTCLOUD_RUNENV; delete process.env.SCF_FUNCTIONNAME;
+    await denied(internal);
+    process.env.TENCENTCLOUD_RUNENV = 'SCF';
+    await denied(internal);
+    process.env.SCF_FUNCTIONNAME = 'isolated-function';
+    for (const base of ['http://attacker.invalid', 'http://localhost:9000', `${internal}.attacker.invalid`, 'http://pages-pro-13-b3ec.evilpages-scf-sg-pro.qcloudteo.com', 'http://pages-pro-13-b3ec.pages-scf-sg-pro.qcloudteo.com:9000']) await denied(base);
+    for (const host of ['attacker.invalid', 'www.beiqiang.online.attacker.invalid', 'www.beiqiang.online:443', 'www.beiqiang.online/path', 'www.beiqiang.online@attacker.invalid', 'www.beiqiang.online,attacker.invalid', '']) await denied(internal, host);
+    assert.equal(calls, 0);
+  } finally {
+    if (saved.run === undefined) delete process.env.TENCENTCLOUD_RUNENV; else process.env.TENCENTCLOUD_RUNENV = saved.run;
+    if (saved.name === undefined) delete process.env.SCF_FUNCTIONNAME; else process.env.SCF_FUNCTIONNAME = saved.name;
+  }
 });

@@ -15,19 +15,21 @@ export function createUnifiedOriginProxy({ requestImpl = https.request, timeoutM
       origin = new URL(request.url);
       const canonical = new URL(env.WORKBENCH_ORIGIN || 'https://www.beiqiang.online');
       const allowed = new Set([canonical.hostname, 'www.beiqiang.online', 'beiqiang.online']);
-      if (target.protocol !== 'https:' || target.username || target.password || target.pathname !== '/' || target.search || target.hash || !env.UNIFIED_BACKEND_CA || Buffer.byteLength(String(env.SELF_HOSTED_PROXY_SECRET || '')) < 32) throw new Error();
-      if (origin.protocol !== 'https:' || !allowed.has(origin.hostname) || origin.port) {
-        let eoPagesHostAllowed = false;
-        try {
-          const pagesHost = request.headers.get('eo-pages-host');
-          const pagesUrl = new URL(`https://${pagesHost || ''}`);
-          eoPagesHostAllowed = !!pagesHost && allowed.has(pagesUrl.hostname) && !pagesUrl.port && !pagesUrl.username && !pagesUrl.password && pagesUrl.pathname === '/' && !pagesUrl.search && !pagesUrl.hash;
-        } catch { /* Diagnostic only: this header never grants access. */ }
-        return failure(403, 'Frontend origin is not allowed', { 'x-beiqiang-origin-check': JSON.stringify({ schemeHttp: origin.protocol === 'http:', schemeHttps: origin.protocol === 'https:', publicHostMatch: allowed.has(origin.hostname), loopbackHost: ['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname), hasPort: !!origin.port, eoPagesHostAllowed, runtimeHostname: origin.hostname, scfRuntime: process.env.TENCENTCLOUD_RUNENV === 'SCF', scfFunctionPresent: !!process.env.SCF_FUNCTIONNAME }) });
-      }
+      if (canonical.protocol !== 'https:' || canonical.username || canonical.password || canonical.pathname !== '/' || canonical.search || canonical.hash || target.protocol !== 'https:' || target.username || target.password || target.pathname !== '/' || target.search || target.hash || !env.UNIFIED_BACKEND_CA || Buffer.byteLength(String(env.SELF_HOSTED_PROXY_SECRET || '')) < 32) throw new Error();
+      // EdgeOne's production Node adapter reconstructs request.url with its
+      // HTTP SCF host. The ingress overwrites eo-pages-host (verified on this
+      // deployment); forwarded protocol/host remain caller controlled.
+      const publicOrigin = origin.protocol === 'https:' && allowed.has(origin.hostname) && !origin.port && !origin.username && !origin.password;
+      const scfRuntime = process.env.TENCENTCLOUD_RUNENV === 'SCF' && !!process.env.SCF_FUNCTIONNAME;
+      const managedScfHost = /^pages-[a-z0-9-]+\.pages-scf-sg-pro\.qcloudteo\.com$/.test(origin.hostname);
+      const pagesHost = request.headers.get('eo-pages-host');
+      // Match the complete ingress host value: no userinfo, ports, suffixes,
+      // URL paths or comma lists. This is never accepted outside SCF runtime.
+      const trustedIngress = scfRuntime && managedScfHost && ['http:', 'https:'].includes(origin.protocol) && !origin.port && !origin.username && !origin.password && allowed.has(pagesHost);
+      if (!publicOrigin && !trustedIngress) return failure(403, 'Frontend origin is not allowed');
       target.pathname = origin.pathname; target.search = origin.search;
-      // The public request URL is the only host source. Forwarded headers sent
-      // by a browser are never accepted as authority.
+      // Outbound identity always uses the configured HTTPS public origin,
+      // never the internal HTTP URL or caller-controlled forwarding headers.
       origin = canonical;
     } catch { return failure(503, 'Unified backend proxy is not configured'); }
     const headers = {};
