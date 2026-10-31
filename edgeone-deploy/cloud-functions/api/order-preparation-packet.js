@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 function response(status, body) {
@@ -342,4 +343,4 @@ export function createOrderPreparationPacketHandler({
   };
 }
 
-export const onRequestPost = createOrderPreparationPacketHandler();
+export const onRequestPost = wrapUnifiedHandler(createOrderPreparationPacketHandler());

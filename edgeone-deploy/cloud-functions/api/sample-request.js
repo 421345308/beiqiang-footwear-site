@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 const SAMPLE_TYPES = new Set(["existing_style", "branding_adaptation", "technical_development"]);
@@ -49,4 +50,4 @@ export function createSampleRequestHandler({ getStoreImpl = getStore, createTran
   };
 }
 
-export const onRequestPost = createSampleRequestHandler();
+export const onRequestPost = wrapUnifiedHandler(createSampleRequestHandler());

@@ -1,5 +1,5 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
-import { getStore } from '@edgeone/pages-blob';
+import { getStore } from './platform-store.js';
 
 // Server-only SDK access. Never issue Blob upload/download URLs or expose store credentials.
 export const STORE_NAME = 'beiqiang-owner-workbench-v1';

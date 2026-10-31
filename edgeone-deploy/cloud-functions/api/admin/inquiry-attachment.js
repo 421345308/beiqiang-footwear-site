@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 
 function response(status, body) {
   return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=UTF-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
@@ -47,4 +48,4 @@ export function createAdminAttachmentHandler({ getStoreImpl = getStore } = {}) {
   };
 }
 
-export const onRequestGet = createAdminAttachmentHandler();
+export const onRequestGet = wrapUnifiedHandler(createAdminAttachmentHandler());

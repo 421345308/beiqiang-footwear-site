@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 import { createAdminAnalyticsHandler } from "./analytics.js";
 
 function response(status, body) {
@@ -455,5 +456,5 @@ export function createWeeklyReviewHandlers({
 }
 
 const handlers = createWeeklyReviewHandlers();
-export const onRequestGet = handlers.onRequestGet;
-export const onRequestPost = handlers.onRequestPost;
+export const onRequestGet = wrapUnifiedHandler(handlers.onRequestGet);
+export const onRequestPost = wrapUnifiedHandler(handlers.onRequestPost);

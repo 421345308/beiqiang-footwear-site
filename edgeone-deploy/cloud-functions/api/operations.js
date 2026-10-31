@@ -1,3 +1,4 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { businessHandlers } from '../_lib/business-storage.js';
 import { ApiError, acquireLock, activeLock, dependencies, handleError, latest, payload, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text } from '../_lib/workbench.js';
 import { OPS_STORE, SOURCE, createOperationsStore, handlingFields, handlingView, reference, safeInquiry, sourceHash } from '../_lib/operations.js';
@@ -93,5 +94,5 @@ export function createOperationsHandlers(options = {}) {
   return { onRequestGet, onRequestPost };
 }
 const handlers = createOperationsHandlers();
-export const onRequestGet = handlers.onRequestGet;
-export const onRequestPost = handlers.onRequestPost;
+export const onRequestGet = wrapUnifiedHandler(handlers.onRequestGet);
+export const onRequestPost = wrapUnifiedHandler(handlers.onRequestPost);

@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 function response(status, body) {
@@ -206,4 +207,4 @@ export function createAdminOrderPreparationPacketHandler({
   };
 }
 
-export const onRequestPatch = createAdminOrderPreparationPacketHandler();
+export const onRequestPatch = wrapUnifiedHandler(createAdminOrderPreparationPacketHandler());

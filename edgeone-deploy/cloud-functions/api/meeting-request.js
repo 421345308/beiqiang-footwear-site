@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 const MEETING_TYPES = new Set(["sourcing_review", "sample_review", "quotation_review", "technical_development", "order_handoff", "issue_resolution"]);
@@ -46,4 +47,4 @@ export function createMeetingRequestHandler({ getStoreImpl = getStore, createTra
   };
 }
 
-export const onRequestPost = createMeetingRequestHandler();
+export const onRequestPost = wrapUnifiedHandler(createMeetingRequestHandler());

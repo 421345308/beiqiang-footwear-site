@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { randomUUID } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 
 export const ALLOWED_EVENTS = new Set(["product_view", "product_select", "product_compare", "product_spec_sheet_print", "product_share", "comparison_share", "comparison_open", "comparison_print", "form_start", "form_submit", "whatsapp_click", "email_click", "alibaba_click", "quote_builder_view", "quote_list_add", "quote_list_remove", "quote_request_submit", "line_sheet_form_start", "line_sheet_request", "line_sheet_download", "sourcing_program_view", "sourcing_program_cta", "resource_view", "resource_cta", "resource_product_open", "collection_view", "collection_product_open", "collection_quote_cta", "private_label_studio_view", "private_label_concept_download", "private_label_concept_to_quote", "product_finder_view", "product_finder_result", "product_finder_to_compare", "product_finder_to_quote", "mobile_nav_open", "mobile_nav_link"]);
 
@@ -32,7 +33,7 @@ export function sanitizeEventPayload(payload, receivedAt = new Date().toISOStrin
   };
 }
 
-export async function onRequestPost(context) {
+async function legacyonRequestPost(context) {
   if (Number(context.request.headers.get("content-length") || 0) > 12_288) return new Response(null, { status: 413 });
   if (!isAllowedOrigin(context.request.headers.get("origin"))) return new Response(null, { status: 403 });
   try {
@@ -49,3 +50,5 @@ export async function onRequestPost(context) {
     return new Response(null, { status: 503 });
   }
 }
+
+export const onRequestPost = wrapUnifiedHandler(legacyonRequestPost);

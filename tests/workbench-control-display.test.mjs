@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { activeLeases, runDisplayStatus, quotaRemaining, windowDuration, visibleControl } from '../app/admin/workbench/control-display.ts';
 
 test('running count requires matching running record and live lease, excludes desktop and expired leases', () => {
@@ -32,4 +33,12 @@ test('polling preserves unsaved input and save response until cloud catches up',
   const saved = {version: 4, focus: 'saved response'};
   assert.equal(visibleControl(saved, newer, false, empty), saved);
   assert.equal(visibleControl(empty, undefined, false, empty), empty);
+});
+
+
+test('backend readiness names the unified private backend and uses supplied verification state', async () => {
+  const component = await readFile(new URL('../app/admin/workbench/ExecutionReadiness.tsx', import.meta.url), 'utf8');
+  assert.match(component, /kind: 'private_blob' \| 'postgres' \| 'self_hosted'/);
+  assert.match(component, /backend\?\.kind === 'self_hosted' \? '统一私有后端（PostgreSQL）'/);
+  assert.match(component, /backend\.verified \? '连接已核验' : '连接待核验'/);
 });

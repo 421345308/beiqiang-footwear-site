@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 
 const MAX_FILE_BYTES = 15 * 1024 * 1024;
 const MAX_FILES = 5;
@@ -81,7 +82,7 @@ export function createInquiryAttachmentHandler({ getStoreImpl = getStore } = {})
       const uploadId = randomUUID().replaceAll("-", "").slice(0, 20);
       const blobKey = `inquiry-files/${auth.details.date}/${auth.details.reference}/${uploadId}-${validated.file.storageName}`;
       const fileStore = getStoreImpl("beiqiang-inquiry-files");
-      const upload = await fileStore.createUploadUrl(blobKey, { expireSeconds: 900, contentType: validated.file.contentType });
+      const upload = await fileStore.createUploadUrl(blobKey, { expireSeconds: 900, contentType: validated.file.contentType, maxBytes: validated.file.size });
       await inquiryStore.setJSON(auth.key, { ...auth.record, pendingAttachments: [...activePending, { id: uploadId, key: upload.key, name: validated.file.originalName, contentType: validated.file.contentType, size: validated.file.size, expiresAt: upload.expiresAt }], updatedAt: new Date().toISOString() }, { cacheControl: null });
       return response(201, { ok: true, uploadId, uploadUrl: upload.url, key: upload.key, expiresAt: upload.expiresAt, contentType: validated.file.contentType });
     } catch (error) {
@@ -130,5 +131,5 @@ export function createInquiryAttachmentHandler({ getStoreImpl = getStore } = {})
 }
 
 const handlers = createInquiryAttachmentHandler();
-export const onRequestPost = handlers.onRequestPost;
-export const onRequestPatch = handlers.onRequestPatch;
+export const onRequestPost = wrapUnifiedHandler(handlers.onRequestPost);
+export const onRequestPatch = wrapUnifiedHandler(handlers.onRequestPatch);

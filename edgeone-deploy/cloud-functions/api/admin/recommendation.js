@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { randomBytes, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 function response(status, body) { return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=UTF-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } }); }
@@ -57,4 +58,4 @@ export function createAdminRecommendationHandler({ getStoreImpl = getStore, crea
   };
 }
 
-export const onRequestPost = createAdminRecommendationHandler();
+export const onRequestPost = wrapUnifiedHandler(createAdminRecommendationHandler());

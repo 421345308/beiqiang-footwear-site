@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 const REVISION_FIELDS = new Set(["productSpecification", "sampleDecision", "quantitySizeRatio", "colorsMaterials", "packingLabeling", "priceTradeTerm", "paymentTerms", "deliveryWindow"]);
@@ -83,4 +84,4 @@ export function createOrderConfirmationDraftHandler({ getStoreImpl = getStore, c
   };
 }
 
-export const onRequestPatch = createOrderConfirmationDraftHandler();
+export const onRequestPatch = wrapUnifiedHandler(createOrderConfirmationDraftHandler());

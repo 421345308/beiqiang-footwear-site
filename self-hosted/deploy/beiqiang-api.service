@@ -1,0 +1,28 @@
+[Unit]
+Description=Beiqiang unified private API
+After=network-online.target postgresql@16-beiqiang.service
+Requires=postgresql@16-beiqiang.service
+[Service]
+User=beiqiang-api
+Group=beiqiang-api
+WorkingDirectory=/opt/beiqiang/current
+EnvironmentFile=/etc/beiqiang/api.env
+Environment=NODE_ENV=production
+ExecStart=/opt/beiqiang/runtime/node/bin/node --experimental-strip-types self-hosted/server.mjs
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/beiqiang/files
+MemoryMax=256M
+CPUQuota=50%
+TasksMax=64
+KillMode=control-group
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+[Install]
+WantedBy=multi-user.target

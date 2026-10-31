@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 
 function response(status, body) { return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=UTF-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } }); }
 function clean(value, max) { return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : ""; }
@@ -14,4 +15,4 @@ export function createBuyerOrderDocumentHandler({ getStoreImpl = getStore } = {}
   };
 }
 
-export const onRequestPost = createBuyerOrderDocumentHandler();
+export const onRequestPost = wrapUnifiedHandler(createBuyerOrderDocumentHandler());

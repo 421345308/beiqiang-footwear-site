@@ -1,0 +1,21 @@
+[Unit]
+Description=Beiqiang isolated TLS gateway on 8443
+After=network-online.target beiqiang-api.service
+[Service]
+Type=simple
+ExecStartPre=/usr/sbin/nginx -t -c /etc/beiqiang/nginx.conf -p /var/lib/beiqiang/gateway
+ExecStart=/usr/sbin/nginx -c /etc/beiqiang/nginx.conf -p /var/lib/beiqiang/gateway -g "daemon off;"
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/beiqiang/gateway /var/log/beiqiang
+MemoryMax=64M
+CPUQuota=25%
+TasksMax=24
+KillMode=control-group
+[Install]
+WantedBy=multi-user.target

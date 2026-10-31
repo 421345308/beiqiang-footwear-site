@@ -1,3 +1,4 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { businessRequest } from '../_lib/business-storage.js';
 import { ApiError, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, payload, putJSON, releaseLock, reply, revision, runFor, safeEqual, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
 import { isInquiryRun, validateInquiryBinding, validateInquiryResult } from '../_lib/operations-agent.js';
@@ -88,4 +89,4 @@ export function createWorkbenchRunnerHandler(options = {}) {
     } catch (error) { if (options.transactional) throw error; return handleError(error); }
   };
 }
-export const onRequestPost = createWorkbenchRunnerHandler();
+export const onRequestPost = wrapUnifiedHandler(createWorkbenchRunnerHandler());

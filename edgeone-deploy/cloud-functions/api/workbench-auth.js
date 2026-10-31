@@ -1,3 +1,4 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import nodemailer from 'nodemailer';
 import { ApiError, dependencies, getJSON, handleError, hash, payload, publicSession, putJSON, rateSlot, reply, requireSession, sameOrigin, session, sessionCookie, settings, sign, storeFor } from '../_lib/workbench.js';
 
@@ -45,5 +46,5 @@ export function createWorkbenchAuthHandlers(options = {}) {
   return { onRequestGet, onRequestPost };
 }
 const workbenchAuthHandlers = createWorkbenchAuthHandlers();
-export const onRequestGet = workbenchAuthHandlers.onRequestGet;
-export const onRequestPost = workbenchAuthHandlers.onRequestPost;
+export const onRequestGet = wrapUnifiedHandler(workbenchAuthHandlers.onRequestGet);
+export const onRequestPost = wrapUnifiedHandler(workbenchAuthHandlers.onRequestPost);

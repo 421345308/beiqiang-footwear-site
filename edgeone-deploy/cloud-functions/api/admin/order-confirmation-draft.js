@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { randomBytes, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 const CHECKLIST_FIELDS = [
@@ -157,4 +158,4 @@ export function createAdminOrderConfirmationDraftHandler({
   };
 }
 
-export const onRequestPost = createAdminOrderConfirmationDraftHandler();
+export const onRequestPost = wrapUnifiedHandler(createAdminOrderConfirmationDraftHandler());

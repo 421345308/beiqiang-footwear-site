@@ -1,6 +1,7 @@
 import { ApiError, STORE_NAME, dependencies, handleError, reply, requireSession, safeEqual, sameOrigin, settings, storeFor } from './workbench.js';
 import { OPS_STORE } from './operations.js';
 import { createDatabase } from './database.js';
+import { platformContext } from './platform-store.js';
 
 export const AUTH_PREFIXES = ['sessions/', 'revoked/', 'magic/', 'consumed/', 'rate/'];
 export const isAuthKey = key => AUTH_PREFIXES.some(prefix => key.startsWith(prefix));
@@ -26,6 +27,10 @@ export async function businessRequest(context, options, build, method, identity 
   const env = context.env || {}, backend = env.WORKBENCH_STORAGE || 'blob';
   if (env.WORKBENCH_MAINTENANCE === 'enabled') return reply(503, {code: 'BUSINESS_MAINTENANCE', error: '业务库正在维护，任务领取和编辑暂时停止；原记录保留。'});
   if (backend === 'blob') return build({ ...options, businessContext: true, backend: { kind: 'private_blob', verified: false, reason: '当前业务记录仍在原私有存储；关系数据库尚未切换。' } })[method](context);
+  if (backend === 'self_hosted') {
+    if (!platformContext()) return reply(503, { error: 'Self-hosted storage requires the private Node service.' });
+    return build({ ...options, businessContext: true, transactional: true, backend: { kind: 'self_hosted', verified: true, reason: '业务、身份及附件由统一私有服务保存。' } })[method](context);
+  }
   let database;
   try {
     if (backend !== 'postgres') throw new ApiError(503, '业务存储配置无效。');

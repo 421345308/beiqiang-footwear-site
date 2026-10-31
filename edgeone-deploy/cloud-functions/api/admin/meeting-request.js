@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 const CHANNELS = new Set(["video_call", "phone", "whatsapp_call"]);
@@ -444,4 +445,4 @@ export function createAdminMeetingRequestHandler({
   };
 }
 
-export const onRequestPatch = createAdminMeetingRequestHandler();
+export const onRequestPatch = wrapUnifiedHandler(createAdminMeetingRequestHandler());

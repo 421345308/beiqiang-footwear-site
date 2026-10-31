@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { randomBytes, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 
 function response(status, body) { return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=UTF-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } }); }
@@ -52,4 +53,4 @@ export function createAdminFulfillmentCaseHandlers({ getStoreImpl = getStore, cr
   return { onRequestPost, onRequestPatch };
 }
 
-const handlers = createAdminFulfillmentCaseHandlers(); export const onRequestPost = handlers.onRequestPost; export const onRequestPatch = handlers.onRequestPatch;
+const handlers = createAdminFulfillmentCaseHandlers(); export const onRequestPost = wrapUnifiedHandler(handlers.onRequestPost); export const onRequestPatch = wrapUnifiedHandler(handlers.onRequestPatch);

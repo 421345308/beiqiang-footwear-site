@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 
 const HOLD_CATEGORIES = new Set(["contract_or_order", "payment_or_dispute", "fulfillment_or_claim", "legal_or_regulatory", "fraud_or_security", "other_reviewed_reason"]);
 const DELETE_SCOPES = new Set(["full_website_inquiry_and_files"]);
@@ -82,4 +83,4 @@ export function createDataLifecycleHandlers({ getStoreImpl = getStore, nowImpl =
   return { onRequestPost, onRequestPatch, onRequestDelete };
 }
 
-const handlers = createDataLifecycleHandlers(); export const onRequestPost = handlers.onRequestPost; export const onRequestPatch = handlers.onRequestPatch; export const onRequestDelete = handlers.onRequestDelete;
+const handlers = createDataLifecycleHandlers(); export const onRequestPost = wrapUnifiedHandler(handlers.onRequestPost); export const onRequestPatch = wrapUnifiedHandler(handlers.onRequestPatch); export const onRequestDelete = wrapUnifiedHandler(handlers.onRequestDelete);

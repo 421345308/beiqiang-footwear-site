@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { randomUUID, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 
 const CHANNELS = new Set(["email", "whatsapp", "alibaba", "phone", "video_call", "other"]);
 const DIRECTIONS = new Set(["outbound", "inbound"]);
@@ -80,4 +81,4 @@ export function createExternalContactHandler({ getStoreImpl = getStore, nowImpl 
   };
 }
 
-export const onRequestPost = createExternalContactHandler();
+export const onRequestPost = wrapUnifiedHandler(createExternalContactHandler());

@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../../_lib/platform-store.js";
 
 function response(status, body) {
   return new Response(JSON.stringify(body), {
@@ -1062,5 +1063,5 @@ export function createAdminAnalyticsHandler({ getStoreImpl = getStore } = {}) {
 // function imports this module for its aggregate calculator, and EdgeOne's production
 // function bundler flattens imported modules before generating the route entry. A local
 // binding also named `onRequestGet` collides with the weekly-review route's own binding.
-const adminAnalyticsRouteHandler = createAdminAnalyticsHandler();
+const adminAnalyticsRouteHandler = wrapUnifiedHandler(createAdminAnalyticsHandler());
 export { adminAnalyticsRouteHandler as onRequestGet };

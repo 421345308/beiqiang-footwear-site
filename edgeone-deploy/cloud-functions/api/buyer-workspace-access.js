@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, randomBytes } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 import { normalizeWorkspaceEmail, workspaceContactCanRead } from "../_lib/workspace-access-policy.js";
 import { isWorkspaceInternalTest, safeRecordWorkspaceActivity } from "../_lib/workspace-activity.js";
@@ -80,4 +81,4 @@ export function createBuyerWorkspaceAccessHandler({ getStoreImpl = getStore, cre
   };
 }
 
-export const onRequestPost = createBuyerWorkspaceAccessHandler();
+export const onRequestPost = wrapUnifiedHandler(createBuyerWorkspaceAccessHandler());

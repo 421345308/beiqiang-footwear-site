@@ -1,5 +1,6 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { createHash, timingSafeEqual } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 
 function json(status, body) {
   return new Response(JSON.stringify(body), {
@@ -283,4 +284,4 @@ export function createMeetingCalendarHandler({
   };
 }
 
-export const onRequestPost = createMeetingCalendarHandler();
+export const onRequestPost = wrapUnifiedHandler(createMeetingCalendarHandler());

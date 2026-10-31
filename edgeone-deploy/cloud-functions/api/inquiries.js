@@ -1,6 +1,7 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { buildInquiryReceipt } from "../_lib/inquiry-receipt.js";
 import { createHash, randomUUID } from "node:crypto";
-import { getStore } from "@edgeone/pages-blob";
+import { getStore } from "../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 import { FINDER_STYLE_CODES } from "./catalog-style-codes.js";
 
@@ -214,4 +215,4 @@ export function createInquiryHandler({ getStoreImpl = getStore, createTransportI
   };
 }
 
-export const onRequestPost = createInquiryHandler();
+export const onRequestPost = wrapUnifiedHandler(createInquiryHandler());

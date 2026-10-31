@@ -1,3 +1,4 @@
+import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { unifiedTasks, dispatchReadiness } from '../_lib/task-service.js';
 import { businessHandlers } from '../_lib/business-storage.js';
 import { CONTROL_ID, controlFor, importStatus, instructionWithControl, saveControl } from '../_lib/workbench-control.js';
@@ -115,5 +116,5 @@ export function createWorkbenchHandlers(options = {}) {
   return { onRequestGet, onRequestPost };
 }
 const workbenchBusinessHandlers = createWorkbenchHandlers();
-export const onRequestGet = workbenchBusinessHandlers.onRequestGet;
-export const onRequestPost = workbenchBusinessHandlers.onRequestPost;
+export const onRequestGet = wrapUnifiedHandler(workbenchBusinessHandlers.onRequestGet);
+export const onRequestPost = wrapUnifiedHandler(workbenchBusinessHandlers.onRequestPost);
