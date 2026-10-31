@@ -16,7 +16,15 @@ export function createUnifiedOriginProxy({ requestImpl = https.request, timeoutM
       const canonical = new URL(env.WORKBENCH_ORIGIN || 'https://www.beiqiang.online');
       const allowed = new Set([canonical.hostname, 'www.beiqiang.online', 'beiqiang.online']);
       if (target.protocol !== 'https:' || target.username || target.password || target.pathname !== '/' || target.search || target.hash || !env.UNIFIED_BACKEND_CA || Buffer.byteLength(String(env.SELF_HOSTED_PROXY_SECRET || '')) < 32) throw new Error();
-      if (origin.protocol !== 'https:' || !allowed.has(origin.hostname) || origin.port) return failure(403, 'Frontend origin is not allowed');
+      if (origin.protocol !== 'https:' || !allowed.has(origin.hostname) || origin.port) {
+        let eoPagesHostAllowed = false;
+        try {
+          const pagesHost = request.headers.get('eo-pages-host');
+          const pagesUrl = new URL(`https://${pagesHost || ''}`);
+          eoPagesHostAllowed = !!pagesHost && allowed.has(pagesUrl.hostname) && !pagesUrl.port && !pagesUrl.username && !pagesUrl.password && pagesUrl.pathname === '/' && !pagesUrl.search && !pagesUrl.hash;
+        } catch { /* Diagnostic only: this header never grants access. */ }
+        return failure(403, 'Frontend origin is not allowed', { 'x-beiqiang-origin-check': JSON.stringify({ schemeHttp: origin.protocol === 'http:', schemeHttps: origin.protocol === 'https:', publicHostMatch: allowed.has(origin.hostname), loopbackHost: ['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname), hasPort: !!origin.port, eoPagesHostAllowed }) });
+      }
       target.pathname = origin.pathname; target.search = origin.search;
       // The public request URL is the only host source. Forwarded headers sent
       // by a browser are never accepted as authority.

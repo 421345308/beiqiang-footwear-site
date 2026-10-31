@@ -89,3 +89,18 @@ test('real private-CA TLS validates SAN and trusted CA, rejects wrong CA without
   const mismatch = await mismatchProxy({ env: { ...env, UNIFIED_BACKEND_URL: `https://localhost:${server.address().port}` }, request: new Request(`${publicUrl}/api/events`) });
   assert.equal(mismatch.status, 502); assert.equal(hits, 1);
 });
+
+
+test('origin rejection exposes only diagnostic booleans and never trusts spoofed platform/forwarding headers', async () => {
+  let calls = 0;
+  const proxy = createUnifiedOriginProxy({ requestImpl: () => { calls++; throw new Error('must not reach backend'); } });
+  const request = new Request('http://localhost:9000/api/workbench?token=private-query', { headers: { 'eo-pages-host': 'www.beiqiang.online', 'x-forwarded-host': 'www.beiqiang.online', 'x-forwarded-proto': 'https', cookie: 'private-cookie=value' } });
+  const response = await proxy({ env: environment, request });
+  assert.equal(response.status, 403); assert.equal(calls, 0);
+  const diagnostic = response.headers.get('x-beiqiang-origin-check');
+  assert.deepEqual(JSON.parse(diagnostic), { schemeHttp: true, schemeHttps: false, publicHostMatch: false, loopbackHost: true, hasPort: true, eoPagesHostAllowed: true });
+  assert.ok(Object.values(JSON.parse(diagnostic)).every(value => typeof value === 'boolean'));
+  assert.doesNotMatch(diagnostic, /private-query|private-cookie|www|localhost|9000/);
+  const unknown = await proxy({ env: environment, request: new Request('https://untrusted.invalid/api/workbench', { headers: { 'eo-pages-host': 'untrusted.invalid' } }) });
+  assert.equal(JSON.parse(unknown.headers.get('x-beiqiang-origin-check')).eoPagesHostAllowed, false);
+});
