@@ -22,6 +22,17 @@ test('gateway owns only independent TLS listener and explicit loopback upstream'
   assert.match(config,/proxy_pass http:\/\/127\.0\.0\.1:8787/);
   assert.match(read('beiqiang-gateway.service'),/-c \/etc\/beiqiang\/nginx.conf/);
 });
+test('every nginx temporary directory stays in its existing private writable tree',()=>{
+  const config=read('nginx.conf'),setup=read('prepare-host.sh');
+  for(const [directive,directory] of Object.entries({client_body:'body',proxy:'proxy',fastcgi:'fastcgi',uwsgi:'uwsgi',scgi:'scgi'})){
+    const target=`/var/lib/beiqiang/gateway/${directory}`;
+    assert.match(config,new RegExp(`${directive}_temp_path ${target};`));
+    assert.ok(setup.includes(target));
+  }
+  assert.match(setup,/-o www-data -g www-data -m 0700/);
+  assert.match(read('beiqiang-gateway.service'),/ReadWritePaths=\/var\/lib\/beiqiang\/gateway \/var\/log\/beiqiang/);
+  assert.match(read('beiqiang-gateway.service'),/ProtectSystem=strict/);
+});
 test('backup is quiesced, hashed, and restore uses an isolated database',()=>{
   assert.match(read('backup.sh'),/systemctl stop beiqiang-runner.service beiqiang-api.service/);
   assert.match(read('backup.sh'),/pg_dump -p 5433 -Fc/);

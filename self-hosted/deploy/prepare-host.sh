@@ -25,7 +25,7 @@ install -d -m 0755 /var/lib/beiqiang
 install -d -o beiqiang-api -g beiqiang-api -m 0700 /var/lib/beiqiang/files
 install -d -o beiqiang-runner -g beiqiang-runner -m 0700 /var/lib/beiqiang/runner /var/lib/beiqiang/runner/codex /var/lib/beiqiang/runner/state
 install -d -m 0755 /var/lib/beiqiang/gateway
-install -d -o www-data -g www-data -m 0700 /var/lib/beiqiang/gateway/body /var/lib/beiqiang/gateway/proxy
+install -d -o www-data -g www-data -m 0700 /var/lib/beiqiang/gateway/body /var/lib/beiqiang/gateway/proxy /var/lib/beiqiang/gateway/fastcgi /var/lib/beiqiang/gateway/uwsgi /var/lib/beiqiang/gateway/scgi
 # Do not edit or restart another cluster. Refuse an occupied dedicated port.
 if ! pg_lsclusters -h | awk '$1==16 && $2=="beiqiang" {found=1} END {exit !found}'; then
   if ss -ltnH 'sport = :5433' | grep -q .; then echo 'Port 5433 occupied' >&2; exit 1; fi
