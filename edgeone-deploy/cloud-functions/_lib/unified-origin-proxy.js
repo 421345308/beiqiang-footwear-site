@@ -23,7 +23,7 @@ export function createUnifiedOriginProxy({ requestImpl = https.request, timeoutM
           const pagesUrl = new URL(`https://${pagesHost || ''}`);
           eoPagesHostAllowed = !!pagesHost && allowed.has(pagesUrl.hostname) && !pagesUrl.port && !pagesUrl.username && !pagesUrl.password && pagesUrl.pathname === '/' && !pagesUrl.search && !pagesUrl.hash;
         } catch { /* Diagnostic only: this header never grants access. */ }
-        return failure(403, 'Frontend origin is not allowed', { 'x-beiqiang-origin-check': JSON.stringify({ schemeHttp: origin.protocol === 'http:', schemeHttps: origin.protocol === 'https:', publicHostMatch: allowed.has(origin.hostname), loopbackHost: ['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname), hasPort: !!origin.port, eoPagesHostAllowed }) });
+        return failure(403, 'Frontend origin is not allowed', { 'x-beiqiang-origin-check': JSON.stringify({ schemeHttp: origin.protocol === 'http:', schemeHttps: origin.protocol === 'https:', publicHostMatch: allowed.has(origin.hostname), loopbackHost: ['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname), hasPort: !!origin.port, eoPagesHostAllowed, runtimeHostname: origin.hostname, scfRuntime: process.env.TENCENTCLOUD_RUNENV === 'SCF', scfFunctionPresent: !!process.env.SCF_FUNCTIONNAME }) });
       }
       target.pathname = origin.pathname; target.search = origin.search;
       // The public request URL is the only host source. Forwarded headers sent
