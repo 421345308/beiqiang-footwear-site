@@ -5,8 +5,9 @@ import Link from "next/link";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
 import { productCount } from "../data/catalog-meta";
+import { versionedCatalogueUrl } from "../lib/catalog-downloads";
 
-const DOWNLOAD_PATH = "/downloads/beiqiang-footwear-line-sheet-2026.pdf";
+const DOWNLOAD_PATH = versionedCatalogueUrl("/downloads/beiqiang-footwear-line-sheet-2026.pdf");
 
 type FormStatus = { kind: "idle" | "sending" | "success" | "error"; message: string };
 

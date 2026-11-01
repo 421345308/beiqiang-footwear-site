@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { stat } from "node:fs/promises";
+import { SITE_RELEASE } from "../app/data/site-release.ts";
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -135,8 +136,8 @@ test("server-renders public catalogues before optional selection help", async ()
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /8 selected styles/i);
-  assert.match(html, /href="\/downloads\/beiqiang-selected-casual-footwear.pdf"/i);
-  assert.match(html, /href="\/downloads\/beiqiang-footwear-line-sheet-2026.pdf"/i);
+  assert.ok(html.includes(`href="/downloads/beiqiang-selected-casual-footwear.pdf?v=${SITE_RELEASE.releaseId}"`));
+  assert.ok(html.includes(`href="/downloads/beiqiang-footwear-line-sheet-2026.pdf?v=${SITE_RELEASE.releaseId}"`));
   assert.match(html, /Request selection advice/i);
   assert.doesNotMatch(html, /Unlock the|Buyer-safe facts/i);
   assert.match(html, /product-discovery document, not a quotation/i);
@@ -151,6 +152,16 @@ test("server-renders public catalogues before optional selection help", async ()
     ),
   );
   assert.equal(pdf.size > 1_000_000, true);
+});
+
+test("all catalogue languages link to the current release rather than a stale browser copy", async () => {
+  for (const locale of ["zh", "de", "fr", "es"]) {
+    const response = await render(`/${locale}/line-sheet`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.ok(html.includes(`beiqiang-selected-casual-footwear.pdf?v=${SITE_RELEASE.releaseId}`), locale);
+    assert.ok(html.includes(`beiqiang-footwear-line-sheet-${locale}-2026.pdf?v=${SITE_RELEASE.releaseId}`), locale);
+  }
 });
 
 test("server-renders the multi-style quote and technical development path", async () => {

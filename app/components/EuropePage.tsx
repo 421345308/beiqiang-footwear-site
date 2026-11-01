@@ -22,6 +22,7 @@ import {
 } from "../lib/public-locales";
 import { productMediaUrl } from "../lib/product-media-url";
 import { productPresentation } from "../lib/product-presentation";
+import { versionedCatalogueUrl } from "../lib/catalog-downloads";
 import EuropeShell from "./EuropeShell";
 import EuropeCatalog from "./EuropeCatalog";
 import EuropeProductFinder from "./EuropeProductFinder";
@@ -285,11 +286,11 @@ export default function EuropePage({
             <p className="europe-lead">{pageCopy(locale, "catalogueSummary")}</p>
             <div className="europe-catalogue-options">
             <article><h2>{pageCopy(locale, "selectedCatalogue")}</h2><p>{pageCopy(locale, "selectedPdfNote")}</p>
-            <a className="button" href={selectedCatalogue.path} download>{t(locale, "selectedDownload")} ↗</a>
+            <a className="button" href={versionedCatalogueUrl(selectedCatalogue.path)} download>{t(locale, "selectedDownload")} ↗</a>
             <Link className="studio-text-link" href="/line-sheet/">{t(locale, "selectedPreview")} ↗</Link></article>
             <article><h2>{pageCopy(locale, "fullCatalogue")}</h2>
             <p>{t(locale, "pdfNote")}</p>
-            <a className="button" href={`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`} download>
+            <a className="button" href={versionedCatalogueUrl(`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`)} download>
               {t(locale, "downloadPdf")}
             </a>
             <a className="studio-text-link" href={href("/products")}>
