@@ -22,6 +22,8 @@ import { supplyMode } from "../data/published-product-codes";
 import PrintProductSheetButton from "./PrintProductSheetButton";
 import { siteOrigin } from "../lib/public-locales";
 import { trackEvent } from "../lib/tracking";
+import { productPresentation, productOrderCopy } from "../lib/product-presentation";
+import ProductShareActions from "./ProductShareActions";
 
 export function EuropeAdd({
   product,
@@ -268,6 +270,7 @@ export default function EuropeProduct({
   const chosen =
     view.colour === id && views.includes(view.index) ? view.index : views[0];
   const name = productTitle(product, locale);
+  const presentation = productPresentation(product, locale);
   const change = (delta: number) =>
     setView(
       views[(views.indexOf(chosen) + delta + views.length) % views.length],
@@ -363,6 +366,7 @@ export default function EuropeProduct({
         <div className="studio-product-copy">
           <p className="eyebrow">{product.code} · BEIQIANG</p>
           <h1>{name}</h1>
+          {presentation && <p className="studio-product-description">{presentation.summary}</p>}
           <p>
             {t(
               locale,
@@ -396,11 +400,13 @@ export default function EuropeProduct({
             {t(locale, "quote")} ↗
           </a>
           <PrintProductSheetButton styleCode={product.code} locale={locale} />
+          <ProductShareActions product={product} code={product.code} name={name} url={`${siteOrigin}${localizedPath(`/products/${product.slug}`, locale)}`} locale={locale} />
           <p className="europe-note">{t(locale, "availability")}</p>
         </div>
       </section>
       <section className="product-print-sheet europe-print-sheet">
         <header><p>BEIQIANG · {product.code}</p><h2 className="print-sheet-title">{name}</h2></header>
+        {presentation && <p>{presentation.summary}</p>}
         <div className="studio-print-body">
           <img src={galleryImage(product.images[colourImage(product, id)])} alt={name} width={600} height={600} />
           <dl className="studio-specs">
@@ -416,6 +422,7 @@ export default function EuropeProduct({
       </section>
       <section className="europe-content">
         <h2>{t(locale, "specs")}</h2>
+        {presentation && <ul>{presentation.highlights.map(item => <li key={item}>{item}</li>)}</ul>}
         <p>
           {t(
             locale,
@@ -425,6 +432,7 @@ export default function EuropeProduct({
           )}
         </p>
         <div className="europe-columns">
+          <article><h3>{productOrderCopy[locale].title}</h3><p>{productOrderCopy[locale].text}</p></article>
           <article>
             <h3>{t(locale, "branding")}</h3>
             <p>{t(locale, "brandingText")}</p>

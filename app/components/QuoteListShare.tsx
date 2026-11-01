@@ -3,30 +3,37 @@
 import { useState } from "react";
 import type { QuoteLine } from "../lib/quote-list";
 import { buildQuoteListShareUrl } from "../lib/quote-list-share";
+import { quoteShareCopy } from "../lib/quote-share-copy";
+import type { PublicLocale } from "../lib/public-locales";
 
-export default function QuoteListShare({ lines, locale = "en", importMessage = "" }: { lines: QuoteLine[]; locale?: "en" | "zh"; importMessage?: string }) {
+export default function QuoteListShare({ lines, locale = "en", importMessage = "" }: { lines: QuoteLine[]; locale?: PublicLocale; importMessage?: string }) {
   const [status, setStatus] = useState("");
-  const zh = locale === "zh";
+  const [manualUrl, setManualUrl] = useState("");
+  const copy = quoteShareCopy[locale];
 
   async function copyLink() {
-    const url = buildQuoteListShareUrl(lines.map((line) => line.code), locale);
+    let url: string;
+    try { url = buildQuoteListShareUrl(lines, locale); }
+    catch { setManualUrl(""); setStatus(copy.tooLong); return; }
     try {
       if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(url);
       else {
         const field = document.createElement("textarea");
         field.value = url; field.setAttribute("readonly", ""); field.style.position = "fixed"; field.style.opacity = "0";
-        document.body.appendChild(field); field.select(); document.execCommand("copy"); field.remove();
+        document.body.appendChild(field); field.select(); const copied = document.execCommand("copy"); field.remove();
+        if (!copied) throw new Error("copy_unavailable");
       }
-      setStatus(zh ? `已复制${lines.length}款团队复核链接。` : `Team review link copied for ${lines.length} style${lines.length === 1 ? "" : "s"}.`);
+      setManualUrl(""); setStatus(copy.copied);
     } catch {
-      setStatus(zh ? "无法自动复制，请使用浏览器地址栏分享本页。" : "Automatic copy was unavailable. Use your browser address bar to share this page.");
+      setManualUrl(url); setStatus(copy.manual);
     }
   }
 
   if (!lines.length && !importMessage) return null;
-  return <aside className="quote-list-share" aria-label={zh ? "向采购团队分享候选清单" : "Share shortlist with a buying team"}>
-    <div><strong>{zh ? "让采购团队在另一台设备复核款式" : "Let your buying team review these styles on another device"}</strong><span>{zh ? "链接只包含款号；不会包含数量、颜色、尺码、备注、价格、联系人或公司资料。" : "The link contains style codes only—not quantities, colors, sizes, notes, prices, contacts or company details."}</span></div>
-    {lines.length ? <button type="button" onClick={copyLink}>{zh ? "复制团队复核链接" : "Copy team review link"}</button> : null}
+  return <aside className="quote-list-share" aria-label={copy.title}>
+    <div><strong>{copy.title}</strong><span>{copy.notice}</span></div>
+    {lines.length ? <button type="button" onClick={copyLink}>{copy.button}</button> : null}
+    {manualUrl && <label>{copy.manual}<input readOnly value={manualUrl} onFocus={event => event.currentTarget.select()} /></label>}
     <p aria-live="polite">{status || importMessage}</p>
   </aside>;
 }

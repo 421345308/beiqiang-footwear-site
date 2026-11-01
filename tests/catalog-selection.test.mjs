@@ -28,3 +28,25 @@ test('public products and order-facing models use only their current Beiqiang id
 test('a solid-colour photo takes precedence over a mixed-colour match',()=>{
  assert.equal(matchingColour(products.find(p=>p.code==='BQ004'),'black'),'all-black');
 });
+
+test('EU paired ranges include intermediate and final labels without asserting individual availability',()=>{
+ const product=products.find(p=>p.code==='BQ1045');
+ assert.deepEqual(documentedSizes(product),[36,37,38,39,40,41,42,43,44,45]);
+ for(const size of ['36','38','40','42','44','45']){
+  assert.equal(filterCatalog(products,{...defaultSelection,q:'BQ1045',size})[0]?.code,'BQ1045');
+ }
+ for(const size of ['35','46']) assert.deepEqual(filterCatalog(products,{...defaultSelection,q:'BQ1045',size}),[]);
+ for(const code of ['BQ-C2627','BQ-CA67']) {
+  assert.deepEqual(documentedSizes(products.find(p=>p.code===code)),[]);
+  assert.deepEqual(filterCatalog(products,{...defaultSelection,q:code,size:'40'}),[]);
+ }
+});
+
+test('EU size parsing requires a complete, bounded range with coherent paired endpoints',()=>{
+ const withSize=size=>({...products[0],size});
+ assert.deepEqual(documentedSizes(withSize('EU 39–45')),[39,40,41,42,43,44,45]);
+ assert.deepEqual(documentedSizes(withSize('EU 36-37–46-47')),Array.from({length:12},(_,i)=>36+i));
+ for(const size of ['36–45','EU 45–39','EU 19–40','EU 39–56','EU 36-38–44-45','EU 36-37–43-44','EU 36-37–44-','EU 36–45 extra']) {
+  assert.deepEqual(documentedSizes(withSize(size)),[],size);
+ }
+});

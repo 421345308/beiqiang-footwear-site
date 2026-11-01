@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import { productMediaUrl } from "../lib/product-media-url";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
-import { productNameZh, productSummaryZh, factZh, closureZh, colorZh } from "../data/products-zh";
+import { productNameZh, productSummaryZh, factZh, closureZh } from "../data/products-zh";
 import { supplyMode } from "../data/published-product-codes";
 import { localizedPath, siteOrigin, type LegacyLocale } from "../lib/public-locales";
 import SiteHeader from "./SiteHeader";
@@ -11,6 +10,7 @@ import SiteFooter from "./SiteFooter";
 import ChineseSiteHeader from "./ChineseSiteHeader";
 import ChineseSiteFooter from "./ChineseSiteFooter";
 import ProductGallery from "./ProductGallery";
+import StudioProductPrintSheet from "./StudioProductPrintSheet";
 import StudioProductCard from "./StudioProductCard";
 import AddToQuoteButton from "./AddToQuoteButton";
 import PrintProductSheetButton from "./PrintProductSheetButton";
@@ -19,6 +19,7 @@ import ProductInquiry from "./ProductInquiry";
 import ProductBuyingGuide from "./ProductBuyingGuide";
 import { getRelatedProducts } from "../lib/product-buying-guide";
 import ProductColourOptions from "./ProductColourOptions";
+import { productPresentation, productOrderCopy } from "../lib/product-presentation";
 
 export default function StudioProductDetail({ product, locale = "en" }: { product: Product; locale?: LegacyLocale }) {
   const zh=locale === "zh";
@@ -33,9 +34,10 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
     .replace(/EVA sole recorded in the source package/gi, "EVA sole")
     .replace(/Alibaba在售配置已记录网布内里|Alibaba线上正本已记录网布内里/g, "所列配置采用网布内里")
     .replace(/来源资料已记录EVA鞋底/g, "EVA鞋底");
-  const details=product.highlights.map(productFact).filter(value=>!zh || /[\u4e00-\u9fff]/.test(value));
+  const presentation=productPresentation(product, locale);
+  const details=presentation?.highlights || product.highlights.filter(value=>!/hero direction|reviewed color|verified product-level/i.test(value)).map(productFact).filter(value=>!zh || /[\u4e00-\u9fff]/.test(value));
   const sole=product.sole.startsWith("Cushion-profile") ? t("Material to be confirmed", "材质待确认") : fact(product.sole);
-  const description=external ? (zh ? productSummaryZh(product) : product.shortDescription) : t(`${product.name}. Available in ${product.colors.length} colours, ${product.size}. Colour-size combinations and custom requirements are confirmed for each order.`,productSummaryZh(product));
+  const description=presentation?.summary || (external ? (zh ? productSummaryZh(product) : product.shortDescription) : t(`${product.colors.length} colour options in ${product.size}. Confirm the colour-size mix and branding requirements for your order.`,productSummaryZh(product)));
   const related=getRelatedProducts(product, products, 4);
   const schema={"@context":"https://schema.org","@type":"Product",name,sku:product.code,model:product.sourceModel,description,url:`${siteOrigin}${href(`/products/${product.slug}`)}`,image:product.images.map(img=>`${siteOrigin}${productMediaUrl(img)}`),...(!external ? {manufacturer:{"@type":"Organization",name:"Quanzhou Beiqiang Footwear & Apparel Co., Ltd."}} : {})};
   const breadcrumb={"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{ "@type":"ListItem",position:1,name:t("Home","首页"),item:`${siteOrigin}${href("/")}`},{"@type":"ListItem",position:2,name:t("Products","产品系列"),item:`${siteOrigin}${href("/products")}`},{"@type":"ListItem",position:3,name:product.code,item:schema.url}]};
@@ -52,7 +54,7 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
         <ProductColourOptions product={product} locale={locale} detail />
         <div className="studio-supply"><span className="supply-dot" /><p>{external ? t("Supplied by Beiqiang through a manufacturing partner.","由贝强通过合作供应商提供。") : t("A Beiqiang factory style.","贝强自有工厂鞋款。")}<small>{t("Availability, specifications and delivery are confirmed with your order.","可供色码、具体规格及交付安排按订单确认。")}</small></p></div>
         <div className="studio-product-actions"><AddToQuoteButton product={product} locale={locale} /><a className="button button-secondary" href="#inquiry">{t("Enquire about this style","咨询此款产品")} ↗</a></div>
-        <p className="studio-commercial-note">{t("Pricing depends on quantity, colour-size mix, branding and packaging.","报价根据数量、色码配比、品牌及包装要求确定。")}</p>
+        <p className="studio-commercial-note">{productOrderCopy[locale].text}</p>
         <div className="studio-secondary-actions"><PrintProductSheetButton styleCode={product.code} locale={locale} /><ProductShareActions product={product} code={product.code} name={name} url={schema.url} locale={locale} /></div>
       </div>
     </section>
@@ -69,11 +71,7 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
     </section>
     <section className="inquiry-section studio-inquiry" id="inquiry"><ProductInquiry product={product} code={product.code} label={`${product.code} — ${name}`} productName={product.name} alibabaProductId={product.alibabaProductId} locale={locale} /></section>
     <section className="studio-section"><div className="studio-section-heading"><div><p className="eyebrow">{t("EXPLORE THE COLLECTION","更多鞋款")}</p><h2>{t("Related styles","相关产品")}</h2></div><Link className="text-link" href={href("/products")}>{t("All products","全部产品")} ↗</Link></div><div className="studio-product-grid">{related.map(item=><StudioProductCard key={item.code} product={item} locale={locale} />)}</div></section>
-    <section className="product-print-sheet" aria-label={t("Product specification sheet","产品资料表")}>
-      <header><p>BEIQIANG FOOTWEAR</p><h1>{name}</h1><p>{product.code}</p></header>
-      <div className="studio-print-body"><img src={productMediaUrl(product.images[0])} alt={name} /><div><p>{description}</p><dl className="studio-specs"><div><dt>{t("Upper","鞋面")}</dt><dd>{fact(product.upper)}</dd></div><div><dt>{t("Sole","鞋底")}</dt><dd>{sole}</dd></div><div><dt>{t("Sizes","尺码")}</dt><dd>{product.size}{product.sizeNote && <small className="studio-size-note">{fact(product.sizeNote)}</small>}</dd></div><div><dt>{t("Colours","配色")}</dt><dd>{product.colors.map(c=>zh ? colorZh(c) : c).join(" · ")}</dd></div></dl><p>{external ? t("Supplied through a manufacturing partner.","通过合作供应商供货。") : t("Beiqiang factory style.","贝强自有工厂鞋款。")}</p></div></div>
-      <p>{t("Product reference only. This sheet is not a quotation or order confirmation. Confirm specifications, quantities, prices, sample terms and delivery in the written quotation.","本资料仅供选型，不构成报价或订单确认。具体规格、数量、价格、样品及交付要求以书面报价为准。")}</p><p>Quanzhou Beiqiang Footwear & Apparel Co., Ltd. · shepeiqiang@gmail.com · +86 189 5980 5256</p><p>{schema.url}</p>
-    </section>
+    <StudioProductPrintSheet product={product} name={name} description={description} upper={fact(product.upper)} sole={sole} sizeNote={product.sizeNote ? fact(product.sizeNote) : undefined} external={external} url={schema.url} locale={locale} />
     {zh ? <ChineseSiteFooter /> : <SiteFooter />}
   </main>;
 }

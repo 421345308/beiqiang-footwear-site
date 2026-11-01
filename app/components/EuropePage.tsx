@@ -1,11 +1,16 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import type { Metadata } from "next";
 import {
   t,
   europeLocales,
   type EuropeLocale,
   type CopyKey,
+  categories,
+  translatedCategory,
 } from "../data/europe-copy";
+import { selectedAssortment, selectedCatalogue } from "../data/selected-assortment";
+import { productMatchesCatalogDirection } from "../lib/catalog-filtering";
 import { productTitle } from "../data/europe-products";
 import { products } from "../data/products";
 import { supplyMode } from "../data/published-product-codes";
@@ -16,8 +21,10 @@ import {
   siteOrigin,
 } from "../lib/public-locales";
 import { productMediaUrl } from "../lib/product-media-url";
+import { productPresentation } from "../lib/product-presentation";
 import EuropeShell from "./EuropeShell";
 import EuropeCatalog from "./EuropeCatalog";
+import EuropeProductFinder from "./EuropeProductFinder";
 import EuropeProduct, { EuropeCard, EuropeHeroPhoto } from "./EuropeProduct";
 import EuropeInquiry from "./EuropeInquiry";
 import EuropePrivacyChoices from "./EuropePrivacyChoices";
@@ -37,6 +44,11 @@ const titles: Record<string, CopyKey> = {
   "/sample-order-process/": "processTitle",
   "/sourcing-review/": "custom",
 };
+function pageCopy(locale: EuropeLocale, key: CopyKey) {
+  return t(locale, key).replaceAll("{count}", String(products.length))
+    .replaceAll("{selected}", String(selectedCatalogue.styleCount))
+    .replaceAll("{pages}", String(selectedCatalogue.pageCount));
+}
 function resolve(locale: string, path: string) {
   if (!europeLocales.includes(locale as EuropeLocale)) notFound();
   const product = products.find((p) => path === `/products/${p.slug}/`);
@@ -49,8 +61,8 @@ export function europeMetadata(localeId: string, path: string): Metadata {
     ? `${product.code} · ${productTitle(product, locale)}`
     : t(locale, titles[path]);
   const description = product
-    ? `${productTitle(product, locale)}. ${t(locale, "availability")}`
-    : t(
+    ? productPresentation(product, locale)?.summary || `${productTitle(product, locale)}. ${t(locale, "availability")}`
+    : pageCopy(
         locale,
         path === "/"
           ? "intro"
@@ -60,6 +72,8 @@ export function europeMetadata(localeId: string, path: string): Metadata {
               ? "quoteIntro"
               : path === "/factory/"
                 ? "factoryText"
+                : path === "/line-sheet/"
+                  ? "catalogueSummary"
                 : path === "/privacy/"
                   ? "privacyText"
                   : "samplesText",
@@ -107,7 +121,7 @@ export default function EuropePage({
       "@context": "https://schema.org",
       "@type": "Product",
       name: productTitle(product, locale),
-      description: `${productTitle(product, locale)}. ${t(locale, "availability")}`,
+      description: productPresentation(product, locale)?.summary || `${productTitle(product, locale)}. ${t(locale, "availability")}`,
       sku: product.code,
       model: product.code,
       url: `${siteOrigin}${href(path)}`,
@@ -140,9 +154,11 @@ export default function EuropePage({
         <EuropeProduct product={product} locale={locale} />
       </>
     );
-  } else if (path === "/products/" || path === "/product-finder/")
+  } else if (path === "/product-finder/")
+    content = <EuropeProductFinder locale={locale} />;
+  else if (path === "/products/")
     content = (
-      <EuropeCatalog locale={locale} finder={path === "/product-finder/"} />
+      <EuropeCatalog locale={locale} />
     );
   else if (path === "/request-quote/" || path === "/sourcing-review/")
     content = <EuropeInquiry locale={locale} />;
@@ -155,8 +171,8 @@ export default function EuropePage({
             <h1>{t(locale, "hero")}</h1>
             <p>{t(locale, "intro")}</p>
             <div className="europe-actions">
-              <a className="button" href={href("/products")}>
-                {t(locale, "browse")} ↗
+              <a className="button" href="#selected-styles">
+                {t(locale, "selectedBrowse")} ↗
               </a>
               <a className="studio-text-link" href={href("/request-quote")}>
                 {t(locale, "custom")} →
@@ -165,17 +181,25 @@ export default function EuropePage({
             <p className="europe-note">OEM / ODM · {t(locale, "footer")}</p>
           </div>
           <EuropeHeroPhoto
-            product={products.find((p) => p.code === "BQ003")!}
+            product={products.find((p) => p.code === "BQ008")!}
             locale={locale}
           />
         </section>
-        <section className="europe-content">
-          <p className="eyebrow">BEIQIANG · {products.length}</p>
+        <section className="europe-content europe-purchase-paths">
+          <h2>{t(locale, "startingPoint")}</h2>
+          <div className="europe-path-grid">
+            <article><h3>{t(locale, "existingTitle")}</h3><p>{t(locale, "existingText")}</p><a href={href("/products")}>{t(locale, "browse")} ↗</a></article>
+            <article><h3>{t(locale, "brandTitle")}</h3><p>{t(locale, "brandText")}</p><a href={href("/oem-odm")}>{t(locale, "branding")} ↗</a></article>
+            <article><h3>{t(locale, "findTitle")}</h3><p>{t(locale, "findText")}</p><a href="#product-categories">{t(locale, "browseCategories")} ↓</a></article>
+          </div>
+        </section>
+        <section className="europe-content" id="selected-styles">
+          <p className="eyebrow">BEIQIANG</p>
           <h2>{t(locale, "selectTitle")}</h2>
-          <p className="europe-lead">{t(locale, "catalogIntro")}</p>
+          <p className="europe-lead">{t(locale, "selectedIntro")}</p>
           <div className="studio-product-grid">
-            {["BQ001", "BQ018", "BQ1031", "BQ1059"]
-              .map((code) => products.find((p) => p.code === code))
+            {selectedAssortment
+              .map(({ code }) => products.find((p) => p.code === code))
               .filter(Boolean)
               .map((p) => (
                 <EuropeCard key={p!.code} product={p!} locale={locale} />
@@ -183,14 +207,26 @@ export default function EuropePage({
           </div>
           <a
             className="button button-secondary europe-more"
-            href={href("/product-finder")}
+            href={href("/line-sheet")}
           >
-            {t(locale, "finder")} ↗
+            {t(locale, "lineSheet")} ↗
           </a>
+        </section>
+        <section className="europe-content europe-tinted" id="product-categories">
+          <h2>{t(locale, "browseCategories")}</h2>
+          <p className="europe-lead">{t(locale, "findText")}</p>
+          <nav className="europe-category-grid" aria-label={t(locale, "category")}>
+            {(Object.keys(categories) as (keyof typeof categories)[]).map(key => {
+              const count = products.filter(p => productMatchesCatalogDirection(p, key)).length;
+              return count ? <a key={key} href={`${href("/products")}?direction=${key}`}><strong>{translatedCategory(locale, key)}</strong><span>{count} {t(locale, "styleCount")} ↗</span></a> : null;
+            })}
+          </nav>
+          <a className="button button-secondary europe-more" href={href("/products")}>{t(locale, "browseAll")} ({products.length}) ↗</a>
         </section>
         <section className="europe-content europe-tinted">
           <h2>{t(locale, "factoryRange")}</h2>
           <p className="europe-lead">{t(locale, "supplyIntro")}</p>
+          <p>{t(locale, "factoryText")}</p>
           <a href={href("/factory")}>{t(locale, "factory")} ↗</a>
         </section>
         <section className="europe-content">
@@ -246,6 +282,12 @@ export default function EuropePage({
           <p>{t(locale, "termsText")}</p>
         ) : path === "/line-sheet/" ? (
           <>
+            <p className="europe-lead">{pageCopy(locale, "catalogueSummary")}</p>
+            <div className="europe-catalogue-options">
+            <article><h2>{pageCopy(locale, "selectedCatalogue")}</h2><p>{pageCopy(locale, "selectedPdfNote")}</p>
+            <a className="button" href={selectedCatalogue.path} download>{t(locale, "selectedDownload")} ↗</a>
+            <Link className="studio-text-link" href="/line-sheet/">{t(locale, "selectedPreview")} ↗</Link></article>
+            <article><h2>{pageCopy(locale, "fullCatalogue")}</h2>
             <p>{t(locale, "pdfNote")}</p>
             <a className="button" href={`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`} download>
               {t(locale, "downloadPdf")}
@@ -253,6 +295,7 @@ export default function EuropePage({
             <a className="studio-text-link" href={href("/products")}>
               {t(locale, "browse")}
             </a>
+            </article></div>
           </>
         ) : (
           <>

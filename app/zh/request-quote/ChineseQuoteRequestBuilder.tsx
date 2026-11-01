@@ -25,7 +25,8 @@ import { assessBuyerQuoteReadiness } from "../../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../../lib/product-finder-brief";
 import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../../lib/quote-request-draft";
-import { mergeSharedQuoteList, parseSharedQuoteCodes } from "../../lib/quote-list-share";
+import { mergeSharedQuoteList, parseSharedQuoteCodes, parseSharedQuoteSelection } from "../../lib/quote-list-share";
+import { sharedImportMessage } from "../../lib/quote-share-copy";
 import ResourceInquiryContext from "../../components/ResourceInquiryContext";
 import { buyerResources } from "../../data/resources";
 import { chineseBuyerResources } from "../../data/resources-zh";
@@ -98,14 +99,15 @@ export default function ChineseQuoteRequestBuilder() {
       const currentLines = readQuoteList();
       if (sharedShortlist !== null) {
         const codes = parseSharedQuoteCodes(sharedShortlist, products.map((product) => product.code));
-        const merged = mergeSharedQuoteList(currentLines, codes, products);
+        const selections = parseSharedQuoteSelection(window.location.hash, codes);
+        const merged = mergeSharedQuoteList(currentLines, codes, products, selections);
         setLines(merged.lines);
-        if (merged.imported) saveQuoteList(merged.lines);
-        setShareImportMessage(codes.length
-          ? (merged.imported ? `已导入${merged.imported}款共享产品；原有单款资料保持不变。` : "没有新增款式：产品已在清单中，或当前询价单已满12款。")
-          : "该共享链接没有包含有效的目录款号。");
+        if (merged.imported || merged.updated) saveQuoteList(merged.lines);
+        setShareImportMessage(sharedImportMessage("zh", codes, merged.imported, currentLines, selections, merged.updated));
         const cleanUrl = new URL(window.location.href);
         cleanUrl.searchParams.delete("shortlist");
+        const fragment = new URLSearchParams(cleanUrl.hash.slice(1));
+        if (fragment.has("selection")) { fragment.delete("selection"); cleanUrl.hash = fragment.toString(); }
         window.history.replaceState({}, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
       } else setLines(currentLines);
       const savedDraft = readQuoteRequestDraft();

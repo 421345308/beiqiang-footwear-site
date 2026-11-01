@@ -24,7 +24,7 @@ export default function BuyerLineSheet({ locale }: { locale: LegacyLocale }) {
       <div><p className="eyebrow">{t("SELECT YOUR NEXT RANGE", "为下一批采购选款")}</p>
         <h1>{t("Selected casuals.", "日常休闲精选。")}<br />{t("For your next range.", "从有区分的款式开始。")}</h1>
         <p>{t("Explore eight selected styles, compare the size ranges and meet our manufacturing process. Browse the catalogue now, then ask us about the styles that fit your business.", "先浏览8款精选、比较尺码与款型、了解真实生产过程。找到适合您业务的方向后，再讨论选款、样品与报价。")}</p>
-        <div className="line-sheet-hero-facts"><span>{t("8 selected styles", "8款精选")}</span><span>{t("6-page English PDF", "6页英文精选册")}</span><span>{t("Factory & partner-sourced options", "本厂与合作来源")}</span></div>
+        <div className="line-sheet-hero-facts"><span>{t("8 selected styles", "8款精选")}</span><span>{t("6-page English PDF", "6页英文精选册")}</span><span>{t("Beiqiang factory styles", "贝强本厂款式")}</span></div>
         <div className="catalogue-download-actions"><a className="button" href={selectedCatalogue.path} target="_blank" rel="noreferrer">{t("Preview selected catalogue", "预览英文精选册")} ↗</a><a className="studio-text-link" href={selectedCatalogue.path} download>{t("Download PDF", "下载PDF")} ↓</a></div>
       </div>
       <div className="line-sheet-preview" aria-label={t("Selected style preview", "精选款预览")}>{selectedAssortment.map(item => {

@@ -40,7 +40,7 @@
 
 - The website currently contains 69 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
-- Wide-toe claims apply only to individually identified styles. Own-factory and partner-sourced styles are distinguished on product pages.
+- Wide-toe claims apply only to individually identified styles. Displayed styles are Beiqiang factory products.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
 - Formal transactions proceed through Alibaba Trade Assurance or a signed bilateral contract.
 

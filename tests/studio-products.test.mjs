@@ -47,7 +47,7 @@ test('homepage categories use the same inventory as landing pages and representa
   assert.deepEqual(diverseProductPreview(products, 0), []);
 });
 
-test('supplier product identity survives quote sharing and inquiry validation', () => {
+test('confirmed factory product identity survives quote sharing and inquiry validation', () => {
   for (const code of EXTERNAL_SOURCE_CODES) {
     const product=products.find(p=>p.code===code);
     const url=new URL(buildQuoteListShareUrl([code,'BQ001'], 'zh'));
@@ -57,7 +57,7 @@ test('supplier product identity survives quote sharing and inquiry validation', 
     const result=validateInquiry({name:'Website QA',company:'Example Imports',buyerType:'Importer / wholesaler',market:'United States',quantity:'300 pairs',email:'qa@example.com',requirements:'Please discuss samples for the specified style.',consent:true,styleCode:code,styleLabel:product.name,context:'product',page:`/zh/products/${product.slug}/`,formStartedAt:Date.now()-5000});
     assert.equal(result.error,undefined,JSON.stringify(result));
     assert.equal(result.inquiry.styleCode,code);
-    assert.equal(supplyMode(code),'partner-sourced');
+    assert.equal(supplyMode(code),'own-factory');
   }
   assert.deepEqual(parseSharedQuoteCodes('BQ-LQ999,BQ061,BQ-LQ059',products.map(p=>p.code)),['BQ-LQ059']);
   assert.throws(()=>supplyMode('BQ-LQ999'));
@@ -75,7 +75,7 @@ test('published locale registry emits matching canonical and reciprocal product 
   }
 });
 
-test('supplier pages render accurate origins and indexable localized product facts without fictional offers',async()=>{
+test('confirmed factory pages render accurate origins and indexable localized product facts without fictional offers',async()=>{
   const {default:worker}=await import('../dist/server/index.js');
   for (const code of EXTERNAL_SOURCE_CODES) for (const locale of publicLocales) {
     const product=products.find(p=>p.code===code);
@@ -86,10 +86,10 @@ test('supplier pages render accurate origins and indexable localized product fac
     const schemas=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m=>JSON.parse(m[1]));
     const schema=schemas.find(s=>s['@type']==='Product');
     assert.equal(schema.sku,code);
-    assert.equal(schema.manufacturer,undefined);
+    assert.equal(schema.manufacturer?.name,'Quanzhou Beiqiang Footwear & Apparel Co., Ltd.');
     assert.equal(schema.offers,undefined);
-    if (["de", "fr", "es"].includes(locale.id)) assert.ok(html.includes(t(locale.id, "partner")));
-    else assert.match(html,/manufacturing partner|合作供应商/);
+    if (["de", "fr", "es"].includes(locale.id)) assert.ok(html.includes(t(locale.id, "own")));
+    else assert.match(html,/Beiqiang factory style|贝强自有工厂鞋款/);
     assert.ok(html.includes(product.sole) || (["de", "fr", "es"].includes(locale.id) && html.includes(productFact(product.sole, locale.id))) || /材质|橡胶|EVA|PVC|PU|TPR/.test(html));
     assert.match(html,/product-print-sheet/);
     assert.match(html,new RegExp(`href="https://www.beiqiang.online${path}/"`));

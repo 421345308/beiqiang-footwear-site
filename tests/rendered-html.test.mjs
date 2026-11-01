@@ -26,7 +26,8 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
     /Everyday casual footwear/,
   );
   assert.match(html, /Plan a sample/);
-  assert.match(html, /href="#selected-styles"/);
+  assert.match(html, /href="#collections"/);
+  assert.match(html, /id="collections"/);
   assert.match(html, /id="discovery-title"/);
   assert.match(html, /shepeiqiang@gmail\.com/);
   assert.match(html, /8618959805256/);

@@ -21,6 +21,9 @@ import {
 } from "../lib/quote-request-draft";
 import { localizedInquiryPayload, inquiryProblem } from "../lib/europe-inquiry";
 import { getAttribution, trackEvent } from "../lib/tracking";
+import QuoteListShare from "./QuoteListShare";
+import { mergeSharedQuoteList, parseSharedQuoteCodes, parseSharedQuoteSelection } from "../lib/quote-list-share";
+import { sharedImportMessage } from "../lib/quote-share-copy";
 
 export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
   const [lines, setLines] = useState<QuoteLine[]>([]);
@@ -34,6 +37,7 @@ export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
     "idle",
   );
   const [message, setMessage] = useState("");
+  const [shareMessage, setShareMessage] = useState("");
   const [receipt, setReceipt] = useState<{
     reference: string;
     accessCode: string;
@@ -47,14 +51,28 @@ export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
     const frame = requestAnimationFrame(() => {
       setDraft(readQuoteRequestDraft() || EMPTY_QUOTE_REQUEST_DRAFT);
       setReady(true);
-      load();
+      const current = readQuoteList();
+      const url = new URL(window.location.href);
+      const shared = url.searchParams.get("shortlist");
+      if (shared !== null) {
+        const codes = parseSharedQuoteCodes(shared, products.map(product => product.code));
+        const selections = parseSharedQuoteSelection(url.hash, codes);
+        const merged = mergeSharedQuoteList(current, codes, products, selections);
+        setLines(merged.lines);
+        if (merged.imported || merged.updated) saveQuoteList(merged.lines);
+        setShareMessage(sharedImportMessage(locale, codes, merged.imported, current, selections, merged.updated));
+        url.searchParams.delete("shortlist");
+        const fragment = new URLSearchParams(url.hash.slice(1));
+        if (fragment.has("selection")) { fragment.delete("selection"); url.hash = fragment.toString(); }
+        window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+      } else load();
     });
     window.addEventListener(QUOTE_LIST_EVENT, load);
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener(QUOTE_LIST_EVENT, load);
     };
-  }, []);
+  }, [locale]);
   function edit(patch: Partial<QuoteRequestDraft>) {
     const next = { ...draft, ...patch };
     setDraft(next);
@@ -149,6 +167,7 @@ export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
       <h1>{t(locale, "quote")}</h1>
       <p className="europe-lead">{t(locale, "quoteIntro")}</p>
       <p className="europe-note">{t(locale, "draftNote")}</p>
+      <QuoteListShare lines={lines} locale={locale} importMessage={shareMessage} />
       <form
         noValidate
         onSubmit={submit}

@@ -23,7 +23,8 @@ import { assessBuyerQuoteReadiness } from "../lib/buyer-quote-readiness";
 import { readPrivateLabelConcept } from "../lib/private-label-concept";
 import { buyerTypeFromFinder, clearProductFinderBrief, finderBriefLabels, readProductFinderBrief, salesChannelFromFinder, type ProductFinderBrief } from "../lib/product-finder-brief";
 import { clearQuoteRequestDraft, EMPTY_QUOTE_REQUEST_DRAFT, readQuoteRequestDraft, saveQuoteRequestDraft, type QuoteRequestDraft } from "../lib/quote-request-draft";
-import { mergeSharedQuoteList, parseSharedQuoteCodes } from "../lib/quote-list-share";
+import { mergeSharedQuoteList, parseSharedQuoteCodes, parseSharedQuoteSelection } from "../lib/quote-list-share";
+import { sharedImportMessage } from "../lib/quote-share-copy";
 import ResourceInquiryContext from "../components/ResourceInquiryContext";
 import { buyerResources } from "../data/resources";
 import { findInquiryResource, resourceFromProgram } from "../lib/resource-inquiry";
@@ -96,14 +97,15 @@ export default function QuoteRequestBuilder() {
       const currentLines = readQuoteList();
       if (sharedShortlist !== null) {
         const codes = parseSharedQuoteCodes(sharedShortlist, products.map((product) => product.code));
-        const merged = mergeSharedQuoteList(currentLines, codes, products);
+        const selections = parseSharedQuoteSelection(window.location.hash, codes);
+        const merged = mergeSharedQuoteList(currentLines, codes, products, selections);
         setLines(merged.lines);
-        if (merged.imported) saveQuoteList(merged.lines);
-        setShareImportMessage(codes.length
-          ? (merged.imported ? `Imported ${merged.imported} shared style${merged.imported === 1 ? "" : "s"}; existing line details were preserved.` : "No new styles were imported; they are already listed or this quote list is full.")
-          : "This shared link did not contain a valid catalogue style.");
+        if (merged.imported || merged.updated) saveQuoteList(merged.lines);
+        setShareImportMessage(sharedImportMessage("en", codes, merged.imported, currentLines, selections, merged.updated));
         const cleanUrl = new URL(window.location.href);
         cleanUrl.searchParams.delete("shortlist");
+        const fragment = new URLSearchParams(cleanUrl.hash.slice(1));
+        if (fragment.has("selection")) { fragment.delete("selection"); cleanUrl.hash = fragment.toString(); }
         window.history.replaceState({}, "", `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
       } else setLines(currentLines);
       const savedDraft = readQuoteRequestDraft();

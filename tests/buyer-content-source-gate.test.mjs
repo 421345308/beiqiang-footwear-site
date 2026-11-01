@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { products, heldSourceProducts, productsInCollection } from '../app/data/products.ts';
-import { PUBLISHED_PRODUCT_CODES, EXTERNAL_SOURCE_CODES } from '../app/data/published-product-codes.ts';
+import { PUBLISHED_PRODUCT_CODES, EXTERNAL_SOURCE_CODES, supplyMode } from '../app/data/published-product-codes.ts';
 import { FACTORY_SOURCE_CODES } from '../app/data/factory-source-codes.ts';
 import { FINDER_STYLE_CODES } from '../edgeone-deploy/cloud-functions/api/catalog-style-codes.js';
 import { readFile } from 'node:fs/promises';
@@ -11,12 +11,13 @@ async function render(path) {
   return worker.fetch(new Request(`https://www.beiqiang.online${path}`), { ASSETS: { fetch: async () => new Response('', {status:404}) } }, {waitUntil(){}});
 }
 
-test('public supply matches the reviewed raw-package register, not image folders', () => {
+test('public supply matches the owner confirmation while historical image records remain distinct', () => {
   assert.equal(products.length, 69);
   assert.equal(FACTORY_SOURCE_CODES.size, 31);
   assert.equal(EXTERNAL_SOURCE_CODES.size, 38);
   assert.equal(heldSourceProducts.length, 25);
   assert.deepEqual(new Set(products.map(p => p.code)), PUBLISHED_PRODUCT_CODES);
+  for (const code of PUBLISHED_PRODUCT_CODES) assert.equal(supplyMode(code), 'own-factory', code);
   assert.deepEqual(FINDER_STYLE_CODES, PUBLISHED_PRODUCT_CODES);
   for (const held of heldSourceProducts) assert.ok(!FACTORY_SOURCE_CODES.has(held.code));
   assert.deepEqual(productsInCollection('extended-size-shoes').map(p=>p.code), ['BQ001','BQ002','BQ031','BQ-LQ059','BQ-LQ060','BQ-LQ2597','BQ1031','BQ1037','BQ1043','BQ1047','BQ1055','BQ1056','BQ1057','BQ1058','BQ1060','BQ1061','BQ1062','BQ1063','BQ1066','BQ1067']);

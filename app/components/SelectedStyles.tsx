@@ -15,7 +15,7 @@ export default function SelectedStyles({ locale }: { locale: LegacyLocale }) {
       <p className="selected-style-role">{zh ? item.zh : item.en}</p>
       <StudioProductCard product={products.find(p => p.code === item.code)!} locale={locale} />
     </div>)}</div>
-    <div className="discovery-bottom"><p>{zh ? "精选册还包含针织套脚、白色低帮及季节补充款，并区分本厂与合作来源。" : "The selected catalogue adds knit slip-ons, white low-tops and seasonal options, with factory and partner-sourced styles clearly identified."}</p>
+    <div className="discovery-bottom"><p>{zh ? "精选册还包含本厂的针织套脚、白色低帮及季节补充款。" : "The selected catalogue also features our factory's knit slip-ons, white low-tops and seasonal styles."}</p>
       <Link className="studio-text-link" href={localizedPath("/line-sheet", locale)}>{zh ? "浏览与下载精选册" : "Browse the selected catalogue"} ↗</Link>
     </div>
   </section>;
