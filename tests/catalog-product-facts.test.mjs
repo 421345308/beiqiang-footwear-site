@@ -96,7 +96,7 @@ test("renders the second-batch material facts in buyer-readable Chinese", () => 
   assert.equal(factZh("Knitted stretch-fabric upper"), "针织弹力织物鞋面");
   assert.equal(factZh("Hollow-knit stretch-fabric upper"), "镂空针织弹力织物鞋面");
   assert.equal(factZh("Mesh lining recorded in Alibaba trunk"), "Alibaba线上正本已记录网布内里");
-  assert.equal(productNameZh(product("BQ009")), "透气针织弹力织物系带步行鞋");
+  assert.equal(productNameZh(product("BQ009")), "透气针织系带运动鞋");
 });
 
 test("keeps R1811 trunk materials attached to the exact website product identity", () => {

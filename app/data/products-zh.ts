@@ -17,8 +17,8 @@ const names: Record<string, string> = {
   BQ005: "夏季镂空针织系带步行鞋",
   BQ006: "秋冬厚底针织系带鞋",
   BQ007: "透气织物套穿步行鞋",
-  BQ008: "网布厚底运动步行鞋",
-  BQ009: "透气针织弹力织物系带步行鞋",
+  BQ008: "网布厚底运动鞋",
+  BQ009: "透气针织系带运动鞋",
   BQ010: "弹力织物包头系带步行鞋",
   BQ011: "男士织物套穿步行鞋",
   BQ012: "透气针织厚底系带步行鞋",
@@ -222,7 +222,7 @@ export function factZh(value: string) {
   if ((reviewedFactsZh as Record<string,string>)[value]) return (reviewedFactsZh as Record<string,string>)[value];
   const exact: Record<string, string> = {
     "Each paired label is one size option; confirm sample insole length before market-size conversion.": "每组双码标签对应一个尺码选项；转换销售市场尺码前，请先核对样品鞋垫长度。",
-    "Supplier size labels; confirm sample insole length before market-size conversion.": "此处为供应商尺码标签；转换销售市场尺码前，请先核对样品鞋垫长度。",
+    "Size labels; confirm sample insole length before market-size conversion.": "此处为尺码标签；转换销售市场尺码前，请先核对样品鞋垫长度。",
     "EVA upper": "EVA鞋面",
     "Pivoting heel strap": "可转动后跟带",
     "Vented upper and raised sole profile": "镂空鞋面与厚底轮廓",
@@ -232,10 +232,10 @@ export function factZh(value: string) {
     "Five paired size labels": "五组双码标签",
     "Closed toe and open heel": "包头后空结构",
     "Buckle strap with visible adjustment holes": "带调节孔的搭扣饰带",
-    "Supplier size labels 35\u201345": "供应商标注尺码35–45",
+    "Size labels 35\u201345": "尺码标签35–45",
     "Suede-effect upper; composition to be confirmed": "绒面效果鞋面；材料成分待确认",
     "Paired size labels and sample insole length": "双码标签与样品鞋垫长度",
-    "Supplier size labels and sample insole length": "供应商尺码标签与样品鞋垫长度",
+    "Size labels and sample insole length": "尺码标签与样品鞋垫长度",
     "Separate outsole and lining specifications": "外底及内里各自的材料规格",
     "Upper composition, footbed and outsole materials": "鞋面成分、鞋床与外底材料",
 

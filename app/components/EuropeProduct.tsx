@@ -18,7 +18,6 @@ import {
   withColour,
 } from "../lib/product-colours";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
-import { supplyMode } from "../data/published-product-codes";
 import PrintProductSheetButton from "./PrintProductSheetButton";
 import { siteOrigin } from "../lib/public-locales";
 import { trackEvent } from "../lib/tracking";
@@ -374,14 +373,6 @@ export default function EuropeProduct({
           <p className="eyebrow">{product.code} · BEIQIANG</p>
           <h1>{name}</h1>
           {presentation && <p className="studio-product-description">{presentation.summary}</p>}
-          <p>
-            {t(
-              locale,
-              supplyMode(product.code) === "partner-sourced"
-                ? "partner"
-                : "own",
-            )}
-          </p>
           <dl className="studio-specs">
             {(["upper", "sole", "size", "closure"] as const).map((key) => (
               <div key={key}>
@@ -422,7 +413,6 @@ export default function EuropeProduct({
           </dl>
         </div>
         {product.sizeNote && <p>{t(locale, "paired")}</p>}
-        <p>{t(locale, supplyMode(product.code) === "partner-sourced" ? "partner" : "own")}</p>
         <p>{t(locale, "availability")}</p>
         <p>{t(locale, product.fitEvidence === "wide_toe_verified" ? "wideNote" : "fitNote")}</p>
         <p><a href={withColour(`${siteOrigin}${localizedPath(`/products/${product.slug}`, locale)}`, id)}>{withColour(`${siteOrigin}${localizedPath(`/products/${product.slug}`, locale)}`, id)}</a></p>

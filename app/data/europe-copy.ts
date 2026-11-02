@@ -10,13 +10,13 @@ export const copy = {
   findTitle: ["Nach Ihrem Sortiment auswählen", "Choisir selon votre gamme", "Elegir según su gama"],
   findText: ["Entdecken Sie weitere Modelle nach Schuhtyp, Verschluss und Größenbereich. Vergleichen Sie passende Modelle und stellen Sie Ihre Anfrageliste zusammen.", "Explorez les modèles par type de chaussure, fermeture et plage de pointures. Comparez les modèles adaptés et constituez votre liste de demande.", "Explore modelos por tipo de calzado, cierre y rango de tallas. Compare los modelos adecuados y prepare su lista de consulta."],
   selectedBrowse: ["Ausgewählte Modelle entdecken", "Découvrir les modèles sélectionnés", "Ver modelos seleccionados"],
-  selectedIntro: ["Drei Modelle aus unserer Fertigung als Ausgangspunkt: markante Mesh-Einsätze, ein schlichter Textil-Schnürschuh und ein Strickmodell mit breitem Zehenbereich. Wählen Sie nach Markt, Farben und Größen.", "Trois points de départ de notre fabrication : des empiècements en mesh, un modèle textile épuré à lacets et un modèle en maille à avant-pied large. Choisissez selon votre marché, vos coloris et vos pointures.", "Tres puntos de partida de nuestra fabricación: paneles de malla, un modelo textil de líneas sencillas con cordones y un modelo de punto con puntera amplia. Elija según su mercado, colores y tallas."],
+  selectedIntro: ["Drei Modelle als Ausgangspunkt: markante Mesh-Einsätze, ein schlichter Textil-Schnürschuh und ein Strickmodell mit breitem Zehenbereich. Wählen Sie nach Markt, Farben und Größen.", "Trois points de départ : des empiècements en mesh, un modèle textile épuré à lacets et un modèle en maille à avant-pied large. Choisissez selon votre marché, vos coloris et vos pointures.", "Tres puntos de partida: paneles de malla, un modelo textil de líneas sencillas con cordones y un modelo de punto con puntera amplia. Elija según su mercado, colores y tallas."],
   browseCategories: ["Weitere Schuhkategorien entdecken", "Explorer les autres catégories", "Explorar más categorías de calzado"],
   browseAll: ["Gesamte Kollektion ansehen", "Voir toute la collection", "Ver toda la colección"],
   styleCount: ["Modelle", "modèles", "modelos"],
   catalogueSummary: ["Beginnen Sie mit {selected} ausgewählten Freizeitmodellen im englischen PDF oder entdecken Sie alle {count} Modelle im deutschen Gesamtkatalog. Details und Farbfotos finden Sie online.", "Commencez par {selected} modèles décontractés dans le PDF en anglais ou explorez les {count} modèles du catalogue complet en français. Retrouvez les détails et les photos par coloris en ligne.", "Empiece con {selected} modelos casuales en el PDF en inglés o explore los {count} modelos del catálogo completo en español. Consulte los detalles y las fotos por color en la web."],
   selectedCatalogue: ["{selected} ausgewählte Modelle · Englisch", "{selected} modèles sélectionnés · Anglais", "{selected} modelos seleccionados · Inglés"],
-  selectedPdfNote: ["{pages} Seiten mit Freizeitmodellen aus unserer Fertigung, Größen und Kooperationsmöglichkeiten. Dieses PDF ist auf Englisch.", "{pages} pages de modèles décontractés de notre fabrication, pointures et modalités de collaboration. Ce PDF est en anglais.", "{pages} páginas con modelos casuales de nuestra fábrica, tallas y opciones de colaboración. Este PDF está en inglés."],
+  selectedPdfNote: ["{pages} Seiten mit ausgewählten Freizeitmodellen, Größen und Kooperationsmöglichkeiten. Dieses PDF ist auf Englisch.", "{pages} pages de modèles décontractés sélectionnés, pointures et modalités de collaboration. Ce PDF est en anglais.", "{pages} páginas con modelos casuales seleccionados, tallas y opciones de colaboración. Este PDF está en inglés."],
   selectedDownload: ["Auswahl-PDF herunterladen (Englisch)", "Télécharger la sélection PDF (anglais)", "Descargar selección PDF (inglés)"],
   selectedPreview: ["Auswahl online ansehen (Englisch)", "Voir la sélection en ligne (anglais)", "Ver selección en línea (inglés)"],
   fullCatalogue: ["{count} Modelle · Deutscher Gesamtkatalog", "{count} modèles · Catalogue complet en français", "{count} modelos · Catálogo completo en español"],
@@ -36,9 +36,9 @@ export const copy = {
     "Calzado casual para su próxima colección.",
   ],
   intro: [
-    "Beiqiang in Quanzhou bietet Importeuren, Großhändlern und etablierten Marken eigene Werksmodelle. Starten Sie mit passenden Freizeitschuhen, auch in kleineren Mengen mit gemischten Farben und Größen, oder gestalten Sie bestehende Modelle für Ihre Marke.",
-    "À Quanzhou, Beiqiang propose aux importateurs, grossistes et marques établies ses propres modèles. Choisissez des chaussures décontractées, avec de petites quantités et un panachage de coloris et pointures, ou personnalisez des modèles existants pour votre marque.",
-    "Desde Quanzhou, Beiqiang ofrece a importadores, mayoristas y marcas establecidas modelos de su propia fábrica. Empiece con calzado casual en cantidades pequeñas, combinando colores y tallas, o personalice modelos existentes para su marca.",
+    "Beiqiang in Quanzhou bietet Importeuren, Großhändlern und etablierten Marken Freizeitschuhe. Starten Sie mit passenden Modellen, auch in kleineren Mengen mit gemischten Farben und Größen, oder gestalten Sie bestehende Modelle für Ihre Marke.",
+    "À Quanzhou, Beiqiang propose des chaussures décontractées aux importateurs, grossistes et marques établies. Choisissez des modèles en petites quantités avec un panachage de coloris et pointures, ou personnalisez-les pour votre marque.",
+    "Desde Quanzhou, Beiqiang ofrece calzado casual a importadores, mayoristas y marcas establecidas. Empiece en cantidades pequeñas, combinando colores y tallas, o personalice modelos existentes para su marca.",
   ],
   browse: [
     "Kollektion entdecken",
@@ -51,14 +51,14 @@ export const copy = {
     "Consultar un proyecto de marca",
   ],
   factoryRange: [
-    "Modelle aus eigener Fertigung",
-    "Modèles de notre fabrication",
-    "Modelos de nuestra fábrica",
+    "Unsere Schuhkollektion",
+    "Notre collection de chaussures",
+    "Nuestra colección de calzado",
   ],
   supplyIntro: [
-    "Alle gezeigten Modelle stammen aus der Beiqiang-Fertigung. Materialien, verfügbare Ausführungen und Termine werden für jeden Auftrag bestätigt.",
-    "Tous les modèles présentés sont fabriqués par Beiqiang. Les matières, variantes disponibles et délais sont confirmés pour chaque commande.",
-    "Todos los modelos mostrados se fabrican en Beiqiang. Los materiales, las variantes disponibles y los plazos se confirman para cada pedido.",
+    "Entdecken Sie die Beiqiang-Kollektion. Materialien, verfügbare Ausführungen und Termine werden für jeden Auftrag bestätigt.",
+    "Découvrez la collection Beiqiang. Les matières, variantes disponibles et délais sont confirmés pour chaque commande.",
+    "Descubra la colección Beiqiang. Los materiales, las variantes disponibles y los plazos se confirman para cada pedido.",
   ],
   selectTitle: [
     "Drei Ausgangspunkte für Ihr Sortiment.",
@@ -141,16 +141,6 @@ export const copy = {
   view: ["Modelldetails", "Voir le modèle", "Ver modelo"],
   upper: ["Obermaterial", "Tige", "Material del corte"],
   sole: ["Sohle", "Semelle", "Suela"],
-  own: [
-    "Modell aus der Beiqiang-Fertigung",
-    "Modèle fabriqué par Beiqiang",
-    "Modelo de fabricación Beiqiang",
-  ],
-  partner: [
-    "Lieferung über einen Fertigungspartner",
-    "Fourni par un partenaire de fabrication",
-    "Suministrado por un fabricante asociado",
-  ],
   availability: [
     "Farben, Größen, Materialausführung und Liefertermin werden für Ihren Auftrag bestätigt.",
     "Les coloris, pointures, matières et délais sont confirmés pour votre commande.",
@@ -477,9 +467,9 @@ export const copy = {
     "Por confirmar con muestra y oferta escrita",
   ],
   paired: [
-    "Größenangaben des Lieferanten. Vor Umrechnung auf Marktgrößen die Innensohlenlänge am Muster prüfen.",
-    "Pointures indiquées par le fournisseur. Vérifiez la longueur de semelle intérieure sur échantillon avant toute conversion.",
-    "Tallas indicadas por el proveedor. Confirme la longitud de la plantilla en la muestra antes de convertir tallas.",
+    "Angegebene Größenetiketten. Vor Umrechnung auf Marktgrößen die Innensohlenlänge am Muster prüfen.",
+    "Pointures indiquées sur les étiquettes. Vérifiez la longueur de semelle intérieure sur échantillon avant toute conversion.",
+    "Tallas indicadas en las etiquetas. Confirme la longitud de la plantilla en la muestra antes de convertir tallas.",
   ],
 } as const;
 export type CopyKey = keyof typeof copy;

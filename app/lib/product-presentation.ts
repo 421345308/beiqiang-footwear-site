@@ -5,11 +5,11 @@ import type { PublicLocale } from "./public-locales";
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
   BQ001: {
-    en: { summary: "Knit slip-on with a wide toe box and EVA sole. Three colours in EU 36–46; check overall fit on a sample.", highlights: ["Knit upper and slip-on opening", "Wide toe box; confirm overall fit on a sample", "Three colours · EU 36–46"] },
-    zh: { summary: "针织套穿鞋，宽鞋头搭配EVA鞋底。提供三种配色、EU 36–46；整鞋合脚程度请通过样品确认。", highlights: ["针织鞋面与套穿结构", "宽鞋头；整鞋合脚程度以样品确认", "三种配色 · EU 36–46"] },
-    de: { summary: "Strick-Slipper mit breitem Zehenbereich und EVA-Sohle. Drei Farben in EU 36–46; Passform am Muster prüfen.", highlights: ["Strick-Obermaterial und Slip-on-Form", "Breiter Zehenbereich; Passform am Muster prüfen", "Drei Farben · EU 36–46"] },
-    fr: { summary: "Modèle à enfiler en maille avec avant-pied large et semelle EVA. Trois coloris en EU 36–46 ; vérifier le chaussant sur échantillon.", highlights: ["Tige en maille et forme à enfiler", "Avant-pied large ; chaussant à vérifier sur échantillon", "Trois coloris · EU 36–46"] },
-    es: { summary: "Modelo de punto sin cordones con puntera amplia y suela EVA. Tres colores en EU 36–46; comprobar el ajuste con una muestra.", highlights: ["Empeine de punto y diseño sin cordones", "Puntera amplia; comprobar el ajuste con una muestra", "Tres colores · EU 36–46"] },
+    en: { summary: "Knit slip-on with a wide toe box and EVA sole. Three colours in {size}; check overall fit on a sample.", highlights: ["Knit upper and slip-on opening", "Wide toe box; confirm overall fit on a sample", "Three colours · {size}"] },
+    zh: { summary: "针织套穿鞋，宽鞋头搭配EVA鞋底。提供三种配色、{size}；整鞋合脚程度请通过样品确认。", highlights: ["针织鞋面与套穿结构", "宽鞋头；整鞋合脚程度以样品确认", "三种配色 · {size}"] },
+    de: { summary: "Strick-Slipper mit breitem Zehenbereich und EVA-Sohle. Drei Farben in {size}; Passform am Muster prüfen.", highlights: ["Strick-Obermaterial und Slip-on-Form", "Breiter Zehenbereich; Passform am Muster prüfen", "Drei Farben · {size}"] },
+    fr: { summary: "Modèle à enfiler en maille avec avant-pied large et semelle EVA. Trois coloris en {size} ; vérifier le chaussant sur échantillon.", highlights: ["Tige en maille et forme à enfiler", "Avant-pied large ; chaussant à vérifier sur échantillon", "Trois coloris · {size}"] },
+    es: { summary: "Modelo de punto sin cordones con puntera amplia y suela EVA. Tres colores en {size}; comprobar el ajuste con una muestra.", highlights: ["Empeine de punto y diseño sin cordones", "Puntera amplia; comprobar el ajuste con una muestra", "Tres colores · {size}"] },
   },
   BQ003: {
     en: { summary: "Stretch-fabric lace-up with an EVA sole and mesh lining in the documented configuration. Five colours in EU 35–45.", highlights: ["Stretch-fabric upper", "EVA sole; mesh lining in the documented configuration", "Five colours · EU 35–45"] },
@@ -33,15 +33,15 @@ const copy: Record<string, Record<PublicLocale, Presentation>> = {
     es: { summary: "Zueco ventilado con empeine de EVA y tira trasera giratoria. Cinco colores y tallas dobles 35–36, 37–38 y 39–40.", highlights: ["Empeine de EVA con aberturas", "Tira trasera giratoria", "Cinco colores · tres tallas dobles"] },
   },
   BQ008: {
-    en: { summary: "Mesh textile with a thick-sole profile and lace-up fastening. Four colour combinations in EU 36–45 for sport-casual assortments.", highlights: ["Mesh textile upper", "Thick-sole profile", "Four colour combinations · EU 36–45"] },
-    zh: { summary: "网布鞋面搭配厚底轮廓与系带结构，提供四种配色、EU 36–45，适合运动休闲系列选款。", highlights: ["网布鞋面", "厚底轮廓与系带结构", "四种配色 · EU 36–45"] },
+    en: { summary: "Lace-up sneakers with mesh textile and a thick-sole profile. Four colour combinations in EU 36–45 for sport-casual assortments.", highlights: ["Mesh textile upper", "Thick-sole profile", "Four colour combinations · EU 36–45"] },
+    zh: { summary: "系带运动鞋，网布鞋面搭配厚底轮廓，提供四种配色、EU 36–45，适合运动休闲系列选款。", highlights: ["网布鞋面", "厚底轮廓与系带结构", "四种配色 · EU 36–45"] },
     de: { summary: "Mesh-Obermaterial mit markanter Sohle und Schnürung. Vier Farbkombinationen in EU 36–45 für sportliche Freizeitsortimente.", highlights: ["Mesh-Obermaterial", "Markantes Sohlenprofil mit Schnürung", "Vier Farbkombinationen · EU 36–45"] },
     fr: { summary: "Tige en mesh, semelle épaisse et fermeture à lacets. Quatre coloris en EU 36–45 pour les collections sport et loisirs.", highlights: ["Tige en mesh", "Silhouette à semelle épaisse et lacets", "Quatre coloris · EU 36–45"] },
     es: { summary: "Empeine de malla, silueta de suela gruesa y cierre de cordones. Cuatro combinaciones de color en EU 36–45 para colecciones deportivas informales.", highlights: ["Empeine de malla", "Silueta de suela gruesa y cordones", "Cuatro combinaciones de color · EU 36–45"] },
   },
   BQ009: {
-    en: { summary: "Stretch-knit lace-up with mesh lining in the listed configuration. Four colours in EU 35–45; sole materials are confirmed for the selected order.", highlights: ["Stretch-knit upper; mesh lining in the listed configuration", "Lace-up fastening", "Four colour options · EU 35–45"] },
-    zh: { summary: "弹力针织鞋面搭配系带结构，所列配置采用网布内里。提供四种配色、EU 35–45；鞋底材料按所选订单确认。", highlights: ["弹力针织鞋面；所列配置采用网布内里", "系带结构", "四种配色 · EU 35–45"] },
+    en: { summary: "Stretch-knit lace-up sneakers with mesh lining in the listed configuration. Four colours in EU 35–45; sole materials are confirmed for the selected order.", highlights: ["Stretch-knit upper; mesh lining in the listed configuration", "Lace-up fastening", "Four colour options · EU 35–45"] },
+    zh: { summary: "弹力针织系带运动鞋，所列配置采用网布内里。提供四种配色、EU 35–45；鞋底材料按所选订单确认。", highlights: ["弹力针织鞋面；所列配置采用网布内里", "系带结构", "四种配色 · EU 35–45"] },
     de: { summary: "Stretchstrick-Schnürschuh mit Meshfutter in der angegebenen Ausführung. Vier Farben in EU 35–45; Sohlenmaterial für die Bestellung bestätigen.", highlights: ["Stretchstrick-Obermaterial; Meshfutter in der angegebenen Ausführung", "Schnürung", "Vier Farben · EU 35–45"] },
     fr: { summary: "Chaussure à lacets en maille extensible avec doublure mesh pour la configuration indiquée. Quatre coloris en EU 35–45 ; matière de la semelle à confirmer pour la commande.", highlights: ["Tige en maille extensible ; doublure mesh pour la configuration indiquée", "Fermeture à lacets", "Quatre coloris · EU 35–45"] },
     es: { summary: "Calzado de cordones en punto elástico con forro de malla en la configuración indicada. Cuatro colores en EU 35–45; confirmar el material de la suela para el pedido.", highlights: ["Empeine de punto elástico; forro de malla en la configuración indicada", "Cierre de cordones", "Cuatro colores · EU 35–45"] },
@@ -55,7 +55,10 @@ const copy: Record<string, Record<PublicLocale, Presentation>> = {
   },
 };
 export function productPresentation(product: Product, locale: PublicLocale): Presentation | undefined {
-  return copy[product.code]?.[locale];
+  const value = copy[product.code]?.[locale];
+  if (!value) return undefined;
+  const size = product.size.replace("-", "–");
+  return { summary: value.summary.replaceAll("{size}", size), highlights: value.highlights.map(item => item.replaceAll("{size}", size)) };
 }
 export const productOrderCopy: Record<PublicLocale, { title: string; text: string }> = {
   en: { title: "Order options", text: "Ask about small mixed-size orders for existing styles, or branding and packaging for your label. Share your colours, size mix, quantity and destination so we can confirm the available configuration, pricing and delivery." },

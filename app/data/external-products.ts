@@ -84,7 +84,7 @@ export const externalProducts: Product[] = [
 },
 {
   "code": "BQ-M858",
-  "sizeNote": "Supplier size labels; confirm sample insole length before market-size conversion.",
+  "sizeNote": "Size labels; confirm sample insole length before market-size conversion.",
   "sourceModel": "K858",
   "name": "Buckle Mules with Suede-Effect Upper",
   "shortDescription": "Closed-toe, open-heel mules with a buckle strap and a suede-effect upper. Available in photographed black, sand and brown options.",
@@ -107,10 +107,10 @@ export const externalProducts: Product[] = [
   "highlights": [
     "Closed toe and open heel",
     "Buckle strap with visible adjustment holes",
-    "Supplier size labels 35–45"
+    "Size labels 35–45"
   ],
   "confirmBeforeQuote": [
-    "Supplier size labels and sample insole length",
+    "Size labels and sample insole length",
     "Upper composition, footbed and outsole materials",
     "Color and size quantities",
     "Branding, packing and delivery requirements"

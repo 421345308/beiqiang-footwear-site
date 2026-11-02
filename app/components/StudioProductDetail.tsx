@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
 import { productNameZh, productSummaryZh, factZh, closureZh } from "../data/products-zh";
-import { supplyMode } from "../data/published-product-codes";
 import { localizedPath, siteOrigin, type LegacyLocale } from "../lib/public-locales";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
@@ -26,7 +25,6 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
   const t=(en: string, cn: string) => zh ? cn : en;
   const href=(path: string) => localizedPath(path,locale);
   const name=zh ? productNameZh(product) : product.name;
-  const external=supplyMode(product.code)==="partner-sourced";
   const fact=(value: string) => zh ? factZh(value) : value;
   const productFact=(value: string) => fact(value)
     .replace(/Mesh lining recorded in Alibaba trunk for the listed configuration/gi, "Mesh lining for the listed configuration")
@@ -37,9 +35,9 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
   const presentation=productPresentation(product, locale);
   const details=presentation?.highlights || product.highlights.filter(value=>!/hero direction|reviewed color|verified product-level/i.test(value)).map(productFact).filter(value=>!zh || /[\u4e00-\u9fff]/.test(value));
   const sole=product.sole.startsWith("Cushion-profile") ? t("Material to be confirmed", "材质待确认") : fact(product.sole);
-  const description=presentation?.summary || (external ? (zh ? productSummaryZh(product) : product.shortDescription) : t(`${product.colors.length} colour options in ${product.size}. Confirm the colour-size mix and branding requirements for your order.`,productSummaryZh(product)));
+  const description=presentation?.summary || (zh ? productSummaryZh(product) : product.shortDescription);
   const related=getRelatedProducts(product, products, 4);
-  const schema={"@context":"https://schema.org","@type":"Product",name,sku:product.code,model:product.sourceModel,description,url:`${siteOrigin}${href(`/products/${product.slug}`)}`,image:product.images.map(img=>`${siteOrigin}${productMediaUrl(img)}`),...(!external ? {manufacturer:{"@type":"Organization",name:"Quanzhou Beiqiang Footwear & Apparel Co., Ltd."}} : {})};
+  const schema={"@context":"https://schema.org","@type":"Product",name,sku:product.code,model:product.code,description,url:`${siteOrigin}${href(`/products/${product.slug}`)}`,image:product.images.map(img=>`${siteOrigin}${productMediaUrl(img)}`)};
   const breadcrumb={"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{ "@type":"ListItem",position:1,name:t("Home","首页"),item:`${siteOrigin}${href("/")}`},{"@type":"ListItem",position:2,name:t("Products","产品系列"),item:`${siteOrigin}${href("/products")}`},{"@type":"ListItem",position:3,name:product.code,item:schema.url}]};
   return <main lang={zh ? "zh-CN" : "en"} className="studio-page studio-product-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}} /><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(breadcrumb)}} />
@@ -52,13 +50,13 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
         <h1>{name}</h1><p className="studio-product-description">{description}</p>
         <dl className="studio-specs"><div><dt>{t("Upper","鞋面")}</dt><dd>{fact(product.upper)}</dd></div><div><dt>{t("Sole","鞋底")}</dt><dd>{sole}</dd></div><div><dt>{t("Size range","尺码范围")}</dt><dd>{product.size}{product.sizeNote && <small className="studio-size-note">{fact(product.sizeNote)}</small>}</dd></div><div><dt>{t("Closure","穿脱结构")}</dt><dd>{zh ? closureZh(product.closure) : product.closure}</dd></div></dl>
         <ProductColourOptions product={product} locale={locale} detail />
-        <div className="studio-supply"><span className="supply-dot" /><p>{external ? t("Supplied by Beiqiang through a manufacturing partner.","由贝强通过合作供应商提供。") : t("A Beiqiang factory style.","贝强自有工厂鞋款。")}<small>{t("Availability, specifications and delivery are confirmed with your order.","可供色码、具体规格及交付安排按订单确认。")}</small></p></div>
+        <div className="studio-supply"><span className="supply-dot" /><p>{t("Beiqiang footwear.","贝强鞋款。")}<small>{t("Availability, specifications and delivery are confirmed with your order.","可供色码、具体规格及交付安排按订单确认。")}</small></p></div>
         <div className="studio-product-actions"><AddToQuoteButton product={product} locale={locale} /><a className="button button-secondary" href="#inquiry">{t("Enquire about this style","咨询此款产品")} ↗</a></div>
         <p className="studio-commercial-note">{productOrderCopy[locale].text}</p>
         <div className="studio-secondary-actions"><PrintProductSheetButton styleCode={product.code} locale={locale} /><ProductShareActions product={product} code={product.code} name={name} url={schema.url} locale={locale} /></div>
       </div>
     </section>
-    <aside className="studio-product-proof"><div><p className="eyebrow">{t("YOUR SUPPLY PARTNER","产品与供货")}</p><h2>{external ? t("Sourcing support from Beiqiang","由贝强协调供货与采购") : t("Meet the factory behind the collection","了解产品背后的贝强工厂")}</h2><p>{external ? t("This style is sourced through a manufacturing partner. Beiqiang coordinates specification review, sample requirements and the quotation for your selected configuration.","本款通过合作供应商供货。贝强根据所选配置，协调规格确认、样品要求与报价。") : t("See Beiqiang’s production footage and company profile, then discuss samples and branding requirements for this style.","查看贝强生产实拍与公司介绍，再结合本款讨论样品及品牌定制要求。")}</p></div><div>{!external && <Link className="studio-text-link" href={href("/factory")}>{t("Factory & production","查看工厂与生产")} ↗</Link>}<a className="studio-text-link" href="#inquiry">{t(`Discuss ${product.code} samples`, `咨询 ${product.code} 样品`)} ↗</a></div></aside>
+    <aside className="studio-product-proof"><div><p className="eyebrow">{t("WORK WITH BEIQIANG","与贝强合作")}</p><h2>{t("Explore Beiqiang","了解贝强")}</h2><p>{t("See our company profile and production footage, then discuss samples and branding requirements for this style.","查看公司介绍与生产实拍，再结合本款讨论样品及品牌定制要求。")}</p></div><div><Link className="studio-text-link" href={href("/factory")}>{t("Factory & production","查看工厂与生产")} ↗</Link><a className="studio-text-link" href="#inquiry">{t(`Discuss ${product.code} samples`, `咨询 ${product.code} 样品`)} ↗</a></div></aside>
     <section className="studio-order-details">
       <div><p className="eyebrow">{t("PRODUCT & ORDER DETAILS","产品与订单信息")}</p><h2>{t("From selection to specification.","从选款到订单确认")}</h2></div>
       <div className="studio-accordions">
@@ -71,7 +69,7 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
     </section>
     <section className="inquiry-section studio-inquiry" id="inquiry"><ProductInquiry product={product} code={product.code} label={`${product.code} — ${name}`} productName={product.name} alibabaProductId={product.alibabaProductId} locale={locale} /></section>
     <section className="studio-section"><div className="studio-section-heading"><div><p className="eyebrow">{t("EXPLORE THE COLLECTION","更多鞋款")}</p><h2>{t("Related styles","相关产品")}</h2></div><Link className="text-link" href={href("/products")}>{t("All products","全部产品")} ↗</Link></div><div className="studio-product-grid">{related.map(item=><StudioProductCard key={item.code} product={item} locale={locale} />)}</div></section>
-    <StudioProductPrintSheet product={product} name={name} description={description} upper={fact(product.upper)} sole={sole} sizeNote={product.sizeNote ? fact(product.sizeNote) : undefined} external={external} url={schema.url} locale={locale} />
+    <StudioProductPrintSheet product={product} name={name} description={description} upper={fact(product.upper)} sole={sole} sizeNote={product.sizeNote ? fact(product.sizeNote) : undefined} url={schema.url} locale={locale} />
     {zh ? <ChineseSiteFooter /> : <SiteFooter />}
   </main>;
 }

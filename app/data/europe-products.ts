@@ -37,15 +37,15 @@ export const names: Record<string, readonly [string, string, string]> = {
     "Chaussures textiles respirantes à enfiler",
     "Calzado textil transpirable sin cordones",
   ],
-  "Mesh Thick-Sole Athletic Walking Shoes": [
+  "Mesh Thick-Sole Athletic Sneakers": [
     "Sportliche Meshschuhe mit dicker Sohle",
     "Chaussures sportives en mesh à semelle épaisse",
     "Calzado deportivo de malla con suela gruesa",
   ],
-  "Breathable Knit Stretch-Fabric Lace-Up Walking Shoes": [
-    "Atmungsaktive Schnürschuhe aus Stretchstrick",
-    "Chaussures respirantes à lacets en maille extensible",
-    "Calzado transpirable con cordones y punto elástico",
+  "Breathable Knit Lace-Up Sneakers": [
+    "Atmungsaktive Sneaker aus Stretchstrick",
+    "Baskets respirantes à lacets en maille extensible",
+    "Zapatillas transpirables con cordones y punto elástico",
   ],
   "Stretch Fabric Toe-Cap Lace-Up Walking Shoes": [
     "Stretchtextil-Schnürschuhe mit Zehenkappe",

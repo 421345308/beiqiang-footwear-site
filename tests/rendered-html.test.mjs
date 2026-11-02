@@ -118,7 +118,7 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Show more products/i);
   assert.match(html, /Browse all\s*(?:<!-- -->)?69(?:<!-- -->)?\s*current product codes/i);
   assert.match(html, /studio-card/);
-  assert.match(html, /EU 36-46/);
+  assert.match(html, /EU 36-45/);
   assert.match(html, /BQ-LQ2597/);
   assert.match(html, /BQ001/);
   assert.match(html, /BQ030/);
@@ -133,7 +133,7 @@ test("server-renders public catalogues before optional selection help", async ()
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /8 selected styles/i);
+  assert.match(html, /7 selected styles/i);
   assert.ok(html.includes(`href="/downloads/beiqiang-selected-casual-footwear.pdf?v=${SITE_RELEASE.releaseId}"`));
   assert.ok(html.includes(`href="/downloads/beiqiang-footwear-line-sheet-2026.pdf?v=${SITE_RELEASE.releaseId}"`));
   assert.match(html, /Request selection advice/i);
@@ -261,7 +261,7 @@ test("server-renders the verified BQ001 product page", async () => {
   assert.match(html, /Wide Toe Box Knit Slip-On Walking Shoes/i);
   assert.match(html, /\/catalog-web\/bq001\/01_main\.webp/i);
   assert.match(html, /\/catalog-thumbs\/bq\d{3}\.webp/i);
-  assert.match(html, /EU 36-46/);
+  assert.match(html, /EU 36-45/);
   assert.match(html, /Knitted textile upper/);
   assert.match(html, /Print \/ save product sheet/i);
   assert.match(html, /Share with your buying team/i);
@@ -294,7 +294,7 @@ test("server-renders the evidence-led BQ009 product page without legacy supplier
   const response = await render("/products/bq009");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Breathable Knit Stretch-Fabric Lace-Up Walking Shoes/i);
+  assert.match(html, /Breathable Knit Lace-Up Sneakers/i);
   assert.doesNotMatch(html, /L1026/);
   assert.match(html, /1601825074604/);
   assert.match(html, /View BQ009 on Alibaba\.com/);
@@ -381,7 +381,7 @@ test("server-renders four additional buyer-intent collections with commercial bo
   for (const [slug, heading, boundary, count] of [
     ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 5],
     ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 2],
-    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 20],
+    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 18],
     ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 2],
   ]) {
     const response = await render(`/collections/${slug}`);

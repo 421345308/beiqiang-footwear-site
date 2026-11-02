@@ -15,7 +15,6 @@ import { productTitle } from "../data/europe-products";
 import { products } from "../data/products";
 import { discoveryCategories } from "../data/product-discovery";
 import { europeCollection } from "../data/europe-collections";
-import { supplyMode } from "../data/published-product-codes";
 import {
   localizedPath,
   pageAlternates,
@@ -137,14 +136,6 @@ export default function EuropePage({
       image: product.images.map(
         (img) => `${siteOrigin}${productMediaUrl(img)}`,
       ),
-      ...(supplyMode(product.code) === "own-factory"
-        ? {
-            manufacturer: {
-              "@type": "Organization",
-              name: "Quanzhou Beiqiang Footwear & Apparel Co., Ltd.",
-            },
-          }
-        : {}),
     };
     content = (
       <>

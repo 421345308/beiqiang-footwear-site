@@ -27,6 +27,7 @@ test("keeps current line-sheet documentation and Chinese evidence rendering alig
   const chineseGenerator = await readFile(new URL("../scripts/generate-line-sheet-zh.py", import.meta.url), "utf8");
   assert.match(readme, new RegExp(`## ${products.length}-Style Line Sheet Lead Path`));
   assert.match(readme, new RegExp(`English and Chinese PDFs contain ${products.length} products across ${Math.ceil(products.length / 5) + 2} A4 pages`));
-  assert.match(chineseGenerator, /贝强本厂鞋款/);
+  assert.match(chineseGenerator, /贝强鞋款/);
+  assert.doesNotMatch(chineseGenerator, /贝强本厂鞋款|供应商供货/);
   assert.doesNotMatch(chineseGenerator, /paragraph\(c, product\["summaryZh"\]/);
 });

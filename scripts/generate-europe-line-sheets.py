@@ -46,7 +46,6 @@ def generate(s):
             photo(c,p['image'],43,top-145,126,126)
             x=183;width=W-x-46;y=top-10
             y-=text(c,p['code']+' | '+p['title'],x,y,width,10,True,40)+5
-            y-=text(c,p['supply'],x,y,width,8,max_height=22)+5
             facts=f"{s['labels']['closure']}: {p['closure']} · {s['labels']['sizes']}: {p['size']}"
             y-=text(c,facts,x,y,width,8,max_height=25)+3
             y-=text(c,f"{s['labels']['upper']}: {p['upper']} · {s['labels']['sole']}: {p['sole']}",x,y,width,8,max_height=25)+3
