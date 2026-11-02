@@ -84,7 +84,7 @@ test("renders contextual public contact actions without exposing them on private
   const factory = await render("/factory");
   const factoryHtml = await factory.text();
   assert.match(factoryHtml, /class="context-contact-dock"/);
-  assert.match(factoryHtml, /factory%20and%20supplier%20information/);
+  assert.match(factoryHtml, /factory%20and%20company%20information/);
   assert.match(factoryHtml, /page%3A%20%2Ffactory/);
   assert.match(factoryHtml, /Full inquiry/);
 

@@ -39,7 +39,7 @@ const englishGroups = [
   {
     label: "Verify",
     links: [
-      ["Factory", "/factory/", "Review factory-side media and supplier information."],
+      ["Factory", "/factory/", "View the factory and company information."],
       ["Quality & packing", "/quality-packing/", "See checking and packing confirmation points."],
       ["Sample & order process", "/sample-order-process/", "Understand the path before a bulk order."],
     ],
@@ -86,7 +86,7 @@ const chineseGroups = [
   {
     label: "了解工厂",
     links: [
-      ["工厂与实拍", "/zh/factory/", "查看工厂实拍与供应商资料。"],
+      ["工厂与实拍", "/zh/factory/", "查看工厂实拍与公司资料。"],
       ["检查与包装", "/zh/quality-packing/", "了解检查和包装确认点。"],
       ["样品与订单流程", "/zh/sample-order-process/", "了解大货订单前的推进路径。"],
     ],

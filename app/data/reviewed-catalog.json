@@ -2064,5 +2064,806 @@
       "fr": "Bottines à lacets avec couture mocassin",
       "es": "Botines con cordones y costura tipo mocasín"
     }
+  },
+  {
+    "code": "BQ-LQ02602",
+    "slug": "bq-lq02602",
+    "sourceModel": "BQ-LQ02602",
+    "name": "Contrast-Heel Lace-Up Casual Shoes",
+    "nameZh": "撞色后跟系带休闲鞋",
+    "shortDescription": "Low-top lace-up shoes with a contrasting heel panel and layered sole edge.",
+    "summaryZh": "低帮系带鞋型，搭配撞色后跟和层次鞋底边缘。",
+    "group": "Contrast-Heel Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "39–48",
+    "colors": [
+      "Blue",
+      "Tan"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973869140",
+    "localizedNames": {
+      "de": "Freizeit-Schnürschuhe mit Kontrastferse",
+      "fr": "Chaussures décontractées à lacets et talon contrasté",
+      "es": "Calzado casual con cordones y talón de contraste"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ02603",
+    "slug": "bq-lq02603",
+    "sourceModel": "BQ-LQ02603",
+    "name": "Mesh-Panel Lace-Up Casual Sneakers",
+    "nameZh": "网面拼接系带休闲运动鞋",
+    "shortDescription": "Low-top lace-up sneakers with mesh panels and a contrasting sole edge.",
+    "summaryZh": "低帮系带鞋型，采用网面拼接和撞色鞋底边缘。",
+    "group": "Mesh-Panel Lace-Up Casual Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "39–48",
+    "colors": [
+      "Black",
+      "Dark Brown",
+      "Green"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973784646",
+    "localizedNames": {
+      "de": "Freizeit-Sneaker mit Mesh-Einsätzen",
+      "fr": "Baskets décontractées à empiècements mesh",
+      "es": "Zapatillas casuales con paneles de malla"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ058",
+    "slug": "bq-lq058",
+    "sourceModel": "BQ-LQ058",
+    "name": "Mesh Lace-Up Sneakers with Contrast Sole",
+    "nameZh": "网面撞色鞋底系带运动鞋",
+    "shortDescription": "Lace-up mesh sneakers with a contrasting sole band.",
+    "summaryZh": "网面系带鞋型，搭配撞色鞋底边条。",
+    "group": "Mesh Lace-Up Sneakers with Contrast Sole",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "36–48",
+    "colors": [
+      "Black",
+      "White"
+    ],
+    "collections": [
+      "breathable-lace-up"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973821133",
+    "localizedNames": {
+      "de": "Mesh-Schnürsneaker mit Kontrastsohle",
+      "fr": "Baskets en mesh à lacets et semelle contrastée",
+      "es": "Zapatillas de malla con cordones y suela de contraste"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ213",
+    "slug": "bq-lq213",
+    "sourceModel": "BQ-LQ213",
+    "name": "Open-Mesh Toggle-Lace Sneakers",
+    "nameZh": "镂空网面抽绳运动鞋",
+    "shortDescription": "Open-mesh sneakers with toggle laces and a low-cut collar.",
+    "summaryZh": "镂空网面鞋型，采用抽绳系带和低帮鞋口。",
+    "group": "Open-Mesh Toggle-Lace Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "36–48",
+    "colors": [
+      "Black",
+      "Dark Grey",
+      "Light Grey"
+    ],
+    "collections": [
+      "breathable-lace-up"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973876011",
+    "localizedNames": {
+      "de": "Mesh-Sneaker mit Schnellschnürung",
+      "fr": "Baskets en mesh à laçage rapide",
+      "es": "Zapatillas de malla con cordón de ajuste rápido"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ25012",
+    "slug": "bq-lq25012",
+    "sourceModel": "BQ-LQ25012",
+    "name": "Elastic-Side Slip-On Casual Shoes",
+    "nameZh": "弹力侧片套穿休闲鞋",
+    "shortDescription": "Slip-on casual shoes with elastic side panels and pull tabs.",
+    "summaryZh": "套穿休闲鞋型，搭配弹力侧片和提拉带。",
+    "group": "Elastic-Side Slip-On Casual Shoes",
+    "closure": "Slip-On",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "39–48",
+    "colors": [
+      "Black",
+      "Grey"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Slip-on construction",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973838360",
+    "localizedNames": {
+      "de": "Freizeit-Slipper mit elastischen Seiteneinsätzen",
+      "fr": "Chaussures décontractées à enfiler avec côtés élastiques",
+      "es": "Calzado casual sin cordones con laterales elásticos"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ25021",
+    "slug": "bq-lq25021",
+    "sourceModel": "BQ-LQ25021",
+    "name": "Low-Top Lace-Up Shoes with Contrast Sole",
+    "nameZh": "撞色鞋底低帮系带休闲鞋",
+    "shortDescription": "Low-top lace-up casual shoes with a padded collar and contrasting sole.",
+    "summaryZh": "低帮系带休闲鞋，搭配厚鞋口与撞色鞋底。",
+    "group": "Low-Top Lace-Up Shoes with Contrast Sole",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "39–48",
+    "colors": [
+      "Blue",
+      "Khaki"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973854304",
+    "localizedNames": {
+      "de": "Niedrige Schnürschuhe mit Kontrastsohle",
+      "fr": "Chaussures basses à lacets et semelle contrastée",
+      "es": "Calzado bajo con cordones y suela de contraste"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ2510",
+    "slug": "bq-lq2510",
+    "sourceModel": "BQ-LQ2510",
+    "name": "Mesh-Panel Lace-Up Shoes with Stitched Sole Rim",
+    "nameZh": "网面拼接车线沿条系带鞋",
+    "shortDescription": "Lace-up casual shoes with mesh panels and a stitched sole rim.",
+    "summaryZh": "系带休闲鞋，搭配网面拼接与车线鞋底沿条。",
+    "group": "Mesh-Panel Lace-Up Shoes with Stitched Sole Rim",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "39–48",
+    "colors": [
+      "Blue",
+      "Dark Grey"
+    ],
+    "collections": [
+      "breathable-lace-up"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973747919",
+    "localizedNames": {
+      "de": "Mesh-Schnürschuhe mit genähter Sohlenkante",
+      "fr": "Chaussures à lacets en mesh et bord de semelle cousu",
+      "es": "Calzado de malla con cordones y borde de suela cosido"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ2596",
+    "slug": "bq-lq2596",
+    "sourceModel": "BQ-LQ2596",
+    "name": "Colour-Block Mesh Lace-Up Sneakers",
+    "nameZh": "拼色网面系带运动鞋",
+    "shortDescription": "Mesh lace-up sneakers with layered panels and a defined sole profile.",
+    "summaryZh": "网面系带运动鞋，搭配层次拼片与立体鞋底轮廓。",
+    "group": "Colour-Block Mesh Lace-Up Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "39–48",
+    "colors": [
+      "Black",
+      "White/Navy/Orange"
+    ],
+    "collections": [
+      "breathable-lace-up"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973842356",
+    "localizedNames": {
+      "de": "Mesh-Schnürsneaker im Colourblock-Design",
+      "fr": "Baskets en mesh à lacets et empiècements colorés",
+      "es": "Zapatillas de malla con cordones y paneles de color"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ2623",
+    "slug": "bq-lq2623",
+    "sourceModel": "BQ-LQ2623",
+    "name": "Wave-Panel Lace-Up Sneakers",
+    "nameZh": "波纹鞋面系带运动鞋",
+    "shortDescription": "Lace-up sneakers with a wave-pattern upper and sculpted sole.",
+    "summaryZh": "系带运动鞋，搭配波纹鞋面与立体鞋底。",
+    "group": "Wave-Panel Lace-Up Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "39–46",
+    "colors": [
+      "Red",
+      "Green",
+      "Yellow"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601973806430",
+    "localizedNames": {
+      "de": "Schnürsneaker mit wellenförmigen Einsätzen",
+      "fr": "Baskets à lacets et empiècements ondulés",
+      "es": "Zapatillas con cordones y paneles ondulados"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ011",
+    "slug": "bq-lq011",
+    "sourceModel": "BQ-LQ011",
+    "name": "Stitched-Panel Lace-Up Casual Shoes",
+    "nameZh": "交叉车线拼片系带休闲鞋",
+    "shortDescription": "Low-top lace-up shoes with crossing stitched panels and pull tabs.",
+    "summaryZh": "低帮系带鞋型，搭配交叉车线拼片与提拉带。",
+    "group": "Stitched-Panel Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 37–48",
+    "colors": [
+      "Black",
+      "Brown",
+      "Grey",
+      "Khaki"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601975906283",
+    "localizedNames": {
+      "de": "Freizeit-Schnürschuhe mit Kreuznähten",
+      "fr": "Chaussures décontractées à lacets et coutures croisées",
+      "es": "Calzado casual con cordones y costuras cruzadas"
+    }
+  },
+  {
+    "code": "BQ-LQ023",
+    "slug": "bq-lq023",
+    "sourceModel": "BQ-LQ023",
+    "name": "Curved-Panel Lace-Up Casual Sneakers",
+    "nameZh": "弧线拼片系带休闲运动鞋",
+    "shortDescription": "Low-top lace-up sneakers with curved side panels and a rounded sole.",
+    "summaryZh": "低帮系带运动鞋，搭配弧线侧片与圆弧鞋底。",
+    "group": "Curved-Panel Lace-Up Casual Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Synthetic leather upper",
+    "sole": "Rubber outsole",
+    "size": "EU 36–48",
+    "colors": [
+      "Beige",
+      "Black",
+      "Red"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601974946496",
+    "localizedNames": {
+      "de": "Freizeit-Schnürsneaker mit geschwungenen Einsätzen",
+      "fr": "Baskets décontractées à lacets et empiècements courbes",
+      "es": "Zapatillas casuales con cordones y paneles curvos"
+    }
+  },
+  {
+    "code": "BQ-LQ2577",
+    "slug": "bq-lq2577",
+    "sourceModel": "BQ-LQ2577",
+    "name": "Knit Lace-Up Shoes with Arrow-Profile Sole",
+    "nameZh": "针织系带箭形侧墙休闲鞋",
+    "shortDescription": "Knit lace-up shoes with a low-cut collar and arrow-profile sole sidewall.",
+    "summaryZh": "针织系带鞋型，搭配低帮鞋口与箭形鞋底侧墙。",
+    "group": "Knit Lace-Up Shoes with Arrow-Profile Sole",
+    "closure": "Lace-Up",
+    "upper": "Knitted textile upper",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–46",
+    "colors": [
+      "Black",
+      "Light Grey"
+    ],
+    "collections": [
+      "breathable-lace-up"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601974939421",
+    "localizedNames": {
+      "de": "Strick-Schnürschuhe mit pfeilförmiger Seitenwand",
+      "fr": "Chaussures en maille à lacets et flanc en forme de flèche",
+      "es": "Calzado de punto con cordones y lateral en forma de flecha"
+    }
+  },
+  {
+    "code": "BQ-LQ012",
+    "slug": "bq-lq012",
+    "sourceModel": "BQ-LQ012",
+    "name": "Textured-Panel Lace-Up Casual Shoes",
+    "nameZh": "纹理拼片系带休闲鞋",
+    "shortDescription": "Lace-up casual shoes with textured side panels and pull tabs.",
+    "summaryZh": "系带休闲鞋，搭配纹理侧片与后跟提环。",
+    "group": "Textured-Panel Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Microfiber upper",
+    "sole": "Rubber outsole",
+    "size": "EU 37–48",
+    "colors": [
+      "Green",
+      "Dark Grey",
+      "Khaki"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601975969050",
+    "localizedNames": {
+      "de": "Freizeit-Schnürschuhe mit strukturierten Einsätzen",
+      "fr": "Chaussures décontractées à lacets et empiècements texturés",
+      "es": "Calzado casual con cordones y paneles texturizados"
+    }
+  },
+  {
+    "code": "BQ-LQ013",
+    "slug": "bq-lq013",
+    "sourceModel": "BQ-LQ013",
+    "name": "Toggle-Lace Panelled Casual Shoes",
+    "nameZh": "抽绳拼片休闲鞋",
+    "shortDescription": "Low-top casual shoes with toggle laces and stitched side panels.",
+    "summaryZh": "低帮休闲鞋型，搭配抽绳系带与车线侧片。",
+    "group": "Toggle-Lace Panelled Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Microfiber upper",
+    "sole": "Rubber outsole",
+    "size": "EU 37–48",
+    "colors": [
+      "Beige",
+      "Black",
+      "Grey"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601975911526",
+    "localizedNames": {
+      "de": "Freizeitschuhe mit Schnellschnürung und Einsätzen",
+      "fr": "Chaussures décontractées à laçage rapide et empiècements",
+      "es": "Calzado casual con cordón de ajuste rápido y paneles"
+    }
+  },
+  {
+    "code": "BQ-LQ2413",
+    "slug": "bq-lq2413",
+    "sourceModel": "BQ-LQ2413",
+    "name": "Contrast-Patch Low-Top Sneakers",
+    "nameZh": "撞色方形侧片低帮运动鞋",
+    "shortDescription": "Low-top lace-up sneakers with a rectangular contrast side patch.",
+    "summaryZh": "低帮系带运动鞋，侧面采用方形撞色拼片。",
+    "group": "Contrast-Patch Low-Top Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Brown",
+      "Navy/Brown"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601976190044",
+    "localizedNames": {
+      "de": "Niedrige Sneaker mit seitlichem Kontrasteinsatz",
+      "fr": "Baskets basses à empiècement latéral contrasté",
+      "es": "Zapatillas bajas con panel lateral de contraste"
+    }
+  },
+  {
+    "code": "BQ-LQ2415",
+    "slug": "bq-lq2415",
+    "sourceModel": "BQ-LQ2415",
+    "name": "Contrast-Band Low-Top Casual Shoes",
+    "nameZh": "撞色饰带低帮系带休闲鞋",
+    "shortDescription": "Low-top lace-up shoes with contrast side bands and a stitched toe panel.",
+    "summaryZh": "低帮系带休闲鞋，搭配撞色侧饰带与车线鞋头拼片。",
+    "group": "Contrast-Band Low-Top Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Synthetic leather upper",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Brown",
+      "Blue",
+      "Green"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601976088655",
+    "localizedNames": {
+      "de": "Niedrige Freizeitschuhe mit Kontraststreifen",
+      "fr": "Chaussures basses décontractées à bandes contrastées",
+      "es": "Calzado casual bajo con bandas de contraste"
+    }
+  },
+  {
+    "code": "BQ-LQ2558",
+    "slug": "bq-lq2558",
+    "sourceModel": "BQ-LQ2558",
+    "name": "Mesh Lace-Up Sneakers with Contrast Sole",
+    "nameZh": "网面撞色底系带运动鞋",
+    "shortDescription": "Mesh lace-up sneakers with contrasting panels and sole edges.",
+    "summaryZh": "网面系带运动鞋，搭配撞色拼片和鞋底侧边。",
+    "group": "Mesh Lace-Up Sneakers with Contrast Sole",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–46",
+    "colors": [
+      "White/Orange",
+      "White/Green",
+      "Black/Grey"
+    ],
+    "collections": [
+      "breathable-lace-up"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601975843125",
+    "localizedNames": {
+      "de": "Mesh-Schnürsneaker mit kontrastierender Sohle",
+      "fr": "Baskets en mesh à lacets et semelle contrastée",
+      "es": "Zapatillas de malla con cordones y suela contrastada"
+    }
+  },
+  {
+    "code": "BQ-LQ2561",
+    "slug": "bq-lq2561",
+    "sourceModel": "BQ-LQ2561",
+    "name": "Curved-Stripe Mesh Lace-Up Sneakers",
+    "nameZh": "弧线侧纹网面系带运动鞋",
+    "shortDescription": "Mesh lace-up sneakers with curved side lines and rear pull tabs.",
+    "summaryZh": "网面系带运动鞋，搭配弧线侧纹与后跟提环。",
+    "group": "Curved-Stripe Mesh Lace-Up Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–46",
+    "colors": [
+      "White/Orange",
+      "Black"
+    ],
+    "collections": [
+      "breathable-lace-up"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601975844350",
+    "localizedNames": {
+      "de": "Mesh-Schnürsneaker mit geschwungenem Seitenmuster",
+      "fr": "Baskets en mesh à lacets et motif latéral courbe",
+      "es": "Zapatillas de malla con cordones y líneas laterales curvas"
+    }
+  },
+  {
+    "code": "BQ-LQ2619",
+    "slug": "bq-lq2619",
+    "sourceModel": "BQ-LQ2619",
+    "name": "Retro Perforated Lace-Up Sneakers",
+    "nameZh": "复古冲孔系带运动鞋",
+    "shortDescription": "Retro low-top sneakers with perforated panels and a contrasting sole.",
+    "summaryZh": "复古低帮运动鞋，搭配冲孔拼片和撞色鞋底。",
+    "group": "Retro Perforated Lace-Up Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Synthetic leather upper",
+    "sole": "Rubber outsole",
+    "size": "36–48",
+    "colors": [
+      "Beige",
+      "Pink",
+      "Black"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601974271772",
+    "localizedNames": {
+      "de": "Retro-Schnürsneaker mit perforierten Einsätzen",
+      "fr": "Baskets rétro à lacets et empiècements perforés",
+      "es": "Zapatillas retro con cordones y paneles perforados"
+    },
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering."
+  },
+  {
+    "code": "BQ-LQ2627",
+    "slug": "bq-lq2627",
+    "sourceModel": "BQ-LQ2627",
+    "name": "Knit Slip-On Shoes with Raised Sole Profile",
+    "nameZh": "针织套穿立体鞋底休闲鞋",
+    "shortDescription": "Knit slip-on shoes with a sock-style collar and raised sole profile.",
+    "summaryZh": "针织套穿鞋，搭配袜套式鞋口与立体鞋底轮廓。",
+    "group": "Knit Slip-On Shoes with Raised Sole Profile",
+    "closure": "Slip-On",
+    "upper": "Knitted textile upper",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–46",
+    "colors": [
+      "Light Grey",
+      "Black"
+    ],
+    "collections": [
+      "knit-slip-on"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Slip-on construction",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601975638462",
+    "localizedNames": {
+      "de": "Strick-Slipper mit markantem Sohlenprofil",
+      "fr": "Chaussures en maille à enfiler et semelle sculptée",
+      "es": "Calzado de punto sin cordones y suela de perfil marcado"
+    }
   }
 ]

@@ -12,9 +12,9 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
   const mule = product.collections.includes("mule-shoes");
   const pairedSizes = Boolean(product.sizeNote?.startsWith("Each paired label"));
   const shape = pairedSizes
-    ? (zh ? "本款使用供应商双码标签，每组标签对应一个尺码选项。先核对鞋垫长度，再与目标市场尺码表匹配；不能按连续欧码直接换算。" : "Each paired supplier size label is one size option. Check sample insole lengths against your market size chart; do not convert the labels as a continuous EU size run.")
+    ? (zh ? "本款采用双码标签，每组标签对应一个尺码选项。先核对鞋垫长度，再与目标市场尺码表匹配；不能按连续欧码直接换算。" : "Each paired size label is one size option. Check sample insole lengths against your market size chart; do not convert the labels as a continuous EU size run.")
     : mule
-      ? (zh ? "本款采用包头后空结构。供应商标注35–45，需通过样品长度与脚背贴合情况核对尺码；绒面和软木外观不等于已确认材料成分。" : "This mule has a closed toe and open heel. Check the supplier's 35–45 labels against sample length and instep fit. Suede-effect and cork-look surfaces do not establish material composition.")
+      ? (zh ? "本款采用包头后空结构。标注尺码为35–45，需通过样品长度与脚背贴合情况核对尺码；绒面和软木外观不等于已确认材料成分。" : "This mule has a closed toe and open heel. Check the 35–45 size labels against sample length and instep fit. Suede-effect and cork-look surfaces do not establish material composition.")
     : kids
     ? (zh ? "先对照您所销售的儿童鞋尺码表，不要只凭EU码数推算适用年龄。" : "Compare the listed sizes with your own children's footwear size chart; do not infer an age range from EU sizes alone.")
     : wide

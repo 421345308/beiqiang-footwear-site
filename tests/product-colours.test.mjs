@@ -5,7 +5,22 @@ import {products} from '../app/data/products.ts';
 import media from '../app/data/product-colour-media.json' with {type:'json'};
 import {productColours,colourImage,colourViews,galleryImage,withColour} from '../app/lib/product-colours.ts';
 import labels from '../app/data/product-photo-labels.json' with {type:'json'};
+import {productPhotoLabel} from '../app/lib/product-photo-labels.ts';
 import {addProductToQuote,readQuoteList,saveQuoteList} from '../app/lib/quote-list.ts';
+
+test('photo captions describe the product without exposing internal sourcing language',()=>{
+  let checked=0;
+  for (const [code,photos] of Object.entries(labels)) for (const [index,photo] of photos.entries()) {
+    if (!photo.sourceCrop || !photo.colour) continue;
+    checked++;
+    for (const locale of ['zh','en']) {
+      const caption=productPhotoLabel(code,index,locale);
+      assert.ok(caption);
+      assert.doesNotMatch(caption,/来源|供应商|supplier|source/i,`${code}: ${caption}`);
+    }
+  }
+  assert.ok(checked>0);
+});
 
 test('every mapped colour belongs to its own product and resolves to a reviewed existing photograph',()=>{
   for (const p of products) {

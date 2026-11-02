@@ -33,6 +33,6 @@ test("builds bilingual contact links with a bounded public pathname and no priva
 
 test("rejects traversal-like paths and labels public sourcing contexts conservatively", () => {
   assert.equal(cleanPublicPath("products/../secret?x=1"), "/");
-  assert.equal(describeContactPage("/factory/", false), "factory and supplier information");
+  assert.equal(describeContactPage("/factory/", false), "factory and company information");
   assert.equal(describeContactPage("/zh/solutions/oem-knit-shoes/", true), "OEM／ODM采购方案");
 });

@@ -69,7 +69,7 @@ const names: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
-  "Silver": "银色", "Tan": "棕黄色", "Army Green": "军绿色",
+  "Silver": "银色", "Tan": "棕黄色", "Army Green": "军绿色", "White/Navy/Orange": "白藏青橙", "White/Orange": "白橙", "Navy/Brown": "藏青棕",
   "White/Black": "白黑", "Black/Brown": "黑棕", "Black/Grey": "黑灰",
   "Grey/Black": "灰黑", "Grey/Blue": "灰蓝", "Grey/Yellow": "灰黄",
   "Black/Silver": "黑银", "White/Silver": "白银",

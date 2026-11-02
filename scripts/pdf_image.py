@@ -11,11 +11,11 @@ CACHE = ROOT / "tmp" / "pdfs" / "catalogue-images"
 def for_pdf(source: Path) -> Path:
     """Resize without cropping or changing the product's appearance."""
     key = sha256(source.read_bytes()).hexdigest()
-    destination = CACHE / f"{key}.jpg"
+    destination = CACHE / f"600q72-{key}.jpg"
     if not destination.exists():
         CACHE.mkdir(parents=True, exist_ok=True)
         with Image.open(source) as raw:
             image = ImageOps.exif_transpose(raw).convert("RGB")
-            image.thumbnail((720, 720), Image.Resampling.LANCZOS)
-            image.save(destination, "JPEG", quality=80, optimize=True, progressive=True)
+            image.thumbnail((600, 600), Image.Resampling.LANCZOS)
+            image.save(destination, "JPEG", quality=72, optimize=True, progressive=True)
     return destination

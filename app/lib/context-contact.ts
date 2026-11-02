@@ -35,7 +35,7 @@ export function describeContactPage(pathname: string, zh: boolean) {
   if (product) return zh ? `产品 ${product[1].toUpperCase()} 页面` : `product ${product[1].toUpperCase()} page`;
   const collection = path.match(/^\/collections\/([^/]+)\/?$/i)?.[1];
   if (collectionLabels[collection || ""]) return collectionLabels[collection!][zh ? 1 : 0];
-  if (path.startsWith("/factory")) return zh ? "工厂与供应商资料" : "factory and supplier information";
+  if (path.startsWith("/factory")) return zh ? "工厂与公司资料" : "factory and company information";
   if (path.startsWith("/quality-packing")) return zh ? "检查与包装流程" : "quality-check and packing process";
   if (path.startsWith("/oem-odm") || path.startsWith("/solutions/") || path.startsWith("/private-label-concept")) return zh ? "OEM／ODM采购方案" : "OEM / ODM sourcing program";
   if (path.startsWith("/products") || path.startsWith("/product-finder") || path.startsWith("/line-sheet")) return zh ? "当前产品选款" : "current product selection";

@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { products } from '../app/data/products.ts';
-import { productNameZh } from '../app/data/products-zh.ts';
-import { productTitle, productSizeNote } from '../app/data/europe-products.ts';
+import { productNameZh, factZh, colorZh } from '../app/data/products-zh.ts';
+import { productTitle, productSizeNote, productFact } from '../app/data/europe-products.ts';
 import { documentedSizes, filterCatalog, defaultSelection } from '../app/lib/catalog-selection.ts';
 import { colourViews, productColours } from '../app/lib/product-colours.ts';
 import { buildQuoteListShareUrl, parseSharedQuoteCodes } from '../app/lib/quote-list-share.ts';
@@ -67,5 +67,25 @@ test('unknown size systems stay out of EU filters and product names are localize
     assert.notEqual(productTitle(uncertain, locale), uncertain.code);
     assert.notEqual(productTitle(uncertain, locale), uncertain.name);
     assert.ok(productSizeNote(uncertain.sizeNote, locale).length > 15);
+  }
+});
+
+test('second batch keeps real colour choices and translates documented specifications', () => {
+  const walking = products.find(p => p.code === 'BQ-LQ011');
+  const casual = products.find(p => p.code === 'BQ-LQ023');
+  const striped = products.find(p => p.code === 'BQ-LQ2596');
+  assert.ok(walking && casual && striped);
+  assert.deepEqual(productColours(walking).map(c => c.name), ['Black', 'Brown', 'Grey', 'Khaki']);
+  assert.ok(documentedSizes(walking).includes(48));
+  assert.equal(factZh(casual.upper), '合成革鞋面');
+  assert.equal(factZh(casual.sole), '橡胶外底');
+  assert.equal(colorZh(striped.colors[1]), '白藏青橙');
+  const textured = products.find(p => p.code === 'BQ-LQ012');
+  assert.equal(factZh(textured.upper), '超纤鞋面');
+  assert.deepEqual(productColours(textured).map(c => c.name), ['Green', 'Dark Grey', 'Khaki']);
+  for (const locale of ['de', 'fr', 'es']) {
+    assert.notEqual(productFact(casual.upper, locale), casual.upper);
+    assert.notEqual(productFact(casual.sole, locale), casual.sole);
+    assert.notEqual(productFact(textured.upper, locale), textured.upper);
   }
 });

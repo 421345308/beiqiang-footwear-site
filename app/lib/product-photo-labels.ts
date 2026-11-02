@@ -1,5 +1,5 @@
 import labels from "../data/product-photo-labels.json" with { type: "json" };
-import { colorZh } from "../data/products-zh";
+import { colorZh } from "../data/products-zh.ts";
 
 type PhotoLabel = { role: string; colour?: string; sourceCrop?: boolean };
 const roles: Record<string, [string, string]> = {
@@ -19,7 +19,7 @@ export function productPhotoLabel(code: string, index: number, locale: string): 
   if (photo.colour) {
     const colour = locale === "zh" ? colorZh(photo.colour) : photo.colour;
     const role = roles[photo.role]?.[locale === "zh" ? 0 : 1];
-    return photo.sourceCrop ? `${colour} · ${locale === "zh" ? "来源配色合照局部" : "Detail from supplier colour sheet"}` : `${colour}${role ? ` · ${role}` : ""}`;
+    return photo.sourceCrop ? `${colour} · ${locale === "zh" ? "配色展示局部" : "Colour detail"}` : `${colour}${role ? ` · ${role}` : ""}`;
   }
   return roles[photo.role]?.[locale === "zh" ? 0 : 1] ?? null;
 }

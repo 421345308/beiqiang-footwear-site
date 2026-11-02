@@ -8,7 +8,7 @@
 .studio-page .button { border-radius:2px; padding:16px 23px; min-height:50px; background:var(--studio-green); border:1px solid var(--studio-green); font-size:12px; letter-spacing:.025em; }
 .studio-page .button-secondary { background:transparent; color:var(--studio-green); }
 .studio-page .button-light { background:#f2f0e7; border-color:#f2f0e7; color:#252624; }
-.studio-page .button:hover { filter:brightness(1.1); }
+.studio-page .button:hover,.studio-page .button:focus-visible { background:var(--studio-green); border-color:var(--studio-green); color:#fffdf8; filter:brightness(1.1); }
 .studio-page a:focus-visible,.studio-page button:focus-visible,.studio-page summary:focus-visible { outline:3px solid #ad764d; outline-offset:5px; }
 .studio-text-link { font-size:12px; font-weight:700; display:inline-flex; align-items:center; gap:18px; padding:12px 0; border-bottom:1px solid #c9c6be; }
 .studio-page .top-note { padding:9px 4.5%; background:#252624; font-size:9px; letter-spacing:.08em; }

@@ -933,10 +933,10 @@ export type ProductCollection = {
 };
 
 export const collections: ProductCollection[] = [
-{"slug": "slide-sandals", "direction": "slide-sandals", "name": "Slide sandals", "title": "Slide sandals for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
-{"slug": "ankle-boots", "direction": "ankle-boots", "name": "Ankle boots", "title": "Ankle boots for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
-{"slug": "loafers-and-derbies", "direction": "loafers-and-derbies", "name": "Loafers & derbies", "title": "Loafers & derbies for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
-{"slug": "casual-sneakers", "direction": "casual-sneakers", "name": "Casual sneakers", "title": "Casual sneakers for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Individually reviewed source records and photographs.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
+{"slug": "slide-sandals", "direction": "slide-sandals", "name": "Slide sandals", "title": "Slide sandals for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Photographed styles and product details.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
+{"slug": "ankle-boots", "direction": "ankle-boots", "name": "Ankle boots", "title": "Ankle boots for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Photographed styles and product details.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
+{"slug": "loafers-and-derbies", "direction": "loafers-and-derbies", "name": "Loafers & derbies", "title": "Loafers & derbies for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Photographed styles and product details.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
+{"slug": "casual-sneakers", "direction": "casual-sneakers", "name": "Casual sneakers", "title": "Casual sneakers for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Photographed styles and product details.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
 {
   "slug": "clogs-and-vented-shoes",
   "direction": "clogs-and-vented-shoes",
@@ -949,7 +949,7 @@ export const collections: ProductCollection[] = [
   "faq": [
     {
       "question": "Are paired size labels separate sizes?",
-      "answer": "No. A label such as 35\u201336 is one supplier size option. Confirm the sample insole length and your market size chart before ordering."
+      "answer": "No. A paired label such as 35\u201336 is one size option. Confirm the sample insole length and your market size chart before ordering."
     }
   ]
 },

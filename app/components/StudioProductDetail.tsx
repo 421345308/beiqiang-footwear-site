@@ -30,8 +30,10 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
     .replace(/Mesh lining recorded in Alibaba trunk for the listed configuration/gi, "Mesh lining for the listed configuration")
     .replace(/Mesh lining recorded in Alibaba trunk/gi, "Mesh lining for the listed configuration")
     .replace(/EVA sole recorded in the source package/gi, "EVA sole")
+    .replace(/EVA \+ PEBA foamed structure recorded in the source package/gi, "EVA + PEBA foamed structure")
     .replace(/Alibaba在售配置已记录网布内里|Alibaba线上正本已记录网布内里/g, "所列配置采用网布内里")
-    .replace(/来源资料已记录EVA鞋底/g, "EVA鞋底");
+    .replace(/来源资料已记录EVA鞋底/g, "EVA鞋底")
+    .replace(/来源资料已记录 EVA \+ PEBA 发泡结构/g, "EVA + PEBA 发泡结构");
   const presentation=productPresentation(product, locale);
   const details=presentation?.highlights || product.highlights.filter(value=>!/hero direction|reviewed color|verified product-level/i.test(value)).map(productFact).filter(value=>!zh || /[\u4e00-\u9fff]/.test(value));
   const sole=product.sole.startsWith("Cushion-profile") ? t("Material to be confirmed", "材质待确认") : fact(product.sole);

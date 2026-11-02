@@ -9,6 +9,7 @@ test("sample guidance follows each style's recorded construction, not universal 
   for (const locale of ["en", "zh"]) {
     for (const item of products) {
       const guide = getProductBuyingGuide(item, locale);
+      assert.doesNotMatch(guide.shape, /供应商|supplier/i);
       assert.equal(guide.checks.length, 3);
       assert.ok(guide.order.includes(item.size));
       assert.ok(guide.order.includes(String(item.colors.length)));

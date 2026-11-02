@@ -337,6 +337,9 @@ export const facts: Record<string, readonly [string, string, string]> = {
   "Slip-On": ["Zum Hineinschlüpfen", "À enfiler", "Sin cordones"],
   "Lace-Up": ["Schnürung", "À lacets", "Con cordones"],
   "Zip-Up": ["Reißverschluss", "Fermeture zippée", "Cremallera"],
+  "Synthetic leather upper": ["Obermaterial aus Kunstleder", "Tige en cuir synthétique", "Corte de piel sintética"],
+  "Rubber outsole": ["Gummi-Außensohle", "Semelle extérieure en caoutchouc", "Suela exterior de caucho"],
+  "Microfiber upper": ["Obermaterial aus Mikrofaser", "Tige en microfibre", "Corte de microfibra"],
   "Knitted textile upper": [
     "Obermaterial aus Stricktextil",
     "Tige en maille textile",
