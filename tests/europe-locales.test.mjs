@@ -42,7 +42,7 @@ test("all UI keys and published product names have three nonempty translations",
     );
   }
   for (const p of products) {
-    assert.ok(names[p.name], p.name);
+    assert.ok(names[p.name] || p.localizedNames, p.name);
     for (const l of europeLocales) {
       assert.notEqual(productTitle(p, l), p.name);
       assert.notEqual(productTitle(p, l), p.code);

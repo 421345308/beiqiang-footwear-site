@@ -14,6 +14,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
+from pdf_image import for_pdf
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,7 +61,7 @@ def paragraph(c: canvas.Canvas, text: str, x: float, y_top: float, width: float,
 
 
 def image_contain(c: canvas.Canvas, path: Path, x: float, y: float, width: float, height: float) -> None:
-    reader = ImageReader(str(path))
+    reader = ImageReader(str(for_pdf(path)))
     iw, ih = reader.getSize()
     scale = min(width / iw, height / ih)
     draw_w, draw_h = iw * scale, ih * scale
@@ -79,6 +80,9 @@ def header(c: canvas.Canvas, section: str) -> None:
 
 
 def footer(c: canvas.Canvas, page_number: int) -> None:
+    c.setFillColor(MUTED)
+    c.setFont(CN_FONT, 6.5)
+    c.drawString(16 * mm, 16 * mm, "请逐款确认尺码体系和样品测量尺寸。")
     c.setStrokeColor(LINE)
     c.line(16 * mm, 13 * mm, PAGE_W - 16 * mm, 13 * mm)
     c.setFillColor(MUTED)

@@ -1,3 +1,4 @@
+import { isStyleCode } from "../../edgeone-deploy/cloud-functions/_lib/style-code.js";
 import type { Product } from "../data/products.ts";
 import { readQuoteList, saveQuoteList } from "./quote-list.ts";
 
@@ -23,11 +24,11 @@ export function readPrivateLabelConcept(): PrivateLabelConcept | null {
   if (typeof window === "undefined") return null;
   try {
     const value = JSON.parse(localStorage.getItem(PRIVATE_LABEL_CONCEPT_KEY) || "null");
-    const styleCode = clean(value?.styleCode, 10).toUpperCase();
+    const styleCode = clean(value?.styleCode, 20).toUpperCase();
     const artworkStatus = ["not_ready", "reference_only", "vector_ready"].includes(value?.artworkStatus)
       ? value.artworkStatus
       : "not_ready";
-    if (!/^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(styleCode)) return null;
+    if (!isStyleCode(styleCode)) return null;
     return {
       styleCode,
       styleSlug: clean(value?.styleSlug, 30),
@@ -47,7 +48,7 @@ export function readPrivateLabelConcept(): PrivateLabelConcept | null {
 export function savePrivateLabelConcept(concept: PrivateLabelConcept) {
   if (typeof window === "undefined") return;
   localStorage.setItem(PRIVATE_LABEL_CONCEPT_KEY, JSON.stringify({
-    styleCode: clean(concept.styleCode, 10).toUpperCase(),
+    styleCode: clean(concept.styleCode, 20).toUpperCase(),
     styleSlug: clean(concept.styleSlug, 30),
     sourceModel: clean(concept.sourceModel, 40),
     styleName: clean(concept.styleName, 180),

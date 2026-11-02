@@ -364,7 +364,7 @@ export default function QuoteRequestBuilder() {
                 <img src={line.image} alt={`${line.code} ${line.name}`} />
                 <div className="quote-line-copy">
                   <small>
-                    {line.code} / {line.sourceModel}
+                    {line.code}
                   </small>
                   <h3>{line.name}</h3>
                   <Link href={`/products/${line.slug}/`}>

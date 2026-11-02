@@ -25,6 +25,16 @@ test("sample request rejects bad access, unknown styles, active samples and dupl
   current = source({ sampleRequests: [{ id: "BSR-111111111111", status: "pending" }] }); assert.equal((await handler({ request: request(), env: {} })).status, 409);
 });
 
+test("new catalogue style remains available on its associated sample request", async () => {
+  let current = source({styleCode:'BQ-LQ2599-1', items:[{code:'BQ-LQ2599-1'}]});
+  const store = {get:async()=>current, setJSON:async (_key,value)=>{current=value;}};
+  const handler = createSampleRequestHandler({getStoreImpl:()=>store, randomBytesImpl:()=>Buffer.from('abcdef012345','hex')});
+  const result = await handler({request:request(body({styleCodes:['BQ-LQ2599-1']})), env:{}});
+  assert.equal(result.status, 201);
+  assert.deepEqual(current.sampleRequests[0].styleCodes, ['BQ-LQ2599-1']);
+  assert.equal((await handler({request:request(body({styleCodes:['BQ-LQ2651']})), env:{}})).status, 409);
+});
+
 test("adaptation and technical sample requests require a buyer target", async () => {
   let current = source(); const store = { get: async () => current, setJSON: async (_key, value) => { current = value; } }; const handler = createSampleRequestHandler({ getStoreImpl: () => store });
   assert.equal((await handler({ request: request(body({ sampleType: "branding_adaptation", customizationTarget: "" })), env: {} })).status, 400);

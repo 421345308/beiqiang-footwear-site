@@ -1,3 +1,4 @@
+import { productsInCollection } from "../app/data/products.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { stat } from "node:fs/promises";
@@ -114,9 +115,9 @@ test("server-renders the complete searchable product catalogue", async () => {
   assert.match(html, /Fleece-lined/i);
   assert.match(html, /collections\/kids-shoes\//i);
   assert.match(html, /collections\/fleece-lined-shoes\//i);
-  assert.match(html, /69 matching styles · 12 shown/i);
+  assert.match(html, new RegExp(`${SITE_RELEASE.productCount} matching styles · 12 shown`, "i"));
   assert.match(html, /Show more products/i);
-  assert.match(html, /Browse all\s*(?:<!-- -->)?69(?:<!-- -->)?\s*current product codes/i);
+  assert.match(html, new RegExp(`Browse all\\s*(?:<!-- -->)?${SITE_RELEASE.productCount}(?:<!-- -->)?\\s*current product codes`, "i"));
   assert.match(html, /studio-card/);
   assert.match(html, /EU 36-45/);
   assert.match(html, /BQ-LQ2597/);
@@ -381,7 +382,7 @@ test("server-renders four additional buyer-intent collections with commercial bo
   for (const [slug, heading, boundary, count] of [
     ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 5],
     ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 2],
-    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, 18],
+    ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, productsInCollection("extended-size-shoes").length],
     ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 2],
   ]) {
     const response = await render(`/collections/${slug}`);

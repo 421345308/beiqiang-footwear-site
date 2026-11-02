@@ -10,6 +10,7 @@ const input = {
 test("builds a buyer-reviewable English sourcing brief without converting it into an order", () => {
   const brief = buildQuoteBriefText(input, "en");
   assert.match(brief, /Buyer Company/); assert.match(brief, /BQ001/); assert.match(brief, /300/); assert.match(brief, /USD 9\.50\/pair FOB target/); assert.match(brief, /buyer target only; not a Beiqiang quotation/i); assert.match(brief, /Hamburg/); assert.match(brief, /private_label/); assert.doesNotMatch(brief, /order confirmed|payment received|manufacturing approved/i);
+  assert.doesNotMatch(brief, /A001/);
 });
 
 test("builds the same conservative sourcing brief in Chinese", () => {

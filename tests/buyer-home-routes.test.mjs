@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import ts from 'typescript';
 import React from 'react';
+import { products } from '../app/data/products.ts';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 const source = fs.readFileSync(new URL('../app/components/BuyerHome.tsx', import.meta.url), 'utf8')
@@ -20,7 +21,7 @@ test('English and Chinese home buying routes are readable without client executi
     assert.match(html, new RegExp(`href="${prefix}/products/?"`));
     assert.match(html, new RegExp(`href="${prefix}/oem-odm/?"`));
     assert.ok(html.includes('href="#collections"'));
-    assert.ok(html.includes(locale === 'zh' ? '全部 69 款' : 'all 69 styles'));
+    assert.ok(html.includes(locale === 'zh' ? `全部 ${products.length} 款` : `all ${products.length} styles`));
     assert.ok(html.includes(locale === 'zh' ? '小量混色码采购' : 'small orders with mixed colours and sizes'));
     assert.ok(html.includes(locale === 'zh' ? '鞋垫或标签、鞋盒及鞋面颜色' : 'insoles or labels, shoe boxes and upper colours'));
     assert.ok(html.includes('data-component="SelectedStyles"'));

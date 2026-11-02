@@ -436,6 +436,7 @@ export const facts: Record<string, readonly [string, string, string]> = {
   ],
   "Leather and Mesh": ["Leder und Mesh", "Cuir et mesh", "Cuero y malla"],
   Mesh: ["Mesh", "Mesh", "Malla"],
+  "Oxford Fabric": ["Oxford-Gewebe", "Textile Oxford", "Tejido Oxford"],
   "Synthetic Leather + Mesh": [
     "Kunstleder und Mesh",
     "Cuir synthétique et mesh",
@@ -460,6 +461,7 @@ const colourWords: Record<string, readonly [string, string, string]> = {
   "off white": ["gebrochenes Weiß", "blanc cassé", "blanco roto"],
   "wine red": ["weinrot", "bordeaux", "rojo vino"],
   "military green": ["olivgrün", "vert militaire", "verde militar"],
+  "army green": ["olivgrün", "vert armée", "verde militar"],
   "mint green": ["mintgrün", "vert menthe", "verde menta"],
   "light blue": ["hellblau", "bleu clair", "azul claro"],
   "light grey": ["hellgrau", "gris clair", "gris claro"],
@@ -489,11 +491,21 @@ const colourWords: Record<string, readonly [string, string, string]> = {
   ivory: ["elfenbein", "ivoire", "marfil"],
   navy: ["marineblau", "bleu marine", "azul marino"],
   coffee: ["kaffeebraun", "café", "café"],
+  silver: ["silber", "argent", "plateado"],
+  tan: ["hellbraun", "marron clair", "marrón claro"],
   multicolour: ["mehrfarbig", "multicolore", "multicolor"],
   turquoise: ["türkis", "turquoise", "turquesa"],
 };
 export function productTitle(p: Product, locale: EuropeLocale) {
-  return names[p.name]?.[europeLocales.indexOf(locale)] || p.code;
+  return p.localizedNames?.[locale] || names[p.name]?.[europeLocales.indexOf(locale)] || p.code;
+}
+export function productSizeNote(note: string, locale: EuropeLocale) {
+  if (note.startsWith("Each paired label")) return t(locale, "paired");
+  return {
+    de: "Größensystem und Mustermaße vor der Bestellung prüfen.",
+    fr: "Vérifier le système de pointures et les mesures sur échantillon avant commande.",
+    es: "Confirmar el sistema de tallas y las medidas de la muestra antes de pedir.",
+  }[locale];
 }
 export function productFact(value: string, locale: EuropeLocale) {
   return (
@@ -505,9 +517,7 @@ export function productFact(value: string, locale: EuropeLocale) {
 }
 export function productColour(value: string, locale: EuropeLocale) {
   const pattern = new RegExp(
-    Object.keys(colourWords)
-      .sort((a, b) => b.length - a.length)
-      .join("|"),
+    `\\b(?:${Object.keys(colourWords).sort((a, b) => b.length - a.length).join("|")})\\b`,
     "g",
   );
   return value

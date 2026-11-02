@@ -1,5 +1,7 @@
 "use client";
 
+import { isStyleCode } from "../../edgeone-deploy/cloud-functions/_lib/style-code.js";
+
 import { useMemo, useState } from "react";
 
 export type BuyerSampleRequestRecord = {
@@ -47,7 +49,7 @@ export default function BuyerSampleRequest({
   const codes = useMemo(
     () =>
       [
-        ...new Set(availableCodes.filter((code) => /^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code))),
+        ...new Set(availableCodes.filter((code) => isStyleCode(code))),
       ].slice(0, 12),
     [availableCodes],
   );

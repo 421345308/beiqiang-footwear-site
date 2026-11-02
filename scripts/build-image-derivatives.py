@@ -24,13 +24,17 @@ def rgb_image(source: Path) -> Image.Image:
 
 def save_catalog_webp(image: Image.Image, destination: Path) -> None:
     """Keep every gallery image inside the tested page-weight budget."""
-    for quality in range(75, 49, -5):
-        output = BytesIO()
-        image.save(output, "WEBP", quality=quality, method=6, exact=True)
-        payload = output.getvalue()
-        if len(payload) <= CATALOG_IMAGE_BUDGET or quality == 50:
-            destination.write_bytes(payload)
-            return
+    candidate = image.copy()
+    while True:
+        for quality in range(75, 49, -5):
+            output = BytesIO()
+            candidate.save(output, "WEBP", quality=quality, method=6, exact=True)
+            payload = output.getvalue()
+            if len(payload) <= CATALOG_IMAGE_BUDGET:
+                destination.write_bytes(payload)
+                candidate.close()
+                return
+        candidate.thumbnail((max(1, int(candidate.width * 0.9)), max(1, int(candidate.height * 0.9))), Image.Resampling.LANCZOS)
 
 
 def build_catalog(slugs: set[str] | None = None) -> tuple[int, int, int]:

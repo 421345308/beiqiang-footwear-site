@@ -356,7 +356,7 @@ export default function ChineseQuoteRequestBuilder() {
                   />
                   <div className="quote-line-copy">
                     <small>
-                      {line.code} / {line.sourceModel}
+                      {line.code}
                     </small>
                     <h3>{product ? productNameZh(product) : line.name}</h3>
                     <Link href={`/zh/products/${line.slug}/`}>

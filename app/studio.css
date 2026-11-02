@@ -84,6 +84,7 @@
 .studio-catalog-intro { padding:45px 4.5% 30px; display:flex; justify-content:space-between; gap:35px; border-bottom:1px solid #deddd7; }
 .studio-catalog-intro h1 { font-size:clamp(34px,4vw,54px); line-height:1.2; margin:0 0 16px; }.studio-catalog-intro .eyebrow { margin-bottom:12px; }.studio-catalog-intro p:not(.eyebrow) { color:#6c7665; font-size:13px; line-height:1.7; margin:0; }
 .catalog-intro-aside { text-align:right; flex-shrink:0; }.catalog-intro-aside > span { font-family:Georgia,serif; font-size:46px; line-height:1; color:#7d8c6b; }.catalog-intro-aside a { display:inline-block; font-size:11px; margin-top:15px; border-bottom:1px solid #b7c0a9; }
+.catalog-download-link { display:inline-flex; align-items:center; min-height:44px; margin-top:12px; color:inherit; font-size:14px; font-weight:600; text-decoration:underline; text-underline-offset:5px; }
 .studio-catalog-body { padding:25px 4.5% 65px; }.studio-catalog .catalog-tools { background:none; border:0; padding:0; margin-bottom:18px; gap:14px; grid-template-columns:minmax(180px,1fr) 135px 180px 150px auto; }
 .studio-catalog .catalog-tools input,.studio-catalog .catalog-tools select { min-width:0; border-color:#d9dfd1; border-radius:2px; font-size:12px; }
 .studio-catalog .catalog-tools label { font-size:9px; color:#67745d; }.studio-catalog .catalog-tools strong { font-size:11px; color:#718160; }

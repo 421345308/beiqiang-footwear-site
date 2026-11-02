@@ -8,6 +8,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
 from reportlab.lib.utils import ImageReader
+from pdf_image import for_pdf
 
 ROOT=Path(__file__).resolve().parents[1]
 W,H=A4
@@ -19,7 +20,7 @@ def text(c,value,x,top,width,size=10,bold=False,max_height=None):
     p.drawOn(c,x,top-height)
     return height
 def photo(c,path,x,y,w,h):
-    im=ImageReader(str(ROOT/'public'/path.lstrip('/')));iw,ih=im.getSize();s=min(w/iw,h/ih)
+    im=ImageReader(str(for_pdf(ROOT/'public'/path.lstrip('/'))));iw,ih=im.getSize();s=min(w/iw,h/ih)
     c.drawImage(im,x+(w-iw*s)/2,y+(h-ih*s)/2,iw*s,ih*s,mask='auto')
 def base(c,s,page):
     c.setFillColor(PAPER);c.rect(0,0,W,H,fill=1,stroke=0)
@@ -50,6 +51,8 @@ def generate(s):
             y-=text(c,facts,x,y,width,8,max_height=25)+3
             y-=text(c,f"{s['labels']['upper']}: {p['upper']} · {s['labels']['sole']}: {p['sole']}",x,y,width,8,max_height=25)+3
             y-=text(c,f"{s['labels']['colour']}: {', '.join(p['colours'])}",x,y,width,8,max_height=34)+4
+            if p['sizeNote']:
+                y-=text(c,p['sizeNote'],x,y,width,7,max_height=30)+3
             if y<top-145: raise ValueError(f"Card overflow: {s['locale']} {p['code']}")
             url=f"https://www.beiqiang.online/{s['locale']}/products/{p['slug']}/"
             text(c,s['labels']['view']+' >',x,top-144,width,8,True)

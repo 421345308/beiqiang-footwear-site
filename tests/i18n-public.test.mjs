@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
+import { products } from "../app/data/products.ts";
 
 async function render(pathname) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -46,9 +47,9 @@ test("publishes a factory-first Chinese B2B homepage and current online catalog"
   assert.match(catalogHtml, /扩展尺码/);
   assert.match(catalogHtml, /加绒款/);
   assert.match(catalogHtml, /zh\/collections\/kids-shoes\//i);
-  assert.match(catalogHtml, /69 款符合条件 · 已显示 12 款/);
+  assert.match(catalogHtml, new RegExp(`${products.length} 款符合条件 · 已显示 12 款`));
   assert.match(catalogHtml, /查看更多产品/);
-  assert.match(catalogHtml, /浏览全部(?:<!-- -->)?69(?:<!-- -->)?个当前产品款号/);
+  assert.match(catalogHtml, new RegExp(`浏览全部(?:<!-- -->)?${products.length}(?:<!-- -->)?个当前产品款号`));
   assert.match(catalogHtml, /BQ001/);
   assert.match(catalogHtml, /BQ030/);
   assert.match(catalogHtml, /BQ031/);

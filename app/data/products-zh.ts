@@ -69,6 +69,10 @@ const names: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
+  "Silver": "银色", "Tan": "棕黄色", "Army Green": "军绿色",
+  "White/Black": "白黑", "Black/Brown": "黑棕", "Black/Grey": "黑灰",
+  "Grey/Black": "灰黑", "Grey/Blue": "灰蓝", "Grey/Yellow": "灰黄",
+  "Black/Silver": "黑银", "White/Silver": "白银",
   "Yellow": "黄色",
   "Navy": "藏蓝色",
 "Military Green":"军绿色","Camel":"驼色","Ivory/Navy":"象牙白/藏青","White/Grey":"白灰","Beige/Navy":"米色/藏青","Black/Orange":"黑橙","Dark Brown":"深棕","White/Green":"白绿","Red/Black":"红黑","Purple/Black":"紫黑","Coffee":"咖啡色","Multicolour Green":"绿色混纱","Blue Grey":"蓝灰","Turquoise":"湖蓝","Black/White":"黑白","White/Blue":"白蓝",
@@ -221,6 +225,7 @@ export function colorZh(color: string) {
 export function factZh(value: string) {
   if ((reviewedFactsZh as Record<string,string>)[value]) return (reviewedFactsZh as Record<string,string>)[value];
   const exact: Record<string, string> = {
+    "Size labels; confirm the size system and sample measurements before ordering.": "尺码为原有标签数字；订购前请确认码制及样品测量尺寸。",
     "Each paired label is one size option; confirm sample insole length before market-size conversion.": "每组双码标签对应一个尺码选项；转换销售市场尺码前，请先核对样品鞋垫长度。",
     "Size labels; confirm sample insole length before market-size conversion.": "此处为尺码标签；转换销售市场尺码前，请先核对样品鞋垫长度。",
     "EVA upper": "EVA鞋面",

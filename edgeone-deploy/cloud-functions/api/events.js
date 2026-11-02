@@ -1,3 +1,4 @@
+import { isStyleCode } from "../_lib/style-code.js";
 import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { randomUUID } from "node:crypto";
 import { getStore } from "../_lib/platform-store.js";
@@ -12,7 +13,7 @@ function cleanStyleCodes(value) {
   const result = [];
   for (const raw of clean(value, 160).split(",")) {
     const code = raw.trim().toUpperCase();
-    if (!/^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code) || result.includes(code)) continue;
+    if (!isStyleCode(code) || result.includes(code)) continue;
     result.push(code);
     if (result.length === 4) break;
   }

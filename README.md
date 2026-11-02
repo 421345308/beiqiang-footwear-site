@@ -14,9 +14,9 @@ Drizzle support.
 
 The homepage, catalogue and product details share bilingual page components and the scoped `app/studio.css` design system. Product details include a keyboard-accessible image dialog, touch navigation, SKU-specific specifications, a quotation form and a separate printable sheet. Unknown specifications remain explicit.
 
-`published-product-codes.ts` controls the 69 styles currently published. The owner confirmed on 2026-11-01 that the displayed styles are Beiqiang factory products; historical source pages and media records do not by themselves establish a different current supply mode or prove an original-package mapping. Product and sourcing facts remain in the operations workspace product centre; this repository holds the website projection and images.
+`published-product-codes.ts` controls the current publication set. The website presents a consistent Beiqiang footwear collection; company manufacturing information is presented on the factory pages. Product identity and operational records remain in the workspace product centre.
 
-`public-locales.ts` registers five public languages and their actual route coverage. German, French and Spanish include the core sourcing pages, all 69 product details and four localized collections: knit slip-ons, lace-up casuals, wide toe box and clogs/vented shoes. Other collections retain their English/Chinese pages and localized catalogue filters. PDFs and initial inquiry receipts support all five languages. Protected project workflows, factory-video captions and secondary resource/solution tools remain EN/ZH; links to an English service explicitly say so. Unsupported counterparts are excluded from hreflang, and the language menu labels a fallback home link rather than inventing a translated page.
+`public-locales.ts` registers five public languages and their actual route coverage. German, French and Spanish include the core sourcing pages, every published product detail and four localized collections: knit slip-ons, lace-up casuals, wide toe box and clogs/vented shoes. Other collections retain their English/Chinese pages and localized catalogue filters. PDFs and initial inquiry receipts support all five languages. Protected project workflows, factory-video captions and secondary resource/solution tools remain EN/ZH; links to an English service explicitly say so. Unsupported counterparts are excluded from hreflang, and the language menu labels a fallback home link rather than inventing a translated page.
 
 The additional locales share `EuropePage`, catalogue/product/inquiry components, `europe-copy.ts`, `europe-products.ts` and the reviewed collection copy. They reuse the same product records, source-photo mapping, filter predicates, colour selection, quote storage, tab draft format, consent mechanism and inquiry API as EN/ZH. Search controls become available after the URL selection is restored, preventing early input from being overwritten. The API receives canonical colour values and the requested reply language; language switching preserves query conditions and buyer input. A translation must not infer stock, composition, fit or test results. The HTML exporter sets the correct document language and reciprocal alternates for the published coverage.
 
@@ -145,11 +145,11 @@ Current public structure:
 - `product_compare` is sent only after optional analytics consent. The protected product-signal table separates views, comparisons, successful quote-list additions and saved inquiries.
 - `tier` remains an internal product-data field. Public cards and detail pages show buyer-relevant facts instead; never expose Tier A–E as a quality, popularity or certification signal.
 
-## 69-Style Line Sheet Lead Path
+## Product Catalogue and Line Sheet Lead Path
 
 - `/line-sheet/` and `/zh/line-sheet/` show a public six-page, eight-style English selection and a direct full-catalogue link in the page language. Buyers can preview or download before submitting any details.
 - The optional selection-advice form reuses the existing inquiry service and `line_sheet` context. Submission saves a private follow-up reference; it is no longer a download gate. Existing saved requests and analytics event names remain compatible.
-- English and Chinese PDFs contain 69 products across 16 A4 pages. Their files and manifests remain generated from the website product source. The German/French/Spanish catalogues keep their existing translations and links.
+- English and Chinese PDFs are generated from the website product source; their manifests record the actual product and page counts. The German/French/Spanish catalogues use the same products and localized links.
 - `app/data/selected-assortment.ts` is the website projection of the operations product matrix. Specifications, colours and photos are read from the current product records. The reviewed eight-style PDF comes from the operations project's `国际B2B精选册` source and includes a partner-sourced style not currently listed as a website product; the PDF uses its verified Alibaba link.
 - The operations project retains the selection rationale, image provenance and internal economic model. Internal costs and margins are not included in the website or buyer PDF.
 
@@ -598,8 +598,8 @@ The catalogue has one evidence-led maintenance path so adding a style does not l
 
 ## Product photographs and selection
 
-Publication requires a current source binding and reviewed product photographs. A source adoption alone does not publish a product. The reviewed catalogue includes 69 styles; internal source identities remain in the product centre. `catalog-publication-evidence.json` records the added source bindings.
+Publication requires an established product identity and reviewed product photographs. A colour is offered only when a corresponding image is available; sizes without a confirmed system are labelled as such rather than entering the EU-size filter.
 
 `product-colour-media.json` separates a colour cover from its verified `views`. Public colours without an individual source photograph are excluded. Detail views are filtered by the selected colour; the all-style view retains unassigned photographs without relabelling their colour. Source/output hashes and crop coordinates are retained in `product-photo-provenance.json`; photographs are not AI-recoloured.
 
-German, French and Spanish PDFs are built with `npm run line-sheet:europe` from the same product and terminology dictionaries as the site. Each contains 69 styles across 20 pages, marks the supply mode and links every style to its localized detail page. A separate manifest records public-file hashes. The initial buyer receipt selects the requested supported language (Chinese page fallback, otherwise English), escapes buyer text and retains the receipt-only commercial boundary. Tests inject mail transport; they do not send real emails.
+German, French and Spanish PDFs are built with `npm run line-sheet:europe` from the same product and terminology dictionaries as the site. Each links every style to its localized detail page; a separate manifest records counts and public-file hashes. The initial buyer receipt selects the requested supported language (Chinese page fallback, otherwise English), escapes buyer text and retains the receipt-only commercial boundary. Tests inject mail transport; they do not send real emails.

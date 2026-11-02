@@ -24,6 +24,7 @@ export type Product = {
   slug: string;
   sourceModel: string;
   name: string;
+  localizedNames?: Partial<Record<"de" | "fr" | "es", string>>;
   shortDescription: string;
   group: string;
   closure: "Slip-On" | "Lace-Up" | "Zip-Up";

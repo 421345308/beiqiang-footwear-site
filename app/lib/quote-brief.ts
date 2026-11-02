@@ -76,7 +76,7 @@ export function buildQuoteBriefText(input: QuoteBriefInput, locale: "en" | "zh")
           `${zh ? "尺码／配比" : "sizes / ratio"}: ${clean(line.sizes, unset)}`,
           `${zh ? "备注" : "note"}: ${clean(line.notes, unset)}`,
         ];
-        return `- ${line.code} / ${line.sourceModel} / ${line.name}\n  ${details.join(" | ")}`;
+        return `- ${line.code} / ${line.name}\n  ${details.join(" | ")}`;
       })
     : [`- ${unset}`];
   const isTechnical = input.projectPath === "technical_development";

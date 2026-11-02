@@ -38,7 +38,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 69 organized product pages; this is not the factory's entire product range.
+- The website currently contains 92 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -115,3 +115,26 @@
 - BQ1065: Colour-Block Mesh Lace-Up Shoes — https://www.beiqiang.online/products/bq1065/
 - BQ1066: High-Cuff Knit Sock Shoes — https://www.beiqiang.online/products/bq1066/
 - BQ1067: Camouflage-Panel Textile Casual Shoes — https://www.beiqiang.online/products/bq1067/
+- BQ-LQ2590: Panelled Low-Top Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq2590/
+- BQ-LQ2620: Textured Textile Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq2620/
+- BQ-LQ2639: Stitched Panel Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq2639/
+- BQ-LQ2651: Retro T-Toe Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq2651/
+- BQ-LQ2652: Retro Stitched Panel Sneakers — https://www.beiqiang.online/products/bq-lq2652/
+- BQ-LQ2658: Retro T-Toe Contrast Sneakers — https://www.beiqiang.online/products/bq-lq2658/
+- BQ-LQ2659: Layered Panel Casual Sneakers — https://www.beiqiang.online/products/bq-lq2659/
+- BQ-LQ02601: Ribbed-Collar Knit Slip-On Sneakers — https://www.beiqiang.online/products/bq-lq02601/
+- BQ-LQ032: Mesh Teardrop-Panel Sneakers — https://www.beiqiang.online/products/bq-lq032/
+- BQ-LQ033: Angular-Panel Mesh Sneakers — https://www.beiqiang.online/products/bq-lq033/
+- BQ-LQ050: Layered Angular-Panel Sneakers — https://www.beiqiang.online/products/bq-lq050/
+- BQ-LQ053: Slotted-Panel Mesh Sneakers — https://www.beiqiang.online/products/bq-lq053/
+- BQ-LQ055: Wave-Panel Mesh Sneakers — https://www.beiqiang.online/products/bq-lq055/
+- BQ-LQ056: Oxford Textile Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq056/
+- BQ-LQ1212: Honeycomb Knit Slip-On Sneakers — https://www.beiqiang.online/products/bq-lq1212/
+- BQ-LQ2599-1: Open-Mesh Contrast-Panel Sneakers — https://www.beiqiang.online/products/bq-lq2599-1/
+- BQ-LQ2626: Curved-Band Mesh Sneakers — https://www.beiqiang.online/products/bq-lq2626/
+- BQ-LQ2628: Curved-Panel Mesh Sneakers — https://www.beiqiang.online/products/bq-lq2628/
+- BQ-LQ2629: Diagonal-Panel Mesh Sneakers — https://www.beiqiang.online/products/bq-lq2629/
+- BQ-LQ25016: Lace-Up Ankle Boots with Strap — https://www.beiqiang.online/products/bq-lq25016/
+- BQ-LQ25017: Lace-Up Boots with Padded Collar — https://www.beiqiang.online/products/bq-lq25017/
+- BQ-LQ016: Padded-Collar Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq-lq016/
+- BQ-LQ017: Moc-Toe Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq-lq017/

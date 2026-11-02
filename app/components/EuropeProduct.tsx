@@ -7,6 +7,7 @@ import {
   productTitle,
   productFact,
   productColour,
+  productSizeNote,
 } from "../data/europe-products";
 import { localizedPath } from "../lib/public-locales";
 import { useProductColour } from "./ProductColourOptions";
@@ -382,7 +383,7 @@ export default function EuropeProduct({
             ))}
           </dl>
           {product.sizeNote && (
-            <p className="europe-note">{t(locale, "paired")}</p>
+            <p className="europe-note">{productSizeNote(product.sizeNote, locale)}</p>
           )}
           <EuropeColours product={product} locale={locale} detail />
           <p>
@@ -412,7 +413,7 @@ export default function EuropeProduct({
             <div><dt>{t(locale, "colour")}</dt><dd>{colour ? productColour(colour.name, locale) : productColours(product).map(c => productColour(c.name, locale)).join(" / ")}</dd></div>
           </dl>
         </div>
-        {product.sizeNote && <p>{t(locale, "paired")}</p>}
+        {product.sizeNote && <p>{productSizeNote(product.sizeNote, locale)}</p>}
         <p>{t(locale, "availability")}</p>
         <p>{t(locale, product.fitEvidence === "wide_toe_verified" ? "wideNote" : "fitNote")}</p>
         <p><a href={withColour(`${siteOrigin}${localizedPath(`/products/${product.slug}`, locale)}`, id)}>{withColour(`${siteOrigin}${localizedPath(`/products/${product.slug}`, locale)}`, id)}</a></p>

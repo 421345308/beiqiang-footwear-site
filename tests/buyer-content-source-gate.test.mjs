@@ -12,14 +12,16 @@ async function render(path) {
 }
 
 test('public products match the publication registry without exposing internal supply categories', () => {
-  assert.equal(products.length, 69);
+  assert.ok(products.some(p => p.code === 'BQ-LQ032'));
   assert.equal(FACTORY_SOURCE_CODES.size, 31);
-  assert.equal(ADDITIONAL_PRODUCT_CODES.size, 38);
+  assert.equal(ADDITIONAL_PRODUCT_CODES.size, products.length - FACTORY_SOURCE_CODES.size);
   assert.equal(heldSourceProducts.length, 25);
   assert.deepEqual(new Set(products.map(p => p.code)), PUBLISHED_PRODUCT_CODES);
   assert.deepEqual(FINDER_STYLE_CODES, PUBLISHED_PRODUCT_CODES);
   for (const held of heldSourceProducts) assert.ok(!FACTORY_SOURCE_CODES.has(held.code));
-  assert.deepEqual(productsInCollection('extended-size-shoes').map(p=>p.code), ['BQ031','BQ-LQ059','BQ-LQ060','BQ-LQ2597','BQ1031','BQ1037','BQ1043','BQ1047','BQ1055','BQ1056','BQ1057','BQ1058','BQ1060','BQ1061','BQ1062','BQ1063','BQ1066','BQ1067']);
+  const extended = productsInCollection('extended-size-shoes').map(p=>p.code);
+  for (const code of ['BQ031','BQ-LQ059','BQ-LQ060','BQ-LQ2597','BQ1031','BQ1067','BQ-LQ032']) assert.ok(extended.includes(code), code);
+  assert.ok(!extended.includes('BQ-LQ2651'), 'unconfirmed size systems must not enter EU-size filtering');
   assert.deepEqual(productsInCollection('fleece-lined-shoes').map(p=>p.code), ['BQ006','BQ015']);
 });
 

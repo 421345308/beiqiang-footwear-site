@@ -1,9 +1,9 @@
+import { isStyleCode } from "../../edgeone-deploy/cloud-functions/_lib/style-code.js";
 import type { Product } from "../data/products";
 import type { QuoteLine } from "./quote-list";
 import { localizedPath, type PublicLocale } from "./public-locales.ts";
 import { colourId, colourImage, galleryImage } from "./product-colours.ts";
 
-const CODE_PATTERN = /^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/;
 const MAX_SHARED_STYLES = 12;
 
 export function parseSharedQuoteCodes(value: string, allowedCodes: string[]) {
@@ -11,7 +11,7 @@ export function parseSharedQuoteCodes(value: string, allowedCodes: string[]) {
   const result: string[] = [];
   for (const raw of value.split(",")) {
     const code = raw.trim().toUpperCase();
-    if (!CODE_PATTERN.test(code) || !allowed.has(code) || result.includes(code)) continue;
+    if (!isStyleCode(code) || !allowed.has(code) || result.includes(code)) continue;
     result.push(code);
     if (result.length === MAX_SHARED_STYLES) break;
   }
@@ -23,7 +23,7 @@ export type SharedQuoteSelection = Pick<QuoteLine, "code" | "colors" | "sizes" |
 // Fragments stay in the browser rather than being sent to the site with the request.
 // Share only the four fields the buyer sees in the sharing notice, never free notes or contact details.
 export function buildQuoteListShareUrl(items: (string | QuoteLine)[], locale: PublicLocale = "en") {
-  const safe = [...new Set(items.map((item) => (typeof item === "string" ? item : item.code).trim().toUpperCase()).filter((code) => CODE_PATTERN.test(code)))].slice(0, MAX_SHARED_STYLES);
+  const safe = [...new Set(items.map((item) => (typeof item === "string" ? item : item.code).trim().toUpperCase()).filter((code) => isStyleCode(code)))].slice(0, MAX_SHARED_STYLES);
   const url = new URL(localizedPath("/request-quote", locale), "https://www.beiqiang.online");
   if (safe.length) url.searchParams.set("shortlist", safe.join(","));
   const details = safe.map(code => {

@@ -1,3 +1,4 @@
+import { isStyleCode } from "../../_lib/style-code.js";
 import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { timingSafeEqual } from "node:crypto";
 import { getStore } from "../../_lib/platform-store.js";
@@ -83,7 +84,7 @@ function safeProducts(value) {
       quoteAdds: safeNumber(item?.quoteAdds),
       inquiries: safeNumber(item?.inquiries),
     }))
-    .filter((item) => /^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(item.code));
+    .filter((item) => isStyleCode(item.code));
 }
 function safeComparisons(value) {
   return (Array.isArray(value) ? value : [])
@@ -94,7 +95,7 @@ function safeComparisons(value) {
           String(item?.codes || "")
             .split(/[·,]/)
             .map((code) => code.trim().toUpperCase())
-            .filter((code) => /^BQ(?:\d{3,4}|-(?:LQ(?:059|060|2597)|C2627|CA67|M858))$/.test(code)),
+            .filter((code) => isStyleCode(code)),
         ),
       ]
         .slice(0, 4)

@@ -2370,5 +2370,455 @@
       "role": "side",
       "colour": "Beige"
     }
+  ],
+  "BQ-LQ2590": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "Khaki"
+    }
+  ],
+  "BQ-LQ2620": [
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey"
+    }
+  ],
+  "BQ-LQ2639": [
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ2651": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Black"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "White/Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ2652": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ2658": [
+    {
+      "role": "colour",
+      "colour": "Black/Brown"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Black/Brown"
+    }
+  ],
+  "BQ-LQ2659": [
+    {
+      "role": "colour",
+      "colour": "Black/Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Dark Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Grey"
+    },
+    {
+      "role": "pair"
+    }
+  ],
+  "BQ-LQ02601": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Grey/Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Grey/Yellow"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey/Yellow"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey/Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ032": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Dark Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "colour",
+      "colour": "Light Grey"
+    }
+  ],
+  "BQ-LQ033": [
+    {
+      "role": "colour",
+      "colour": "All Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Black/Silver"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Green"
+    },
+    {
+      "role": "pair",
+      "colour": "White/Green"
+    }
+  ],
+  "BQ-LQ050": [
+    {
+      "role": "colour",
+      "colour": "Black/Silver"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Black"
+    },
+    {
+      "role": "colour",
+      "colour": "White/Silver"
+    },
+    {
+      "role": "pair"
+    }
+  ],
+  "BQ-LQ053": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Light Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "White"
+    }
+  ],
+  "BQ-LQ055": [
+    {
+      "role": "colour",
+      "colour": "White/Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "pair",
+      "colour": "White/Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    }
+  ],
+  "BQ-LQ056": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Dark Brown"
+    },
+    {
+      "role": "colour",
+      "colour": "Tan"
+    },
+    {
+      "role": "pair"
+    }
+  ],
+  "BQ-LQ1212": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Brown"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    }
+  ],
+  "BQ-LQ2599-1": [
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    }
+  ],
+  "BQ-LQ2626": [
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "pair"
+    }
+  ],
+  "BQ-LQ2628": [
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    }
+  ],
+  "BQ-LQ2629": [
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Beige"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "White"
+    }
+  ],
+  "BQ-LQ25016": [
+    {
+      "role": "colour",
+      "colour": "Yellow"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Khaki"
+    }
+  ],
+  "BQ-LQ25017": [
+    {
+      "role": "colour",
+      "colour": "Khaki"
+    },
+    {
+      "role": "colour",
+      "colour": "Dark Brown"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Dark Brown"
+    }
+  ],
+  "BQ-LQ016": [
+    {
+      "role": "colour",
+      "colour": "Army Green"
+    },
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "Yellow"
+    },
+    {
+      "role": "pair",
+      "colour": "Yellow"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ017": [
+    {
+      "role": "colour",
+      "colour": "Black"
+    },
+    {
+      "role": "colour",
+      "colour": "White"
+    },
+    {
+      "role": "colour",
+      "colour": "Yellow"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Yellow"
+    }
   ]
 }

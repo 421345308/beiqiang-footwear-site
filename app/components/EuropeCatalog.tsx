@@ -20,6 +20,7 @@ import {
 } from "../lib/catalog-selection";
 import { useCatalogSelection } from "./useCatalogSelection";
 import { localizedPath } from "../lib/public-locales";
+import { versionedCatalogueUrl } from "../lib/catalog-downloads";
 import { EuropeCard, EuropeAdd, EuropeComparisonPhoto } from "./EuropeProduct";
 import { trackEvent } from "../lib/tracking";
 
@@ -194,6 +195,7 @@ export default function EuropeCatalog({
       <p className="europe-lead">
         {t(locale, finder ? "finderIntro" : "catalogIntro")}
       </p>
+      {!finder && <a className="catalog-download-link" href={versionedCatalogueUrl(`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`)} download>{t(locale, "downloadPdf")} ↓</a>}
       <details className="europe-filters" ref={filters}>
         <summary>{t(locale, "filters")}</summary>
         <div className="europe-filter-grid">{fields}</div>
