@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { t, type EuropeLocale, type CopyKey } from "../data/europe-copy";
-import { products } from "../data/products";
+import { products, type Product } from "../data/products";
+import { productColours, galleryImage } from "../lib/product-colours";
 import { productTitle, productColour } from "../data/europe-products";
 import { localizedPath } from "../lib/public-locales";
 import {
@@ -24,6 +25,40 @@ import { getAttribution, trackEvent } from "../lib/tracking";
 import QuoteListShare from "./QuoteListShare";
 import { mergeSharedQuoteList, parseSharedQuoteCodes, parseSharedQuoteSelection } from "../lib/quote-list-share";
 import { sharedImportMessage } from "../lib/quote-share-copy";
+
+const colourEditorCopy = {
+  de: { hint: "Wählen Sie eine oder mehrere Farben. Mengen, Größen und Notizen bleiben erhalten.", clear: "Farbauswahl aufheben" },
+  fr: { hint: "Sélectionnez un ou plusieurs coloris. Les quantités, pointures et notes sont conservées.", clear: "Effacer les coloris sélectionnés" },
+  es: { hint: "Seleccione uno o varios colores. Se conservan las cantidades, tallas y notas.", clear: "Borrar la selección de colores" },
+};
+
+export function editQuoteColours(line: QuoteLine, product: Product, name: string, checked: boolean): QuoteLine {
+  const options = productColours(product);
+  if (name && !options.some(option => option.name === name)) return line;
+  const current = line.colors.split(",").map(value => value.trim()).filter(Boolean);
+  const selected = name ? checked ? [...new Set([...current, name])] : current.filter(value => value !== name) : [];
+  const photo = [...selected].reverse().map(value => options.find(option => option.name === value)).find(Boolean);
+  return { ...line, colors: selected.join(", "), image: galleryImage(product.images[photo?.imageIndex ?? 0]) };
+}
+
+export function QuoteColourEditor({ line, product, locale, onChange }: { line: QuoteLine; product: Product; locale: EuropeLocale; onChange: (line: QuoteLine) => void }) {
+  const options = productColours(product);
+  if (!options.length) return null;
+  const selected = line.colors.split(",").map(value => value.trim());
+  const helpId = `quote-colours-help-${line.code}`;
+  return <fieldset aria-describedby={helpId} style={{ minWidth: 0, padding: "12px", margin: "16px 0" }}>
+    <legend style={{ fontSize: "16px", padding: "0 6px" }}>{t(locale, "colour")} · {line.code}</legend>
+    <p id={helpId} className="europe-note">{colourEditorCopy[locale].hint}</p>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 150px), 1fr))", gap: "8px" }}>
+      {options.map(option => <label key={option.id} style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "10px", minHeight: "48px", padding: "8px", border: "1px solid #d6d1c7", cursor: "pointer", overflowWrap: "anywhere" }}>
+        <input type="checkbox" name={`colours-${line.code}`} value={option.name} checked={selected.includes(option.name)} onChange={event => onChange(editQuoteColours(line, product, option.name, event.target.checked))} style={{ width: "20px", height: "20px", minHeight: "20px", padding: 0, flexShrink: 0 }} />
+        <img src={galleryImage(product.images[option.imageIndex], true)} alt="" width={48} height={48} loading="lazy" style={{ width: "48px", height: "48px", objectFit: "contain", flexShrink: 0 }} />
+        <span>{productColour(option.name, locale)}</span>
+      </label>)}
+    </div>
+    {line.colors && <button type="button" onClick={() => onChange(editQuoteColours(line, product, "", false))}>{colourEditorCopy[locale].clear}</button>}
+  </fieldset>;
+}
 
 export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
   const [lines, setLines] = useState<QuoteLine[]>([]);
@@ -200,6 +235,7 @@ export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
                       .map((c) => productColour(c.trim(), locale))
                       .join(", ") || "—"}
                   </p>
+                  {p && <QuoteColourEditor line={line} product={p} locale={locale} onChange={next => editLine(index, { colors: next.colors, image: next.image })} />}
                   <div className="europe-form-grid">
                     {(
                       [

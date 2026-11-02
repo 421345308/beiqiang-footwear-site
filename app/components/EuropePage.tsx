@@ -13,11 +13,14 @@ import { selectedAssortment, selectedCatalogue } from "../data/selected-assortme
 import { productMatchesCatalogDirection } from "../lib/catalog-filtering";
 import { productTitle } from "../data/europe-products";
 import { products } from "../data/products";
+import { discoveryCategories } from "../data/product-discovery";
+import { europeCollection } from "../data/europe-collections";
 import { supplyMode } from "../data/published-product-codes";
 import {
   localizedPath,
   pageAlternates,
   europePages,
+  europeCollectionSlugs,
   siteOrigin,
 } from "../lib/public-locales";
 import { productMediaUrl } from "../lib/product-media-url";
@@ -29,6 +32,7 @@ import EuropeProductFinder from "./EuropeProductFinder";
 import EuropeProduct, { EuropeCard, EuropeHeroPhoto } from "./EuropeProduct";
 import EuropeInquiry from "./EuropeInquiry";
 import EuropePrivacyChoices from "./EuropePrivacyChoices";
+import EuropeCollection from "./EuropeCollection";
 
 const titles: Record<string, CopyKey> = {
   "/": "hero",
@@ -53,16 +57,20 @@ function pageCopy(locale: EuropeLocale, key: CopyKey) {
 function resolve(locale: string, path: string) {
   if (!europeLocales.includes(locale as EuropeLocale)) notFound();
   const product = products.find((p) => path === `/products/${p.slug}/`);
-  if (!product && !europePages.includes(path)) notFound();
-  return { locale: locale as EuropeLocale, product };
+  const collectionSlug = path.match(/^\/collections\/([^/]+)\/$/)?.[1];
+  const collection = collectionSlug && europeCollectionSlugs.some(slug => slug === collectionSlug) ? collectionSlug : undefined;
+  if (!product && !collection && !europePages.includes(path)) notFound();
+  return { locale: locale as EuropeLocale, product, collection };
 }
 export function europeMetadata(localeId: string, path: string): Metadata {
-  const { locale, product } = resolve(localeId, path);
+  const { locale, product, collection } = resolve(localeId, path);
   const title = product
     ? `${product.code} · ${productTitle(product, locale)}`
+    : collection ? europeCollection(collection, locale)!.title
     : t(locale, titles[path]);
   const description = product
     ? productPresentation(product, locale)?.summary || `${productTitle(product, locale)}. ${t(locale, "availability")}`
+    : collection ? europeCollection(collection, locale)!.description
     : pageCopy(
         locale,
         path === "/"
@@ -104,7 +112,7 @@ export default function EuropePage({
   locale: string;
   path: string;
 }) {
-  const { locale, product } = resolve(localeId, path);
+  const { locale, product, collection } = resolve(localeId, path);
   const href = (p: string) => localizedPath(p, locale);
   const steps = (
     <div className="europe-process">
@@ -155,7 +163,9 @@ export default function EuropePage({
         <EuropeProduct product={product} locale={locale} />
       </>
     );
-  } else if (path === "/product-finder/")
+  } else if (collection)
+    content = <EuropeCollection slug={collection} locale={locale} />;
+  else if (path === "/product-finder/")
     content = <EuropeProductFinder locale={locale} />;
   else if (path === "/products/")
     content = (
@@ -182,7 +192,7 @@ export default function EuropePage({
             <p className="europe-note">OEM / ODM · {t(locale, "footer")}</p>
           </div>
           <EuropeHeroPhoto
-            product={products.find((p) => p.code === "BQ008")!}
+            product={products.find((p) => p.code === "BQ009")!}
             locale={locale}
           />
         </section>
@@ -219,7 +229,9 @@ export default function EuropePage({
           <nav className="europe-category-grid" aria-label={t(locale, "category")}>
             {(Object.keys(categories) as (keyof typeof categories)[]).map(key => {
               const count = products.filter(p => productMatchesCatalogDirection(p, key)).length;
-              return count ? <a key={key} href={`${href("/products")}?direction=${key}`}><strong>{translatedCategory(locale, key)}</strong><span>{count} {t(locale, "styleCount")} ↗</span></a> : null;
+              const slug = discoveryCategories.find(item => item.direction === key)?.slug;
+              const target = slug && europeCollectionSlugs.some(item => item === slug) ? href(`/collections/${slug}`) : `${href("/products")}?direction=${key}`;
+              return count ? <a key={key} href={target}><strong>{translatedCategory(locale, key)}</strong><span>{count} {t(locale, "styleCount")} ↗</span></a> : null;
             })}
           </nav>
           <a className="button button-secondary europe-more" href={href("/products")}>{t(locale, "browseAll")} ({products.length}) ↗</a>

@@ -24,7 +24,7 @@ const data: CapabilityPageData = {
   eyebrow: "QUANZHOU FOOTWEAR SUPPLY",
   title: "Meet the factory behind your next footwear order.",
   introduction:
-    "We are Beiqiang, a footwear factory supplier in Quanzhou, Fujian. We work with wholesalers, importers and brands sourcing casual walking shoes, slip-ons and textile footwear. Start with our catalogue, or tell us what you need help finding.",
+    "Established in Quanzhou in 2015, Beiqiang manufactures casual and textile footwear for wholesalers, importers and brands. Our manufacturing base covers over 3,000 square metres, with annual output of 200,000 pairs. We have supported production for established domestic footwear brands in China.",
   primaryCta: "Discuss your footwear project",
   primaryHref: "/sourcing-review/",
   proofLabel: "INSIDE BEIQIANG",

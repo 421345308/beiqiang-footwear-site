@@ -9,6 +9,8 @@ export const publicLocales = [
 ] as const;
 export type PublicLocale = (typeof publicLocales)[number]["id"];
 export type LegacyLocale = "en" | "zh";
+// Only collections with complete, reviewed local-language content are exposed.
+export const europeCollectionSlugs = ["knit-slip-on", "breathable-lace-up", "wide-toe-box", "clogs-and-vented-shoes"] as const;
 export const europePages = [
   "/",
   "/products/",
@@ -33,6 +35,7 @@ export function supportsLocalePath(path: string, locale: PublicLocale) {
     locale === "en" ||
     locale === "zh" ||
     europePages.includes(base) ||
+    europeCollectionSlugs.some(slug => base === `/collections/${slug}/`) ||
     /^\/products\/bq(?:\d{3,4}|-[a-z0-9-]+)\/$/.test(base)
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { discoveryCategories } from "../../../data/product-discovery";
+import { pageAlternates } from "../../../lib/public-locales";
 import { notFound } from "next/navigation";
 import ChineseProductCard from "../../../components/ChineseProductCard";
 import ChineseSiteFooter from "../../../components/ChineseSiteFooter";
@@ -26,14 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const collection = getChineseCollection((await params).slug);
   if (!collection) return {};
   const canonical = `https://www.beiqiang.online/zh/collections/${collection.slug}/`;
-  const english = `https://www.beiqiang.online/collections/${collection.slug}/`;
   return {
     title: `${collection.title}｜贝强鞋业`,
     description: collection.description,
-    alternates: {
-      canonical,
-      languages: { en: english, "zh-CN": canonical, "x-default": english },
-    },
+    alternates: pageAlternates(`/collections/${collection.slug}`, "zh"),
     openGraph: {
       title: `${collection.title}｜贝强鞋业`,
       description: collection.description,

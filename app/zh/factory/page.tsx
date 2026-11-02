@@ -4,8 +4,8 @@ import { productCount } from "../../data/catalog-meta";
 
 export const metadata: Metadata = { title: "泉州鞋类工厂｜贝强鞋业", description: "查看贝强鞋业真实工作区域、鞋品处理与包装证据，再讨论步行鞋样品和B2B采购需求。", alternates: { canonical: "https://www.beiqiang.online/zh/factory/", languages: { en: "https://www.beiqiang.online/factory/", "zh-CN": "https://www.beiqiang.online/zh/factory/", "x-default": "https://www.beiqiang.online/factory/" } } };
 const data: ChineseCapabilityPageData = {
-  englishHref: "/factory/", factoryReviewPackProductCount: productCount, eyebrow: "泉州鞋类工厂供应", title: "来看看，您的下一批鞋将从怎样的工厂开始。", introduction: "贝强位于福建泉州，面向批发商、进口商和品牌客户供应休闲步行鞋、套穿鞋及纺织鞋。您可以从现有款式选起，也可以告诉我们想找什么鞋，一起确认适合的采购或定制方案。", primaryCta: "提交采购需求", primaryHref: "/zh/sourcing-review/",
-  proofLabel: "走进贝强", proofTitle: "先看车间，再聊您的产品。", proofCopy: "这段工厂实拍视频记录了车缝、鞋品处理和包装等场景。看中某款鞋后，可以进一步沟通它的材料、做法和样品安排。", evidenceVideo: true,
+  englishHref: "/factory/", factoryReviewPackProductCount: productCount, eyebrow: "泉州鞋类工厂供应", title: "贝强鞋业：休闲鞋制造与品牌合作。", introduction: "贝强于2015年在福建泉州成立，制造场地超过3000平方米，年产20万双。公司面向批发商、进口商和品牌客户供应休闲鞋与纺织鞋，并有为国内成熟鞋类品牌提供生产支持的经验。", primaryCta: "提交采购需求", primaryHref: "/zh/sourcing-review/",
+  proofLabel: "工厂与生产", proofTitle: "了解生产与包装环节。", proofCopy: "工厂实拍视频展示鞋面车缝、鞋品处理和包装准备等工作区域。具体鞋款的材料、工艺与样品安排可按采购需求沟通。", evidenceVideo: true,
   images: [{ src: "/factory-video-stills/factory-exterior.webp", alt: "贝强鞋业泉州工作场地外景", caption: "泉州工作场地" }, { src: "/factory-video-stills/stitching-line.webp", alt: "贝强工作区域内的鞋面车缝工位", caption: "鞋面车缝工位" }, { src: "/factory-video-stills/materials-storage.webp", alt: "整齐摆放的成品鞋存放与订单整理区域", caption: "成品鞋存放区域" }],
   stepsTitle: "从选款到看样，先把关键问题聊清楚。", steps: [
   {

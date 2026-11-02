@@ -10,20 +10,20 @@ async function source(path) {
 
 test("publishes buyer-readable commercial screening references in both languages", async () => {
   const component = await source("app/components/CommercialStartingPoints.tsx");
-  assert.match(component, /2 pairs/);
-  assert.match(component, /USD 8–12 \/ pair/);
-  assert.match(component, /31 days/);
-  assert.match(component, /34 × 23 × 13 cm · 0\.5 kg/);
+  assert.match(component, /2-pair starting point/);
+  assert.match(component, /USD 8–15 \/ pair/);
+  assert.match(component, /Most wholesale styles/);
+  assert.match(component, /agreed trade terms/);
   assert.match(component, /2双/);
-  assert.match(component, /8–12美元 \/ 双/);
-  assert.match(component, /31天/);
+  assert.match(component, /8–15美元 \/ 双/);
+  assert.match(component, /多数批发款/);
 });
 
 test("keeps price, logistics, stock and order boundaries explicit", async () => {
   const component = await source("app/components/CommercialStartingPoints.tsx");
-  assert.match(component, /Freight, duty, tax and local delivery are excluded/);
-  assert.match(component, /not an offer, quotation, stock promise or order confirmation/);
-  assert.match(component, /不构成要约、正式报价、库存承诺或订单确认/);
+  assert.match(component, /availability depends on the selected styles/);
+  assert.match(component, /price, availability, packaging, timing and trade terms are confirmed for each order/i);
+  assert.match(component, /结合具体要求书面确认报价/);
   assert.doesNotMatch(component, /InStock|"@type":\s*"Offer"|guaranteed delivery/i);
 });
 

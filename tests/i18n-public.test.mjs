@@ -182,7 +182,7 @@ test("publishes Chinese factory trust, OEM, sample, buying-guide and line-sheet 
   for (const [path, heading, boundary] of [
     [
       "/zh/factory",
-      /您的下一批鞋将从怎样的工厂开始/,
+      /休闲鞋制造与品牌合作/,
       /宽鞋头信息以具体产品页为准/,
     ],
     [

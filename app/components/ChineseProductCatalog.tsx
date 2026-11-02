@@ -27,7 +27,7 @@ export default function ChineseProductCatalog({
 }: {
   products: Product[];
 }) {
-  const { selection, update, reset, visible, shown } = useCatalogSelection(products);
+  const { selection, update, reset, visible, shown, ready } = useCatalogSelection(products);
   const [compareOpen, setCompareOpen] = useState(false);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [message, setMessage] = useState(
@@ -107,7 +107,7 @@ export default function ChineseProductCatalog({
 
   return (
     <>
-      <CatalogFilters products={products} selection={selection} update={update} reset={reset} count={visible.length} shown={shown.length} locale="zh" />
+      <CatalogFilters products={products} selection={selection} update={update} reset={reset} count={visible.length} shown={shown.length} locale="zh" ready={ready} />
       {compared.length >= 2 && !compareOpen && <button className="mobile-compare-shortcut" type="button" onClick={() => setCompareOpen(true)}>对比所选 {compared.length} 款 ↗</button>}
       <aside className={`compare-tray${compareCodes.length ? " has-selection" : ""}`}>
         <div>

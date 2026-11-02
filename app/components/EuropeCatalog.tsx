@@ -54,7 +54,7 @@ export default function EuropeCatalog({
       ].join(" "),
     [locale],
   );
-  const { selection, update, reset, visible, shown } = useCatalogSelection(
+  const { selection, update, reset, visible, shown, ready } = useCatalogSelection(
     products,
     searchText,
   );
@@ -106,6 +106,8 @@ export default function EuropeCatalog({
         {t(locale, "search")}
         <input
           value={selection.q}
+          disabled={!ready}
+          placeholder={!ready ? { de: "Suche wird geladen…", fr: "Chargement de la recherche…", es: "Cargando búsqueda…" }[locale] : undefined}
           onChange={(e) => update({ q: e.target.value })}
           maxLength={80}
         />
@@ -114,6 +116,7 @@ export default function EuropeCatalog({
         {t(locale, "category")}
         <select
           value={selection.direction}
+          disabled={!ready}
           onChange={(e) => update({ direction: e.target.value })}
         >
           <option value="">{t(locale, "all")}</option>
@@ -128,6 +131,7 @@ export default function EuropeCatalog({
         {t(locale, "closure")}
         <select
           value={selection.closure}
+          disabled={!ready}
           onChange={(e) => update({ closure: e.target.value })}
         >
           <option value="">{t(locale, "all")}</option>
@@ -142,6 +146,7 @@ export default function EuropeCatalog({
         {t(locale, "colour")}
         <select
           value={selection.colour}
+          disabled={!ready}
           onChange={(e) => update({ colour: e.target.value })}
         >
           <option value="">{t(locale, "all")}</option>
@@ -156,6 +161,7 @@ export default function EuropeCatalog({
         {t(locale, "size")}
         <select
           value={selection.size}
+          disabled={!ready}
           onChange={(e) => update({ size: e.target.value })}
         >
           <option value="">{t(locale, "all")}</option>
@@ -172,6 +178,7 @@ export default function EuropeCatalog({
         {t(locale, "sort")}
         <select
           value={selection.sort}
+          disabled={!ready}
           onChange={(e) => update({ sort: e.target.value })}
         >
           <option value="code_asc">{t(locale, "ascending")}</option>
@@ -181,7 +188,7 @@ export default function EuropeCatalog({
     </>
   );
   return (
-    <section className="europe-content europe-catalog">
+    <section className="europe-content europe-catalog" aria-busy={!ready}>
       <p className="eyebrow">BEIQIANG · {products.length}</p>
       <h1>{t(locale, finder ? "finder" : "products")}</h1>
       <p className="europe-lead">
@@ -195,7 +202,7 @@ export default function EuropeCatalog({
         <strong role="status">
           {visible.length} {t(locale, "results")}
         </strong>
-        <button onClick={reset}>{t(locale, "reset")}</button>
+        <button disabled={!ready} onClick={reset}>{t(locale, "reset")}</button>
         <button
           onClick={async () => {
             try {

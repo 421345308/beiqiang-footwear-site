@@ -34,10 +34,8 @@ test("server-renders the Beiqiang B2B sourcing page", async () => {
   assert.match(html, /8618959805256/);
   assert.match(html, /Open buyer menu/i);
   assert.match(html, /aria-controls="mobile-buyer-menu"/i);
-  assert.doesNotMatch(
-    html,
-    /CURRENT LEAD STYLE|\/catalog-web\/bq009\/01_main\.webp/i,
-  );
+  assert.doesNotMatch(html, /CURRENT LEAD STYLE/i);
+  assert.match(html, /\/catalog-web\/bq009\/01_main\.webp/i);
   assert.doesNotMatch(html, /\/videos\/beiqiang-factory-proof\.(?:webm|mp4)/i);
   assert.match(html, /\/videos\/beiqiang-factory-tour-poster\.jpg/i);
   assert.match(html, /"@type":"VideoObject"/i);
@@ -301,8 +299,8 @@ test("server-renders the evidence-led BQ009 product page without legacy supplier
   assert.match(html, /1601825074604/);
   assert.match(html, /View BQ009 on Alibaba\.com/);
   assert.match(html, /Knitted stretch-fabric upper/i);
-  assert.match(html, /EVA sole/i);
-  assert.match(html, /Mesh lining for the listed configuration/i);
+  assert.match(html, /material confirmed before quotation/i);
+  assert.match(html, /Mesh lining in the listed configuration/i);
   assert.doesNotMatch(html, /Breathable Mesh Thick-Sole Athletic Walking Shoes/i);
   assert.doesNotMatch(
     html,

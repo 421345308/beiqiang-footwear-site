@@ -38,13 +38,18 @@ test("renders the newly verified facts in buyer-readable Chinese", () => {
 });
 
 test("keeps Alibaba-trunk materials attached to the exact second-batch products", () => {
-  for (const code of ["BQ004", "BQ005", "BQ009", "BQ012", "BQ024"]) {
+  for (const code of ["BQ004", "BQ005", "BQ012", "BQ024"]) {
     const item = product(code);
     assert.equal(item.sole, "EVA sole", `${code} must keep its trunk-recorded EVA sole`);
     assert.match(item.upper, /stretch-fabric upper/i, `${code} must keep its stretch-fabric upper`);
     assert.match(item.highlights.join(" "), /Mesh lining recorded in Alibaba trunk/);
     assert.doesNotMatch(item.confirmBeforeQuote.join(" "), /Outsole and lining materials|Upper, outsole and lining materials/);
   }
+  // The later BQ009 technical-card and channel review did not confirm either
+  // sole component. The factory's general EVA statement is not SKU-specific.
+  assert.match(product("BQ009").sole, /material confirmed before quotation/);
+  assert.match(product("BQ009").confirmBeforeQuote.join(" "), /Outsole and midsole materials/);
+  assert.doesNotMatch(product("BQ009").shortDescription, /EVA/i);
 
   assert.equal(product("BQ004").alibabaProductId, "10000043201799");
   // Product-centre identity and official product.get readbacks, 2026-10-29.

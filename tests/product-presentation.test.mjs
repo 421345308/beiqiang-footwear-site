@@ -18,12 +18,17 @@ test('three comparison styles have distinct, complete five-language buying summa
       assert.doesNotMatch(JSON.stringify(entry),/hero direction|trunk|verified product-level|reviewed color|in stock|MOQ|\$/i);
     }
     assert.doesNotMatch(JSON.stringify(entries[0]),/EVA/);
-    assert.match(entries[1].summary,/EVA/);
+    assert.doesNotMatch(JSON.stringify(entries[1]),/EVA/);
     assert.match(entries[1].summary,/35–45/);
     assert.match(entries[2].summary,/38–47/);
     assert.ok(productOrderCopy[id].text.length>50);
   }
-  assert.equal(productPresentation(products.find(p=>p.code==='BQ-C2627'),'en'),undefined);
+  for (const code of ['BQ001','BQ003','BQ-LQ2597','BQ-C2627']) {
+    for (const {id} of publicLocales) {
+      const presentation = productPresentation(products.find(p=>p.code===code),id);
+      assert.ok(presentation?.summary && presentation.highlights.length >= 2, `${code} ${id}`);
+    }
+  }
 });
 
 const source=fs.readFileSync(new URL('../app/components/ProductShareActions.tsx',import.meta.url),'utf8')

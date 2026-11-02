@@ -141,6 +141,7 @@ const colors: Record<string, string> = {
 };
 
 const phrases: [RegExp, string][] = [
+  [/Outsole and midsole materials/gi, "外底及中底材料"],
   [/Hollow-knit stretch-fabric upper/gi, "镂空针织弹力织物鞋面"],
   [/Knitted stretch-fabric upper/gi, "针织弹力织物鞋面"],
   [/High-top knitted textile upper/gi, "高帮针织织物鞋面"],

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { productPageRoutes, pageAlternates } from "./lib/public-locales.ts";
+import { productPageRoutes, pageAlternates, europeCollectionSlugs, basePublicPath, localizedPath } from "./lib/public-locales.ts";
 import { collections, products } from "./data/products";
 import { buyerResources } from "./data/resources";
 import { sourcingPrograms } from "./data/sourcing-programs";
@@ -17,8 +17,8 @@ function absolute(route: string) {
 }
 
 function englishRoute(route: string) {
-  if (route === "/zh") return "";
-  return route.startsWith("/zh/") ? route.slice(3) : route;
+  const base = basePublicPath(route);
+  return base === "/" ? "" : base;
 }
 
 function chineseRoute(route: string) {
@@ -65,6 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       `/collections/${collection.slug}`,
       `/zh/collections/${collection.slug}`,
     ]),
+    ...europeCollectionSlugs.flatMap(slug => (["de", "fr", "es"] as const).map(locale => localizedPath(`/collections/${slug}`, locale).replace(/\/$/, ""))),
     ...sourcingPrograms.flatMap((program) => [
       `/solutions/${program.slug}`,
       `/zh/solutions/${program.slug}`,

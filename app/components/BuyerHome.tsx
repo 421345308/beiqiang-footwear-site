@@ -29,7 +29,7 @@ export default function BuyerHome({ locale = "en" }: { locale?: LegacyLocale }) 
         <div className="studio-hero-actions"><Link className="button" href={href("/products")}>{t("Browse wholesale styles","批发选款")} ↗</Link><Link className="studio-text-link" href={href("/sample-order-process")}>{t("Plan a sample","了解选样路径")} →</Link></div>
         <div className="studio-hero-foot"><span>{t("OEM / ODM","OEM / ODM 开发")}</span><span>{t("Private label","品牌贴牌")}</span><span>{t("Wholesale supply","鞋类批发")}</span></div>
       </div>
-      <HeroProductPreview product={products.find(p => p.code === "BQ008")!} locale={locale} />
+      <HeroProductPreview product={products.find(p => p.code === "BQ009")!} locale={locale} />
     </section>
     <section className="studio-buyer-start" aria-labelledby="buyer-start-title">
       <div className="studio-buyer-start-heading"><p className="eyebrow">{t("YOUR NEXT ORDER", "采购起点")}</p><h2 id="buyer-start-title">{t("Start with the right styles.", "从合适的款式开始")}</h2><p>{t("After selecting a style, discuss your logo, insoles or labels, shoe boxes and upper colours. Quantities, costs and available changes depend on the selected style and requirements.", "选款后可讨论 Logo、鞋垫或标签、鞋盒及鞋面颜色。具体数量、费用与可调整范围，结合所选款式和要求确定。")}</p></div>
@@ -37,6 +37,10 @@ export default function BuyerHome({ locale = "en" }: { locale?: LegacyLocale }) 
         <Link href={href("/products")}><span className="studio-buyer-start-number">01</span><h3>{t("Wholesale selection", "批发选款")} <span aria-hidden="true">↗</span></h3><p>{t(`Browse all ${products.length} styles. Build a selection with the colours and sizes your market needs.`, `浏览全部 ${products.length} 款，按市场需要搭配款式、颜色与尺码。`)}</p></Link>
         <Link href={href("/oem-odm")}><span className="studio-buyer-start-number">02</span><h3>{t("Brand an existing style", "现款品牌化")} <span aria-hidden="true">↗</span></h3><p>{t("Use an existing style as your starting point for logo, insole, label, box and upper-colour discussions.", "以现款为起点，讨论商标、鞋垫、标签、鞋盒与鞋面配色方案。")}</p></Link>
         <Link href="#collections"><span className="studio-buyer-start-number">03</span><h3>{t("Find by shoe type & size", "按鞋型尺码找款")} <span aria-hidden="true">↓</span></h3><p>{t("Explore shoe types, toe-box shapes and size ranges, then compare individual specifications.", "按鞋型、鞋头结构和尺码范围浏览，再比较单款规格。")}</p></Link>
+      </nav>
+      <nav className="home-category-shortcuts" aria-label={t("Browse shoe types", "按鞋型浏览")}>
+        <strong>{t("Browse by shoe type", "按鞋型浏览")}</strong>
+        {[["knit-slip-on", "Knit slip-ons", "针织套穿"], ["breathable-lace-up", "Lace-up casuals", "系带休闲"], ["wide-toe-box", "Wide toe box", "宽鞋头"], ["clogs-and-vented-shoes", "Clogs & vented", "洞洞鞋与镂空鞋"]].map(([slug, en, cn]) => <Link key={slug} href={href(`/collections/${slug}`)}>{t(en, cn)} <span aria-hidden="true">↗</span></Link>)}
       </nav>
     </section>
     <SelectedStyles locale={locale} />

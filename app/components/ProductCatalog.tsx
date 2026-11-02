@@ -12,11 +12,12 @@ import { parseComparisonCodes } from "../lib/comparison-link";
 import CatalogFilters from "./CatalogFilters";
 import { useCatalogSelection } from "./useCatalogSelection";
 import { matchingColour } from "../lib/catalog-selection";
+import { productPresentation } from "../lib/product-presentation";
 
 const PAGE_SIZE = 12;
 
 export default function ProductCatalog({ products }: { products: Product[] }) {
-  const { selection, update, reset, visible, shown } = useCatalogSelection(products);
+  const { selection, update, reset, visible, shown, ready } = useCatalogSelection(products);
   const [compareOpen, setCompareOpen] = useState(false);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState(
@@ -113,7 +114,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
 
   return (
     <>
-      <CatalogFilters products={products} selection={selection} update={update} reset={reset} count={visible.length} shown={shown.length} locale="en" />
+      <CatalogFilters products={products} selection={selection} update={update} reset={reset} count={visible.length} shown={shown.length} locale="en" ready={ready} />
       {compared.length >= 2 && !compareOpen && <button className="mobile-compare-shortcut" type="button" onClick={() => setCompareOpen(true)}>Compare {compared.length} styles ↗</button>}
       <aside className={`compare-tray${compareCodes.length ? " has-selection" : ""}`}>
         <div>
@@ -254,7 +255,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                   {compared.map((product) => (
                     <td key={product.code}>
                       <ul>
-                        {product.highlights.map((item) => (
+                        {(productPresentation(product, "en")?.highlights ?? product.highlights.filter(item => !/\b(?:trunk|hero direction|source image|source package|product package|source-recorded|reviewed|verified product-level)\b/i.test(item))).map((item) => (
                           <li key={item}>{item}</li>
                         ))}
                       </ul>

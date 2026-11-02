@@ -1,6 +1,6 @@
 import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import { productPageRoutes, publicLocales, europePages, basePublicPath, localizedPath, supportsLocalePath } from "../app/lib/public-locales.ts";
+import { productPageRoutes, publicLocales, europePages, europeCollectionSlugs, basePublicPath, localizedPath, supportsLocalePath } from "../app/lib/public-locales.ts";
 import { collections } from "../app/data/products.ts";
 import { FINDER_STYLE_CODES } from "../edgeone-deploy/cloud-functions/api/catalog-style-codes.js";
 
@@ -65,8 +65,13 @@ const capabilityRoutes = capabilitySlugs.map((slug) => ({ pathname: `/${slug}`, 
 const chineseCapabilitySlugs = ["line-sheet", "factory", "quality-packing", "oem-odm", "private-label-concept", "product-finder", "sourcing-review", "sample-order-process", "buyer-guide"];
 const chineseCapabilityRoutes = chineseCapabilitySlugs.map((slug) => ({ pathname: `/zh/${slug}`, output: `zh/${slug}/index.html` }));
 const europeRoutes = publicLocales.filter(l => ["de","fr","es"].includes(l.id)).flatMap(l => europePages.map(path => ({pathname: localizedPath(path,l.id).replace(/\/$/, ""), output: `${localizedPath(path,l.id).slice(1)}index.html`, lang:l.hreflang})));
+const europeCollectionRoutes = publicLocales.filter(l => ["de","fr","es"].includes(l.id)).flatMap(l => europeCollectionSlugs.map(slug => {
+  const path = localizedPath(`/collections/${slug}`, l.id);
+  return { pathname: path.replace(/\/$/, ""), output: `${path.slice(1)}index.html`, lang: l.hreflang };
+}));
 const routes = [
   ...europeRoutes,
+  ...europeCollectionRoutes,
   { pathname: "/release.json", output: "release.json" },
   { pathname: "/", output: "index.html" },
   { pathname: "/products", output: "products/index.html" },
@@ -213,6 +218,7 @@ await writeFile(
 );
 const sitemapUrls = [
   ...europeRoutes.map(route => ({path: route.pathname + "/", frequency: "monthly", priority: "0.7"})),
+  ...europeCollectionRoutes.map(route => ({path: route.pathname + "/", frequency: "monthly", priority: "0.7"})),
   ...productRoutes.filter(route => ["de","fr","es"].includes(route.locale)).map(route => ({path:route.pathname + "/", frequency:"monthly", priority:"0.7"})),
   { path: "/", frequency: "weekly", priority: "1.0" },
   { path: "/products/", frequency: "weekly", priority: "0.9" },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { discoveryCategories } from "../../data/product-discovery";
+import { pageAlternates } from "../../lib/public-locales";
 import { notFound } from "next/navigation";
 import ProductCard from "../../components/ProductCard";
 import SiteFooter from "../../components/SiteFooter";
@@ -25,14 +26,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const collection = getCollection((await params).slug);
   if (!collection) return {};
   const canonical = `https://www.beiqiang.online/collections/${collection.slug}/`;
-  const chinese = `https://www.beiqiang.online/zh/collections/${collection.slug}/`;
   return {
     title: `${collection.title} | Beiqiang Footwear`,
     description: collection.description,
-    alternates: {
-      canonical,
-      languages: { en: canonical, "zh-CN": chinese, "x-default": canonical },
-    },
+    alternates: pageAlternates(`/collections/${collection.slug}`),
     openGraph: {
       title: `${collection.title} | Beiqiang Footwear`,
       description: collection.description,
