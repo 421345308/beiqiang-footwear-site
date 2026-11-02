@@ -122,12 +122,14 @@ export function EuropeCard({
   locale,
   preferredColour = "",
   compare,
+  compareReady = false,
   onCompare,
 }: {
   product: Product;
   locale: EuropeLocale;
   preferredColour?: string;
   compare?: boolean;
+  compareReady?: boolean;
   onCompare?: () => void;
 }) {
   const { id, select, colour } = useProductColour(product);
@@ -161,7 +163,7 @@ export function EuropeCard({
       <div className="europe-card-actions">
         <a href={href}>{t(locale, "view")} ↗</a>
         {onCompare && (
-          <button type="button" aria-pressed={compare} onClick={onCompare}>
+          <button type="button" disabled={!compareReady} aria-pressed={compare} onClick={onCompare}>
             {t(locale, compare ? "compared" : "compare")}
           </button>
         )}

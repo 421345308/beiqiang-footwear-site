@@ -272,6 +272,7 @@ export default function EuropeCatalog({
             locale={locale}
             preferredColour={matchingColour(p, selection.colour)}
             compare={compare.includes(p.code)}
+            compareReady={ready}
             onCompare={() => toggle(p.code)}
           />
         ))}
@@ -279,6 +280,7 @@ export default function EuropeCatalog({
       {shown.length < visible.length && (
         <button
           className="button europe-more"
+          disabled={!ready}
           onClick={() => update({ limit: selection.limit + 12 })}
         >
           {t(locale, "more")} ({shown.length}/{visible.length})

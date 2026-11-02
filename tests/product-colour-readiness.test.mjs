@@ -21,3 +21,14 @@ test("five-language product controls remain unavailable until their handlers are
     assert.match(print ?? "", /\sdisabled(?:="")?(?:\s|>)/, `${path}: print waits for hydration`);
   }
 });
+
+test("five-language catalogue comparison waits until controls and shared selections are ready", async () => {
+  for (const prefix of ["", "zh/", "de/", "fr/", "es/"]) {
+    const html = await readFile(new URL(`../edgeone-export-v1/${prefix}products/index.html`, import.meta.url), "utf8");
+    const scope = prefix === "" || prefix === "zh/"
+      ? html.match(/<button[^>]*class="compare-toggle"[^>]*>/)?.[0]
+      : html.match(/class="europe-card-actions"[\s\S]*?<button[^>]*>/)?.[0];
+    assert.ok(scope, `${prefix || "en/"}: comparison button exists`);
+    assert.match(scope, /\sdisabled(?:="")?(?:\s|>)/, `${prefix || "en/"}: comparison waits for initialization`);
+  }
+});

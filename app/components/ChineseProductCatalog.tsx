@@ -283,6 +283,7 @@ export default function ChineseProductCatalog({
                 <button
                   className="compare-toggle"
                   type="button"
+                  disabled={!ready}
                   aria-pressed={compareCodes.includes(product.code)}
                   onClick={() => toggle(product)}
                 >
@@ -298,6 +299,7 @@ export default function ChineseProductCatalog({
               <button
                 className="button"
                 type="button"
+                disabled={!ready}
                 onClick={() =>
                   update({ limit: selection.limit + PAGE_SIZE })
                 }

@@ -314,6 +314,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                 <button
                   className="compare-toggle"
                   type="button"
+                  disabled={!ready}
                   aria-pressed={compareCodes.includes(product.code)}
                   onClick={() => toggleCompare(product)}
                 >
@@ -334,6 +335,7 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
               <button
                 className="button"
                 type="button"
+                disabled={!ready}
                 onClick={() =>
                   update({ limit: selection.limit + PAGE_SIZE })
                 }

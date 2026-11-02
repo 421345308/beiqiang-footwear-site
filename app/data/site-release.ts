@@ -1,8 +1,8 @@
 import { productCount } from "./catalog-meta.ts";
 
 export const SITE_RELEASE = {
-  releaseId: "2026-11-02.3",
-  releasedAt: "2026-11-02T10:27:00+00:00",
+  releaseId: "2026-11-02.4",
+  releasedAt: "2026-11-02T10:34:00+00:00",
   productCount,
   publicLanguages: ["en", "zh", "de", "fr", "es"],
   lineSheetPages: 16,

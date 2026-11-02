@@ -234,6 +234,7 @@ body:has(.consent-banner) .context-contact-dock { display: none; }
 .colour-options-list button { display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:44px; min-height:44px; padding:3px; border:1px solid #d3d0c8; border-radius:3px; background:#f4f3ef; cursor:pointer; color:#343530; font:inherit; transition:border-color .15s; }
 .colour-options-list button:hover { border-color:#8b7461; }
 .colour-options-list button:disabled { cursor:wait; opacity:.55; }
+.studio-catalog .compare-toggle:disabled, .europe-card-actions button:disabled, .catalog-load-more button:disabled, .europe-more:disabled { cursor:wait; opacity:.55; }
 .colour-options-list button[aria-pressed=true] { border-color:#252624; box-shadow:0 0 0 1px #252624; background:white; }
 .colour-options-list img { width:42px; height:42px; object-fit:contain; mix-blend-mode:normal; }
 .colour-options-list .colour-text-option { font-size:10px; line-height:1.3; max-width:60px; padding:2px 3px; }
