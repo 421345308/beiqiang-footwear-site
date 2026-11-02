@@ -339,6 +339,8 @@ export const facts: Record<string, readonly [string, string, string]> = {
   "Zip-Up": ["Reißverschluss", "Fermeture zippée", "Cremallera"],
   "Synthetic leather upper": ["Obermaterial aus Kunstleder", "Tige en cuir synthétique", "Corte de piel sintética"],
   "Rubber outsole": ["Gummi-Außensohle", "Semelle extérieure en caoutchouc", "Suela exterior de caucho"],
+  "TPR outsole": ["TPR-Außensohle", "Semelle extérieure en TPR", "Suela exterior de TPR"],
+  "Standard or fleece lining by colour": ["Standard- oder Fleecefutter je nach Farbe", "Doublure standard ou fourrée selon la couleur", "Forro estándar o afelpado según el color"],
   "Microfiber upper": ["Obermaterial aus Mikrofaser", "Tige en microfibre", "Corte de microfibra"],
   "Knitted textile upper": [
     "Obermaterial aus Stricktextil",
@@ -464,6 +466,7 @@ const colourWords: Record<string, readonly [string, string, string]> = {
   "off white": ["gebrochenes Weiß", "blanc cassé", "blanco roto"],
   "wine red": ["weinrot", "bordeaux", "rojo vino"],
   "military green": ["olivgrün", "vert militaire", "verde militar"],
+  "olive grey": ["olivgrau", "gris olive", "gris oliva"],
   "army green": ["olivgrün", "vert armée", "verde militar"],
   "mint green": ["mintgrün", "vert menthe", "verde menta"],
   "light blue": ["hellblau", "bleu clair", "azul claro"],

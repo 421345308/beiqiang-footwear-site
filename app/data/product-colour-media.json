@@ -2336,5 +2336,128 @@
         3
       ]
     }
+  },
+  "BQ-LQ0323F": {
+    "images": {
+      "Black": 0
+    },
+    "views": {
+      "Black": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  "BQ-LQ2132": {
+    "images": {
+      "Black": 0,
+      "White Grey": 1,
+      "Black White": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        3,
+        6
+      ],
+      "White Grey": [
+        1,
+        4
+      ],
+      "Black White": [
+        2,
+        5
+      ]
+    }
+  },
+  "BQ-LQ2418": {
+    "images": {
+      "Brown": 0,
+      "Olive Grey": 1
+    },
+    "views": {
+      "Brown": [
+        0,
+        3,
+        4
+      ],
+      "Olive Grey": [
+        1,
+        2,
+        5
+      ]
+    }
+  },
+  "BQ-LQ2505": {
+    "images": {
+      "Tan": 0,
+      "Black": 1
+    },
+    "views": {
+      "Tan": [
+        0,
+        2,
+        4
+      ],
+      "Black": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQ2539": {
+    "images": {
+      "Grey": 0,
+      "Military Green": 1
+    },
+    "views": {
+      "Grey": [
+        0,
+        3,
+        4
+      ],
+      "Military Green": [
+        1,
+        2
+      ]
+    }
+  },
+  "BQ-LQ2576": {
+    "images": {
+      "Beige": 0,
+      "Black": 1
+    },
+    "views": {
+      "Beige": [
+        0,
+        2
+      ],
+      "Black": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQ2772": {
+    "images": {
+      "Black": 0,
+      "Black White": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        4
+      ],
+      "Black White": [
+        1,
+        3,
+        5
+      ]
+    }
   }
 }

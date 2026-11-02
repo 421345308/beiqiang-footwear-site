@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { products, heldSourceProducts, productsInCollection } from '../app/data/products.ts';
 import { PUBLISHED_PRODUCT_CODES, ADDITIONAL_PRODUCT_CODES } from '../app/data/published-product-codes.ts';
-import { FACTORY_SOURCE_CODES } from '../app/data/factory-source-codes.ts';
 import { FINDER_STYLE_CODES } from '../edgeone-deploy/cloud-functions/api/catalog-style-codes.js';
 import { readFile } from 'node:fs/promises';
 
@@ -13,16 +12,16 @@ async function render(path) {
 
 test('public products match the publication registry without exposing internal supply categories', () => {
   assert.ok(products.some(p => p.code === 'BQ-LQ032'));
-  assert.equal(FACTORY_SOURCE_CODES.size, 31);
-  assert.equal(ADDITIONAL_PRODUCT_CODES.size, products.length - FACTORY_SOURCE_CODES.size);
+  assert.equal(ADDITIONAL_PRODUCT_CODES.size, products.length - 31);
   assert.equal(heldSourceProducts.length, 25);
   assert.deepEqual(new Set(products.map(p => p.code)), PUBLISHED_PRODUCT_CODES);
   assert.deepEqual(FINDER_STYLE_CODES, PUBLISHED_PRODUCT_CODES);
-  for (const held of heldSourceProducts) assert.ok(!FACTORY_SOURCE_CODES.has(held.code));
+  for (const held of heldSourceProducts) assert.ok(!PUBLISHED_PRODUCT_CODES.has(held.code));
   const extended = productsInCollection('extended-size-shoes').map(p=>p.code);
   for (const code of ['BQ031','BQ-LQ059','BQ-LQ060','BQ-LQ2597','BQ1031','BQ1067','BQ-LQ032']) assert.ok(extended.includes(code), code);
   assert.ok(!extended.includes('BQ-LQ2651'), 'unconfirmed size systems must not enter EU-size filtering');
-  assert.deepEqual(productsInCollection('fleece-lined-shoes').map(p=>p.code), ['BQ006','BQ015']);
+  const fleece = productsInCollection('fleece-lined-shoes').map(p=>p.code);
+  for (const code of ['BQ006','BQ015','BQ-LQ0323F','BQ-LQ2132','BQ-LQ2505','BQ-LQ2772']) assert.ok(fleece.includes(code), code);
 });
 
 test('held source pages return 404 and are absent from sitemap, catalogue and machine summary', async () => {

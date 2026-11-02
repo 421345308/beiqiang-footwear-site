@@ -3189,5 +3189,175 @@
       "role": "pair",
       "colour": "Black"
     }
+  ],
+  "BQ-LQ0323F": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "outsole",
+      "colour": "Black"
+    },
+    {
+      "role": "heel",
+      "colour": "Black"
+    },
+    {
+      "role": "top",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ2132": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "White Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "White Grey"
+    },
+    {
+      "role": "side",
+      "colour": "Black White"
+    },
+    {
+      "role": "heel",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ2418": [
+    {
+      "role": "pair",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Olive Grey"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Olive Grey"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Brown"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Brown"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Olive Grey"
+    }
+  ],
+  "BQ-LQ2505": [
+    {
+      "role": "pair",
+      "colour": "Tan"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Tan"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Tan"
+    }
+  ],
+  "BQ-LQ2539": [
+    {
+      "role": "pair",
+      "colour": "Grey"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Military Green"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Military Green"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Grey"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Grey"
+    }
+  ],
+  "BQ-LQ2576": [
+    {
+      "role": "on-foot",
+      "colour": "Beige"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Beige"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ2772": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black White"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black White"
+    }
   ]
 }

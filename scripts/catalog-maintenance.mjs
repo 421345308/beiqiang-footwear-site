@@ -73,7 +73,7 @@ for (const product of products) {
   if (product.slug !== product.code.toLowerCase()) fail(`${product.code} slug must be ${product.code.toLowerCase()}.`);
   if (codes.has(product.code) || slugs.has(product.slug)) fail(`${product.code} duplicates an existing code or slug.`);
   if (!String(product.sourceModel || "").trim()) fail(`${product.code} is missing its source model.`);
-  // Supplier model strings are not globally unique; identity is the reviewed product/source binding.
+  // Product identity is defined by its published Beiqiang style code.
   codes.add(product.code); slugs.add(product.slug); sourceModels.add(product.sourceModel);
   for (const field of ["name", "shortDescription", "group", "upper", "sole", "size", "buyerFit"]) if (!String(product[field] || "").trim()) fail(`${product.code} is missing ${field}.`);
   for (const field of ["colors", "collections", "highlights", "confirmBeforeQuote", "images"]) if (!Array.isArray(product[field]) || !product[field].length) fail(`${product.code} needs a non-empty ${field} list.`);

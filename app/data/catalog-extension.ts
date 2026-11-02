@@ -5,11 +5,11 @@ const confirmations = ["Color and size quantities", "Material specifications and
 const gallery = (slug: string) => (catalogImages as Record<string, string[]>)[slug].map(name => `/catalog/${slug}/${name}.jpg`);
 // Website projection of the product-centre records, reviewed 2026-10-25.
 // Material chemistry and performance are not inferred from photographs.
-export const externalProducts: Product[] = [
+export const supplementaryProducts: Product[] = [
 {
   "code": "BQ-C2627",
   "sizeNote": "Each paired label is one size option; confirm sample insole length before market-size conversion.",
-  "sourceModel": "2627BSK",
+  "sourceModel": "BQ-C2627",
   "name": "Platform Clogs with Pivot Heel Strap",
   "shortDescription": "Closed-toe clogs with ventilation openings, a raised sole profile and a pivoting heel strap. Five photographed color options.",
   "group": "Clogs and Vented Casual Shoes",
@@ -48,7 +48,7 @@ export const externalProducts: Product[] = [
 {
   "code": "BQ-CA67",
   "sizeNote": "Each paired label is one size option; confirm sample insole length before market-size conversion.",
-  "sourceModel": "A67",
+  "sourceModel": "BQ-CA67",
   "name": "Closed-Heel Vented Slip-On Shoes",
   "shortDescription": "EVA-upper casual shoes with a covered heel, side openings and moulded lace-look detailing. The lace-look detail is not adjustable lacing.",
   "group": "Clogs and Vented Casual Shoes",
@@ -85,7 +85,7 @@ export const externalProducts: Product[] = [
 {
   "code": "BQ-M858",
   "sizeNote": "Size labels; confirm sample insole length before market-size conversion.",
-  "sourceModel": "K858",
+  "sourceModel": "BQ-M858",
   "name": "Buckle Mules with Suede-Effect Upper",
   "shortDescription": "Closed-toe, open-heel mules with a buckle strap and a suede-effect upper. Available in photographed black, sand and brown options.",
   "group": "Buckle Mule Shoes",

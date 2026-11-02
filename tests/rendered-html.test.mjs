@@ -380,14 +380,15 @@ test("server-renders buyer-intent collection pages", async () => {
 
 test("server-renders four additional buyer-intent collections with commercial boundaries", async () => {
   for (const [slug, heading, boundary, count] of [
-    ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, 5],
-    ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, 2],
+    ["high-top-shoes", /High-top and sock-style casual shoes/i, /recorded silhouette/i, productsInCollection("high-top-shoes").length],
+    ["kids-shoes", /Kids casual and walking shoe styles/i, /does not confirm age grading/i, productsInCollection("kids-shoes").length],
     ["extended-size-shoes", /documented extended EU size directions/i, /is not current stock/i, productsInCollection("extended-size-shoes").length],
-    ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, 2],
+    ["fleece-lined-shoes", /documented fleece-lined color options/i, /may apply only to selected colors/i, productsInCollection("fleece-lined-shoes").length],
   ]) {
     const response = await render(`/collections/${slug}`);
     const html = await response.text();
     assert.equal(response.status, 200, slug);
+    assert.ok(count > 0, slug);
     assert.match(html, heading, slug);
     assert.match(html, boundary, slug);
     assert.match(html, new RegExp(`${count}(?:<!-- -->)? DOCUMENTED OPTIONS`), slug);

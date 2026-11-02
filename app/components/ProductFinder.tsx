@@ -5,7 +5,7 @@ import { productMediaUrl } from "../lib/product-media-url";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { products } from "../data/products";
-import { buyerFitZh, factZh, productNameZh } from "../data/products-zh";
+import { buyerFitZh, factZh, productNameZh, productSummaryZh } from "../data/products-zh";
 import {
   findProducts,
   type BuyerChannel,
@@ -285,7 +285,7 @@ export default function ProductFinder({
                 <h3>{zh ? productNameZh(product) : product.name}</h3>
                 <p>
                   {zh
-                    ? factZh(product.shortDescription)
+                    ? productSummaryZh(product)
                     : product.shortDescription}
                 </p>
                 <ul>

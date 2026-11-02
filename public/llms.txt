@@ -38,7 +38,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 112 organized product pages; this is not the factory's entire product range.
+- The website currently contains 119 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -158,3 +158,10 @@
 - BQ-LQ2561: Curved-Stripe Mesh Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq2561/
 - BQ-LQ2619: Retro Perforated Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq2619/
 - BQ-LQ2627: Knit Slip-On Shoes with Raised Sole Profile — https://www.beiqiang.online/products/bq-lq2627/
+- BQ-LQ0323F: Black Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq0323f/
+- BQ-LQ2132: Contrast-Panel High-Top Lace-Up Sneakers — https://www.beiqiang.online/products/bq-lq2132/
+- BQ-LQ2418: Contrast-Panel Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq2418/
+- BQ-LQ2505: Fleece-Lined Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq-lq2505/
+- BQ-LQ2539: Mesh-Panel Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq-lq2539/
+- BQ-LQ2576: Knit Slip-On Shoes with Ribbed Sole — https://www.beiqiang.online/products/bq-lq2576/
+- BQ-LQ2772: Lace-Up Casual Shoes with Contrast Sole — https://www.beiqiang.online/products/bq-lq2772/

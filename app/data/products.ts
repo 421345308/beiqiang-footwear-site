@@ -1,7 +1,7 @@
 import reviewedCatalog from "./reviewed-catalog.json" with { type: "json" };
 import colourMedia from "./product-colour-media.json" with { type: "json" };
 import catalogImages from "./catalog-images.json" with { type: "json" };
-import { externalProducts } from "./external-products.ts";
+import { supplementaryProducts } from "./catalog-extension.ts";
 import { verifiedProducts } from "./verified-products.ts";
 import {
   type CatalogDirection,
@@ -909,7 +909,7 @@ const originalProducts: Product[] = [
 // Keep held records for internal reconciliation; they are not public supply offers.
 export const heldSourceProducts: Product[] = verifiedProducts;
 const reviewedProducts = reviewedCatalog.map(record => ({ ...record, images: images(record.slug) })) as Product[];
-export const products: Product[] = [...originalProducts, ...externalProducts, ...reviewedProducts].map(product => ({
+export const products: Product[] = [...originalProducts, ...supplementaryProducts, ...reviewedProducts].map(product => ({
   ...product,
   sourceModel: product.code,
   // Internal source colour lists are preserved; public choices require real photographs.
