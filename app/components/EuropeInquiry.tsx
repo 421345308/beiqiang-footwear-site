@@ -190,7 +190,7 @@ export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
     ["name", "name", 100, true],
     ["company", "company", 160, true],
     ["market", "market", 120, true],
-    ["bulkQuantity", "quantity", 80, true],
+    ["bulkQuantity", "quantity", 80, false],
     ["email", "email", 180, false],
     ["sampleQuantity", "sampleQuantity", 80, false],
     ["deliveryDestination", "destination", 240, false],
@@ -278,6 +278,7 @@ export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
           disabled={state === "sending" || state === "success" || !ready}
         >
           <legend>{t(locale, "requirements")}</legend>
+          <p id="europe-quantity-hint">{t(locale, "quantityOrSampleHint")}</p>
           <div className="europe-form-grid">
             <label>
               {t(locale, "buyerType")}
@@ -302,10 +303,11 @@ export default function EuropeInquiry({ locale }: { locale: EuropeLocale }) {
             {fields.map(([key, label, max, required]) => (
               <label key={key}>
                 {t(locale, label)}
-                {required ? " *" : ` (${t(locale, "optional")})`}
+                {required ? " *" : key === "bulkQuantity" || key === "sampleQuantity" ? "" : ` (${t(locale, "optional")})`}
                 <input
                   name={key}
                   required={required}
+                  aria-describedby={key === "bulkQuantity" || key === "sampleQuantity" ? "europe-quantity-hint" : undefined}
                   type={key === "email" ? "email" : "text"}
                   autoComplete={
                     key === "name"

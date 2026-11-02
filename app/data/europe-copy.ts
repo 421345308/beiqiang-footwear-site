@@ -277,6 +277,11 @@ export const copy = {
     "Nombre d’échantillons souhaité",
     "Cantidad de muestras solicitada",
   ],
+  quantityOrSampleHint: [
+    "Bitte geben Sie mindestens die geplante Gesamtmenge oder die gewünschte Mustermenge an.",
+    "Indiquez au moins la quantité totale prévue ou le nombre d’échantillons souhaité.",
+    "Indique al menos la cantidad total prevista o la cantidad de muestras solicitada.",
+  ],
   requirements: [
     "Weitere Anforderungen",
     "Autres exigences",

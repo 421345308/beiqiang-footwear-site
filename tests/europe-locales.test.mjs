@@ -182,6 +182,28 @@ test("localized quote preserves draft fields, canonical colors and reply languag
     );
   }
 });
+test("sample-only buyers can submit without inventing a bulk quantity", async () => {
+  const draft = { ...EMPTY_QUOTE_REQUEST_DRAFT, name: "Local QA", company: "Test Company", market: "France", email: "qa@example.com", bulkQuantity: "", sampleQuantity: "2 pairs" };
+  const item = { code: "BQ009", sourceModel: "BQ009", name: "Walking shoes", quantity: "2", colors: "Orange", sizes: "EU 40", notes: "" };
+  for (const locale of europeLocales) {
+    assert.equal(inquiryProblem(draft, true, locale), "");
+    assert.notEqual(inquiryProblem({ ...draft, sampleQuantity: "" }, true, locale), "");
+    const payload = localizedInquiryPayload(draft, [item], locale);
+    assert.equal(payload.quantity, "2 pairs");
+    const validated = validateInquiry({ ...payload, consent: true, formStartedAt: Date.now() - 5000 });
+    assert.equal(validated.error, undefined);
+    assert.equal(validated.inquiry.items[0].colors, "Orange");
+    const html = await readFile(new URL(`${locale}/request-quote/index.html`, root), "utf8");
+    const bulkInput = html.match(/<input[^>]*name="bulkQuantity"[^>]*>/)?.[0];
+    const sampleInput = html.match(/<input[^>]*name="sampleQuantity"[^>]*>/)?.[0];
+    for (const input of [bulkInput, sampleInput]) {
+      assert.ok(input, locale);
+      assert.match(input, /aria-describedby="europe-quantity-hint"/);
+      assert.doesNotMatch(input, /\srequired(?:[=\s>])/);
+    }
+    assert.ok(html.includes(t(locale, "quantityOrSampleHint")), locale);
+  }
+});
 test("actual inquiry handler saves localized payload and reports persistence failure without sending mail", async () => {
   const draft = {
     ...EMPTY_QUOTE_REQUEST_DRAFT,
