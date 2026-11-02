@@ -32,7 +32,7 @@ test('three comparison styles have distinct, complete five-language buying summa
 });
 
 const source=fs.readFileSync(new URL('../app/components/ProductShareActions.tsx',import.meta.url),'utf8')
-  .replace('import { useProductColour } from "./ProductColourOptions";', 'const useProductColour = () => ({id: globalThis.__shareColour});')
+  .replace('import { useProductColour } from "./ProductColourOptions";', 'const useProductColour = () => ({id: globalThis.__shareColour, ready: true});')
   .replace('import { trackEvent } from "../lib/tracking";', 'const trackEvent = () => {};');
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.ESNext}}).outputText
   .replaceAll('"react/jsx-runtime"',JSON.stringify(import.meta.resolve('react/jsx-runtime')))

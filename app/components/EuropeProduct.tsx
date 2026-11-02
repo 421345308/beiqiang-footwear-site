@@ -32,13 +32,14 @@ export function EuropeAdd({
   product: Product;
   locale: EuropeLocale;
 }) {
-  const { colour } = useProductColour(product);
+  const { colour, ready } = useProductColour(product);
   const [message, setMessage] = useState("");
   return (
     <>
       <button
         className="button"
         type="button"
+        disabled={!ready}
         onClick={() => {
           if (
             readQuoteList().length >= 12 &&
@@ -76,10 +77,10 @@ export function EuropeColours({
   locale: EuropeLocale;
   detail?: boolean;
 }) {
-  const { id, select } = useProductColour(product);
+  const { id, select, ready } = useProductColour(product);
   return (
-    <div className="colour-options">
-      <p>{t(locale, "colour")}</p>
+    <div className="colour-options" aria-busy={!ready}>
+      <p>{ready ? t(locale, "colour") : { de: "Farben werden geladen…", fr: "Chargement des coloris…", es: "Cargando colores…" }[locale]}</p>
       <div
         className="colour-options-list"
         role="group"
@@ -89,6 +90,7 @@ export function EuropeColours({
           <button
             type="button"
             key={c.id}
+            disabled={!ready}
             aria-label={productColour(c.name, locale)}
             aria-pressed={id === c.id}
             title={productColour(c.name, locale)}
@@ -240,7 +242,7 @@ export default function EuropeProduct({
   product: Product;
   locale: EuropeLocale;
 }) {
-  const { id, select, colour } = useProductColour(product);
+  const { id, select, colour, ready } = useProductColour(product);
   const [view, setSelectedView] = useState({
     colour: "",
     index: 0,
@@ -288,6 +290,7 @@ export default function EuropeProduct({
           <button
             type="button"
             className="europe-main-photo"
+            disabled={!ready}
             onClick={() => dialog.current?.showModal()}
             aria-label={t(locale, "zoom")}
           >
@@ -302,6 +305,7 @@ export default function EuropeProduct({
             {views.map((n, i) => (
               <button
                 key={n}
+                disabled={!ready}
                 aria-pressed={chosen === n}
                 aria-label={`${t(locale, "photo")} ${i + 1}`}
                 onClick={() => setView(n)}
@@ -318,6 +322,7 @@ export default function EuropeProduct({
           <button
             type="button"
             className="europe-link-button"
+            disabled={!ready}
             aria-pressed={showAll}
             onClick={() => setSelectedView({ colour: id, index: 0, all: true })}
           >

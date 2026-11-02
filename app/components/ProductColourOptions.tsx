@@ -4,6 +4,7 @@ import { useCallback, useEffect, useSyncExternalStore } from "react";
 import type { Product } from "../data/products";
 import { colorZh } from "../data/products-zh";
 import { colourImage, galleryImage, productColours, selectedColourFromStorage } from "../lib/product-colours";
+import { useClientReady } from "./useClientReady";
 
 const eventName = "bq-product-colour";
 const memory = new Map<string, string>();
@@ -12,6 +13,7 @@ function subscribe(callback: () => void) {
   return () => window.removeEventListener(eventName, callback);
 }
 export function useProductColour(product: Product) {
+  const ready = useClientReady();
   const get = useCallback(() => memory.get(product.code) ?? selectedColourFromStorage(product), [product]);
   const id = useSyncExternalStore(subscribe, get, () => "");
   const select = useCallback((next: string) => {
@@ -20,10 +22,10 @@ export function useProductColour(product: Product) {
     try { sessionStorage.setItem(`bq-colour-${product.code}`, next); } catch { /* In-memory selection still works. */ }
     window.dispatchEvent(new Event(eventName));
   }, [product]);
-  return { id, select, colour: productColours(product).find(c => c.id === id) };
+  return { id, select, colour: productColours(product).find(c => c.id === id), ready };
 }
 export default function ProductColourOptions({ product, locale = "en", detail = false }: { product: Product; locale?: "en" | "zh"; detail?: boolean }) {
-  const { id, select, colour } = useProductColour(product);
+  const { id, select, colour, ready } = useProductColour(product);
   const zh = locale === "zh";
   useEffect(() => {
     if (!detail) return;
@@ -46,10 +48,10 @@ export default function ProductColourOptions({ product, locale = "en", detail = 
       window.history.replaceState(window.history.state, "", url);
     }
   }
-  return <div className={`colour-options${detail ? " colour-options-detail" : ""}`}>
-    <p className="colour-heading"><span>{zh ? "配色" : "Colour"}{colour ? ` · ${zh ? colorZh(colour.name) : colour.name}` : ` · ${product.colors.length} ${zh ? "款可选" : "options"}`}</span>{detail && <small>{zh ? "选择配色，加入询价" : "Select a colour for your enquiry"}</small>}</p>
+  return <div className={`colour-options${detail ? " colour-options-detail" : ""}`} aria-busy={!ready}>
+    <p className="colour-heading"><span>{!ready ? (zh ? "配色加载中…" : "Loading colours…") : (zh ? "配色" : "Colour") + (colour ? ` · ${zh ? colorZh(colour.name) : colour.name}` : ` · ${product.colors.length} ${zh ? "款可选" : "options"}`)}</span>{detail && <small>{zh ? "选择配色，加入询价" : "Select a colour for your enquiry"}</small>}</p>
     <div className="colour-options-list" role="group" aria-label={`${product.code} ${zh ? "配色选择" : "colour selection"}`}>
-      {productColours(product).map(c => <button key={c.id} type="button" aria-pressed={id === c.id} title={zh ? colorZh(c.name) : c.name} aria-label={`${zh ? "选择" : "Select"} ${zh ? colorZh(c.name) : c.name}`} onClick={() => choose(c.id)}>
+      {productColours(product).map(c => <button key={c.id} type="button" disabled={!ready} aria-pressed={id === c.id} title={zh ? colorZh(c.name) : c.name} aria-label={`${zh ? "选择" : "Select"} ${zh ? colorZh(c.name) : c.name}`} onClick={() => choose(c.id)}>
         {c.imageIndex !== null ? <img src={galleryImage(product.images[c.imageIndex], true)} alt="" width={80} height={80} loading="lazy" /> : <span className="colour-text-option">{zh ? colorZh(c.name) : c.name}</span>}
         {detail && c.imageIndex !== null && <span>{zh ? colorZh(c.name) : c.name}</span>}
       </button>)}

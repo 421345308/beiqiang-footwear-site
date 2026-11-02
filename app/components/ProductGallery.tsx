@@ -10,7 +10,7 @@ import { productPhotoLabel } from "../lib/product-photo-labels";
 
 export default function ProductGallery({ product, name, locale }: { product: Product; name: string; locale: LegacyLocale }) {
   const images = product.images;
-  const { id, colour } = useProductColour(product);
+  const { id, colour, ready } = useProductColour(product);
   const [manual, setManual] = useState<{id:string; index:number} | null>(null);
   const [showAll, setShowAll] = useState(false);
   useEffect(() => {
@@ -33,15 +33,15 @@ export default function ProductGallery({ product, name, locale }: { product: Pro
     <div className="studio-gallery-main" onTouchStart={event => { start.current = event.touches[0].clientX; }} onTouchEnd={event => {
       if (start.current !== null) { const distance = event.changedTouches[0].clientX - start.current; if (Math.abs(distance) > 50) move(distance < 0 ? 1 : -1); } start.current = null;
     }}>
-      <button className="gallery-open" onClick={() => dialog.current?.showModal()} aria-label={zh ? "放大产品图片" : "Enlarge product image"}>
+      <button className="gallery-open" disabled={!ready} onClick={() => dialog.current?.showModal()} aria-label={zh ? "放大产品图片" : "Enlarge product image"}>
         <img src={image(active)} alt={`${name} · ${caption}`} width={1000} height={1000} decoding="async" fetchPriority="high" />
         <span>{zh ? "点击放大" : "Enlarge image"} ↗</span>
       </button>
-      {visible.length > 1 && <div className="gallery-controls"><button onClick={() => move(-1)} aria-label={zh ? "上一张图片" : "Previous image"}>←</button><span aria-live="polite">{visible.indexOf(active) + 1} / {visible.length}</span><button onClick={() => move(1)} aria-label={zh ? "下一张图片" : "Next image"}>→</button></div>}
+      {visible.length > 1 && <div className="gallery-controls"><button disabled={!ready} onClick={() => move(-1)} aria-label={zh ? "上一张图片" : "Previous image"}>←</button><span aria-live="polite">{visible.indexOf(active) + 1} / {visible.length}</span><button disabled={!ready} onClick={() => move(1)} aria-label={zh ? "下一张图片" : "Next image"}>→</button></div>}
     </div>
     <p className="gallery-caption" aria-live="polite">{caption}</p>
     {colour && <div className="gallery-scope"><button type="button" aria-pressed={!showAll} onClick={() => {setShowAll(false);setManual(null);}}>{zh ? colorZh(colour.name) : colour.name} · {colourViews(product,id).length} {zh ? "张" : "photos"}</button><button type="button" aria-pressed={showAll} onClick={() => setShowAll(true)}>{zh ? "查看全款图片" : "All style photos"} · {images.length}</button></div>}
-    <div className="studio-thumbnails" aria-label={zh ? "产品图片" : "Product images"}>{visible.map(index => <button key={images[index]} className={index === active ? "is-active" : ""} onClick={() => setActive(index)} aria-pressed={index === active} aria-label={`${zh ? "查看" : "View"} ${productPhotoLabel(product.code, index, locale) ?? `${zh ? "图片" : "image"} ${index + 1}`}`} title={productPhotoLabel(product.code,index,locale) ?? undefined}><img src={galleryImage(images[index],true)} alt="" loading="lazy" width={100} height={100} /></button>)}</div>
+    <div className="studio-thumbnails" aria-label={zh ? "产品图片" : "Product images"}>{visible.map(index => <button key={images[index]} disabled={!ready} className={index === active ? "is-active" : ""} onClick={() => setActive(index)} aria-pressed={index === active} aria-label={`${zh ? "查看" : "View"} ${productPhotoLabel(product.code, index, locale) ?? `${zh ? "图片" : "image"} ${index + 1}`}`} title={productPhotoLabel(product.code,index,locale) ?? undefined}><img src={galleryImage(images[index],true)} alt="" loading="lazy" width={100} height={100} /></button>)}</div>
     {visible.length > 5 && <p className="gallery-scroll-hint">{zh ? "左右滑动查看更多图片" : "Swipe to see more photos"}</p>}
     <dialog ref={dialog} className="gallery-dialog" onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
       <button className="gallery-close" autoFocus onClick={() => dialog.current?.close()} aria-label={zh ? "关闭放大图片" : "Close enlarged image"}>×</button>

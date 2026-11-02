@@ -9,7 +9,7 @@ import { withColour } from "../lib/product-colours";
 type Props = { product: Product; code: string; name: string; url: string; locale?: PublicLocale };
 export default function ProductShareActions({ code, name, url: baseUrl, product, locale = "en" }: Props) {
   const [status, setStatus] = useState("");
-  const { id } = useProductColour(product);
+  const { id, ready } = useProductColour(product);
   const url = withColour(baseUrl, id);
   const copy = productShareCopy[locale];
   const text = `${copy.review}: ${code} — ${name}. ${url}`;
@@ -37,10 +37,10 @@ export default function ProductShareActions({ code, name, url: baseUrl, product,
   return <aside className="product-share-actions" aria-label={`${copy.title} · ${code}`}>
     <div><strong>{copy.title}</strong><span>{copy.intro}</span></div>
     <div className="product-share-buttons">
-      <a href={`https://wa.me/?text=${encodeURIComponent(text)}`} target="_blank" rel="noreferrer" onClick={() => record("whatsapp")}>WhatsApp</a>
-      <a href={`mailto:?subject=${encodeURIComponent(`${code} ${name} — ${copy.subject}`)}&body=${encodeURIComponent(text)}`} onClick={() => record("email")}>{copy.email}</a>
-      <button type="button" onClick={nativeShare}>{copy.share}</button>
-      <button type="button" onClick={copyLink}>{copy.copy}</button>
+      <a href={ready ? `https://wa.me/?text=${encodeURIComponent(text)}` : undefined} aria-disabled={!ready} target="_blank" rel="noreferrer" onClick={() => record("whatsapp")}>WhatsApp</a>
+      <a href={ready ? `mailto:?subject=${encodeURIComponent(`${code} ${name} — ${copy.subject}`)}&body=${encodeURIComponent(text)}` : undefined} aria-disabled={!ready} onClick={() => record("email")}>{copy.email}</a>
+      <button type="button" disabled={!ready} onClick={nativeShare}>{copy.share}</button>
+      <button type="button" disabled={!ready} onClick={copyLink}>{copy.copy}</button>
     </div>
     <p aria-live="polite">{status}</p>
   </aside>;
