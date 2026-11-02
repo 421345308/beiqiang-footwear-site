@@ -161,7 +161,10 @@ await writeFile(
 await writeFile(
   resolve(outputRoot, "edgeone.json"),
   `${JSON.stringify({
-    redirects: [{ source: "/index.html", destination: "/", statusCode: 301 }],
+    redirects: [
+      { source: "$host", destination: "$wwwhost", statusCode: 301 },
+      { source: "/index.html", destination: "/", statusCode: 301 },
+    ],
     headers: [
       {
         source: "/*",

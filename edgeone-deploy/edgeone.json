@@ -4,6 +4,11 @@
   "buildCommand": "npm run build",
   "redirects": [
     {
+      "source": "$host",
+      "destination": "$wwwhost",
+      "statusCode": 301
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "statusCode": 301

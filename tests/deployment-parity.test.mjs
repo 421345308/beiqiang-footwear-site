@@ -56,3 +56,12 @@ test("keeps the EdgeOne static export and operator command wired to the release 
   assert.ok(parsedEdgeOneConfig.headers.some((rule) => rule.source === "/videos/beiqiang-factory-tour.zh.vtt"));
   assert.equal(packageJson.scripts["verify:deployments"], "node --experimental-strip-types scripts/verify-deployment-parity.mjs");
 });
+
+test("EdgeOne deployment and exported site both redirect the root host to www", async () => {
+  const files = ["../edgeone-deploy/edgeone.json", "../edgeone-export-v1/edgeone.json"];
+  for (const file of files) {
+    const config = JSON.parse(await readFile(new URL(file, import.meta.url), "utf8"));
+    assert.deepEqual(config.redirects[0], { source: "$host", destination: "$wwwhost", statusCode: 301 }, file);
+    assert.ok(config.redirects.some(rule => rule.source === "/index.html" && rule.destination === "/"), file);
+  }
+});
