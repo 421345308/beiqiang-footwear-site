@@ -4,12 +4,12 @@
   "productDataSha256": "85f2bccea2ac64785f77c9357e50a6e1460019b6ffe6170efae8c57d7ab446f4",
   "files": {
     "beiqiang-footwear-line-sheet-2026.pdf": {
-      "sha256": "f5e3a1a5b99617baef7c95afb15f89c99b286d158b4c8cd3373902da5e44533b",
-      "bytes": 5984477
+      "sha256": "aef431f73380c6c60232dd75ac43ddca9b61654ad1a7ce4144312dcef31f826a",
+      "bytes": 1632448
     },
     "beiqiang-footwear-line-sheet-zh-2026.pdf": {
-      "sha256": "5978f3688cdbedad93b31ae87dd824ce13a6df3328b4b02454b0e5a094b246b8",
-      "bytes": 6048942
+      "sha256": "0cc53ffa49749d2c3bba19728b2d62962e56ab6d59e8df79be5b9050d1b12c28",
+      "bytes": 1697409
     }
   }
 }

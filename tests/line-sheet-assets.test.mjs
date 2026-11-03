@@ -19,6 +19,7 @@ test("keeps the buyer line sheets synchronized with the current product facts", 
     assert.equal(manifest.files[name].sha256, sha256(published));
     assert.equal(manifest.files[name].bytes, published.length);
     assert.equal(published.length > 1_000_000, true);
+    assert.ok(published.length <= 600_000 + products.length * 22_000, `${name} exceeds the downloadable catalogue size budget`);
   }
 });
 

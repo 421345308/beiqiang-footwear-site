@@ -9,6 +9,9 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
 from reportlab.lib.utils import ImageReader
 from pdf_image import for_pdf
+from reportlab import rl_config
+
+rl_config.useA85=0
 
 ROOT=Path(__file__).resolve().parents[1]
 W,H=A4
@@ -20,7 +23,7 @@ def text(c,value,x,top,width,size=10,bold=False,max_height=None):
     p.drawOn(c,x,top-height)
     return height
 def photo(c,path,x,y,w,h):
-    im=ImageReader(str(for_pdf(ROOT/'public'/path.lstrip('/'))));iw,ih=im.getSize();s=min(w/iw,h/ih)
+    im=ImageReader(str(for_pdf(ROOT/'public'/path.lstrip('/'),600 if max(w,h)>200 else 320)));iw,ih=im.getSize();s=min(w/iw,h/ih)
     c.drawImage(im,x+(w-iw*s)/2,y+(h-ih*s)/2,iw*s,ih*s,mask='auto')
 def base(c,s,page):
     c.setFillColor(PAPER);c.rect(0,0,W,H,fill=1,stroke=0)

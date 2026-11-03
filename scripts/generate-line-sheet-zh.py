@@ -15,6 +15,9 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
 from pdf_image import for_pdf
+from reportlab import rl_config
+
+rl_config.useA85 = 0
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,7 +64,7 @@ def paragraph(c: canvas.Canvas, text: str, x: float, y_top: float, width: float,
 
 
 def image_contain(c: canvas.Canvas, path: Path, x: float, y: float, width: float, height: float) -> None:
-    reader = ImageReader(str(for_pdf(path)))
+    reader = ImageReader(str(for_pdf(path, 600 if max(width, height) > 200 else 320)))
     iw, ih = reader.getSize()
     scale = min(width / iw, height / ih)
     draw_w, draw_h = iw * scale, ih * scale
