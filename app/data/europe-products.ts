@@ -334,6 +334,9 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Upper material to be confirmed": ["Obermaterial zu bestätigen", "Matière de la tige à confirmer", "Material del corte por confirmar"],
+  "Lace-up low-top construction": ["Niedrige Schnürung", "Modèle bas à lacets", "Modelo bajo con cordones"],
+  "Contrast collar on the photographed styles": ["Kontrastierender Schaftrand bei den abgebildeten Modellen", "Col contrasté sur les modèles photographiés", "Cuello en contraste en los modelos fotografiados"],
   "Slip-On": ["Zum Hineinschlüpfen", "À enfiler", "Sin cordones"],
   "Lace-Up": ["Schnürung", "À lacets", "Con cordones"],
   "Zip-Up": ["Reißverschluss", "Fermeture zippée", "Cremallera"],

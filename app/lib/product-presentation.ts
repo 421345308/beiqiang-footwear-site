@@ -46,6 +46,13 @@ const copy: Record<string, Record<PublicLocale, Presentation>> = {
     fr: { summary: "Chaussure à lacets en maille extensible avec doublure mesh pour la configuration indiquée. Quatre coloris en EU 35–45 ; matière de la semelle à confirmer pour la commande.", highlights: ["Tige en maille extensible ; doublure mesh pour la configuration indiquée", "Fermeture à lacets", "Quatre coloris · EU 35–45"] },
     es: { summary: "Calzado de cordones en punto elástico con forro de malla en la configuración indicada. Cuatro colores en EU 35–45; confirmar el material de la suela para el pedido.", highlights: ["Empeine de punto elástico; forro de malla en la configuración indicada", "Cierre de cordones", "Cuatro colores · EU 35–45"] },
   },
+  BQ1009: {
+    en: { summary: "Low-top lace-up shoes with a contrast collar, photographed in white and black. EU 39–44; confirm the colour and size mix for your order.", highlights: ["Low-top lace-up design", "Contrast collar", "White and black · EU 39–44"] },
+    zh: { summary: "低帮系带休闲鞋，撞色鞋口，实拍白色和黑色款。EU 39–44；颜色和尺码配比按订单确认。", highlights: ["低帮系带设计", "撞色鞋口", "白色与黑色 · EU 39–44"] },
+    de: { summary: "Niedriger Schnürschuh mit kontrastierendem Schaftrand, fotografiert in Weiß und Schwarz. EU 39–44; Farb- und Größenverteilung für Ihre Bestellung bestätigen.", highlights: ["Niedrige Schnürschuhform", "Kontrastierender Schaftrand", "Weiß und Schwarz · EU 39–44"] },
+    fr: { summary: "Chaussure basse à lacets avec col contrasté, photographiée en blanc et en noir. EU 39–44 ; confirmer les coloris et la répartition des pointures pour votre commande.", highlights: ["Modèle bas à lacets", "Col contrasté", "Blanc et noir · EU 39–44"] },
+    es: { summary: "Zapatilla baja con cordones y cuello en contraste, fotografiada en blanco y negro. EU 39–44; confirme los colores y la distribución de tallas para su pedido.", highlights: ["Diseño bajo con cordones", "Cuello en contraste", "Blanco y negro · EU 39–44"] },
+  },
   BQ031: {
     en: { summary: "A wide toe box, stretch-knit upper and EVA sole, with lace-up fastening. Five colour combinations in EU 38–47; confirm overall fit and size ratios on a sample.", highlights: ["Wide toe box; overall last width confirmed on a sample", "Stretch-knit upper and EVA sole", "Five colour combinations · EU 38–47"] },
     zh: { summary: "宽鞋头搭配弹力针织鞋面、EVA鞋底与系带结构，提供五种配色、EU 38–47；整体合脚程度与尺码配比按样品确认。", highlights: ["宽鞋头；整鞋楦宽按样品确认", "弹力针织鞋面与EVA鞋底", "五种配色 · EU 38–47"] },

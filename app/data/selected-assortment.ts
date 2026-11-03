@@ -8,7 +8,7 @@ export const selectedAssortment = [
 
 export const selectedCatalogue = {
   path: "/downloads/beiqiang-selected-casual-footwear.pdf",
-  styleCount: 7,
+  styleCount: 8,
   pageCount: 6,
   language: "English",
 } as const;

@@ -134,7 +134,7 @@ test("server-renders public catalogues before optional selection help", async ()
   const response = await render("/line-sheet");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /7 selected styles/i);
+  assert.match(html, /8 selected styles/i);
   assert.ok(html.includes(`href="/downloads/beiqiang-selected-casual-footwear.pdf?v=${SITE_RELEASE.releaseId}"`));
   assert.ok(html.includes(`href="/downloads/beiqiang-footwear-line-sheet-2026.pdf?v=${SITE_RELEASE.releaseId}"`));
   assert.match(html, /Request selection advice/i);

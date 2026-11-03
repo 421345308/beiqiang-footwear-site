@@ -6,6 +6,18 @@ const gallery = (slug: string) => (catalogImages as Record<string, string[]>)[sl
 // Website projection of the product-centre records, reviewed 2026-10-25.
 // Material chemistry and performance are not inferred from photographs.
 export const supplementaryProducts: Product[] = [
+  {
+    code: "BQ1009", slug: "bq1009", sourceModel: "BQ1009",
+    name: "Low-Top Lace-Up Casual Shoes",
+    localizedNames: { de: "Niedrige Schnür-Freizeitschuhe", fr: "Chaussures basses décontractées à lacets", es: "Calzado informal bajo con cordones" },
+    shortDescription: "Low-top lace-up casual shoes with a contrast collar.",
+    group: "Lace-Up Casual Shoes", closure: "Lace-Up", upper: "Upper material to be confirmed", sole: "Material to be confirmed",
+    size: "EU 39-44", colors: ["White", "Black"], collections: ["casual-sneakers"],
+    fitEvidence: "unconfirmed", tier: "New", buyerFit: "Casual footwear importers and wholesalers",
+    highlights: ["Lace-up low-top construction", "Contrast collar on the photographed styles"],
+    confirmBeforeQuote: confirmations, images: gallery("bq1009"), alibabaProductId: "1601943520149",
+  },
+
 {
   "code": "BQ-C2627",
   "sizeNote": "Each paired label is one size option; confirm sample insole length before market-size conversion.",

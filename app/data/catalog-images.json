@@ -1014,6 +1014,13 @@
     "05_colors",
     "06_scene"
   ],
+  "bq1009": [
+    "01_main",
+    "02_black",
+    "03_pair_white",
+    "04_on_foot",
+    "05_details"
+  ],
   "bq1024": [
     "01_main",
     "02_colour",

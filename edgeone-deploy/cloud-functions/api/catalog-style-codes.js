@@ -100,6 +100,7 @@ export const FINDER_STYLE_CODES = new Set([
   "BQ029",
   "BQ030",
   "BQ031",
+  "BQ1009",
   "BQ1024",
   "BQ1029",
   "BQ1031",

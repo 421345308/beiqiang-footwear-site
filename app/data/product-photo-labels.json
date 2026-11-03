@@ -3649,5 +3649,27 @@
       "role": "pair",
       "colour": "Black"
     }
+  ],
+  "BQ1009": [
+    {
+      "role": "side",
+      "colour": "White"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "White"
+    },
+    {
+      "role": "on-foot",
+      "colour": "White"
+    },
+    {
+      "role": "detail",
+      "colour": "White"
+    }
   ]
 }

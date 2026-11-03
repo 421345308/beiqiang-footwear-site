@@ -38,7 +38,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 132 organized product pages; this is not the factory's entire product range.
+- The website currently contains 133 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -77,6 +77,7 @@
 - BQ029: High-Top Sock Knit Walking Shoes — https://www.beiqiang.online/products/bq029/
 - BQ030: Kids Mesh Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq030/
 - BQ031: Wide Toe Box Knit Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq031/
+- BQ1009: Low-Top Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq1009/
 - BQ-C2627: Platform Clogs with Pivot Heel Strap — https://www.beiqiang.online/products/bq-c2627/
 - BQ-CA67: Closed-Heel Vented Slip-On Shoes — https://www.beiqiang.online/products/bq-ca67/
 - BQ-M858: Buckle Mules with Suede-Effect Upper — https://www.beiqiang.online/products/bq-m858/

@@ -1,22 +1,22 @@
 {
-  "productCount": 132,
-  "pageCount": 35,
-  "translationDataSha256": "8f3518ee97cf1dc1419f1bd731733e2ea1ec4aa0c965bcd68255f6f2b9336138",
+  "productCount": 133,
+  "pageCount": 36,
+  "translationDataSha256": "0ce2c75a3d6833f123972a00b588c9d470dcb142965319a93d46744e12503609",
   "files": {
     "de": {
       "name": "beiqiang-footwear-line-sheet-de-2026.pdf",
-      "bytes": 1584674,
-      "sha256": "349e0bb75e131a39d868e9cb09263b10bd4fb66520c3e4f50c803ef29b5019cd"
+      "bytes": 1589573,
+      "sha256": "5a29cdbb8b38feca5634d1f88a42fc9f41083b7a6c5b23bbe13a0ec2e0b083f9"
     },
     "fr": {
       "name": "beiqiang-footwear-line-sheet-fr-2026.pdf",
-      "bytes": 1583444,
-      "sha256": "14eadeb777d54e1d7fbef0100f6fb97c9f1d49db3bdfb7be6ab19454bb8a29b2"
+      "bytes": 1588323,
+      "sha256": "9f90b566bdeda2a70650c03e4d209851889fefd72d5cc4985ed92bfbccd20b86"
     },
     "es": {
       "name": "beiqiang-footwear-line-sheet-es-2026.pdf",
-      "bytes": 1583370,
-      "sha256": "64f200754238f79edafb3853fb245f5853aa327322a4e4b177d13b376e5b5c5e"
+      "bytes": 1588285,
+      "sha256": "bb9408197eb5e9ce94b8faa867b311a03a654afb52a13927868f2ad090a70663"
     }
   }
 }

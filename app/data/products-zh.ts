@@ -3,6 +3,7 @@ import reviewedCatalog from "./reviewed-catalog.json" with { type: "json" };
 import type { Product } from "./products";
 
 const names: Record<string, string> = {
+  "BQ1009": "低帮系带休闲鞋",
   "BQ-C2627": "厚底后跟带洞洞鞋",
   "BQ-CA67": "包跟镂空套穿休闲鞋",
   "BQ-M858": "绒面效果搭扣穆勒鞋",
@@ -228,6 +229,8 @@ export function factZh(value: string) {
     "Size labels; confirm the size system and sample measurements before ordering.": "尺码为原有标签数字；订购前请确认码制及样品测量尺寸。",
     "Each paired label is one size option; confirm sample insole length before market-size conversion.": "每组双码标签对应一个尺码选项；转换销售市场尺码前，请先核对样品鞋垫长度。",
     "Size labels; confirm sample insole length before market-size conversion.": "此处为尺码标签；转换销售市场尺码前，请先核对样品鞋垫长度。",
+    "Upper material to be confirmed": "鞋面材质待确认",
+    "Contrast collar on the photographed styles": "实拍款式采用撞色鞋口",
     "EVA upper": "EVA鞋面",
     "Pivoting heel strap": "可转动后跟带",
     "Vented upper and raised sole profile": "镂空鞋面与厚底轮廓",
@@ -273,6 +276,7 @@ export function productSummaryZh(product: Product) {
   const reviewed = reviewedCatalog.find(item => item.code === product.code);
   if (reviewed) return reviewed.summaryZh;
   const descriptions: Record<string, string> = {
+  "BQ1009": "低帮系带休闲鞋，搭配撞色鞋口。",
   "BQ-C2627": "包头镂空鞋面，搭配厚底轮廓和可转动后跟带，提供五种实拍配色。",
   "BQ-CA67": "EVA鞋面搭配包跟结构与侧面开孔；鞋面为模压仿鞋带装饰，采用套穿结构。",
   "BQ-M858": "包头后空结构，搭配搭扣饰带与绒面效果鞋面，提供黑色、沙色和棕色三种实拍配色。",
