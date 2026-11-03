@@ -202,22 +202,22 @@ export default function ChineseProductCatalog({
                     <td key={product.code}>{closureZh(product.closure)}</td>
                   ))}
                 </tr>
-                <tr>
+                {compared.some((product) => product.upper) && <tr>
                   <th>鞋面</th>
                   {compared.map((product) => (
-                    <td key={product.code}>{factZh(product.upper)}</td>
+                    <td key={product.code}>{factZh(product.upper) || "—"}</td>
                   ))}
-                </tr>
-                <tr>
+                </tr>}
+                {compared.some((product) => product.sole) && <tr>
                   <th>鞋底</th>
                   {compared.map((product) => (
-                    <td key={product.code}>{factZh(product.sole)}</td>
+                    <td key={product.code}>{factZh(product.sole) || "—"}</td>
                   ))}
-                </tr>
+                </tr>}
                 <tr>
                   <th>尺码范围</th>
                   {compared.map((product) => (
-                    <td key={product.code}>{product.size}</td>
+                    <td key={product.code}>{product.size || "—"}</td>
                   ))}
                 </tr>
                 <tr>
@@ -232,18 +232,6 @@ export default function ChineseProductCatalog({
                   <th>适合买家</th>
                   {compared.map((product) => (
                     <td key={product.code}>{buyerFitZh(product)}</td>
-                  ))}
-                </tr>
-                <tr className="comparison-confirm">
-                  <th>报价前确认</th>
-                  {compared.map((product) => (
-                    <td key={product.code}>
-                      <ul>
-                        {product.confirmBeforeQuote.map((item) => (
-                          <li key={item}>{factZh(item)}</li>
-                        ))}
-                      </ul>
-                    </td>
                   ))}
                 </tr>
                 <tr className="comparison-review-row">

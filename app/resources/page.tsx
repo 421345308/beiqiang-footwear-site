@@ -48,11 +48,10 @@ export default function ResourcesPage() {
       <section className="resource-hub-hero">
         <div>
           <p className="eyebrow">B2B FOOTWEAR SOURCING RESOURCES</p>
-          <h1>Turn product interest into a brief your supplier can review.</h1>
+          <h1>Footwear sourcing and private-label guides.</h1>
           <p>
-            Practical buyer guides for footwear quotation, sample approval and
-            private-label order preparation—written around decisions, evidence
-            and commercial boundaries.
+            Prepare for each stage of sourcing, from selecting styles and
+            reviewing samples to discussing quotations and packaging.
           </p>
           <div className="hero-actions">
             <Link className="button" href="/request-quote/">
@@ -64,23 +63,23 @@ export default function ResourcesPage() {
           </div>
         </div>
         <aside>
-          <strong>Built for B2B decisions</strong>
-          <span>No retail checkout</span>
-          <span>No invented factory claims</span>
-          <span>No automatic production order</span>
+          <strong>Plan your purchase</strong>
+          <span>Styles and colours</span>
+          <span>Samples and quotations</span>
+          <span>Branding and packaging</span>
         </aside>
       </section>
       <section className="section resource-hub-intro">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">CHOOSE THE CURRENT DECISION</p>
+            <p className="eyebrow">BUYER GUIDES</p>
             <h2>
-              Use one guide at the point where projects usually lose clarity.
+              Find the information you need at each stage.
             </h2>
           </div>
           <p>
-            Each resource connects to documented products and a structured next
-            step. Unknown specifications stay visible until confirmed.
+            Explore practical advice on product selection, sample reviews and
+            private-label preparation.
           </p>
         </div>
         <div className="resource-card-grid">
@@ -103,13 +102,12 @@ export default function ResourcesPage() {
       </section>
       <section className="resource-evidence-strip">
         <div>
-          <p className="eyebrow eyebrow-light">EVIDENCE BOUNDARY</p>
-          <h2>A guide improves the brief. It does not confirm the product.</h2>
+          <p className="eyebrow eyebrow-light">WORK WITH BEIQIANG</p>
+          <h2>Start with the styles that fit your range.</h2>
         </div>
         <p>
-          Material, size ratio, price, MOQ, sample arrangement, lead time,
-          packing, testing, availability and formal order terms remain subject
-          to product- and project-specific written confirmation.
+          Tell us your market, preferred styles, quantities and branding needs.
+          We will help you discuss samples and a quotation.
         </p>
       </section>
       <section className="section resource-route-grid">
@@ -117,8 +115,7 @@ export default function ResourcesPage() {
           <small>EXISTING PRODUCT</small>
           <h3>Compare documented styles</h3>
           <p>
-            Review real galleries, size direction, construction and open
-            confirmation items.
+            Browse product images, size ranges and construction details.
           </p>
           <Link href="/products/">Open product catalogue →</Link>
         </article>

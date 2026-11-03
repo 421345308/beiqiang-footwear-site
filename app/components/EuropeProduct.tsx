@@ -158,7 +158,7 @@ export function EuropeCard({
       <h3>
         <a href={href}>{productTitle(product, locale)}</a>
       </h3>
-      <p>{productFact(product.size, locale)}</p>
+      {product.size && <p>{productFact(product.size, locale)}</p>}
       <EuropeColours product={product} locale={locale} />
       <div className="europe-card-actions">
         <a href={href}>{t(locale, "view")} ↗</a>
@@ -375,7 +375,7 @@ export default function EuropeProduct({
           <h1>{name}</h1>
           {presentation && <p className="studio-product-description">{presentation.summary}</p>}
           <dl className="studio-specs">
-            {(["upper", "sole", "size", "closure"] as const).map((key) => (
+            {(["upper", "sole", "size", "closure"] as const).filter((key) => product[key]).map((key) => (
               <div key={key}>
                 <dt>{t(locale, key === "size" ? "sizes" : key)}</dt>
                 <dd>{productFact(product[key], locale)}</dd>
@@ -409,7 +409,7 @@ export default function EuropeProduct({
         <div className="studio-print-body">
           <img src={galleryImage(product.images[colourImage(product, id)])} alt={name} width={600} height={600} />
           <dl className="studio-specs">
-            {(["upper", "sole", "size", "closure"] as const).map((key) => <div key={key}><dt>{t(locale, key === "size" ? "sizes" : key)}</dt><dd>{productFact(product[key], locale)}</dd></div>)}
+            {(["upper", "sole", "size", "closure"] as const).filter((key) => product[key]).map((key) => <div key={key}><dt>{t(locale, key === "size" ? "sizes" : key)}</dt><dd>{productFact(product[key], locale)}</dd></div>)}
             <div><dt>{t(locale, "colour")}</dt><dd>{colour ? productColour(colour.name, locale) : productColours(product).map(c => productColour(c.name, locale)).join(" / ")}</dd></div>
           </dl>
         </div>

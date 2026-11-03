@@ -158,12 +158,17 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         c.setFillColor(FOREST)
         c.setFont("Helvetica-Bold", 7.2)
         c.drawString(facts_x, y + card_h - 8 * mm, product["closure"].upper())
-        paragraph(c, f'<b>Upper:</b> {product["upper"]}', facts_x, y + 35 * mm, facts_w, 9 * mm, 6.5, 7.8, INK)
-        paragraph(c, f'<b>Size labels:</b> {product["size"]}', facts_x, y + 28 * mm, facts_w, 7 * mm, 6.5, 7.8, INK)
+        facts_y = y + 35 * mm
+        if product["upper"]:
+            paragraph(c, f'<b>Upper:</b> {product["upper"]}', facts_x, facts_y, facts_w, 9 * mm, 6.5, 7.8, INK)
+            facts_y -= 7 * mm
+        if product["size"]:
+            paragraph(c, f'<b>Sizes:</b> {product["size"]}', facts_x, facts_y, facts_w, 7 * mm, 6.5, 7.8, INK)
+            facts_y -= 6 * mm
         colors_text = ", ".join(product["colors"][:3]) + ("..." if len(product["colors"]) > 3 else "")
-        paragraph(c, f'<b>Colors:</b> {colors_text}', facts_x, y + 22 * mm, facts_w, 8 * mm, 6.2, 7.3, INK)
-        confirm = "; ".join(product["confirmBeforeQuote"][:2])
-        paragraph(c, f'<b>Confirm:</b> {confirm}', facts_x, y + 13 * mm, facts_w, 8 * mm, 6.1, 7.1, TERRACOTTA)
+        paragraph(c, f'<b>Colors:</b> {colors_text}', facts_x, facts_y, facts_w, 8 * mm, 6.2, 7.3, INK)
+        paragraph(c, '<b>View product details</b>', facts_x, y + 9 * mm, facts_w, 7 * mm, 6.3, 7.5, TERRACOTTA)
+        c.linkURL(product_url, (facts_x, y + 3 * mm, facts_x + facts_w, y + 11 * mm), relative=0)
 
     footer(c, page_number)
     c.showPage()

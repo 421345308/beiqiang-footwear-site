@@ -49,34 +49,34 @@ export default function ChineseResourcesPage() {
       <section className="resource-hub-hero">
         <div>
           <p className="eyebrow">B2B鞋类采购知识</p>
-          <h1>把产品兴趣整理成供应商可以审核的采购需求。</h1>
+          <h1>鞋类采购与品牌定制指南。</h1>
           <p>
-            围绕询价、样品审核和私标订单准备的实用指南；重点是决定、证据和商业边界，而不是零售宣传。
+            从挑选鞋款到沟通样品、报价和包装，了解采购各阶段需要准备的信息。
           </p>
           <div className="hero-actions">
             <Link className="button" href="/zh/request-quote/">
               建立采购询价
             </Link>
             <Link className="text-link" href="/zh/products/">
-              浏览当前在线产品资料 <span aria-hidden="true">→</span>
+              浏览产品系列 <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
         <aside>
-          <strong>用于B2B决策</strong>
-          <span>没有零售结账</span>
-          <span>不虚构工厂能力</span>
-          <span>不自动建立生产订单</span>
+          <strong>采购沟通</strong>
+          <span>选款与配色</span>
+          <span>样品与报价</span>
+          <span>品牌与包装</span>
         </aside>
       </section>
       <section className="section resource-hub-intro">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">选择当前决定</p>
-            <h2>在项目最容易失去清晰度的阶段使用对应清单。</h2>
+            <p className="eyebrow">采购指南</p>
+            <h2>按采购阶段找到需要的信息。</h2>
           </div>
           <p>
-            每份指南都连接真实产品资料与结构化下一步；未知规格在确认前保持可见。
+            了解如何整理采购需求、评估样品和准备品牌定制。
           </p>
         </div>
         <div className="resource-card-grid">
@@ -99,18 +99,18 @@ export default function ChineseResourcesPage() {
       </section>
       <section className="resource-evidence-strip">
         <div>
-          <p className="eyebrow eyebrow-light">证据边界</p>
-          <h2>指南能改善需求，但不能确认产品。</h2>
+          <p className="eyebrow eyebrow-light">与贝强合作</p>
+          <h2>从选款开始，逐步推进采购。</h2>
         </div>
         <p>
-          材料、尺码配比、价格、MOQ、样品安排、交期、包装、测试、可用情况和正式订单条款仍需按产品和项目书面确认。
+          告诉我们您的目标市场、感兴趣的款式、数量和品牌要求，我们将与您讨论样品和报价。
         </p>
       </section>
       <section className="section resource-route-grid">
         <article>
           <small>现有产品</small>
           <h3>比较真实产品资料</h3>
-          <p>审核图库、尺码方向、结构与待确认项。</p>
+          <p>查看产品图片、尺码和款式细节。</p>
           <Link href="/zh/products/">打开产品目录 →</Link>
         </article>
         <article>

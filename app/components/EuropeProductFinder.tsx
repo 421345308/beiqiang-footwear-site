@@ -76,8 +76,8 @@ export default function EuropeProductFinder({ locale }: { locale: EuropeLocale }
       <EuropeCard product={product} locale={locale} />
       <div className="europe-finder-reasons"><strong>{text("why")}</strong><ul>
         {submitted && submitted.priority !== "open" && <li>{priorities[submitted.priority][index]}</li>}
-        <li>{productFact(product.closure, locale)} · {productFact(product.upper, locale)}</li>
-        <li>{t(locale, "sizes")}: {product.size}</li>
+        <li>{[productFact(product.closure, locale), productFact(product.upper, locale)].filter(Boolean).join(" · ")}</li>
+        {product.size && <li>{t(locale, "sizes")}: {product.size}</li>}
       </ul><button className="button button-secondary" type="button" onClick={() => add(product)}>{t(locale, "add")} ↗</button></div>
     </div>)}</div>
     <aside className="europe-finder-human"><h2>{text("human")}</h2><p>{text("humanText")}</p><a className="button" href={href("/sourcing-review")}>{text("human")} ↗</a><a className="studio-text-link" href={href("/request-quote")}>{t(locale, "quote")} ↗</a></aside>

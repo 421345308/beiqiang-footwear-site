@@ -75,7 +75,8 @@ for (const product of products) {
   if (!String(product.sourceModel || "").trim()) fail(`${product.code} is missing its source model.`);
   // Product identity is defined by its published Beiqiang style code.
   codes.add(product.code); slugs.add(product.slug); sourceModels.add(product.sourceModel);
-  for (const field of ["name", "shortDescription", "group", "upper", "sole", "size", "buyerFit"]) if (!String(product[field] || "").trim()) fail(`${product.code} is missing ${field}.`);
+  for (const field of ["name", "shortDescription", "group", "buyerFit"]) if (!String(product[field] || "").trim()) fail(`${product.code} is missing ${field}.`);
+  for (const field of ["upper", "sole", "size"]) if (typeof product[field] !== "string") fail(`${product.code} has an invalid ${field}.`);
   for (const field of ["colors", "collections", "highlights", "confirmBeforeQuote", "images"]) if (!Array.isArray(product[field]) || !product[field].length) fail(`${product.code} needs a non-empty ${field} list.`);
   if (product.highlights.length < 2) fail(`${product.code} needs at least two evidence-led highlights.`);
   if (product.confirmBeforeQuote.length < 2) fail(`${product.code} needs at least two quotation confirmations.`);

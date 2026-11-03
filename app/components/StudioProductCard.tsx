@@ -23,7 +23,7 @@ export default function StudioProductCard({ product, locale = "en", collectionSl
     </CollectionProductLink>
     <div className="product-meta"><span className="product-code">{product.code}</span><span>{zh ? closureZh(product.closure) : product.closure}</span></div>
     <h3><CollectionProductLink slug={collectionSlug} styleCode={product.code} href={href}>{name}</CollectionProductLink></h3>
-    <p className="card-size">{product.size}</p>
+    {product.size && <p className="card-size">{product.size}</p>}
     <ProductColourOptions product={product} locale={locale} />
     <div className="product-card-actions"><CollectionProductLink slug={collectionSlug} styleCode={product.code} className="product-detail-link" href={href}>{zh ? "查看详情" : "View details"} <span aria-hidden="true">↗</span></CollectionProductLink><AddToQuoteButton product={product} compact locale={locale} /></div>
   </article>;

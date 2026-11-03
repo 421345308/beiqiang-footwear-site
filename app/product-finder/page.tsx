@@ -6,7 +6,7 @@ import SiteHeader from "../components/SiteHeader";
 export const metadata: Metadata = {
   title: "B2B Shoe Product Finder | Beiqiang Footwear",
   description:
-    "Build a 2–4 style shortlist from Beiqiang's documented walking and casual shoe catalogue, then compare evidence or continue to a structured RFQ.",
+    "Find Beiqiang walking and casual shoes by sales channel, product direction and fastening, then build your wholesale shortlist.",
   alternates: {
     canonical: "https://www.beiqiang.online/product-finder/",
     languages: {
@@ -23,11 +23,10 @@ export default function ProductFinderPage() {
       <SiteHeader chineseHref="/zh/product-finder/" />
       <section className="finder-hero">
         <p className="eyebrow">B2B PRODUCT FINDER</p>
-        <h1>Turn the current online selection into a reviewable shortlist.</h1>
+        <h1>Find styles for your market.</h1>
         <p>
-          Choose your buyer channel, product direction and closure preference.
-          The result explains why each documented style matched and what still
-          needs confirmation before quotation.
+          Choose your sales channel, product direction and fastening. Explore
+          matching styles and add your selection to an inquiry.
         </p>
       </section>
       <section className="section">

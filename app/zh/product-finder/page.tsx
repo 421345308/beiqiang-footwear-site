@@ -6,7 +6,7 @@ import ChineseSiteHeader from "../../components/ChineseSiteHeader";
 export const metadata: Metadata = {
   title: "B2B鞋款采购选款助手｜贝强鞋业",
   description:
-    "按买家渠道、产品方向和穿脱结构，从贝强当前在线步行鞋与休闲鞋选款中生成2至4款有依据的候选清单。",
+    "按销售渠道、产品方向和穿脱方式，快速挑选适合您业务的贝强鞋款。",
   alternates: {
     canonical: "https://www.beiqiang.online/zh/product-finder/",
     languages: {
@@ -23,9 +23,9 @@ export default function ChineseProductFinderPage() {
       <ChineseSiteHeader englishHref="/product-finder/" />
       <section className="finder-hero">
         <p className="eyebrow">B2B采购选款助手</p>
-        <h1>从当前在线选款缩小到可审核的候选清单。</h1>
+        <h1>找到适合您市场的鞋款。</h1>
         <p>
-          选择买家渠道、首要产品方向和穿脱结构。结果会说明为什么匹配，以及正式报价前仍需确认什么。
+          选择销售渠道、产品方向和穿脱方式，浏览适合的鞋款并加入询价单。
         </p>
       </section>
       <section className="section">

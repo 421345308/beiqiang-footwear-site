@@ -334,7 +334,11 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
-  "Upper material to be confirmed": ["Obermaterial zu bestätigen", "Matière de la tige à confirmer", "Material del corte por confirmar"],
+  "Mesh-panel upper": ["Obermaterial mit Mesh-Einsätzen", "Tige à empiècements mesh", "Empeine con paneles de malla"],
+  "Suede-effect upper": ["Obermaterial in Veloursoptik", "Tige aspect suédé", "Empeine de efecto ante"],
+  "Panelled upper": ["Obermaterial mit Einsätzen", "Tige à empiècements", "Empeine con paneles"],
+  "Mesh panels and overlays": ["Mesh-Einsätze und Besätze", "Empiècements mesh et renforts", "Paneles de malla y superposiciones"],
+  "Mesh upper with overlays": ["Mesh-Obermaterial mit Besätzen", "Tige en mesh avec renforts", "Empeine de malla con superposiciones"],
   "Lace-up low-top construction": ["Niedrige Schnürung", "Modèle bas à lacets", "Modelo bajo con cordones"],
   "Contrast collar on the photographed styles": ["Kontrastierender Schaftrand bei den abgebildeten Modellen", "Col contrasté sur les modèles photographiés", "Cuello en contraste en los modelos fotografiados"],
   "Slip-On": ["Zum Hineinschlüpfen", "À enfiler", "Sin cordones"],
@@ -425,26 +429,6 @@ export const facts: Record<string, readonly [string, string, string]> = {
     "Corte de punto textil elástico",
   ],
   "EVA upper": ["EVA-Obermaterial", "Tige en EVA", "Corte de EVA"],
-  "Suede-effect upper; composition to be confirmed": [
-    "Veloursoptik; Zusammensetzung zu bestätigen",
-    "Aspect suédé ; composition à confirmer",
-    "Efecto ante; composición por confirmar",
-  ],
-  "Panelled upper; composition to be confirmed": [
-    "Obermaterial mit Einsätzen; Zusammensetzung zu bestätigen",
-    "Tige à empiècements ; composition à confirmer",
-    "Corte con paneles; composición por confirmar",
-  ],
-  "Mesh panels and overlays; composition to be confirmed": [
-    "Mesh-Einsätze und Besätze; Zusammensetzung zu bestätigen",
-    "Empiècements mesh et renforts ; composition à confirmer",
-    "Paneles de malla y superposiciones; composición por confirmar",
-  ],
-  "Mesh upper with overlays; composition to be confirmed": [
-    "Mesh-Obermaterial mit Besätzen; Zusammensetzung zu bestätigen",
-    "Tige en mesh avec renforts ; composition à confirmer",
-    "Corte de malla con superposiciones; composición por confirmar",
-  ],
   "Leather and Mesh": ["Leder und Mesh", "Cuir et mesh", "Cuero y malla"],
   Mesh: ["Mesh", "Mesh", "Malla"],
   "Oxford Fabric": ["Oxford-Gewebe", "Textile Oxford", "Tejido Oxford"],
@@ -520,11 +504,12 @@ export function productSizeNote(note: string, locale: EuropeLocale) {
   }[locale];
 }
 export function productFact(value: string, locale: EuropeLocale) {
+  if (!value) return "";
   return (
     facts[value]?.[europeLocales.indexOf(locale)] ||
     (/^(?:EVA|PVC|EU [\d –/-]+|[\d –/-]+)$/.test(value)
       ? value
-      : t(locale, "confirm"))
+      : "")
   );
 }
 export function productColour(value: string, locale: EuropeLocale) {

@@ -219,7 +219,7 @@ To add a product:
 4. Run `npm test`, `npm run edgeone:build`, `npm run lint`, and verify every exported image path before deployment. The EdgeOne exporter discovers product folders and regenerates product routes and `sitemap.xml` automatically.
 5. Confirm the live product page, product-specific inquiry code, WhatsApp/email links and admin-ledger record after deployment.
 
-The catalogue may show a conservative `To be confirmed` or confirmation list. That is intentional: size, material, outsole, lining, MOQ, price, packing, lead time and customization must not be invented when the product package does not prove them.
+The buyer-facing catalogue shows available product facts and omits internal placeholder values. Commercial arrangements are discussed for the buyer's order; internal source notes do not appear as product specifications.
 
 When `alibabaProductId` is present, the product inquiry area links directly to that Alibaba.com listing. Products without a mapped ID deliberately fall back to the Beiqiang storefront. Recheck product identity and live state after any Alibaba listing change; an ID is not proof that the public listing remains online forever.
 

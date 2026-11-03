@@ -180,13 +180,7 @@ const phrases: [RegExp, string][] = [
   [/EVA sole recorded in the source package/gi, "来源资料已记录EVA鞋底"],
   [/EVA sole/gi, "EVA鞋底"],
   [/PU sole/gi, "PU鞋底"],
-  [/Material confirmed before quotation/gi, "鞋底材质在报价前确认"],
   [/Lining and exact material execution/gi, "内里与准确材料执行"],
-  [
-    /Cushion-profile sole; material confirmed before quotation/gi,
-    "缓震轮廓鞋底；材质在报价前确认",
-  ],
-  [/To be confirmed/gi, "待确认"],
   [/Order quantity and size ratio/gi, "订单数量与尺码配比"],
   [/Current color availability/gi, "当前颜色可用情况"],
   [/Packing and target timing/gi, "包装与目标时间"],
@@ -229,7 +223,11 @@ export function factZh(value: string) {
     "Size labels; confirm the size system and sample measurements before ordering.": "尺码为原有标签数字；订购前请确认码制及样品测量尺寸。",
     "Each paired label is one size option; confirm sample insole length before market-size conversion.": "每组双码标签对应一个尺码选项；转换销售市场尺码前，请先核对样品鞋垫长度。",
     "Size labels; confirm sample insole length before market-size conversion.": "此处为尺码标签；转换销售市场尺码前，请先核对样品鞋垫长度。",
-    "Upper material to be confirmed": "鞋面材质待确认",
+    "Mesh-panel upper": "网面拼接鞋面",
+    "Suede-effect upper": "绒面效果鞋面",
+    "Panelled upper": "拼接鞋面",
+    "Mesh panels and overlays": "网面与覆片拼接",
+    "Mesh upper with overlays": "网面搭配覆片",
     "Contrast collar on the photographed styles": "实拍款式采用撞色鞋口",
     "EVA upper": "EVA鞋面",
     "Pivoting heel strap": "可转动后跟带",
@@ -241,7 +239,6 @@ export function factZh(value: string) {
     "Closed toe and open heel": "包头后空结构",
     "Buckle strap with visible adjustment holes": "带调节孔的搭扣饰带",
     "Size labels 35\u201345": "尺码标签35–45",
-    "Suede-effect upper; composition to be confirmed": "绒面效果鞋面；材料成分待确认",
     "Paired size labels and sample insole length": "双码标签与样品鞋垫长度",
     "Size labels and sample insole length": "尺码标签与样品鞋垫长度",
     "Separate outsole and lining specifications": "外底及内里各自的材料规格",
@@ -258,10 +255,6 @@ export function factZh(value: string) {
     "Wide toe box": "宽鞋头结构",
     "Ribbed mesh and two side bands": "罗纹网面与双侧饰条",
     "EU 39–48 size range": "EU 39–48尺码范围",
-    "Panelled upper; composition to be confirmed": "拼接鞋面；材料成分待确认",
-    "Mesh panels and overlays; composition to be confirmed": "网面与覆片拼接；材料成分待确认",
-    "Mesh upper with overlays; composition to be confirmed": "网面搭配覆片；材料成分待确认",
-    "Material to be confirmed": "材质待确认",
   };
   if (exact[value]) return exact[value];
   return phrases.reduce(
@@ -285,7 +278,7 @@ export function productSummaryZh(product: Product) {
     "BQ-LQ060": "网面侧片与鞋头覆片拼接，织带鞋带孔搭配低帮休闲轮廓。",
     "BQ-LQ2597": "宽鞋头设计，罗纹网面搭配双侧饰条与棕色低底。",
   };
-  return descriptions[product.code] || `${productNameZh(product)}，${product.size}，提供${product.colors.length}种配色。具体色码组合及定制要求按订单确认。`;
+  return descriptions[product.code] || `${productNameZh(product)}${product.size ? `，${product.size}` : ""}，提供${product.colors.length}种配色。`;
 }
 export function buyerFitZh(product: Product) {
   if (/Kids/i.test(product.group)) return "儿童鞋进口商、批发商及渠道买家";

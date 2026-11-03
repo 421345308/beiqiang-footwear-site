@@ -44,7 +44,7 @@
     "group": "Layered Mesh Lace-Up Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "Military Green",
@@ -78,8 +78,8 @@
     "shortDescription": "Plain round-toe derby profile. Open-lacing quarters. Chunky notched sole edge.",
     "group": "Chunky Sole Derby Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Black",
@@ -114,7 +114,7 @@
     "group": "Panelled Lace-Up Casual Sneakers",
     "closure": "Lace-Up",
     "upper": "Synthetic Leather + Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "Black",
@@ -148,7 +148,7 @@
     "shortDescription": "High-top lace-up construction. Inner-side zipper. Raised sole profile and toe cap.",
     "group": "Platform High-Top Lace-Up Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
+    "upper": "",
     "sole": "Rubber",
     "size": "EU 35–40",
     "colors": [
@@ -184,7 +184,7 @@
     "group": "Panelled Low-Top Casual Sneakers",
     "closure": "Lace-Up",
     "upper": "Synthetic Leather",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "Ivory/Navy",
@@ -218,8 +218,8 @@
     "shortDescription": "Colour-block upper and sole edge. Lace-up low-top construction. Stitched toe overlay.",
     "group": "Colour-Block Low-Top Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "White/Grey",
@@ -254,7 +254,7 @@
     "shortDescription": "Layered panels with mesh inserts. Low collar and lace-up fastening. Sculpted sole profile.",
     "group": "Layered Upper Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
+    "upper": "",
     "sole": "PVC",
     "size": "EU 38–45",
     "colors": [
@@ -289,8 +289,8 @@
     "shortDescription": "Low-top cupsole profile. Lace-up fastening. Contrast heel and sole details.",
     "group": "Low-Top Cupsole Casual Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "White",
@@ -324,8 +324,8 @@
     "shortDescription": "Side-zip entry. Low-top silhouette. Contrasting sole edge.",
     "group": "Side-Zip Low-Top Casual Shoes",
     "closure": "Zip-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "Black",
@@ -395,8 +395,8 @@
     "shortDescription": "Wide single strap. Open toe and heel. Patterned bottom surface.",
     "group": "Wide-Strap Slide Sandals",
     "closure": "Slip-On",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 36-37–44-45",
     "colors": [
       "White",
@@ -430,7 +430,7 @@
     "shortDescription": "Ankle-height lace-up silhouette. Layered upper panels. Raised tread blocks.",
     "group": "Panelled Lace-Up Ankle Boots",
     "closure": "Lace-Up",
-    "upper": "other",
+    "upper": "",
     "sole": "PVC",
     "size": "EU 38–45",
     "colors": [
@@ -500,8 +500,8 @@
     "shortDescription": "Covered heel and closed toe. Slip-on opening. Textured outsole surface.",
     "group": "Closed-Heel Moulded Slip-On Shoes",
     "closure": "Slip-On",
-    "upper": "Material to be confirmed",
-    "sole": "other",
+    "upper": "",
+    "sole": "",
     "size": "EU 36-37–46-47",
     "colors": [
       "Black"
@@ -534,7 +534,7 @@
     "shortDescription": "Textile upper with lace-up fastening. Low-top collar. Contrast sole edge.",
     "group": "Textile Low-Top Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
+    "upper": "",
     "sole": "PVC",
     "size": "EU 39–44",
     "colors": [
@@ -569,7 +569,7 @@
     "shortDescription": "Contrast side panels. Lace-up fastening. Low-top casual silhouette.",
     "group": "Contrast-Panel Low-Top Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
+    "upper": "",
     "sole": "Rubber",
     "size": "EU 36–42",
     "colors": [
@@ -639,8 +639,8 @@
     "shortDescription": "Plain round toe. Open-lacing derby construction. Stitched heel panels.",
     "group": "Black Plain-Toe Derby Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "other",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "Black"
@@ -821,7 +821,7 @@
     "shortDescription": "Layered upper panels. Lace-up fastening. Chunky sole profile.",
     "group": "Chunky Sole Lace-Up Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
+    "upper": "",
     "sole": "PVC",
     "size": "EU 39–46",
     "colors": [
@@ -857,7 +857,7 @@
     "shortDescription": "Ankle-height covered upper. Side-zip fastening. Patterned outsole.",
     "group": "Side-Zip Ankle Boots",
     "closure": "Zip-Up",
-    "upper": "other",
+    "upper": "",
     "sole": "PVC",
     "size": "EU 38–45",
     "colors": [
@@ -931,8 +931,8 @@
     "shortDescription": "Lace-up high-top construction. Visible pile lining. Raised sole edge.",
     "group": "Lined High-Top Lace-Up Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Black",
@@ -1003,8 +1003,8 @@
     "shortDescription": "Layered lace-up upper. Low collar. Raised outsole tread.",
     "group": "Outdoor-Style Lace-Up Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–49",
     "colors": [
       "Military Green",
@@ -1039,8 +1039,8 @@
     "shortDescription": "Colour-block mesh panels. Lace-up fastening. Contrast sole details.",
     "group": "Colour-Block Mesh Lace-Up Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "White/Green",
@@ -1076,7 +1076,7 @@
     "group": "High-Cuff Knit Sock Shoes",
     "closure": "Slip-On",
     "upper": "Textile",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 38–46",
     "colors": [
       "Grey",
@@ -1148,8 +1148,8 @@
     "summaryZh": "低帮系带鞋型，鞋面层次拼接，搭配立体鞋底轮廓。",
     "group": "Panelled Low-Top Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Black",
@@ -1189,8 +1189,8 @@
     "summaryZh": "纹理织物鞋面，搭配系带结构和低帮鞋口。",
     "group": "Textured Textile Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Beige",
@@ -1230,8 +1230,8 @@
     "summaryZh": "低帮系带鞋型，侧面采用车线拼片设计。",
     "group": "Stitched Panel Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Beige",
@@ -1270,8 +1270,8 @@
     "summaryZh": "复古低帮轮廓，搭配T形鞋头拼片与撞色侧片。",
     "group": "Retro T-Toe Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "36–48",
     "colors": [
       "Black",
@@ -1311,8 +1311,8 @@
     "summaryZh": "低帮系带鞋型，搭配车线拼片与撞色侧面细节。",
     "group": "Retro Stitched Panel Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "36–48",
     "colors": [
       "Black",
@@ -1351,8 +1351,8 @@
     "summaryZh": "复古系带轮廓，采用T形鞋头拼片和撞色侧片。",
     "group": "Retro T-Toe Contrast Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Black/Brown",
@@ -1391,8 +1391,8 @@
     "summaryZh": "系带休闲运动鞋，鞋面采用多层拼片，鞋底呈现纹理轮廓。",
     "group": "Layered Panel Casual Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Black/Grey",
@@ -1433,7 +1433,7 @@
     "group": "Ribbed-Collar Knit Slip-On Sneakers",
     "closure": "Slip-On",
     "upper": "Knitted textile upper",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black",
@@ -1473,7 +1473,7 @@
     "group": "Mesh Teardrop-Panel Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "Black",
@@ -1514,7 +1514,7 @@
     "group": "Angular-Panel Mesh Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "All Black",
@@ -1554,7 +1554,7 @@
     "group": "Layered Angular-Panel Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "Black/Silver",
@@ -1594,7 +1594,7 @@
     "group": "Slotted-Panel Mesh Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "Black",
@@ -1634,7 +1634,7 @@
     "group": "Wave-Panel Mesh Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "White/Black",
@@ -1674,7 +1674,7 @@
     "group": "Oxford Textile Lace-Up Sneakers",
     "closure": "Lace-Up",
     "upper": "Oxford Fabric",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "36–48",
     "colors": [
       "Black",
@@ -1715,7 +1715,7 @@
     "group": "Honeycomb Knit Slip-On Sneakers",
     "closure": "Slip-On",
     "upper": "Knitted textile upper",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "Black",
@@ -1756,7 +1756,7 @@
     "group": "Open-Mesh Contrast-Panel Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Beige",
@@ -1796,7 +1796,7 @@
     "group": "Curved-Band Mesh Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "Beige",
@@ -1836,7 +1836,7 @@
     "group": "Curved-Panel Mesh Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "White",
@@ -1876,7 +1876,7 @@
     "group": "Diagonal-Panel Mesh Sneakers",
     "closure": "Lace-Up",
     "upper": "Mesh",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 36–48",
     "colors": [
       "White",
@@ -1915,8 +1915,8 @@
     "summaryZh": "短靴鞋型，搭配系带、侧拉链与鞋口饰带。",
     "group": "Lace-Up Ankle Boots with Strap",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Yellow",
@@ -1955,8 +1955,8 @@
     "summaryZh": "系带短靴，搭配侧拉链和厚鞋口。",
     "group": "Lace-Up Boots with Padded Collar",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–44",
     "colors": [
       "Khaki",
@@ -1995,8 +1995,8 @@
     "summaryZh": "系带短靴，搭配厚鞋口设计。",
     "group": "Padded-Collar Lace-Up Ankle Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 37–48",
     "colors": [
       "Army Green",
@@ -2035,8 +2035,8 @@
     "summaryZh": "系带短靴，鞋头带围边车线。",
     "group": "Moc-Toe Lace-Up Ankle Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 37–48",
     "colors": [
       "Black",
@@ -2075,8 +2075,8 @@
     "summaryZh": "低帮系带鞋型，搭配撞色后跟和层次鞋底边缘。",
     "group": "Contrast-Heel Lace-Up Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Blue",
@@ -2115,8 +2115,8 @@
     "summaryZh": "低帮系带鞋型，采用网面拼接和撞色鞋底边缘。",
     "group": "Mesh-Panel Lace-Up Casual Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Black",
@@ -2156,8 +2156,8 @@
     "summaryZh": "网面系带鞋型，搭配撞色鞋底边条。",
     "group": "Mesh Lace-Up Sneakers with Contrast Sole",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "36–48",
     "colors": [
       "Black",
@@ -2196,8 +2196,8 @@
     "summaryZh": "镂空网面鞋型，采用抽绳系带和低帮鞋口。",
     "group": "Open-Mesh Toggle-Lace Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "36–48",
     "colors": [
       "Black",
@@ -2237,8 +2237,8 @@
     "summaryZh": "套穿休闲鞋型，搭配弹力侧片和提拉带。",
     "group": "Elastic-Side Slip-On Casual Shoes",
     "closure": "Slip-On",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Black",
@@ -2277,8 +2277,8 @@
     "summaryZh": "低帮系带休闲鞋，搭配厚鞋口与撞色鞋底。",
     "group": "Low-Top Lace-Up Shoes with Contrast Sole",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Blue",
@@ -2317,8 +2317,8 @@
     "summaryZh": "系带休闲鞋，搭配网面拼接与车线鞋底沿条。",
     "group": "Mesh-Panel Lace-Up Shoes with Stitched Sole Rim",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Blue",
@@ -2357,8 +2357,8 @@
     "summaryZh": "网面系带运动鞋，搭配层次拼片与立体鞋底轮廓。",
     "group": "Colour-Block Mesh Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–48",
     "colors": [
       "Black",
@@ -2397,8 +2397,8 @@
     "summaryZh": "系带运动鞋，搭配波纹鞋面与立体鞋底。",
     "group": "Wave-Panel Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "39–46",
     "colors": [
       "Red",
@@ -2438,8 +2438,8 @@
     "summaryZh": "低帮系带鞋型，搭配交叉车线拼片与提拉带。",
     "group": "Stitched-Panel Lace-Up Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 37–48",
     "colors": [
       "Black",
@@ -2520,7 +2520,7 @@
     "group": "Knit Lace-Up Shoes with Arrow-Profile Sole",
     "closure": "Lace-Up",
     "upper": "Knitted textile upper",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Black",
@@ -2638,8 +2638,8 @@
     "summaryZh": "低帮系带运动鞋，侧面采用方形撞色拼片。",
     "group": "Contrast-Patch Low-Top Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Brown",
@@ -2678,7 +2678,7 @@
     "group": "Contrast-Band Low-Top Casual Shoes",
     "closure": "Lace-Up",
     "upper": "Synthetic leather upper",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Brown",
@@ -2717,8 +2717,8 @@
     "summaryZh": "网面系带运动鞋，搭配撞色拼片和鞋底侧边。",
     "group": "Mesh Lace-Up Sneakers with Contrast Sole",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "White/Orange",
@@ -2757,8 +2757,8 @@
     "summaryZh": "网面系带运动鞋，搭配弧线侧纹与后跟提环。",
     "group": "Curved-Stripe Mesh Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "White/Orange",
@@ -2838,7 +2838,7 @@
     "group": "Knit Slip-On Shoes with Raised Sole Profile",
     "closure": "Slip-On",
     "upper": "Knitted textile upper",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Light Grey",
@@ -2876,8 +2876,8 @@
     "summaryZh": "黑色系带鞋型，搭配层次鞋底，可咨询普通或加绒内里。",
     "group": "Black Lace-Up Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black"
@@ -2916,8 +2916,8 @@
     "summaryZh": "高帮系带鞋型，搭配层次侧片；黑色可咨询加绒版本。",
     "group": "Contrast-Panel High-Top Lace-Up Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Black",
@@ -2958,8 +2958,8 @@
     "summaryZh": "低帮系带鞋型，搭配撞色拼片和层次鞋底边缘。",
     "group": "Contrast-Panel Lace-Up Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Brown",
@@ -2997,8 +2997,8 @@
     "summaryZh": "系带短靴，搭配厚鞋口和加绒内里。",
     "group": "Fleece-Lined Lace-Up Ankle Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–47",
     "colors": [
       "Tan",
@@ -3037,7 +3037,7 @@
     "summaryZh": "网面拼接系带短靴，搭配厚鞋口及TPR鞋底。",
     "group": "Mesh-Panel Lace-Up Ankle Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
+    "upper": "",
     "sole": "TPR outsole",
     "size": "EU 39–47",
     "colors": [
@@ -3077,7 +3077,7 @@
     "group": "Knit Slip-On Shoes with Ribbed Sole",
     "closure": "Slip-On",
     "upper": "Knitted textile upper",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Beige",
@@ -3115,8 +3115,8 @@
     "summaryZh": "系带休闲鞋，可选深色或撞色鞋底；黑色可咨询加绒版本。",
     "group": "Lace-Up Casual Shoes with Contrast Sole",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Black",
@@ -3156,8 +3156,8 @@
     "summaryZh": "高帮系带靴，搭配厚鞋口和加绒内里。",
     "group": "High-Cut Fleece-Lined Lace-Up Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Grey",
@@ -3196,8 +3196,8 @@
     "summaryZh": "系带短靴，搭配厚鞋口和加绒内里，提供两种实拍配色。",
     "group": "Two-Tone Fleece-Lined Lace-Up Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Yellow",
@@ -3237,7 +3237,7 @@
     "group": "Panelled Low-Top Lace-Up Casual Shoes",
     "closure": "Lace-Up",
     "upper": "Synthetic leather upper",
-    "sole": "Material to be confirmed",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black",
@@ -3275,8 +3275,8 @@
     "summaryZh": "低帮系带鞋型，鞋舌和后跟设有提环。",
     "group": "Lace-Up Casual Shoes with Pull Loops",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black",
@@ -3314,8 +3314,8 @@
     "summaryZh": "系带短靴，采用简约侧片与加绒内里。",
     "group": "Fleece-Lined Smooth-Panel Lace-Up Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black",
@@ -3354,8 +3354,8 @@
     "summaryZh": "系带短靴，搭配厚鞋口、加绒内里和纹理鞋底边缘。",
     "group": "Fleece-Lined Outdoor-Style Lace-Up Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Tan",
@@ -3395,8 +3395,8 @@
     "summaryZh": "系带短靴，搭配撞色侧片与厚鞋口。",
     "group": "Contrast-Panel Lace-Up Ankle Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Tan",
@@ -3435,8 +3435,8 @@
     "summaryZh": "系带鞋型，搭配厚底轮廓和加绒内里。",
     "group": "Fleece-Lined Chunky-Sole Lace-Up Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black",
@@ -3475,7 +3475,7 @@
     "summaryZh": "低帮系带运动鞋，搭配侧片和MD鞋底。",
     "group": "Panelled Lace-Up Casual Sneakers",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
+    "upper": "",
     "sole": "MD sole",
     "size": "EU 39–48",
     "colors": [
@@ -3515,8 +3515,8 @@
     "summaryZh": "低帮户外风休闲鞋，采用旋钮闭合与弧形侧片。",
     "group": "Dial-Closure Outdoor-Style Shoes",
     "closure": "Dial",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "Mesh-panel upper",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black",
@@ -3554,8 +3554,8 @@
     "summaryZh": "低帮休闲鞋，搭配网面拼片、旋钮闭合和纹理鞋底。",
     "group": "Dial-Closure Mesh-Panel Casual Shoes",
     "closure": "Dial",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black",
@@ -3593,8 +3593,8 @@
     "summaryZh": "系带短靴，搭配撞色包头；不同配色的普通或加绒版本需确认。",
     "group": "Two-Tone Lace-Up Outdoor-Style Boots",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–46",
     "colors": [
       "Black",
@@ -3635,8 +3635,8 @@
     "summaryZh": "黑色低帮系带鞋，搭配加绒内里和分段鞋底轮廓。",
     "group": "Black Fleece-Lined Lace-Up Casual Shoes",
     "closure": "Lace-Up",
-    "upper": "Material to be confirmed",
-    "sole": "Material to be confirmed",
+    "upper": "",
+    "sole": "",
     "size": "EU 39–48",
     "colors": [
       "Black"

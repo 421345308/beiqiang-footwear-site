@@ -184,7 +184,7 @@ test("server-renders the multi-style quote and technical development path", asyn
   assert.match(html, /not a Beiqiang quotation or acceptance/i);
   assert.match(html, /Response preferences \(optional\)/i);
   assert.match(html, /Preferred contact channel/i);
-  assert.match(html, /do not create an appointment/i);
+  assert.match(html, /help us contact you in the way you prefer/i);
   assert.match(
     html,
     /customs clearance, duty, tax and local delivery are not promised/i,
@@ -276,7 +276,7 @@ test("server-renders the verified BQ001 product page", async () => {
     /name="twitter:image" content="https:\/\/www\.beiqiang\.online\/catalog-web\/bq001\/01_main\.webp"/i,
   );
   assert.match(html, /Product reference only[\s\S]*not a quotation/i);
-  assert.match(html, /Confirm before quotation or order/i);
+  assert.match(html, /Construction details/i);
   assert.match(html, /www\.beiqiang\.online\/products\/bq001\//i);
   assert.match(html, /BQ001 sample \/ quotation request/);
   assert.doesNotMatch(html, /orthopedic|medical|podiatrist|waterproof/i);
@@ -300,7 +300,7 @@ test("server-renders the evidence-led BQ009 product page without legacy supplier
   assert.match(html, /1601825074604/);
   assert.match(html, /View BQ009 on Alibaba\.com/);
   assert.match(html, /Knitted stretch-fabric upper/i);
-  assert.match(html, /material confirmed before quotation/i);
+  assert.doesNotMatch(html, /material confirmed before quotation/i);
   assert.match(html, /Mesh lining in the listed configuration/i);
   assert.doesNotMatch(html, /Breathable Mesh Thick-Sole Athletic Walking Shoes/i);
   assert.doesNotMatch(

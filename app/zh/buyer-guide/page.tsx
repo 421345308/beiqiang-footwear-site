@@ -6,7 +6,7 @@ import CommercialStartingPoints from "../../components/CommercialStartingPoints"
 
 export const metadata: Metadata = { title: "B2B鞋类采购指南｜贝强鞋业", description: "从产品选款、样品评审和报价，到Alibaba Trade Assurance或合同、包装与发运交接，了解贝强B2B采购路径。", alternates: { canonical: "https://www.beiqiang.online/zh/buyer-guide/", languages: { en: "https://www.beiqiang.online/buyer-guide/", "zh-CN": "https://www.beiqiang.online/zh/buyer-guide/", "x-default": "https://www.beiqiang.online/buyer-guide/" } } };
 
-const buyingSteps = [["选款", "比较真实图片、产品款号、已确认事实和报价前待确认项。"], ["定义需求", "提供市场、渠道、数量、颜色、尺码、品牌、包装和目标时间。"], ["评审样品", "书面约定样品需验证的材料、结构、适配和外观范围。"], ["确认报价", "书面对齐单价、数量、码比、包装、贸易条款、有效期和交期。"], ["建立正式订单", "规格接受后，通过经核验的Alibaba Trade Assurance订单或双方合同进行交易。"], ["跟进履约", "按已确认订单跟进付款记录、样品或生产、检查、包装和发运交接。"]] as const;
+const buyingSteps = [["选款", "比较产品图片、款号、配色和鞋型细节。"], ["定义需求", "提供市场、渠道、数量、颜色、尺码、品牌、包装和目标时间。"], ["评审样品", "书面约定样品需验证的材料、结构、适配和外观范围。"], ["确认报价", "书面对齐单价、数量、码比、包装、贸易条款、有效期和交期。"], ["建立正式订单", "规格接受后，通过经核验的Alibaba Trade Assurance订单或双方合同进行交易。"], ["跟进履约", "按已确认订单跟进付款记录、样品或生产、检查、包装和发运交接。"]] as const;
 const tradeTerms = [["尚未确定", "提供目的地、数量、包装方向和紧急程度，先判断报价所需资料。"], ["EXW", "货物在约定提货点交付，后续安排通常由买家指定物流方处理，以书面约定为准。"], ["FOB", "适用于送至约定装运港的海运或内河运输；主运费、目的港费用和进口安排除非书面说明，否则不包含。"], ["FCA", "适用于在约定地点向买家指定承运人交货，包括许多空运或多式联运场景。"], ["申请DDP评估", "必须提供准确目的地、数量、箱规、包装和时间；关税、税费、清关和当地派送仅在货代书面确认后纳入。"]] as const;
 const faqs = [["只凭产品图片能得到最终价格吗？", "不能可靠确定。最终价格取决于款式、已确认材料、数量、码比、包装、定制和贸易要求。"], ["样品通常如何寄送？", "通常讨论快递寄样；确认安排或费用前，需要收件国家、邮编、样品数量和地址资料。"], ["能否报价送到Amazon FBA？", "提供仓库国家或代码、数量、包装、箱规、毛重和时间后可以评估，但不能提前保证清关结果。"], ["接受报价是否等于已下单？", "不是。报价是商业建议；双方确认所需文件并建立Trade Assurance或合同交易后，订单才正式开始。"]] as const;
 

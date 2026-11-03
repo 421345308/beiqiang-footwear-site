@@ -165,12 +165,17 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
         c.setFillColor(FOREST)
         c.setFont(CN_FONT, 7.2)
         c.drawString(facts_x, y + card_h - 8 * mm, product["closureZh"])
-        paragraph(c, f'<b>鞋面：</b>{product["upperZh"]}', facts_x, y + 35 * mm, facts_w, 9 * mm, 6.4, 7.8, INK)
-        paragraph(c, f'<b>尺码标签：</b>{product["sizeZh"]}', facts_x, y + 28 * mm, facts_w, 7 * mm, 6.4, 7.8, INK)
+        facts_y = y + 35 * mm
+        if product["upperZh"]:
+            paragraph(c, f'<b>鞋面：</b>{product["upperZh"]}', facts_x, facts_y, facts_w, 9 * mm, 6.4, 7.8, INK)
+            facts_y -= 7 * mm
+        if product["sizeZh"]:
+            paragraph(c, f'<b>尺码：</b>{product["sizeZh"]}', facts_x, facts_y, facts_w, 7 * mm, 6.4, 7.8, INK)
+            facts_y -= 6 * mm
         colors_text = "、".join(product["colorsZh"][:3]) + ("……" if len(product["colorsZh"]) > 3 else "")
-        paragraph(c, f'<b>颜色：</b>{colors_text}', facts_x, y + 22 * mm, facts_w, 8 * mm, 6.1, 7.3, INK)
-        confirm = "；".join(product["confirmBeforeQuoteZh"][:2])
-        paragraph(c, f'<b>确认：</b>{confirm}', facts_x, y + 13 * mm, facts_w, 8 * mm, 6, 7.1, TERRACOTTA)
+        paragraph(c, f'<b>颜色：</b>{colors_text}', facts_x, facts_y, facts_w, 8 * mm, 6.1, 7.3, INK)
+        paragraph(c, '<b>查看产品详情</b>', facts_x, y + 9 * mm, facts_w, 7 * mm, 6.3, 7.5, TERRACOTTA)
+        c.linkURL(product_url, (facts_x, y + 3 * mm, facts_x + facts_w, y + 11 * mm), relative=0)
 
     footer(c, page_number)
     c.showPage()
@@ -212,7 +217,7 @@ def closing_page(c: canvas.Canvas, page_number: int) -> None:
     c.setFillColor(WHITE)
     c.setFont(CN_FONT, 15)
     c.drawString(23 * mm, 63 * mm, "提交选款与报价需求")
-    paragraph(c, "发送候选款号、目标市场、预计数量和样品要求。贝强将先审核产品事实与待确认项，再讨论最终报价。", 23 * mm, 57 * mm, 110 * mm, 22 * mm, 8.2, 11.5, colors.HexColor("#D9E3DE"))
+    paragraph(c, "发送感兴趣的款号、目标市场、预计数量和样品要求，我们将为您提供选款与报价建议。", 23 * mm, 57 * mm, 110 * mm, 22 * mm, 8.2, 11.5, colors.HexColor("#D9E3DE"))
     c.setFillColor(TERRACOTTA)
     c.roundRect(140 * mm, 43 * mm, 46 * mm, 19 * mm, 2 * mm, fill=1, stroke=0)
     c.setFillColor(WHITE)

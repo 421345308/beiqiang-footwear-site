@@ -127,7 +127,7 @@ export default async function ChineseCollectionPage({ params }: Props) {
             <h2>浏览本系列鞋款</h2>
           </div>
           <p>
-            每个产品页展示当前资料、真实图库和报价前待确认项；把候选款加入询价单后，可一次提交数量、颜色和尺码需求。
+            浏览各款图片、配色和产品细节，加入询价单后即可一并提交数量、颜色和尺码需求。
           </p>
         </div>
         <div className="product-grid catalog-grid studio-product-grid">

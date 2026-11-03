@@ -220,22 +220,22 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                     <td key={product.code}>{product.closure}</td>
                   ))}
                 </tr>
-                <tr>
+                {compared.some((product) => product.upper) && <tr>
                   <th>Upper</th>
                   {compared.map((product) => (
-                    <td key={product.code}>{product.upper}</td>
+                    <td key={product.code}>{product.upper || "—"}</td>
                   ))}
-                </tr>
-                <tr>
+                </tr>}
+                {compared.some((product) => product.sole) && <tr>
                   <th>Sole direction</th>
                   {compared.map((product) => (
-                    <td key={product.code}>{product.sole}</td>
+                    <td key={product.code}>{product.sole || "—"}</td>
                   ))}
-                </tr>
+                </tr>}
                 <tr>
                   <th>Size direction</th>
                   {compared.map((product) => (
-                    <td key={product.code}>{product.size}</td>
+                    <td key={product.code}>{product.size || "—"}</td>
                   ))}
                 </tr>
                 <tr>
@@ -256,18 +256,6 @@ export default function ProductCatalog({ products }: { products: Product[] }) {
                     <td key={product.code}>
                       <ul>
                         {(productPresentation(product, "en")?.highlights ?? product.highlights.filter(item => !/\b(?:trunk|hero direction|source image|source package|product package|source-recorded|reviewed|verified product-level)\b/i.test(item))).map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </td>
-                  ))}
-                </tr>
-                <tr className="comparison-confirm">
-                  <th>Confirm before quote</th>
-                  {compared.map((product) => (
-                    <td key={product.code}>
-                      <ul>
-                        {product.confirmBeforeQuote.map((item) => (
                           <li key={item}>{item}</li>
                         ))}
                       </ul>

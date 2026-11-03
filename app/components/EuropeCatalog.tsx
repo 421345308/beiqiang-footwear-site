@@ -233,7 +233,7 @@ export default function EuropeCatalog({
                   <h3>{code}</h3>
                   <EuropeComparisonPhoto product={p} locale={locale} />
                   <dl>
-                    {(["upper", "sole", "size", "closure"] as const).map(
+                    {(["upper", "sole", "size", "closure"] as const).filter((key) => p[key]).map(
                       (key) => (
                         <div key={key}>
                           <dt>{t(locale, key === "size" ? "sizes" : key)}</dt>

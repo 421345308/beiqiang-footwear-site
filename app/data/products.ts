@@ -3,6 +3,7 @@ import colourMedia from "./product-colour-media.json" with { type: "json" };
 import catalogImages from "./catalog-images.json" with { type: "json" };
 import { supplementaryProducts } from "./catalog-extension.ts";
 import { verifiedProducts } from "./verified-products.ts";
+import { publicProductFact } from "../lib/public-product-facts.ts";
 import {
   type CatalogDirection,
   productMatchesCatalogDirection,
@@ -57,8 +58,7 @@ const commonConfirm = [
   "Current color availability",
   "Packing and target timing",
 ];
-const unconfirmedSole =
-  "Cushion-profile sole; material confirmed before quotation";
+const unconfirmedSole = "";
 
 const originalProducts: Product[] = [
   {
@@ -658,7 +658,7 @@ const originalProducts: Product[] = [
     closure: "Slip-On",
     upper: "Knit textile upper",
     sole: unconfirmedSole,
-    size: "To be confirmed",
+    size: "",
     colors: ["Black", "Grey", "Brown"],
     collections: ["knit-slip-on"],
     tier: "D",
@@ -912,6 +912,9 @@ const reviewedProducts = reviewedCatalog.map(record => ({ ...record, images: ima
 export const products: Product[] = [...originalProducts, ...supplementaryProducts, ...reviewedProducts].map(product => ({
   ...product,
   sourceModel: product.code,
+  upper: publicProductFact(product.upper),
+  sole: publicProductFact(product.sole),
+  size: publicProductFact(product.size),
   // Internal source colour lists are preserved; public choices require real photographs.
   colors: product.colors.filter(colour => Number.isInteger((colourMedia as Record<string, { images: Record<string, number> }>)[product.code]?.images[colour])),
 }));

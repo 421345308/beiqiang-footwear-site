@@ -53,17 +53,8 @@ test("all UI keys and published product names have three nonempty translations",
 });
 test("translations preserve unknown material and unconverted supplier size boundaries", () => {
   for (const locale of europeLocales) {
-    assert.equal(
-      productFact("Material to be confirmed", locale),
-      t(locale, "confirm"),
-    );
-    assert.equal(
-      productFact(
-        "Cushion-profile sole; material confirmed before quotation",
-        locale,
-      ),
-      t(locale, "confirm"),
-    );
+    assert.equal(productFact("", locale), "");
+    assert.equal(productFact("unexpected missing value", locale), "");
     assert.equal(
       productFact("35–36 / 37–38 / 39–40", locale),
       "35–36 / 37–38 / 39–40",
@@ -71,9 +62,7 @@ test("translations preserve unknown material and unconverted supplier size bound
     assert.equal(productFact("EVA", locale), "EVA");
   }
   const allowedUnknown = new Set([
-    "Material to be confirmed",
-    "other",
-    "Cushion-profile sole; material confirmed before quotation",
+    "",
   ]);
   for (const p of products)
     for (const field of ["upper", "sole"])

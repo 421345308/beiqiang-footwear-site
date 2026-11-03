@@ -36,7 +36,7 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
     .replace(/来源资料已记录 EVA \+ PEBA 发泡结构/g, "EVA + PEBA 发泡结构");
   const presentation=productPresentation(product, locale);
   const details=presentation?.highlights || product.highlights.filter(value=>!/hero direction|reviewed color|verified product-level/i.test(value)).map(productFact).filter(value=>!zh || /[\u4e00-\u9fff]/.test(value));
-  const sole=product.sole.startsWith("Cushion-profile") ? t("Material to be confirmed", "材质待确认") : fact(product.sole);
+  const sole=fact(product.sole);
   const description=presentation?.summary || (zh ? productSummaryZh(product) : product.shortDescription);
   const related=getRelatedProducts(product, products, 4);
   const schema={"@context":"https://schema.org","@type":"Product",name,sku:product.code,model:product.code,description,url:`${siteOrigin}${href(`/products/${product.slug}`)}`,image:product.images.map(img=>`${siteOrigin}${productMediaUrl(img)}`)};
@@ -50,9 +50,9 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
       <div className="studio-product-copy">
         <p className="eyebrow">{product.code} <span> / </span> {t("FOOTWEAR COLLECTION","产品系列")}</p>
         <h1>{name}</h1><p className="studio-product-description">{description}</p>
-        <dl className="studio-specs"><div><dt>{t("Upper","鞋面")}</dt><dd>{fact(product.upper)}</dd></div><div><dt>{t("Sole","鞋底")}</dt><dd>{sole}</dd></div><div><dt>{t("Size range","尺码范围")}</dt><dd>{product.size}{product.sizeNote && <small className="studio-size-note">{fact(product.sizeNote)}</small>}</dd></div><div><dt>{t("Closure","穿脱结构")}</dt><dd>{zh ? closureZh(product.closure) : product.closure}</dd></div></dl>
+        <dl className="studio-specs">{product.upper && <div><dt>{t("Upper","鞋面")}</dt><dd>{fact(product.upper)}</dd></div>}{sole && <div><dt>{t("Sole","鞋底")}</dt><dd>{sole}</dd></div>}{product.size && <div><dt>{t("Size range","尺码范围")}</dt><dd>{product.size}{product.sizeNote && <small className="studio-size-note">{fact(product.sizeNote)}</small>}</dd></div>}<div><dt>{t("Closure","穿脱结构")}</dt><dd>{zh ? closureZh(product.closure) : product.closure}</dd></div></dl>
         <ProductColourOptions product={product} locale={locale} detail />
-        <div className="studio-supply"><span className="supply-dot" /><p>{t("Beiqiang footwear.","贝强鞋款。")}<small>{t("Availability, specifications and delivery are confirmed with your order.","可供色码、具体规格及交付安排按订单确认。")}</small></p></div>
+        <div className="studio-supply"><span className="supply-dot" /><p>{t("Beiqiang footwear.","贝强鞋款。")}<small>{t("Discuss wholesale, samples and branding for this style.","欢迎咨询现款采购、样品及品牌定制。")}</small></p></div>
         <div className="studio-product-actions"><AddToQuoteButton product={product} locale={locale} /><a className="button button-secondary" href="#inquiry">{t("Enquire about this style","咨询此款产品")} ↗</a></div>
         <p className="studio-commercial-note">{productOrderCopy[locale].text}</p>
         <div className="studio-secondary-actions"><PrintProductSheetButton styleCode={product.code} locale={locale} /><ProductShareActions product={product} code={product.code} name={name} url={schema.url} locale={locale} /></div>
@@ -62,8 +62,8 @@ export default function StudioProductDetail({ product, locale = "en" }: { produc
     <section className="studio-order-details">
       <div><p className="eyebrow">{t("PRODUCT & ORDER DETAILS","产品与订单信息")}</p><h2>{t("From selection to specification.","从选款到订单确认")}</h2></div>
       <div className="studio-accordions">
-        <details open><summary>{t("Product specifications","产品规格")}<span>+</span></summary><p>{t("Style reference","产品款号")}: {product.code}.</p><p>{product.fitEvidence==="wide_toe_verified" ? t("This style has a wide toe box. Toe-box space does not specify overall last width; confirm the required fit and size grading on a sample.","本款为宽鞋头结构。鞋头空间不等于整鞋宽楦规格，具体合脚程度与尺码级放按样品确认。") : t("Confirm fit, lining and exact material specifications for the selected colour and size before ordering.","所选颜色和尺码的合脚程度、内里及准确材料规格在订单前确认。")}</p></details>
-        <details><summary>{t("Construction & order checks","产品细节与确认事项")}<span>+</span></summary><ul>{details.map(item=><li key={item}>{item}</li>)}</ul><h3>{t("Confirm before quotation or order","报价与订单前确认")}</h3><ul>{product.confirmBeforeQuote.map(item=><li key={item}>{fact(item)}</li>)}</ul></details>
+        <details open><summary>{t("Product specifications","产品规格")}<span>+</span></summary><p>{t("Style reference","产品款号")}: {product.code}.</p><p>{product.fitEvidence==="wide_toe_verified" ? t("This style has a wide toe box. Ask us about samples to assess the overall fit.","本款采用宽鞋头设计，可咨询样品以评估整鞋合脚程度。") : t("Ask us about colours, sizes, samples and branding for this style.","欢迎咨询本款的颜色、尺码、样品和品牌定制。")}</p></details>
+        <details><summary>{t("Construction details","产品细节")}<span>+</span></summary><ul>{details.map(item=><li key={item}>{item}</li>)}</ul></details>
         <details><summary>{t("Branding & packaging","品牌与包装")}<span>+</span></summary><p>{t("Submit your logo placement, colour and packaging brief. Feasibility, minimum quantities and sample costs are assessed for this specific style.","提供商标位置、配色和包装要求。改动可行性、起订量及样品费用按本款具体方案评估。")}</p><Link href={href("/sourcing-review")}>{t("Submit a customization brief","提交定制需求")} ↗</Link></details>
         <details><summary>{t("Samples & delivery","样品与交付")}<span>+</span></summary><p>{t("Include the required colours, sizes, quantities and destination in your inquiry. The quotation will specify sample availability, charges and the proposed delivery schedule.","询盘请注明颜色、尺码、数量和目的地。样品可供情况、费用及预计交付安排将在报价中列明。")}</p></details>
         <details><summary>{t("Sample evaluation guide","样品评估要点")}<span>+</span></summary><ProductBuyingGuide product={product} locale={locale} /></details>

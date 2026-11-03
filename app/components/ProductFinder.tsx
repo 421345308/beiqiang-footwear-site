@@ -5,7 +5,7 @@ import { productMediaUrl } from "../lib/product-media-url";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { products } from "../data/products";
-import { buyerFitZh, factZh, productNameZh, productSummaryZh } from "../data/products-zh";
+import { buyerFitZh, closureZh, factZh, productNameZh, productSummaryZh } from "../data/products-zh";
 import {
   findProducts,
   type BuyerChannel,
@@ -18,13 +18,12 @@ import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import { trackEvent } from "../lib/tracking";
 
 const reasonZh: Record<string, string> = {
-  "SKU-level wide-toe evidence": "本款资料已确认宽鞋头结构",
+  "Wide toe box": "宽鞋头设计",
   "Slip-on construction": "套穿结构",
-  "Documented breathable or open-textile lace-up direction":
-    "已记录的透气／镂空纺织系带方向",
-  "Documented men's range direction": "已记录的男鞋系列方向",
-  "Documented kids range direction": "已记录的童鞋系列方向",
-  "Documented winter or fleece-option direction": "已记录的冬季或加绒选项方向",
+  "Breathable or open-textile lace-up": "透气网面或镂空系带款",
+  "Men's styles": "男鞋款式",
+  "Kids' styles": "童鞋款式",
+  "Winter or fleece-lined options": "冬季及加绒款式",
   "Slip-On preference matched": "符合套穿偏好",
   "Lace-Up preference matched": "符合系带偏好",
   "Zip-Up preference matched": "符合拉链偏好",
@@ -152,8 +151,8 @@ export default function ProductFinder({
           </h2>
           <p>
             {zh
-              ? `系统只按当前在线${products.length}款已记录事实进行匹配，不预测销量、价格或生产可行性。`
-              : `Matching uses only documented facts in the current ${products.length}-style online selection. It does not predict sales, price or manufacturing feasibility.`}
+              ? `根据采购方向、穿脱方式和销售渠道，从${products.length}款鞋中寻找适合您的款式。`
+              : `Find suitable styles among ${products.length} shoes by product direction, fastening and sales channel.`}
           </p>
         </div>
         <label>
@@ -190,11 +189,11 @@ export default function ProductFinder({
           >
             <option value="open">
               {zh
-                ? "开放选择，优先产品信息较完整款"
-                : "Open — prioritize styles with fuller product information"}
+                ? "浏览全部款式"
+                : "Explore all styles"}
             </option>
             <option value="wide_toe">
-              {zh ? "有证据的宽鞋头方向" : "Verified wide-toe direction"}
+              {zh ? "宽鞋头款式" : "Wide-toe styles"}
             </option>
             <option value="easy_on">
               {zh ? "容易穿脱的套穿鞋" : "Easy-on slip-on shoes"}
@@ -297,6 +296,9 @@ export default function ProductFinder({
                     <li key={reason}>
                       {zh
                         ? reasonZh[reason] ||
+                          (reason === [product.closure, product.upper].filter(Boolean).join(" · ")
+                            ? [closureZh(product.closure), factZh(product.upper)].filter(Boolean).join(" · ")
+                            : "") ||
                           (reason === product.buyerFit
                             ? buyerFitZh(product)
                             : reason
@@ -308,17 +310,6 @@ export default function ProductFinder({
                     </li>
                   ))}
                 </ul>
-                <p className="finder-confirm">
-                  <strong>
-                    {zh ? "报价前仍需确认：" : "Still confirm before quote: "}
-                  </strong>
-                  {(zh
-                    ? product.confirmBeforeQuote.map(factZh)
-                    : product.confirmBeforeQuote
-                  )
-                    .slice(0, 3)
-                    .join(" · ")}
-                </p>
                 <Link href={`${zh ? "/zh" : ""}/products/${product.slug}/`}>
                   {zh ? "查看产品详情 →" : "Review product details →"}
                 </Link>
@@ -363,27 +354,27 @@ export default function ProductFinder({
             >
               {matches.length
                 ? zh
-                  ? "让业务员人工复核候选 →"
-                  : "Ask sales to review the shortlist →"
+                  ? "让我们帮您选款 →"
+                  : "Ask us for selection advice →"
                 : zh
-                  ? "提交人工选款需求"
-                  : "Request a human shortlist"}
+                  ? "获取选款建议"
+                  : "Ask for selection advice"}
             </Link>
             <small>
               {matches.length
                 ? zh
-                  ? "您可以直接把候选款加入询价单，也可以保留当前条件，请业务员结合市场、数量和样品要求人工复核。"
-                  : "Add the candidates directly, or keep these criteria and ask sales to review them against your market, quantity and sample needs."
+                  ? "可直接将鞋款加入询价单，也可告诉我们您的市场、数量和样品要求。"
+                  : "Add styles to your inquiry, or tell us about your market, quantities and sample needs."
                 : zh
-                  ? "我们会保留当前筛选条件，但不会把无证据的鞋款强行推荐给您。"
-                  : "We keep the current criteria without forcing a product that does not match the available catalogue information."}
+                  ? "我们会根据您的筛选条件协助寻找合适款式。"
+                  : "We will use your criteria to help find suitable styles."}
             </small>
           </div>
         ) : null}
         <small className="finder-boundary">
           {zh
-            ? "排序帮助缩小目录范围，不代表畅销、库存、价格、MOQ、交期、材料、认证或可定制性确认。正式建议由业务员结合市场、数量、尺码、颜色、包装和样品要求人工复核。"
-            : "Ranking narrows the catalogue; it does not confirm bestseller status, stock, price, MOQ, lead time, materials, certificates or customization. Beiqiang reviews market, quantity, size, colors, packing and sample requirements before a formal recommendation or quotation."}
+            ? "需要更具体的选款建议？告诉我们您的市场、数量和样品要求。"
+            : "For a tailored selection, tell us about your market, quantities and sample requirements."}
         </small>
       </section>
     </div>

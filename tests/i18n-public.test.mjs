@@ -65,12 +65,12 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const wide = await render("/zh/products/bq001");
   const wideHtml = await wide.text();
   assert.equal(wide.status, 200);
-  assert.match(wideHtml, /本款为宽鞋头结构/);
+  assert.match(wideHtml, /本款采用宽鞋头设计/);
   assert.match(wideHtml, /加入询价单/);
   assert.match(wideHtml, /分享给采购团队/);
   assert.match(wideHtml, /提交样品 \/ 报价需求/);
   assert.match(wideHtml, /联系偏好（选填）/);
-  assert.match(wideHtml, /不代表已预约、自动发信或承诺回复时效/);
+  assert.match(wideHtml, /这些信息便于我们按照您的偏好联系您/);
   assert.match(
     wideHtml,
     /hrefLang="en"[^>]+https:\/\/www\.beiqiang\.online\/products\/bq001\//,
@@ -93,15 +93,14 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   assert.equal(r1811.status, 200);
   assert.match(r1811Html, /产品细节/);
   assert.match(r1811Html, /所列配置采用网布内里/);
-  assert.match(r1811Html, /各颜色加绒版本可用情况/);
+  assert.match(r1811Html, /所列配置采用网布内里/);
 
   const m8811 = await render("/zh/products/bq006");
   const m8811Html = await m8811.text();
   assert.equal(m8811.status, 200);
   assert.match(m8811Html, /产品细节/);
   assert.match(m8811Html, /EVA鞋底/);
-  assert.match(m8811Html, /所选颜色对应的加绒版本/);
-  assert.match(m8811Html, /内里材质与鞋面准确组成/);
+  assert.doesNotMatch(m8811Html, /所选颜色对应的加绒版本|内里材质与鞋面准确组成/);
 });
 
 test("supports a Chinese multi-style sourcing brief without a retail checkout", async () => {
@@ -143,9 +142,9 @@ test("publishes a bilingual evidence-led product finder", async () => {
   const response = await render("/zh/product-finder");
   const html = await response.text();
   assert.equal(response.status, 200);
-  assert.match(html, /从当前在线选款缩小到可审核的候选清单/);
+  assert.match(html, /找到适合您市场的鞋款/);
   assert.match(html, /生成产品候选清单/);
-  assert.match(html, /不预测销量、价格或生产可行性/);
+  assert.match(html, /根据采购方向、穿脱方式和销售渠道/);
   assert.match(html, /hrefLang="en"[^>]+\/product-finder\//i);
   assert.doesNotMatch(html, /保证畅销|保证库存|立即付款/);
   const english = await render("/product-finder");
@@ -153,11 +152,11 @@ test("publishes a bilingual evidence-led product finder", async () => {
   assert.equal(english.status, 200);
   assert.match(
     englishHtml,
-    /Turn the current online selection into a reviewable shortlist/,
+    /Find styles for your market/,
   );
   assert.match(
     englishHtml,
-    /does not predict sales, price or manufacturing feasibility/i,
+    /Find suitable styles among/i,
   );
   assert.doesNotMatch(englishHtml, /evidence-led candidates/i);
 });
@@ -255,13 +254,13 @@ test("publishes Chinese sourcing programs and decision-stage buyer resources", a
     ],
     [
       "/zh/resources",
-      /把产品兴趣整理成供应商可以审核的采购需求/,
-      /指南能改善需求，但不能确认产品/,
+      /鞋类采购与品牌定制指南/,
+      /从选款开始，逐步推进采购/,
     ],
     [
       "/zh/resources/footwear-rfq-checklist",
       /鞋类询价清单：第一次联系工厂怎么说/,
-      /未知项可以标记为待确认/,
+      /整理好您的需求后/,
     ],
     [
       "/zh/resources/shoe-sample-approval-checklist",

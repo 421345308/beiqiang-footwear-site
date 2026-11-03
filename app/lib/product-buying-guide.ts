@@ -43,8 +43,8 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
     shape,
     checks,
     order: zh
-      ? `本页列出${product.size}和${product.colors.length}种配色供选款参考。请按款式、尺码和颜色分别提供双数，再确认本次可供组合、样品、包装与交期。`
-      : `The page lists ${product.size} and ${product.colors.length} color options for selection. Give quantities by style, size and color so we can confirm the options available for this order, samples, packing and timing.`,
+      ? `本款${product.size ? `尺码 ${product.size}，` : ""}提供${product.colors.length}种配色。询价时请提供颜色、尺码、数量及样品要求。`
+      : `${product.size ? `Size range ${product.size}; ` : ""}${product.colors.length} color options. Include colors, sizes, quantities and sample requirements in your inquiry.`,
   };
 }
 

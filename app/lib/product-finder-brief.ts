@@ -56,11 +56,11 @@ export function finderBriefLabels(brief: ProductFinderBrief, locale: "en" | "zh"
     importer_wholesaler: zh ? "进口商／批发商" : "Importer / wholesaler",
     online_seller: zh ? "Amazon／TikTok／在线卖家" : "Amazon / TikTok / online seller",
     brand_private_label: zh ? "品牌／私标买家" : "Brand / private-label buyer",
-    sourcing_agent: zh ? "采购代理／待确认" : "Sourcing agent / to confirm",
+    sourcing_agent: zh ? "采购代理／尚未确定" : "Sourcing agent / undecided",
   }[brief.buyerChannel];
   const priority = {
-    open: zh ? "开放选择" : "Open documented range",
-    wide_toe: zh ? "有证据的宽鞋头方向" : "Verified wide-toe direction",
+    open: zh ? "浏览全部款式" : "Explore all styles",
+    wide_toe: zh ? "宽鞋头款式" : "Wide-toe styles",
     easy_on: zh ? "容易穿脱的套穿鞋" : "Easy-on slip-on shoes",
     breathable_lace_up: zh ? "透气／镂空纺织系带鞋" : "Breathable / open-textile lace-up",
     mens: zh ? "男鞋系列方向" : "Men's range",

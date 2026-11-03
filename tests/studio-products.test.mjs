@@ -27,7 +27,7 @@ test('moulded and mule styles preserve source size labels and construction bound
   assert.deepEqual(productsInCollection('mule-shoes').map(p=>p.code),[mule.code]);
   assert.ok(getRelatedProducts(mule,products).every(p => p.collections.some(c => ['clogs-and-vented-shoes','mule-shoes'].includes(c))));
   for(const p of [clog,covered,mule]) {
-    assert.equal(p.sole,'Material to be confirmed');
+    assert.equal(p.sole,'');
     assert.doesNotMatch(p.size,/EU|US|UK/);
     for(const fact of [p.sizeNote,p.upper,...p.highlights,...p.confirmBeforeQuote]) assert.match(factZh(fact),/[\u4e00-\u9fff]/);
   }
@@ -98,7 +98,7 @@ test('product pages use one customer-facing presentation without disclosing inte
     assert.equal(schema.manufacturer,undefined);
     assert.equal(schema.offers,undefined);
     assert.doesNotMatch(html,/Supplier-sourced|manufacturing partner|贝强自有工厂鞋款|对接供应商供货|Modell aus der Beiqiang-Fertigung|Modèle fabriqué par Beiqiang|Modelo de fabricación Beiqiang/i);
-    assert.ok(html.includes(product.sole) || (["de", "fr", "es"].includes(locale.id) && html.includes(productFact(product.sole, locale.id))) || /材质|橡胶|EVA|PVC|PU|TPR/.test(html));
+    if (product.sole) assert.ok(html.includes(product.sole) || (["de", "fr", "es"].includes(locale.id) && html.includes(productFact(product.sole, locale.id))) || /橡胶|EVA|PVC|PU|TPR/.test(html));
     assert.match(html,/product-print-sheet/);
     assert.match(html,new RegExp(`href="https://www.beiqiang.online${path}/"`));
     assert.ok(schemas.some(s=>s['@type']==='BreadcrumbList'));

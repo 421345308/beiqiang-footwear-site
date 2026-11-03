@@ -50,9 +50,11 @@ def generate(s):
             photo(c,p['image'],43,top-145,126,126)
             x=183;width=W-x-46;y=top-10
             y-=text(c,p['code']+' | '+p['title'],x,y,width,10,True,40)+5
-            facts=f"{s['labels']['closure']}: {p['closure']} · {s['labels']['sizes']}: {p['size']}"
+            facts=' · '.join([f"{s['labels']['closure']}: {p['closure']}"] + ([f"{s['labels']['sizes']}: {p['size']}"] if p['size'] else []))
             y-=text(c,facts,x,y,width,8,max_height=25)+3
-            y-=text(c,f"{s['labels']['upper']}: {p['upper']} · {s['labels']['sole']}: {p['sole']}",x,y,width,8,max_height=25)+3
+            materials=' · '.join(f"{s['labels'][field]}: {p[field]}" for field in ['upper','sole'] if p[field])
+            if materials:
+                y-=text(c,materials,x,y,width,8,max_height=25)+3
             y-=text(c,f"{s['labels']['colour']}: {', '.join(p['colours'])}",x,y,width,8,max_height=34)+4
             if p['sizeNote']:
                 y-=text(c,p['sizeNote'],x,y,width,7,max_height=30)+3

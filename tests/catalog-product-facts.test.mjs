@@ -22,7 +22,7 @@ test("keeps source-supported materials for the three reviewed catalogue products
   assert.doesNotMatch(bq007.confirmBeforeQuote.join(" "), /Outsole foam\/material/);
 
   const bq008 = product("BQ008");
-  assert.match(bq008.sole, /material confirmed before quotation/);
+  assert.equal(bq008.sole, "");
 
   const bq010 = product("BQ010");
   assert.equal(bq010.upper, "Stretch fabric upper");
@@ -47,7 +47,7 @@ test("keeps Alibaba-trunk materials attached to the exact second-batch products"
   }
   // The later BQ009 technical-card and channel review did not confirm either
   // sole component. The factory's general EVA statement is not SKU-specific.
-  assert.match(product("BQ009").sole, /material confirmed before quotation/);
+  assert.equal(product("BQ009").sole, "");
   assert.match(product("BQ009").confirmBeforeQuote.join(" "), /Outsole and midsole materials/);
   assert.doesNotMatch(product("BQ009").shortDescription, /EVA/i);
 
@@ -65,7 +65,7 @@ test("keeps A505 and A830 identities, links and buyer-facing facts separated", (
   const bq023 = product("BQ023");
   assert.equal(bq023.sourceModel, "BQ023");
   assert.equal(bq023.alibabaProductId, "10000044004948");
-  assert.equal(bq023.size, "To be confirmed");
+  assert.equal(bq023.size, "");
   assert.equal(bq023.upper, "Knit textile upper");
   assert.match(bq023.confirmBeforeQuote.join(" "), /Size range/);
 
@@ -125,8 +125,8 @@ test("keeps M8811 source-recorded EVA attached to BQ006 only", () => {
   assert.doesNotMatch(bq006.confirmBeforeQuote.join(" "), /Outsole and lining materials/);
   assert.equal(factZh("EVA sole recorded in the source package"), "来源资料已记录EVA鞋底");
 
-  assert.match(product("BQ008").sole, /material confirmed before quotation/);
-  assert.match(product("BQ011").sole, /material confirmed before quotation/);
+  assert.equal(product("BQ008").sole, "");
+  assert.equal(product("BQ011").sole, "");
 });
 
 test("keeps corrected source-package facts attached to BQ011, BQ013, BQ014 and BQ018", () => {
