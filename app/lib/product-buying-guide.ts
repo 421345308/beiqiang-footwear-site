@@ -27,6 +27,8 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
       ? (zh ? "贴合：核对前掌与脚背空间、搭扣可调范围及行走时脚掌的固定情况。" : "Fit: check forefoot and instep space, buckle adjustment and foot hold during walking.")
       : moulded
         ? (zh ? "结构：核对所选款式的后跟带或包跟结构、开孔位置与穿脱空间；仿鞋带装饰不作为可调系带。" : "Construction: check the selected style's heel strap or covered heel, openings and entry space. Moulded lace-look details are not adjustable laces.")
+      : product.closure === "Dial"
+        ? (zh ? "旋钮：检查收紧、释放和鞋带穿线路径，并结合样品确认穿脱与贴合情况。" : "Dial: check tightening, release and cord routing, and assess entry and fit on a sample.")
       : product.closure === "Zip-Up"
         ? (zh ? "拉链：检查启闭、鞋口空间及内侧接缝，确认穿着时的贴合情况。" : "Zipper: check operation, entry space and inner seams against sample fit.")
       : slipOn

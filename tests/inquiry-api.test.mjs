@@ -43,6 +43,13 @@ test("keeps a bounded product-finder brief only for styles in the submitted quot
   assert.equal(unsafe.inquiry.finderBrief, null);
 });
 
+test("preserves a dial-closure preference with a selected product in the inquiry", () => {
+  const finderBrief = { mode: "matched_shortlist", buyerChannel: "online_seller", priority: "open", closure: "Dial", styleCodes: ["BQ-LQ02503"] };
+  const result = validateInquiry(validPayload({ styleCode: "BQ-LQ02503", finderBrief }));
+  assert.equal(result.error, undefined);
+  assert.deepEqual(result.inquiry.finderBrief, finderBrief);
+});
+
 test("keeps a bounded human shortlist request without inventing a product match", () => {
   const result = validateInquiry(validPayload({ styleCode: "CATALOG-2026", context: "sourcing_review", finderBrief: { mode: "human_review", buyerChannel: "brand_private_label", priority: "kids", closure: "Slip-On", styleCodes: ["BQ004", "BQ999"] } }));
   assert.equal(result.error, undefined);

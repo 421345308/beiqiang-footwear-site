@@ -12,7 +12,7 @@ export type ProductFinderBrief = {
 const STORAGE_KEY = "beiqiang_product_finder_brief_v1";
 const BUYER_CHANNELS = new Set<BuyerChannel>(["importer_wholesaler", "online_seller", "brand_private_label", "sourcing_agent"]);
 const PRIORITIES = new Set<ProductPriority>(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
-const CLOSURES = new Set<ClosurePreference>(["any", "Slip-On", "Lace-Up"]);
+const CLOSURES = new Set<ClosurePreference>(["any", "Slip-On", "Lace-Up", "Zip-Up", "Dial"]);
 
 export function sanitizeProductFinderBrief(value: unknown): ProductFinderBrief | null {
   if (!value || typeof value !== "object") return null;
@@ -67,6 +67,13 @@ export function finderBriefLabels(brief: ProductFinderBrief, locale: "en" | "zh"
     kids: zh ? "童鞋系列方向" : "Kids range",
     cold_weather: zh ? "冬季／加绒选项方向" : "Winter / fleece-option direction",
   }[brief.priority];
-  const closure = brief.closure === "any" ? (zh ? "不限" : "No preference") : brief.closure === "Slip-On" ? (zh ? "套穿" : "Slip-On") : (zh ? "系带" : "Lace-Up");
+  const closures: Record<ClosurePreference, string> = {
+    any: zh ? "不限" : "No preference",
+    "Slip-On": zh ? "套穿" : "Slip-On",
+    "Lace-Up": zh ? "系带" : "Lace-Up",
+    "Zip-Up": zh ? "拉链" : "Zip-Up",
+    Dial: zh ? "旋钮闭合" : "Dial closure",
+  };
+  const closure = closures[brief.closure];
   return { buyer, priority, closure };
 }

@@ -3504,5 +3504,164 @@
       "fr": "Baskets décontractées à lacets et empiècements",
       "es": "Zapatillas casuales con cordones y paneles"
     }
+  },
+  {
+    "code": "BQ-LQ02503",
+    "slug": "bq-lq02503",
+    "sourceModel": "BQ-LQ02503",
+    "name": "Dial-Closure Outdoor-Style Shoes",
+    "nameZh": "旋钮闭合户外风休闲鞋",
+    "shortDescription": "Low-top outdoor-style shoes with a dial closure and curved side panels.",
+    "summaryZh": "低帮户外风休闲鞋，采用旋钮闭合与弧形侧片。",
+    "group": "Dial-Closure Outdoor-Style Shoes",
+    "closure": "Dial",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Tan"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Dial closure",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601981270699",
+    "localizedNames": {
+      "de": "Outdoor-Freizeitschuhe mit Drehverschluss",
+      "fr": "Chaussures décontractées outdoor à fermeture à molette",
+      "es": "Calzado casual de exterior con cierre de dial"
+    }
+  },
+  {
+    "code": "BQ-LQ02412",
+    "slug": "bq-lq02412",
+    "sourceModel": "BQ-LQ02412",
+    "name": "Dial-Closure Mesh-Panel Casual Shoes",
+    "nameZh": "旋钮闭合网面休闲鞋",
+    "shortDescription": "Low-top shoes with mesh panels, a dial closure and a textured sole profile.",
+    "summaryZh": "低帮休闲鞋，搭配网面拼片、旋钮闭合和纹理鞋底。",
+    "group": "Dial-Closure Mesh-Panel Casual Shoes",
+    "closure": "Dial",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Dark Grey"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Dial closure",
+      "Low-top profile"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601980268012",
+    "localizedNames": {
+      "de": "Freizeitschuhe mit Mesh-Einsätzen und Drehverschluss",
+      "fr": "Chaussures décontractées en mesh à fermeture à molette",
+      "es": "Calzado casual de malla con cierre de dial"
+    }
+  },
+  {
+    "code": "BQ-LQK502",
+    "slug": "bq-lqk502",
+    "sourceModel": "BQ-LQK502",
+    "name": "Two-Tone Lace-Up Outdoor-Style Boots",
+    "nameZh": "撞色包头系带户外风短靴",
+    "shortDescription": "Lace-up ankle boots with contrasting toe panels; standard or fleece-lined options vary by colour.",
+    "summaryZh": "系带短靴，搭配撞色包头；不同配色的普通或加绒版本需确认。",
+    "group": "Two-Tone Lace-Up Outdoor-Style Boots",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–46",
+    "colors": [
+      "Black",
+      "Army Green",
+      "Tan"
+    ],
+    "collections": [
+      "ankle-boots",
+      "fleece-lined-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Standard or fleece lining by colour",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601981328500",
+    "localizedNames": {
+      "de": "Zweifarbige Outdoor-Schnürstiefel",
+      "fr": "Bottines outdoor bicolores à lacets",
+      "es": "Botines de exterior bicolor con cordones"
+    }
+  },
+  {
+    "code": "BQ-LQ117-1",
+    "slug": "bq-lq117-1",
+    "sourceModel": "BQ-LQ117-1",
+    "name": "Black Fleece-Lined Lace-Up Casual Shoes",
+    "nameZh": "黑色加绒系带休闲鞋",
+    "shortDescription": "Black low-top lace-up shoes with fleece lining and a segmented sole profile.",
+    "summaryZh": "黑色低帮系带鞋，搭配加绒内里和分段鞋底轮廓。",
+    "group": "Black Fleece-Lined Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Black"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "fleece-lined-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601980823102",
+    "localizedNames": {
+      "de": "Schwarze Freizeit-Schnürschuhe mit Fleecefutter",
+      "fr": "Chaussures décontractées noires à lacets et doublure fourrée",
+      "es": "Calzado casual negro con cordones y forro afelpado"
+    }
   }
 ]

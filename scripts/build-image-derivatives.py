@@ -13,6 +13,7 @@ CATALOG_MANIFEST = PROJECT_ROOT / "app" / "data" / "catalog-images.json"
 FACTORY_ROOT = PUBLIC_ROOT / "factory"
 FACTORY_WEB_ROOT = PUBLIC_ROOT / "factory-web"
 CATALOG_IMAGE_BUDGET = 140 * 1024
+THUMBNAIL_BUDGET = 30 * 1024
 
 
 def rgb_image(source: Path) -> Image.Image:
@@ -31,6 +32,21 @@ def save_catalog_webp(image: Image.Image, destination: Path) -> None:
             candidate.save(output, "WEBP", quality=quality, method=6, exact=True)
             payload = output.getvalue()
             if len(payload) <= CATALOG_IMAGE_BUDGET:
+                destination.write_bytes(payload)
+                candidate.close()
+                return
+        candidate.thumbnail((max(1, int(candidate.width * 0.9)), max(1, int(candidate.height * 0.9))), Image.Resampling.LANCZOS)
+
+
+def save_thumbnail_webp(image: Image.Image, destination: Path) -> None:
+    """Bound complex lifestyle thumbnails without cropping or changing the product."""
+    candidate = image.copy()
+    while True:
+        for quality in range(78, 47, -5):
+            output = BytesIO()
+            candidate.save(output, "WEBP", quality=quality, method=6, exact=True)
+            payload = output.getvalue()
+            if len(payload) <= THUMBNAIL_BUDGET:
                 destination.write_bytes(payload)
                 candidate.close()
                 return
@@ -57,7 +73,7 @@ def build_catalog(slugs: set[str] | None = None) -> tuple[int, int, int]:
         image = rgb_image(source)
         # Keep the whole shoe in frame: scale to fit and letterbox instead of cropping.
         thumbnail = ImageOps.pad(image, (640, 640), method=Image.Resampling.LANCZOS, color=(255, 255, 255), centering=(0.5, 0.5))
-        thumbnail.save(destination, "WEBP", quality=78, method=6, exact=True)
+        save_thumbnail_webp(thumbnail, destination)
         image.close()
 
     for source in all_sources:

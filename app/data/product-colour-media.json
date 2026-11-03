@@ -2621,5 +2621,74 @@
         2
       ]
     }
+  },
+  "BQ-LQ02503": {
+    "images": {
+      "Black": 0,
+      "Tan": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        4
+      ],
+      "Tan": [
+        1,
+        3,
+        5
+      ]
+    }
+  },
+  "BQ-LQ02412": {
+    "images": {
+      "Black": 0,
+      "Dark Grey": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2
+      ],
+      "Dark Grey": [
+        1,
+        3,
+        4
+      ]
+    }
+  },
+  "BQ-LQK502": {
+    "images": {
+      "Black": 0,
+      "Army Green": 1,
+      "Tan": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        3
+      ],
+      "Army Green": [
+        1,
+        4
+      ],
+      "Tan": [
+        2,
+        5
+      ]
+    }
+  },
+  "BQ-LQ117-1": {
+    "images": {
+      "Black": 0
+    },
+    "views": {
+      "Black": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
   }
 }

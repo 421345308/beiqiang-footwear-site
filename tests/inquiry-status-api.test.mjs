@@ -71,6 +71,14 @@ test("shows a buyer-safe pending human shortlist without leaking internal review
   assert.equal(body.request.buyerRecommendation, null);
 });
 
+test("shows the buyer's dial preference in a human shortlist request", async () => {
+  const pending = { ...record, recommendationSets: [], finderBrief: { mode: "human_review", buyerChannel: "sourcing_agent", priority: "open", closure: "Dial", styleCodes: [] } };
+  const handler = createInquiryStatusHandler({ getStoreImpl: () => ({ get: async () => pending }) });
+  const response = await handler({ request: request() });
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).request.sourcingReview.closure, "Dial");
+});
+
 test("rejects an incorrect inquiry status access code", async () => {
   const handler = createInquiryStatusHandler({ getStoreImpl: () => ({ get: async () => record }) });
   const result = await handler({ request: request("FFFFFFFFFFFFFFFFFFFF") });

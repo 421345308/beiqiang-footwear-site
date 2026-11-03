@@ -3557,5 +3557,97 @@
       "role": "on-foot",
       "colour": "Black White"
     }
+  ],
+  "BQ-LQ02503": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Tan"
+    },
+    {
+      "role": "top",
+      "colour": "Black"
+    },
+    {
+      "role": "top",
+      "colour": "Tan"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Tan"
+    }
+  ],
+  "BQ-LQ02412": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Dark Grey"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Dark Grey"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Dark Grey"
+    }
+  ],
+  "BQ-LQK502": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Army Green"
+    },
+    {
+      "role": "pair",
+      "colour": "Tan"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Army Green"
+    },
+    {
+      "role": "side",
+      "colour": "Tan"
+    }
+  ],
+  "BQ-LQ117-1": [
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
   ]
 }

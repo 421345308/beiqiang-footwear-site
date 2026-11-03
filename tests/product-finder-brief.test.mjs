@@ -24,3 +24,11 @@ test("maps finder context to editable quote-form defaults and bilingual labels",
   assert.equal(labels.buyer, "进口商／批发商");
   assert.match(labels.priority, /宽鞋头/);
 });
+
+test("keeps dial and zipper preferences in a buyer brief", () => {
+  for (const [closure, label] of [["Dial", "旋钮闭合"], ["Zip-Up", "拉链"]]) {
+    const brief = sanitizeProductFinderBrief({ mode: "matched_shortlist", buyerChannel: "importer_wholesaler", priority: "open", closure, styleCodes: ["BQ-LQ02503"] });
+    assert.equal(brief.closure, closure);
+    assert.equal(finderBriefLabels(brief, "zh").closure, label);
+  }
+});

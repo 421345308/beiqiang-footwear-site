@@ -38,7 +38,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 128 organized product pages; this is not the factory's entire product range.
+- The website currently contains 132 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -174,3 +174,7 @@
 - BQ-LQ924: Contrast-Panel Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq-lq924/
 - BQ-LQ931: Fleece-Lined Chunky-Sole Lace-Up Shoes — https://www.beiqiang.online/products/bq-lq931/
 - BQ-LQST-117: Panelled Lace-Up Casual Sneakers — https://www.beiqiang.online/products/bq-lqst-117/
+- BQ-LQ02503: Dial-Closure Outdoor-Style Shoes — https://www.beiqiang.online/products/bq-lq02503/
+- BQ-LQ02412: Dial-Closure Mesh-Panel Casual Shoes — https://www.beiqiang.online/products/bq-lq02412/
+- BQ-LQK502: Two-Tone Lace-Up Outdoor-Style Boots — https://www.beiqiang.online/products/bq-lqk502/
+- BQ-LQ117-1: Black Fleece-Lined Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq117-1/

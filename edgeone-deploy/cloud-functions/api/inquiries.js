@@ -16,7 +16,7 @@ const ADAPTATION_INTENTS = new Set(["not_sure", "existing_style_wholesale", "col
 const ARTWORK_STATUSES = new Set(["not_applicable", "not_ready", "reference_only", "vector_ready"]);
 const FINDER_BUYER_CHANNELS = new Set(["importer_wholesaler", "online_seller", "brand_private_label", "sourcing_agent"]);
 const FINDER_PRIORITIES = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
-const FINDER_CLOSURES = new Set(["any", "Slip-On", "Lace-Up"]);
+const FINDER_CLOSURES = new Set(["any", "Slip-On", "Lace-Up", "Zip-Up", "Dial"]);
 const FINDER_MODES = new Set(["matched_shortlist", "human_review"]);
 
 function clean(value, max) {

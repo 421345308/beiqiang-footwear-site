@@ -11,6 +11,15 @@ test('catalog links restore valid filters, preserve attribution and reject unkno
  assert.equal(params.get('utm_source'),'sample');assert.equal(params.get('compare'),'BQ001,BQ003');
  assert.deepEqual(parseSelection(new URLSearchParams('direction=unknown&closure=Fake&colour=golden&size=999&show=-1&sort=popular')),defaultSelection);
  assert.equal(parseSelection(new URLSearchParams('q='+'a'.repeat(300))).q.length,80);
+ assert.equal(parseSelection(new URLSearchParams('closure=Dial')).closure,'Dial');
+});
+test('dial filtering keeps rotary-closure footwear distinct from lace-up styles',()=>{
+ const filtered=filterCatalog(products,{...defaultSelection,closure:'Dial'});
+ for (const code of ['BQ-LQ02412','BQ-LQ02503']) assert.ok(filtered.some(p=>p.code===code),code);
+ assert.ok(filtered.every(p=>p.closure==='Dial'));
+ const brownDial=filterCatalog(products,{...defaultSelection,closure:'Dial',colour:'neutral'});
+ assert.equal(brownDial.find(p=>p.code==='BQ-LQ02503')?.code,'BQ-LQ02503');
+ assert.equal(matchingColour(brownDial.find(p=>p.code==='BQ-LQ02503'),'neutral'),'tan');
 });
 test('colour and size intersections return source-backed photo choices without inventing EU conversions',()=>{
  const selected=filterCatalog(products,{...defaultSelection,colour:'black',size:'40'});

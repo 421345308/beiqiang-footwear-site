@@ -6,7 +6,7 @@ import { productColours } from "./product-colours.ts";
 export const colourFamilies = [
   { id: "black", en: "Black", zh: "黑色", pattern: /black/i },
   { id: "white", en: "White", zh: "白色", pattern: /white/i },
-  { id: "neutral", en: "Beige & brown", zh: "米色与棕色", pattern: /beige|cream|sand|brown|khaki|camel|apricot|coffee/i },
+  { id: "neutral", en: "Beige & brown", zh: "米色与棕色", pattern: /beige|cream|sand|brown|khaki|camel|apricot|coffee|\btan\b/i },
   { id: "grey", en: "Grey", zh: "灰色", pattern: /gr[ae]y|silver/i },
   { id: "blue", en: "Blue", zh: "蓝色", pattern: /blue|navy/i },
   { id: "green", en: "Green", zh: "绿色", pattern: /green|olive/i },
@@ -20,7 +20,7 @@ export function parseSelection(params: URLSearchParams): CatalogSelection {
   const size = params.get("size") || "";
   const sort = params.get("sort") || "";
   return { q: (params.get("q") || "").slice(0, 80), direction: isCatalogDirection(params.get("direction")) ? params.get("direction")! : "",
-    closure: ["Slip-On", "Lace-Up", "Zip-Up"].includes(closure) ? closure : "",
+    closure: ["Slip-On", "Lace-Up", "Zip-Up", "Dial"].includes(closure) ? closure : "",
     colour: colourFamilies.some(c => c.id === params.get("colour")) ? params.get("colour")! : "",
     size: /^\d{2}$/.test(size) && +size >= 20 && +size <= 55 ? size : "",
     sort: ["code_asc", "code_desc", "slip_on", "lace_up"].includes(sort) ? sort : "code_asc",

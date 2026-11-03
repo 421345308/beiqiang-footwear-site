@@ -27,7 +27,7 @@ export type Product = {
   localizedNames?: Partial<Record<"de" | "fr" | "es", string>>;
   shortDescription: string;
   group: string;
-  closure: "Slip-On" | "Lace-Up" | "Zip-Up";
+  closure: "Slip-On" | "Lace-Up" | "Zip-Up" | "Dial";
   upper: string;
   sole: string;
   size: string;

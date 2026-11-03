@@ -16,7 +16,7 @@ export type FinderMatch = { product: Product; score: number; reasons: string[] }
 const tierScore: Record<Product["tier"], number> = { A: 6, B: 5, C: 3, D: 2, E: 1, New: 0 };
 
 function text(product: Product) {
-  return [product.name, product.group, product.upper, product.buyerFit, ...product.highlights].join(" ").toLowerCase();
+  return [product.name, product.shortDescription, product.group, product.upper, product.buyerFit, ...product.highlights].join(" ").toLowerCase();
 }
 
 export function matchesPriority(product: Product, priority: ProductPriority) {

@@ -27,6 +27,8 @@ const reasonZh: Record<string, string> = {
   "Documented winter or fleece-option direction": "已记录的冬季或加绒选项方向",
   "Slip-On preference matched": "符合套穿偏好",
   "Lace-Up preference matched": "符合系带偏好",
+  "Zip-Up preference matched": "符合拉链偏好",
+  "Dial preference matched": "符合旋钮闭合偏好",
 };
 
 export default function ProductFinder({
@@ -220,6 +222,8 @@ export default function ProductFinder({
             <option value="any">{zh ? "不限" : "No preference"}</option>
             <option value="Slip-On">{zh ? "套穿" : "Slip-On"}</option>
             <option value="Lace-Up">{zh ? "系带" : "Lace-Up"}</option>
+            <option value="Zip-Up">{zh ? "拉链" : "Zip-Up"}</option>
+            <option value="Dial">{zh ? "旋钮闭合" : "Dial closure"}</option>
           </select>
         </label>
         <label>
@@ -297,7 +301,9 @@ export default function ProductFinder({
                             ? buyerFitZh(product)
                             : reason
                                 .replace("Slip-On", "套穿")
-                                .replace("Lace-Up", "系带"))
+                                .replace("Lace-Up", "系带")
+                                .replace("Zip-Up", "拉链")
+                                .replace("Dial", "旋钮闭合"))
                         : reason}
                     </li>
                   ))}

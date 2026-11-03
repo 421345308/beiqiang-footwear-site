@@ -63,7 +63,7 @@ function buyerSafeSourcingReview(record, buyerRecommendation) {
   if (brief?.mode !== "human_review") return null;
   const buyerChannels = new Set(["importer_wholesaler", "online_seller", "brand_private_label", "sourcing_agent"]);
   const priorities = new Set(["open", "wide_toe", "easy_on", "breathable_lace_up", "mens", "kids", "cold_weather"]);
-  const closures = new Set(["any", "Slip-On", "Lace-Up"]);
+  const closures = new Set(["any", "Slip-On", "Lace-Up", "Zip-Up", "Dial"]);
   const startingStyles = Array.isArray(brief.styleCodes)
     ? [...new Set(brief.styleCodes.map((code) => String(code).trim().toUpperCase()).filter((code) => isStyleCode(code)))].slice(0, 4)
     : [];

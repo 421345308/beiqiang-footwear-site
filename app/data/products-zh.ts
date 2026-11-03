@@ -267,7 +267,7 @@ export function factZh(value: string) {
   );
 }
 export function closureZh(value: Product["closure"]) {
-  return value === "Slip-On" ? "套穿" : value === "Zip-Up" ? "拉链" : "系带";
+  return value === "Slip-On" ? "套穿" : value === "Zip-Up" ? "拉链" : value === "Dial" ? "旋钮闭合" : "系带";
 }
 export function productSummaryZh(product: Product) {
   const reviewed = reviewedCatalog.find(item => item.code === product.code);
