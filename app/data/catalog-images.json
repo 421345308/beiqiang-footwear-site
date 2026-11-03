@@ -242,6 +242,13 @@
     "03_view",
     "04_view"
   ],
+  "bq-lq2575": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view",
+    "05_view"
+  ],
   "bq-lq2576": [
     "01_main",
     "02_view",
@@ -249,6 +256,12 @@
     "04_view"
   ],
   "bq-lq2577": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view"
+  ],
+  "bq-lq2579": [
     "01_main",
     "02_view",
     "03_view",
@@ -359,6 +372,56 @@
     "04_view",
     "05_view",
     "06_view"
+  ],
+  "bq-lq822": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view"
+  ],
+  "bq-lq868": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view",
+    "05_view"
+  ],
+  "bq-lq909": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view",
+    "05_view",
+    "06_view"
+  ],
+  "bq-lq923": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view",
+    "05_view",
+    "06_view"
+  ],
+  "bq-lq924": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view",
+    "05_view",
+    "06_view"
+  ],
+  "bq-lq931": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view"
+  ],
+  "bq-lqst-117": [
+    "01_main",
+    "02_view",
+    "03_view",
+    "04_view",
+    "05_view"
   ],
   "bq-m858": [
     "01_main",

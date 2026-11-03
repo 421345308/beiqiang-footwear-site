@@ -2459,5 +2459,167 @@
         5
       ]
     }
+  },
+  "BQ-LQ2575": {
+    "images": {
+      "Grey": 0,
+      "Black": 1
+    },
+    "views": {
+      "Grey": [
+        0,
+        2
+      ],
+      "Black": [
+        1,
+        3,
+        4
+      ]
+    }
+  },
+  "BQ-LQ2579": {
+    "images": {
+      "Yellow": 0,
+      "Black": 1
+    },
+    "views": {
+      "Yellow": [
+        0
+      ],
+      "Black": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "BQ-LQ822": {
+    "images": {
+      "Black": 0,
+      "Khaki": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2
+      ],
+      "Khaki": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQ868": {
+    "images": {
+      "Black": 0,
+      "Brown": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2
+      ],
+      "Brown": [
+        1,
+        3,
+        4
+      ]
+    }
+  },
+  "BQ-LQ909": {
+    "images": {
+      "Black": 0,
+      "Khaki": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2,
+        4
+      ],
+      "Khaki": [
+        1,
+        3,
+        5
+      ]
+    }
+  },
+  "BQ-LQ923": {
+    "images": {
+      "Tan": 0,
+      "Grey": 1,
+      "Black": 2
+    },
+    "views": {
+      "Tan": [
+        0,
+        3
+      ],
+      "Grey": [
+        1,
+        4
+      ],
+      "Black": [
+        2,
+        5
+      ]
+    }
+  },
+  "BQ-LQ924": {
+    "images": {
+      "Tan": 0,
+      "Green": 1,
+      "Black": 2
+    },
+    "views": {
+      "Tan": [
+        0,
+        3
+      ],
+      "Green": [
+        1,
+        4
+      ],
+      "Black": [
+        2,
+        5
+      ]
+    }
+  },
+  "BQ-LQ931": {
+    "images": {
+      "Black": 0,
+      "Black Yellow": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2
+      ],
+      "Black Yellow": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQST-117": {
+    "images": {
+      "Black": 0,
+      "Black White": 1,
+      "Grey": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        3
+      ],
+      "Black White": [
+        1,
+        4
+      ],
+      "Grey": [
+        2
+      ]
+    }
   }
 }

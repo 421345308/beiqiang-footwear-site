@@ -340,6 +340,7 @@ export const facts: Record<string, readonly [string, string, string]> = {
   "Synthetic leather upper": ["Obermaterial aus Kunstleder", "Tige en cuir synthétique", "Corte de piel sintética"],
   "Rubber outsole": ["Gummi-Außensohle", "Semelle extérieure en caoutchouc", "Suela exterior de caucho"],
   "TPR outsole": ["TPR-Außensohle", "Semelle extérieure en TPR", "Suela exterior de TPR"],
+  "MD sole": ["MD-Sohle", "Semelle MD", "Suela MD"],
   "Standard or fleece lining by colour": ["Standard- oder Fleecefutter je nach Farbe", "Doublure standard ou fourrée selon la couleur", "Forro estándar o afelpado según el color"],
   "Microfiber upper": ["Obermaterial aus Mikrofaser", "Tige en microfibre", "Corte de microfibra"],
   "Knitted textile upper": [

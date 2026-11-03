@@ -3145,5 +3145,364 @@
       "fr": "Chaussures décontractées à lacets et semelle contrastée",
       "es": "Calzado casual con cordones y suela de contraste"
     }
+  },
+  {
+    "code": "BQ-LQ2575",
+    "slug": "bq-lq2575",
+    "sourceModel": "BQ-LQ2575",
+    "name": "High-Cut Fleece-Lined Lace-Up Boots",
+    "nameZh": "加绒高帮系带靴",
+    "shortDescription": "High-cut lace-up boots with a padded collar and fleece lining.",
+    "summaryZh": "高帮系带靴，搭配厚鞋口和加绒内里。",
+    "group": "High-Cut Fleece-Lined Lace-Up Boots",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Grey",
+      "Black"
+    ],
+    "collections": [
+      "ankle-boots",
+      "fleece-lined-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601979969696",
+    "localizedNames": {
+      "de": "Hohe Schnürstiefel mit Fleecefutter",
+      "fr": "Bottines montantes à lacets et doublure fourrée",
+      "es": "Botines altos con cordones y forro afelpado"
+    }
+  },
+  {
+    "code": "BQ-LQ2579",
+    "slug": "bq-lq2579",
+    "sourceModel": "BQ-LQ2579",
+    "name": "Two-Tone Fleece-Lined Lace-Up Boots",
+    "nameZh": "撞色加绒系带短靴",
+    "shortDescription": "Lace-up boots with padded collars and fleece lining, available in two photographed colourways.",
+    "summaryZh": "系带短靴，搭配厚鞋口和加绒内里，提供两种实拍配色。",
+    "group": "Two-Tone Fleece-Lined Lace-Up Boots",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Yellow",
+      "Black"
+    ],
+    "collections": [
+      "ankle-boots",
+      "fleece-lined-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601979948441",
+    "localizedNames": {
+      "de": "Zweifarbige Schnürstiefel mit Fleecefutter",
+      "fr": "Bottines bicolores à lacets et doublure fourrée",
+      "es": "Botines bicolor con cordones y forro afelpado"
+    }
+  },
+  {
+    "code": "BQ-LQ822",
+    "slug": "bq-lq822",
+    "sourceModel": "BQ-LQ822",
+    "name": "Panelled Low-Top Lace-Up Casual Shoes",
+    "nameZh": "拼接低帮系带休闲鞋",
+    "shortDescription": "Low-top lace-up casual shoes with a synthetic leather upper and rear pull loop.",
+    "summaryZh": "低帮系带休闲鞋，采用合成革鞋面和后跟提环。",
+    "group": "Panelled Low-Top Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Synthetic leather upper",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Khaki"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601979745492",
+    "localizedNames": {
+      "de": "Niedrige Freizeit-Schnürschuhe mit Einsätzen",
+      "fr": "Chaussures basses décontractées à lacets et empiècements",
+      "es": "Calzado casual bajo con cordones y paneles"
+    }
+  },
+  {
+    "code": "BQ-LQ868",
+    "slug": "bq-lq868",
+    "sourceModel": "BQ-LQ868",
+    "name": "Lace-Up Casual Shoes with Pull Loops",
+    "nameZh": "双提环系带休闲鞋",
+    "shortDescription": "Low-top lace-up shoes with pull loops at the tongue and heel.",
+    "summaryZh": "低帮系带鞋型，鞋舌和后跟设有提环。",
+    "group": "Lace-Up Casual Shoes with Pull Loops",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Brown"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601979572676",
+    "localizedNames": {
+      "de": "Freizeit-Schnürschuhe mit Zugschlaufen",
+      "fr": "Chaussures décontractées à lacets avec tirettes",
+      "es": "Calzado casual con cordones y tiradores"
+    }
+  },
+  {
+    "code": "BQ-LQ909",
+    "slug": "bq-lq909",
+    "sourceModel": "BQ-LQ909",
+    "name": "Fleece-Lined Smooth-Panel Lace-Up Boots",
+    "nameZh": "简约拼片加绒短靴",
+    "shortDescription": "Lace-up ankle boots with smooth side panels and fleece lining.",
+    "summaryZh": "系带短靴，采用简约侧片与加绒内里。",
+    "group": "Fleece-Lined Smooth-Panel Lace-Up Boots",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Khaki"
+    ],
+    "collections": [
+      "ankle-boots",
+      "fleece-lined-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601980350419",
+    "localizedNames": {
+      "de": "Schnürstiefel mit glatten Einsätzen und Fleecefutter",
+      "fr": "Bottines à lacets et empiècements lisses, doublure fourrée",
+      "es": "Botines con cordones, paneles lisos y forro afelpado"
+    }
+  },
+  {
+    "code": "BQ-LQ923",
+    "slug": "bq-lq923",
+    "sourceModel": "BQ-LQ923",
+    "name": "Fleece-Lined Outdoor-Style Lace-Up Boots",
+    "nameZh": "加绒户外风系带短靴",
+    "shortDescription": "Lace-up ankle boots with padded collars, fleece lining and textured sole edges.",
+    "summaryZh": "系带短靴，搭配厚鞋口、加绒内里和纹理鞋底边缘。",
+    "group": "Fleece-Lined Outdoor-Style Lace-Up Boots",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Tan",
+      "Grey",
+      "Black"
+    ],
+    "collections": [
+      "ankle-boots",
+      "fleece-lined-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601980209795",
+    "localizedNames": {
+      "de": "Outdoor-Schnürstiefel mit Fleecefutter",
+      "fr": "Bottines à lacets style outdoor et doublure fourrée",
+      "es": "Botines de estilo outdoor con cordones y forro afelpado"
+    }
+  },
+  {
+    "code": "BQ-LQ924",
+    "slug": "bq-lq924",
+    "sourceModel": "BQ-LQ924",
+    "name": "Contrast-Panel Lace-Up Ankle Boots",
+    "nameZh": "撞色拼片系带短靴",
+    "shortDescription": "Lace-up ankle boots with contrast side panels and padded collars.",
+    "summaryZh": "系带短靴，搭配撞色侧片与厚鞋口。",
+    "group": "Contrast-Panel Lace-Up Ankle Boots",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Tan",
+      "Green",
+      "Black"
+    ],
+    "collections": [
+      "ankle-boots"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601981373425",
+    "localizedNames": {
+      "de": "Schnürstiefeletten mit Kontrasteinsätzen",
+      "fr": "Bottines à lacets et empiècements contrastés",
+      "es": "Botines con cordones y paneles de contraste"
+    }
+  },
+  {
+    "code": "BQ-LQ931",
+    "slug": "bq-lq931",
+    "sourceModel": "BQ-LQ931",
+    "name": "Fleece-Lined Chunky-Sole Lace-Up Shoes",
+    "nameZh": "加绒厚底系带休闲鞋",
+    "shortDescription": "Lace-up shoes with a chunky sole profile and fleece lining.",
+    "summaryZh": "系带鞋型，搭配厚底轮廓和加绒内里。",
+    "group": "Fleece-Lined Chunky-Sole Lace-Up Shoes",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "Material to be confirmed",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Black Yellow"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "fleece-lined-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601980063799",
+    "localizedNames": {
+      "de": "Schnürschuhe mit Profilsohle und Fleecefutter",
+      "fr": "Chaussures à lacets, semelle épaisse et doublure fourrée",
+      "es": "Calzado con cordones, suela gruesa y forro afelpado"
+    }
+  },
+  {
+    "code": "BQ-LQST-117",
+    "slug": "bq-lqst-117",
+    "sourceModel": "BQ-LQST-117",
+    "name": "Panelled Lace-Up Casual Sneakers",
+    "nameZh": "拼片系带休闲运动鞋",
+    "shortDescription": "Low-top lace-up sneakers with side panels and an MD sole.",
+    "summaryZh": "低帮系带运动鞋，搭配侧片和MD鞋底。",
+    "group": "Panelled Lace-Up Casual Sneakers",
+    "closure": "Lace-Up",
+    "upper": "Material to be confirmed",
+    "sole": "MD sole",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Black White",
+      "Grey"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Lace-up fastening",
+      "Casual silhouette"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "alibabaProductId": "1601981409773",
+    "localizedNames": {
+      "de": "Freizeit-Schnürsneaker mit Einsätzen",
+      "fr": "Baskets décontractées à lacets et empiècements",
+      "es": "Zapatillas casuales con cordones y paneles"
+    }
   }
 ]

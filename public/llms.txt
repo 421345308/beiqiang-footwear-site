@@ -38,7 +38,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 119 organized product pages; this is not the factory's entire product range.
+- The website currently contains 128 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -165,3 +165,12 @@
 - BQ-LQ2539: Mesh-Panel Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq-lq2539/
 - BQ-LQ2576: Knit Slip-On Shoes with Ribbed Sole — https://www.beiqiang.online/products/bq-lq2576/
 - BQ-LQ2772: Lace-Up Casual Shoes with Contrast Sole — https://www.beiqiang.online/products/bq-lq2772/
+- BQ-LQ2575: High-Cut Fleece-Lined Lace-Up Boots — https://www.beiqiang.online/products/bq-lq2575/
+- BQ-LQ2579: Two-Tone Fleece-Lined Lace-Up Boots — https://www.beiqiang.online/products/bq-lq2579/
+- BQ-LQ822: Panelled Low-Top Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq822/
+- BQ-LQ868: Lace-Up Casual Shoes with Pull Loops — https://www.beiqiang.online/products/bq-lq868/
+- BQ-LQ909: Fleece-Lined Smooth-Panel Lace-Up Boots — https://www.beiqiang.online/products/bq-lq909/
+- BQ-LQ923: Fleece-Lined Outdoor-Style Lace-Up Boots — https://www.beiqiang.online/products/bq-lq923/
+- BQ-LQ924: Contrast-Panel Lace-Up Ankle Boots — https://www.beiqiang.online/products/bq-lq924/
+- BQ-LQ931: Fleece-Lined Chunky-Sole Lace-Up Shoes — https://www.beiqiang.online/products/bq-lq931/
+- BQ-LQST-117: Panelled Lace-Up Casual Sneakers — https://www.beiqiang.online/products/bq-lqst-117/
