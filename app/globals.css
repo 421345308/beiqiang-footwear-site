@@ -603,15 +603,17 @@ footer a:hover { color: var(--forest); }
 .quote-builder-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(420px, .85fr); align-items: start; gap: 34px; }
 .quote-section-heading { margin-bottom: 26px; display: flex; align-items: end; justify-content: space-between; gap: 24px; }
 .quote-section-heading h2 { font-size: clamp(34px, 4vw, 52px); }
-.quote-line { margin-bottom: 14px; padding: 14px; position: relative; display: grid; grid-template-columns: 150px minmax(170px, .7fr) minmax(320px, 1.3fr) auto; align-items: center; gap: 18px; border: 1px solid var(--line); background: var(--paper-light); }
-.quote-line > img { width: 150px; height: 150px; object-fit: contain; background: white; }
+.quote-line { margin-bottom: 14px; padding: 14px; position: relative; display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: start; gap: 18px; border: 1px solid var(--line); background: var(--paper-light); }
+.quote-line > img { width: 120px; height: 120px; object-fit: contain; background: white; }
+.quote-line-copy { min-width: 0; padding-right: 54px; overflow-wrap: anywhere; }
 .quote-line-copy small { color: var(--terracotta); font-weight: 800; letter-spacing: .08em; }
 .quote-line-copy h3 { margin: 10px 0; font-family: Georgia, serif; font-size: 21px; }
 .quote-line-copy a { font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
-.quote-line-fields { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.quote-line-fields { grid-column: 1 / -1; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.quote-line-fields label { min-width: 0; }
 .quote-line-fields label, .quote-request-form label { display: grid; gap: 7px; font-size: 10px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
 .quote-line-fields input { width: 100%; padding: 11px 12px; border: 1px solid var(--line); background: white; }
-.quote-remove { align-self: start; border: 0; background: none; color: #98553a; cursor: pointer; font-size: 11px; text-decoration: underline; }
+.quote-remove { position: absolute; top: 14px; right: 14px; border: 0; background: none; color: #98553a; cursor: pointer; font-size: 11px; text-decoration: underline; }
 .quote-empty { padding: 58px; border: 1px dashed var(--line); background: var(--paper-light); text-align: center; }
 .quote-empty p { max-width: 600px; margin: 0 auto 25px; color: var(--muted); line-height: 1.7; }
 .quote-request-form { padding: 42px; position: sticky; top: 110px; background: var(--forest); color: white; }
@@ -2007,7 +2009,7 @@ footer a:hover { color: var(--forest); }
   .quote-builder-layout { grid-template-columns: 1fr; }
   .status-lookup-hero { grid-template-columns: 1fr; }
   .quote-request-form { position: static; }
-  .quote-line { grid-template-columns: 120px 1fr; }
+  .quote-line { grid-template-columns: 120px minmax(0, 1fr); }
   .quote-line > img { width: 120px; height: 120px; }
   .quote-line-fields { grid-column: 1 / -1; }
   .quote-remove { position: absolute; right: 24px; }
@@ -2174,7 +2176,7 @@ footer a:hover { color: var(--forest); }
   .quote-builder-hero h1 { font-size: 46px; }
   .quote-builder-layout { padding-left: 16px; padding-right: 16px; }
   .quote-section-heading { align-items: start; flex-direction: column; }
-  .quote-line { grid-template-columns: 90px 1fr; padding: 10px; }
+  .quote-line { grid-template-columns: 90px minmax(0, 1fr); padding: 10px; }
   .quote-line > img { width: 90px; height: 90px; }
   .quote-line-fields, .quote-request-form .form-grid { grid-template-columns: 1fr; }
   .quote-request-form { padding: 30px 20px; }
