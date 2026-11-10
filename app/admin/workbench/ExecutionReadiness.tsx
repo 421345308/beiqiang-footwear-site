@@ -1,7 +1,7 @@
 import s from './execution-readiness.module.css';
 
 export type BackendReadiness = { kind: 'private_blob' | 'postgres' | 'self_hosted'; verified: boolean; reason: string };
-export type DispatchReadiness = { mode: 'manual_cloud' | 'self_hosted'; enabled: boolean; ready: boolean; blocking_reasons: string[]; last_seen_at: string | null };
+export type DispatchReadiness = { mode: 'manual_cloud' | 'self_hosted'; enabled: boolean; ready: boolean; blocking_reasons: string[]; last_seen_at: string | null; auth?: 'chatgpt' | 'api' | null; models?: string[] };
 
 export default function ExecutionReadiness({ backend, dispatch }: { backend?: BackendReadiness; dispatch?: DispatchReadiness }) {
   const automatic = dispatch?.mode === 'self_hosted' && dispatch.enabled && dispatch.ready;

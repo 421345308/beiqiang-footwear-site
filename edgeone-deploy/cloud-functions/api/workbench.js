@@ -3,6 +3,7 @@ import { unifiedTasks, dispatchReadiness } from '../_lib/task-service.js';
 import { businessHandlers } from '../_lib/business-storage.js';
 import { CONTROL_ID, controlFor, importStatus, instructionWithControl, saveControl } from '../_lib/workbench-control.js';
 import { ownerRunView } from '../_lib/operations-agent.js';
+import { requestedModel } from '../_lib/model-policy.js';
 import { ApiError, SOURCE_PATHS, acquireLock, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, normalize, payload, putJSON, releaseLock, reply, requireSession, revision, runFor, sameOrigin, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
 
 // Owner attestation plus imported-snapshot equality, never a local filesystem check.
@@ -85,7 +86,7 @@ export function createWorkbenchHandlers(options = {}) {
         const control = await controlFor(store);
         const instruction = instructionWithControl(text(body.instruction, 12000, true), control), doc = task.source ? await documentFor(store, task.source) : null;
         if (task.source && !doc) throw new ApiError(409, '原业务资料尚未迁移，请先导入选中来源。');
-        const run = { id: deps.randomBytesImpl(16).toString('hex'), task_id: task.id, title: task.title, source: task.source, source_hash: doc?.hash || null, source_version: doc?.version || null, instruction, control_snapshot: control, model: 'gpt-6.1-sol', status: 'queued', created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
+        const run = { id: deps.randomBytesImpl(16).toString('hex'), task_id: task.id, title: task.title, source: task.source, source_hash: doc?.hash || null, source_version: doc?.version || null, instruction, control_snapshot: control, model: requestedModel(body.model), status: 'queued', created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
         await acquireLock(store, run);
         try { return reply(201, { run: await revision(store, 'runs', run, 0), message: '已持久排队；只有执行器领取后才会运行。' }); }
         catch (error) { await releaseLock(store, run); throw error; }

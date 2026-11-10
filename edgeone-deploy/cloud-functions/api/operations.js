@@ -4,6 +4,7 @@ import { ApiError, acquireLock, activeLock, dependencies, handleError, latest, p
 import { OPS_STORE, SOURCE, createOperationsStore, handlingFields, handlingView, reference, safeInquiry, sourceHash } from '../_lib/operations.js';
 import { agentProposal, agentRunView, inquiryContext, inquiryRunFor } from '../_lib/operations-agent.js';
 import { controlFor, instructionWithControl } from '../_lib/workbench-control.js';
+import { requestedModel } from '../_lib/model-policy.js';
 
 export function createOperationsHandlers(options = {}) {
   if (!options.businessContext) return businessHandlers(options, createOperationsHandlers);
@@ -49,7 +50,7 @@ export function createOperationsHandlers(options = {}) {
       if (body.action === 'enqueue_agent') {
         if (body.source_hash !== sourceHash(record) || body.expected_version !== handling.version) throw new ApiError(409, '询盘或处理版本已变化，请刷新后重新发起。');
         const wb = storeFor(deps), control = await controlFor(wb), userInstruction = body.instruction === undefined ? '' : text(body.instruction, 12000), instruction = instructionWithControl(userInstruction || '整理已确认需求、待核信息与下一动作，不外发、不承诺未确认价格/材料/交期', control);
-        const run = { id: deps.randomBytesImpl(16).toString('hex'), kind: 'inquiry_review', task_id: null, title: `网站询盘处理 · ${ref}`, source: null, inquiry_reference: ref, source_hash: sourceHash(record), source_version: null, handling_version: handling.version, inquiry_context: inquiryContext(record, handling), instruction, control_snapshot: control, model: 'gpt-6.1-sol', status: 'queued', version: 0, created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
+        const run = { id: deps.randomBytesImpl(16).toString('hex'), kind: 'inquiry_review', task_id: null, title: `网站询盘处理 · ${ref}`, source: null, inquiry_reference: ref, source_hash: sourceHash(record), source_version: null, handling_version: handling.version, inquiry_context: inquiryContext(record, handling), instruction, control_snapshot: control, model: requestedModel(body.model), status: 'queued', version: 0, created_at: stamp, updated_at: stamp, session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
         const active = await activeLock(wb, run);
         if (active.run_id) {
           const existing = await latest(wb, 'runs', active.run_id);
@@ -63,7 +64,7 @@ export function createOperationsHandlers(options = {}) {
         try {
           await store.indexRun(ref, run.id);
           const saved = await revision(wb, 'runs', run, 0);
-          return reply(201, { run: agentRunView(saved, record, handling), source: sourceInfo, message: '已排队，等待指定 Sol 执行；尚未生成或发送处理内容。' });
+          return reply(201, { run: agentRunView(saved, record, handling), source: sourceInfo, message: '已排队，等待执行；尚未生成或发送处理内容。' });
         } catch (error) { await releaseLock(wb, run); throw error; }
       }
       if (body.action === 'prepare') {

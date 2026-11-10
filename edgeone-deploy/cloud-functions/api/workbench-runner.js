@@ -2,6 +2,7 @@ import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { businessRequest } from '../_lib/business-storage.js';
 import { ApiError, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, payload, putJSON, releaseLock, reply, revision, runFor, safeEqual, settings, storeFor, text, validateProposal, versionKey } from '../_lib/workbench.js';
 import { isInquiryRun, validateInquiryBinding, validateInquiryResult } from '../_lib/operations-agent.js';
+import { DEFAULT_MODEL, SUPPORTED_MODELS, eligibleRunner, runnerModels } from '../_lib/model-policy.js';
 
 const LEASE_MS = 10 * 60000;
 export function createWorkbenchRunnerHandler(options = {}) {
@@ -17,7 +18,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
       const body = await payload(request, 150000), store = storeFor(deps), now = deps.nowImpl(), stamp = now.toISOString();
       const priorHeartbeat = await getJSON(store, 'runner/heartbeat.json');
       const caps = body.action === 'heartbeat' && !body.run_id && body.capabilities;
-      await putJSON(store, 'runner/heartbeat.json', { at: stamp, ...(priorHeartbeat?.capabilities ? { capabilities: priorHeartbeat.capabilities } : {}), ...(caps ? {capabilities: {ready: caps.ready === true, auth: caps.auth === 'chatgpt' ? 'chatgpt' : 'unknown', model: caps.model === 'gpt-6.1-sol' ? caps.model : 'unknown'}} : {}) });
+      await putJSON(store, 'runner/heartbeat.json', { at: stamp, ...(priorHeartbeat?.capabilities ? { capabilities: priorHeartbeat.capabilities } : {}), ...(caps ? {capabilities: {ready: caps.ready === true, auth: ['chatgpt', 'api'].includes(caps.auth) ? caps.auth : 'unknown', model: SUPPORTED_MODELS.includes(caps.model) ? caps.model : 'unknown', models: runnerModels(caps)}} : {}) });
       if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp });
       if (body.action === 'status') {
         const run = await runFor(store, identifier(body.run_id), now, false);
@@ -27,7 +28,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
       if (body.action === 'claim') {
         const targeted = Object.hasOwn(body, 'run_id');
         if (env.WORKBENCH_RUNNER_MODE === 'manual_cloud' && !targeted) throw new ApiError(400, '手动云任务必须指定run_id，不能领取其他排队任务。');
-        if (!targeted && (env.WORKBENCH_AUTODISPATCH !== 'enabled' || priorHeartbeat?.capabilities?.ready !== true || priorHeartbeat?.capabilities?.auth !== 'chatgpt' || priorHeartbeat?.capabilities?.model !== 'gpt-6.1-sol')) throw new ApiError(409, '自动领取尚未启用或执行器尚未通过登录预检。');
+        if (!targeted && (env.WORKBENCH_AUTODISPATCH !== 'enabled' || !eligibleRunner(priorHeartbeat?.capabilities))) throw new ApiError(409, '自动领取尚未启用或执行器尚未通过启动预检。');
         let queued;
         if (targeted) {
           const selected = await latest(store, 'runs', identifier(body.run_id));
@@ -36,6 +37,8 @@ export function createWorkbenchRunnerHandler(options = {}) {
           queued = [selected];
         } else queued = (await allLatest(store, 'runs')).filter(run => run.status === 'queued').sort((a, b) => a.created_at.localeCompare(b.created_at));
         for (const run of queued) {
+          // Leave jobs for models this runner did not advertise in the queue.
+          if (!targeted && !runnerModels(priorHeartbeat.capabilities).includes(run.model || DEFAULT_MODEL)) continue;
           // Load and verify context before consuming the one-use claim key.
           let document = null;
           try {

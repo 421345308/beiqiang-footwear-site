@@ -61,6 +61,18 @@ test('unified task projection keeps business status and agent status separate; a
   await f.machine({action:'heartbeat',capabilities:{ready:false,auth:'unknown',model:'gpt-6.1-sol'}});
   assert.equal((await f.call(f.api.onRequestGet)).body.capabilities.dispatch.ready,false);
 });
+test('API runner only claims jobs for advertised models and preserves the selected model',async()=>{
+  const f=fixture();
+  const task=(await f.call(f.api.onRequestPost,{action:'create',task:{title:'Model selection fixture'}})).body.task;
+  assert.equal((await f.call(f.api.onRequestPost,{action:'enqueue',task_id:task.id,instruction:'Analyze only',model:'other-model'})).status,400);
+  const run=(await f.call(f.api.onRequestPost,{action:'enqueue',task_id:task.id,instruction:'Analyze only',model:'gpt-6-luna'})).body.run;
+  await f.machine({action:'heartbeat',capabilities:{ready:true,auth:'api',model:'gpt-6.1-sol',models:['gpt-6.1-sol']}});
+  assert.equal((await f.machine({action:'claim'})).body.job,null);
+  await f.machine({action:'heartbeat',capabilities:{ready:true,auth:'api',model:'gpt-6.1-sol',models:['gpt-6.1-sol','gpt-6-luna','untrusted']}});
+  const state=(await f.call(f.api.onRequestGet)).body.capabilities.dispatch;
+  assert.equal(state.ready,true);assert.equal(state.auth,'api');assert.deepEqual(state.models,['gpt-6.1-sol','gpt-6-luna']);
+  const claim=await f.machine({action:'claim'});assert.equal(claim.body.job.id,run.id);assert.equal(claim.body.job.model,'gpt-6-luna');
+});
 test('migration export excludes authentication, preserves history and rejects tampered packages',async()=>{
   const f=fixture();await f.factory({name:STORE_NAME}).setJSON('goals/current.json',{phase:'fixture'});
   await f.factory({name:STORE_NAME}).setJSON('credentials/owner.json',{digest:'fixture-password-hash'});

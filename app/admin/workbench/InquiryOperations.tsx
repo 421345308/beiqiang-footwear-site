@@ -34,6 +34,7 @@ export default function InquiryOperations({ request, cloudInstruction, active = 
   const [notice, setNotice] = useState("");
   const [refreshError, setRefreshError] = useState("");
   const [instruction, setInstruction] = useState("");
+  const [model, setModel] = useState("gpt-6.1-sol");
   const [cloudText, setCloudText] = useState("");
   const [detailError, setDetailError] = useState("");
   const [draftState, setDraftState] = useState<Map<string, Draft>>(() => new Map());
@@ -130,7 +131,8 @@ export default function InquiryOperations({ request, cloudInstruction, active = 
     if (!detail || actionLock.current) return;
     actionLock.current = true; setBusy(true); setNotice("");
     try {
-      const result = await request<{run: AgentRun}>("/api/operations", {action: "enqueue_agent", reference, source_hash: detail.source_hash, expected_version: detail.handling.version, instruction});
+      const selectedModel = execution?.auth === "api" && execution.models?.includes(model) ? model : "gpt-6.1-sol";
+      const result = await request<{run: AgentRun}>("/api/operations", {action: "enqueue_agent", reference, source_hash: detail.source_hash, expected_version: detail.handling.version, instruction, model: selectedModel});
       setDetail(previous => previous ? {...previous, agent_runs: [result.run, ...(previous.agent_runs || []).filter(r => r.id !== result.run.id)]} : previous);
       setNotice(manualCloud ? "已提交Agent任务。需要启动时，复制云端指令，到官方 Codex Cloud 选择“贝强经营工作台”环境执行。最新进展请看下方实时状态。" : "已提交Agent任务。最新领取、运行与结果请看下方实时状态。");
     } catch (error) { setNotice(error instanceof Error ? error.message : "排队失败，请刷新状态后核实。"); }
@@ -211,6 +213,7 @@ export default function InquiryOperations({ request, cloudInstruction, active = 
           {!!detail.inquiry.attachments?.length && <p className={s.help}>原询盘含 {detail.inquiry.attachments.length} 个附件。本页暂显示文字需求，附件下载仍沿原网站流程。</p>}
           <hr/><section className={s.agent} aria-label="Agent处理方案"><h3>让Agent准备方案</h3><p className={s.help}>Agent根据这条询盘及当前处理版本分析，只生成内部方案；你审阅采纳后才保存，不自动发信。人工输入另行保留，不会随状态刷新被覆盖。</p>
             <label htmlFor="ops-instruction">本次补充要求（可选）</label><textarea id="ops-instruction" value={instruction} maxLength={4000} rows={2} disabled={busy} onChange={event => setInstruction(event.target.value)} placeholder="例如：先列出需要确认的供货条件和下一步…"/>
+            {execution?.auth === "api" && execution.models?.includes("gpt-6-luna") && <><label htmlFor="ops-model">本次使用的模型</label><select id="ops-model" value={model} disabled={busy} onChange={event => setModel(event.target.value)}><option value="gpt-6-luna">Luna · 轻量分析</option><option value="gpt-6.1-sol">Sol · 复杂分析</option></select><p className={s.help}>API 按实际用量计费，方案仍需人工审阅。</p></>}
             <button className={s.primary} disabled={busy || sourceChanged || activeRuns.length > 0} onClick={() => void enqueueAgent()}>让Agent准备方案</button>
             <p className={s.help}>{manualCloud ? "排队不等于开始；当前通过复制指令人工启动官方 Cloud。" : autoReady ? "自动领取已就绪；排队不等于开始，以执行器实际领取为准。" : "自动领取尚未就绪；任务会保存排队，当前限制见任务执行页。"}运行状态每5秒更新，返回页面时也会重新核实。</p>
             {(detail.agent_runs || []).map(run => <article className={s.agentRun} key={run.id}><div className={s.row}><strong>{runLabels[run.status] || run.status}</strong><span>{run.model || "gpt-6.1-sol"}</span></div><small>运行 {run.id} · {when(run.updated_at || run.created_at)}</small>

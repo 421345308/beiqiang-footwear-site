@@ -50,12 +50,13 @@ function fixture() {
   }
   return { store, writes, ops, wb, runner, call, detail, enqueue, machine, review, completeRun, raw, sourceKey, changeSource() { store('beiqiang-inquiries').data.get(sourceKey).messages.push({ sender: 'buyer', body: 'New requirement', sentAt: now.toISOString() }); }, advance(ms) { now = new Date(now.getTime() + ms); }, failClaimWrite() { rejectNextRunWrite = true; } };
 }
-test('enqueue requires owner/CSRF/current versions and forces a safe Sol context', async () => {
+test('enqueue requires owner/CSRF/current versions and validates the selected model', async () => {
   const f = fixture();
   assert.equal((await f.call(f.ops.onRequestPost, { action: 'enqueue_agent', reference: REF }, { owner: false })).status, 401);
   assert.equal((await f.call(f.ops.onRequestPost, { action: 'enqueue_agent', reference: REF }, { csrfValue: 'wrong' })).status, 403);
   assert.equal((await f.enqueue({ source_hash: 'stale' })).status, 409);
-  const response = await f.enqueue({ model: 'other-model' }); assert.equal(response.status, 201); assert.equal(response.body.run.model, 'gpt-6.1-sol'); assert.ok(!('inquiry_context' in response.body.run));
+  assert.equal((await f.enqueue({ model: 'other-model' })).status, 400);
+  const response = await f.enqueue({ model: 'gpt-6-luna' }); assert.equal(response.status, 201); assert.equal(response.body.run.model, 'gpt-6-luna'); assert.ok(!('inquiry_context' in response.body.run));
   const run = await latest(f.store(STORE_NAME), 'runs', response.body.run.id); assert.equal(run.kind, 'inquiry_review'); assert.equal(run.source, null); assert.equal(run.inquiry_context.inquiry.reference, REF); assert.equal(run.control_snapshot.version, 0);
   assert.ok(!JSON.stringify(run).includes('SECRET_')); assert.equal(f.writes.some(w => w.name === 'beiqiang-inquiries'), false);
 });

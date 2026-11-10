@@ -1,6 +1,7 @@
 import { getJSON, STORE_NAME } from './workbench.js';
 import { operationsFor } from './operations-agent.js';
 import { handlingView, safeInquiry } from './operations.js';
+import { eligibleRunner, runnerModels } from './model-policy.js';
 
 // A read model over existing business objects, never a second editable task ledger.
 export async function unifiedTasks(deps, tasks, runs) {
@@ -26,14 +27,15 @@ export async function dispatchReadiness(deps, env, now) {
   const runner = await getJSON(deps.getStoreImpl({name: STORE_NAME, consistency: 'strong'}), 'runner/heartbeat.json');
   const enabled = mode === 'self_hosted' && env.WORKBENCH_AUTODISPATCH === 'enabled';
   const fresh = !!runner?.at && now.getTime() - Date.parse(runner.at) < 150000;
-  const authenticated = runner?.capabilities?.model === 'gpt-6.1-sol' && runner?.capabilities?.auth === 'chatgpt' && runner?.capabilities?.ready === true;
+  const eligible = eligibleRunner(runner?.capabilities);
   const blocking_reasons = [];
   if (mode === 'manual_cloud') blocking_reasons.push('当前为人工启动Cloud；新版环境尚未通过程序化派发验收。');
   else {
     if (!enabled) blocking_reasons.push('自动领取尚未启用。');
     if (!env.WORKBENCH_RUNNER_SECRET) blocking_reasons.push('执行器身份尚未配置。');
     if (!fresh) blocking_reasons.push('未收到近期私有执行器心跳。');
-    else if (!authenticated) blocking_reasons.push('执行器尚未报告有效的Codex套餐登录及Sol配置。');
+    else if (!eligible) blocking_reasons.push('执行器尚未报告有效的启动检查与模型配置。');
   }
-  return { mode, enabled, ready: enabled && blocking_reasons.length === 0, blocking_reasons, last_seen_at: runner?.at || null };
+  return { mode, enabled, ready: enabled && blocking_reasons.length === 0, blocking_reasons, last_seen_at: runner?.at || null,
+    auth: fresh && eligible ? runner.capabilities.auth : null, models: fresh && eligible ? runnerModels(runner.capabilities) : [] };
 }
