@@ -79,20 +79,38 @@ export function createLocalBridgeHandler(options = {}) {
         return reply(200, { run: projectRun(updated) });
       }
       if (body.action !== 'enqueue') throw new ApiError(400, '未知本机连接操作。');
-      const keys = ['action', 'request_id', 'task_id', 'instruction', 'model', 'task_version', 'source_version', 'source_content'];
+      const keys = ['action', 'request_id', 'task_id', 'instruction', 'model', 'task_version', 'source_version', 'source_content', 'public_research', 'product_context'];
       if (Object.keys(body).some(key => !keys.includes(key))) throw new ApiError(400, '任务字段无效。');
       const requestId = identifier(body.request_id), taskId = identifier(body.task_id), model = requestedModel(body.model);
       const instruction = text(body.instruction, 12000, true);
       if (!Number.isInteger(body.task_version) || body.task_version < 1) throw new ApiError(400, '任务版本无效。');
-      const fingerprint = hash(JSON.stringify([taskId, instruction, model, body.task_version, body.source_version, body.source_content]));
+      if (body.public_research !== undefined && typeof body.public_research !== 'boolean') throw new ApiError(400, '研究模式无效。');
+      const research = body.public_research === true;
+      let productContext = null;
+      if (research && body.product_context != null) {
+        const item = body.product_context;
+        if (!item || typeof item !== 'object' || Array.isArray(item) || Object.keys(item).some(k => !['id','model','title','category'].includes(k)) ||
+            Object.values(item).some(v => typeof v !== 'string' || v.length > 240) || !/^product:[A-Za-z0-9_-]+$/.test(item.id || '')) throw new ApiError(400, '商品公开摘要无效。');
+        productContext = item;
+      } else if (!research && body.product_context != null) throw new ApiError(400, '普通任务不接受公开研究商品摘要。');
+      const fingerprintFields = [taskId, instruction, model, body.task_version, body.source_version, body.source_content];
+      // Preserve request identities created by older releases for normal jobs.
+      const fingerprint = hash(JSON.stringify(research ? [...fingerprintFields, true, productContext] : fingerprintFields));
       const marker = `local_requests/${requestId}.json`, prior = await getJSON(store, marker);
       if (prior) {
         if (prior.fingerprint !== fingerprint) throw new ApiError(409, '请求编号已用于其他任务。');
         return reply(200, { run: projectRun(await runFor(store, prior.run_id, now, false)), replay: true });
       }
+      // As in workspace_status, take the runner heartbeat before task records:
+      // the claimant reads those in the same order under transactional storage.
+      if (research) {
+        const dispatch = await dispatchReadiness(deps, env, now), age = now.getTime() - Date.parse(dispatch.last_seen_at);
+        if (!dispatch.ready || !Number.isFinite(age) || age < 0 || !dispatch.public_web_research) throw new ApiError(409, '云执行器尚未报告可用的公开联网研究能力。');
+      }
       const task = await latest(store, 'tasks', taskId);
       if (!task || task.version !== body.task_version) throw new ApiError(409, '任务版本已变化，请重新读取。');
       if (task.source && !SOURCE_PATHS.has(task.source)) throw new ApiError(400, '任务来源不在允许范围。');
+      if (research && task.source) throw new ApiError(400, '公开联网研究只能使用无私有资料来源的任务。');
       // Match the owner enqueue route: task, owner control, then document.
       const control = await controlFor(store);
       let doc = task.source ? await documentFor(store, task.source) : null;
@@ -103,6 +121,7 @@ export function createLocalBridgeHandler(options = {}) {
       const run = { id: deps.randomBytesImpl(16).toString('hex'), task_id: task.id, title: task.title, source: task.source || null,
         source_hash: null, source_version: null, instruction: '', model, status: 'queued', created_at: stamp, updated_at: stamp,
         session_id: null, summary: '', result: null, changes: [], usage: null, error: null };
+      if (research) Object.assign(run, { research_mode: 'public_web', public_research_brief: instruction, product_context: productContext });
       await acquireLock(store, run);
       try {
         if (task.source) {

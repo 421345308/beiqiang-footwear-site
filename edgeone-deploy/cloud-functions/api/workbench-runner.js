@@ -25,7 +25,7 @@ export function createWorkbenchRunnerHandler(options = {}) {
       }
       const priorHeartbeat = await getJSON(store, 'runner/heartbeat.json');
       const caps = body.action === 'heartbeat' && !body.run_id && body.capabilities;
-      await putJSON(store, 'runner/heartbeat.json', { at: stamp, ...(priorHeartbeat?.capabilities ? { capabilities: priorHeartbeat.capabilities } : {}), ...(caps ? {capabilities: {ready: caps.ready === true, auth: ['chatgpt', 'api'].includes(caps.auth) ? caps.auth : 'unknown', model: SUPPORTED_MODELS.includes(caps.model) ? caps.model : 'unknown', models: runnerModels(caps)}} : {}) });
+      await putJSON(store, 'runner/heartbeat.json', { at: stamp, ...(priorHeartbeat?.capabilities ? { capabilities: priorHeartbeat.capabilities } : {}), ...(caps ? {capabilities: {ready: caps.ready === true, auth: ['chatgpt', 'api'].includes(caps.auth) ? caps.auth : 'unknown', model: SUPPORTED_MODELS.includes(caps.model) ? caps.model : 'unknown', models: runnerModels(caps), public_web_research: caps.public_web_research === true}} : {}) });
       if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp });
       if (body.action === 'claim') {
         const targeted = Object.hasOwn(body, 'run_id');
@@ -41,6 +41,12 @@ export function createWorkbenchRunnerHandler(options = {}) {
         for (const run of queued) {
           // Leave jobs for models this runner did not advertise in the queue.
           if (!targeted && !runnerModels(priorHeartbeat.capabilities).includes(run.model || DEFAULT_MODEL)) continue;
+          // Old runners must never claim a research task and return a normal
+          // tool-free answer as if an online search had occurred.
+          if (run.research_mode === 'public_web' && body.public_web_research !== true) {
+            if (targeted) throw new ApiError(409, '此执行器尚不支持公开联网研究。');
+            continue;
+          }
           // Load and verify context before consuming the one-use claim key.
           let document = null;
           try {

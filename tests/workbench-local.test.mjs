@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createLocalBridgeHandler } from '../edgeone-deploy/cloud-functions/api/workbench-local.js';
+import { createWorkbenchRunnerHandler } from '../edgeone-deploy/cloud-functions/api/workbench-runner.js';
 import { hash, revision } from '../edgeone-deploy/cloud-functions/_lib/workbench.js';
 
 const SOURCE = '00_总控台/当前状态.md';
@@ -29,7 +30,7 @@ function fixture() {
     const document = await revision(store, 'documents', { id: hash(SOURCE).slice(0, 32), path: SOURCE, content: '原文\n', hash: hash('原文\n'), updated_at: '2026-11-10' }, 0);
     return { task, document };
   }
-  return { data, store, call, seed };
+  return { data, store, call, seed, env };
 }
 
 test('local bridge is separately authenticated and lists only task metadata', async () => {
@@ -54,6 +55,25 @@ test('local snapshot and queued run use exact versions and a replay-safe request
   assert.equal(repeated.body.run.id, created.body.run.id);
   assert.equal((await f.call({ action: 'request_status', request_id: body.request_id })).body.run.id, created.body.run.id);
   assert.equal((await f.call({ ...body, instruction: 'different' })).status, 409);
+});
+
+test('public research requires a capable runner, excludes private sources and reuses the queue', async () => {
+  const f=fixture();f.env.WORKBENCH_AUTODISPATCH='enabled';const {task:privateTask,document}=await f.seed();
+  const publicTask=await revision(f.store,'tasks',{id:'f'.repeat(32),title:'公开研究',source:'',updated_at:'2026-11-10'},0);
+  const runner=createWorkbenchRunnerHandler({businessContext:true,transactional:true,getStoreImpl:()=>f.store,nowImpl:()=>new Date('2026-11-10T00:00:00Z')});
+  async function runnerCall(body){return runner({env:f.env,request:new Request('https://example.test/api/workbench-runner',{method:'POST',headers:{authorization:`Bearer ${f.env.WORKBENCH_RUNNER_SECRET}`,'content-type':'application/json'},body:JSON.stringify(body)})});}
+  const body={action:'enqueue',request_id:'d'.repeat(32),task_id:publicTask.id,task_version:publicTask.version,source_version:null,source_content:null,
+    instruction:'查找公开鞋款',model:'gpt-6-luna',public_research:true,product_context:{id:'product:BQ001',model:'BQ001',title:'鞋',category:'休闲'}};
+  assert.equal((await f.call(body)).status,409);
+  const heartbeat=await runnerCall({action:'heartbeat',capabilities:{ready:true,auth:'api',model:'gpt-6-luna',models:['gpt-6-luna'],public_web_research:true}});assert.equal(heartbeat.status,200);
+  assert.equal((await f.call({...body,request_id:'c'.repeat(32),task_id:privateTask.id,task_version:privateTask.version,source_version:document.version,source_content:'原文'})).status,400);
+  const queued=await f.call(body);assert.equal(queued.status,201);
+  assert.equal((await f.call(body)).body.replay,true);
+  assert.equal((await f.call({...body,product_context:{id:'product:BQ002'}})).status,409);
+  const old=await runnerCall({action:'claim'});assert.equal((await old.json()).job,null);
+  const claim=await runnerCall({action:'claim',public_web_research:true});const job=(await claim.json()).job;
+  assert.equal(job.research_mode,'public_web');assert.equal(job.public_research_brief,body.instruction);
+  assert.equal(job.product_context.id,'product:BQ001');assert.equal(job.document,null);
 });
 
 test('new local snapshot is rejected while an older proposal for that source awaits review', async () => {

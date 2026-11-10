@@ -37,5 +37,6 @@ export async function dispatchReadiness(deps, env, now) {
     else if (!eligible) blocking_reasons.push('执行器尚未报告有效的启动检查与模型配置。');
   }
   return { mode, enabled, ready: enabled && blocking_reasons.length === 0, blocking_reasons, last_seen_at: runner?.at || null,
-    auth: fresh && eligible ? runner.capabilities.auth : null, models: fresh && eligible ? runnerModels(runner.capabilities) : [] };
+    auth: fresh && eligible ? runner.capabilities.auth : null, models: fresh && eligible ? runnerModels(runner.capabilities) : [],
+    public_web_research: fresh && eligible && runner.capabilities.public_web_research === true };
 }
