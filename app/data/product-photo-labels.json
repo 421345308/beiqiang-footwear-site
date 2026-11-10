@@ -3883,5 +3883,30 @@
       "role": "on-foot",
       "colour": "Khaki"
     }
+  ],
+  "BQ036": [
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "pair",
+      "colour": "Black White"
+    },
+    {
+      "role": "side",
+      "colour": "Black White"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
+    },
+    {
+      "role": "pair"
+    },
+    {
+      "role": "pair",
+      "colour": "All Black"
+    }
   ]
 }

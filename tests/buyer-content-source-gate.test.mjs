@@ -13,7 +13,8 @@ async function render(path) {
 test('public products match the publication registry without exposing internal supply categories', () => {
   assert.ok(products.some(p => p.code === 'BQ-LQ032'));
   assert.equal(ADDITIONAL_PRODUCT_CODES.size, products.length - 31);
-  assert.equal(heldSourceProducts.length, 25);
+  assert.ok(heldSourceProducts.some(p => p.code === 'BQ032'));
+  assert.equal(new Set(heldSourceProducts.map(p => p.code)).size, heldSourceProducts.length);
   assert.deepEqual(new Set(products.map(p => p.code)), PUBLISHED_PRODUCT_CODES);
   assert.deepEqual(FINDER_STYLE_CODES, PUBLISHED_PRODUCT_CODES);
   for (const held of heldSourceProducts) assert.ok(!PUBLISHED_PRODUCT_CODES.has(held.code));

@@ -38,7 +38,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 143 organized product pages; this is not the factory's entire product range.
+- The website currently contains 144 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -189,3 +189,4 @@
 - BQ-LQ2560: Plain-Toe Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq2560/
 - BQ-LQ2580: Wide Toe Jacquard Mesh Lace-Up Shoes — https://www.beiqiang.online/products/bq-lq2580/
 - BQ-LQ2416: Stitched-Panel Lace-Up Casual Shoes — https://www.beiqiang.online/products/bq-lq2416/
+- BQ036: High-Top Knit Sock Slip-On Casual Shoes — https://www.beiqiang.online/products/bq036/

@@ -334,6 +334,7 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "High-top knitted textile upper": ["Hohes Stricktextil", "Maille montante", "Tejido de punto alto"],
   "Synthetic leather": ["Kunstleder", "Cuir synthétique", "Cuero sintético"],
   "Rubber sole": ["Gummisohle", "Semelle en caoutchouc", "Suela de caucho"],
   "Jacquard mesh": ["Jacquard-Mesh", "Mesh jacquard", "Malla jacquard"],

@@ -4074,5 +4074,45 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ036",
+    "slug": "bq036",
+    "sourceModel": "BQ036",
+    "name": "High-Top Knit Sock Slip-On Casual Shoes",
+    "nameZh": "高帮针织袜套休闲鞋",
+    "localizedNames": {
+      "de": "Hohe Strick-Slipper mit sockenartigem Schaft",
+      "fr": "Chaussures montantes à enfiler en maille façon chaussette",
+      "es": "Calzado alto de punto sin cordones tipo calcetín"
+    },
+    "shortDescription": "High-top knit slip-on shoes with a ribbed collar and EVA sole. Black and white or all black, EU 35–45.",
+    "summaryZh": "高帮针织套穿鞋，罗纹袜套鞋口与 EVA 鞋底；黑白、全黑两种配色，尺码 EU 35–45。",
+    "group": "High Top Sock Casual Shoes",
+    "closure": "Slip-On",
+    "upper": "High-top knitted textile upper",
+    "sole": "EVA sole",
+    "size": "EU 35–45",
+    "colors": [
+      "Black White",
+      "All Black"
+    ],
+    "collections": [
+      "knit-slip-on",
+      "high-top-shoes"
+    ],
+    "fitEvidence": "regular_fit",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "High-top knitted textile upper",
+      "Slip-on construction",
+      "EVA sole"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

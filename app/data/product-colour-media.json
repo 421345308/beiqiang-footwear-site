@@ -2884,5 +2884,22 @@
         3
       ]
     }
+  },
+  "BQ036": {
+    "images": {
+      "Black White": 0,
+      "All Black": 3
+    },
+    "views": {
+      "Black White": [
+        0,
+        1,
+        2
+      ],
+      "All Black": [
+        3,
+        5
+      ]
+    }
   }
 }

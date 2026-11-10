@@ -4,6 +4,13 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  BQ036: {
+    en: { summary: "High-top knit slip-on shoes with a ribbed collar and EVA sole. Black and white or all black, EU 35–45.", highlights: ["High-top knitted textile upper", "Slip-on construction", "EVA sole"] },
+    zh: { summary: "高帮针织套穿鞋，罗纹袜套鞋口与 EVA 鞋底；黑白、全黑两种配色，尺码 EU 35–45。", highlights: ["高帮针织织物鞋面", "套穿结构", "EVA 鞋底"] },
+    de: { summary: "Hohe Strick-Slipper mit geripptem Schaft und EVA-Sohle. Schwarz-Weiß oder ganz Schwarz, EU 35–45.", highlights: ["Hohes Strick-Obermaterial", "Slip-on-Form", "EVA-Sohle"] },
+    fr: { summary: "Chaussures montantes à enfiler en maille, col côtelé et semelle EVA. Noir et blanc ou tout noir, EU 35–45.", highlights: ["Tige montante en maille", "Modèle à enfiler", "Semelle EVA"] },
+    es: { summary: "Calzado alto de punto sin cordones, con cuello acanalado y suela EVA. Negro y blanco o todo negro, EU 35–45.", highlights: ["Empeine alto de punto", "Diseño sin cordones", "Suela EVA"] },
+  },
   "BQ-LQ015": {
     en: { summary: "Low-top lace-up shoes with a synthetic leather upper and rubber sole. Four colours, EU 37–48.", highlights: ["Lace-up fastening", "Synthetic leather upper", "Rubber sole"] },
     zh: { summary: "低帮系带休闲鞋，合成革鞋面与橡胶鞋底，四种配色，尺码 EU 37–48。", highlights: ["系带闭合", "合成革鞋面", "橡胶鞋底"] },
