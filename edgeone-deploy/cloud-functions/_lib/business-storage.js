@@ -3,7 +3,7 @@ import { OPS_STORE } from './operations.js';
 import { createDatabase } from './database.js';
 import { platformContext } from './platform-store.js';
 
-export const AUTH_PREFIXES = ['sessions/', 'revoked/', 'magic/', 'consumed/', 'rate/'];
+export const AUTH_PREFIXES = ['sessions/', 'revoked/', 'magic/', 'consumed/', 'rate/', 'credentials/', 'audit/auth/'];
 export const isAuthKey = key => AUTH_PREFIXES.some(prefix => key.startsWith(prefix));
 
 // Auth and source attachments retain their original stores. Business state has one selected writer.

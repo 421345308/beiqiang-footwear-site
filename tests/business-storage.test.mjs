@@ -63,7 +63,10 @@ test('unified task projection keeps business status and agent status separate; a
 });
 test('migration export excludes authentication, preserves history and rejects tampered packages',async()=>{
   const f=fixture();await f.factory({name:STORE_NAME}).setJSON('goals/current.json',{phase:'fixture'});
+  await f.factory({name:STORE_NAME}).setJSON('credentials/owner.json',{digest:'fixture-password-hash'});
+  await f.factory({name:STORE_NAME}).setJSON('audit/auth/fixture.json',{event:'password_login'});
   const data=await exportBusiness(f.factory);assert.equal(data.records.length,1);assert.ok(!JSON.stringify(data).includes('csrf'));
+  assert.ok(!JSON.stringify(data).includes('fixture-password-hash'));assert.ok(!JSON.stringify(data).includes('password_login'));
   assert.equal(validatePackage(data),data);data.records[0].value.phase='changed';assert.throws(()=>validatePackage(data));
 });
 

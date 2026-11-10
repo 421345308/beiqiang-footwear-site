@@ -25,6 +25,8 @@ export function requestNeedsTransaction(request) {
   if (!['GET', 'HEAD', 'OPTIONS'].includes(method)) return true;
   if (method !== 'GET') return false;
   const pathname = url.pathname.replace(/\/$/, '');
+  // Trusted-device authentication may renew its server-side expiry on read.
+  if (pathname === '/api/workbench-auth') return true;
   if (pathname === '/api/buyer-workspace-session') return true;
   if (pathname === '/api/operations') return url.searchParams.has('reference');
   if (pathname === '/api/workbench') {
