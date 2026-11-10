@@ -8,7 +8,7 @@ The `/admin/` entry leads to the existing owner workbench. Its overview reads th
 
 The self-hosted API commits a new PostgreSQL-backed inquiry before trying SMTP and merges notification flags without overwriting a concurrent operator edit. SMTP acceptance does not prove inbox delivery; an unknown result must be reconciled before retrying. The EdgeOne Blob fallback has no equivalent atomic merge. Automated tests include a separate PostgreSQL connection observing the committed inquiry before mocked mail and a concurrent operator edit; production deployment and browser verification must be checked separately.
 
-The existing Singapore server was inspected on 2026-11-10: the private API, isolated TLS gateway, PostgreSQL and the pre-existing proxy were running; the installed cloud runner was disabled and its Codex account was not logged in. The public site is built by EdgeOne; confirm the actual production release with `/release.json` and the affected page after each push. The runner cannot execute queued work merely because its files are installed.
+The existing Singapore server was inspected on 2026-11-10: the private API, isolated TLS gateway, PostgreSQL and the pre-existing proxy were running; the installed cloud runner was disabled and its Codex account was not logged in. The API was switched to release `20261110T020912Z` after package/hash and unchanged-schema checks; the previous release remains available. The public EdgeOne site reported release `2026-11-10.1`, `/admin/` loaded, and anonymous private-API requests returned 401. An authenticated read after the API update returned six saved records, including one business inquiry and five internal tests. These are dated observations, not live counts; authenticated browser and real new-inquiry delivery still need separate acceptance. The runner cannot execute queued work merely because its files are installed.
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
@@ -86,15 +86,15 @@ Incident resolved on 27 August 2026: deployments from `d06ed69` through `6387e30
 
 `/admin/workbench/` is exported as a noindex login shell. Business records are fetched only through authenticated `/api/workbench`; they are never bundled into public assets. `/api/workbench-auth` sends a one-use, 15-minute login link to the exact server-configured owner, then issues an 8-hour HttpOnly/Secure/SameSite session. Configure `WORKBENCH_OWNER_EMAIL` and a randomly generated `WORKBENCH_SESSION_SECRET` of at least 32 bytes in the deployment environment. Existing `SMTP_PASS` and optional SMTP settings are reused. Missing configuration returns 503, not public access.
 
-Data uses the server-only `beiqiang-owner-workbench-v1` Blob store. Explicit import accepts four allowlisted document snapshots and their task cards. The current mode is `snapshot_review`: local project documents remain authoritative; proposals can be reviewed/downloaded, but source changes cannot be accepted in cloud until an actual synchronization path exists. Do not treat importing a snapshot as a project cutover.
+The production private API uses the `self_hosted` storage adapter backed by the existing PostgreSQL service and private files. The same logical `beiqiang-owner-workbench-v1` store can use Blob in the alternative deployment mode. Explicit import accepts four allowlisted document snapshots and their task cards. The current mode is `snapshot_review`: local project documents remain authoritative; proposals can be reviewed/downloaded, but source changes cannot be accepted in cloud until an actual synchronization path exists. Do not treat importing a snapshot as a project cutover.
 
 An optional independent executor authenticates to `/api/workbench-runner` with `WORKBENCH_RUNNER_SECRET` (at least 32 random bytes). This secret must never reach browser code. Without a live authenticated heartbeat, the UI reports offline and queued requests remain queued. Deploying these endpoints does not provision a cloud executor or model subscription. External customer messaging and platform edits are not supported through this workbench.
 
 Tests: `node --test tests/workbench-private.test.mjs`. Confirm production no-session rejection, owner email delivery and a real login separately after deployment; mocked mail/storage tests do not prove those services work in production.
 
-The production form posts to `/api/inquiries`. EdgeOne Cloud Functions persist each validated inquiry in the `beiqiang-inquiries` Blob store before returning success. Conversion events are written to the separate `beiqiang-events` store. Blob storage is provided by EdgeOne Makers and does not require a database connection string.
+The production form posts to `/api/inquiries`; the EdgeOne function proxies the request to the private self-hosted API. The `beiqiang-inquiries` logical store currently persists records in PostgreSQL; the server-side store remains the source of truth. A separate `beiqiang-events` logical store holds conversion events. Blob remains an alternative deployment mode, not evidence of the current production writer.
 
-Email notification is optional until these EdgeOne Production environment variables are configured. Never commit the QQ authorization code to GitHub:
+The current private API has SMTP configured; in proxy mode the following variables belong to its protected runtime environment. Never commit the QQ authorization code to GitHub:
 
 - `SMTP_HOST=smtp.qq.com`
 - `SMTP_PORT=465`
