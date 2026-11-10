@@ -65,3 +65,18 @@ test('new local snapshot is rejected while an older proposal for that source awa
   assert.equal((await f.call({ action: 'request_status', request_id: body.request_id })).body.found, false);
   assert.equal((await f.call({ action: 'tasks' })).body.tasks[0].source_version, 1);
 });
+
+test('local review confirms only an exact no-change proposal and is replay safe', async () => {
+  const f = fixture(), { task, document } = await f.seed(), id='e'.repeat(32);
+  const proposal={summary:'内部结论',changes:[],next_steps:[]};
+  const run=await revision(f.store,'runs',{id,task_id:task.id,source:SOURCE,source_version:document.version,
+    source_hash:document.hash,status:'awaiting_review',result:proposal,updated_at:'2026-11-10'},0);
+  assert.equal((await f.call({action:'review_no_change',run_id:id,expected_version:run.version+1})).status,409);
+  const reviewed=await f.call({action:'review_no_change',run_id:id,expected_version:run.version});
+  assert.equal(reviewed.status,200);assert.equal(reviewed.body.run.status,'accepted');
+  assert.equal((await f.call({action:'review_no_change',run_id:id,expected_version:run.version})).body.replay,true);
+  assert.equal((await f.call({action:'tasks'})).body.tasks[0].source_version,document.version);
+  const changed=await revision(f.store,'runs',{id:'f'.repeat(32),task_id:task.id,source:SOURCE,source_version:document.version,
+    source_hash:document.hash,status:'awaiting_review',result:{...proposal,changes:[{path:SOURCE,before:'原文',after:'新文',reason:'测试'}]},updated_at:'2026-11-10'},0);
+  assert.equal((await f.call({action:'review_no_change',run_id:changed.id,expected_version:changed.version})).status,409);
+});

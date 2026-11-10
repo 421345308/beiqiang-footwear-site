@@ -3,7 +3,7 @@ import { businessRequest } from '../_lib/business-storage.js';
 import { controlFor, instructionWithControl } from '../_lib/workbench-control.js';
 import { isInquiryRun } from '../_lib/operations-agent.js';
 import { requestedModel } from '../_lib/model-policy.js';
-import { ApiError, SOURCE_PATHS, acquireLock, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, normalize, payload, putJSON, releaseLock, reply, revision, runFor, safeEqual, settings, storeFor, text } from '../_lib/workbench.js';
+import { ApiError, SOURCE_PATHS, acquireLock, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, normalize, payload, putJSON, releaseLock, reply, revision, runFor, safeEqual, settings, storeFor, text, validateProposal } from '../_lib/workbench.js';
 
 const fields = ['id', 'kind', 'task_id', 'source', 'source_version', 'source_hash', 'status', 'version', 'title', 'summary', 'result', 'changes', 'error', 'created_at', 'updated_at', 'session_id', 'model', 'usage'];
 const projectRun = run => Object.fromEntries(fields.filter(key => run[key] !== undefined).map(key => [key, run[key]]));
@@ -43,6 +43,18 @@ export function createLocalBridgeHandler(options = {}) {
       if (body.action === 'request_status') {
         const record = await getJSON(store, `local_requests/${identifier(body.request_id)}.json`);
         return reply(200, record ? { found: true, run: projectRun(await runFor(store, record.run_id, now, false)) } : { found: false });
+      }
+      if (body.action === 'review_no_change') {
+        if (Object.keys(body).sort().join(',') !== 'action,expected_version,run_id' || !Number.isInteger(body.expected_version) || body.expected_version < 1) throw new ApiError(400, '审阅字段无效。');
+        const run = await runFor(store, identifier(body.run_id), now, false);
+        if (isInquiryRun(run)) throw new ApiError(403, '网站询盘请在原后台审阅。');
+        if (run.status === 'accepted' && run.review_origin === 'local_no_change' && run.reviewed_version === body.expected_version) return reply(200, { run: projectRun(run), replay: true });
+        if (run.status !== 'awaiting_review' || run.version !== body.expected_version) throw new ApiError(409, '成果版本或审阅状态已变化。');
+        const doc = run.source ? await documentFor(store, run.source) : null;
+        if (validateProposal(run, run.result, doc).result.changes.length) throw new ApiError(409, '涉及原资料修改的成果请先按原流程审阅。');
+        const updated = await revision(store, 'runs', { ...run, status: 'accepted', reviewed_at: stamp, updated_at: stamp,
+          review_origin: 'local_no_change', reviewed_version: run.version }, run.version);
+        return reply(200, { run: projectRun(updated) });
       }
       if (body.action !== 'enqueue') throw new ApiError(400, '未知本机连接操作。');
       const keys = ['action', 'request_id', 'task_id', 'instruction', 'model', 'task_version', 'source_version', 'source_content'];

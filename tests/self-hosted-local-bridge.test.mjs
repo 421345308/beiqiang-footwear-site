@@ -7,7 +7,7 @@ import path from 'node:path';
 import { Pool } from 'pg';
 import { createApiServer } from '../self-hosted/server.mjs';
 import { createStorage } from '../self-hosted/storage.mjs';
-import { hash, STORE_NAME, versionKey } from '../edgeone-deploy/cloud-functions/_lib/workbench.js';
+import { hash, revision, STORE_NAME, versionKey } from '../edgeone-deploy/cloud-functions/_lib/workbench.js';
 
 const url = process.env.SELF_HOSTED_TEST_DATABASE_URL;
 const SOURCE = '00_总控台/当前状态.md';
@@ -42,6 +42,13 @@ test('local bridge uses PostgreSQL transactions for concurrent idempotency and r
     const stale = await call({ ...payload, request_id: 'c'.repeat(32), source_version: 1 });
     assert.equal(stale.status, 409);
     assert.equal((await (await call({ action: 'request_status', request_id: 'c'.repeat(32) })).json()).found, false);
+
+    const queued = await store.get(versionKey('runs', bodies[0].run.id, bodies[0].run.version), { type: 'json' });
+    const completed = await revision(store, 'runs', { ...queued, status: 'awaiting_review',
+      result: { summary: 'fixture result', changes: [], next_steps: [] }, updated_at: new Date().toISOString() }, queued.version);
+    const review = { action: 'review_no_change', run_id: completed.id, expected_version: completed.version };
+    const accepted = await call(review); assert.equal(accepted.status, 200); assert.equal((await accepted.json()).run.status, 'accepted');
+    const replay = await call(review); assert.equal(replay.status, 200); assert.equal((await replay.json()).replay, true);
   } finally {
     if (app) await app.close(); else await storage.close();
     const cleanup = new Pool({ connectionString: url });
