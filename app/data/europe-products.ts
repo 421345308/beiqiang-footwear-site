@@ -334,6 +334,10 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "EVA midsole": ["EVA-Zwischensohle", "Intercalaire EVA", "Entresuela de EVA"],
+  "Cow suede": ["Rindsveloursleder", "Cuir velours bovin", "Ante bovino"],
+  "Cow suede upper": ["Obermaterial aus Rindsveloursleder", "Tige en cuir velours bovin", "Empeine de ante bovino"],
+  "Perforated side panels": ["Perforierte Seitenpartien", "Empiècements latéraux perforés", "Paneles laterales perforados"],
   "High-top knitted textile upper": ["Hohes Stricktextil", "Maille montante", "Tejido de punto alto"],
   "Synthetic leather": ["Kunstleder", "Cuir synthétique", "Cuero sintético"],
   "Rubber sole": ["Gummisohle", "Semelle en caoutchouc", "Suela de caucho"],

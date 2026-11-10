@@ -3908,5 +3908,41 @@
       "role": "pair",
       "colour": "All Black"
     }
+  ],
+  "BQ-L3522": [
+    {
+      "role": "pair",
+      "colour": "Green"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Beige"
+    },
+    {
+      "role": "collar",
+      "colour": "Green"
+    }
+  ],
+  "BQ-CS929": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Silver"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey/Blue"
+    },
+    {
+      "role": "pair",
+      "colour": "Black"
+    }
   ]
 }

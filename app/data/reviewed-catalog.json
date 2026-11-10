@@ -4114,5 +4114,87 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ-L3522",
+    "slug": "bq-l3522",
+    "sourceModel": "BQ-L3522",
+    "name": "Perforated Cow Suede Slip-On Loafers",
+    "nameZh": "冲孔牛反绒套脚乐福鞋",
+    "localizedNames": {
+      "de": "Perforierte Loafer aus Rindsveloursleder zum Hineinschlüpfen",
+      "fr": "Mocassins à enfiler en cuir velours bovin perforé",
+      "es": "Mocasines sin cordones de ante bovino perforado"
+    },
+    "shortDescription": "Slip-on loafers with a cow suede upper and perforated side panels. Black, green or beige; size labels 39–46.",
+    "summaryZh": "牛反绒鞋面套脚乐福鞋，侧面冲孔；黑、绿、米三色，尺码标签 39–46。",
+    "group": "Slip-On Loafers",
+    "closure": "Slip-On",
+    "upper": "Cow suede",
+    "sole": "",
+    "size": "39–46",
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering.",
+    "colors": [
+      "Green",
+      "Black",
+      "Beige"
+    ],
+    "collections": [
+      "loafers-and-derbies"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Slip-on construction",
+      "Cow suede upper",
+      "Perforated side panels"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-CS929",
+    "slug": "bq-cs929",
+    "sourceModel": "BQ-CS929",
+    "name": "Wave-Panel Mesh Lace-Up Shoes",
+    "nameZh": "网面波纹拼片系带鞋",
+    "localizedNames": {
+      "de": "Schnürschuhe mit Mesh-Obermaterial und Wellenbesatz",
+      "fr": "Chaussures à lacets en mesh aux empiècements ondulés",
+      "es": "Calzado de cordones de malla con paneles ondulados"
+    },
+    "shortDescription": "Lace-up shoes with a mesh upper, EVA midsole and rubber outsole. Black, silver or grey/blue; size labels 39–47.",
+    "summaryZh": "网面系带鞋，EVA 中底与橡胶外底；黑、银、灰蓝三色，尺码标签 39–47。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Mesh",
+    "sole": "Rubber outsole",
+    "size": "39–47",
+    "sizeNote": "Size labels; confirm the size system and sample measurements before ordering.",
+    "colors": [
+      "Black",
+      "Silver",
+      "Grey/Blue"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Mesh upper",
+      "EVA midsole",
+      "Rubber outsole"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

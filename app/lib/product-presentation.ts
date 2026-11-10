@@ -4,6 +4,20 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-CS929": {
+    en: { summary: "Lace-up shoes with a mesh upper, EVA midsole and rubber outsole. Black, silver or grey/blue; size labels 39–47.", highlights: ["Mesh upper", "EVA midsole", "Rubber outsole"] },
+    zh: { summary: "网面系带鞋，EVA 中底与橡胶外底；黑、银、灰蓝三色，尺码标签 39–47。", highlights: ["网面鞋面", "EVA 中底", "橡胶外底"] },
+    de: { summary: "Schnürschuhe mit Mesh-Obermaterial, EVA-Zwischensohle und Gummi-Außensohle. Schwarz, Silber oder Grau/Blau; Größenetiketten 39–47.", highlights: ["Mesh-Obermaterial", "EVA-Zwischensohle", "Gummi-Außensohle"] },
+    fr: { summary: "Chaussures à lacets en mesh, intercalaire EVA et semelle extérieure en caoutchouc. Noir, argent ou gris/bleu ; pointures indiquées 39–47.", highlights: ["Tige en mesh", "Intercalaire EVA", "Semelle extérieure en caoutchouc"] },
+    es: { summary: "Calzado de cordones de malla con entresuela de EVA y suela exterior de caucho. Negro, plata o gris/azul; tallas indicadas 39–47.", highlights: ["Empeine de malla", "Entresuela de EVA", "Suela exterior de caucho"] },
+  },
+  "BQ-L3522": {
+    en: { summary: "Slip-on loafers with a cow suede upper and perforated side panels. Black, green or beige; size labels 39–46.", highlights: ["Slip-on construction", "Cow suede upper", "Perforated side panels"] },
+    zh: { summary: "牛反绒鞋面套脚乐福鞋，侧面冲孔；黑、绿、米三色，尺码标签 39–46。", highlights: ["套脚结构", "牛反绒鞋面", "侧面冲孔"] },
+    de: { summary: "Loafer zum Hineinschlüpfen mit Rindsveloursleder und perforierten Seiten. Schwarz, Grün oder Beige; Größenetiketten 39–46.", highlights: ["Zum Hineinschlüpfen", "Rindsveloursleder", "Perforierte Seitenpartien"] },
+    fr: { summary: "Mocassins à enfiler en cuir velours bovin, avec côtés perforés. Noir, vert ou beige ; pointures indiquées 39–46.", highlights: ["Modèle à enfiler", "Tige en cuir velours bovin", "Côtés perforés"] },
+    es: { summary: "Mocasines sin cordones de ante bovino con laterales perforados. Negro, verde o beige; tallas indicadas 39–46.", highlights: ["Diseño sin cordones", "Empeine de ante bovino", "Laterales perforados"] },
+  },
   BQ036: {
     en: { summary: "High-top knit slip-on shoes with a ribbed collar and EVA sole. Black and white or all black, EU 35–45.", highlights: ["High-top knitted textile upper", "Slip-on construction", "EVA sole"] },
     zh: { summary: "高帮针织套穿鞋，罗纹袜套鞋口与 EVA 鞋底；黑白、全黑两种配色，尺码 EU 35–45。", highlights: ["高帮针织织物鞋面", "套穿结构", "EVA 鞋底"] },

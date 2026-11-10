@@ -2901,5 +2901,43 @@
         5
       ]
     }
+  },
+  "BQ-L3522": {
+    "images": {
+      "Green": 0,
+      "Black": 1,
+      "Beige": 2
+    },
+    "views": {
+      "Green": [
+        0,
+        3
+      ],
+      "Black": [
+        1
+      ],
+      "Beige": [
+        2
+      ]
+    }
+  },
+  "BQ-CS929": {
+    "images": {
+      "Black": 0,
+      "Silver": 1,
+      "Grey/Blue": 2
+    },
+    "views": {
+      "Black": [
+        0,
+        3
+      ],
+      "Silver": [
+        1
+      ],
+      "Grey/Blue": [
+        2
+      ]
+    }
   }
 }
