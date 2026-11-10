@@ -83,6 +83,8 @@ const colors: Record<string, string> = {
   "White Red": "白红",
   "Black Brown": "黑棕",
   "Black Grey": "黑灰",
+  "Black Green": "黑绿",
+  "Black Khaki": "黑卡其",
   Black: "黑色",
   White: "白色",
   Grey: "灰色",

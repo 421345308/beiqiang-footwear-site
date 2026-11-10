@@ -40,6 +40,12 @@
     "03_view",
     "04_view"
   ],
+  "bq-lq015": [
+    "01_main",
+    "02_black",
+    "03_green",
+    "04_khaki"
+  ],
   "bq-lq016": [
     "01_main",
     "02_view",
@@ -225,6 +231,12 @@
     "03_view",
     "04_view"
   ],
+  "bq-lq2416": [
+    "01_main",
+    "02_khaki",
+    "03_grey_side",
+    "04_khaki_side"
+  ],
   "bq-lq2418": [
     "01_main",
     "02_view",
@@ -293,6 +305,12 @@
     "03_view",
     "04_view"
   ],
+  "bq-lq2560": [
+    "01_main",
+    "02_black_pair",
+    "03_black_side",
+    "04_khaki_side"
+  ],
   "bq-lq2561": [
     "01_main",
     "02_view",
@@ -323,6 +341,12 @@
     "02_view",
     "03_view",
     "04_view"
+  ],
+  "bq-lq2580": [
+    "01_main",
+    "02_black",
+    "03_yellow_onfoot",
+    "04_black_side"
   ],
   "bq-lq2590": [
     "01_main",

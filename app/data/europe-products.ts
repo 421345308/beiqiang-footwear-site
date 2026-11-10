@@ -334,6 +334,15 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Synthetic leather": ["Kunstleder", "Cuir synthétique", "Cuero sintético"],
+  "Rubber sole": ["Gummisohle", "Semelle en caoutchouc", "Suela de caucho"],
+  "Jacquard mesh": ["Jacquard-Mesh", "Mesh jacquard", "Malla jacquard"],
+  "MD + TPR sole": ["MD-TPR-Sohle", "Semelle MD + TPR", "Suela MD + TPR"],
+  "Plain toe": ["Schlichte Vorderkappe", "Bout uni", "Puntera lisa"],
+  "Colour-matched sole": ["Farblich abgestimmte Sohle", "Semelle assortie", "Suela a juego"],
+  "Stitched side panels and heel loop": ["Genähte Seitenpartien und Fersenschlaufe", "Empiècements cousus et tirette arrière", "Paneles cosidos y tirador trasero"],
+  "Jacquard mesh upper": ["Jacquard-Mesh-Obermaterial", "Tige en mesh jacquard", "Empeine de malla jacquard"],
+  "Wide toe box; sample fit should be checked": ["Breiter Zehenbereich; Passform am Muster prüfen", "Avant-pied large ; vérifier le chaussant sur échantillon", "Puntera amplia; comprobar el ajuste con una muestra"],
   "Mesh-panel upper": ["Obermaterial mit Mesh-Einsätzen", "Tige à empiècements mesh", "Empeine con paneles de malla"],
   "Suede-effect upper": ["Obermaterial in Veloursoptik", "Tige aspect suédé", "Empeine de efecto ante"],
   "Panelled upper": ["Obermaterial mit Einsätzen", "Tige à empiècements", "Empeine con paneles"],

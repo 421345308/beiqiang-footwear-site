@@ -4,6 +4,34 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-LQ015": {
+    en: { summary: "Low-top lace-up shoes with a synthetic leather upper and rubber sole. Four colours, EU 37–48.", highlights: ["Lace-up fastening", "Synthetic leather upper", "Rubber sole"] },
+    zh: { summary: "低帮系带休闲鞋，合成革鞋面与橡胶鞋底，四种配色，尺码 EU 37–48。", highlights: ["系带闭合", "合成革鞋面", "橡胶鞋底"] },
+    de: { summary: "Niedrige Schnürschuhe mit Obermaterial aus Kunstleder und Gummisohle. Vier Farben, EU 37–48.", highlights: ["Schnürung", "Kunstleder-Obermaterial", "Gummisohle"] },
+    fr: { summary: "Chaussures basses à lacets, tige en cuir synthétique et semelle en caoutchouc. Quatre coloris, EU 37–48.", highlights: ["Fermeture à lacets", "Tige en cuir synthétique", "Semelle en caoutchouc"] },
+    es: { summary: "Calzado bajo de cordones con empeine de cuero sintético y suela de caucho. Cuatro colores, EU 37–48.", highlights: ["Cierre de cordones", "Empeine de cuero sintético", "Suela de caucho"] },
+  },
+  "BQ-LQ2560": {
+    en: { summary: "Low-top lace-up shoes with a plain toe and colour-matched sole. Black or khaki, EU 39–48.", highlights: ["Lace-up fastening", "Plain toe", "Colour-matched sole"] },
+    zh: { summary: "低帮系带休闲鞋，素面鞋头搭配同色鞋底；黑色、卡其色可选，尺码 EU 39–48。", highlights: ["系带闭合", "素面鞋头", "同色鞋底"] },
+    de: { summary: "Niedrige Schnürschuhe mit schlichter Vorderkappe und farblich abgestimmter Sohle. Schwarz oder Khaki, EU 39–48.", highlights: ["Schnürung", "Schlichte Vorderkappe", "Farblich abgestimmte Sohle"] },
+    fr: { summary: "Chaussures basses à lacets, bout uni et semelle assortie. Noir ou kaki, EU 39–48.", highlights: ["Fermeture à lacets", "Bout uni", "Semelle assortie"] },
+    es: { summary: "Calzado bajo de cordones con puntera lisa y suela a juego. Negro o caqui, EU 39–48.", highlights: ["Cierre de cordones", "Puntera lisa", "Suela a juego"] },
+  },
+  "BQ-LQ2580": {
+    en: { summary: "Wide-toe lace-up shoes with a jacquard mesh upper and MD + TPR outsole. Yellow or black, EU 39–48.", highlights: ["Wide toe box; check overall fit on a sample", "Jacquard mesh upper", "MD + TPR outsole"] },
+    zh: { summary: "宽鞋头系带鞋，贾卡网面鞋面与 MD + TPR 鞋底；黄色、黑色可选，尺码 EU 39–48。", highlights: ["宽鞋头；整鞋合脚程度以样品确认", "贾卡网面鞋面", "MD + TPR 鞋底"] },
+    de: { summary: "Schnürschuhe mit breitem Zehenbereich, Jacquard-Mesh und MD-TPR-Laufsohle. Gelb oder Schwarz, EU 39–48.", highlights: ["Breiter Zehenbereich; Passform am Muster prüfen", "Jacquard-Mesh-Obermaterial", "MD-TPR-Laufsohle"] },
+    fr: { summary: "Chaussures à lacets à avant-pied large, tige en mesh jacquard et semelle MD + TPR. Jaune ou noir, EU 39–48.", highlights: ["Avant-pied large ; vérifier le chaussant sur échantillon", "Tige en mesh jacquard", "Semelle MD + TPR"] },
+    es: { summary: "Calzado de cordones con puntera amplia, malla jacquard y suela MD + TPR. Amarillo o negro, EU 39–48.", highlights: ["Puntera amplia; comprobar el ajuste con una muestra", "Empeine de malla jacquard", "Suela MD + TPR"] },
+  },
+  "BQ-LQ2416": {
+    en: { summary: "Low-top lace-up shoes with stitched side panels, a heel loop and MD sole. Dark grey or khaki, EU 39–48.", highlights: ["Lace-up fastening", "Stitched side panels and heel loop", "MD sole"] },
+    zh: { summary: "低帮系带鞋，缝线侧面拼片、后跟提环及 MD 鞋底；深灰色、卡其色可选，尺码 EU 39–48。", highlights: ["系带闭合", "缝线侧片与后跟提环", "MD 鞋底"] },
+    de: { summary: "Niedrige Schnürschuhe mit genähten Seitenpartien, Fersenschlaufe und MD-Sohle. Dunkelgrau oder Khaki, EU 39–48.", highlights: ["Schnürung", "Genähte Seitenpartien und Fersenschlaufe", "MD-Sohle"] },
+    fr: { summary: "Chaussures basses à lacets avec empiècements cousus, tirette arrière et semelle MD. Gris foncé ou kaki, EU 39–48.", highlights: ["Fermeture à lacets", "Empiècements cousus et tirette arrière", "Semelle MD"] },
+    es: { summary: "Calzado bajo de cordones con paneles cosidos, tirador trasero y suela MD. Gris oscuro o caqui, EU 39–48.", highlights: ["Cierre de cordones", "Paneles cosidos y tirador trasero", "Suela MD"] },
+  },
   "BQ-LQ02505": {
     en: { summary: "Low-top dial-and-cord shoes with mesh panels, in black or grey. EU 39–48.", highlights: ["Dial closure with cord guides", "Mesh panels and stitched overlays", "Black or grey · EU 39–48"] },
     zh: { summary: "低帮旋钮鞋带休闲鞋，网面拼接，黑色与灰色可选，尺码 EU 39–48。", highlights: ["旋钮鞋带与导环", "网面与缝线拼片", "黑色或灰色 · EU 39–48"] },

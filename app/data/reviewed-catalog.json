@@ -3909,5 +3909,170 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ-LQ015",
+    "name": "Layered Lace-Up Casual Shoes",
+    "nameZh": "层叠拼片系带休闲鞋",
+    "localizedNames": {
+      "de": "Schnür-Freizeitschuhe mit mehrlagigen Besätzen",
+      "fr": "Chaussures décontractées à lacets et renforts superposés",
+      "es": "Calzado casual de cordones con paneles superpuestos"
+    },
+    "shortDescription": "Low-top lace-up shoes with a synthetic leather upper and rubber sole. Four colour options, EU 37–48.",
+    "summaryZh": "低帮系带休闲鞋，合成革鞋面与橡胶鞋底，四种配色，尺码 EU 37–48。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Synthetic leather",
+    "sole": "Rubber sole",
+    "size": "EU 37–48",
+    "colors": [
+      "Black Grey",
+      "Black",
+      "Black Green",
+      "Black Khaki"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Synthetic leather upper",
+      "Rubber sole"
+    ],
+    "slug": "bq-lq015",
+    "sourceModel": "BQ-LQ015",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2560",
+    "name": "Plain-Toe Lace-Up Casual Shoes",
+    "nameZh": "素面鞋头系带休闲鞋",
+    "localizedNames": {
+      "de": "Schnür-Freizeitschuhe mit schlichter Vorderkappe",
+      "fr": "Chaussures décontractées à lacets et bout uni",
+      "es": "Calzado casual de cordones y puntera lisa"
+    },
+    "shortDescription": "Low-top lace-up shoes with a plain toe and a colour-matched sole. Black or khaki, EU 39–48.",
+    "summaryZh": "低帮系带休闲鞋，素面鞋头搭配同色鞋底；黑色、卡其色可选，尺码 EU 39–48。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "Khaki",
+      "Black"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "loafers-and-derbies",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Plain toe",
+      "Colour-matched sole"
+    ],
+    "slug": "bq-lq2560",
+    "sourceModel": "BQ-LQ2560",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2580",
+    "name": "Wide Toe Jacquard Mesh Lace-Up Shoes",
+    "nameZh": "宽鞋头贾卡网面系带鞋",
+    "localizedNames": {
+      "de": "Schnürschuhe aus Jacquard-Mesh mit breitem Zehenbereich",
+      "fr": "Chaussures à lacets en mesh jacquard à avant-pied large",
+      "es": "Calzado de cordones de malla jacquard con puntera amplia"
+    },
+    "shortDescription": "Wide-toe lace-up shoes with a jacquard mesh upper and MD + TPR outsole. Yellow or black, EU 39–48.",
+    "summaryZh": "宽鞋头系带鞋，贾卡网面鞋面与 MD + TPR 鞋底；黄色、黑色可选，尺码 EU 39–48。",
+    "group": "Lace-Up Mesh Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Jacquard mesh",
+    "sole": "MD + TPR sole",
+    "size": "EU 39–48",
+    "fitEvidence": "wide_toe_verified",
+    "colors": [
+      "Yellow",
+      "Black"
+    ],
+    "collections": [
+      "wide-toe-box",
+      "casual-sneakers",
+      "breathable-lace-up",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Wide toe box; sample fit should be checked",
+      "Jacquard mesh upper",
+      "MD + TPR sole"
+    ],
+    "slug": "bq-lq2580",
+    "sourceModel": "BQ-LQ2580",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2416",
+    "name": "Stitched-Panel Lace-Up Casual Shoes",
+    "nameZh": "缝线拼片系带休闲鞋",
+    "localizedNames": {
+      "de": "Schnür-Freizeitschuhe mit genähten Seitenpartien",
+      "fr": "Chaussures décontractées à lacets et empiècements cousus",
+      "es": "Calzado casual de cordones con paneles cosidos"
+    },
+    "shortDescription": "Low-top lace-up shoes with stitched side panels, a heel loop and an MD sole. Dark grey or khaki, EU 39–48.",
+    "summaryZh": "低帮系带鞋，缝线侧面拼片、后跟提环及 MD 鞋底；深灰色、卡其色可选，尺码 EU 39–48。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "MD sole",
+    "size": "EU 39–48",
+    "colors": [
+      "Dark Grey",
+      "Khaki"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Stitched side panels and heel loop",
+      "MD sole"
+    ],
+    "slug": "bq-lq2416",
+    "sourceModel": "BQ-LQ2416",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]
