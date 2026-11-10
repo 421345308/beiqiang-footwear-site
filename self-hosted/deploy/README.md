@@ -1,6 +1,6 @@
 # Ubuntu 24.04 原生隔离部署
 
-只准备包，未远程安装、未迁生产。API、PostgreSQL及runner原生systemd运行；
+2026-11-10 实查：既有服务器已安装并运行独立 API、TLS gateway 和 PostgreSQL；runner 已安装但未启用、Codex 未登录。公开页面与 API 的实际版本须分别验收，以下模板不等于新版本已经发布。API、PostgreSQL及runner采用原生systemd；
 没有Docker，不改变sing-box、443、SSH、iptables、默认路由，不重启主机。
 网站仍由EdgeOne承载公开静态页面，统一业务API走独立8443 TLS入口。
 

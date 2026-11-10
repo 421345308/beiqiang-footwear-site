@@ -2,6 +2,14 @@
 
 Public B2B lead-generation site for Quanzhou Beiqiang Footwear & Apparel Co., Ltd. The production URL is `https://www.beiqiang.online/`. The site is designed to turn product discovery into qualified sample and quotation inquiries; it is not a retail checkout store.
 
+## Inquiry visibility and deployment status (2026-11-10)
+
+The `/admin/` entry leads to the existing owner workbench. Its overview reads the existing inquiry objects, shows business and pending counts, indicates whether notification was accepted, unconfirmed or unknown, and opens the existing inquiry workflow. A failed read is shown as unavailable, not zero. This does not duplicate the inquiry database. The owner workbench uses the existing email-link session; the separate legacy inquiry dashboard still uses its own token. Password login, 30-day sessions and full authentication unification remain unfinished.
+
+The self-hosted API commits a new PostgreSQL-backed inquiry before trying SMTP and merges notification flags without overwriting a concurrent operator edit. SMTP acceptance does not prove inbox delivery; an unknown result must be reconciled before retrying. The EdgeOne Blob fallback has no equivalent atomic merge. Automated tests include a separate PostgreSQL connection observing the committed inquiry before mocked mail and a concurrent operator edit; production deployment and browser verification must be checked separately.
+
+The existing Singapore server was inspected on 2026-11-10: the private API, isolated TLS gateway, PostgreSQL and the pre-existing proxy were running; the installed cloud runner was disabled and its Codex account was not logged in. The public site is built by EdgeOne; confirm the actual production release with `/release.json` and the affected page after each push. The runner cannot execute queued work merely because its files are installed.
+
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
 Drizzle support.
