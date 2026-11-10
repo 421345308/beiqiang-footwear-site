@@ -1,6 +1,7 @@
 import { wrapUnifiedHandler } from '../_lib/unified-origin-proxy.js';
 import { businessRequest } from '../_lib/business-storage.js';
 import { controlFor, instructionWithControl } from '../_lib/workbench-control.js';
+import { dispatchReadiness } from '../_lib/task-service.js';
 import { isInquiryRun } from '../_lib/operations-agent.js';
 import { requestedModel } from '../_lib/model-policy.js';
 import { ApiError, SOURCE_PATHS, acquireLock, allLatest, dependencies, documentFor, getJSON, handleError, hash, identifier, latest, normalize, payload, putJSON, releaseLock, reply, revision, runFor, safeEqual, settings, storeFor, text, validateProposal } from '../_lib/workbench.js';
@@ -19,6 +20,27 @@ export function createLocalBridgeHandler(options = {}) {
       if ((request.headers.get('content-type') || '').split(';')[0] !== 'application/json') throw new ApiError(415, '请求必须使用JSON。');
       if (!options.transactional) throw new ApiError(503, '本机任务接续需要事务型私有存储。');
       const body = await payload(request, 350000), store = storeFor(deps), now = deps.nowImpl(), stamp = now.toISOString();
+      if (body.action === 'workspace_status') {
+        // Read heartbeat before queue records, matching the runner's lock order.
+        const dispatch = await dispatchReadiness(deps, env, now);
+        const age = now.getTime() - Date.parse(dispatch.last_seen_at);
+        if (!Number.isFinite(age) || age < 0) {
+          dispatch.ready = false; dispatch.auth = null; dispatch.models = [];
+          dispatch.blocking_reasons.push('执行器心跳时间无效，需重新核验。');
+        }
+        const records = (await allLatest(store, 'runs')).filter(run => !isInquiryRun(run))
+          .sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at)));
+        const runs = [];
+        for (const record of records.slice(0, 100)) {
+          const view = projectRun(await runFor(store, record.id, now, false));
+          delete view.result; delete view.changes;
+          runs.push({ ...view, next_action: view.status === 'awaiting_review' ? 'review' :
+            ['interrupted', 'failed'].includes(view.status) ? 'reconcile' : null });
+        }
+        return reply(200, { observed_at: stamp, runs, dispatch,
+          counts: { returned: runs.length, total: records.length }, truncated: records.length > runs.length,
+          scope: 'project_runs_only' });
+      }
       if (body.action === 'tasks') {
         const tasks = (await allLatest(store, 'tasks')).filter(task => !task.source || SOURCE_PATHS.has(task.source));
         const result = [];

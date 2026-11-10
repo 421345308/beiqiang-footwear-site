@@ -80,3 +80,52 @@ test('local review confirms only an exact no-change proposal and is replay safe'
     source_hash:document.hash,status:'awaiting_review',result:{...proposal,changes:[{path:SOURCE,before:'原文',after:'新文',reason:'测试'}]},updated_at:'2026-11-10'},0);
   assert.equal((await f.call({action:'review_no_change',run_id:changed.id,expected_version:changed.version})).status,409);
 });
+
+
+test('workspace status reads existing project queue without heartbeat writes or customer/proposal data', async () => {
+  const f = fixture(); const { task } = await f.seed();
+  await f.store.setJSON('runner/heartbeat.json', { at: '2026-11-09T23:59:00Z', capabilities: { ready: true, auth: 'api', models: ['gpt-6-luna'] } });
+  await revision(f.store, 'runs', { id: 'b'.repeat(32), task_id: task.id, status: 'awaiting_review', updated_at: '2026-11-10', result: { private: 'proposal-body' }, changes: ['proposal-change'] }, 0);
+  await revision(f.store, 'runs', { id: 'c'.repeat(32), kind: 'inquiry_review', inquiry_reference: 'private-customer', status: 'awaiting_review' }, 0);
+  const before = JSON.stringify([...f.data]);
+  const response = await f.call({ action: 'workspace_status' });
+  assert.equal(response.status, 200);
+  assert.equal(response.body.scope, 'project_runs_only');
+  assert.equal(response.body.observed_at, '2026-11-10T00:00:00.000Z');
+  assert.deepEqual(response.body.counts, { returned: 1, total: 1 });
+  assert.equal(response.body.truncated, false);
+  assert.equal(response.body.runs[0].task_id, task.id);
+  assert.equal(response.body.runs[0].next_action, 'review');
+  assert.equal(response.body.dispatch.ready, false); // automatic dispatch was not enabled
+  assert.equal(JSON.stringify([...f.data]), before);
+  assert.ok(!JSON.stringify(response.body).includes('private-customer'));
+  assert.ok(!JSON.stringify(response.body).includes('proposal-body'));
+  assert.equal((await f.call({ action: 'workspace_status' }, 'invalid')).status, 401);
+});
+
+test('workspace status rejects future heartbeat and reconciles expired run leases', async () => {
+  const f = fixture(); await f.seed();
+  await f.store.setJSON('runner/heartbeat.json', { at: '2026-11-11T00:00:00Z', capabilities: { ready: true, auth: 'api', models: ['gpt-6-luna'] } });
+  const id = 'd'.repeat(32);
+  await revision(f.store, 'runs', { id, status: 'running', updated_at: '2026-11-09' }, 0);
+  await f.store.setJSON(`claims/${id}.json`, { lease_expires_at: '2026-11-09T23:00:00Z' });
+  const response = await f.call({ action: 'workspace_status' });
+  assert.equal(response.body.runs[0].status, 'interrupted');
+  assert.equal(response.body.runs[0].next_action, 'reconcile');
+  assert.equal(response.body.dispatch.ready, false);
+  assert.equal(response.body.dispatch.auth, null);
+  assert.deepEqual(response.body.dispatch.models, []);
+});
+
+
+test('workspace status bounds the read model and reports omitted runs', async () => {
+  const f = fixture();
+  for (let n = 0; n < 102; n++) {
+    await revision(f.store, 'runs', { id: n.toString(16).padStart(32, '0'), status: 'queued', updated_at: `2026-11-09T${String(n % 24).padStart(2, '0')}:00:00Z` }, 0);
+  }
+  const response = await f.call({ action: 'workspace_status' });
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.body.counts, { returned: 100, total: 102 });
+  assert.equal(response.body.truncated, true);
+  assert.equal(f.data.has('runner/heartbeat.json'), false);
+});
