@@ -38,7 +38,10 @@ export async function businessRequest(context, options, build, method, identity 
     if (identity === 'owner') {
       if (method === 'onRequestPost') sameOrigin(context.request, config);
       await requireSession(context.request, config, storeFor(deps), deps.nowImpl(), method === 'onRequestPost');
-    } else if (Buffer.byteLength(String(env.WORKBENCH_RUNNER_SECRET || '')) < 32 || !safeEqual(context.request.headers.get('authorization'), `Bearer ${env.WORKBENCH_RUNNER_SECRET}`)) throw new ApiError(401, '执行器身份无效。');
+    } else {
+      const secret = identity === 'runner' ? env.WORKBENCH_RUNNER_SECRET : identity === 'local' ? env.WORKBENCH_LOCAL_BRIDGE_SECRET : '';
+      if (Buffer.byteLength(String(secret || '')) < 32 || !safeEqual(context.request.headers.get('authorization'), `Bearer ${secret}`)) throw new ApiError(401, '执行器或本机连接身份无效。');
+    }
     database = (options.createDatabaseImpl || createDatabase)(env);
     await database.assertVerified(env.WORKBENCH_DATABASE_MIGRATION_ID);
     return await database.withTransaction(async tx => {

@@ -134,11 +134,6 @@ test('runner authenticates, atomically claims, persists result; snapshot review 
   assert.equal(machineStatus.body.run.source_hash, job.source_hash); assert.deepEqual(machineStatus.body.run.result, result);
   assert.deepEqual(f.data.get('runner/heartbeat.json'), heartbeatBeforeReadback);
   for (const key of ['lease_token', 'token_hash', 'document', 'control_snapshot']) assert.ok(!Object.hasOwn(machineStatus.body.run, key));
-  const pendingReviews = await f.run({ action: 'pending_reviews' });
-  assert.equal(pendingReviews.status, 200); assert.equal(pendingReviews.body.runs.length, 1);
-  assert.equal(pendingReviews.body.runs[0].id, job.id); assert.equal(pendingReviews.body.runs[0].source, SOURCE);
-  assert.ok(!Object.hasOwn(pendingReviews.body.runs[0], 'result'));
-  assert.deepEqual(f.data.get('runner/heartbeat.json'), heartbeatBeforeReadback);
   const detail = await f.request(f.api.onRequestGet, null, { ...s, method: 'GET', path: `/api/workbench?run_id=${job.id}` }); assert.equal(detail.body.run.events.length, 1);
   assert.equal((await f.call({ action: 'review', run_id: job.id, decision: 'accept', expected_version: 1 }, s)).status, 409);
   const accepted = await f.call({ action: 'review', run_id: job.id, decision: 'accept', expected_version: complete.body.run.version }, s); assert.equal(accepted.status, 409); assert.match(accepted.body.error, /本地为准/);

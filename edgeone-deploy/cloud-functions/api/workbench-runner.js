@@ -18,13 +18,6 @@ export function createWorkbenchRunnerHandler(options = {}) {
       const body = await payload(request, 150000), store = storeFor(deps), now = deps.nowImpl(), stamp = now.toISOString();
       // A local readback is not a runner heartbeat and must not make an offline
       // executor look online merely because somebody inspected an old result.
-      if (body.action === 'pending_reviews') {
-        const fields = ['id', 'task_id', 'source', 'source_version', 'source_hash', 'status', 'version', 'title', 'summary', 'updated_at'];
-        const pending = (await allLatest(store, 'runs')).filter(run => run.status === 'awaiting_review' && !isInquiryRun(run))
-          .sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at))).slice(0, 100)
-          .map(run => Object.fromEntries(fields.filter(key => run[key] !== undefined).map(key => [key, run[key]])));
-        return reply(200, { runs: pending });
-      }
       if (body.action === 'status') {
         const run = await runFor(store, identifier(body.run_id), now, false);
         const fields = ['id', 'kind', 'task_id', 'source', 'source_version', 'inquiry_reference', 'source_hash', 'handling_version', 'status', 'version', 'title', 'summary', 'result', 'changes', 'error', 'created_at', 'updated_at', 'session_id', 'model', 'usage'];
