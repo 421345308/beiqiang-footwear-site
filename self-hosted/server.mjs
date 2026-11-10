@@ -104,8 +104,12 @@ export async function createApiServer({ storage, env = {}, routes, publicOrigin 
       else { for await (const chunk of response.body) { if (!outgoing.write(chunk)) await new Promise(resolve => outgoing.once('drain', resolve)); } outgoing.end(); }
     } catch (error) {
       if (outgoing.headersSent) { outgoing.destroy(); return; }
+      const rolledBackRunnerDeadlock = error.code === '40P01' && incoming.method === 'POST' && (incoming.url || '').split('?')[0].replace(/\/$/, '') === '/api/workbench-runner';
       outgoing.writeHead(error.status || (error.code === '40P01' ? 409 : 500), { 'content-type': 'application/json', 'cache-control': 'no-store' });
-      outgoing.end(JSON.stringify({ error: error.status ? error.message : 'Private service unavailable' }));
+      // withTransaction has already rolled back before propagating SQLSTATE
+      // 40P01. Only the private runner endpoint receives this specific signal;
+      // a generic 409 or an interrupted response does not prove rollback.
+      outgoing.end(JSON.stringify(rolledBackRunnerDeadlock ? { code: 'RUNNER_TRANSACTION_ROLLED_BACK', error: 'Runner transaction rolled back after a database deadlock.' } : { error: error.status ? error.message : 'Private service unavailable' }));
     }
   });
   server.requestTimeout = 60_000;

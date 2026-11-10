@@ -66,6 +66,26 @@ test('shutdown drains requests then closes storage', async () => {
   await app.close(); assert.equal(storage.closed, true);
 });
 
+test('only the runner receives an explicit transaction-rollback signal for a database deadlock', async t => {
+  const deadlock = async () => { throw Object.assign(new Error('fixture'), { code: '40P01' }); };
+  const conflict = async () => { throw Object.assign(new Error('ordinary conflict'), { status: 409 }); };
+  const routes = new Map([
+    ['/api/workbench-runner', { POST: deadlock }],
+    ['/api/other', { POST: deadlock }],
+    ['/api/conflict', { POST: conflict }],
+  ]);
+  const { base } = await running(t, { routes });
+  const request = path => fetch(`${base}${path}`, { method: 'POST' });
+  const runner = await request('/api/workbench-runner');
+  assert.equal(runner.status, 409);
+  assert.equal((await runner.json()).code, 'RUNNER_TRANSACTION_ROLLED_BACK');
+  for (const path of ['/api/other', '/api/conflict']) {
+    const response = await request(path);
+    assert.equal(response.status, 409);
+    assert.equal((await response.json()).code, undefined);
+  }
+});
+
 test('real PostgreSQL HTTP upload lifecycle, quarantine, once-only concurrent buyer/owner login and failure rollback', { skip: !process.env.SELF_HOSTED_TEST_DATABASE_URL }, async t => {
   const { createStorage } = await import('../self-hosted/storage.mjs');
   const { mkdtemp, rm } = await import('node:fs/promises');

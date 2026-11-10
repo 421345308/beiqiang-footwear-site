@@ -39,8 +39,11 @@ export function createWorkbenchHandlers(options = {}) {
       }
       if (url.searchParams.has('run_id')) return reply(200, { run: await ownerRunView(deps, await runFor(store, url.searchParams.get('run_id'), now)) });
       if (url.searchParams.has('document')) { const doc = await documentFor(store, url.searchParams.get('document')); if (!doc) throw new ApiError(404, '该资料尚未迁移到私有云工作台。'); return reply(200, { document: doc }); }
-      const tasks = await allLatest(store, 'tasks'), rawRuns = await allLatest(store, 'runs'), runs = await Promise.all(rawRuns.map(async run => ownerRunView(deps, await runFor(store, run.id, now, false))));
+      // Claim requests lock the runner heartbeat before reading run records.
+      // Keep the same order in this transactional dashboard read, otherwise a
+      // refresh can deadlock an idle claim while each waits for the other.
       const runner = env.WORKBENCH_RUNNER_SECRET ? await getJSON(store, 'runner/heartbeat.json') : null;
+      const tasks = await allLatest(store, 'tasks'), rawRuns = await allLatest(store, 'runs'), runs = await Promise.all(rawRuns.map(async run => ownerRunView(deps, await runFor(store, run.id, now, false))));
       const mode = env.WORKBENCH_RUNNER_MODE === 'manual_cloud' ? 'manual_cloud' : 'self_hosted';
       const configured = Buffer.byteLength(String(env.WORKBENCH_RUNNER_SECRET || '')) >= 32;
       const activeSessions = (await Promise.all(runs.filter(run => run.status === 'running').map(async run => {
