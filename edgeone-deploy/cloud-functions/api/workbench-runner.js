@@ -16,15 +16,24 @@ export function createWorkbenchRunnerHandler(options = {}) {
       if (!safeEqual(authorization, `Bearer ${env.WORKBENCH_RUNNER_SECRET}`)) throw new ApiError(401, '执行器身份无效。');
       if ((request.headers.get('content-type') || '').split(';')[0] !== 'application/json') throw new ApiError(415, '请求必须使用JSON。');
       const body = await payload(request, 150000), store = storeFor(deps), now = deps.nowImpl(), stamp = now.toISOString();
+      // A local readback is not a runner heartbeat and must not make an offline
+      // executor look online merely because somebody inspected an old result.
+      if (body.action === 'pending_reviews') {
+        const fields = ['id', 'task_id', 'source', 'source_version', 'source_hash', 'status', 'version', 'title', 'summary', 'updated_at'];
+        const pending = (await allLatest(store, 'runs')).filter(run => run.status === 'awaiting_review' && !isInquiryRun(run))
+          .sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at))).slice(0, 100)
+          .map(run => Object.fromEntries(fields.filter(key => run[key] !== undefined).map(key => [key, run[key]])));
+        return reply(200, { runs: pending });
+      }
+      if (body.action === 'status') {
+        const run = await runFor(store, identifier(body.run_id), now, false);
+        const fields = ['id', 'kind', 'task_id', 'source', 'source_version', 'inquiry_reference', 'source_hash', 'handling_version', 'status', 'version', 'title', 'summary', 'result', 'changes', 'error', 'created_at', 'updated_at', 'session_id', 'model', 'usage'];
+        return reply(200, { run: Object.fromEntries(fields.filter(key => run[key] !== undefined).map(key => [key, run[key]])) });
+      }
       const priorHeartbeat = await getJSON(store, 'runner/heartbeat.json');
       const caps = body.action === 'heartbeat' && !body.run_id && body.capabilities;
       await putJSON(store, 'runner/heartbeat.json', { at: stamp, ...(priorHeartbeat?.capabilities ? { capabilities: priorHeartbeat.capabilities } : {}), ...(caps ? {capabilities: {ready: caps.ready === true, auth: ['chatgpt', 'api'].includes(caps.auth) ? caps.auth : 'unknown', model: SUPPORTED_MODELS.includes(caps.model) ? caps.model : 'unknown', models: runnerModels(caps)}} : {}) });
       if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp });
-      if (body.action === 'status') {
-        const run = await runFor(store, identifier(body.run_id), now, false);
-        const fields = ['id', 'kind', 'inquiry_reference', 'source_hash', 'handling_version', 'status', 'version', 'title', 'summary', 'result', 'changes', 'error', 'created_at', 'updated_at', 'session_id', 'model', 'usage'];
-        return reply(200, { run: Object.fromEntries(fields.filter(key => run[key] !== undefined).map(key => [key, run[key]])) });
-      }
       if (body.action === 'claim') {
         const targeted = Object.hasOwn(body, 'run_id');
         if (env.WORKBENCH_RUNNER_MODE === 'manual_cloud' && !targeted) throw new ApiError(400, '手动云任务必须指定run_id，不能领取其他排队任务。');
