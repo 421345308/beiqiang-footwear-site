@@ -27,8 +27,10 @@ function Cited({ value }: { value: string }) {
   for (const match of value.matchAll(/https:\/\/[^\s<>"\)\]\}]+/g)) {
     const raw = match[0].replace(/[.,;，。；]+$/, "");
     parts.push(value.slice(cursor, match.index));
-    try { const url = new URL(raw); parts.push(url.protocol === "https:" && !url.username && !url.password ? <a key={match.index} href={url.href} target="_blank" rel="noopener noreferrer" style={{textDecoration:"underline",overflowWrap:"anywhere"}}>{raw}</a> : raw); }
-    catch { parts.push(raw); }
+    let href: string | null = null;
+    try { const url = new URL(raw); if (url.protocol === "https:" && !url.username && !url.password) href = url.href; }
+    catch { href = null; }
+    parts.push(href ? <a key={match.index} href={href} target="_blank" rel="noopener noreferrer" style={{textDecoration:"underline",overflowWrap:"anywhere"}}>{raw}</a> : raw);
     cursor = match.index + raw.length;
   }
   parts.push(value.slice(cursor)); return <>{parts}</>;
