@@ -169,6 +169,47 @@ test("quietly accepts the honeypot without storing a lead", async () => {
   assert.equal(writes, 0);
 });
 
+test("does not attempt notification if the initial inquiry cannot be saved", async () => {
+  let sends = 0;
+  const handler = createInquiryHandler({
+    getStoreImpl: () => ({ setJSON: async () => { throw new Error("fixture storage failure"); } }),
+    createTransportImpl: () => ({ sendMail: async () => { sends += 1; } }),
+  });
+  const request = new Request("https://www.beiqiang.online/api/inquiries", {
+    method: "POST", headers: { "Content-Type": "application/json", Origin: "https://www.beiqiang.online" },
+    body: JSON.stringify(validPayload()),
+  });
+  const result = await handler({ request, env: { SMTP_PASS: "fixture-only" } });
+  assert.equal(result.status, 503);
+  assert.equal(sends, 0);
+});
+
+test("notification flags merge with an inquiry updated while mail was being sent", async () => {
+  let stored, patchCount = 0, sends = 0;
+  const store = {
+    setJSON: async (_key, value) => { stored = structuredClone(value); },
+    patchJSON: async (_key, fields) => { patchCount += 1; stored = { ...stored, ...fields }; },
+  };
+  const handler = createInquiryHandler({
+    getStoreImpl: () => store,
+    createTransportImpl: () => ({ sendMail: async () => {
+      sends += 1;
+      if (sends === 1) stored.internalNote = "Saved by the operator while SMTP was running";
+    } }),
+  });
+  const request = new Request("https://www.beiqiang.online/api/inquiries", {
+    method: "POST", headers: { "Content-Type": "application/json", Origin: "https://www.beiqiang.online" },
+    body: JSON.stringify(validPayload()),
+  });
+  const result = await handler({ request, env: { SMTP_PASS: "fixture-only" } });
+  assert.equal(result.status, 201);
+  assert.equal(sends, 2);
+  assert.equal(patchCount, 1);
+  assert.equal(stored.internalNote, "Saved by the operator while SMTP was running");
+  assert.equal(stored.notificationSent, true);
+  assert.equal(stored.buyerConfirmationSent, true);
+});
+
 test("persists a valid inquiry before returning success", async () => {
   const writes = [];
   const handler = createInquiryHandler({ getStoreImpl: () => ({ setJSON: async (key, value) => writes.push({ key, value }) }) });

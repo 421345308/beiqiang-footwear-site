@@ -3,6 +3,7 @@ import { randomBytes, timingSafeEqual } from "node:crypto";
 import { getStore } from "../../_lib/platform-store.js";
 import nodemailer from "nodemailer";
 import { activeWorkspaceContacts, normalizeWorkspaceEmail } from "../../_lib/workspace-access-policy.js";
+import { isInternalTest } from "../../_lib/inquiry-classification.js";
 
 const ROLES = new Set(["purchasing", "merchandising", "operations", "finance", "management", "sourcing_agent", "other"]);
 const MAX_ACTIVE_CONTACTS = 10;
@@ -10,7 +11,6 @@ function response(status, body) { return new Response(JSON.stringify(body), { st
 function clean(value, max) { return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : ""; }
 function authorized(request, env) { const expected = clean(env?.INQUIRY_ADMIN_TOKEN, 1000); const header = request.headers.get("authorization") || ""; const supplied = header.startsWith("Bearer ") ? header.slice(7).trim() : ""; const a = Buffer.from(expected); const b = Buffer.from(supplied); return a.length > 0 && a.length === b.length && timingSafeEqual(a, b); }
 function details(payload) { const reference = clean(payload?.reference, 40).toUpperCase(); const date = clean(payload?.receivedAt, 40).slice(0, 10); return /^BQ-[A-Z0-9-]+$/.test(reference) && /^\d{4}-\d{2}-\d{2}$/.test(date) ? { reference, date, key: `inquiries/${date}/${reference}.json` } : null; }
-function isInternalTest(record) { const text = `${record?.name || ""} ${record?.company || ""} ${record?.requirements || ""} ${record?.quantity || ""}`.toLowerCase(); return /internal|deployment test|smtp test|test only|\b0\s*pairs?\b/.test(text); }
 function safeRecord(record) { const safe = { ...record }; delete safe.accessTokenHash; delete safe.pendingUploads; delete safe.pendingAttachments; delete safe.pendingOrderDocuments; safe.attachments = (record.attachments || []).map((item) => { const copy = { ...item }; delete copy.key; return copy; }); safe.orderDocuments = (record.orderDocuments || []).map((item) => { const copy = { ...item }; delete copy.key; return copy; }); return { ...safe, internalTest: isInternalTest(record) }; }
 function transport(env, createTransportImpl) { return createTransportImpl({ host: env.SMTP_HOST || "smtp.qq.com", port: Number(env.SMTP_PORT || 465), secure: String(env.SMTP_SECURE || "true") !== "false", auth: { user: env.SMTP_USER || "421345308@qq.com", pass: env.SMTP_PASS } }); }
 

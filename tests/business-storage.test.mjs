@@ -52,6 +52,11 @@ test('unified task projection keeps business status and agent status separate; a
   const state=(await f.call(f.api.onRequestGet)).body;
   assert.equal(state.capabilities.dispatch.ready,true);assert.equal(state.capabilities.backend.kind,'private_blob');
   assert.equal(state.unified_tasks.length,2);assert.equal(state.unified_tasks.find(t=>t.task_id===task.id).status,'等待客户');
+  assert.equal(state.unified_tasks.find(t=>t.reference===ref).notification_state,'unknown');
+  f.maps.get('beiqiang-inquiries').get(`inquiries/2026-10-30/${ref}.json`).notificationSent=false;
+  assert.equal((await f.call(f.api.onRequestGet)).body.unified_tasks.find(t=>t.reference===ref).notification_state,'not_confirmed');
+  f.maps.get('beiqiang-inquiries').get(`inquiries/2026-10-30/${ref}.json`).notificationSent=true;
+  assert.equal((await f.call(f.api.onRequestGet)).body.unified_tasks.find(t=>t.reference===ref).notification_state,'accepted');
   assert.equal((await f.machine({action:'claim'})).body.job.id,queued.id);
   await f.machine({action:'heartbeat',capabilities:{ready:false,auth:'unknown',model:'gpt-6.1-sol'}});
   assert.equal((await f.call(f.api.onRequestGet)).body.capabilities.dispatch.ready,false);

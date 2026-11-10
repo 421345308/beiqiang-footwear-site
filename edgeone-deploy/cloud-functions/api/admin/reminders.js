@@ -1,6 +1,7 @@
 import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { timingSafeEqual } from "node:crypto";
 import { getStore } from "../../_lib/platform-store.js";
+import { isInternalTest } from "../../_lib/inquiry-classification.js";
 import nodemailer from "nodemailer";
 
 function response(status, body) {
@@ -23,13 +24,6 @@ function authorized(request, env) {
   const a = Buffer.from(expected);
   const b = Buffer.from(supplied);
   return a.length === b.length && a.length > 0 && timingSafeEqual(a, b);
-}
-function isInternalTest(record) {
-  const text =
-    `${record?.name || ""} ${record?.company || ""} ${record?.requirements || ""} ${record?.quantity || ""}`.toLowerCase();
-  return /internal|deployment test|smtp test|test only|\b0\s*pairs?\b/.test(
-    text,
-  );
 }
 function addDays(date, days) {
   const value = new Date(`${date}T00:00:00.000Z`);

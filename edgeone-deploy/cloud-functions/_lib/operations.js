@@ -1,4 +1,5 @@
 import { ApiError, getJSON, hash, putJSON, text } from './workbench.js';
+import { isInternalTest } from './inquiry-classification.js';
 
 export const OPS_STORE = 'beiqiang-operations-v1';
 export const SOURCE = { backend: 'existing_private_store', postgres: false, store: 'beiqiang-inquiries', mode: 'read_on_request', scheduled: false };
@@ -64,7 +65,7 @@ const detailFields = [...summaryFields, 'email', 'whatsapp', 'requirements', 'bu
 const pick = (record, fields) => Object.fromEntries(fields.filter(key => typeof record[key] === 'string' || typeof record[key] === 'number').map(key => [key, record[key]]));
 export function safeInquiry(record, detail = false) {
   const safe = pick(record, detail ? detailFields : summaryFields);
-  safe.internalTest = record.internalTest === true || /internal|deployment test|smtp test|test only|\b0\s*pairs?\b/i.test(`${record.name || ''} ${record.company || ''} ${record.requirements || ''} ${record.quantity || ''}`);
+  safe.internalTest = isInternalTest(record);
   if (detail) {
     safe.messages = (Array.isArray(record.messages) ? record.messages : []).map(message => pick(message, ['id', 'role', 'sender', 'author', 'body', 'text', 'message', 'content', 'createdAt', 'sentAt', 'at']));
     safe.attachments = (Array.isArray(record.attachments) ? record.attachments : []).map(file => pick(file, ['id', 'name', 'fileName', 'size', 'contentType', 'uploadedAt']));

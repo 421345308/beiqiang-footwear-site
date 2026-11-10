@@ -204,7 +204,13 @@ export function createInquiryHandler({ getStoreImpl = getStore, createTransportI
         const notification = await sendNotifications(validation.inquiry, reference, accessCode, context.env || {}, createTransportImpl);
         record.notificationSent = notification.notificationSent;
         record.buyerConfirmationSent = notification.buyerConfirmationSent;
-        if (record.notificationSent || record.buyerConfirmationSent) await store.setJSON(key, record, { cacheControl: null });
+        if (record.notificationSent || record.buyerConfirmationSent) {
+          // The self-hosted adapter merges under an object lock so a sales
+          // update made during SMTP is not replaced by this older snapshot.
+          const fields = { notificationSent: record.notificationSent, buyerConfirmationSent: record.buyerConfirmationSent };
+          if (store.patchJSON) await store.patchJSON(key, fields);
+          else await store.setJSON(key, record, { cacheControl: null });
+        }
       } catch (notificationError) {
         console.error("Inquiry saved but notification failed", reference, notificationError);
       }

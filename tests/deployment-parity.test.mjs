@@ -12,6 +12,13 @@ test("publishes a non-sensitive machine-readable release fingerprint", async () 
   assert.deepEqual(await response.json(), SITE_RELEASE);
 });
 
+test("exports a private-admin entry that links to the existing workbench", async () => {
+  const html = await readFile(new URL("../edgeone-export-v1/admin/index.html", import.meta.url), "utf8");
+  assert.match(html, /贝强经营后台/);
+  assert.match(html, /href="\/admin\/workbench\/"/);
+  assert.match(html, /name="robots" content="noindex, nofollow/i);
+});
+
 test("detects a stale deployment independently from media availability", async () => {
   const inspection = inspectRelease({
     ...SITE_RELEASE,

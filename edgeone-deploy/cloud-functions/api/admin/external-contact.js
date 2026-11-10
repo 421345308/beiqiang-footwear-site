@@ -1,6 +1,7 @@
 import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { randomUUID, timingSafeEqual } from "node:crypto";
 import { getStore } from "../../_lib/platform-store.js";
+import { isInternalTest } from "../../_lib/inquiry-classification.js";
 
 const CHANNELS = new Set(["email", "whatsapp", "alibaba", "phone", "video_call", "other"]);
 const DIRECTIONS = new Set(["outbound", "inbound"]);
@@ -21,11 +22,6 @@ function authorized(request, env) {
   if (!expected || !supplied) return false;
   const expectedBytes = Buffer.from(expected); const suppliedBytes = Buffer.from(supplied);
   return expectedBytes.length === suppliedBytes.length && timingSafeEqual(expectedBytes, suppliedBytes);
-}
-
-function isInternalTest(record) {
-  const text = `${record?.name || ""} ${record?.company || ""} ${record?.requirements || ""} ${record?.quantity || ""}`.toLowerCase();
-  return /internal|deployment test|smtp test|test only|\b0\s*pairs?\b/.test(text);
 }
 
 function adminSafeRecord(record) {

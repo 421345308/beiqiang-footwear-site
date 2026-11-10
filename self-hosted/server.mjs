@@ -18,6 +18,10 @@ function canonicalOrigin(value) {
 export function requestNeedsTransaction(request) {
   const url = new URL(request.url), method = request.method;
   if (url.pathname === '/api/storage-upload') return false;
+  // Inquiry creation commits its first record in the storage adapter before
+  // SMTP is attempted. Wrapping the entire handler would send mail before the
+  // outer database transaction commits, and a later rollback could lose it.
+  if (method === 'POST' && url.pathname.replace(/\/$/, '') === '/api/inquiries') return false;
   if (!['GET', 'HEAD', 'OPTIONS'].includes(method)) return true;
   if (method !== 'GET') return false;
   const pathname = url.pathname.replace(/\/$/, '');

@@ -1,6 +1,8 @@
 import { wrapUnifiedHandler } from '../../_lib/unified-origin-proxy.js';
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import { getStore } from "../../_lib/platform-store.js";
+import { createOperationsStore } from "../../_lib/operations.js";
+import { isInternalTest } from "../../_lib/inquiry-classification.js";
 import nodemailer from "nodemailer";
 
 function response(status, body) {
@@ -22,11 +24,6 @@ function authorized(request, env) {
   const expectedBytes = Buffer.from(expected);
   const suppliedBytes = Buffer.from(supplied);
   return expectedBytes.length === suppliedBytes.length && timingSafeEqual(expectedBytes, suppliedBytes);
-}
-
-function isInternalTest(record) {
-  const text = `${record?.name || ""} ${record?.company || ""} ${record?.requirements || ""} ${record?.quantity || ""}`.toLowerCase();
-  return /internal|deployment test|smtp test|test only|\b0\s*pairs?\b/.test(text);
 }
 
 const PIPELINE_STATUSES = new Set(["new", "qualified", "sample_discussion", "quoted", "negotiation", "order_confirmed", "lost", "spam"]);
@@ -165,8 +162,9 @@ export function createAdminInquiriesHandler({ getStoreImpl = getStore } = {}) {
 
     try {
       const store = getStoreImpl("beiqiang-inquiries");
-      const { blobs } = await store.list({ prefix: "inquiries/", limit: 500, consistency: "strong" });
-      const records = (await Promise.all(blobs.map(({ key }) => store.get(key, { type: "json", consistency: "strong" })))).filter(Boolean);
+      // Reuse the workbench's complete, bounded-concurrency source reader.
+      // A single limited list can silently omit later pages of inquiries.
+      const records = await createOperationsStore({ inquiryStore: store }).listSources();
       records.sort((a, b) => String(b.receivedAt || "").localeCompare(String(a.receivedAt || "")));
       return response(200, {
         ok: true,

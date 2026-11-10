@@ -128,6 +128,17 @@ export function createStorage({ connectionString, dataDir, schema = 'beiqiang_st
         await query(`INSERT INTO ${table}(namespace,object_key,kind,body,file_hash,etag,metadata,size) VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT(namespace,object_key) DO UPDATE SET kind=EXCLUDED.kind,body=EXCLUDED.body,file_hash=EXCLUDED.file_hash,etag=EXCLUDED.etag,metadata=EXCLUDED.metadata,size=EXCLUDED.size,updated_at=clock_timestamp()`,[namespace,key,kind,kind==='binary'?null:data.toString(),fileHash,options.etag || digest,meta,data.length]);
       });
     }
+    async function patchJSON(key, patch) {
+      if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new Error('Invalid JSON patch');
+      return withTransaction(async()=>{
+        // get() acquires the same per-object advisory lock used by writes.
+        const current=await get(key,{type:'json'});
+        if (!current || typeof current !== 'object' || Array.isArray(current)) throw new Error('JSON object not found');
+        const updated={...current,...patch};
+        await write(key,updated,{cacheControl:null},'json');
+        return updated;
+      });
+    }
     async function list({prefix='',cursor,limit=Infinity,paginate=true,directories=false}={}) {
       if(typeof prefix!=='string'|| !(limit===Infinity || Number.isInteger(limit)&&limit>=0))throw new Error('Invalid storage pagination');
       let after=''; if(cursor){try{const c=JSON.parse(Buffer.from(cursor,'base64url'));if(c.namespace!==namespace||c.prefix!==prefix||c.directories!==directories||typeof c.after!=='string')throw 0; after=c.after;}catch{throw new Error('Invalid storage cursor');}}
@@ -140,7 +151,7 @@ export function createStorage({ connectionString, dataDir, schema = 'beiqiang_st
       if(last?.directory) marker=rows.filter(r=>r.object_key.startsWith(last.directory)).at(-1)?.object_key;
       return {blobs:selected.filter(r=>!r.directory).map(({key,etag})=>({key,etag})),directories:selected.filter(r=>r.directory).map(r=>r.directory),...(more&&last?{cursor:Buffer.from(JSON.stringify({namespace,prefix,directories,after:marker})).toString('base64url')}:{})};
     }
-    return {namespace,backend:'postgres-files',get,set:(k,v,o)=>write(k,v,o),setJSON:(k,v,o)=>write(k,v,o,'json'),list,
+    return {namespace,backend:'postgres-files',get,set:(k,v,o)=>write(k,v,o),setJSON:(k,v,o)=>write(k,v,o,'json'),patchJSON,list,
       createUploadUrl:async(key,{expireSeconds=3600,contentType,maxBytes=maxUploadBytes}={})=>{
         identity(key,'key');const origin=uploadConfig();
         if(!Number.isSafeInteger(maxBytes)||maxBytes<1||maxBytes>maxUploadBytes||!Number.isSafeInteger(expireSeconds)||expireSeconds<1||expireSeconds>86400||contentType!==undefined&&(typeof contentType!=='string'||contentType.length>255||/[\r\n]/.test(contentType)))throw new Error('Invalid upload authorization options');

@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { isInternalTest } from "./inquiry-classification.js";
 
 export const WORKSPACE_ACTIVITY_EVENTS = new Set([
   "workspace_access_request",
@@ -12,8 +13,7 @@ export const WORKSPACE_ACTIVITY_EVENTS = new Set([
 function clean(value, max = 80) { return typeof value === "string" ? value.trim().replace(/\0/g, "").slice(0, max) : ""; }
 
 export function isWorkspaceInternalTest(record) {
-  const text = `${record?.name || ""} ${record?.company || ""} ${record?.requirements || ""} ${record?.quantity || ""}`.toLowerCase();
-  return /internal|deployment test|smtp test|test only|\b0\s*pairs?\b/.test(text);
+  return isInternalTest(record);
 }
 
 export async function recordWorkspaceActivity(store, event, details = {}, { now = new Date(), randomUUIDImpl = randomUUID } = {}) {

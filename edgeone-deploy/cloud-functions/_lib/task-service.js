@@ -15,7 +15,8 @@ export async function unifiedTasks(deps, tasks, runs) {
     const handling = handlings.get(record.reference) || { version: 0, handling_status: 'open', internal_note: '', next_action: '' };
     const run = lastRun(run => run.inquiry_reference === record.reference);
     result.push({ id: `inquiry:${record.reference}`, kind: 'inquiry', reference: record.reference, title: record.company || record.name || record.reference,
-      status: handlingView(handling, record).pending ? '待处理' : '本次已处理', owner: '负责人', next: handling.next_action || '查看客户需求，准备内部处理方案', dependency: '', latest_run_id: run?.id || null, latest_run_status: run?.status || null, updated_at: handling.updated_at || record.updatedAt || record.receivedAt });
+      status: handlingView(handling, record).pending ? '待处理' : '本次已处理', owner: '负责人', next: handling.next_action || '查看客户需求，准备内部处理方案', dependency: '', latest_run_id: run?.id || null, latest_run_status: run?.status || null, updated_at: handling.updated_at || record.updatedAt || record.receivedAt,
+      notification_state: record.notificationSent === true ? 'accepted' : record.notificationSent === false ? 'not_confirmed' : 'unknown' });
   }
   return result;
 }

@@ -3,6 +3,7 @@ import test from 'node:test';
 import { createApiServer, requestNeedsTransaction } from '../self-hosted/server.mjs';
 import { loadRoutes } from '../self-hosted/routes.mjs';
 import { getStore } from '../edgeone-deploy/cloud-functions/_lib/platform-store.js';
+import { createInquiryHandler } from '../edgeone-deploy/cloud-functions/api/inquiries.js';
 
 function memoryStorage() {
   const values = new Map(); let closed = false, transactions = 0;
@@ -74,7 +75,7 @@ test('real PostgreSQL HTTP upload lifecycle, quarantine, once-only concurrent bu
   const schema = `http_${randomUUID().replaceAll('-', '')}`;
   const storage = createStorage({ connectionString: process.env.SELF_HOSTED_TEST_DATABASE_URL, dataDir: directory, schema, publicOrigin: 'https://www.beiqiang.online', uploadSecret: 'isolated-test-secret-'.repeat(3) });
   await storage.initialize();
-  const app = await createApiServer({ storage, publicOrigin: 'https://www.beiqiang.online', env: { INQUIRY_ADMIN_TOKEN: 'isolated-admin-test', WORKBENCH_OWNER_EMAIL: 'owner@example.com', WORKBENCH_SESSION_SECRET: 'isolated-session-secret-'.repeat(3), WORKBENCH_ORIGIN: 'https://www.beiqiang.online' } });
+  const app = await createApiServer({ storage, publicOrigin: 'https://www.beiqiang.online', env: { INQUIRY_ADMIN_TOKEN: 'isolated-admin-test', WORKBENCH_OWNER_EMAIL: 'owner@example.com', WORKBENCH_SESSION_SECRET: 'isolated-session-secret-'.repeat(3), WORKBENCH_ORIGIN: 'https://www.beiqiang.online', SMTP_PASS: 'isolated-test' } });
   await new Promise(resolve => app.server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${app.server.address().port}`;
   t.after(async () => { await storage.query(`DROP SCHEMA "${schema}" CASCADE`); await app.close(); await rm(directory, { recursive: true, force: true }); });
@@ -130,6 +131,33 @@ test('real PostgreSQL HTTP upload lifecycle, quarantine, once-only concurrent bu
   assert.equal((await fetch(`${base}/api/caught-database-failure`, { method: 'POST' })).status, 500);
   assert.equal(await storage.getStore('private-test').get('before-error', { type: 'json' }), null);
 
+  // A separate pool must see the saved inquiry before mail starts. A sales
+  // edit during mail must survive the later notification-status update.
+  const observer = createStorage({ connectionString: process.env.SELF_HOSTED_TEST_DATABASE_URL, dataDir: directory, schema });
+  let sent = 0, visibleBeforeMail = false, createdKey = '';
+  try {
+    const post = createInquiryHandler({ createTransportImpl: () => ({ sendMail: async () => {
+      sent += 1;
+      if (sent !== 1) return;
+      const otherStore = observer.getStore('beiqiang-inquiries');
+      const files = await otherStore.list({ prefix: `inquiries/${new Date().toISOString().slice(0, 10)}/` });
+      createdKey = files.blobs[0]?.key || '';
+      visibleBeforeMail = Boolean(createdKey && await otherStore.get(createdKey, { type: 'json' }));
+      if (visibleBeforeMail) await observer.withTransaction(async () => {
+        const record = await otherStore.get(createdKey, { type: 'json' });
+        record.internalNote = 'isolated operator update';
+        await otherStore.setJSON(createdKey, record);
+      });
+    } }) });
+    app.routes.set('/api/inquiries', { POST: post });
+    const inquiry = { name: 'Fixture Buyer', company: 'Fixture Co', market: 'United States', email: 'buyer@example.invalid', quantity: '10 pairs', requirements: 'Fixture request', consent: true, styleCode: 'BQ001', styleLabel: 'Fixture', formStartedAt: Date.now() - 5000 };
+    const saved = await fetch(`${base}/api/inquiries`, { method: 'POST', ...json(inquiry) });
+    assert.equal(saved.status, 201); assert.equal(sent, 2); assert.equal(visibleBeforeMail, true);
+    const record = await observer.getStore('beiqiang-inquiries').get(createdKey, { type: 'json' });
+    assert.equal(record.internalNote, 'isolated operator update');
+    assert.equal(record.notificationSent, true); assert.equal(record.buyerConfirmationSent, true);
+  } finally { await observer.close(); }
+
 
 });
 
@@ -142,6 +170,8 @@ test('transaction classification follows GET side effects while pure views stay 
   assert.equal(needs('/api/workbench?run_id=run&document=source'), true);
   assert.equal(needs('/api/operations?reference=BQ-test'), true);
   for (const path of ['/api/workbench-auth', '/api/workbench?document=source', '/api/workbench?import_versions=1', '/api/operations', '/api/admin/inquiries', '/api/inquiry-status', '/api/admin/analytics', '/api/admin/weekly-review', '/api/admin/reminders', '/api/admin/inquiry-attachment']) assert.equal(needs(path), false, path);
+  assert.equal(requestNeedsTransaction(new Request('https://www.beiqiang.online/api/inquiries', { method: 'POST' })), false);
+  assert.equal(requestNeedsTransaction(new Request('https://www.beiqiang.online/api/admin/inquiries', { method: 'PATCH' })), true);
 });
 
 

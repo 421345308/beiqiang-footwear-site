@@ -26,6 +26,13 @@ test('real PostgreSQL private storage roundtrip, transactions, concurrency and p
  const peer=createStorage({pool,dataDir,schema});
  await Promise.all([db,peer].map((instance,i)=>instance.withTransaction(async()=>{const st=instance.getStore(a.namespace),v=await st.get('inquiries/a.json',{type:'json'});v.messages.push('peer'+i);await st.setJSON('inquiries/a.json',v);})));
  assert.equal((await a.get('inquiries/a.json',{type:'json'})).messages.length,14);
+ await Promise.all([
+   db.withTransaction(async()=>{const value=await a.get('inquiries/a.json',{type:'json'});await new Promise(r=>setTimeout(r,10));value.next='operator update';await a.setJSON('inquiries/a.json',value);}),
+   a.patchJSON('inquiries/a.json',{notificationSent:true}),
+ ]);
+ const merged=await a.get('inquiries/a.json',{type:'json'});
+ assert.equal(merged.next,'operator update');assert.equal(merged.notificationSent,true);assert.equal(merged.messages.length,14);
+ await assert.rejects(a.patchJSON('inquiries/missing.json',{notificationSent:true}),/not found/);
  const races=await Promise.allSettled(Array.from({length:5},()=>a.setJSON('new',{one:1},{onlyIfNew:true})));
  assert.equal(races.filter(r=>r.status==='fulfilled').length,1);assert.ok(races.filter(r=>r.status==='rejected').every(r=>r.reason.code==='PRECONDITION_FAILED'));
  const signed=await files.createUploadUrl('upload/a',{contentType:'image/png'}),token=new URL(signed.url).searchParams.get('token');

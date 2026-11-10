@@ -36,6 +36,50 @@ test("returns newest inquiries and marks internal tests", async () => {
   assert.equal(body.records[1].internalTest, false);
 });
 
+test("reads every inquiry page with bounded parallel reads", async () => {
+  const records = Array.from({ length: 621 }, (_, i) => ({
+    reference: `BQ-${String(i).padStart(4, "0")}`,
+    receivedAt: new Date(Date.UTC(2026, 0, 1, 0, i)).toISOString(),
+    company: "Buyer Co",
+  }));
+  let active = 0, maxActive = 0, pages = 0;
+  const handler = createAdminInquiriesHandler({ getStoreImpl: () => ({
+    list: async ({ cursor, limit, paginate }) => {
+      pages += 1;
+      assert.equal(paginate, false);
+      const start = cursor ? Number(cursor) : 0;
+      const end = Math.min(start + limit, records.length);
+      return { blobs: records.slice(start, end).map((_, i) => ({ key: String(start + i) })), ...(end < records.length ? { cursor: String(end) } : {}) };
+    },
+    get: async (key) => {
+      active += 1;
+      maxActive = Math.max(maxActive, active);
+      await new Promise(resolve => setTimeout(resolve, 0));
+      active -= 1;
+      return records[Number(key)];
+    },
+  }) });
+  const result = await handler({ request: request(), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  const body = await result.json();
+  assert.equal(result.status, 200);
+  assert.equal(body.total, 621);
+  assert.equal(body.records[0].reference, records[620].reference);
+  assert.equal(pages, 4);
+  assert.ok(maxActive <= 20);
+});
+
+test("fails instead of returning a partial list if inquiry pagination loops", async () => {
+  const handler = createAdminInquiriesHandler({ getStoreImpl: () => ({
+    list: async () => ({ blobs: [], cursor: "same-cursor" }),
+    get: async () => null,
+  }) });
+  const result = await handler({ request: request(), env: { INQUIRY_ADMIN_TOKEN: "correct-token" } });
+  const body = await result.json();
+  assert.equal(result.status, 503);
+  assert.equal(body.ok, false);
+  assert.equal(body.records, undefined);
+});
+
 test("updates an inquiry pipeline record behind the admin token", async () => {
   const current = { reference: "BQ-20260823-ABCDEF12", receivedAt: "2026-08-23T08:00:00.000Z", company: "Buyer Co", status: "new" };
   let saved;
