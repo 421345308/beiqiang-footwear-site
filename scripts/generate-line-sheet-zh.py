@@ -170,7 +170,8 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
             paragraph(c, f'<b>鞋面：</b>{product["upperZh"]}', facts_x, facts_y, facts_w, 9 * mm, 6.4, 7.8, INK)
             facts_y -= 7 * mm
         if product["sizeZh"]:
-            paragraph(c, f'<b>尺码：</b>{product["sizeZh"]}', facts_x, facts_y, facts_w, 7 * mm, 6.4, 7.8, INK)
+            size_text = product["sizeZh"] + ("；尺码因颜色而异" if product.get("sizeNote", "").startswith("Sizes vary by colour:") else "")
+            paragraph(c, f'<b>尺码：</b>{size_text}', facts_x, facts_y, facts_w, 7 * mm, 6.4, 7.8, INK)
             facts_y -= 6 * mm
         colors_text = "、".join(product["colorsZh"][:3]) + ("……" if len(product["colorsZh"]) > 3 else "")
         paragraph(c, f'<b>颜色：</b>{colors_text}', facts_x, facts_y, facts_w, 8 * mm, 6.1, 7.3, INK)

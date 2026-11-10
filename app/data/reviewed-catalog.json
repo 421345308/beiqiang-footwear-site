@@ -3703,5 +3703,211 @@
       "Order quantity, packing and delivery requirements"
     ],
     "summaryZh": "针织套穿鞋，搭配立体EVA鞋底，提供浅灰和深灰两种配色，尺码 EU 38–47。"
+  },
+  {
+    "code": "BQ-LQ02505",
+    "name": "Dial-Closure Mesh Panel Outdoor Shoes",
+    "nameZh": "旋钮闭合网面拼接户外休闲鞋",
+    "localizedNames": {
+      "de": "Freizeitschuhe mit Drehverschluss und Mesh-Einsätzen",
+      "fr": "Chaussures à molette et empiècements en mesh",
+      "es": "Calzado con dial y paneles de malla"
+    },
+    "shortDescription": "Low-top shoes with a dial-and-cord closure and mesh panels. Black and grey, EU 39–48.",
+    "summaryZh": "低帮旋钮鞋带休闲鞋，网面拼接，黑色与灰色可选，尺码 EU 39–48。",
+    "group": "Dial-Closure Outdoor Casual Shoes",
+    "closure": "Dial",
+    "upper": "Mesh panels and overlays",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Grey"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Dial closure",
+      "Mesh panels and overlays",
+      "Textured sole profile"
+    ],
+    "slug": "bq-lq02505",
+    "sourceModel": "BQ-LQ02505",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2509",
+    "name": "Layered-Panel Dial Outdoor Shoes",
+    "nameZh": "旋钮闭合层叠拼片户外休闲鞋",
+    "localizedNames": {
+      "de": "Outdoor-Schuhe mit Drehverschluss und mehrlagigen Einsätzen",
+      "fr": "Chaussures outdoor à molette et renforts superposés",
+      "es": "Calzado outdoor de dial con refuerzos superpuestos"
+    },
+    "shortDescription": "Dial-and-cord low-top shoes with mesh sections and layered stitched panels. Grey or dark brown, EU 39–48.",
+    "summaryZh": "低帮旋钮鞋带休闲鞋，采用网面与层叠缝线拼片；灰色、深棕色可选，尺码 EU 39–48。",
+    "group": "Dial-Closure Outdoor Casual Shoes",
+    "closure": "Dial",
+    "upper": "Mesh panels and overlays",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "Grey",
+      "Dark Brown"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Dial closure",
+      "Mesh panels and overlays",
+      "Textured sole profile"
+    ],
+    "slug": "bq-lq2509",
+    "sourceModel": "BQ-LQ2509",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ029",
+    "name": "Lace-Up Walking Shoes with Lining Options",
+    "nameZh": "可选内里系带休闲步行鞋",
+    "localizedNames": {
+      "de": "Schnürschuhe mit wählbarem Futter",
+      "fr": "Chaussures à lacets avec choix de doublure",
+      "es": "Calzado de cordones con opciones de forro"
+    },
+    "shortDescription": "Black lace-up shoes with an EVA outsole and mesh or plush lining according to the selected configuration. EU 39–48.",
+    "summaryZh": "黑色系带休闲鞋，EVA外底；网布或加绒内里按所选版本确认。尺码 EU 39–48。",
+    "group": "Lace-Up Casual Walking Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "EVA sole",
+    "size": "EU 39–48",
+    "colors": [
+      "Black"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "fleece-lined-shoes",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Mesh or plush lining by selected configuration",
+      "EVA sole"
+    ],
+    "slug": "bq-lq029",
+    "sourceModel": "BQ-LQ029",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ1026",
+    "name": "Angular-Panel Dial Winter Ankle Boots",
+    "nameZh": "斜角拼片旋钮加绒短靴",
+    "localizedNames": {
+      "de": "Winter-Stiefeletten mit Drehverschluss und kantigem Einsatz",
+      "fr": "Bottines d’hiver à molette et empiècement angulaire",
+      "es": "Botines de invierno con dial y panel angular"
+    },
+    "shortDescription": "Ankle-height dial-closure boots with a plush lining and angular side panel. EU 36–48 across colours; sizes vary by colour.",
+    "summaryZh": "旋钮闭合加绒短靴，侧片呈斜角轮廓；尺码范围 EU 36–48，各色对应尺码不同。",
+    "group": "Dial-Closure Winter Ankle Boots",
+    "closure": "Dial",
+    "upper": "",
+    "sole": "",
+    "size": "EU 36–48",
+    "sizeNote": "Sizes vary by colour: Black EU 36–48; Grey EU 39–48; Burgundy EU 36–41.",
+    "colors": [
+      "Grey",
+      "Black",
+      "Burgundy"
+    ],
+    "collections": [
+      "ankle-boots",
+      "fleece-lined-shoes",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Dial closure",
+      "Plush lining",
+      "Angular side panel"
+    ],
+    "slug": "bq-lq1026",
+    "sourceModel": "BQ-LQ1026",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ9705",
+    "name": "Layered-Panel Dial Winter Ankle Boots",
+    "nameZh": "层叠拼片旋钮加绒短靴",
+    "localizedNames": {
+      "de": "Winter-Stiefeletten mit Drehverschluss und mehrlagigen Einsätzen",
+      "fr": "Bottines d’hiver à molette et renforts superposés",
+      "es": "Botines de invierno con dial y paneles superpuestos"
+    },
+    "shortDescription": "Ankle-height dial-closure boots with a plush lining and layered side panels. EU 36–48 across colours; sizes vary by colour.",
+    "summaryZh": "旋钮闭合加绒短靴，侧面采用层叠拼片；尺码范围 EU 36–48，各色对应尺码不同。",
+    "group": "Dial-Closure Winter Ankle Boots",
+    "closure": "Dial",
+    "upper": "",
+    "sole": "",
+    "size": "EU 36–48",
+    "sizeNote": "Sizes vary by colour: Black EU 36–48; Grey EU 39–48; Burgundy EU 36–41.",
+    "colors": [
+      "Black",
+      "Grey",
+      "Burgundy"
+    ],
+    "collections": [
+      "ankle-boots",
+      "fleece-lined-shoes",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Dial closure",
+      "Plush lining",
+      "Layered side panels"
+    ],
+    "slug": "bq-lq9705",
+    "sourceModel": "BQ-LQ9705",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

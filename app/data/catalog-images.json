@@ -75,6 +75,14 @@
     "05_view",
     "06_view"
   ],
+  "bq-lq02505": [
+    "01_main",
+    "02_grey",
+    "03_black_pair",
+    "04_grey_pair",
+    "05_black_onfoot",
+    "06_grey_onfoot"
+  ],
   "bq-lq02601": [
     "01_main",
     "02_view",
@@ -94,6 +102,12 @@
     "02_view",
     "03_view",
     "04_view"
+  ],
+  "bq-lq029": [
+    "01_main",
+    "02_side",
+    "03_onfoot",
+    "04_heel"
   ],
   "bq-lq032": [
     "01_main",
@@ -162,6 +176,14 @@
     "04_view",
     "05_side",
     "06_on-foot"
+  ],
+  "bq-lq1026": [
+    "01_main",
+    "02_black",
+    "03_burgundy",
+    "04_grey_outsole",
+    "05_black_onfoot",
+    "06_burgundy_heel"
   ],
   "bq-lq117-1": [
     "01_main",
@@ -243,6 +265,14 @@
     "03_view",
     "04_view",
     "05_view"
+  ],
+  "bq-lq2509": [
+    "01_main",
+    "02_brown",
+    "03_grey_side",
+    "04_brown_side",
+    "05_grey_onfoot",
+    "06_brown_onfoot"
   ],
   "bq-lq2510": [
     "01_main",
@@ -442,6 +472,14 @@
     "02_view",
     "03_view",
     "04_view"
+  ],
+  "bq-lq9705": [
+    "01_main",
+    "02_grey",
+    "03_burgundy",
+    "04_black_side",
+    "05_grey_onfoot",
+    "06_burgundy_side"
   ],
   "bq-lqk502": [
     "01_main",

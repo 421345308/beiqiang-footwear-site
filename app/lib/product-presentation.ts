@@ -4,6 +4,41 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-LQ02505": {
+    en: { summary: "Low-top dial-and-cord shoes with mesh panels, in black or grey. EU 39–48.", highlights: ["Dial closure with cord guides", "Mesh panels and stitched overlays", "Black or grey · EU 39–48"] },
+    zh: { summary: "低帮旋钮鞋带休闲鞋，网面拼接，黑色与灰色可选，尺码 EU 39–48。", highlights: ["旋钮鞋带与导环", "网面与缝线拼片", "黑色或灰色 · EU 39–48"] },
+    de: { summary: "Niedrige Schuhe mit Drehverschluss und Mesh-Einsätzen in Schwarz oder Grau. EU 39–48.", highlights: ["Drehverschluss mit Kordelführung", "Mesh und aufgenähte Besätze", "Schwarz oder Grau · EU 39–48"] },
+    fr: { summary: "Chaussures basses à molette avec empiècements mesh, en noir ou gris. EU 39–48.", highlights: ["Molette et passants de cordon", "Mesh et renforts cousus", "Noir ou gris · EU 39–48"] },
+    es: { summary: "Calzado bajo con dial y paneles de malla, en negro o gris. EU 39–48.", highlights: ["Dial y guías de cordón", "Malla y refuerzos cosidos", "Negro o gris · EU 39–48"] },
+  },
+  "BQ-LQ2509": {
+    en: { summary: "Low-top dial shoes with mesh sections and layered stitched panels. Grey or dark brown, EU 39–48.", highlights: ["Dial closure with cord guides", "Layered side panels", "Grey or dark brown · EU 39–48"] },
+    zh: { summary: "低帮旋钮鞋带休闲鞋，采用网面与层叠缝线拼片；灰色或深棕色，尺码 EU 39–48。", highlights: ["旋钮鞋带与导环", "层叠侧面拼片", "灰色或深棕色 · EU 39–48"] },
+    de: { summary: "Niedrige Schuhe mit Drehverschluss, Mesh und mehrlagigen Besätzen. Grau oder Dunkelbraun, EU 39–48.", highlights: ["Drehverschluss mit Kordelführung", "Mehrlagige Seitenpartien", "Grau oder Dunkelbraun · EU 39–48"] },
+    fr: { summary: "Chaussures basses à molette, mesh et renforts superposés. Gris ou marron foncé, EU 39–48.", highlights: ["Molette et passants de cordon", "Renforts latéraux superposés", "Gris ou marron foncé · EU 39–48"] },
+    es: { summary: "Calzado bajo de dial con malla y refuerzos superpuestos. Gris o marrón oscuro, EU 39–48.", highlights: ["Dial y guías de cordón", "Paneles laterales superpuestos", "Gris o marrón oscuro · EU 39–48"] },
+  },
+  "BQ-LQ029": {
+    en: { summary: "Black lace-up shoes with an EVA outsole. Mesh or plush lining depends on the selected configuration. EU 39–48.", highlights: ["Lace-up construction", "Mesh or plush lining by configuration", "EVA outsole · EU 39–48"] },
+    zh: { summary: "黑色系带休闲鞋，EVA外底；网布或加绒内里按所选版本确认。尺码 EU 39–48。", highlights: ["系带结构", "网布或加绒内里按版本确认", "EVA外底 · EU 39–48"] },
+    de: { summary: "Schwarze Schnürschuhe mit EVA-Außensohle. Mesh- oder Plüschfutter je nach Ausführung. EU 39–48.", highlights: ["Schnürung", "Mesh- oder Plüschfutter je nach Ausführung", "EVA-Außensohle · EU 39–48"] },
+    fr: { summary: "Chaussures noires à lacets et semelle extérieure EVA. Doublure mesh ou peluche selon la version. EU 39–48.", highlights: ["Fermeture à lacets", "Doublure mesh ou peluche selon la version", "Semelle extérieure EVA · EU 39–48"] },
+    es: { summary: "Calzado negro de cordones con suela exterior de EVA. Forro de malla o afelpado según la versión. EU 39–48.", highlights: ["Cierre de cordones", "Forro de malla o afelpado según la versión", "Suela exterior de EVA · EU 39–48"] },
+  },
+  "BQ-LQ1026": {
+    en: { summary: "Plush-lined ankle boots with a dial closure and angular side panel. EU 36–48 across colours; sizes vary by colour.", highlights: ["Dial closure", "Plush lining", "Angular side panel"] },
+    zh: { summary: "旋钮闭合加绒短靴，侧片呈斜角轮廓；尺码范围 EU 36–48，各色对应尺码不同。", highlights: ["旋钮闭合", "加绒内里", "斜角侧面拼片"] },
+    de: { summary: "Plüschgefütterte Stiefeletten mit Drehverschluss und kantigem Seiteneinsatz. EU 36–48 insgesamt; Größen je Farbe unterschiedlich.", highlights: ["Drehverschluss", "Plüschfutter", "Kantiger Seiteneinsatz"] },
+    fr: { summary: "Bottines à doublure peluche, molette et empiècement latéral angulaire. EU 36–48 au total ; pointures selon le coloris.", highlights: ["Fermeture à molette", "Doublure peluche", "Empiècement latéral angulaire"] },
+    es: { summary: "Botines de forro afelpado con dial y panel lateral angular. EU 36–48 en conjunto; las tallas varían según el color.", highlights: ["Cierre de dial", "Forro afelpado", "Panel lateral angular"] },
+  },
+  "BQ-LQ9705": {
+    en: { summary: "Plush-lined ankle boots with a dial closure and layered side panels. EU 36–48 across colours; sizes vary by colour.", highlights: ["Dial closure", "Plush lining", "Layered side panels"] },
+    zh: { summary: "旋钮闭合加绒短靴，侧面采用层叠拼片；尺码范围 EU 36–48，各色对应尺码不同。", highlights: ["旋钮闭合", "加绒内里", "层叠侧面拼片"] },
+    de: { summary: "Plüschgefütterte Stiefeletten mit Drehverschluss und mehrlagigen Seitenpartien. EU 36–48 insgesamt; Größen je Farbe unterschiedlich.", highlights: ["Drehverschluss", "Plüschfutter", "Mehrlagige Seitenpartien"] },
+    fr: { summary: "Bottines à doublure peluche, molette et renforts latéraux superposés. EU 36–48 au total ; pointures selon le coloris.", highlights: ["Fermeture à molette", "Doublure peluche", "Renforts latéraux superposés"] },
+    es: { summary: "Botines de forro afelpado con dial y paneles laterales superpuestos. EU 36–48 en conjunto; las tallas varían según el color.", highlights: ["Cierre de dial", "Forro afelpado", "Paneles laterales superpuestos"] },
+  },
   "BQ-9002": {
     en: { summary: "Knit slip-on with a sculpted EVA sole, in light grey and dark grey. EU 38–47.", highlights: ["Knit upper and slip-on opening", "Sculpted EVA sole", "Two colours · EU 38–47"] },
     zh: { summary: "针织套穿鞋，搭配立体EVA鞋底，提供浅灰和深灰两种配色，尺码 EU 38–47。", highlights: ["针织鞋面与套穿结构", "立体EVA鞋底", "两种配色 · EU 38–47"] },

@@ -95,6 +95,7 @@ const colors: Record<string, string> = {
   Apricot: "杏色",
   Brown: "棕色",
   "Wine Red": "酒红色",
+  "Burgundy": "酒红色",
   "Light Grey": "浅灰色",
   "Dark Grey": "深灰色",
   "Light Blue": "浅蓝色",

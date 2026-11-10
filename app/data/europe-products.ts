@@ -458,6 +458,7 @@ const colourWords: Record<string, readonly [string, string, string]> = {
   "all white": ["ganz weiß", "blanc intégral", "blanco integral"],
   "off white": ["gebrochenes Weiß", "blanc cassé", "blanco roto"],
   "wine red": ["weinrot", "bordeaux", "rojo vino"],
+  burgundy: ["burgunderrot", "bordeaux", "burdeos"],
   "military green": ["olivgrün", "vert militaire", "verde militar"],
   "olive grey": ["olivgrau", "gris olive", "gris oliva"],
   "army green": ["olivgrün", "vert armée", "verde militar"],
@@ -500,6 +501,11 @@ export function productTitle(p: Product, locale: EuropeLocale) {
 }
 export function productSizeNote(note: string, locale: EuropeLocale) {
   if (note.startsWith("Each paired label")) return t(locale, "paired");
+  if (note === "Sizes vary by colour: Black EU 36–48; Grey EU 39–48; Burgundy EU 36–41.") return {
+    de: "Größen je Farbe: Schwarz EU 36–48; Grau EU 39–48; Bordeaux EU 36–41.",
+    fr: "Pointures selon le coloris : noir EU 36–48 ; gris EU 39–48 ; bordeaux EU 36–41.",
+    es: "Tallas según el color: negro EU 36–48; gris EU 39–48; burdeos EU 36–41.",
+  }[locale];
   return {
     de: "Größensystem und Mustermaße vor der Bestellung prüfen.",
     fr: "Vérifier le système de pointures et les mesures sur échantillon avant commande.",
