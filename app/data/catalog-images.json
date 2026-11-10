@@ -1,4 +1,10 @@
 {
+  "bq-9002": [
+    "01_main",
+    "02_dark",
+    "03_light_outsole",
+    "04_dark_outsole"
+  ],
   "bq-c2627": [
     "01_main",
     "02_view",

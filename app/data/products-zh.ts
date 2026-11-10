@@ -229,6 +229,8 @@ export function factZh(value: string) {
     "Mesh panels and overlays": "网面与覆片拼接",
     "Mesh upper with overlays": "网面搭配覆片",
     "Contrast collar on the photographed styles": "实拍款式采用撞色鞋口",
+    "No-tie elastic-lace detail": "免系弹力鞋带细节",
+    "Lining material for the selected configuration": "所选配置的内里材料",
     "EVA upper": "EVA鞋面",
     "Pivoting heel strap": "可转动后跟带",
     "Vented upper and raised sole profile": "镂空鞋面与厚底轮廓",

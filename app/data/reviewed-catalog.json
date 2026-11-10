@@ -3663,5 +3663,45 @@
       "fr": "Chaussures décontractées noires à lacets et doublure fourrée",
       "es": "Calzado casual negro con cordones y forro afelpado"
     }
+  },
+  {
+    "code": "BQ-9002",
+    "slug": "bq-9002",
+    "sourceModel": "BQ-9002",
+    "name": "Knit Slip-On Shoes with Sculpted EVA Sole",
+    "nameZh": "针织套穿立体EVA底休闲鞋",
+    "localizedNames": {
+      "de": "Strick-Slipper mit plastisch geformter EVA-Sohle",
+      "fr": "Chaussures à enfiler en maille avec semelle EVA sculptée",
+      "es": "Calzado de punto sin cordones con suela EVA de relieve"
+    },
+    "shortDescription": "Knit slip-on shoes with a sculpted EVA sole. Light grey and dark grey colour options.",
+    "group": "Knit Slip-On Casual Shoes",
+    "closure": "Slip-On",
+    "upper": "Knitted textile upper",
+    "sole": "EVA sole",
+    "size": "EU 38–47",
+    "colors": [
+      "Light Grey",
+      "Dark Grey"
+    ],
+    "collections": [
+      "knit-slip-on",
+      "extended-size-shoes"
+    ],
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "highlights": [
+      "Knitted textile upper",
+      "Slip-on construction",
+      "EVA sole"
+    ],
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ],
+    "summaryZh": "针织套穿鞋，搭配立体EVA鞋底，提供浅灰和深灰两种配色，尺码 EU 38–47。"
   }
 ]

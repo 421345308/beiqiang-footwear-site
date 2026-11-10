@@ -92,8 +92,8 @@ test("keeps Chinese product evidence SKU-specific and provides conversion action
   const r1811Html = await r1811.text();
   assert.equal(r1811.status, 200);
   assert.match(r1811Html, /产品细节/);
-  assert.match(r1811Html, /所列配置采用网布内里/);
-  assert.match(r1811Html, /所列配置采用网布内里/);
+  assert.doesNotMatch(r1811Html, /所列配置采用网布内里/);
+  assert.match(r1811Html, /免系弹力鞋带细节/);
 
   const m8811 = await render("/zh/products/bq006");
   const m8811Html = await m8811.text();

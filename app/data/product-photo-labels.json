@@ -3671,5 +3671,23 @@
       "role": "detail",
       "colour": "White"
     }
+  ],
+  "BQ-9002": [
+    {
+      "role": "colour",
+      "colour": "Light Grey"
+    },
+    {
+      "role": "colour",
+      "colour": "Dark Grey"
+    },
+    {
+      "role": "outsole",
+      "colour": "Light Grey"
+    },
+    {
+      "role": "outsole",
+      "colour": "Dark Grey"
+    }
   ]
 }

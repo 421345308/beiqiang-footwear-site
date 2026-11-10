@@ -309,16 +309,18 @@ test("server-renders the evidence-led BQ009 product page without legacy supplier
   );
 });
 
-test("server-renders the exact BQ015 Alibaba-listed material configuration", async () => {
+test("server-renders BQ015 with its own Alibaba link and lining confirmation", async () => {
   const response = await render("/products/bq015");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /BQ015/);
   assert.doesNotMatch(html, /R1811/);
-  assert.match(html, /1601839073314/);
+  assert.match(html, /1601939743040/);
+  assert.doesNotMatch(html, /1601839073314/);
   assert.match(html, /Stretch fabric upper/i);
   assert.match(html, /EVA sole/i);
-  assert.match(html, /Mesh lining for the listed configuration/i);
+  assert.doesNotMatch(html, /Mesh lining for the listed configuration/i);
+  assert.match(html, /Lining material for the selected configuration/i);
   assert.match(html, /Fleece availability by color/i);
 });
 
@@ -328,7 +330,8 @@ test("server-renders the source-recorded BQ006 EVA without confirming its lining
   const html = await response.text();
   assert.match(html, /BQ006/);
   assert.doesNotMatch(html, /M8811/);
-  assert.match(html, /10000043734620/);
+  assert.match(html, /1601814931739/);
+  assert.doesNotMatch(html, /10000043734620/);
   assert.match(html, /EVA sole/i);
   assert.match(html, /Fleece option by selected color/i);
   assert.match(html, /Lining material and exact upper composition/i);
@@ -360,12 +363,12 @@ test("server-renders the verified BQ031 product page without legacy supplier cod
   );
 });
 
-test("uses the Alibaba store fallback only when a product has no mapped listing", async () => {
+test("links BQ014 to its confirmed Alibaba listing", async () => {
   const response = await render("/products/bq014");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Visit our Alibaba\.com store/);
-  assert.doesNotMatch(html, /Open BQ014 on Alibaba\.com/);
+  assert.match(html, /View BQ014 on Alibaba\.com/);
+  assert.match(html, /10000043732626/);
 });
 
 test("server-renders buyer-intent collection pages", async () => {

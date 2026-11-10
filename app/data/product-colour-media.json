@@ -2707,5 +2707,21 @@
         1
       ]
     }
+  },
+  "BQ-9002": {
+    "images": {
+      "Light Grey": 0,
+      "Dark Grey": 1
+    },
+    "views": {
+      "Light Grey": [
+        0,
+        2
+      ],
+      "Dark Grey": [
+        1,
+        3
+      ]
+    }
   }
 }

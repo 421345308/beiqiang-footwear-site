@@ -443,6 +443,9 @@ export const facts: Record<string, readonly [string, string, string]> = {
   Knit: ["Stricktextil", "Maille", "Punto"],
   Rubber: ["Gummi", "Caoutchouc", "Caucho"],
   "EVA sole": ["EVA-Sohle", "Semelle EVA", "Suela de EVA"],
+  "Slip-on construction": ["Slip-on-Form", "Forme à enfiler", "Diseño sin cordones"],
+  "No-tie elastic-lace detail": ["Elastische Schnürung ohne Binden", "Lacets élastiques sans nœud", "Cordones elásticos sin anudar"],
+  "Lining material for the selected configuration": ["Futtermaterial der gewählten Ausführung", "Doublure de la configuration choisie", "Forro de la configuración elegida"],
   "EVA + PEBA foamed sole structure": [
     "Geschäumte Sohlenstruktur aus EVA und PEBA",
     "Structure de semelle en mousse EVA et PEBA",

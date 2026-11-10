@@ -99,25 +99,27 @@ test("renders the second-batch material facts in buyer-readable Chinese", () => 
   assert.equal(productNameZh(product("BQ009")), "透气针织系带运动鞋");
 });
 
-test("keeps R1811 trunk materials attached to the exact website product identity", () => {
+test("keeps BQ015 identity and does not borrow the former BQ020 lining", () => {
   const bq015 = product("BQ015");
   assert.equal(bq015.sourceModel, "BQ015");
-  assert.equal(bq015.alibabaProductId, "1601839073314");
+  assert.equal(bq015.alibabaProductId, "1601939743040");
   assert.equal(bq015.upper, "Stretch fabric upper");
   assert.equal(bq015.sole, "EVA sole");
-  assert.match(bq015.highlights.join(" "), /Mesh lining recorded in Alibaba trunk for the listed configuration/);
+  assert.match(bq015.highlights.join(" "), /No-tie elastic-lace detail/);
+  assert.doesNotMatch(bq015.highlights.join(" "), /Mesh lining recorded in Alibaba trunk/);
   assert.match(bq015.confirmBeforeQuote.join(" "), /Fleece availability by color/);
+  assert.match(bq015.confirmBeforeQuote.join(" "), /Lining material for the selected configuration/);
   assert.doesNotMatch(bq015.confirmBeforeQuote.join(" "), /Outsole and lining materials/);
   assert.equal(
-    factZh("Mesh lining recorded in Alibaba trunk for the listed configuration"),
-    "Alibaba在售配置已记录网布内里",
+    factZh("No-tie elastic-lace detail"),
+    "免系弹力鞋带细节",
   );
 });
 
 test("keeps M8811 source-recorded EVA attached to BQ006 only", () => {
   const bq006 = product("BQ006");
   assert.equal(bq006.sourceModel, "BQ006");
-  assert.equal(bq006.alibabaProductId, "10000043734620");
+  assert.equal(bq006.alibabaProductId, "1601814931739");
   assert.equal(bq006.sole, "EVA sole");
   assert.match(bq006.highlights.join(" "), /EVA sole recorded in the source package/);
   assert.match(bq006.confirmBeforeQuote.join(" "), /Fleece option by selected color/);
@@ -148,7 +150,7 @@ test("keeps corrected source-package facts attached to BQ011, BQ013, BQ014 and B
     [bq014.name, bq014.shortDescription, bq014.group, ...bq014.highlights, ...bq014.confirmBeforeQuote].join(" "),
     /autumn|winter|fleece/i,
   );
-  assert.equal(bq014.alibabaProductId, undefined, "conflicting stored ID must wait for an Accio live readback");
+  assert.equal(bq014.alibabaProductId, "10000043732626");
 
   const bq018 = product("BQ018");
   assert.equal(bq018.sourceModel, "BQ018");

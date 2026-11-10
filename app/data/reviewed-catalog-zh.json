@@ -98,9 +98,7 @@
   "TPR": "TPR",
   "Footwear retailers, importers and assortment buyers": "鞋类零售商、进口商与批发采购客户",
   "Oxford Fabric": "牛津布",
-  "Lace-up fastening": "系带结构",
   "Low-top profile": "低帮鞋型",
-  "Slip-on construction": "套穿结构",
   "Casual silhouette": "休闲鞋型",
   "High-top profile": "高帮鞋型",
   "Tassel detail": "流苏装饰",
@@ -108,5 +106,6 @@
   "TPR outsole": "TPR外底",
   "Standard or fleece lining by colour": "所选颜色的普通或加绒内里版本",
   "MD sole": "MD鞋底",
-  "Dial closure": "旋钮闭合结构"
+  "Dial closure": "旋钮闭合结构",
+  "EVA sole": "EVA鞋底"
 }

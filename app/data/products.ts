@@ -1,6 +1,7 @@
 import reviewedCatalog from "./reviewed-catalog.json" with { type: "json" };
 import colourMedia from "./product-colour-media.json" with { type: "json" };
 import catalogImages from "./catalog-images.json" with { type: "json" };
+import productLinkOverrides from "./product-link-overrides.json" with { type: "json" };
 import { supplementaryProducts } from "./catalog-extension.ts";
 import { verifiedProducts } from "./verified-products.ts";
 import { publicProductFact } from "../lib/public-product-facts.ts";
@@ -455,11 +456,12 @@ const originalProducts: Product[] = [
     buyerFit: "Seasonal casual footwear buyers",
     highlights: [
       "Lace-up construction",
-      "Mesh lining recorded in Alibaba trunk for the listed configuration",
+      "No-tie elastic-lace detail",
       "Regular or fleece-lined direction",
     ],
     confirmBeforeQuote: [
       "Fleece availability by color",
+      "Lining material for the selected configuration",
       "Exact material execution for the selected order",
       ...commonConfirm,
     ],
@@ -912,6 +914,10 @@ const reviewedProducts = reviewedCatalog.map(record => ({ ...record, images: ima
 export const products: Product[] = [...originalProducts, ...supplementaryProducts, ...reviewedProducts].map(product => ({
   ...product,
   sourceModel: product.code,
+  // A reviewed projection can replace or remove an obsolete channel link.
+  alibabaProductId: Object.prototype.hasOwnProperty.call(productLinkOverrides, product.code)
+    ? (productLinkOverrides as Record<string, string | null>)[product.code] ?? undefined
+    : product.alibabaProductId,
   upper: publicProductFact(product.upper),
   sole: publicProductFact(product.sole),
   size: publicProductFact(product.size),

@@ -4,6 +4,13 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-9002": {
+    en: { summary: "Knit slip-on with a sculpted EVA sole, in light grey and dark grey. EU 38–47.", highlights: ["Knit upper and slip-on opening", "Sculpted EVA sole", "Two colours · EU 38–47"] },
+    zh: { summary: "针织套穿鞋，搭配立体EVA鞋底，提供浅灰和深灰两种配色，尺码 EU 38–47。", highlights: ["针织鞋面与套穿结构", "立体EVA鞋底", "两种配色 · EU 38–47"] },
+    de: { summary: "Strick-Slipper mit plastisch geformter EVA-Sohle in Hellgrau und Dunkelgrau. EU 38–47.", highlights: ["Strick-Obermaterial und Slip-on-Form", "Plastisch geformte EVA-Sohle", "Zwei Farben · EU 38–47"] },
+    fr: { summary: "Chaussure à enfiler en maille avec semelle EVA sculptée, en gris clair et gris foncé. EU 38–47.", highlights: ["Tige en maille et forme à enfiler", "Semelle EVA sculptée", "Deux coloris · EU 38–47"] },
+    es: { summary: "Calzado de punto sin cordones con suela EVA de relieve, en gris claro y gris oscuro. EU 38–47.", highlights: ["Empeine de punto y diseño sin cordones", "Suela EVA de relieve", "Dos colores · EU 38–47"] },
+  },
   "BQ-LQ02503": {
     en: { summary: "Low-top outdoor-style shoes with a dial fastening, mesh panels and curved overlays. Available in black and tan, EU 39–48.", highlights: ["Dial-and-cord fastening with fabric guides", "Mesh panels and curved side overlays", "Rear pull loop and textured sole profile"] },
     zh: { summary: "低帮户外风休闲鞋，旋钮闭合搭配网面拼接与弧形侧片。黑色、棕黄色可选，尺码 EU 39–48。", highlights: ["旋钮鞋带与织带导环", "网面拼接与弧形侧片", "后跟提拉环与纹路鞋底"] },
