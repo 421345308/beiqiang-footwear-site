@@ -27,7 +27,7 @@ export function matchesPriority(product: Product, priority: ProductPriority) {
   if (priority === "wide_toe") return product.fitEvidence === "wide_toe_verified";
   if (priority === "easy_on") return product.closure === "Slip-On";
   if (priority === "breathable_lace_up") return product.closure === "Lace-Up" && /breathable|mesh|hollow|open-knit/.test(haystack);
-  if (priority === "mens") return /men's|\bmen\b/.test(haystack);
+  if (priority === "mens") return /\bmen(?:['’]?s)?\b/.test(haystack);
   if (priority === "kids") return /kids|children/.test(haystack);
   return /winter|fleece|cold/.test(haystack);
 }

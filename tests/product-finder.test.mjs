@@ -25,6 +25,18 @@ test("closure is a hard filter and results are bounded", () => {
   assert.ok(matches.every((item) => item.product.closure === "Lace-Up"));
 });
 
+test("men's sourcing direction does not match women's styles", () => {
+  const women = products.find(product => product.code === "BQ1021");
+  const men = products.find(product => product.code === "BQ1003");
+  assert.ok(women); assert.ok(men);
+  assert.equal(matchesPriority(women, "mens"), false);
+  assert.equal(matchesPriority(men, "mens"), true);
+  for (const buyerChannel of ["importer_wholesaler", "online_seller", "brand_private_label", "sourcing_agent"]) {
+    const matches = findProducts(products, { buyerChannel, priority: "mens", closure: "any", resultCount: 4 });
+    assert.ok(matches.every(item => item.product.code !== "BQ1021"));
+  }
+});
+
 test("conflicting hard preferences return no invented recommendation", () => {
   const matches = findProducts(products, { buyerChannel: "sourcing_agent", priority: "easy_on", closure: "Lace-Up", resultCount: 4 });
   assert.deepEqual(matches, []);
