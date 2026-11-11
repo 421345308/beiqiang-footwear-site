@@ -168,7 +168,7 @@ Current public structure:
 
 - `/line-sheet/` and `/zh/line-sheet/` show a public six-page, eight-style English selection and a direct full-catalogue link in the page language. Buyers can preview or download before submitting any details.
 - The optional selection-advice form reuses the existing inquiry service and `line_sheet` context. Submission saves a private follow-up reference; it is no longer a download gate. Existing saved requests and analytics event names remain compatible.
-- English and Chinese PDFs are generated from the website product source; their manifests record the actual product and page counts. The German/French/Spanish catalogues use the same products and localized links.
+- English and Chinese PDFs are generated from the website product source; their manifests record the actual product and page counts. The German/French/Spanish catalogues use the same products and localized links. The fixed website PDF selection and the separate print-photo selection are use-scope snapshots, not product masters: adding a style to the website catalogue does not automatically add its photos to single-style or comparison printouts.
 - `app/data/selected-assortment.ts` is the website projection of the operations product matrix. Specifications, colours and photos are read from the current product records. The reviewed eight-style PDF comes from the operations project's `国际B2B精选册` source and includes a partner-sourced style not currently listed as a website product; the PDF uses its verified Alibaba link.
 - The operations project retains the selection rationale, image provenance and internal economic model. Internal costs and margins are not included in the website or buyer PDF.
 

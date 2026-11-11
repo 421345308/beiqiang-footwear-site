@@ -2,7 +2,7 @@
 "use client";
 import { useCallback, useEffect, useSyncExternalStore } from "react";
 import type { Product } from "../data/products";
-import { isInLineSheetSnapshot } from "../data/line-sheet-selection";
+import { isInPrintPhotoSnapshot } from "../data/line-sheet-selection";
 import { colorZh } from "../data/products-zh";
 import { colourImage, galleryImage, productColours, selectedColourFromStorage } from "../lib/product-colours";
 import { useClientReady } from "./useClientReady";
@@ -63,5 +63,5 @@ export default function ProductColourOptions({ product, locale = "en", detail = 
 
 export function ComparisonColour({ product, locale = "en" }: { product: Product; locale?: "en" | "zh" }) {
   const { id } = useProductColour(product);
-  return <div className={`comparison-colour${isInLineSheetSnapshot(product.code) ? "" : " website-only-photo"}`}><img src={galleryImage(product.images[colourImage(product, id)])} alt={product.code} width={260} height={260} loading="lazy" /><ProductColourOptions product={product} locale={locale} /></div>;
+  return <div className={`comparison-colour${isInPrintPhotoSnapshot(product.code) ? "" : " website-only-photo"}`}><img src={galleryImage(product.images[colourImage(product, id)])} alt={product.code} width={260} height={260} loading="lazy" /><ProductColourOptions product={product} locale={locale} /></div>;
 }

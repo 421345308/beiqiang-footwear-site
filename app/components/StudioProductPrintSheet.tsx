@@ -2,7 +2,7 @@
 "use client";
 
 import type { Product } from "../data/products";
-import { isInLineSheetSnapshot } from "../data/line-sheet-selection";
+import { isInPrintPhotoSnapshot } from "../data/line-sheet-selection";
 import { colorZh } from "../data/products-zh";
 import { productMediaUrl } from "../lib/product-media-url";
 import { colourOverview, withColour } from "../lib/product-colours";
@@ -17,7 +17,7 @@ export default function StudioProductPrintSheet({ product, name, description, up
   const { id, colour } = useProductColour(product);
   const validImage = (index: number | null | undefined): index is number => index != null && Number.isInteger(index) && Boolean(product.images[index]);
   const missingPhoto = Boolean(colour && !validImage(colour.imageIndex));
-  const includePhoto = isInLineSheetSnapshot(product.code);
+  const includePhoto = isInPrintPhotoSnapshot(product.code);
   const overview = colourOverview(product);
   const imageIndex = colour ? (validImage(colour.imageIndex) ? colour.imageIndex : validImage(overview) ? overview : null) : 0;
   const imageAlt = missingPhoto ? t("Colour overview", "配色概览") : `${name}${colour ? ` · ${zh ? colorZh(colour.name) : colour.name}` : ""}`;

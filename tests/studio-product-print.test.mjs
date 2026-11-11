@@ -42,7 +42,7 @@ test('a missing individual photograph never passes off the default shoe as the s
   assert.ok(!html.includes('<img'));
 });
 
-test('website-only product sheets retain the details and link without exporting the photo', () => {
+test('website catalogue additions retain the separate print-photo scope', () => {
   for (const code of ['BQ-LQ02507','BQ-LQ02508','BQ-LQ2559','BQ-LQ061','BQ-W5998']) {
     const item = products.find(p => p.code === code);
     assert.ok(item, code);

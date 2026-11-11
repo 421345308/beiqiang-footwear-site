@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { products } from '../app/data/products.ts';
-import { LINE_SHEET_CODES, selectLineSheetProducts } from '../app/data/line-sheet-selection.ts';
+import { LINE_SHEET_CODES, isInPrintPhotoSnapshot, selectLineSheetProducts } from '../app/data/line-sheet-selection.ts';
 import { productPresentation } from '../app/lib/product-presentation.ts';
 import { productColours } from '../app/lib/product-colours.ts';
 import { productCount } from '../app/data/catalog-meta.ts';
@@ -25,7 +25,8 @@ test('three existing Alibaba styles are distinct website products with colour-aw
     assert.equal(product.sole,'');
     assert.equal(product.images.length,4);
     assert.equal(new Set(product.images).size,4);
-    assert.ok(!LINE_SHEET_CODES.has(code),code);
+    assert.ok(LINE_SHEET_CODES.has(code), `${code} must be included in the website PDF`);
+    assert.ok(!isInPrintPhotoSnapshot(code), `${code} keeps its existing print-photo scope`);
     for (const colour of productColours(product)) {
       assert.notEqual(colour.imageIndex,null,`${code} ${colour.name}`);
       assert.ok(product.images[colour.imageIndex]);
@@ -36,7 +37,7 @@ test('three existing Alibaba styles are distinct website products with colour-aw
       assert.doesNotMatch(copy.summary,/in stock|waterproof|certified/i);
     }
   }
-  assert.equal(selectLineSheetProducts(products).length,149);
+  assert.equal(selectLineSheetProducts(products).length,154);
   assert.equal(products.length,productCount);
 });
 
@@ -53,7 +54,8 @@ test('two more existing Alibaba styles retain exact size labels and their own co
     assert.equal(product.upper,'');
     assert.equal(product.sole,'');
     assert.equal(product.images.length,4);
-    assert.ok(!LINE_SHEET_CODES.has(code),code);
+    assert.ok(LINE_SHEET_CODES.has(code), `${code} must be included in the website PDF`);
+    assert.ok(!isInPrintPhotoSnapshot(code), `${code} keeps its existing print-photo scope`);
     for (const colour of productColours(product)) {
       assert.notEqual(colour.imageIndex,null,`${code} ${colour.name}`);
       assert.ok(product.images[colour.imageIndex]);
