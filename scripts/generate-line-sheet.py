@@ -164,9 +164,13 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
             facts_y -= 7 * mm
         if product["size"]:
             size_text = product["size"] + ("; varies by colour" if product.get("sizeNote", "").startswith("Sizes vary by colour:") else "")
+            if product.get("sizeNote") == "EU size labels 47–50 require sample measurement confirmation.":
+                size_text += " (47–50: measure sample)"
             paragraph(c, f'<b>Sizes:</b> {size_text}', facts_x, facts_y, facts_w, 7 * mm, 6.5, 7.8, INK)
             facts_y -= 6 * mm
-        colors_text = ", ".join(product["colors"][:3]) + ("..." if len(product["colors"]) > 3 else "")
+        all_colors = ", ".join(product["colors"])
+        show_four = len(product["colors"]) == 4 and stringWidth("Colors: " + all_colors, "Helvetica", 6.2) <= facts_w - 3 * mm
+        colors_text = all_colors if show_four else ", ".join(product["colors"][:3]) + ("..." if len(product["colors"]) > 3 else "")
         paragraph(c, f'<b>Colors:</b> {colors_text}', facts_x, facts_y, facts_w, 8 * mm, 6.2, 7.3, INK)
         paragraph(c, '<b>View product details</b>', facts_x, y + 9 * mm, facts_w, 7 * mm, 6.3, 7.5, TERRACOTTA)
         c.linkURL(product_url, (facts_x, y + 3 * mm, facts_x + facts_w, y + 11 * mm), relative=0)

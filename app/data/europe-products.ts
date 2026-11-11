@@ -335,6 +335,8 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Perforated upper": ["Perforiertes Obermaterial", "Tige perforée", "Empeine perforado"],
+  "Decorative cord": ["Dekorative Kordel", "Cordon décoratif", "Cordón decorativo"],
   "Mesh upper": ["Mesh-Obermaterial", "Tige en mesh", "Empeine de malla"],
   "Lace-up fastening": ["Schnürung", "Fermeture à lacets", "Cierre de cordones"],
   "Wide toe box": ["Breiter Zehenbereich", "Bout large", "Puntera amplia"],
@@ -531,6 +533,7 @@ export function productTitle(p: Product, locale: EuropeLocale) {
   return p.localizedNames?.[locale] || names[p.name]?.[europeLocales.indexOf(locale)] || p.code;
 }
 export function productSizeNote(note: string, locale: EuropeLocale) {
+  if (note === "EU size labels 47–50 require sample measurement confirmation.") return {"de": "Für die EU-Größen 47–50 bitte die Mustermaße bestätigen.", "fr": "Pour les pointures EU 47–50, confirmer les mesures sur échantillon.", "es": "Para las tallas EU 47–50, confirmar las medidas de la muestra."}[locale];
   if (note.startsWith("Each paired label")) return t(locale, "paired");
   if (note === "Sizes vary by colour: Black EU 36–48; Grey EU 39–48; Burgundy EU 36–41.") return {
     de: "Größen je Farbe: Schwarz EU 36–48; Grau EU 39–48; Bordeaux EU 36–41.",

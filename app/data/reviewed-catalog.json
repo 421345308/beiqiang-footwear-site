@@ -4599,5 +4599,48 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ1003",
+    "name": "Men’s Perforated Slip-On Driving Loafers",
+    "nameZh": "男士打孔套脚豆豆鞋",
+    "localizedNames": {
+      "de": "Herren-Mokassins zum Hineinschlüpfen mit Lochmuster",
+      "fr": "Mocassins perforés à enfiler pour homme",
+      "es": "Mocasines perforados sin cordones para hombre"
+    },
+    "shortDescription": "Perforated slip-on loafers with a decorative cord. Black, grey, blue or red; EU 38–50.",
+    "summaryZh": "打孔套脚豆豆鞋，黑、灰、蓝或红色；EU 38–50。",
+    "group": "Men’s Perforated Slip-On Loafers",
+    "closure": "Slip-On",
+    "upper": "",
+    "sole": "",
+    "size": "EU 38–50",
+    "sizeNote": "EU size labels 47–50 require sample measurement confirmation.",
+    "colors": [
+      "Black",
+      "Grey",
+      "Blue",
+      "Red"
+    ],
+    "collections": [
+      "loafers-and-derbies",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Perforated upper",
+      "Slip-on construction",
+      "Decorative cord"
+    ],
+    "slug": "bq1003",
+    "sourceModel": "BQ1003",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

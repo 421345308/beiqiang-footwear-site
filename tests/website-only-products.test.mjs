@@ -37,7 +37,7 @@ test('three existing Alibaba styles are distinct website products with colour-aw
       assert.doesNotMatch(copy.summary,/in stock|waterproof|certified/i);
     }
   }
-  assert.equal(selectLineSheetProducts(products).length,156);
+  assert.equal(selectLineSheetProducts(products).length,157);
   assert.equal(products.length,productCount);
 });
 
@@ -78,4 +78,15 @@ test('website-only styles retain their identity through quote sharing and inquir
     assert.equal(result.error,undefined,code);
     assert.equal(result.inquiry.styleCode,code);
   }
+});
+
+
+test('BQ1003 uses the documented four colour options and flags the larger size measurements',()=>{
+ const item=products.find(p=>p.code==='BQ1003');
+ assert.equal(item.closure,'Slip-On');
+ assert.deepEqual(item.colors,['Black','Grey','Blue','Red']);
+ assert.equal(item.size,'EU 38–50');
+ assert.match(item.sizeNote,/47–50/);
+ assert.equal(item.upper,'');
+ assert.equal(item.sole,'');
 });

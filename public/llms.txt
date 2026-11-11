@@ -38,7 +38,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 156 organized product pages; this is not the factory's entire product range.
+- The website currently contains 157 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -202,3 +202,4 @@
 - BQ-W5998: Closed-Toe Backless Mules with Buckle Strap — https://www.beiqiang.online/products/bq-w5998/
 - BQ-LQ021: Wide Toe Box Mesh Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq-lq021/
 - BQ-LQ052: Wide Toe Box Cutout Lace-Up Shoes — https://www.beiqiang.online/products/bq-lq052/
+- BQ1003: Men’s Perforated Slip-On Driving Loafers — https://www.beiqiang.online/products/bq1003/

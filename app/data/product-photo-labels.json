@@ -4124,5 +4124,23 @@
       "role": "side",
       "colour": "Beige"
     }
+  ],
+  "BQ1003": [
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "pair",
+      "colour": "Grey"
+    },
+    {
+      "role": "pair",
+      "colour": "Blue"
+    },
+    {
+      "role": "pair",
+      "colour": "Red"
+    }
   ]
 }

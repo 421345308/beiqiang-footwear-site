@@ -4,6 +4,48 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ1003": {
+    "en": {
+      "summary": "Perforated slip-on loafers with a decorative cord. Black, grey, blue or red; EU 38–50.",
+      "highlights": [
+        "Perforated upper",
+        "Slip-on construction",
+        "Decorative cord"
+      ]
+    },
+    "zh": {
+      "summary": "打孔套脚豆豆鞋，黑、灰、蓝或红色；EU 38–50。",
+      "highlights": [
+        "鞋面打孔",
+        "套穿结构",
+        "鞋面装饰系绳"
+      ]
+    },
+    "de": {
+      "summary": "Perforierte Mokassins zum Hineinschlüpfen. Schwarz, Grau, Blau oder Rot; EU 38–50.",
+      "highlights": [
+        "Perforiertes Obermaterial",
+        "Zum Hineinschlüpfen",
+        "Dekorative Kordel"
+      ]
+    },
+    "fr": {
+      "summary": "Mocassins perforés à enfiler. Noir, gris, bleu ou rouge ; EU 38–50.",
+      "highlights": [
+        "Tige perforée",
+        "À enfiler",
+        "Cordon décoratif"
+      ]
+    },
+    "es": {
+      "summary": "Mocasines perforados sin cordones. Negro, gris, azul o rojo; EU 38–50.",
+      "highlights": [
+        "Empeine perforado",
+        "Sin cordones",
+        "Cordón decorativo"
+      ]
+    }
+  },
   "BQ-LQ021": {
     "en": {
       "summary": "Wide toe box lace-up walking shoes with a mesh upper. Blue, light grey or black; EU 39–48.",
