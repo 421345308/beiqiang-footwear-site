@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { products } from '../app/data/products.ts';
+import { selectLineSheetProducts } from '../app/data/line-sheet-selection.ts';
 import { europeLocales } from '../app/data/europe-copy.ts';
 
 const root = resolve(import.meta.dirname, '..');
@@ -18,7 +19,8 @@ if(!python) throw new Error('ReportLab is required. Set BEIQIANG_PYTHON to its P
 const result=spawnSync(python,[resolve(root,'scripts/generate-europe-line-sheets.py'),dataPath],{cwd:root,stdio:'inherit'});
 if(result.error) throw result.error;
 if(result.status!==0) process.exit(result.status || 1);
-const manifest={productCount:products.length,pageCount:Math.ceil(products.length/4)+2,translationDataSha256:createHash('sha256').update(JSON.stringify(sheets)).digest('hex'),files:{}};
+const selectedProducts=selectLineSheetProducts(products);
+const manifest={productCount:selectedProducts.length,pageCount:Math.ceil(selectedProducts.length/4)+2,translationDataSha256:createHash('sha256').update(JSON.stringify(sheets)).digest('hex'),files:{}};
 for(const locale of europeLocales){
   const name=`beiqiang-footwear-line-sheet-${locale}-2026.pdf`;
   const bytes=await readFile(resolve(root,'public/downloads',name));

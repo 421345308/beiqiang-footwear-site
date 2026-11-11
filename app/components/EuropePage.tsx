@@ -13,6 +13,7 @@ import { selectedAssortment, selectedCatalogue } from "../data/selected-assortme
 import { productMatchesCatalogDirection } from "../lib/catalog-filtering";
 import { productTitle } from "../data/europe-products";
 import { products } from "../data/products";
+import { lineSheetProductCount } from "../data/line-sheet-selection";
 import { discoveryCategories } from "../data/product-discovery";
 import { europeCollection } from "../data/europe-collections";
 import {
@@ -48,8 +49,8 @@ const titles: Record<string, CopyKey> = {
   "/sample-order-process/": "processTitle",
   "/sourcing-review/": "custom",
 };
-function pageCopy(locale: EuropeLocale, key: CopyKey) {
-  return t(locale, key).replaceAll("{count}", String(products.length))
+function pageCopy(locale: EuropeLocale, key: CopyKey, count = products.length) {
+  return t(locale, key).replaceAll("{count}", String(count))
     .replaceAll("{selected}", String(selectedCatalogue.styleCount))
     .replaceAll("{pages}", String(selectedCatalogue.pageCount));
 }
@@ -85,6 +86,7 @@ export function europeMetadata(localeId: string, path: string): Metadata {
                 : path === "/privacy/"
                   ? "privacyText"
                   : "samplesText",
+        path === "/line-sheet/" ? lineSheetProductCount : products.length,
       );
   return {
     title: `${title} | Beiqiang`,
@@ -286,12 +288,12 @@ export default function EuropePage({
           <p>{t(locale, "termsText")}</p>
         ) : path === "/line-sheet/" ? (
           <>
-            <p className="europe-lead">{pageCopy(locale, "catalogueSummary")}</p>
+            <p className="europe-lead">{pageCopy(locale, "catalogueSummary", lineSheetProductCount)}</p>
             <div className="europe-catalogue-options">
             <article><h2>{pageCopy(locale, "selectedCatalogue")}</h2><p>{pageCopy(locale, "selectedPdfNote")}</p>
             <a className="button" href={versionedCatalogueUrl(selectedCatalogue.path)} download>{t(locale, "selectedDownload")} ↗</a>
             <Link className="studio-text-link" href="/line-sheet/">{t(locale, "selectedPreview")} ↗</Link></article>
-            <article><h2>{pageCopy(locale, "fullCatalogue")}</h2>
+            <article><h2>{pageCopy(locale, "fullCatalogue", lineSheetProductCount)}</h2>
             <p>{t(locale, "pdfNote")}</p>
             <a className="button" href={versionedCatalogueUrl(`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`)} download>
               {t(locale, "downloadPdf")}

@@ -4,6 +4,127 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-LQ02507": {
+    "en": {
+      "summary": "Low-top lace-up shoes with a side zipper and layered panels. Brown or blue; EU 39–48.",
+      "highlights": [
+        "Lace-up fastening",
+        "Side zipper",
+        "Layered panels"
+      ]
+    },
+    "zh": {
+      "summary": "低帮系带鞋，带侧拉链和拼片；棕色或蓝色，EU 39–48。",
+      "highlights": [
+        "系带结构",
+        "侧拉链",
+        "层叠拼片"
+      ]
+    },
+    "de": {
+      "summary": "Niedrige Schnürschuhe mit seitlichem Reißverschluss und mehrlagigen Einsätzen. Braun oder Blau; EU 39–48.",
+      "highlights": [
+        "Schnürung",
+        "Seitlicher Reißverschluss",
+        "Mehrlagige Einsätze"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures basses à lacets, zip latéral et empiècements superposés. Marron ou bleu ; EU 39–48.",
+      "highlights": [
+        "Fermeture à lacets",
+        "Zip latéral",
+        "Empiècements superposés"
+      ]
+    },
+    "es": {
+      "summary": "Calzado bajo de cordones con cremallera lateral y paneles superpuestos. Marrón o azul; EU 39–48.",
+      "highlights": [
+        "Cierre de cordones",
+        "Cremallera lateral",
+        "Paneles superpuestos"
+      ]
+    }
+  },
+  "BQ-LQ02508": {
+    "en": {
+      "summary": "Low-top lace-up shoes with layered panels. Brown or blue; EU 39–48.",
+      "highlights": [
+        "Lace-up fastening",
+        "Layered panels"
+      ]
+    },
+    "zh": {
+      "summary": "低帮系带鞋，层叠拼片设计；棕色或蓝色，EU 39–48。",
+      "highlights": [
+        "系带结构",
+        "层叠拼片"
+      ]
+    },
+    "de": {
+      "summary": "Niedrige Schnürschuhe mit mehrlagigen Einsätzen. Braun oder Blau; EU 39–48.",
+      "highlights": [
+        "Schnürung",
+        "Mehrlagige Einsätze"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures basses à lacets et empiècements superposés. Marron ou bleu ; EU 39–48.",
+      "highlights": [
+        "Fermeture à lacets",
+        "Empiècements superposés"
+      ]
+    },
+    "es": {
+      "summary": "Calzado bajo de cordones con paneles superpuestos. Marrón o azul; EU 39–48.",
+      "highlights": [
+        "Cierre de cordones",
+        "Paneles superpuestos"
+      ]
+    }
+  },
+  "BQ-LQ2559": {
+    "en": {
+      "summary": "Wide-toe lace-up shoes with a stitched toe. Black or khaki; EU 39–48. Check sample fit.",
+      "highlights": [
+        "Wide toe box; sample fit should be checked",
+        "Lace-up fastening",
+        "Stitched toe"
+      ]
+    },
+    "zh": {
+      "summary": "宽鞋头系带鞋，鞋头车缝设计；黑色或卡其色，EU 39–48，合脚程度以样品确认。",
+      "highlights": [
+        "宽鞋头；以样品确认合脚",
+        "系带结构",
+        "鞋头车缝"
+      ]
+    },
+    "de": {
+      "summary": "Schnürschuhe mit weiter Zehenbox und genähter Vorderkappe. Schwarz oder Khaki; EU 39–48. Passform am Muster prüfen.",
+      "highlights": [
+        "Weite Zehenbox; Muster anprobieren",
+        "Schnürung",
+        "Genähte Vorderkappe"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures à lacets, bout large et dessus cousu. Noir ou kaki ; EU 39–48. Vérifier le chaussant sur échantillon.",
+      "highlights": [
+        "Bout large ; vérifier le chaussant",
+        "Fermeture à lacets",
+        "Dessus cousu"
+      ]
+    },
+    "es": {
+      "summary": "Calzado de cordones con puntera ancha y pala cosida. Negro o caqui; EU 39–48. Compruebe el ajuste con una muestra.",
+      "highlights": [
+        "Puntera ancha; comprobar el ajuste",
+        "Cierre de cordones",
+        "Pala cosida"
+      ]
+    }
+  },
   "BQ-LQ018": {
     "en": {
       "summary": "Low-top lace-up shoes with layered side panels and a rubber outsole. Black, black/grey, black/green or black/khaki; EU 37–48.",

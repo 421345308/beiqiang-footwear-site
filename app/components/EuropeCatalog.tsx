@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { products, type Product } from "../data/products";
+import { lineSheetProductCount } from "../data/line-sheet-selection";
 import {
   t,
   categories,
@@ -195,7 +196,7 @@ export default function EuropeCatalog({
       <p className="europe-lead">
         {t(locale, finder ? "finderIntro" : "catalogIntro")}
       </p>
-      {!finder && <a className="catalog-download-link" href={versionedCatalogueUrl(`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`)} download>{t(locale, "downloadPdf")} ↓</a>}
+      {!finder && <a className="catalog-download-link" href={versionedCatalogueUrl(`/downloads/beiqiang-footwear-line-sheet-${locale}-2026.pdf`)} download>{t(locale, "downloadPdf")} ({lineSheetProductCount}) ↓</a>}
       <details className="europe-filters" ref={filters}>
         <summary>{t(locale, "filters")}</summary>
         <div className="europe-filter-grid">{fields}</div>

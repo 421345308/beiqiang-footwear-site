@@ -3998,5 +3998,59 @@
       "role": "on-foot",
       "colour": "Beige"
     }
+  ],
+  "BQ-LQ02507": [
+    {
+      "role": "side",
+      "colour": "Brown"
+    },
+    {
+      "role": "side",
+      "colour": "Blue"
+    },
+    {
+      "role": "pair",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Blue"
+    }
+  ],
+  "BQ-LQ02508": [
+    {
+      "role": "side",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Blue"
+    },
+    {
+      "role": "pair",
+      "colour": "Brown"
+    },
+    {
+      "role": "pair",
+      "colour": "Blue"
+    }
+  ],
+  "BQ-LQ2559": [
+    {
+      "role": "pair",
+      "colour": "Black"
+    },
+    {
+      "role": "side",
+      "colour": "Khaki"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Khaki"
+    }
   ]
 }

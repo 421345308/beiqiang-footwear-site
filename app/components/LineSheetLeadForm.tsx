@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
-import { productCount } from "../data/catalog-meta";
+import { lineSheetProductCount } from "../data/line-sheet-selection";
 import { versionedCatalogueUrl } from "../lib/catalog-downloads";
 
 const DOWNLOAD_PATH = versionedCatalogueUrl("/downloads/beiqiang-footwear-line-sheet-2026.pdf");
@@ -37,8 +37,8 @@ export default function LineSheetLeadForm() {
     try {
       const response = await fetch("/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
         name, company, buyerType, market, quantity, email, whatsapp, website, consent, ...contactPreferences,
-        styleCode: "CATALOG-2026", styleLabel: `Beiqiang ${productCount}-Style Footwear Line Sheet`, context: "line_sheet", projectPath: "base_style_adaptation",
-        requirements: `Catalogue interest: ${direction}. ${notes || `Buyer requested the current ${productCount}-style line sheet for product review.`}`,
+        styleCode: "CATALOG-2026", styleLabel: `Beiqiang ${lineSheetProductCount}-Style Footwear Line Sheet`, context: "line_sheet", projectPath: "base_style_adaptation",
+        requirements: `Catalogue interest: ${direction}. ${notes || `Buyer requested the PDF ${lineSheetProductCount}-style line sheet for product review.`}`,
         formStartedAt: startedAt.current, attribution: getAttribution(), page: window.location.pathname,
       }) });
       const result = await response.json().catch(() => ({}));

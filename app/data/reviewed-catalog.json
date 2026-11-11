@@ -4318,5 +4318,124 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ-LQ02507",
+    "name": "Side-Zip Lace-Up Low-Top Shoes",
+    "nameZh": "侧拉链系带低帮休闲鞋",
+    "localizedNames": {
+      "de": "Niedrige Schnürschuhe mit seitlichem Reißverschluss",
+      "fr": "Chaussures basses à lacets et zip latéral",
+      "es": "Calzado bajo de cordones con cremallera lateral"
+    },
+    "shortDescription": "Low-top lace-up shoes with a side zipper and layered panels. Brown or blue; EU 39–48.",
+    "summaryZh": "低帮系带鞋，带侧拉链和拼片；棕色或蓝色，EU 39–48。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "Brown",
+      "Blue"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Side zipper",
+      "Layered panels"
+    ],
+    "slug": "bq-lq02507",
+    "sourceModel": "BQ-LQ02507",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ02508",
+    "name": "Panelled Lace-Up Low-Top Shoes",
+    "nameZh": "拼片系带低帮休闲鞋",
+    "localizedNames": {
+      "de": "Niedrige Schnürschuhe mit mehrteiligen Einsätzen",
+      "fr": "Chaussures basses à lacets et empiècements",
+      "es": "Calzado bajo de cordones con paneles"
+    },
+    "shortDescription": "Low-top lace-up shoes with layered panels. Brown or blue; EU 39–48.",
+    "summaryZh": "低帮系带鞋，层叠拼片设计；棕色或蓝色，EU 39–48。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "Brown",
+      "Blue"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Layered panels"
+    ],
+    "slug": "bq-lq02508",
+    "sourceModel": "BQ-LQ02508",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2559",
+    "name": "Wide-Toe Lace-Up Casual Shoes with Stitched Toe",
+    "nameZh": "宽鞋头车缝鞋头系带休闲鞋",
+    "localizedNames": {
+      "de": "Schnür-Freizeitschuhe mit weiter Zehenbox und genähter Vorderkappe",
+      "fr": "Chaussures à lacets, bout large et dessus cousu",
+      "es": "Calzado de cordones con puntera ancha y pala cosida"
+    },
+    "shortDescription": "Wide-toe lace-up shoes with a stitched toe. Black or khaki; EU 39–48. Check sample fit.",
+    "summaryZh": "宽鞋头系带鞋，鞋头车缝设计；黑色或卡其色，EU 39–48，合脚程度以样品确认。",
+    "group": "Wide Toe Lace-Up Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "Black",
+      "Khaki"
+    ],
+    "collections": [
+      "wide-toe-box",
+      "casual-sneakers"
+    ],
+    "highlights": [
+      "Wide toe box; sample fit should be checked",
+      "Lace-up fastening",
+      "Stitched toe"
+    ],
+    "slug": "bq-lq2559",
+    "sourceModel": "BQ-LQ2559",
+    "fitEvidence": "wide_toe_verified",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

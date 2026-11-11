@@ -8,10 +8,15 @@ test("wide-toe recommendations never include an unverified fit claim", () => {
   const matches = findProducts(products, { buyerChannel: "importer_wholesaler", priority: "wide_toe", closure: "any", resultCount: 4 });
   assert.equal(matches.length, 4);
   assert.equal(new Set(matches.map((item) => item.product.code)).size, matches.length);
-  assert.ok(matches.some((item) => item.product.code === "BQ-LQ2580"));
-  assert.ok(matches.some((item) => item.product.code === "BQ001"));
-  assert.ok(matches.some((item) => item.product.code === "BQ002"));
   assert.ok(matches.every((item) => item.product.fitEvidence === "wide_toe_verified"));
+  // Adding another verified style may change the top four without making
+  // previously verified styles ineligible.
+  for (const code of ["BQ-LQ2580", "BQ001", "BQ002", "BQ-LQ2559"]) {
+    const product = products.find((item) => item.code === code);
+    assert.ok(product, code);
+    assert.equal(matchesPriority(product, "wide_toe"), true, code);
+    assert.equal(findProducts([product], { buyerChannel: "importer_wholesaler", priority: "wide_toe", closure: "any", resultCount: 4 })[0]?.product.code, code);
+  }
 });
 
 test("closure is a hard filter and results are bounded", () => {

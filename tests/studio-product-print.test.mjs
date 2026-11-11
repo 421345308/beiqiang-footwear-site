@@ -41,3 +41,17 @@ test('a missing individual photograph never passes off the default shoe as the s
   assert.ok(html.includes('<dd>Unpictured</dd>'));
   assert.ok(!html.includes('<img'));
 });
+
+test('website-only product sheets retain the details and link without exporting the photo', () => {
+  for (const code of ['BQ-LQ02507','BQ-LQ02508','BQ-LQ2559']) {
+    const item = products.find(p => p.code === code);
+    assert.ok(item, code);
+    for (const locale of ['en','zh']) {
+      const html = render(productColours(item)[0], locale, item);
+      assert.ok(!html.includes('<img'), `${code} ${locale} must not export a photo`);
+      assert.ok(html.includes(item.code) && html.includes('https://example.com/products/style/'));
+      assert.ok(html.includes(locale === 'zh' ? '产品图片请在网站查看。' : 'View the product photo on the website.'));
+    }
+  }
+  assert.ok(render(productColours(product)[0]).includes('<img'), 'previously released sheet keeps its photograph');
+});

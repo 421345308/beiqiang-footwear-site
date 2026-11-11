@@ -2996,5 +2996,53 @@
         2
       ]
     }
+  },
+  "BQ-LQ02507": {
+    "images": {
+      "Brown": 0,
+      "Blue": 1
+    },
+    "views": {
+      "Brown": [
+        0,
+        2
+      ],
+      "Blue": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQ02508": {
+    "images": {
+      "Brown": 0,
+      "Blue": 1
+    },
+    "views": {
+      "Brown": [
+        0,
+        2
+      ],
+      "Blue": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQ2559": {
+    "images": {
+      "Black": 0,
+      "Khaki": 1
+    },
+    "views": {
+      "Black": [
+        0,
+        2
+      ],
+      "Khaki": [
+        1,
+        3
+      ]
+    }
   }
 }

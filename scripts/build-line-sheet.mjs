@@ -4,14 +4,16 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { join, resolve } from "node:path";
 import { products } from "../app/data/products.ts";
+import { selectLineSheetProducts } from "../app/data/line-sheet-selection.ts";
 import { buyerFitZh, closureZh, colorZh, factZh, productNameZh, productSummaryZh } from "../app/data/products-zh.ts";
 
 const projectRoot = resolve(import.meta.dirname, "..");
+const selectedProducts = selectLineSheetProducts(products);
 const dataFile = resolve(projectRoot, "tmp", "pdfs", "line-sheet-products.json");
 const chineseDataFile = resolve(projectRoot, "tmp", "pdfs", "line-sheet-products-zh.json");
 await mkdir(resolve(projectRoot, "tmp", "pdfs"), { recursive: true });
-await writeFile(dataFile, `${JSON.stringify(products, null, 2)}\n`, "utf8");
-await writeFile(chineseDataFile, `${JSON.stringify(products.map((product) => ({
+await writeFile(dataFile, `${JSON.stringify(selectedProducts, null, 2)}\n`, "utf8");
+await writeFile(chineseDataFile, `${JSON.stringify(selectedProducts.map((product) => ({
   ...product,
   nameZh: productNameZh(product),
   summaryZh: productSummaryZh(product),
@@ -60,9 +62,9 @@ for (const name of pdfFiles) {
   files[name] = { sha256: sha256(outputBytes), bytes: outputBytes.length };
 }
 const manifest = {
-  productCount: products.length,
-  pageCount: Math.ceil(products.length / 5) + 2,
-  productDataSha256: sha256(JSON.stringify(products)),
+  productCount: selectedProducts.length,
+  pageCount: Math.ceil(selectedProducts.length / 5) + 2,
+  productDataSha256: sha256(JSON.stringify(selectedProducts)),
   files,
 };
 await writeFile(resolve(projectRoot, "app", "data", "line-sheet-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");

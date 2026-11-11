@@ -334,6 +334,9 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Side zipper": ["Seitlicher Reißverschluss", "Zip latéral", "Cremallera lateral"],
+  "Layered panels": ["Mehrlagige Einsätze", "Empiècements superposés", "Paneles superpuestos"],
+  "Stitched toe": ["Genähte Vorderkappe", "Dessus cousu", "Pala cosida"],
   "PU outsole": ["PU-Außensohle", "Semelle extérieure PU", "Suela exterior de PU"],
   "Jacquard fabric": ["Jacquard-Textil", "Tissu jacquard", "Tejido jacquard"],
   "Jacquard fabric upper": ["Jacquard-Textil-Obermaterial", "Tige en tissu jacquard", "Empeine de tejido jacquard"],

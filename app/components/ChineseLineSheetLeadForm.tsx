@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { productCount } from "../data/catalog-meta";
+import { lineSheetProductCount } from "../data/line-sheet-selection";
 import { versionedCatalogueUrl } from "../lib/catalog-downloads";
 import { getAttribution, trackEvent } from "../lib/tracking";
 import ContactPreferenceFields, { EMPTY_CONTACT_PREFERENCES, type ContactPreferences } from "./ContactPreferenceFields";
@@ -24,7 +24,7 @@ export default function ChineseLineSheetLeadForm() {
     if (!email.trim() && !whatsapp.trim()) { setStatus({ kind: "error", message: "请填写Email或WhatsApp，以便采购团队回复。" }); return; }
     setStatus({ kind: "sending", message: "正在保存产品目录需求……" });
     try {
-      const response = await fetch("/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, company, buyerType, market, quantity, email, whatsapp, website, consent, ...contactPreferences, styleCode: "CATALOG-2026", styleLabel: `贝强${productCount}款鞋类产品目录`, context: "line_sheet", projectPath: "base_style_adaptation", requirements: `产品方向：${direction}。${notes || `买家希望获得当前产品系列的选款建议。`}`, formStartedAt: startedAt.current, attribution: getAttribution(), page: window.location.pathname }) });
+      const response = await fetch("/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, company, buyerType, market, quantity, email, whatsapp, website, consent, ...contactPreferences, styleCode: "CATALOG-2026", styleLabel: `贝强${lineSheetProductCount}款鞋类PDF产品册`, context: "line_sheet", projectPath: "base_style_adaptation", requirements: `产品方向：${direction}。${notes || `买家希望获得当前产品系列的选款建议。`}`, formStartedAt: startedAt.current, attribution: getAttribution(), page: window.location.pathname }) });
       const result = await response.json().catch(() => ({})); if (!response.ok || !result.ok) throw new Error(result.message || "产品目录需求未能保存。");
       const details = { reference: result.reference, accessCode: result.accessCode || "" }; setAccess(details); if (details.accessCode) localStorage.setItem("beiqiang_last_inquiry_access", JSON.stringify(details));
       setStatus({ kind: "success", message: `选款需求已保存。参考号：${details.reference}。请保存下方私密访问码用于后续查询。` }); trackEvent("line_sheet_request", { context: "line_sheet_zh", reference: details.reference });

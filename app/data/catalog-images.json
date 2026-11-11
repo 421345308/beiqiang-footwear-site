@@ -107,6 +107,18 @@
     "05_black_onfoot",
     "06_grey_onfoot"
   ],
+  "bq-lq02507": [
+    "01_main",
+    "02_blue",
+    "03_brown_pair",
+    "04_blue_pair"
+  ],
+  "bq-lq02508": [
+    "01_main",
+    "02_blue",
+    "03_brown_pair",
+    "04_blue_pair"
+  ],
   "bq-lq02601": [
     "01_main",
     "02_view",
@@ -322,6 +334,12 @@
     "02_view",
     "03_view",
     "04_view"
+  ],
+  "bq-lq2559": [
+    "01_main",
+    "02_khaki",
+    "03_black_side",
+    "04_khaki_onfoot"
   ],
   "bq-lq2560": [
     "01_main",

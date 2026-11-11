@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { products } from "../data/products";
-import { productCount } from "../data/catalog-meta";
+import { lineSheetProductCount } from "../data/line-sheet-selection";
 import { selectedAssortment, selectedCatalogue } from "../data/selected-assortment";
 import { productNameZh } from "../data/products-zh";
 import { productMediaUrl } from "../lib/product-media-url";
@@ -38,7 +38,7 @@ export default function BuyerLineSheet({ locale }: { locale: LegacyLocale }) {
       <div><p className="eyebrow">{t("CHOOSE THE DETAIL YOU NEED", "按采购需要继续浏览")}</p><h2>{t("From a first look to a full shortlist.", "从首次了解，到具体选款。")}</h2></div>
       <div className="line-sheet-value-grid">
         <article><strong>01</strong><h3>{t("Selected collection", "精选系列")}</h3><p>{t("Eight styles with different assortment roles and size ranges, alongside our factory and cooperation options.", "8款不同系列角色和尺码的鞋款，配合真实工厂介绍及合作方式。")}</p><a href={selectedPdf}>{t("Open the English selection", "打开英文精选册")} →</a></article>
-        <article><strong>02</strong><h3>{t(`Full ${productCount}-style catalogue`, `${productCount}款完整目录`)}</h3><p>{t("Explore the wider range, then follow each style to its current product page for colours and specifications.", "深入浏览更多款式，并从目录进入对应产品页，查看配色与规格。")}</p><a href={fullPdf} target="_blank" rel="noreferrer">{t("Open full English PDF", "打开完整中文PDF")} →</a><br /><a href={fullPdf} download>{t("Download full catalogue", "下载完整目录")} ↓</a></article>
+        <article><strong>02</strong><h3>{t(`${lineSheetProductCount}-style PDF catalogue`, `${lineSheetProductCount}款PDF产品册`)}</h3><p>{t("Explore the PDF selection and visit the website for the latest styles, colours and specifications.", "浏览PDF选款，并在网站查看最新款式、配色与规格。")}</p><a href={fullPdf} target="_blank" rel="noreferrer">{t("Open English PDF", "打开中文PDF")} →</a><br /><a href={fullPdf} download>{t("Download PDF catalogue", "下载PDF产品册")} ↓</a></article>
         <article><strong>03</strong><h3>{t("Build your shortlist", "组合您的采购清单")}</h3><p>{t("Compare products online and add the styles you want to one inquiry. Sample and quotation details follow your chosen versions.", "在线比较产品，把需要的款式放入同一询价清单，再按所选版本明确样品与报价。")}</p><Link href={href("/products")}>{t("Browse and compare styles", "浏览与比较产品")} →</Link></article>
       </div>
     </section>

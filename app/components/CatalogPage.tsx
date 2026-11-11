@@ -6,6 +6,7 @@ import ChineseSiteFooter from "./ChineseSiteFooter";
 import ProductCatalog from "./ProductCatalog";
 import ChineseProductCatalog from "./ChineseProductCatalog";
 import { products } from "../data/products";
+import { lineSheetProductCount } from "../data/line-sheet-selection";
 import { localizedPath, type LegacyLocale } from "../lib/public-locales";
 import { versionedCatalogueUrl } from "../lib/catalog-downloads";
 
@@ -16,7 +17,7 @@ export default function CatalogPage({ locale = "en" }: { locale?: LegacyLocale }
   return <main lang={zh ? "zh-CN" : "en"} className="studio-page studio-catalog">
     {zh ? <ChineseSiteHeader englishHref="/products/" /> : <SiteHeader chineseHref="/zh/products/" />}
     <section className="studio-catalog-intro">
-      <div><p className="eyebrow">{t("THE FOOTWEAR COLLECTION", "贝强产品系列")}</p><h1>{t("Find your next collection.", "鞋履产品系列")}</h1><p>{t("Explore styles, compare specifications and build a quotation list for your market.", "浏览鞋款、比较规格，为您的品牌或销售渠道整理采购清单。")}</p><a className="catalog-download-link" href={fullPdf} download>{t("Download the product catalogue (PDF)", "下载产品目录 PDF")} ↓</a></div>
+      <div><p className="eyebrow">{t("THE FOOTWEAR COLLECTION", "贝强产品系列")}</p><h1>{t("Find your next collection.", "鞋履产品系列")}</h1><p>{t("Explore styles, compare specifications and build a quotation list for your market.", "浏览鞋款、比较规格，为您的品牌或销售渠道整理采购清单。")}</p><a className="catalog-download-link" href={fullPdf} download>{t(`Download the ${lineSheetProductCount}-style PDF catalogue`, `下载${lineSheetProductCount}款PDF产品册`)} ↓</a></div>
       <div className="catalog-intro-aside"><span>{products.length.toString().padStart(2,"0")}</span><p>{t("styles in the collection", "款产品可供选型")}</p><Link href={localizedPath("/sourcing-review",locale)}>{t("Custom development", "咨询产品定制")} ↗</Link></div>
     </section>
     <section className="studio-catalog-body" id="catalog">{zh ? <ChineseProductCatalog products={products} /> : <ProductCatalog products={products} />}</section>

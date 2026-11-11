@@ -20,6 +20,7 @@ import {
 } from "../lib/product-colours";
 import { addProductToQuote, readQuoteList } from "../lib/quote-list";
 import PrintProductSheetButton from "./PrintProductSheetButton";
+import { isInLineSheetSnapshot } from "../data/line-sheet-selection";
 import { siteOrigin } from "../lib/public-locales";
 import { trackEvent } from "../lib/tracking";
 import { productPresentation, productOrderCopy } from "../lib/product-presentation";
@@ -407,7 +408,7 @@ export default function EuropeProduct({
         <header><p>BEIQIANG · {product.code}</p><h2 className="print-sheet-title">{name}</h2></header>
         {presentation && <p>{presentation.summary}</p>}
         <div className="studio-print-body">
-          <img src={galleryImage(product.images[colourImage(product, id)])} alt={name} width={600} height={600} />
+          {isInLineSheetSnapshot(product.code) ? <img src={galleryImage(product.images[colourImage(product, id)])} alt={name} width={600} height={600} /> : <p>{{ de: "Das Produktfoto finden Sie auf der Website.", fr: "Consultez la photo du produit sur le site.", es: "Consulte la foto del producto en el sitio web." }[locale]}</p>}
           <dl className="studio-specs">
             {(["upper", "sole", "size", "closure"] as const).filter((key) => product[key]).map((key) => <div key={key}><dt>{t(locale, key === "size" ? "sizes" : key)}</dt><dd>{productFact(product[key], locale)}</dd></div>)}
             <div><dt>{t(locale, "colour")}</dt><dd>{colour ? productColour(colour.name, locale) : productColours(product).map(c => productColour(c.name, locale)).join(" / ")}</dd></div>

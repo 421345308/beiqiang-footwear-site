@@ -3,14 +3,16 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { products } from "../app/data/products.ts";
+import { selectLineSheetProducts } from "../app/data/line-sheet-selection.ts";
 
 const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 
-test("keeps the buyer line sheets synchronized with the current product facts", async () => {
+test("keeps the released buyer line sheet synchronized with its selected product facts", async () => {
   const manifest = JSON.parse(await readFile(new URL("../app/data/line-sheet-manifest.json", import.meta.url), "utf8"));
-  assert.equal(manifest.productCount, products.length);
-  assert.equal(manifest.pageCount, Math.ceil(products.length / 5) + 2);
-  assert.equal(manifest.productDataSha256, sha256(JSON.stringify(products)));
+  const selectedProducts = selectLineSheetProducts(products);
+  assert.equal(manifest.productCount, selectedProducts.length);
+  assert.equal(manifest.pageCount, Math.ceil(selectedProducts.length / 5) + 2);
+  assert.equal(manifest.productDataSha256, sha256(JSON.stringify(selectedProducts)));
 
   for (const name of ["beiqiang-footwear-line-sheet-2026.pdf", "beiqiang-footwear-line-sheet-zh-2026.pdf"]) {
     const operating = await readFile(new URL(`../output/pdf/${name}`, import.meta.url));
@@ -19,7 +21,7 @@ test("keeps the buyer line sheets synchronized with the current product facts", 
     assert.equal(manifest.files[name].sha256, sha256(published));
     assert.equal(manifest.files[name].bytes, published.length);
     assert.equal(published.length > 1_000_000, true);
-    assert.ok(published.length <= 600_000 + products.length * 22_000, `${name} exceeds the downloadable catalogue size budget`);
+    assert.ok(published.length <= 600_000 + selectedProducts.length * 22_000, `${name} exceeds the downloadable catalogue size budget`);
   }
 });
 

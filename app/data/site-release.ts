@@ -1,11 +1,14 @@
 import { productCount } from "./catalog-meta.ts";
+import { lineSheetProductCount } from "./line-sheet-selection.ts";
+import lineSheetManifest from "./line-sheet-manifest.json" with { type: "json" };
 
 export const SITE_RELEASE = {
-  releaseId: "2026-11-11.1",
-  releasedAt: "2026-11-11T01:47:11+00:00",
+  releaseId: "2026-11-11.2",
+  releasedAt: "2026-11-11T05:08:55+00:00",
   productCount,
   publicLanguages: ["en", "zh", "de", "fr", "es"],
-  lineSheetPages: Math.ceil(productCount / 5) + 2,
+  lineSheetProductCount,
+  lineSheetPages: lineSheetManifest.pageCount,
   factoryVideo: {
     durationSeconds: 180,
     narrationLanguages: ["en"],
