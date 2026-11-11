@@ -1,5 +1,6 @@
 import { pathToFileURL } from "node:url";
 import { SITE_RELEASE } from "../app/data/site-release.ts";
+import { verifyCatalogParity, formatCatalogReport } from "./verify-catalog-parity.mjs";
 
 export const DEFAULT_ORIGINS = [
   "https://www.beiqiang.online",
@@ -95,8 +96,10 @@ async function main() {
   const targets = origins.length ? origins : DEFAULT_ORIGINS;
   const results = await Promise.all(targets.map((origin) => verifyDeployment(origin)));
   console.log(formatDeploymentReport(results));
-  if (process.argv.includes("--json")) console.log(JSON.stringify({ expected: SITE_RELEASE, results }, null, 2));
-  process.exitCode = results.every((result) => result.ok) ? 0 : 1;
+  const catalog = await verifyCatalogParity(targets);
+  console.log(formatCatalogReport(catalog));
+  if (process.argv.includes("--json")) console.log(JSON.stringify({ expected: SITE_RELEASE, results, catalog }, null, 2));
+  process.exitCode = [...results, ...catalog].every((result) => result.ok) ? 0 : 1;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
