@@ -5,6 +5,17 @@ import { isInquiryRun, validateInquiryBinding, validateInquiryResult } from '../
 import { DEFAULT_MODEL, SUPPORTED_MODELS, eligibleRunner, runnerModels } from '../_lib/model-policy.js';
 
 const LEASE_MS = 10 * 60000;
+// Single-instance recovery slot: an unresolved request must be reconciled before
+// issuing another ID. A superseded ID is unknown, never proof that nothing ran.
+const CLAIM_RECEIPT_KEY = 'runner/claim-receipt.json';
+function claimScope(body) {
+  if (Object.hasOwn(body, 'public_web_research') && typeof body.public_web_research !== 'boolean') throw new ApiError(400, 'Invalid claim scope.');
+  return hash(JSON.stringify({ run_id: Object.hasOwn(body, 'run_id') ? identifier(body.run_id) : null, public_web_research: body.public_web_research === true }));
+}
+function receiptView(receipt, requestId) {
+  return { claim_protocol: 1, request_id: requestId, state: receipt?.state || 'unknown',
+    ...(receipt?.run_id ? { run_id: receipt.run_id } : {}), ...(receipt?.at ? { claimed_at: receipt.at } : {}) };
+}
 export function createWorkbenchRunnerHandler(options = {}) {
   if (!options.businessContext) return context => businessRequest(context, options, scoped => ({onRequestPost: createWorkbenchRunnerHandler(scoped)}), 'onRequestPost', 'runner');
   const deps = dependencies(options);
@@ -23,11 +34,38 @@ export function createWorkbenchRunnerHandler(options = {}) {
         const fields = ['id', 'kind', 'task_id', 'source', 'source_version', 'inquiry_reference', 'source_hash', 'handling_version', 'status', 'version', 'title', 'summary', 'result', 'changes', 'error', 'created_at', 'updated_at', 'session_id', 'model', 'usage'];
         return reply(200, { run: Object.fromEntries(fields.filter(key => run[key] !== undefined).map(key => [key, run[key]])) });
       }
+      // Reconciliation reads neither leases nor source text and never renews a
+      // heartbeat. Only the transactional backend can promise atomic receipts.
+      if (body.action === 'claim_status') {
+        if (!options.transactional) throw new ApiError(503, 'Transactional claim recovery is unavailable.');
+        const requestId = identifier(body.request_id), scope = claimScope(body);
+        const receipt = await getJSON(store, CLAIM_RECEIPT_KEY);
+        if (receipt?.request_id !== requestId) return reply(200, receiptView(null, requestId));
+        if (receipt.scope_hash !== scope) throw new ApiError(409, 'Claim request scope differs.');
+        return reply(200, receiptView(receipt, requestId));
+      }
       const priorHeartbeat = await getJSON(store, 'runner/heartbeat.json');
       const caps = body.action === 'heartbeat' && !body.run_id && body.capabilities;
       await putJSON(store, 'runner/heartbeat.json', { at: stamp, ...(priorHeartbeat?.capabilities ? { capabilities: priorHeartbeat.capabilities } : {}), ...(caps ? {capabilities: {ready: caps.ready === true, auth: ['chatgpt', 'api'].includes(caps.auth) ? caps.auth : 'unknown', model: SUPPORTED_MODELS.includes(caps.model) ? caps.model : 'unknown', models: runnerModels(caps), public_web_research: caps.public_web_research === true}} : {}) });
-      if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp });
+      if (body.action === 'heartbeat' && !body.run_id) return reply(200, { ok: true, at: stamp, claim_protocol: options.transactional ? 1 : 0 });
       if (body.action === 'claim') {
+        const requestId = Object.hasOwn(body, 'request_id') ? identifier(body.request_id) : null;
+        if (requestId && !options.transactional) throw new ApiError(503, 'Transactional claim recovery is unavailable.');
+        const scope = requestId ? claimScope(body) : null;
+        // Heartbeat precedes this slot, preserving the existing lock order.
+        if (requestId) {
+          const previous = await getJSON(store, CLAIM_RECEIPT_KEY);
+          if (previous?.request_id === requestId) {
+            if (previous.scope_hash !== scope) throw new ApiError(409, 'Claim request scope differs.');
+            if (previous.state === 'empty') return reply(200, { job: null, claim_protocol: 1, request_id: requestId, replayed: true });
+            // Never re-emit a lease or start work after a lost claimed response.
+            throw new ApiError(409, 'Claim already assigned work; reconcile without replaying.');
+          }
+        }
+        const saveReceipt = async (state, runId = null) => {
+          if (requestId) await putJSON(store, CLAIM_RECEIPT_KEY, { request_id: requestId, scope_hash: scope, state, at: stamp, ...(runId ? { run_id: runId } : {}) });
+        };
+        const protocol = requestId ? { claim_protocol: 1, request_id: requestId } : {};
         const targeted = Object.hasOwn(body, 'run_id');
         if (env.WORKBENCH_RUNNER_MODE === 'manual_cloud' && !targeted) throw new ApiError(400, '手动云任务必须指定run_id，不能领取其他排队任务。');
         if (!targeted && (env.WORKBENCH_AUTODISPATCH !== 'enabled' || !eligibleRunner(priorHeartbeat?.capabilities))) throw new ApiError(409, '自动领取尚未启用或执行器尚未通过启动预检。');
@@ -69,7 +107,8 @@ export function createWorkbenchRunnerHandler(options = {}) {
             const current = await latest(store, 'runs', run.id);
             if (current.status !== 'queued') throw new ApiError(409, '指定运行状态已变化，未领取。');
             const updated = await revision(store, 'runs', { ...current, status: 'running', updated_at: stamp }, current.version);
-            return reply(200, { job: { ...updated, lease_token: token, lease_expires_at: claim.lease_expires_at, document } });
+            await saveReceipt('claimed', updated.id);
+            return reply(200, { ...protocol, job: { ...updated, lease_token: token, lease_expires_at: claim.lease_expires_at, document } });
           } catch (error) {
             // If another writer transitioned successfully, preserve its lease.
             const current = await latest(store, 'runs', run.id), own = await getJSON(store, `claims/${run.id}.json`);
@@ -77,7 +116,8 @@ export function createWorkbenchRunnerHandler(options = {}) {
             throw error;
           }
         }
-        return reply(200, { job: null });
+        await saveReceipt('empty');
+        return reply(200, { ...protocol, job: null });
       }
       const id = identifier(body.run_id), run = await runFor(store, id, now, false), claim = await getJSON(store, `claims/${id}.json`);
       if (!claim || typeof body.lease_token !== 'string' || !safeEqual(hash(body.lease_token), claim.token_hash) || Date.parse(claim.lease_expires_at) <= now.getTime() || run.status !== 'running') throw new ApiError(409, '执行租约已到期、已停止或已完成；不得重复执行。');
