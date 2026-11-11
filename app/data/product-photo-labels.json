@@ -4088,5 +4088,41 @@
       "role": "pair",
       "colour": "Camel"
     }
+  ],
+  "BQ-LQ021": [
+    {
+      "role": "on-foot",
+      "colour": "Blue"
+    },
+    {
+      "role": "pair",
+      "colour": "Light Grey"
+    },
+    {
+      "role": "side",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Blue"
+    }
+  ],
+  "BQ-LQ052": [
+    {
+      "role": "pair",
+      "colour": "Beige"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Beige"
+    },
+    {
+      "role": "side",
+      "colour": "Beige"
+    }
   ]
 }

@@ -3079,5 +3079,40 @@
         3
       ]
     }
+  },
+  "BQ-LQ021": {
+    "images": {
+      "Blue": 0,
+      "Light Grey": 1,
+      "Black": 2
+    },
+    "views": {
+      "Blue": [
+        0,
+        3
+      ],
+      "Light Grey": [
+        1
+      ],
+      "Black": [
+        2
+      ]
+    }
+  },
+  "BQ-LQ052": {
+    "images": {
+      "Beige": 0,
+      "Black": 1
+    },
+    "views": {
+      "Beige": [
+        0,
+        2,
+        3
+      ],
+      "Black": [
+        1
+      ]
+    }
   }
 }

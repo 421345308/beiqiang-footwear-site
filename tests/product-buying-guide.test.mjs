@@ -40,6 +40,11 @@ test("related styles separate children and adults and respect confirmed wide-toe
       assert.ok(related.every((candidate) => candidate.fitEvidence === "wide_toe_verified"));
     }
   }
+  const ventedLaceUp = product("BQ-LQ052");
+  const relatedVented = getRelatedProducts(ventedLaceUp, products);
+  assert.equal(relatedVented.length, 3);
+  assert.ok(relatedVented.every((candidate) => candidate.fitEvidence === "wide_toe_verified"));
+  assert.ok(relatedVented.every((candidate) => !(candidate.closure === "Slip-On" && candidate.collections.includes("clogs-and-vented-shoes"))));
   assert.deepEqual(getRelatedProducts(heldSourceProducts[0], products), []);
   assert.equal(getRelatedProducts(product("BQ009"), products, 1).length, 1);
 });

@@ -53,7 +53,7 @@ export function getRelatedProducts(product: Product, candidates: Product[], limi
   if (!PUBLISHED_PRODUCT_CODES.has(product.code)) return [];
   const kids = /kids/i.test(product.group);
   const wide = product.fitEvidence === "wide_toe_verified";
-  const isMouldedOrMule = (item: Product) => item.collections.some(group => group === "clogs-and-vented-shoes" || group === "mule-shoes");
+  const isMouldedOrMule = (item: Product) => item.collections.includes("mule-shoes") || (item.collections.includes("clogs-and-vented-shoes") && item.closure === "Slip-On");
   return candidates
     .filter((candidate) => PUBLISHED_PRODUCT_CODES.has(candidate.code)
       && candidate.code !== product.code

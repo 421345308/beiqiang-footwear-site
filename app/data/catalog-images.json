@@ -78,6 +78,12 @@
     "03_black",
     "04_black_khaki"
   ],
+  "bq-lq021": [
+    "01_main",
+    "02_light_grey",
+    "03_black",
+    "04_blue_front"
+  ],
   "bq-lq023": [
     "01_main",
     "02_view",
@@ -170,6 +176,12 @@
     "02_view",
     "03_view",
     "04_view"
+  ],
+  "bq-lq052": [
+    "01_main",
+    "02_black",
+    "03_beige_onfoot",
+    "04_beige_side"
   ],
   "bq-lq053": [
     "01_main",

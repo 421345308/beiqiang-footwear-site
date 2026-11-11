@@ -4516,5 +4516,88 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ-LQ021",
+    "name": "Wide Toe Box Mesh Lace-Up Walking Shoes",
+    "nameZh": "宽鞋头网面系带步行鞋",
+    "localizedNames": {
+      "de": "Mesh-Schnürschuhe mit breitem Zehenbereich",
+      "fr": "Chaussures de marche en maille à lacets et bout large",
+      "es": "Calzado de malla con cordones y puntera amplia"
+    },
+    "shortDescription": "Wide toe box lace-up walking shoes with a mesh upper. Blue, light grey or black; EU 39–48.",
+    "summaryZh": "宽鞋头网面系带步行鞋，蓝色、浅灰或黑色；EU 39–48。",
+    "group": "Wide Toe Box Mesh Walking Shoes",
+    "closure": "Lace-Up",
+    "upper": "Mesh",
+    "sole": "TPR outsole",
+    "size": "EU 39–48",
+    "colors": [
+      "Blue",
+      "Light Grey",
+      "Black"
+    ],
+    "collections": [
+      "wide-toe-box",
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Wide toe box",
+      "Mesh upper",
+      "Lace-up fastening"
+    ],
+    "slug": "bq-lq021",
+    "sourceModel": "BQ-LQ021",
+    "fitEvidence": "wide_toe_verified",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ052",
+    "name": "Wide Toe Box Cutout Lace-Up Shoes",
+    "nameZh": "宽鞋头镂空系带休闲鞋",
+    "localizedNames": {
+      "de": "Schnürschuhe mit Aussparungen und breitem Zehenbereich",
+      "fr": "Chaussures à lacets ajourées et bout large",
+      "es": "Calzado con cordones, aberturas y puntera amplia"
+    },
+    "shortDescription": "Wide toe box lace-up shoes with cutout side panels. Beige or black; EU size labels 39 and 42–48.",
+    "summaryZh": "宽鞋头系带休闲鞋，鞋侧镂空；米色或黑色，尺码标签为 EU 39、42–48。",
+    "group": "Wide Toe Box Cutout Shoes",
+    "closure": "Lace-Up",
+    "upper": "Microfiber upper",
+    "sole": "EVA",
+    "size": "EU 39, 42–48",
+    "colors": [
+      "Beige",
+      "Black"
+    ],
+    "collections": [
+      "wide-toe-box",
+      "clogs-and-vented-shoes",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Wide toe box",
+      "Cutout side panels",
+      "Lace-up fastening"
+    ],
+    "slug": "bq-lq052",
+    "sourceModel": "BQ-LQ052",
+    "fitEvidence": "wide_toe_verified",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

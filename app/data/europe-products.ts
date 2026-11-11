@@ -1,5 +1,6 @@
 import type { Product } from "./products";
 import { europeLocales, type EuropeLocale, t } from "./europe-copy.ts";
+import { documentedSizes } from "../lib/documented-sizes.ts";
 // Translations never add material, fit, stock or performance claims.
 export const names: Record<string, readonly [string, string, string]> = {
   "Wide Toe Box Knit Slip-On Walking Shoes": [
@@ -334,6 +335,10 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Mesh upper": ["Mesh-Obermaterial", "Tige en mesh", "Empeine de malla"],
+  "Lace-up fastening": ["Schnürung", "Fermeture à lacets", "Cierre de cordones"],
+  "Wide toe box": ["Breiter Zehenbereich", "Bout large", "Puntera amplia"],
+  "Cutout side panels": ["Seitliche Aussparungen", "Côtés ajourés", "Aberturas laterales"],
   "Panelled sides": ["Seitliche Einsätze", "Empiècements latéraux", "Paneles laterales"],
   "Backless slip-on design": ["Offene Ferse zum Hineinschlüpfen", "Talon ouvert à enfiler", "Talón descubierto para calzar"],
   "Buckle strap": ["Schnallenriemen", "Bride à boucle", "Tira de hebilla"],
@@ -542,7 +547,7 @@ export function productFact(value: string, locale: EuropeLocale) {
   if (!value) return "";
   return (
     facts[value]?.[europeLocales.indexOf(locale)] ||
-    (/^(?:EVA|PVC|EU [\d –/-]+|[\d –/-]+)$/.test(value)
+    ((documentedSizes({ size: value }).length > 0 || /^(?:EVA|PVC|EU [\d –/-]+|[\d –/-]+)$/.test(value))
       ? value
       : "")
   );

@@ -4,6 +4,90 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-LQ021": {
+    "en": {
+      "summary": "Wide toe box lace-up walking shoes with a mesh upper. Blue, light grey or black; EU 39–48.",
+      "highlights": [
+        "Wide toe box",
+        "Mesh upper",
+        "Lace-up fastening"
+      ]
+    },
+    "zh": {
+      "summary": "宽鞋头网面系带步行鞋，蓝色、浅灰或黑色；EU 39–48。",
+      "highlights": [
+        "宽鞋头结构",
+        "网面鞋面",
+        "系带结构"
+      ]
+    },
+    "de": {
+      "summary": "Mesh-Schnürschuhe mit breitem Zehenbereich. Blau, Hellgrau oder Schwarz; EU 39–48.",
+      "highlights": [
+        "Breiter Zehenbereich",
+        "Mesh-Obermaterial",
+        "Schnürung"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures de marche en maille à lacets et bout large. Bleu, gris clair ou noir ; EU 39–48.",
+      "highlights": [
+        "Bout large",
+        "Tige en mesh",
+        "Fermeture à lacets"
+      ]
+    },
+    "es": {
+      "summary": "Calzado de malla con cordones y puntera amplia. Azul, gris claro o negro; EU 39–48.",
+      "highlights": [
+        "Puntera amplia",
+        "Empeine de malla",
+        "Cierre de cordones"
+      ]
+    }
+  },
+  "BQ-LQ052": {
+    "en": {
+      "summary": "Wide toe box lace-up shoes with cutout side panels. Beige or black; EU size labels 39 and 42–48.",
+      "highlights": [
+        "Wide toe box",
+        "Cutout side panels",
+        "Lace-up fastening"
+      ]
+    },
+    "zh": {
+      "summary": "宽鞋头系带休闲鞋，鞋侧镂空；米色或黑色，尺码标签为 EU 39、42–48。",
+      "highlights": [
+        "宽鞋头结构",
+        "鞋侧镂空",
+        "系带结构"
+      ]
+    },
+    "de": {
+      "summary": "Schnürschuhe mit breitem Zehenbereich und seitlichen Aussparungen. Beige oder Schwarz; EU-Größen 39 und 42–48.",
+      "highlights": [
+        "Breiter Zehenbereich",
+        "Seitliche Aussparungen",
+        "Schnürung"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures à lacets et bout large avec côtés ajourés. Beige ou noir ; pointures EU 39 et 42–48.",
+      "highlights": [
+        "Bout large",
+        "Côtés ajourés",
+        "Fermeture à lacets"
+      ]
+    },
+    "es": {
+      "summary": "Calzado con cordones, puntera amplia y aberturas laterales. Beige o negro; tallas EU 39 y 42–48.",
+      "highlights": [
+        "Puntera amplia",
+        "Aberturas laterales",
+        "Cierre de cordones"
+      ]
+    }
+  },
   "BQ-LQ061": {
     "en": {
       "summary": "Low-top lace-up walking shoes with panelled sides. Beige, black or tan; EU 36–48.",

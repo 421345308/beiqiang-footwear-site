@@ -59,3 +59,17 @@ test('EU size parsing requires a complete, bounded range with coherent paired en
   assert.deepEqual(documentedSizes(withSize(size)),[],size);
  }
 });
+
+
+test('discontinuous documented EU sizes preserve gaps in filters and large-size direction', async()=>{
+ const item=products.find(p=>p.code==='BQ-LQ052');
+ assert.equal(item.size,'EU 39, 42–48');
+ assert.deepEqual(documentedSizes(item),[39,42,43,44,45,46,47,48]);
+ for(const size of ['39','42','43','44','45','46','47','48']) assert.equal(filterCatalog(products,{...defaultSelection,q:item.code,size})[0]?.code,item.code);
+ for(const size of ['38','40','41','49']) assert.deepEqual(filterCatalog(products,{...defaultSelection,q:item.code,size}),[]);
+ const { productMatchesCatalogDirection }=await import('../app/lib/catalog-filtering.ts');
+ assert.equal(productMatchesCatalogDirection(item,'large_size'),true);
+ const { productFact }=await import('../app/data/europe-products.ts');
+ for(const locale of ['de','fr','es']) { assert.equal(productFact(item.size,locale),item.size); assert.equal(productFact('EU 39, 42–60',locale),''); }
+ for(const size of ['EU 39, 42–60','EU 39, 48–42','EU 39, unknown','EU 19, 42–48']) assert.deepEqual(documentedSizes({...item,size}),[]);
+});

@@ -39,6 +39,6 @@ test('both homepages render buyer paths and copy without JavaScript or internal 
     assert.ok(html.includes(`href="${prefix}/request-quote/"`));
     assert.ok(html.indexOf('class="studio-hero"') >= 0);
     assert.ok(html.indexOf('class="studio-hero"') < html.indexOf('id="collections"'));
-    assert.doesNotMatch(html, /56-style|56款|受控决定|商业起点|工厂端项目审核|buyer workspace: it introduces/i);
+    assert.doesNotMatch(html, /(?<!\d)56(?:-style|款)|受控决定|商业起点|工厂端项目审核|buyer workspace: it introduces/i);
   }
 });

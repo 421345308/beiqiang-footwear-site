@@ -37,7 +37,7 @@ test('three existing Alibaba styles are distinct website products with colour-aw
       assert.doesNotMatch(copy.summary,/in stock|waterproof|certified/i);
     }
   }
-  assert.equal(selectLineSheetProducts(products).length,154);
+  assert.equal(selectLineSheetProducts(products).length,156);
   assert.equal(products.length,productCount);
 });
 

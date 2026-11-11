@@ -2,6 +2,8 @@ import type { Product } from "../data/products";
 import { productNameZh, colorZh } from "../data/products-zh.ts";
 import { isCatalogDirection, productMatchesCatalogDirection } from "./catalog-filtering.ts";
 import { productColours } from "./product-colours.ts";
+import { documentedSizes } from "./documented-sizes.ts";
+export { documentedSizes } from "./documented-sizes.ts";
 
 export const colourFamilies = [
   { id: "black", en: "Black", zh: "黑色", pattern: /black/i },
@@ -39,18 +41,6 @@ export function matchingColour(product: Product, family: string) {
   if (!rule) return "";
   const choices = productColours(product);
   return (choices.find(c => c.id === family || c.id === `all-${family}`) || choices.find(c => rule.pattern.test(c.name)))?.id || "";
-}
-// EU numbers covered by the documented labels, never individual orderable sizes,
-// stock or a colour-by-size availability claim. Unspecified size systems stay out.
-export function documentedSizes(product: Product): number[] {
-  // A paired range such as EU 36-37–44-45 includes its final pair, not just 36–37.
-  const paired = product.size.match(/^EU\s+(\d{2})\s*-\s*(\d{2})\s*–\s*(\d{2})\s*-\s*(\d{2})$/i);
-  const single = product.size.match(/^EU\s+(\d{2})\s*[-–]\s*(\d{2})$/i);
-  if (paired && (+paired[2] !== +paired[1] + 1 || +paired[4] !== +paired[3] + 1 || (+paired[3] - +paired[1]) % 2 !== 0)) return [];
-  const first = paired ? +paired[1] : single ? +single[1] : 0;
-  const last = paired ? +paired[4] : single ? +single[2] : 0;
-  if (first < 20 || last > 55 || last < first) return [];
-  return Array.from({ length: last - first + 1 }, (_, i) => first + i);
 }
 export function filterCatalog(products: Product[], state: CatalogSelection, localizedText?: (product: Product) => string) {
   const words = state.q.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
