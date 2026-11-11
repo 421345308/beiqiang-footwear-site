@@ -4,6 +4,90 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ1013": {
+    "en": {
+      "summary": "Slip-on loafers with a side buckle detail and visible stitching around the sole. Sand, wine red or black; supplier size labels 36–48.",
+      "highlights": [
+        "Buckle detail",
+        "Slip-on construction",
+        "Stitched sole detail"
+      ]
+    },
+    "zh": {
+      "summary": "侧面单扣套穿乐福鞋，鞋底边缘有缝线细节；沙色、酒红或黑色，供方尺码标签 36–48。",
+      "highlights": [
+        "单扣细节",
+        "套穿结构",
+        "鞋底缝线细节"
+      ]
+    },
+    "de": {
+      "summary": "Slipper mit seitlichem Schnallendetail und sichtbarer Sohlennaht. Sand, Weinrot oder Schwarz; Lieferantengrößen 36–48.",
+      "highlights": [
+        "Schnallendetail",
+        "Slip-on-Form",
+        "Sichtbare Sohlennaht"
+      ]
+    },
+    "fr": {
+      "summary": "Mocassins à enfiler avec détail de boucle latérale et couture visible autour de la semelle. Sable, bordeaux ou noir ; étiquettes fournisseur 36–48.",
+      "highlights": [
+        "Détail de boucle",
+        "Forme à enfiler",
+        "Couture de semelle visible"
+      ]
+    },
+    "es": {
+      "summary": "Mocasines sin cordones con detalle de hebilla lateral y costura visible alrededor de la suela. Arena, burdeos o negro; etiquetas del proveedor 36–48.",
+      "highlights": [
+        "Detalle de hebilla",
+        "Diseño sin cordones",
+        "Costura visible en la suela"
+      ]
+    }
+  },
+  "BQ-LQ2588-1": {
+    "en": {
+      "summary": "Men’s low-cut lace-up shoes with a wide toe box and chunky sole. White, black/white or all black; EU 39–47.",
+      "highlights": [
+        "Wide toe box",
+        "Lace-up fastening",
+        "Low-cut shape"
+      ]
+    },
+    "zh": {
+      "summary": "男士宽鞋头低帮系带鞋，厚底造型；白色、黑白或全黑，EU 39–47。",
+      "highlights": [
+        "宽鞋头结构",
+        "系带结构",
+        "低帮鞋型"
+      ]
+    },
+    "de": {
+      "summary": "Niedrige Herren-Schnürschuhe mit breitem Zehenbereich und markanter Sohle. Weiß, Schwarz/Weiß oder ganz Schwarz; EU 39–47.",
+      "highlights": [
+        "Breiter Zehenbereich",
+        "Schnürung",
+        "Niedrige Form"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures basses à lacets pour homme, à bout large et semelle épaisse. Blanc, noir/blanc ou noir intégral ; EU 39–47.",
+      "highlights": [
+        "Bout large",
+        "Fermeture à lacets",
+        "Forme basse"
+      ]
+    },
+    "es": {
+      "summary": "Calzado bajo de hombre con cordones, puntera amplia y suela gruesa. Blanco, negro/blanco o negro integral; EU 39–47.",
+      "highlights": [
+        "Puntera amplia",
+        "Cierre de cordones",
+        "Corte bajo"
+      ]
+    }
+  },
   "BQ-LQ2598": {
     "en": {
       "summary": "Wide toe box mesh lace-up shoes with side panels. White, black or khaki; EU 39–48.",

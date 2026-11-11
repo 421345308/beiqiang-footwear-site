@@ -38,7 +38,7 @@ test('three existing Alibaba styles are distinct website products with colour-aw
       assert.doesNotMatch(copy.summary,/in stock|waterproof|certified/i);
     }
   }
-  assert.equal(selectLineSheetProducts(products).length,160);
+  assert.equal(selectLineSheetProducts(products).length,162);
   assert.equal(products.length,productCount);
 });
 
@@ -70,7 +70,7 @@ test('two more existing Alibaba styles retain exact size labels and their own co
 });
 
 test('website-only styles retain their identity through quote sharing and inquiry validation', () => {
-  const codes=['BQ-LQ02507','BQ-LQ02508','BQ-LQ2559','BQ-LQ061','BQ-W5998','BQ1021','BQ-LQ2633','BQ-LQ2598'];
+  const codes=['BQ-LQ02507','BQ-LQ02508','BQ-LQ2559','BQ-LQ061','BQ-W5998','BQ1021','BQ-LQ2633','BQ-LQ2598','BQ1013','BQ-LQ2588-1'];
   const shared=new URL(buildQuoteListShareUrl(codes,'zh'));
   assert.deepEqual(parseSharedQuoteCodes(shared.searchParams.get('shortlist'),products.map(p=>p.code)),codes);
   for (const code of codes) {
@@ -113,4 +113,15 @@ test('Chinese buyer labels distinguish women’s and men’s styles',()=>{
  const women=products.find(p=>p.code==='BQ1021');const men=products.find(p=>p.code==='BQ1003');
  assert.match(buyerFitZh(women),/女鞋/);assert.doesNotMatch(buyerFitZh(women),/男士/);
  assert.match(buyerFitZh(men),/男士/);
+});
+
+
+test('BQ1013 and BQ-LQ2588-1 retain source identities, colour images and size-label boundaries',()=>{
+ for(const [code,id,closure,colors,size] of [['BQ1013','1601943542214','Slip-On',['Sand','Wine Red','Black'],'36–48'],['BQ-LQ2588-1','1601973772709','Lace-Up',['White','Black/White','All Black'],'EU 39–47']]) {
+  const p=products.find(x=>x.code===code);assert.ok(p);assert.equal(p.alibabaProductId,id);assert.equal(p.closure,closure);assert.deepEqual(p.colors,colors);assert.equal(p.size,size);assert.equal(p.upper,'');assert.equal(p.sole,'');assert.equal(p.images.length,4);assert.ok(LINE_SHEET_CODES.has(code));
+  for(const c of productColours(p)) assert.notEqual(c.imageIndex,null);
+  for(const l of ['en','zh','de','fr','es']) assert.ok(productPresentation(p,l)?.summary);
+ }
+ assert.match(products.find(x=>x.code==='BQ1013').sizeNote,/Supplier size labels/);
+ assert.equal(products.find(x=>x.code==='BQ-LQ2588-1').fitEvidence,'wide_toe_verified');
 });

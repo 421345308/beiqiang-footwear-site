@@ -414,6 +414,12 @@
     "03_yellow_onfoot",
     "04_black_side"
   ],
+  "bq-lq2588-1": [
+    "01_main",
+    "02_black_white",
+    "03_all_black",
+    "04_black_white_side"
+  ],
   "bq-lq2590": [
     "01_main",
     "02_view",
@@ -1178,6 +1184,12 @@
     "03_pair_white",
     "04_on_foot",
     "05_details"
+  ],
+  "bq1013": [
+    "01_main",
+    "02_wine_red",
+    "03_black",
+    "04_black_side"
   ],
   "bq1021": [
     "01_main",

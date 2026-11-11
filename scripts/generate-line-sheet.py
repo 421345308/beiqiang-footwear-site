@@ -164,6 +164,8 @@ def product_page(c: canvas.Canvas, products: list[dict], page_number: int, batch
             facts_y -= 7 * mm
         if product["size"]:
             size_text = product["size"] + ("; varies by colour" if product.get("sizeNote", "").startswith("Sizes vary by colour:") else "")
+            if product.get("sizeNote", "").startswith("Supplier size labels;"):
+                size_text += " (supplier labels)"
             if product.get("sizeNote") == "EU size labels 47–50 require sample measurement confirmation.":
                 size_text += " (47–50: measure sample)"
             paragraph(c, f'<b>Sizes:</b> {size_text}', facts_x, facts_y, facts_w, 7 * mm, 6.5, 7.8, INK)

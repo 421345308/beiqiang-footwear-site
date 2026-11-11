@@ -335,6 +335,9 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Buckle detail": ["Schnallendetail", "Détail de boucle", "Detalle de hebilla"],
+  "Stitched sole detail": ["Sichtbare Sohlennaht", "Couture de semelle visible", "Costura visible en la suela"],
+  "Low-cut shape": ["Niedrige Form", "Forme basse", "Corte bajo"],
   "Double-strap construction": ["Zwei Riemen", "Double bride", "Doble tira"],
   "Hook-and-loop fastening": ["Klettverschluss", "Fermeture auto-agrippante", "Cierre de gancho y bucle"],
   "Toggle cord": ["Kordelstopper", "Cordon avec stoppeur", "Cordón con tope"],
@@ -539,6 +542,11 @@ export function productTitle(p: Product, locale: EuropeLocale) {
   return p.localizedNames?.[locale] || names[p.name]?.[europeLocales.indexOf(locale)] || p.code;
 }
 export function productSizeNote(note: string, locale: EuropeLocale) {
+  if (note === "Supplier size labels; confirm the size system and sample measurements before ordering.") return {
+    de: "Lieferantengrößen; Größensystem und Mustermaße prüfen.",
+    fr: "Tailles fournisseur ; confirmer le système et les mesures de l'échantillon.",
+    es: "Etiquetas del proveedor; confirme el sistema y las medidas de la muestra.",
+  }[locale];
   if (note === "EU size labels 47–50 require sample measurement confirmation.") return {"de": "Für die EU-Größen 47–50 bitte die Mustermaße bestätigen.", "fr": "Pour les pointures EU 47–50, confirmer les mesures sur échantillon.", "es": "Para las tallas EU 47–50, confirmar las medidas de la muestra."}[locale];
   if (note.startsWith("Each paired label")) return t(locale, "paired");
   if (note === "Sizes vary by colour: Black EU 36–48; Grey EU 39–48; Burgundy EU 36–41.") return {

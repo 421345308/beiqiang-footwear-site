@@ -4196,5 +4196,41 @@
       "role": "on-foot",
       "colour": "White"
     }
+  ],
+  "BQ1013": [
+    {
+      "role": "on-foot",
+      "colour": "Sand"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Wine Red"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    }
+  ],
+  "BQ-LQ2588-1": [
+    {
+      "role": "on-foot",
+      "colour": "White"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black/White"
+    },
+    {
+      "role": "on-foot",
+      "colour": "All Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black/White"
+    }
   ]
 }
