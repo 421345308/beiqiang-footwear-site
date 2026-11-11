@@ -4437,5 +4437,84 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ-LQ061",
+    "name": "Low-Top Lace-Up Casual Walking Shoes",
+    "nameZh": "低帮系带休闲步行鞋",
+    "localizedNames": {
+      "de": "Niedrige Schnürschuhe für Alltag und Spaziergänge",
+      "fr": "Chaussures basses à lacets pour la marche au quotidien",
+      "es": "Calzado bajo de cordones para caminar a diario"
+    },
+    "shortDescription": "Low-top lace-up walking shoes with panelled sides. Beige, black or tan; EU 36–48.",
+    "summaryZh": "低帮系带步行鞋，鞋侧拼片设计；米色、黑色或棕黄色，EU 36–48。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "",
+    "size": "EU 36–48",
+    "colors": [
+      "Beige",
+      "Black",
+      "Tan"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Panelled sides"
+    ],
+    "slug": "bq-lq061",
+    "sourceModel": "BQ-LQ061",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-W5998",
+    "name": "Closed-Toe Backless Mules with Buckle Strap",
+    "nameZh": "包头扣带露跟穆勒鞋",
+    "localizedNames": {
+      "de": "Geschlossene Mules mit Schnallenriemen",
+      "fr": "Mules à bout fermé et bride à boucle",
+      "es": "Mules de puntera cerrada con tira de hebilla"
+    },
+    "shortDescription": "Closed-toe backless mules with a buckle strap. Beige or camel; size labels 35–45.",
+    "summaryZh": "包头露跟穆勒鞋，配扣带；米色或驼色，尺码标签 35–45。",
+    "group": "Closed-Toe Mules",
+    "closure": "Slip-On",
+    "upper": "",
+    "sole": "",
+    "size": "35–45",
+    "colors": [
+      "Beige",
+      "Camel"
+    ],
+    "collections": [
+      "mule-shoes"
+    ],
+    "highlights": [
+      "Backless slip-on design",
+      "Buckle strap",
+      "Closed toe"
+    ],
+    "slug": "bq-w5998",
+    "sourceModel": "BQ-W5998",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

@@ -4052,5 +4052,41 @@
       "role": "on-foot",
       "colour": "Khaki"
     }
+  ],
+  "BQ-LQ061": [
+    {
+      "role": "pair",
+      "colour": "Beige"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Black"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Tan"
+    },
+    {
+      "role": "on-foot",
+      "colour": "Beige"
+    }
+  ],
+  "BQ-W5998": [
+    {
+      "role": "pair",
+      "colour": "Beige"
+    },
+    {
+      "role": "side",
+      "colour": "Camel"
+    },
+    {
+      "role": "pair",
+      "colour": "Beige"
+    },
+    {
+      "role": "pair",
+      "colour": "Camel"
+    }
   ]
 }

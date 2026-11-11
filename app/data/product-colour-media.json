@@ -3044,5 +3044,40 @@
         3
       ]
     }
+  },
+  "BQ-LQ061": {
+    "images": {
+      "Beige": 0,
+      "Black": 1,
+      "Tan": 2
+    },
+    "views": {
+      "Beige": [
+        0,
+        3
+      ],
+      "Black": [
+        1
+      ],
+      "Tan": [
+        2
+      ]
+    }
+  },
+  "BQ-W5998": {
+    "images": {
+      "Beige": 0,
+      "Camel": 1
+    },
+    "views": {
+      "Beige": [
+        0,
+        2
+      ],
+      "Camel": [
+        1,
+        3
+      ]
+    }
   }
 }

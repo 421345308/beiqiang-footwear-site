@@ -4,6 +4,85 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-LQ061": {
+    "en": {
+      "summary": "Low-top lace-up walking shoes with panelled sides. Beige, black or tan; EU 36–48.",
+      "highlights": [
+        "Lace-up fastening",
+        "Panelled sides"
+      ]
+    },
+    "zh": {
+      "summary": "低帮系带步行鞋，鞋侧拼片设计；米色、黑色或棕黄色，EU 36–48。",
+      "highlights": [
+        "系带结构",
+        "鞋侧拼片"
+      ]
+    },
+    "de": {
+      "summary": "Niedrige Schnürschuhe mit seitlichen Einsätzen. Beige, Schwarz oder Hellbraun; EU 36–48.",
+      "highlights": [
+        "Schnürung",
+        "Seitliche Einsätze"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures basses à lacets avec empiècements latéraux. Beige, noir ou marron clair ; EU 36–48.",
+      "highlights": [
+        "Fermeture à lacets",
+        "Empiècements latéraux"
+      ]
+    },
+    "es": {
+      "summary": "Calzado bajo de cordones con paneles laterales. Beige, negro o marrón claro; EU 36–48.",
+      "highlights": [
+        "Cierre de cordones",
+        "Paneles laterales"
+      ]
+    }
+  },
+  "BQ-W5998": {
+    "en": {
+      "summary": "Closed-toe backless mules with a buckle strap. Beige or camel; size labels 35–45.",
+      "highlights": [
+        "Backless slip-on design",
+        "Buckle strap",
+        "Closed toe"
+      ]
+    },
+    "zh": {
+      "summary": "包头露跟穆勒鞋，配扣带；米色或驼色，尺码标签 35–45。",
+      "highlights": [
+        "露跟套穿",
+        "扣带设计",
+        "包头鞋型"
+      ]
+    },
+    "de": {
+      "summary": "Geschlossene Mules mit Schnallenriemen und offener Ferse. Beige oder Camel; Größenangaben 35–45.",
+      "highlights": [
+        "Offene Ferse zum Hineinschlüpfen",
+        "Schnallenriemen",
+        "Geschlossene Spitze"
+      ]
+    },
+    "fr": {
+      "summary": "Mules à bout fermé, talon ouvert et bride à boucle. Beige ou camel ; tailles indiquées 35–45.",
+      "highlights": [
+        "Talon ouvert à enfiler",
+        "Bride à boucle",
+        "Bout fermé"
+      ]
+    },
+    "es": {
+      "summary": "Mules de puntera cerrada, talón descubierto y tira de hebilla. Beige o camel; tallas indicadas 35–45.",
+      "highlights": [
+        "Talón descubierto para calzar",
+        "Tira de hebilla",
+        "Puntera cerrada"
+      ]
+    }
+  },
   "BQ-LQ02507": {
     "en": {
       "summary": "Low-top lace-up shoes with a side zipper and layered panels. Brown or blue; EU 39–48.",

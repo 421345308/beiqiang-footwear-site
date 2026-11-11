@@ -334,6 +334,10 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Panelled sides": ["Seitliche Einsätze", "Empiècements latéraux", "Paneles laterales"],
+  "Backless slip-on design": ["Offene Ferse zum Hineinschlüpfen", "Talon ouvert à enfiler", "Talón descubierto para calzar"],
+  "Buckle strap": ["Schnallenriemen", "Bride à boucle", "Tira de hebilla"],
+  "Closed toe": ["Geschlossene Spitze", "Bout fermé", "Puntera cerrada"],
   "Side zipper": ["Seitlicher Reißverschluss", "Zip latéral", "Cremallera lateral"],
   "Layered panels": ["Mehrlagige Einsätze", "Empiècements superposés", "Paneles superpuestos"],
   "Stitched toe": ["Genähte Vorderkappe", "Dessus cousu", "Pala cosida"],

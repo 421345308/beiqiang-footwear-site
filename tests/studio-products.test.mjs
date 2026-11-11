@@ -24,7 +24,7 @@ test('moulded and mule styles preserve source size labels and construction bound
   assert.match(getProductBuyingGuide(clog).shape,/one size option/);
   assert.match(getProductBuyingGuide(mule).shape,/do not establish material composition/);
   assert.ok([clog,covered].every(p => productsInCollection('clogs-and-vented-shoes').includes(p)));
-  assert.deepEqual(productsInCollection('mule-shoes').map(p=>p.code),[mule.code]);
+  assert.ok(productsInCollection('mule-shoes').includes(mule));
   assert.ok(getRelatedProducts(mule,products).every(p => p.collections.some(c => ['clogs-and-vented-shoes','mule-shoes'].includes(c))));
   for(const p of [clog,covered,mule]) {
     assert.equal(p.sole,'');

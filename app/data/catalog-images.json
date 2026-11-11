@@ -213,6 +213,12 @@
     "05_side",
     "06_on-foot"
   ],
+  "bq-lq061": [
+    "01_main",
+    "02_black",
+    "03_tan",
+    "04_beige"
+  ],
   "bq-lq1026": [
     "01_main",
     "02_black",
@@ -576,6 +582,12 @@
     "05_outsole",
     "06_on-foot",
     "07_pair"
+  ],
+  "bq-w5998": [
+    "01_main",
+    "02_camel",
+    "03_beige",
+    "04_camel"
   ],
   "bq001": [
     "01_main",
