@@ -8,7 +8,7 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
   const high = /high-top|high top/i.test(`${product.name} ${product.upper}`);
   const fleece = /fleece-lined/i.test(product.shortDescription);
   const slipOn = product.closure === "Slip-On";
-  const moulded = product.collections.includes("clogs-and-vented-shoes");
+  const moulded = product.collections.includes("clogs-and-vented-shoes") && slipOn;
   const mule = product.collections.includes("mule-shoes");
   const pairedSizes = Boolean(product.sizeNote?.startsWith("Each paired label"));
   const shape = pairedSizes
