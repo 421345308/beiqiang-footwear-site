@@ -62,7 +62,7 @@ npm run build
 - Build command: `npm run build`
 - Output directory: `dist`
 
-`edgeone-deploy/` is a deployment adapter, not a second application. It runs the root `edgeone:build` script and copies `edgeone-export-v1` into `edgeone-deploy/dist`. Keep the EdgeOne root directory on `edgeone-deploy`; pointing it back to the repository root causes EdgeOne to load a Next/OpenNext server adapter and look for `.next/required-server-files.json`, which this static export does not need.
+`edgeone-deploy/` is a deployment adapter, not a second application. It runs the root `edgeone:build` script and moves the generated `edgeone-export-v1` into `edgeone-deploy/dist`. Moving within the same project avoids holding an extra copy of the static site during the EdgeOne build. The standalone root `edgeone:build` command still leaves its output in `edgeone-export-v1` for local checks. Keep the EdgeOne root directory on `edgeone-deploy`; pointing it back to the repository root causes EdgeOne to load a Next/OpenNext server adapter and look for `.next/required-server-files.json`, which this static export does not need.
 
 ## Change and Release Checklist
 

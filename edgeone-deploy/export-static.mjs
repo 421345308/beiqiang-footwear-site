@@ -1,4 +1,4 @@
-import { cp, rm, readFile, stat } from "node:fs/promises";
+import { rename, rm, readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -7,7 +7,9 @@ const sourceDirectory = path.resolve(deployDirectory, "..", "edgeone-export-v1")
 const outputDirectory = path.join(deployDirectory, "dist");
 
 await rm(outputDirectory, { recursive: true, force: true });
-await cp(sourceDirectory, outputDirectory, { recursive: true });
+// Both paths live in the same project. Move the generated directory instead of
+// duplicating hundreds of megabytes before EdgeOne copies its build output.
+await rename(sourceDirectory, outputDirectory);
 
 // Validate the actual deployment directory, not just the application build.
 const release = JSON.parse(await readFile(path.join(outputDirectory, "release.json"), "utf8"));
