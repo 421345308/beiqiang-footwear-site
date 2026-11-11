@@ -334,6 +334,11 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "PU outsole": ["PU-Außensohle", "Semelle extérieure PU", "Suela exterior de PU"],
+  "Jacquard fabric": ["Jacquard-Textil", "Tissu jacquard", "Tejido jacquard"],
+  "Jacquard fabric upper": ["Jacquard-Textil-Obermaterial", "Tige en tissu jacquard", "Empeine de tejido jacquard"],
+  "Rubber-plastic outsole": ["Gummi-Kunststoff-Außensohle", "Semelle extérieure caoutchouc-plastique", "Suela exterior de caucho-plástico"],
+  "MD midsole": ["MD-Zwischensohle", "Intercalaire MD", "Entresuela MD"],
   "EVA midsole": ["EVA-Zwischensohle", "Intercalaire EVA", "Entresuela de EVA"],
   "Cow suede": ["Rindsveloursleder", "Cuir velours bovin", "Ante bovino"],
   "Cow suede upper": ["Obermaterial aus Rindsveloursleder", "Tige en cuir velours bovin", "Empeine de ante bovino"],

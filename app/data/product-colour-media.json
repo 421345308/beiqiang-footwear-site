@@ -2939,5 +2939,62 @@
         2
       ]
     }
+  },
+  "BQ-LQ018": {
+    "images": {
+      "Black Green": 0,
+      "Black Grey": 1,
+      "Black": 2,
+      "Black Khaki": 3
+    },
+    "views": {
+      "Black Green": [
+        0
+      ],
+      "Black Grey": [
+        1
+      ],
+      "Black": [
+        2
+      ],
+      "Black Khaki": [
+        3
+      ]
+    }
+  },
+  "BQ-LQ2572": {
+    "images": {
+      "Beige": 0,
+      "Black": 1
+    },
+    "views": {
+      "Beige": [
+        0,
+        2
+      ],
+      "Black": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQ2578": {
+    "images": {
+      "Beige": 0,
+      "Light Grey": 1,
+      "Black": 2
+    },
+    "views": {
+      "Beige": [
+        0,
+        3
+      ],
+      "Light Grey": [
+        1
+      ],
+      "Black": [
+        2
+      ]
+    }
   }
 }

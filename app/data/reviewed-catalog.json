@@ -4196,5 +4196,127 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ-LQ018",
+    "name": "Layered Panel Low-Top Lace-Up Shoes",
+    "nameZh": "层叠拼片低帮系带鞋",
+    "localizedNames": {
+      "de": "Niedrige Schnürschuhe mit mehrlagigen Seitenpartien",
+      "fr": "Chaussures basses à lacets et empiècements superposés",
+      "es": "Calzado bajo de cordones con paneles superpuestos"
+    },
+    "shortDescription": "Low-top lace-up shoes with layered side panels and a rubber outsole. Black, black/grey, black/green or black/khaki; EU 37–48.",
+    "summaryZh": "低帮系带鞋，层叠侧片与橡胶外底；黑、黑灰、黑绿、黑卡其四种配色，EU 37–48。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "",
+    "sole": "Rubber outsole",
+    "size": "EU 37–48",
+    "colors": [
+      "Black Green",
+      "Black Grey",
+      "Black",
+      "Black Khaki"
+    ],
+    "collections": [
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Lace-up fastening",
+      "Panelled upper",
+      "Rubber outsole"
+    ],
+    "slug": "bq-lq018",
+    "sourceModel": "BQ-LQ018",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2572",
+    "name": "Wide Toe Mesh Lace-Up Walking Shoes",
+    "nameZh": "宽鞋头网面系带步行鞋",
+    "localizedNames": {
+      "de": "Mesh-Schnürschuhe mit breitem Zehenbereich",
+      "fr": "Chaussures à lacets en mesh à avant-pied large",
+      "es": "Calzado de malla con cordones y puntera amplia"
+    },
+    "shortDescription": "Wide-toe lace-up shoes with a mesh upper and PU outsole. Beige or black, EU 39–46; check sample fit.",
+    "summaryZh": "宽鞋头网面系带鞋，PU 外底；米色或黑色，EU 39–46，合脚程度以样品确认。",
+    "group": "Wide Toe Lace-Up Shoes",
+    "closure": "Lace-Up",
+    "upper": "Mesh",
+    "sole": "PU outsole",
+    "size": "EU 39–46",
+    "colors": [
+      "Beige",
+      "Black"
+    ],
+    "collections": [
+      "wide-toe-box",
+      "casual-sneakers"
+    ],
+    "highlights": [
+      "Wide toe box; sample fit should be checked",
+      "Mesh upper",
+      "PU outsole"
+    ],
+    "slug": "bq-lq2572",
+    "sourceModel": "BQ-LQ2572",
+    "fitEvidence": "wide_toe_verified",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2578",
+    "name": "Jacquard Fabric Lace-Up Casual Shoes",
+    "nameZh": "贾卡织物系带休闲鞋",
+    "localizedNames": {
+      "de": "Schnür-Freizeitschuhe aus Jacquard-Textil",
+      "fr": "Chaussures décontractées à lacets en tissu jacquard",
+      "es": "Calzado casual de cordones en tejido jacquard"
+    },
+    "shortDescription": "Lace-up shoes with a jacquard fabric upper, MD midsole and rubber-plastic outsole. Beige, light grey or black, EU 39–46.",
+    "summaryZh": "贾卡织物鞋面系带鞋，MD 中底与橡塑外底；米色、浅灰色或黑色，EU 39–46。",
+    "group": "Lace-Up Casual Shoes",
+    "closure": "Lace-Up",
+    "upper": "Jacquard fabric",
+    "sole": "Rubber-plastic outsole",
+    "size": "EU 39–46",
+    "colors": [
+      "Beige",
+      "Light Grey",
+      "Black"
+    ],
+    "collections": [
+      "casual-sneakers"
+    ],
+    "highlights": [
+      "Jacquard fabric upper",
+      "MD midsole",
+      "Rubber-plastic outsole"
+    ],
+    "slug": "bq-lq2578",
+    "sourceModel": "BQ-LQ2578",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

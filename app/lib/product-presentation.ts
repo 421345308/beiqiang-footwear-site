@@ -4,6 +4,132 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-LQ018": {
+    "en": {
+      "summary": "Low-top lace-up shoes with layered side panels and a rubber outsole. Black, black/grey, black/green or black/khaki; EU 37–48.",
+      "highlights": [
+        "Lace-up fastening",
+        "Layered side panels",
+        "Rubber outsole"
+      ]
+    },
+    "zh": {
+      "summary": "低帮系带鞋，层叠侧片与橡胶外底；黑、黑灰、黑绿、黑卡其四种配色，EU 37–48。",
+      "highlights": [
+        "系带闭合",
+        "层叠侧片",
+        "橡胶外底"
+      ]
+    },
+    "de": {
+      "summary": "Niedrige Schnürschuhe mit mehrlagigen Seitenpartien und Gummi-Außensohle. Schwarz, Schwarz/Grau, Schwarz/Grün oder Schwarz/Khaki; EU 37–48.",
+      "highlights": [
+        "Schnürung",
+        "Mehrlagige Seitenpartien",
+        "Gummi-Außensohle"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures basses à lacets, empiècements superposés et semelle extérieure en caoutchouc. Noir, noir/gris, noir/vert ou noir/kaki ; EU 37–48.",
+      "highlights": [
+        "Fermeture à lacets",
+        "Empiècements superposés",
+        "Semelle extérieure en caoutchouc"
+      ]
+    },
+    "es": {
+      "summary": "Calzado bajo con cordones, paneles superpuestos y suela exterior de caucho. Negro, negro/gris, negro/verde o negro/caqui; EU 37–48.",
+      "highlights": [
+        "Cierre de cordones",
+        "Paneles superpuestos",
+        "Suela exterior de caucho"
+      ]
+    }
+  },
+  "BQ-LQ2572": {
+    "en": {
+      "summary": "Wide-toe lace-up shoes with a mesh upper and PU outsole. Beige or black, EU 39–46; check sample fit.",
+      "highlights": [
+        "Wide toe box; sample fit should be checked",
+        "Mesh upper",
+        "PU outsole"
+      ]
+    },
+    "zh": {
+      "summary": "宽鞋头网面系带鞋，PU 外底；米色或黑色，EU 39–46，合脚程度以样品确认。",
+      "highlights": [
+        "宽鞋头；以样品确认合脚",
+        "网面鞋面",
+        "PU 外底"
+      ]
+    },
+    "de": {
+      "summary": "Schnürschuhe mit breitem Zehenbereich, Mesh-Obermaterial und PU-Außensohle. Beige oder Schwarz, EU 39–46; Passform am Muster prüfen.",
+      "highlights": [
+        "Breiter Zehenbereich; Muster anprobieren",
+        "Mesh-Obermaterial",
+        "PU-Außensohle"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures à lacets à avant-pied large, tige en mesh et semelle extérieure PU. Beige ou noir, EU 39–46 ; vérifier le chaussant sur échantillon.",
+      "highlights": [
+        "Avant-pied large ; vérifier le chaussant",
+        "Tige en mesh",
+        "Semelle extérieure PU"
+      ]
+    },
+    "es": {
+      "summary": "Calzado de cordones con puntera amplia, empeine de malla y suela exterior de PU. Beige o negro, EU 39–46; comprobar el ajuste con una muestra.",
+      "highlights": [
+        "Puntera amplia; comprobar el ajuste",
+        "Empeine de malla",
+        "Suela exterior de PU"
+      ]
+    }
+  },
+  "BQ-LQ2578": {
+    "en": {
+      "summary": "Lace-up shoes with a jacquard fabric upper, MD midsole and rubber-plastic outsole. Beige, light grey or black, EU 39–46.",
+      "highlights": [
+        "Jacquard fabric upper",
+        "MD midsole",
+        "Rubber-plastic outsole"
+      ]
+    },
+    "zh": {
+      "summary": "贾卡织物鞋面系带鞋，MD 中底与橡塑外底；米色、浅灰色或黑色，EU 39–46。",
+      "highlights": [
+        "贾卡织物鞋面",
+        "MD 中底",
+        "橡塑外底"
+      ]
+    },
+    "de": {
+      "summary": "Schnürschuhe mit Jacquard-Textil, MD-Zwischensohle und Gummi-Kunststoff-Außensohle. Beige, Hellgrau oder Schwarz, EU 39–46.",
+      "highlights": [
+        "Jacquard-Textil",
+        "MD-Zwischensohle",
+        "Gummi-Kunststoff-Außensohle"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures à lacets en tissu jacquard, intercalaire MD et semelle extérieure en matière caoutchouc-plastique. Beige, gris clair ou noir, EU 39–46.",
+      "highlights": [
+        "Tige en tissu jacquard",
+        "Intercalaire MD",
+        "Semelle extérieure caoutchouc-plastique"
+      ]
+    },
+    "es": {
+      "summary": "Calzado de cordones de tejido jacquard, con entresuela MD y suela exterior de material de caucho-plástico. Beige, gris claro o negro, EU 39–46.",
+      "highlights": [
+        "Empeine de tejido jacquard",
+        "Entresuela MD",
+        "Suela exterior de caucho-plástico"
+      ]
+    }
+  },
   "BQ-CS929": {
     en: { summary: "Lace-up shoes with a mesh upper, EVA midsole and rubber outsole. Black, silver or grey/blue; size labels 39–47.", highlights: ["Mesh upper", "EVA midsole", "Rubber outsole"] },
     zh: { summary: "网面系带鞋，EVA 中底与橡胶外底；黑、银、灰蓝三色，尺码标签 39–47。", highlights: ["网面鞋面", "EVA 中底", "橡胶外底"] },
