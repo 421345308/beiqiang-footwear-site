@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import LanguageSelector from "./LanguageSelector";
 import { trackEvent } from "../lib/tracking";
 import { productCount } from "../data/catalog-meta";
+import { lineSheetProductCount } from "../data/line-sheet-selection";
 
 const groups = [
   {
@@ -13,7 +14,7 @@ const groups = [
     links: [
       [`All ${productCount} products`, "/products/"],
       ["B2B product finder", "/product-finder/"],
-      [`${productCount}-style line sheet`, "/line-sheet/"],
+      [`${lineSheetProductCount}-style line sheet`, "/line-sheet/"],
       ["Wide toe box collection", "/collections/wide-toe-box/"],
       ["Knit slip-on collection", "/collections/knit-slip-on/"],
       ["Breathable lace-up collection", "/collections/breathable-lace-up/"],

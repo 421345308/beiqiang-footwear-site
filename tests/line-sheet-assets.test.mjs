@@ -34,3 +34,13 @@ test("keeps current line-sheet documentation and Chinese evidence rendering alig
   assert.doesNotMatch(chineseGenerator, /贝强本厂鞋款|供应商供货/);
   assert.doesNotMatch(chineseGenerator, /paragraph\(c, product\["summaryZh"\]/);
 });
+
+test("the site footer reports the downloadable catalogue count, not the website total", async () => {
+  const {default:worker}=await import('../dist/server/index.js');
+  const response=await worker.fetch(new Request('https://www.beiqiang.online/products/bq-lq061'),{ASSETS:{fetch:async()=>new Response('',{status:404})}},{waitUntil(){}});
+  assert.equal(response.status,200);
+  const html=(await response.text()).replaceAll('<!-- -->','');
+  const lineSheetCount=selectLineSheetProducts(products).length;
+  assert.ok(html.includes(`${lineSheetCount}-style line sheet`));
+  if (lineSheetCount!==products.length) assert.ok(!html.includes(`${products.length}-style line sheet`));
+});
