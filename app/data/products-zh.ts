@@ -268,7 +268,7 @@ export function factZh(value: string) {
   );
 }
 export function closureZh(value: Product["closure"]) {
-  return value === "Slip-On" ? "套穿" : value === "Zip-Up" ? "拉链" : value === "Dial" ? "旋钮闭合" : "系带";
+  return value === "Slip-On" ? "套穿" : value === "Zip-Up" ? "拉链" : value === "Dial" ? "旋钮闭合" : value === "Hook & Loop" ? "魔术贴搭扣" : value === "Toggle" ? "抽绳扣" : "系带";
 }
 export function productSummaryZh(product: Product) {
   const reviewed = reviewedCatalog.find(item => item.code === product.code);
@@ -287,7 +287,8 @@ export function productSummaryZh(product: Product) {
 }
 export function buyerFitZh(product: Product) {
   if (/Kids/i.test(product.group)) return "儿童鞋进口商、批发商及渠道买家";
-  if (/Men/i.test(product.group)) return "男士休闲鞋进口商和批发买家";
+  if (/\bwomen(?:['’]?s)?\b/i.test(product.group)) return "女鞋进口商、批发商、线上卖家及品牌买家";
+  if (/\bmen(?:['’]?s)?\b/i.test(product.group)) return "男士休闲鞋进口商和批发买家";
   if (["BQ001", "BQ002", "BQ031"].includes(product.code))
     return "宽鞋头舒适鞋进口商、批发商、品牌买家和线上渠道买家";
   if (/Athletic/i.test(product.group))

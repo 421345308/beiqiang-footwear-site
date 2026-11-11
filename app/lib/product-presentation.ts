@@ -4,6 +4,132 @@ import type { PublicLocale } from "./public-locales";
 // Buyer-facing wording of existing product facts; no inventory or market-size conversion.
 type Presentation = { summary: string; highlights: string[] };
 const copy: Record<string, Record<PublicLocale, Presentation>> = {
+  "BQ-LQ2598": {
+    "en": {
+      "summary": "Wide toe box mesh lace-up shoes with side panels. White, black or khaki; EU 39–48.",
+      "highlights": [
+        "Wide toe box",
+        "Mesh upper",
+        "Lace-up fastening"
+      ]
+    },
+    "zh": {
+      "summary": "宽鞋头网面系带休闲鞋，侧面拼片；白色、黑色或卡其色，EU 39–48。",
+      "highlights": [
+        "宽鞋头结构",
+        "网面鞋面",
+        "系带结构"
+      ]
+    },
+    "de": {
+      "summary": "Mesh-Schnürschuhe mit breitem Zehenbereich und Seitenpartien. Weiß, Schwarz oder Khaki; EU 39–48.",
+      "highlights": [
+        "Breiter Zehenbereich",
+        "Mesh-Obermaterial",
+        "Schnürung"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures en mesh à lacets et bout large avec empiècements latéraux. Blanc, noir ou kaki ; EU 39–48.",
+      "highlights": [
+        "Bout large",
+        "Tige en mesh",
+        "Fermeture à lacets"
+      ]
+    },
+    "es": {
+      "summary": "Calzado de malla con cordones, puntera amplia y paneles laterales. Blanco, negro o caqui; EU 39–48.",
+      "highlights": [
+        "Puntera amplia",
+        "Empeine de malla",
+        "Cierre de cordones"
+      ]
+    }
+  },
+  "BQ1021": {
+    "en": {
+      "summary": "Double-strap Mary Jane shoes with hook-and-loop fastening and a PU upper. Beige or black; EU 36–42.",
+      "highlights": [
+        "Double-strap construction",
+        "Hook-and-loop fastening",
+        "PU upper"
+      ]
+    },
+    "zh": {
+      "summary": "双搭带玛丽珍休闲鞋，魔术贴搭扣和 PU 鞋面；米色或黑色，EU 36–42。",
+      "highlights": [
+        "双搭带结构",
+        "魔术贴搭扣",
+        "PU 鞋面"
+      ]
+    },
+    "de": {
+      "summary": "Mary-Jane-Freizeitschuhe mit zwei Klettverschlussriemen und PU-Obermaterial. Beige oder Schwarz; EU 36–42.",
+      "highlights": [
+        "Zwei Riemen",
+        "Klettverschluss",
+        "PU-Obermaterial"
+      ]
+    },
+    "fr": {
+      "summary": "Babies à double bride auto-agrippante avec tige en PU. Beige ou noir ; EU 36–42.",
+      "highlights": [
+        "Double bride",
+        "Fermeture auto-agrippante",
+        "Tige en PU"
+      ]
+    },
+    "es": {
+      "summary": "Zapatos Mary Jane con doble tira de gancho y bucle y empeine de PU. Beige o negro; EU 36–42.",
+      "highlights": [
+        "Doble tira",
+        "Cierre de gancho y bucle",
+        "Empeine de PU"
+      ]
+    }
+  },
+  "BQ-LQ2633": {
+    "en": {
+      "summary": "Wide toe box mesh shoes with a toggle cord. Off white, light grey or black; EU 39–48.",
+      "highlights": [
+        "Wide toe box",
+        "Mesh upper",
+        "Toggle cord"
+      ]
+    },
+    "zh": {
+      "summary": "宽鞋头网面抽绳扣休闲鞋，米白、浅灰或黑色；EU 39–48。",
+      "highlights": [
+        "宽鞋头结构",
+        "网面鞋面",
+        "抽绳扣"
+      ]
+    },
+    "de": {
+      "summary": "Mesh-Schuhe mit breitem Zehenbereich und Kordelstopper. Gebrochenes Weiß, Hellgrau oder Schwarz; EU 39–48.",
+      "highlights": [
+        "Breiter Zehenbereich",
+        "Mesh-Obermaterial",
+        "Kordelstopper"
+      ]
+    },
+    "fr": {
+      "summary": "Chaussures en mesh à bout large et cordon avec stoppeur. Blanc cassé, gris clair ou noir ; EU 39–48.",
+      "highlights": [
+        "Bout large",
+        "Tige en mesh",
+        "Cordon avec stoppeur"
+      ]
+    },
+    "es": {
+      "summary": "Calzado de malla con puntera amplia y cordón con tope. Blanco roto, gris claro o negro; EU 39–48.",
+      "highlights": [
+        "Puntera amplia",
+        "Empeine de malla",
+        "Cordón con tope"
+      ]
+    }
+  },
   "BQ1003": {
     "en": {
       "summary": "Perforated slip-on loafers with a decorative cord. Black, grey, blue or red; EU 38–50.",

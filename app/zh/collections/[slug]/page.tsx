@@ -173,7 +173,7 @@ export default async function ChineseCollectionPage({ params }: Props) {
           <CollectionQuoteLink
             slug={collection.slug}
             className="button button-light"
-            href={`/zh/request-quote/?program=collection-${collection.slug}`}
+            href={collection.slug === "mary-jane-shoes" ? "/zh/request-quote/" : `/zh/request-quote/?program=collection-${collection.slug}`}
           >
             建立多款询价
           </CollectionQuoteLink>

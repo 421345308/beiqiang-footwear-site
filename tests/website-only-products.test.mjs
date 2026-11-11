@@ -7,6 +7,7 @@ import { productColours } from '../app/lib/product-colours.ts';
 import { productCount } from '../app/data/catalog-meta.ts';
 import { buildQuoteListShareUrl, parseSharedQuoteCodes } from '../app/lib/quote-list-share.ts';
 import { validateInquiry } from '../edgeone-deploy/cloud-functions/api/inquiries.js';
+import { buyerFitZh } from '../app/data/products-zh.ts';
 
 const cases = [
   ['BQ-LQ02507','1601973978339',['Brown','Blue']],
@@ -37,7 +38,7 @@ test('three existing Alibaba styles are distinct website products with colour-aw
       assert.doesNotMatch(copy.summary,/in stock|waterproof|certified/i);
     }
   }
-  assert.equal(selectLineSheetProducts(products).length,157);
+  assert.equal(selectLineSheetProducts(products).length,160);
   assert.equal(products.length,productCount);
 });
 
@@ -69,7 +70,7 @@ test('two more existing Alibaba styles retain exact size labels and their own co
 });
 
 test('website-only styles retain their identity through quote sharing and inquiry validation', () => {
-  const codes=['BQ-LQ02507','BQ-LQ02508','BQ-LQ2559','BQ-LQ061','BQ-W5998'];
+  const codes=['BQ-LQ02507','BQ-LQ02508','BQ-LQ2559','BQ-LQ061','BQ-W5998','BQ1021','BQ-LQ2633','BQ-LQ2598'];
   const shared=new URL(buildQuoteListShareUrl(codes,'zh'));
   assert.deepEqual(parseSharedQuoteCodes(shared.searchParams.get('shortlist'),products.map(p=>p.code)),codes);
   for (const code of codes) {
@@ -89,4 +90,27 @@ test('BQ1003 uses the documented four colour options and flags the larger size m
  assert.match(item.sizeNote,/47–50/);
  assert.equal(item.upper,'');
  assert.equal(item.sole,'');
+});
+
+
+test('Mary Jane and toggle styles retain source identity, colours, closure and five-language copy',()=>{
+ for(const [code,id,closure,colors,size] of [['BQ1021','1601943593293','Hook & Loop',['Beige','Black'],'EU 36–42'],['BQ-LQ2633','1601973753470','Toggle',['Off White','Black','Light Grey'],'EU 39–48']]) {
+  const p=products.find(x=>x.code===code);assert.ok(p);assert.equal(p.alibabaProductId,id);assert.equal(p.closure,closure);assert.deepEqual(p.colors,colors);assert.equal(p.size,size);assert.equal(p.sole,'');assert.equal(p.images.length,4);
+  assert.ok(LINE_SHEET_CODES.has(code));assert.ok(!isInPrintPhotoSnapshot(code));
+  for(const c of productColours(p)) assert.notEqual(c.imageIndex,null);
+  for(const l of ['en','zh','de','fr','es']) { const x=productPresentation(p,l);assert.ok(x?.summary && x.highlights.length>=2);assert.doesNotMatch(x.summary,/in stock|waterproof|certified/i); }
+ }
+});
+
+
+test('BQ-LQ2598 retains its source colour options and lace-up construction',()=>{
+ const p=products.find(x=>x.code==='BQ-LQ2598');assert.ok(p);assert.equal(p.alibabaProductId,'1601973831465');assert.equal(p.closure,'Lace-Up');assert.deepEqual(p.colors,['White','Black','Khaki']);assert.equal(p.size,'EU 39–48');assert.equal(p.fitEvidence,'wide_toe_verified');assert.equal(p.images.length,4);assert.ok(LINE_SHEET_CODES.has(p.code));assert.ok(!isInPrintPhotoSnapshot(p.code));
+ for(const c of productColours(p)) assert.notEqual(c.imageIndex,null);
+ for(const l of ['en','zh','de','fr','es']) assert.ok(productPresentation(p,l)?.summary);
+});
+
+test('Chinese buyer labels distinguish women’s and men’s styles',()=>{
+ const women=products.find(p=>p.code==='BQ1021');const men=products.find(p=>p.code==='BQ1003');
+ assert.match(buyerFitZh(women),/女鞋/);assert.doesNotMatch(buyerFitZh(women),/男士/);
+ assert.match(buyerFitZh(men),/男士/);
 });

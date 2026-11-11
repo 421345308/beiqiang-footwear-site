@@ -3136,5 +3136,59 @@
         3
       ]
     }
+  },
+  "BQ1021": {
+    "images": {
+      "Beige": 0,
+      "Black": 1
+    },
+    "views": {
+      "Beige": [
+        0,
+        2
+      ],
+      "Black": [
+        1,
+        3
+      ]
+    }
+  },
+  "BQ-LQ2633": {
+    "images": {
+      "Off White": 0,
+      "Black": 1,
+      "Light Grey": 2
+    },
+    "views": {
+      "Off White": [
+        0,
+        3
+      ],
+      "Black": [
+        1
+      ],
+      "Light Grey": [
+        2
+      ]
+    }
+  },
+  "BQ-LQ2598": {
+    "images": {
+      "White": 0,
+      "Black": 1,
+      "Khaki": 2
+    },
+    "views": {
+      "White": [
+        0,
+        3
+      ],
+      "Black": [
+        1
+      ],
+      "Khaki": [
+        2
+      ]
+    }
   }
 }

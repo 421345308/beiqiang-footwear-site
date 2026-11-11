@@ -4,6 +4,11 @@ import { europeCollectionSlugs } from "../lib/public-locales";
 type CollectionCopy = { title: string; description: string; guidance: string };
 type Slug = typeof europeCollectionSlugs[number];
 const copy: Record<Slug, Record<EuropeLocale, CollectionCopy>> = {
+  "mary-jane-shoes": {
+    de: { title: "Mary-Jane-Schuhe für den Großhandel", description: "Vergleichen Sie Mary-Jane-Modelle nach Form, Riemen und abgebildeten Farben.", guidance: "Prüfen Sie Verschluss, Größen, Materialien und Passform anhand des gewählten Musters." },
+    fr: { title: "Chaussures babies pour professionnels", description: "Comparez les modèles babies selon leur forme, leurs brides et les coloris photographiés.", guidance: "Vérifiez la fermeture, les pointures, les matières et le chaussant sur l’échantillon choisi." },
+    es: { title: "Zapatos Mary Jane para mayoristas", description: "Compare modelos Mary Jane por su forma, sus tiras y los colores fotografiados.", guidance: "Compruebe el cierre, las tallas, los materiales y el ajuste con la muestra elegida." },
+  },
   "knit-slip-on": {
     de: { title: "Strick-Slipper für den Großhandel", description: "Vergleichen Sie Slip-on-Modelle aus Strick und Textil nach Form, Farben und EU-Größen.", guidance: "Wählen Sie ein Modell und besprechen Sie Muster, Größenmix und Markenkennzeichnung für Ihr Sortiment." },
     fr: { title: "Chaussures en maille à enfiler pour professionnels", description: "Comparez les modèles à enfiler en maille ou textile selon leur forme, leurs coloris et leurs pointures EU.", guidance: "Choisissez un modèle, puis discutez des échantillons, de l’assortiment de pointures et du marquage pour votre collection." },

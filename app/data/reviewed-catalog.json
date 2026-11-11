@@ -4642,5 +4642,128 @@
       "Sample fit and material specifications",
       "Order quantity, packing and delivery requirements"
     ]
+  },
+  {
+    "code": "BQ1021",
+    "name": "Double-Strap Mary Jane Casual Shoes",
+    "nameZh": "双搭带玛丽珍休闲鞋",
+    "localizedNames": {
+      "de": "Mary-Jane-Freizeitschuhe mit zwei Riemen",
+      "fr": "Babies décontractées à double bride",
+      "es": "Zapatos casuales tipo Mary Jane con doble tira"
+    },
+    "shortDescription": "Double-strap Mary Jane shoes with hook-and-loop fastening and a PU upper. Beige or black; EU 36–42.",
+    "summaryZh": "双搭带玛丽珍休闲鞋，魔术贴搭扣和 PU 鞋面；米色或黑色，EU 36–42。",
+    "group": "Women's Double-Strap Mary Jane Shoes",
+    "closure": "Hook & Loop",
+    "upper": "PU upper",
+    "sole": "",
+    "size": "EU 36–42",
+    "colors": [
+      "Beige",
+      "Black"
+    ],
+    "collections": [
+      "mary-jane-shoes"
+    ],
+    "highlights": [
+      "Double-strap construction",
+      "Hook-and-loop fastening",
+      "PU upper"
+    ],
+    "slug": "bq1021",
+    "sourceModel": "BQ1021",
+    "fitEvidence": "unconfirmed",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2633",
+    "name": "Wide Toe Box Mesh Shoes with Toggle Cord",
+    "nameZh": "宽鞋头网面抽绳扣休闲鞋",
+    "localizedNames": {
+      "de": "Mesh-Schuhe mit breitem Zehenbereich und Kordelstopper",
+      "fr": "Chaussures en mesh à bout large et cordon avec stoppeur",
+      "es": "Calzado de malla con puntera amplia y cordón con tope"
+    },
+    "shortDescription": "Wide toe box mesh shoes with a toggle cord. Off white, light grey or black; EU 39–48.",
+    "summaryZh": "宽鞋头网面抽绳扣休闲鞋，米白、浅灰或黑色；EU 39–48。",
+    "group": "Wide Toe Box Mesh Walking Shoes",
+    "closure": "Toggle",
+    "upper": "Mesh upper",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "Off White",
+      "Black",
+      "Light Grey"
+    ],
+    "collections": [
+      "wide-toe-box",
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Wide toe box",
+      "Mesh upper",
+      "Toggle cord"
+    ],
+    "slug": "bq-lq2633",
+    "sourceModel": "BQ-LQ2633",
+    "fitEvidence": "wide_toe_verified",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
+  },
+  {
+    "code": "BQ-LQ2598",
+    "name": "Wide Toe Box Mesh Lace-Up Shoes with Side Panels",
+    "nameZh": "宽鞋头网面系带休闲鞋",
+    "localizedNames": {
+      "de": "Mesh-Schnürschuhe mit breitem Zehenbereich und Seitenpartien",
+      "fr": "Chaussures en mesh à lacets et bout large avec empiècements",
+      "es": "Calzado de malla con cordones y puntera amplia"
+    },
+    "shortDescription": "Wide toe box mesh lace-up shoes with side panels. White, black or khaki; EU 39–48.",
+    "summaryZh": "宽鞋头网面系带休闲鞋，侧面拼片；白色、黑色或卡其色，EU 39–48。",
+    "group": "Wide Toe Box Mesh Lace-Up Walking Shoes",
+    "closure": "Lace-Up",
+    "upper": "Mesh upper",
+    "sole": "",
+    "size": "EU 39–48",
+    "colors": [
+      "White",
+      "Black",
+      "Khaki"
+    ],
+    "collections": [
+      "wide-toe-box",
+      "casual-sneakers",
+      "extended-size-shoes"
+    ],
+    "highlights": [
+      "Wide toe box",
+      "Mesh upper",
+      "Lace-up fastening"
+    ],
+    "slug": "bq-lq2598",
+    "sourceModel": "BQ-LQ2598",
+    "fitEvidence": "wide_toe_verified",
+    "tier": "New",
+    "buyerFit": "Footwear retailers, importers and assortment buyers",
+    "confirmBeforeQuote": [
+      "Current colour-size availability",
+      "Sample fit and material specifications",
+      "Order quantity, packing and delivery requirements"
+    ]
   }
 ]

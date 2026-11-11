@@ -19,7 +19,7 @@ export type CollectionSlug =
   | "extended-size-shoes"
   | "fleece-lined-shoes"
   | "clogs-and-vented-shoes"
-  | "mule-shoes" | "casual-sneakers" | "loafers-and-derbies" | "ankle-boots" | "slide-sandals";
+  | "mule-shoes" | "casual-sneakers" | "loafers-and-derbies" | "ankle-boots" | "slide-sandals" | "mary-jane-shoes";
 
 export type Product = {
   code: string;
@@ -29,7 +29,7 @@ export type Product = {
   localizedNames?: Partial<Record<"de" | "fr" | "es", string>>;
   shortDescription: string;
   group: string;
-  closure: "Slip-On" | "Lace-Up" | "Zip-Up" | "Dial";
+  closure: "Slip-On" | "Lace-Up" | "Zip-Up" | "Dial" | "Hook & Loop" | "Toggle";
   upper: string;
   sole: string;
   size: string;
@@ -942,6 +942,7 @@ export type ProductCollection = {
 };
 
 export const collections: ProductCollection[] = [
+{"slug": "mary-jane-shoes", "direction": "mary-jane-shoes", "name": "Mary Jane shoes", "title": "Mary Jane shoes for wholesale sourcing", "description": "Compare Mary Jane silhouettes, straps and photographed colours before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Styles are grouped by the recorded Mary Jane silhouette; fastening may vary by style.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
 {"slug": "slide-sandals", "direction": "slide-sandals", "name": "Slide sandals", "title": "Slide sandals for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Photographed styles and product details.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
 {"slug": "ankle-boots", "direction": "ankle-boots", "name": "Ankle boots", "title": "Ankle boots for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Photographed styles and product details.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},
 {"slug": "loafers-and-derbies", "direction": "loafers-and-derbies", "name": "Loafers & derbies", "title": "Loafers & derbies for wholesale sourcing", "description": "Compare photographed styles, colour options and construction details before selecting samples.", "buyerIntent": "Footwear retailers, importers and assortment buyers", "selectionBasis": "Photographed styles and product details.", "proofBoundary": "Materials, size availability, sample fit and commercial terms are confirmed per style and order."},

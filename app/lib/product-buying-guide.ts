@@ -31,6 +31,10 @@ export function getProductBuyingGuide(product: Product, locale: "en" | "zh" = "e
         ? (zh ? "旋钮：检查收紧、释放和鞋带穿线路径，并结合样品确认穿脱与贴合情况。" : "Dial: check tightening, release and cord routing, and assess entry and fit on a sample.")
       : product.closure === "Zip-Up"
         ? (zh ? "拉链：检查启闭、鞋口空间及内侧接缝，确认穿着时的贴合情况。" : "Zipper: check operation, entry space and inner seams against sample fit.")
+      : product.closure === "Hook & Loop"
+        ? (zh ? "搭扣：检查魔术贴的开合、调节范围及试穿时的固定情况。" : "Hook-and-loop straps: check fastening, adjustment and foot hold on the sample.")
+      : product.closure === "Toggle"
+        ? (zh ? "抽绳扣：检查锁扣开合、绳带调节范围及试穿时的固定情况。" : "Toggle cord: check the lock, adjustment range and foot hold on the sample.")
       : slipOn
       ? (zh ? "穿脱：用计划采购的尺码试穿，检查鞋口是否好穿、后跟是否容易滑动。" : "Entry and hold: try the intended size and check how it goes on and whether the heel slips.")
       : (zh ? "系带：检查鞋带调节范围，以及系好后鞋面和后跟的贴合情况。" : "Lacing: check the adjustment range and how the upper and heel hold when the laces are tied."),

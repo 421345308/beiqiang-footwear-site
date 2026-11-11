@@ -335,6 +335,9 @@ export const names: Record<string, readonly [string, string, string]> = {
   ],
 };
 export const facts: Record<string, readonly [string, string, string]> = {
+  "Double-strap construction": ["Zwei Riemen", "Double bride", "Doble tira"],
+  "Hook-and-loop fastening": ["Klettverschluss", "Fermeture auto-agrippante", "Cierre de gancho y bucle"],
+  "Toggle cord": ["Kordelstopper", "Cordon avec stoppeur", "Cordón con tope"],
   "Perforated upper": ["Perforiertes Obermaterial", "Tige perforée", "Empeine perforado"],
   "Decorative cord": ["Dekorative Kordel", "Cordon décoratif", "Cordón decorativo"],
   "Mesh upper": ["Mesh-Obermaterial", "Tige en mesh", "Empeine de malla"],
@@ -378,6 +381,9 @@ export const facts: Record<string, readonly [string, string, string]> = {
   "Lace-Up": ["Schnürung", "À lacets", "Con cordones"],
   "Zip-Up": ["Reißverschluss", "Fermeture zippée", "Cremallera"],
   "Dial": ["Drehverschluss", "Fermeture à molette", "Cierre de dial"],
+  "Hook & Loop": ["Klettverschluss", "Fermeture auto-agrippante", "Cierre de gancho y bucle"],
+  "Toggle": ["Kordelstopper", "Cordon avec stoppeur", "Cordón con tope"],
+  "PU upper": ["PU-Obermaterial", "Tige en PU", "Empeine de PU"],
   "Dial closure": ["Drehverschluss", "Fermeture à molette", "Cierre de dial"],
   "Synthetic leather upper": ["Obermaterial aus Kunstleder", "Tige en cuir synthétique", "Corte de piel sintética"],
   "Rubber outsole": ["Gummi-Außensohle", "Semelle extérieure en caoutchouc", "Suela exterior de caucho"],

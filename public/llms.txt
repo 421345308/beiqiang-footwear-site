@@ -22,6 +22,7 @@
 
 ## Product sourcing collections
 
+- Mary Jane shoes: https://www.beiqiang.online/collections/mary-jane-shoes/
 - Slide sandals: https://www.beiqiang.online/collections/slide-sandals/
 - Ankle boots: https://www.beiqiang.online/collections/ankle-boots/
 - Loafers & derbies: https://www.beiqiang.online/collections/loafers-and-derbies/
@@ -38,7 +39,7 @@
 
 ## Important commercial boundaries
 
-- The website currently contains 157 organized product pages; this is not the factory's entire product range.
+- The website currently contains 160 organized product pages; this is not the factory's entire product range.
 - Product pages show reviewed product images and available product-package facts.
 - Wide-toe claims apply only to individually identified styles. The catalogue presents Beiqiang footwear for wholesale and OEM/ODM discussions.
 - Price, MOQ, materials, color and size availability, packing, samples, lead time, testing and trade terms require project-specific written confirmation.
@@ -203,3 +204,6 @@
 - BQ-LQ021: Wide Toe Box Mesh Lace-Up Walking Shoes — https://www.beiqiang.online/products/bq-lq021/
 - BQ-LQ052: Wide Toe Box Cutout Lace-Up Shoes — https://www.beiqiang.online/products/bq-lq052/
 - BQ1003: Men’s Perforated Slip-On Driving Loafers — https://www.beiqiang.online/products/bq1003/
+- BQ1021: Double-Strap Mary Jane Casual Shoes — https://www.beiqiang.online/products/bq1021/
+- BQ-LQ2633: Wide Toe Box Mesh Shoes with Toggle Cord — https://www.beiqiang.online/products/bq-lq2633/
+- BQ-LQ2598: Wide Toe Box Mesh Lace-Up Shoes with Side Panels — https://www.beiqiang.online/products/bq-lq2598/

@@ -510,6 +510,7 @@ export const categories = {
     "Zuecos y calzado perforado",
   ],
   "mule-shoes": ["Mules", "Mules", "Mules"],
+  "mary-jane-shoes": ["Mary-Jane-Schuhe", "Chaussures babies", "Zapatos Mary Jane"],
   "casual-sneakers": [
     "Freizeit-Sneaker",
     "Baskets décontractées",

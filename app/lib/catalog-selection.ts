@@ -1,5 +1,5 @@
 import type { Product } from "../data/products";
-import { productNameZh, colorZh } from "../data/products-zh.ts";
+import { productNameZh, colorZh, closureZh } from "../data/products-zh.ts";
 import { isCatalogDirection, productMatchesCatalogDirection } from "./catalog-filtering.ts";
 import { productColours } from "./product-colours.ts";
 import { documentedSizes } from "./documented-sizes.ts";
@@ -22,7 +22,7 @@ export function parseSelection(params: URLSearchParams): CatalogSelection {
   const size = params.get("size") || "";
   const sort = params.get("sort") || "";
   return { q: (params.get("q") || "").slice(0, 80), direction: isCatalogDirection(params.get("direction")) ? params.get("direction")! : "",
-    closure: ["Slip-On", "Lace-Up", "Zip-Up", "Dial"].includes(closure) ? closure : "",
+    closure: ["Slip-On", "Lace-Up", "Zip-Up", "Dial", "Hook & Loop", "Toggle"].includes(closure) ? closure : "",
     colour: colourFamilies.some(c => c.id === params.get("colour")) ? params.get("colour")! : "",
     size: /^\d{2}$/.test(size) && +size >= 20 && +size <= 55 ? size : "",
     sort: ["code_asc", "code_desc", "slip_on", "lace_up"].includes(sort) ? sort : "code_asc",
@@ -45,7 +45,7 @@ export function matchingColour(product: Product, family: string) {
 export function filterCatalog(products: Product[], state: CatalogSelection, localizedText?: (product: Product) => string) {
   const words = state.q.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
   return products.filter(p => {
-    const haystack = [p.code, p.name, productNameZh(p), p.group, p.upper, p.closure, ...p.colors, ...p.colors.map(colorZh), localizedText?.(p) || ""].join(" ").toLocaleLowerCase();
+    const haystack = [p.code, p.name, productNameZh(p), p.group, p.upper, p.closure, closureZh(p.closure), ...p.colors, ...p.colors.map(colorZh), localizedText?.(p) || ""].join(" ").toLocaleLowerCase();
     return words.every(word => haystack.includes(word)) && (!state.direction || productMatchesCatalogDirection(p, state.direction))
       && (!state.closure || p.closure === state.closure) && (!state.colour || Boolean(matchingColour(p, state.colour)))
       && (!state.size || documentedSizes(p).includes(+state.size));

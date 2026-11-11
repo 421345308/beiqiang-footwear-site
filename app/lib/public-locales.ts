@@ -10,7 +10,7 @@ export const publicLocales = [
 export type PublicLocale = (typeof publicLocales)[number]["id"];
 export type LegacyLocale = "en" | "zh";
 // Only collections with complete, reviewed local-language content are exposed.
-export const europeCollectionSlugs = ["knit-slip-on", "breathable-lace-up", "wide-toe-box", "clogs-and-vented-shoes"] as const;
+export const europeCollectionSlugs = ["knit-slip-on", "breathable-lace-up", "wide-toe-box", "clogs-and-vented-shoes", "mary-jane-shoes"] as const;
 export const europePages = [
   "/",
   "/products/",

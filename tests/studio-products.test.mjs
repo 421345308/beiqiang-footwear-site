@@ -104,3 +104,9 @@ test('product pages use one customer-facing presentation without disclosing inte
     assert.ok(schemas.some(s=>s['@type']==='BreadcrumbList'));
   }
 });
+
+
+test('Mary Jane discovery category contains the correct shoe without relabelling it as a loafer',()=>{
+ const item=products.find(p=>p.code==='BQ1021');assert.ok(productsInCollection('mary-jane-shoes').includes(item));
+ assert.ok(!productsInCollection('loafers-and-derbies').includes(item));
+});

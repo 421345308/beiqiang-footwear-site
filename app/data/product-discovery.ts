@@ -4,6 +4,7 @@ import type { CatalogDirection } from "../lib/catalog-filtering";
 
 // Display order is editorial variety, never a sales or popularity ranking.
 export const discoveryCategories: { slug: CollectionSlug; direction: CatalogDirection; en: string; zh: string; cover: string }[] = [
+  { slug: "mary-jane-shoes", direction: "mary-jane-shoes", en: "Mary Jane shoes", zh: "玛丽珍鞋", cover: "bq1021" },
   { slug: "casual-sneakers", direction: "casual-sneakers", en: "Casual sneakers", zh: "休闲板鞋与运动风鞋", cover: "bq1029" },
   { slug: "loafers-and-derbies", direction: "loafers-and-derbies", en: "Loafers & derbies", zh: "乐福鞋与德比鞋", cover: "bq1031" },
   { slug: "ankle-boots", direction: "ankle-boots", en: "Ankle boots", zh: "短靴", cover: "bq1059" },

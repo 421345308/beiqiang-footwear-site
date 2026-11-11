@@ -73,3 +73,14 @@ test('discontinuous documented EU sizes preserve gaps in filters and large-size 
  for(const locale of ['de','fr','es']) { assert.equal(productFact(item.size,locale),item.size); assert.equal(productFact('EU 39, 42–60',locale),''); }
  for(const size of ['EU 39, 42–60','EU 39, 48–42','EU 39, unknown','EU 19, 42–48']) assert.deepEqual(documentedSizes({...item,size}),[]);
 });
+
+
+test('hook-and-loop and toggle closures round-trip and filter as distinct recorded types', async()=>{
+ const {closureZh}=await import('../app/data/products-zh.ts');const {productFact}=await import('../app/data/europe-products.ts');
+ for(const [closure,code,zh] of [['Hook & Loop','BQ1021','魔术贴搭扣'],['Toggle','BQ-LQ2633','抽绳扣']]) {
+  const state={...defaultSelection,closure};const url=selectionParams(state).toString();assert.equal(parseSelection(new URLSearchParams(url)).closure,closure);
+  const found=filterCatalog(products,state);assert.ok(found.some(p=>p.code===code));assert.ok(found.every(p=>p.closure===closure));assert.equal(closureZh(closure),zh);
+  assert.ok(filterCatalog(products,{...defaultSelection,q:zh}).some(p=>p.code===code));
+  for(const l of ['de','fr','es']) { const translated=productFact(closure,l);assert.ok(translated);assert.notEqual(translated,closure); }
+ }
+});

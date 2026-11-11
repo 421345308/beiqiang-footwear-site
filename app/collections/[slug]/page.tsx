@@ -187,7 +187,7 @@ export default async function CollectionPage({ params }: Props) {
         <CollectionQuoteLink
           slug={collection.slug}
           className="button button-light"
-          href={`/request-quote/?program=collection-${collection.slug}`}
+          href={collection.slug === "mary-jane-shoes" ? "/request-quote/" : `/request-quote/?program=collection-${collection.slug}`}
         >
           Build a multi-style request
         </CollectionQuoteLink>

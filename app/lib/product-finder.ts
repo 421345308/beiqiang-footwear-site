@@ -2,7 +2,9 @@ import type { Product } from "../data/products.ts";
 
 export type BuyerChannel = "importer_wholesaler" | "online_seller" | "brand_private_label" | "sourcing_agent";
 export type ProductPriority = "open" | "wide_toe" | "easy_on" | "breathable_lace_up" | "mens" | "kids" | "cold_weather";
-export type ClosurePreference = "any" | Product["closure"];
+// The finder submits its preferences to a separately deployed inquiry backend.
+// Keep this list aligned with the currently supported backend values.
+export type ClosurePreference = "any" | Exclude<Product["closure"], "Hook & Loop" | "Toggle">;
 
 export type FinderAnswers = {
   buyerChannel: BuyerChannel;
